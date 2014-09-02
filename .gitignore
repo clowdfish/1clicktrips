@@ -1,0 +1,10 @@
+# generic files to ignore
+*~
+*.DS_Store
+
+# WebStorm specific files
+.idea
+
+# build files
+node_modules/
+
