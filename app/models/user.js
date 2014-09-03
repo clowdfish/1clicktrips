@@ -34,5 +34,25 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
+/*
+// check for modified password
+userSchema.pre('save', function(next) {
+    // TODO: to be tested
+    var user = this;
+
+    if(!user.isModified('local.password')) return next();
+
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if(err) return next(err);
+
+        bcrypt.hash(user.local.password, salt, function(err, hash) {
+            if(err) return next(err);
+            user.local.password = hash;
+            next();
+        });
+    });
+});
+*/
+
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);
