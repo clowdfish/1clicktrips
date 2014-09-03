@@ -1,11 +1,18 @@
-var jwt = require('jwt-simple');
-var User = require('../app/models/user');
+var jwt     = require('jwt-simple');
+var User    = require('../app/models/user');
+
+var secret  = '';
 
 module.exports = function(app, passport) {
+
+    secret = app.get('jwtTokenSecret');
 
     // =============================================================================
     // STANDARD ROUTES =============================================================
     // =============================================================================
+
+    // Check for access token on all API calls
+    app.all('/api/*', isLoggedIn);
 
     // HOME PAGE (with login links) ========
     app.get('/', function(req, res) {
@@ -151,7 +158,7 @@ function isLoggedIn(req, res, next) {
 
     if (token) {
         try {
-            var decoded = jwt.decode(token, "theanswertoallquestions42.whatwas23for?");
+            var decoded = jwt.decode(token, secret);
 
             // handle token here
             if (decoded.exp <= Date.now()) {

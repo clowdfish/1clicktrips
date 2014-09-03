@@ -29,6 +29,7 @@ app.use(bodyParser()); // get information from html forms
 app.set('view engine', 'ejs'); // set up ejs as templating engine
 
 // required for passport
+// TODO is the session secret and cookie parser still required?
 app.use(session({ secret: 'theanswertoallquestions42.whatwas23for?' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
