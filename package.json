@@ -1,27 +1,22 @@
 {
-  "name": "auth-server",
-  "version": "0.0.0",
-  "description": "A basic project layout for a web application with authentication.",
+  "name": "ttg-server",
+  "version": "0.0.1",
+  "description": "The backend for the business traveler platform offering end to end trip management.",
   "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "latest",
-    "body-parser": "~1.0.0",
-    "connect-flash": "~0.1.1",
-    "cookie-parser": "~1.0.0",
-    "ejs": "~0.8.5",
-    "express": "~4.0.0",
-    "express-session": "~1.0.0",
+    "body-parser": "^1.7.0",
+    "express": "^4.8.5",
+		"express-session": "^1.7.6",   
     "jwt-simple": "^0.2.0",
-    "method-override": "~1.0.0",
-    "mongoose": "~3.8.1",
-    "morgan": "~1.0.0",
-    "passport": "~0.1.17",
-    "passport-facebook": "~1.0.2",
-    "passport-google-oauth": "~0.1.5",
-    "passport-local": "~0.1.6",
-    "passport-twitter": "~1.0.2"
+    "mongoose": "^3.9.1",
+    "passport": "^0.1.18",
+    "passport-local": "^0.1.6",
+    "passport-twitter": "^1.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "morgan": "^1.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,18 +25,14 @@
     "url": "https://github.com/clowdfish/auth-server.git"
   },
   "keywords": [
-    "javascript",
-    "node.js",
-    "express.js",
-    "Passport"
+    "express.js"
   ],
   "author": {
     "name": "Sascha Gros",
     "email": "gros.sascha@gmail.com",
     "url": "https://twitter.com/swapzone"
   },
-  "contributors": [],
-  "license": "GPLv3",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/clowdfish/auth-server/issues"
   },

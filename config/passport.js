@@ -5,6 +5,9 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 // load up the user model
 var User        = require('../app/models/user');
 
+// load up the settings controller
+var SettingsController = require('../app/controller/settings');
+
 // load the auth variables
 var configAuth  = require('./auth');
 
@@ -51,15 +54,19 @@ module.exports = function(passport) {
                 User.findOne({'local.email': email}, function(err, existingUser) {
 
                     // if there are any errors, return the error
-                    if (err)
+                    if (err) {
+                        console.log('Error!');
                         return done(err);
+                    }
 
                     // check to see if there's already a user with that email
-                    if (existingUser)
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                    if (existingUser) {
+                        return done(null, false, { message: 'status.user.error.signup.exists' });
+                    }
 
                     //  If we're logged in, we're connecting a new local account.
                     if(req.user) {
+                        console.log('User!');
                         var user            = req.user;
 
                         user.local.email    = email;
@@ -68,10 +75,17 @@ module.exports = function(passport) {
                         user.save(function(err) {
                             if (err)
                                 throw err;
-                            return done(null, user);
+
+                            SettingsController.createSettings(user._id, { 'profile' : { 'email': email } }, function() {
+                                console.log('User and settings have been updated!');
+
+                                // attach user to request
+                                req.user = user;
+                                return done(null, user);
+                            });
                         });
                     }
-                    //  We're not logged in, so we're creating a brand new user.
+                    //  We don't have a user yet, so we're creating a brand new user.
                     else {
                         // create the user
                         var newUser            = new User();
@@ -83,7 +97,13 @@ module.exports = function(passport) {
                             if (err)
                                 throw err;
 
-                            return done(null, newUser);
+                            SettingsController.createSettings(newUser._id, { 'profile' : { 'email': email } }, function() {
+                                console.log('New user and settings have been created!');
+
+                                // attach user to request
+                                req.user = newUser;
+                                return done(null, newUser);
+                            });
                         });
                     }
 
@@ -114,13 +134,14 @@ module.exports = function(passport) {
 
                 // if no user is found, return the message
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, { message: 'status.user.error.signin.username' });
 
                 // if the user is found but the password is wrong
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, { message: 'status.user.error.signin.password' });
 
                 // all is well, return successful user
+                req.user = user;
                 return done(null, user);
             });
 
@@ -164,10 +185,18 @@ module.exports = function(passport) {
                                 user.save(function (err) {
                                     if (err)
                                         throw err;
-                                    return done(null, user);
+
+                                    SettingsController.createSettings(user._id, { 'profile' : { 'twitter': profile.username } }, function() {
+                                        console.log('User and settings have been updated!');
+
+                                        // attach user to request
+                                        req.user = user;
+                                        return done(null, user);
+                                    });
                                 });
                             }
 
+                            req.user = user;
                             return done(null, user); // user found, return that user
                         } else {
                             // if there is no user, create them
@@ -183,7 +212,14 @@ module.exports = function(passport) {
                             newUser.save(function (err) {
                                 if (err)
                                     throw err;
-                                return done(null, newUser);
+
+                                SettingsController.createSettings(newUser._id, { 'profile' : { 'twitter': profile.username } }, function() {
+                                    console.log('User and settings have been updated!');
+
+                                    // attach user to request
+                                    req.user = newUser;
+                                    return done(null, newUser);
+                                });
                             });
                         }
                     });
@@ -202,7 +238,14 @@ module.exports = function(passport) {
                     user.save(function(err) {
                         if (err)
                             throw err;
-                        return done(null, user);
+
+                        SettingsController.createSettings(user._id, { 'profile' : { 'twitter': profile.username } }, function() {
+                            console.log('User and settings have been updated!');
+
+                            // attach user to request
+                            req.user = user;
+                            return done(null, user);
+                        });
                     });
                 }
             });

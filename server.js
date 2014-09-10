@@ -1,44 +1,75 @@
 // set up ======================================================================
-var express  = require('express'),
-    mongoose = require('mongoose'),
-    passport = require('passport'),
-    flash 	 = require('connect-flash');
+var express     = require('express'),
+    mongoose    = require('mongoose'),
+    passport    = require('passport'),
+    session     = require('express-session'),
+    morgan      = require('morgan'),
+    bodyParser  = require('body-parser');
 
-var morgan       = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser   = require('body-parser'),
-    session      = require('express-session');
-
-var configDB     = require('./config/database.js');
-
-var app     = express();
-var port    = process.env.PORT || 8080;
+// initiate server instance
+var app = express();
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+var configDB = require('./config/database.js');
+var port = process.env.PORT || 8081;
 
 require('./config/passport')(passport); // pass passport for configuration
 
-app.set('jwtTokenSecret', 'theanswertoallquestions42.whatwas23for?');
+/**
+ * General server setup is happening here
+ */
+function setupServer() {
+    mongoose.connect(configDB.url); // connect to database
 
-// set up our express application
-app.use(morgan('dev')); // log every request to the console
-app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser()); // get information from html forms
+    // TODO is the session secret and cookie parser still required?n
+    app.use(morgan('dev')); // log every request to the console
+    app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
+    app.use(bodyParser.json());     // parse application/json
+    app.use(session({secret: 'errare humanum est', resave: true, saveUninitialized: true}));
 
-app.set('view engine', 'ejs'); // set up ejs as templating engine
+    app.set('jwtTokenSecret', 'theanswertoallquestions42.whatwas23for?');
+    app.set('view engine', 'ejs'); // set up ejs as templating engine
 
-// required for passport
-// TODO is the session secret and cookie parser still required?
-app.use(session({ secret: 'theanswertoallquestions42.whatwas23for?' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+    // for any plugins check https://github.com/senchalabs/connect#middleware
+    // integrate compression: https://github.com/expressjs/compression
+    // integrate caching
+}
 
-// routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport + jwt
+/**
+ * Setup Passport for authentication functionality
+ */
+function setupAuthentication() {
+    app.use(passport.initialize());
+    app.use(passport.session()); // persistent login sessions required for Twitter auth
+}
 
-// launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+/**
+ * Load routes file and user as routes for Express
+ */
+function createRoutes() {
+    // static files are served out of the www directory
+		var baseDirectory = "/home/www/trip-to-go";
 
+    app.use('/', express.static(baseDirectory));
+    app.use('/i18n', express.static(baseDirectory + '/i18n'));
+    app.use('/images', express.static(baseDirectory + '/images'));
+    app.use('/scripts', express.static(baseDirectory + '/scripts'));
+    app.use('/styles', express.static(baseDirectory + '/styles'));
+
+    require('./app/routes.js')(app, express, passport); // load routes with fully configured express and passport
+}
+
+/**
+ * Start Express
+ */
+function start () {
+    setupServer();
+    setupAuthentication();
+    createRoutes();
+
+    app.listen(port);
+    console.log('\tServer started on port ' + port + '.');
+}
+
+// start the server ============================================================
+start();

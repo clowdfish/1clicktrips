@@ -1,41 +1,137 @@
 var jwt     = require('jwt-simple');
 var User    = require('../app/models/user');
+var SettingsController = require('./controller/settings');
 
+var ROUTER_PREFIX = "/#/"; // /#/ for the backbone router
 var secret  = '';
 
-module.exports = function(app, passport) {
+module.exports = function(app, express, passport) {
 
     secret = app.get('jwtTokenSecret');
 
-    // =============================================================================
-    // STANDARD ROUTES =============================================================
-    // =============================================================================
-
-    // Check for access token on all API calls
-    app.all('/api/*', isLoggedIn);
-
-    // HOME PAGE (with login links) ========
-    app.get('/', function(req, res) {
-        res.render('index.ejs'); // load the index.ejs file
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.status(200).send();
     });
 
-    // PROFILE SECTION (PROTECTED) =========
-    app.get('/profile', isLoggedIn, function(req, res) {
+    // =============================================================================
+    // API ROUTES ==================================================================
+    // =============================================================================
 
-        if(req.user) {
-            console.log('User in response: ' + req.user.toJSON());
+    // get an instance of router
+    var apiRouter = express.Router();
 
-            res.render('profile.ejs', {
-                user : req.user // get the user out of session and pass to template
+    // home page route (http://localhost:8080/api/)
+    apiRouter.get('/', function(req, res) {
+
+        res.send('not accessible');
+    });
+
+    // get available languages (http://localhost:8080/api/lang/)
+    apiRouter.get('/lang', function(req, res) {
+
+        res.status(200).json(
+            [
+                {
+                    'iso': 'de-DE',
+                    'name': 'Deutsch'
+                },
+                {
+                    'iso' : 'en-US',
+                    'name' : 'English'
+                }
+            ]
+        );
+    });
+
+    // profile page route (http://localhost:8080/api/profile/)
+    apiRouter.get('/profile/details', function(req, res) {
+        var userId = getUserIdFromToken(req);
+
+        SettingsController.getSettings(userId, function(callback_settings) {
+            if(callback_settings)
+                res.status(200).json(callback_settings.profile);
+            else
+                res.status(500);
+        });
+    });
+    apiRouter.post('/profile/details', function(req, res) {
+        if(req.body) {
+            var userId = getUserIdFromToken(req);
+
+            SettingsController.createSettings(userId, { 'profile': req.body }, function (err, success) {
+                if (err) {
+                    console.error('There was a problem updating the settings.');
+                    res.send(500).send();
+                }
+
+                res.status(200).send(success)
             });
+        }
+        else {
+            res.send(422).send();
         }
     });
 
-    // LOGOUT ==============================
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
+    apiRouter.get('/profile/preferences', function(req, res) {
+        var userId = getUserIdFromToken(req);
+
+        SettingsController.getSettings(userId, function(callback_settings) {
+            if(callback_settings)
+                res.status(200).json(callback_settings.preferences);
+            else
+                res.status(500);
+        });
     });
+    apiRouter.post('/profile/preferences', function(req, res) {
+        if(req.body) {
+            var userId = getUserIdFromToken(req);
+
+            SettingsController.createSettings(userId, { 'preferences': req.body }, function (err, success) {
+                if (err) {
+                    console.error('There was a problem updating the settings.');
+                    res.send(500).send();
+                }
+
+                res.status(200).send(success);
+            });
+        }
+        else {
+            res.send(422).send();
+        }
+    });
+
+    apiRouter.get('/profile/privacy', function(req, res) {
+        var userId = getUserIdFromToken(req);
+
+        SettingsController.getSettings(userId, function(callback_settings) {
+            if(callback_settings)
+                res.status(200).json(callback_settings.privacy);
+            else
+                res.status(500);
+        });
+    });
+    apiRouter.post('/profile/privacy', function(req, res) {
+        if(req.body) {
+            var userId = getUserIdFromToken(req);
+
+            SettingsController.createSettings(userId, { 'privacy': req.body }, function (err, success) {
+                if (err) {
+                    console.error('There was a problem updating the settings.');
+                    res.send(500).send();
+                }
+
+                res.status(200).send(success);
+            });
+        }
+        else {
+            res.send(422).send();
+        }
+    });
+
+    // Check for access token on particular API calls
+    app.all('/api/profile/*', isLoggedIn);
+    app.use('/api/', apiRouter);
 
     // =============================================================================
     // AUTHENTICATE (FIRST LOGIN) ==================================================
@@ -45,29 +141,26 @@ module.exports = function(app, passport) {
 
     // show the SIGNUP form
     app.get('/signup', function(req, res) {
-
-        // render the page and pass in any flash data if it exists
-        res.render('signup.ejs', { message: req.flash('signupMessage') });
+        res.redirect(ROUTER_PREFIX + 'signup');
     });
 
     // process the SIGNUP form
-    app.post('/signup', passport.authenticate('local-signup', { session: false }),
-        function(req, res) {
+    app.post('/signup', function(req, res, next) {
+        passport.authenticate('local-signup', { session: false }, function(err, user, info) {
 
-            sendAuthenticationToken(req, res, app.get('jwtTokenSecret'));
-
-            /*
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/signup', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages */
-        });
+            if(err)
+                res.status(500).json(err);
+            if(!user && info)
+                res.status(401).send(info.message);
+            else
+                sendAuthenticationToken(req, res, app.get('jwtTokenSecret'));
+        })(req, res, next);
+    });
 
     // LOGIN ===============================
     // show the LOGIN form
-    app.get('/login', function(req, res) {
-
-        // render the page and pass in any flash data if it exists
-        res.render('login.ejs', { message: req.flash('loginMessage') });
+    app.get('/login', function (req, res, next) {
+        res.redirect(ROUTER_PREFIX + 'signup?signin=1');
     });
 
     // process the LOGIN form
@@ -91,12 +184,8 @@ module.exports = function(app, passport) {
     app.get('/auth/twitter/callback',
         passport.authenticate('twitter', { session: false }),
             function(req, res) {
-
-                sendAuthenticationToken(req, res, app.get('jwtTokenSecret'));
-
-                /*
-                successRedirect : '/profile',
-                failureRedirect : '/' */
+                res.redirect(ROUTER_PREFIX + 'signup?confirm='
+                    + getAuthenticationToken(req, res, app.get('jwtTokenSecret')));
             });
 
     // =============================================================================
@@ -104,20 +193,10 @@ module.exports = function(app, passport) {
     // =============================================================================
 
     // locally --------------------------------
-
-    app.get('/connect/local', function(req, res) {
-        res.render('connect-local.ejs', { message: req.flash('loginMessage') });
-    });
-
+    // TODO Just create a form that with email + password that POSTs to '/connect/local'
     app.post('/connect/local', passport.authenticate('local-signup', { session: false }),
         function(req, res) {
-
-            sendAuthenticationToken(req, res, app.get('jwtTokenSecret'));
-
-            /*
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages */
+            res.redirect(ROUTER_PREFIX + 'profile');
         });
 
     // twitter --------------------------------
@@ -128,8 +207,8 @@ module.exports = function(app, passport) {
     // handle the callback after twitter has authorized the user
     app.get('/connect/twitter/callback',
         passport.authorize('twitter', {
-            successRedirect : '/profile',
-            failureRedirect : '/'
+            successRedirect : ROUTER_PREFIX + 'profile',
+            failureRedirect : ROUTER_PREFIX + '/'
         }));
 
     // =============================================================================
@@ -143,11 +222,43 @@ module.exports = function(app, passport) {
         var user           = req.user;
         user.twitter.token = undefined;
 
-        user.save(function(err) {
-            res.redirect('/profile');
+        user.save(function() {
+            res.redirect(ROUTER_PREFIX + '/profile');
         });
     });
+
+    // =============================================================================
+    // FALLBACK =============================================================
+    // =============================================================================
+
+    // all other requests should be answered with 401
+    app.use('*', function(req, res) {
+        res.status(401).send('status.user.error.authorization.failure');
+    });
 };
+
+function getUserIdFromToken(req) {
+    var token = (req.body && req.body.access_token) || (req.query && req.query.access_token)
+        || req.headers['x-access-token'];
+
+    if (token) {
+        try {
+            var decoded = jwt.decode(token, secret);
+
+            // handle token here
+            if (decoded.exp <= Date.now()) {
+                return null;
+            }
+            return decoded.iss;
+        } catch (err) {
+            console.log('Error while decoding token: ' + err.message);
+            return null;
+        }
+    }
+    else {
+        return null;
+    }
+}
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
@@ -162,7 +273,7 @@ function isLoggedIn(req, res, next) {
 
             // handle token here
             if (decoded.exp <= Date.now()) {
-                res.end('Access token has expired', 400);
+                res.end('status.user.error.token.expired', 400);
             }
 
             // attach user to request
@@ -173,13 +284,13 @@ function isLoggedIn(req, res, next) {
             });
         } catch (err) {
             console.log('Error while decoding token: ' + err.message);
-            res.end('Access token could not be validated.', 400);
+            res.end('status.user.error.token.invalid', 400);
         }
     }
     else {
         console.log('No token available.');
         // if they aren't redirect them to the home page
-        res.redirect('/');
+        res.status(401).send('status.user.error.authorization.failure');
     }
 }
 
@@ -203,13 +314,22 @@ function createAuthenticationToken(user, expires, secret) {
     }, secret);
 }
 
-function sendAuthenticationToken(req, res, secret) {
+function getAuthenticationToken(req, res, secret) {
     if(req.user) {
-        console.log("User object available! ID: " + req.user._id);
+        //console.log("User object available! ID: " + req.user._id);
 
         var expires = getExpirationDate(7);
+        return createAuthenticationToken(req.user, expires, secret);
+    }
+    else {
+       return "error";
+    }
+}
+
+function sendAuthenticationToken(req, res, secret) {
+    if(req.user) {
+        var expires = getExpirationDate(7);
         var token = createAuthenticationToken(req.user, expires, secret);
-        console.log("Token: " + token);
 
         res.json({
             token : token,
@@ -217,6 +337,6 @@ function sendAuthenticationToken(req, res, secret) {
         });
     }
     else {
-        res.redirect('/');
+        res.status(401).send('status.user.error.authorization.failure');
     }
 }
