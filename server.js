@@ -48,7 +48,7 @@ function setupAuthentication() {
  */
 function createRoutes() {
     // static files are served out of the www directory
-		var baseDirectory = "/home/www/trip-to-go";
+		var baseDirectory = "/var/www/";
 
     app.use('/', express.static(baseDirectory));
     app.use('/i18n', express.static(baseDirectory + '/i18n'));
