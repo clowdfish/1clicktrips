@@ -26,6 +26,7 @@ else
 	
 	echo "Start server" 
 	echo "..."
+	# see https://github.com/nodejitsu/forever for details
 	forever start -m 10 -l logs/forever.log -o logs/console.log -e logs/error.log -a --minUptime 1000 --spinSleepTime 1000 server.js
 	
 	# wait for forever to set itself into place	
