@@ -22,4 +22,4 @@ The application is deployed to ~/server/dev (add "dev" as parameter) or ~/server
 The Express.js server is configured to serve its static files from /var/www.
 So you either put the static files (e.g. html, images, js, css) directly into that directory or you create a symlink that redirects /var/www to the proper folder with the static content.
 
-Express.js listens on port 8081, so make sure that no other application is listening on the same port when the application starts. 
+Express.js listens on port 8080, so make sure that no other application is listening on the same port when the application starts. 

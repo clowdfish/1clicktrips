@@ -218,12 +218,18 @@ module.exports = function(app, express, passport) {
     // reconnect in the future
 
     // twitter --------------------------------
-    app.get('/unlink/twitter', function(req, res) {
+    app.get('/unlink/twitter', isLoggedIn, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
+        user.twitter.username = undefined;
 
         user.save(function() {
-            res.redirect(ROUTER_PREFIX + '/profile');
+            SettingsController.createSettings(user._id, { 'profile' : { 'twitter' : '' } }, function(err, settings) {
+                if(err)
+                     res.status(500).json(err);
+                else
+                    res.status(200).json(settings);
+            });
         });
     });
 

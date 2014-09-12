@@ -11,7 +11,7 @@ var app = express();
 
 // configuration ===============================================================
 var configDB = require('./config/database.js');
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 8080;
 
 require('./config/passport')(passport); // pass passport for configuration
 
