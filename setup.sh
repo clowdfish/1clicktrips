@@ -17,13 +17,20 @@ else
 	forever stopall
 
 	echo "Remove old logs"
-	echo "..."
 	forever cleanlogs	
+
+	if [ ! -d ./logs ] ; then 
+		echo "Create directory for logs"
+		mkdir logs
+	fi 
 	
 	echo "Start server" 
 	echo "..."
-	forever start -m 10 -l ./logs/forever.log -o out.log -e err.log -a --minUptime 1000 --spinSleepTime 1000 server.js
+	forever start -m 10 -l logs/forever.log -o logs/console.log -e logs/error.log -a --minUptime 1000 --spinSleepTime 1000 server.js
 	
+	# wait for forever to set itself into place	
+	sleep 3
+
 	return_value=$(forever list)
 	echo $return_value
 	if [[ $return_value =~ "No forever process" ]] ; then
