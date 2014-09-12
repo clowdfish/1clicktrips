@@ -275,13 +275,14 @@ function isLoggedIn(req, res, next) {
             if (decoded.exp <= Date.now()) {
                 res.end('status.user.error.token.expired', 400);
             }
+						else {
+		          // attach user to request
+		          User.findOne({ _id: decoded.iss }, function(err, user) {
+		              req.user = user;
 
-            // attach user to request
-            User.findOne({ _id: decoded.iss }, function(err, user) {
-                req.user = user;
-
-                return next();
-            });
+		              return next();
+		          });
+						}
         } catch (err) {
             console.log('Error while decoding token: ' + err.message);
             res.end('status.user.error.token.invalid', 400);
