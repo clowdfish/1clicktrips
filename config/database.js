@@ -1,3 +1,3 @@
 module.exports = {
-    'url' : 'mongodb://authServerAdmin:w3Dv\N6N;t&ikLF@localhost:27017/authserver'
+    'url' : 'mongodb://authServerAdmin:w3DvN6NtikLF@localhost:27017/authserver'
 };
