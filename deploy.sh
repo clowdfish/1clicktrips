@@ -1,7 +1,9 @@
 #!/bin/bash
 
 deployment_profile=$1
-base_directory="/home/sascha/server/dev"
+base_directory="~/server/dev"
+user="sascha"
+domain="dev.efexcon.com"
 
 if [ $# -eq 1 ] ; then
 	if [ "$deployment_profile" == "dev" ] ; then
@@ -11,11 +13,11 @@ if [ $# -eq 1 ] ; then
 			echo -e "\nDeployment for development environment"
 			echo "Synchronizing files to server"
 			echo "..."
-			rsync -arv --exclude='.git*' --exclude='node_modules' --exclude='deploy.sh' --exclude='*~' -e ssh ./ sascha@dev.efexcon.com:$base_directory
+			rsync -arv --exclude='.git*' --exclude='node_modules' --exclude='deploy.sh' --exclude='*~' -e ssh ./ $user@$domain:$base_directory
 
 			echo "Preparing server"
 			echo "..."
-			ssh sascha@dev.efexcon.com $base_directory/setup.sh
+			ssh $user@$domain $base_directory/setup.sh
 			
 			if [[ $? != 0 ]] ; then
 				echo "SUCCESS: Server is up and running."
