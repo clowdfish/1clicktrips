@@ -33,10 +33,12 @@ module.exports = function(app, express, passport) {
         res.status(200).json(
             [
                 {
+                    'lang' : 'de',
                     'iso': 'de-DE',
                     'name': 'Deutsch'
                 },
                 {
+                    'lang' : 'en',
                     'iso' : 'en-US',
                     'name' : 'English'
                 }
