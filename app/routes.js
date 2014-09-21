@@ -281,7 +281,7 @@ function isLoggedIn(req, res, next) {
 
             // handle token here
             if (decoded.exp <= Date.now()) {
-                res.end('status.user.error.token.expired', 400);
+                res.end('status.user.error.token.expired', 401);
             }
 						else {
 		          // attach user to request
@@ -293,7 +293,7 @@ function isLoggedIn(req, res, next) {
 						}
         } catch (err) {
             console.log('Error while decoding token: ' + err.message);
-            res.end('status.user.error.token.invalid', 400);
+            res.end('status.user.error.token.invalid', 401);
         }
     }
     else {
