@@ -24,7 +24,7 @@ module.exports = function(app, express, passport) {
     // home page route (http://localhost:8080/api/)
     apiRouter.get('/', function(req, res) {
 
-        res.send('not accessible');
+        res.status(400).send('not accessible');
     });
 
     // get available languages (http://localhost:8080/api/lang/)
@@ -64,14 +64,14 @@ module.exports = function(app, express, passport) {
             SettingsController.createSettings(userId, { 'profile': req.body }, function (err, success) {
                 if (err) {
                     console.error('There was a problem updating the settings.');
-                    res.send(500).send();
+                    res.status(500).send();
                 }
 
                 res.status(200).send(success)
             });
         }
         else {
-            res.send(422).send();
+            res.status(422).send();
         }
     });
 
@@ -92,14 +92,14 @@ module.exports = function(app, express, passport) {
             SettingsController.createSettings(userId, { 'preferences': req.body }, function (err, success) {
                 if (err) {
                     console.error('There was a problem updating the settings.');
-                    res.send(500).send();
+                    res.status(500).send();
                 }
 
                 res.status(200).send(success);
             });
         }
         else {
-            res.send(422).send();
+            res.status(422).send();
         }
     });
 
@@ -120,7 +120,7 @@ module.exports = function(app, express, passport) {
             SettingsController.createSettings(userId, { 'privacy': req.body }, function (err, success) {
                 if (err) {
                     console.error('There was a problem updating the settings.');
-                    res.send(500).send();
+                    res.status(500).send();
                 }
 
                 res.status(200).send(success);
@@ -281,9 +281,9 @@ function isLoggedIn(req, res, next) {
 
             // handle token here
             if (decoded.exp <= Date.now()) {
-                res.end('status.user.error.token.expired', 401);
+                res.status(401).send('status.user.error.token.expired');
             }
-						else {
+			else {
 		          // attach user to request
 		          User.findOne({ _id: decoded.iss }, function(err, user) {
 		              req.user = user;
@@ -293,7 +293,7 @@ function isLoggedIn(req, res, next) {
 						}
         } catch (err) {
             console.log('Error while decoding token: ' + err.message);
-            res.end('status.user.error.token.invalid', 401);
+            res.status(401).send('status.user.error.token.invalid');
         }
     }
     else {
