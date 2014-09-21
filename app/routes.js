@@ -241,7 +241,7 @@ module.exports = function(app, express, passport) {
 
     // all other requests should be answered with 401
     app.use('*', function(req, res) {
-        res.status(401).send('status.user.error.authorization.failure');
+        res.status(404).send('status.user.error.server.failure');
     });
 };
 
