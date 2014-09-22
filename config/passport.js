@@ -158,14 +158,11 @@ module.exports = function(passport) {
             passReqToCallback   : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         },
         function(req, token, tokenSecret, profile, done) {
-
             // make the code asynchronous
             // User.findOne won't fire until we have all our data back from Twitter
             process.nextTick(function() {
-
                 // check if the user is already logged in
                 if (!req.user) {
-
                     User.findOne({ 'twitter.id': profile.id }, function (err, user) {
 
                         // if there is an error, stop everything and return that
@@ -233,6 +230,8 @@ module.exports = function(passport) {
                     user.twitter.token          = token;
                     user.twitter.username       = profile.username;
                     user.twitter.displayName    = profile.displayName;
+
+                    console.log("Twitter Account has been linked with user.");
 
                     // save the user
                     user.save(function(err) {

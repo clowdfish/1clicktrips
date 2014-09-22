@@ -67,7 +67,7 @@ module.exports = function(app, express, passport) {
                     res.status(500).send();
                 }
 
-                res.status(200).send(success)
+                res.status(200).send(success);
             });
         }
         else {
@@ -148,7 +148,7 @@ module.exports = function(app, express, passport) {
 
     // process the SIGNUP form
     app.post('/signup', function(req, res, next) {
-        passport.authenticate('local-signup', { session: false }, function(err, user, info) {
+        passport.authenticate('local-signup', { session: true }, function(err, user, info) {
 
             if(err)
                 res.status(500).json(err);
@@ -162,11 +162,11 @@ module.exports = function(app, express, passport) {
     // LOGIN ===============================
     // show the LOGIN form
     app.get('/login', function (req, res, next) {
-        res.redirect(ROUTER_PREFIX + 'signup?signin=1');
+        res.redirect(ROUTER_PREFIX + 'signin');
     });
 
     // process the LOGIN form
-    app.post('/login', passport.authenticate('local-login', { session: false }),
+    app.post('/login', passport.authenticate('local-login', { session: true }),
         function(req, res) {
 
             sendAuthenticationToken(req, res, app.get('jwtTokenSecret'));
@@ -184,7 +184,7 @@ module.exports = function(app, express, passport) {
 
     // handle the callback after twitter has authenticated the user
     app.get('/auth/twitter/callback',
-        passport.authenticate('twitter', { session: false }),
+        passport.authenticate('twitter', { session: true }),
             function(req, res) {
                 res.redirect(ROUTER_PREFIX + 'signup?confirm='
                     + getAuthenticationToken(req, res, app.get('jwtTokenSecret')));
@@ -196,7 +196,7 @@ module.exports = function(app, express, passport) {
 
     // locally --------------------------------
     // TODO Just create a form that with email + password that POSTs to '/connect/local'
-    app.post('/connect/local', passport.authenticate('local-signup', { session: false }),
+    app.post('/connect/local', passport.authenticate('local-signup', { session: true }),
         function(req, res) {
             res.redirect(ROUTER_PREFIX + 'profile');
         });
@@ -204,7 +204,14 @@ module.exports = function(app, express, passport) {
     // twitter --------------------------------
 
     // send to twitter to do the authentication
-    app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
+    app.get('/connect/twitter', function(req, res, next) {
+        if(req.user)
+            console.log(req.user);
+        else
+            console.log("User not available in request...");
+
+        return next();
+    }, passport.authorize('twitter', { scope : 'email' }));
 
     // handle the callback after twitter has authorized the user
     app.get('/connect/twitter/callback',
@@ -287,7 +294,6 @@ function isLoggedIn(req, res, next) {
 		          // attach user to request
 		          User.findOne({ _id: decoded.iss }, function(err, user) {
 		              req.user = user;
-
 		              return next();
 		          });
 						}
