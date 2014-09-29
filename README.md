@@ -63,7 +63,7 @@ A response can be either successful or an error.  A response definition contains
 | Route                      | `GET` `/api/search?q={:query}`                                    |
 | Description                | Start search with the given parameters.                           |
 |                            | The query format is defined in [`<query>`](#search-1)             |
-| Parameters                 | `<string>` `query`                                                |
+| Parameters                 | `<string>` `<query>`                                              |
 | Request body               | -                                                                 |
 | Response (success)         | `200`, [`<search-results>`](#search-1)                            |
 | Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
@@ -167,6 +167,10 @@ A response can be either successful or an error.  A response definition contains
                    "value" : <string> }
 ```
 
+```
+<search-results> ::= { "to be defined" }
+```
+
 ##### Example `<query>`
 
 ```JSON
@@ -188,6 +192,10 @@ A response can be either successful or an error.  A response definition contains
 ],  
 "preferences": {}
 }
+```
+
+```JSON
+"to be defined"
 ```
 #### Language
 
