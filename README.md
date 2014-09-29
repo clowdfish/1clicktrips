@@ -147,6 +147,35 @@ A response can be either successful or an error.  A response definition contains
 | Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
+#### Authentication
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `POST` `/api/signup`                                              |
+| Description                | Register and authenticate user and retrieve auth token.           |
+| Parameters                 | -                                                                 |
+| Request body               | -                                                                 |
+| Response (success)         | `200`, [`<authentication>`](#authentication-1)                    |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `POST` `/api/login`                                               |
+| Description                | Authenticate user and retrieve auth token.                        |
+| Parameters                 | -                                                                 |
+| Request body               | -                                                                 |
+| Response (success)         | `200`, [`<authentication>`](#authentication-1)                    |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `GET` `/api/logout`                                               |
+| Description                | Delete user session on server side.                               |
+| Parameters                 | -                                                                 |
+| Request body               | -                                                                 |
+| Response (success)         | `200`                                                             |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+
 ### Data format definitions
 
 #### Search
@@ -370,3 +399,25 @@ A response can be either successful or an error.  A response definition contains
   "newsletter": 0
 }
 ```
+
+#### Authentication
+
+##### Format
+
+```
+<authentication> ::= {
+    "token" : <string>,
+    "expires" : <int>
+}
+```
+
+##### Example
+
+```JSON
+{
+   "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDA2YzEwZWZjOTJmNDkyMmViMjY3NDgiLCJleHAiOjE0MTI2MTEyNjE1NDh9.H2UQCZuPsdXGydxmqOs-lwLDwdkps5G9tEuHH3Ghx7Q",
+   "expires": 1412611261548
+}
+```
+
+
