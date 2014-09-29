@@ -78,7 +78,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
 | Response (success)         | `200`, [`<languages>`](#language-1)                               |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 #### Profile
@@ -90,7 +90,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
 | Response (success)         | `200`, [`<profile>`](#profile-1)                                  |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 |                            | Details                                                           |
@@ -100,7 +100,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | [`<profile>`](#profile-1)                                         |
 | Response (success)         | `200`, [`<settings>`](#settings)                                  |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 #### Preferences
@@ -112,7 +112,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
 | Response (success)         | `200`, [`<preferences>`](#preferences-1)                          |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 |                            | Details                                                           |
@@ -122,7 +122,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | [`<preferences>`](#preferences-1)                                 |
 | Response (success)         | `200`, [`<settings>`](#settings)                                  |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 #### Privacy
@@ -134,7 +134,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
 | Response (success)         | `200`, [`<privacy>`](#privacy-1)                                  |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 |                            | Details                                                           |
@@ -144,7 +144,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | [`<privacy>`](#privacy-1)                                         |
 | Response (success)         | `200`, [`<settings>`](#settings)                                  |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (unauthenticated) | `401`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 #### Authentication
@@ -156,7 +156,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
 | Response (success)         | `200`, [`<authentication>`](#authentication-1)                    |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 |                            | Details                                                           |
 | -------------------------- | ---------------------------------------------------------------   |
@@ -165,7 +165,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
 | Response (success)         | `200`, [`<authentication>`](#authentication-1)                    |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 |                            | Details                                                           |
 | -------------------------- | ---------------------------------------------------------------   |
@@ -174,7 +174,7 @@ A response can be either successful or an error.  A response definition contains
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
 | Response (success)         | `200`                                                             |
-| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
 
 ### Data format definitions
 
