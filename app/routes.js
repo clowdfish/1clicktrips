@@ -24,7 +24,7 @@ module.exports = function(app, express, passport) {
     // home page route (http://localhost:8080/api/)
     apiRouter.get('/', function(req, res) {
 
-        res.status(400).send('not accessible');
+        res.status(403).send('not accessible');
     });
 
     // get available languages (http://localhost:8080/api/lang/)
@@ -71,7 +71,7 @@ module.exports = function(app, express, passport) {
             });
         }
         else {
-            res.status(422).send();
+            res.status(400).send();
         }
     });
 
@@ -99,7 +99,7 @@ module.exports = function(app, express, passport) {
             });
         }
         else {
-            res.status(422).send();
+            res.status(400).send();
         }
     });
 
@@ -127,7 +127,7 @@ module.exports = function(app, express, passport) {
             });
         }
         else {
-            res.send(422).send();
+            res.send(400).send();
         }
     });
 
