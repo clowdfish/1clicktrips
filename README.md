@@ -151,7 +151,7 @@ A response can be either successful or an error.  A response definition contains
 
 #### Search
 
-##### Format
+##### Format `<query>`
 
 ```
 <query> ::= { "origin" : <location>,
@@ -166,6 +166,8 @@ A response can be either successful or an error.  A response definition contains
 <preference> ::= { "key" : <string>,
                    "value" : <string> }
 ```
+
+##### Format `<search-results>`
 
 ```
 <search-results> ::= { "to be defined" }
@@ -194,9 +196,12 @@ A response can be either successful or an error.  A response definition contains
 }
 ```
 
+##### Example `<search-results>`
+
 ```JSON
 "to be defined"
 ```
+
 #### Language
 
 ##### Format
