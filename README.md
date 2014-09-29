@@ -17,17 +17,17 @@ The business traveler platform offering end to end trip management.
 ## Server requirements
 
 ### Directory structure
-The application is deployed to ~/server/dev (add "dev" as parameter) or ~/server/build (add "prod" as parameter), so make sure those folders exist. 
+The application is deployed to `~/server/dev` (add "dev" as parameter) or `~/server/build` (add "prod" as parameter), so make sure those folders exist. 
 
-The Express.js server is configured to serve its static files from /var/www.
-So you either put the static files (e.g. html, images, js, css) directly into that directory or you create a symlink that redirects /var/www to the proper folder with the static content.
+The Express.js server is configured to serve its static files from `/var/www`.
+So you either put the static files (e.g. html, images, js, css) directly into that directory or you create a symlink that redirects `/var/www` to the proper folder with the static content.
 
 Express.js listens on port 8080, so make sure that no other application is listening on the same port when the application starts. 
 
 ## Testing
 Testing is done with Karma as test runner and Jasmine.js as testing framework. Additionally Sinon.js is used for mocking functionality.
-All tests must be contained in ./test (from now on called $TEST_ROOT) and follow the naming convention: `*.spec.js`
-Within $TEST_ROOT is the bootstrap.js that is defining the paths to ALL files we need for running our tests. If you do not add the paths to your dependencies in here, the tests will fail. 
+All tests must be contained in `./test` (from now on called `$TEST_ROOT`) and follow the naming convention: `*.spec.js`
+Within `$TEST_ROOT` is the bootstrap.js that is defining the paths to ALL files we need for running our tests. If you do not add the paths to your dependencies in here, the tests will fail. 
 This file is responsible for finding and listing all existing tests. 
 
 ## REST API
@@ -151,7 +151,7 @@ A response can be either successful or an error.  A response definition contains
 
 #### Search
 
-##### Format `<query>`
+##### Format 
 
 ```
 <query> ::= { "origin" : <location>,
@@ -167,7 +167,6 @@ A response can be either successful or an error.  A response definition contains
                    "value" : <string> }
 ```
 
-##### Format `<search-results>`
 
 ```
 <search-results> ::= { "to be defined" }
@@ -284,7 +283,7 @@ A response can be either successful or an error.  A response definition contains
     "arrival": 0,
     "transfer": 1,
     "breakfast": 1,
-    "buffer: 120
+    "buffer": 120
   },
   "privacy": {
     "newsletter": 0
