@@ -241,7 +241,7 @@ A response can be either successful or an error.  A response definition contains
 ```
 <settings> ::= {
   "_id" : <string>,
-  "user" : <string>
+  "user" : <string>,
   "profile" : <profile>,
   "preferences" : <preferences>,
   "privacy" : <privacy>
@@ -268,7 +268,7 @@ A response can be either successful or an error.  A response definition contains
     "options_taxi": 1,     
     "options_rental": 1, 
     "priority": "public, rental, taxi, plane",
-    "arrival": 0.
+    "arrival": 0,
     "transfer": 1,
     "breakfast": 1,
     "buffer: 120
@@ -318,7 +318,7 @@ A response can be either successful or an error.  A response definition contains
   "options_taxi" : <int>,     
   "options_rental" : <int>, 
   "priority" : <string>,
-  "arrival" : <int>.
+  "arrival" : <int>,
   "transfer" : <int>,
   "breakfast" : <int>,
   "buffer" : <int> 
@@ -334,7 +334,7 @@ A response can be either successful or an error.  A response definition contains
   "options_taxi": 1,     
   "options_rental": 1, 
   "priority": "public, rental, taxi, plane",
-  "arrival": 0.
+  "arrival": 0,
   "transfer": 1,
   "breakfast": 1,
   "buffer": 120
