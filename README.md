@@ -77,7 +77,73 @@ A response can be either successful or an error.  A response definition contains
 | Description                | Retrieve available languages.                                     |
 | Parameters                 | -                                                                 |
 | Request body               | -                                                                 |
-| Response (success)         | `200`, [`<languages>`](#languages-1)                                    |
+| Response (success)         | `200`, [`<languages>`](#language-1)                               |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
+
+#### Profile
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `GET` `/profile/details`                                          |
+| Description                | Retrieve profile information for user.                            |
+| Parameters                 | -                                                                 |
+| Request body               | -                                                                 |
+| Response (success)         | `200`, [`<profile>`](#profile-1)                                  |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `POST` `/profile/details`                                         |
+| Description                | Push profile information for user.                                |
+| Parameters                 | -                                                                 |
+| Request body               | [`<profile>`](#profile-1)                                         |
+| Response (success)         | `200`, [`<settings>`](#settings)                                  |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
+
+#### Preferences
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `GET` `/profile/preferences`                                      |
+| Description                | Retrieve preferences information for user.                        |
+| Parameters                 | -                                                                 |
+| Request body               | -                                                                 |
+| Response (success)         | `200`, [`<preferences>`](#preferences-1)                          |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `POST` `/profile/preferences`                                     |
+| Description                | Push preferences information for user.                            |
+| Parameters                 | -                                                                 |
+| Request body               | [`<preferences>`](#preferences-1)                                 |
+| Response (success)         | `200`, [`<settings>`](#settings)                                  |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
+
+#### Privacy
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `GET` `/profile/privacy`                                          |
+| Description                | Retrieve privacy information for user.                            |
+| Parameters                 | -                                                                 |
+| Request body               | -                                                                 |
+| Response (success)         | `200`, [`<privacy>`](#privacy-1)                                  |
+| Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
+| Response (server error)    | `500`, [`<error>`](#error)                                        |
+
+|                            | Details                                                           |
+| -------------------------- | ---------------------------------------------------------------   |
+| Route                      | `POST` `/profile/privacy`                                         |
+| Description                | Push privacy information for user.                                |
+| Parameters                 | -                                                                 |
+| Request body               | [`<privacy>`](#privacy-1)                                         |
+| Response (success)         | `200`, [`<settings>`](#settings)                                  |
 | Response (unauthenticated) | `400`, [`<error>`](#error)                                        |
 | Response (server error)    | `500`, [`<error>`](#error)                                        |
 
@@ -142,14 +208,14 @@ A response can be either successful or an error.  A response definition contains
 ```JSON
 [
   {
-    'lang' : 'de',
-    'iso': 'de-DE',
-    'name': 'Deutsch'
+    "lang" : "de",
+    "iso": "de-DE",
+    "name": "Deutsch"
   },
   {
-    'lang' : 'en',
-    'iso' : 'en-US',
-    'name' : 'English's
+    "lang" : "en",
+    "iso" : "en-US",
+    "name" : "English"
   }
 ]
 ```
@@ -166,4 +232,129 @@ A response can be either successful or an error.  A response definition contains
 
 ```JSON
 "status.user.error.server.failure"
+```
+
+#### Settings
+
+##### Format
+
+```
+<settings> ::= {
+  "_id" : <string>,
+  "user" : <string>
+  "profile" : <profile>,
+  "preferences" : <preferences>,
+  "privacy" : <privacy>
+}
+```
+
+##### Example
+
+```JSON
+{
+  "_id": "5412e5a938151d1dfce29cd5",
+  "user": "5406c10efc92f4922eb26748",
+  "profile": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "username": "travel_John",
+    "email": "john.travel@gmail.com",
+    "address": "John's Home",
+    "twitter": "travel_john"
+  },
+  "preferences": {
+    "options_plane": 1, 
+    "options_public": 1, 
+    "options_taxi": 1,     
+    "options_rental": 1, 
+    "priority": "public, rental, taxi, plane",
+    "arrival": 0.
+    "transfer": 1,
+    "breakfast": 1,
+    "buffer: 120
+  },
+  "privacy": {
+    "newsletter": 0
+  }
+}
+```
+
+#### Profile
+
+##### Format
+
+```
+<profile> ::= {
+    "firstname" : <string>,
+    "lastname" : <string>,
+    "username" : <string>,
+    "email" : <string>,
+    "address" : <string>,
+    "twitter" : <string>
+}
+```
+
+##### Example
+
+```JSON
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "username": "travel_John",
+  "email": "john.travel@gmail.com",
+  "address": "John's Home",
+  "twitter": "travel_john"
+}
+```
+
+#### Preferences
+
+##### Format
+
+```
+<profile> ::= { 
+  "options_plane" : <int>, 
+  "options_public" : <int>, 
+  "options_taxi" : <int>,     
+  "options_rental" : <int>, 
+  "priority" : <string>,
+  "arrival" : <int>.
+  "transfer" : <int>,
+  "breakfast" : <int>,
+  "buffer" : <int> 
+}
+```
+
+##### Example
+
+```JSON
+{
+  "options_plane": 1, 
+  "options_public": 1, 
+  "options_taxi": 1,     
+  "options_rental": 1, 
+  "priority": "public, rental, taxi, plane",
+  "arrival": 0.
+  "transfer": 1,
+  "breakfast": 1,
+  "buffer": 120
+}
+```
+
+#### Privacy
+
+##### Format
+
+```
+<privacy> ::= {
+    "newsletter" : <int>
+}
+```
+
+##### Example
+
+```JSON
+{
+  "newsletter": 0
+}
 ```
