@@ -4,7 +4,7 @@
   "description": "The backend for the business traveler platform offering end to end trip management.",
   "main": "server.js",
   "dependencies": {
-    "bcrypt-nodejs": "latest",
+    "bcrypt": "latest",
     "body-parser": "^1.7.0",
     "express": "^4.8.5",
     "express-session": "^1.7.6",
@@ -15,6 +15,7 @@
     "passport-twitter": "^1.0.2"
   },
   "devDependencies": {
+    "bcrypt": "^0.8.0",
     "gulp": "^3.8.8",
     "gulp-concat": "^2.4.1",
     "gulp-notify": "^1.8.0",
@@ -23,15 +24,14 @@
     "gulp-strip-debug": "^1.0.1",
     "gulp-tsc": "^0.9.2",
     "karma": "^0.12.23",
+    "karma-chrome-launcher": "^0.1.4",
     "karma-jasmine": "^0.1.5",
     "karma-phantomjs-launcher": "^0.1.4",
-    "karma-requirejs": "^0.2.2",
     "karma-spec-reporter": "0.0.13",
-    "morgan": "^1.0.0",
-    "requirejs": "^2.1.15"
+    "morgan": "^1.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start --single-run;  exit $?;"
   },
   "repository": {
     "type": "git",
