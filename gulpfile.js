@@ -39,7 +39,7 @@ gulp.task('typescript', function() {
     gulp.src(['./app/**/*.ts'])
         .pipe(plumber(plumberErrorHandler))
         .pipe(typescript())
-        .pipe(gulp.dest('./app/'))
+        .pipe(gulp.dest('./dist/'))
 });
 
 // start Karma for TDD
