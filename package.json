@@ -37,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/clowdfish/auth-server.git"
+    "url": "https://github.com/clowdfish/ttg-server.git"
   },
   "keywords": [
     "express.js"
@@ -49,7 +49,7 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/clowdfish/auth-server/issues"
+    "url": "https://github.com/clowdfish/ttg-server/issues"
   },
-  "homepage": "https://github.com/clowdfish/auth-server"
+  "homepage": "https://github.com/clowdfish/ttg-server"
 }
