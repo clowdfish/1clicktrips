@@ -1,6 +1,6 @@
-/**
- * Created by sascha on 04.09.14.
- */
+// settings.js
+
+var Promise  = require('es6-promise').Promise;
 var Settings = require('../models/settings');
 var mongoose = require('mongoose');
 
