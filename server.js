@@ -3,7 +3,7 @@ var express     = require('express'),
     mongoose    = require('mongoose'),
     passport    = require('passport'),
     session     = require('express-session'),
-    //morgan      = require('morgan'),
+    morgan      = require('morgan'),
     bodyParser  = require('body-parser');
 
 // initiate server instance
@@ -21,7 +21,7 @@ require('./config/passport')(passport); // pass passport for configuration
 function setupServer() {
     mongoose.connect(configDB.url); // connect to database
 
-    //app.use(morgan('dev')); // log every request to the console
+    app.use(morgan('dev')); // log every request to the console
     app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
     app.use(bodyParser.json());     // parse application/json
     app.use(session({secret: 'errare humanum est', resave: true, saveUninitialized: true}));

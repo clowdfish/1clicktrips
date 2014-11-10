@@ -26,13 +26,13 @@ module.exports = function (app, express, passport) {
   // get an instance of router
   var settingsApi = express.Router();
 
-  // home page route (http://localhost:8080/api/)
+  // home page route (http://localhost:8080/)
   settingsApi.get('/', function (req, res) {
 
     res.status(403).send('not accessible');
   });
 
-  // get available languages (http://localhost:8080/api/lang/)
+  // get available languages (http://localhost:8080/lang/)
   settingsApi.get('/lang', function (req, res) {
 
     res.status(200).json(
@@ -51,7 +51,7 @@ module.exports = function (app, express, passport) {
     );
   });
 
-  // profile page route (http://localhost:8080/api/profile/)
+  // profile page route (http://localhost:8080/profile/)
   settingsApi.get('/profile/details', function (req, res) {
     var userId = getUserIdFromToken(req);
 
@@ -137,8 +137,8 @@ module.exports = function (app, express, passport) {
   });
 
   // Check for access token on particular API calls
-  app.all('/api/profile/*', isLoggedIn);
-  app.use('/api/', settingsApi);
+  app.all('/profile/*', isLoggedIn);
+  app.use('/', settingsApi);
 
   // ==========================================================================
   // SEARCH API ===============================================================
@@ -153,48 +153,71 @@ module.exports = function (app, express, passport) {
     console.log('Request coming from the client:');
     console.log(JSON.stringify(req.body, null, 2));
 
-    var searchObject = null;
-    var userLicence = null;
+    if(checkValidityOfRequest(req)) {
 
-    new Promise(function(resolve, reject) {
+      var searchObject = null;
+      var userLicence = null;
 
-      getUserFromRequest(req, function(user) {
-        resolve(user);
-      });
+      new Promise(function (resolve, reject) {
 
-    })
-    .then(function(user) {
+        console.log("Extracting user:");
 
-      userLicence = user.licence;
+        getUserFromRequest(req, function (user) {
+          resolve(user);
+        });
+      })
+        .then(function (user) {
+          console.log(user);
 
-      return new Promise(function(resolve) {
+          userLicence = user.licence;
 
-        searchObject = req.body;
+          return new Promise(function (resolve) {
 
-        if(!req.body['preferences'] &&
-          (user.local || user.twitter || user.google)) {
+            searchObject = req.body;
 
-          var userId = getUserIdFromToken(req);
+            if (!req.body['preferences'] &&
+              (user.local || user.twitter || user.google)) {
 
-          SettingsController.getSettings(userId, function (callback_settings) {
-            if (callback_settings)
-              searchObject.preferences = callback_settings;
+              console.log("Looking up preferences for user...");
 
-            resolve();
+              var userId = getUserIdFromToken(req);
+
+              SettingsController.getSettings(userId, function (callback_settings) {
+                if (callback_settings)
+                  searchObject.preferences = callback_settings;
+
+                resolve();
+              });
+            }
+            else {
+              console.log("No preferences available for user!");
+
+              resolve();
+            }
           });
-        }
-      });
-    })
-    .then(function() {
-      // use TTG Search API to get results
-      return Search.getTrips(searchObject, userLicence);
-    })
-    .then(function(results) {
-        res.status(200).json(results);
-    })
-    .catch(function(error) {
-      res.status(500).json(error);
-    });
+        })
+        .then(function () {
+
+          console.log("Start search with object: ");
+          console.log(searchObject);
+          console.log("User Licence: " + userLicence);
+
+          // use TTG Search API to get results
+          return Search.getTrips(searchObject, userLicence);
+        })
+        .then(function (results) {
+
+          console.log("Success.");
+          res.status(200).json(results);
+        })
+        .catch(function (error) {
+          console.error(error);
+          res.status(500).json(error);
+        });
+    }
+    else {
+      res.status(400).send('status.user.error.request.malformed');
+    }
   });
 
   app.use('/search/', searchApi);
@@ -226,7 +249,8 @@ module.exports = function (app, express, passport) {
   // LOGIN ===============================
   // show the LOGIN form
   app.get('/login', function (req, res, next) {
-    res.redirect(ROUTER_PREFIX + 'signin');
+    //res.redirect(ROUTER_PREFIX + 'signin');
+    console.log("Login triggered.");
   });
 
   // process the LOGIN form
@@ -310,7 +334,7 @@ module.exports = function (app, express, passport) {
   // FALLBACK =============================================================
   // =============================================================================
 
-  // all other requests should be answered with 401
+  // all other requests should be answered with 404
   app.use('*', function (req, res) {
     res.status(404).send('status.user.error.server.failure');
   });
@@ -388,8 +412,12 @@ function getUserFromRequest(req, callback) {
       if (decoded.exp > Date.now()) {
         // attach user to request
         User.findOne({_id: decoded.iss}, function (err, user) {
-          if(!err)
+          if(!err) {
+            if(!user.licence)
+              user.licence = 0;
+
             callback(user);
+          }
           else
             console.warn('No user found for the current session.');
         });
@@ -450,4 +478,31 @@ function sendAuthenticationToken(req, res, secret) {
   else {
     res.status(401).send('status.user.error.authorization.failure');
   }
+}
+
+function checkValidityOfRequest(req) {
+
+  function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+  if(req.body['origin'] && req.body['appointments'] &&
+    req.body['appointments'].length>0 && req.body['settings'] && (
+    req.body['oneWay'] === true || req.body['oneWay'] === false)) {
+
+    if(!isNumber(req.body['origin']['latitude'])
+      || !isNumber(req.body['origin']['longitude']))
+      return false;
+
+    req.body['appointments'].forEach(function(appointment) {
+      if(!(appointment['location']
+        && isNumber(appointment['location']['latitude'])
+        && isNumber(appointment['location']['longitude'])))
+        return false;
+    });
+  }
+  else
+    return false;
+
+  return true;
 }
