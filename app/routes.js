@@ -203,7 +203,7 @@ module.exports = function (app, express, passport) {
           console.log("User Licence: " + userLicence);
 
           // use TTG Search API to get results
-          return Search.getTrips(searchObject, userLicence);
+          return new Search.SearchApi().getTrips(searchObject, userLicence);
         })
         .then(function (results) {
 
