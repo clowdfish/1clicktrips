@@ -27,7 +27,7 @@ var settingsSchema = new Schema({
         transfer        : Number
     },
     privacy         : {
-        newsletter  : Number
+        newsletter  : Boolean
     }
 });
 

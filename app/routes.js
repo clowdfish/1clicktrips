@@ -499,6 +499,13 @@ function checkValidityOfRequest(req) {
         && isNumber(appointment['location']['latitude'])
         && isNumber(appointment['location']['longitude'])))
         return false;
+
+      var timePattern =
+        /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+
+      if(!(timePattern.test(appointment['start']) &&
+          timePattern.test(appointment['end'])))
+        return false;
     });
   }
   else
