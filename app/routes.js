@@ -12,6 +12,8 @@ var secret = '';
 
 module.exports = function (app, express, passport) {
 
+  var tripEngine = new Search.SearchApi();
+
   secret = app.get('jwtTokenSecret');
 
   app.get('/logout', function (req, res) {
@@ -203,7 +205,7 @@ module.exports = function (app, express, passport) {
           console.log("User Licence: " + userLicence);
 
           // use TTG Search API to get results
-          return new Search.SearchApi().getTrips(searchObject, userLicence);
+          return tripEngine.getTrips(searchObject, userLicence);
         })
         .then(function (results) {
 
