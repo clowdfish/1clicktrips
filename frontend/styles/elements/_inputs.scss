@@ -1,0 +1,155 @@
+$inputs-text: 'input[type="text"], input[type="password"], input[type="email"], textarea';
+$inputs-check: 'input[type="checkbox"], input[type="radio"]';
+
+/*
+ * Checkboxes
+ */
+input[type="checkbox"] {
+  display: none;
+  & + label::before {
+    @include fa-icon();
+    content: $fa-var-square-o;
+    width: 1em;
+    color: $c-text;
+    vertical-align: middle;
+    margin-right: .5em;
+  }
+  &:checked + label::before {
+    content: $fa-var-check-square-o;
+  }
+  & + label {
+    cursor: pointer;
+    display: block;
+  }
+}
+
+/*
+ * Radio Buttons
+ */
+input[type=radio] {
+  display: none;
+  & + label::before {
+    @include fa-icon();
+    content: $fa-var-circle-o;
+    width: 1em;
+    color: $c-text;
+    vertical-align: middle;
+    margin-right: .5em;
+  }
+  &:checked + label::before {
+    content: $fa-var-dot-circle-o;
+  }
+  & + label {
+    cursor: pointer;
+    display: block;
+  }
+  &:focus + label::before {
+    color: $c-primary;
+  }
+}
+
+/*
+ * Text Inputs
+ */
+
+%input {
+  font-family: $ff-body;
+  display: block;
+  border: 1px #ccc solid;
+  border-radius: 3px;
+  width: 100%;
+  padding: .4em .6em;
+  background: white;
+  position: relative;
+  &:focus {
+    border-color: $c-primary;
+  }
+}
+
+#{$inputs-text} {
+  @extend %input;
+  font-size: $fs-normal;
+  line-height: 1.4em;
+}
+
+fieldset.is-invalid {
+  #{$inputs-text} {
+    border-color: $c-error;
+  }
+  #{$inputs-check} {
+    & + label::before {
+      color: $c-error;
+    }
+  }
+}
+
+.date input, .location input {
+  padding: .4em 2.2em .4em .6em;
+}
+
+.date, .value, .location {
+  display: block;
+  position: relative;
+}
+
+.location {
+  &::after {
+    @include fa-icon();
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 50;
+    color: black;
+    //width: 1em;
+    line-height: 1.4em;
+    height: 100%;
+    padding: .4em .6em;
+    width: 2.2em;
+    color: $c-disabled;
+  }
+  &.is-found::after {
+    content: $fa-var-check;
+  }
+  &.is-searching::after {
+    content: $fa-var-spinner;
+  }
+  &.not-found::after {
+    content: $fa-var-times;
+  }
+}
+
+.date::after {
+  @include fa-icon();
+  content: $fa-var-calendar;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 50;
+  color: black;
+  //width: 1em;
+  line-height: 1.4em;
+  height: 100%;
+  padding: .4em .6em;
+  width: 2.2em;
+  color: $c-disabled;
+}
+
+.value::after {
+  @include fa-icon();
+  content: $fa-var-check;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 50;
+  color: black;
+  //width: 1em;
+  line-height: 1.4em;
+  height: 100%;
+  padding: .4em .6em;
+  width: 2.2em;
+  color: $c-green;
+}

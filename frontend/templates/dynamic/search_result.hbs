@@ -1,0 +1,41 @@
+<section class="result--{{ tripType result.type }}">
+  <header>
+    <i class="fa fa-{{ tripTypeIcon result.type }}"></i>
+    <dl>
+      <dt>Cost</dt>
+      <dd>{{ currency result.price result.currency }}</dd>
+    </dl>
+    <dl>
+      <dt>Time</dt>
+      <dd>11h + night stop</dd>
+    </dl>
+  </header>
+  <ol class="journey">
+    {{#each result.outbound.segments}}
+      <li class="journey-step {{ transportIcon this.type }}">
+        <h4 class="journey-step-title">{{ transportType this.type }} to <span class="place">{{ this.end.description }}</span></h4>
+        <div class="journey-step-info">
+          {{ time this.departureTime }} - {{ time this.arrivalTime }}
+        </div>
+      </li>
+    {{/each}}
+    <li class="journey-step appointment">
+      <h4 class="journey-step-title">Appointment with {{ result.outbound.destination.description }}</h4>
+      <div class="journey-step-info">
+        {{ time result.outbound.arrivalTime }} - {{ time result.outbound.departureTime }}
+      </div>
+    </li>
+    {{#each result.inbound.segments}}
+      <li class="journey-step {{ transportIcon this.type }}">
+        <h4 class="journey-step-title">{{ transportType this.type }} to <span class="place">{{ this.end.description }}</span></h4>
+        <div class="journey-step-info">
+          {{ time this.departureTime }} - {{ time this.arrivalTime }}
+        </div>
+      </li>
+    {{/each}}
+  </ol>
+  <aside>
+    <a href="#" class="button">Book now</a>
+    <a href="trip.html" class="button--secondary">Details</a>
+  </aside>
+</section>

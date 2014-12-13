@@ -1,0 +1,24 @@
+<section id="settings" class="container">
+
+<h1 class="page-title">{{ T.settings.title }}</h1>
+
+<section class="tabs" tabs>
+  <ol class="tabs-list">
+    <li class="is-active" tabs-activate="profile">{{ T.settings.profile.title }}</li>
+    <li tabs-activate="preferences">{{ T.settings.preferences.title }}</li>
+    <li tabs-activate="privacy">{{ T.settings.privacy.title }}</li>
+  </ol>
+  <ol class="tabs-content">
+    <li class="is-active" tabs-tab="profile">
+      <section class="settings-table hook-section-profile"></section>
+    </li>
+    <li tabs-tab="preferences">
+      <section class="settings-table hook-section-preferences"></section>
+    </li>
+    <li tabs-tab="privacy">
+      <section class="settings-table hook-section-privacy"></section>
+    </li>
+  </ol>
+</section>
+
+</section>

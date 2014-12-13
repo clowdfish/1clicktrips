@@ -1,0 +1,45 @@
+body {
+  font-family: $ff-body;
+  color: $c-text;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: $ff-headline;
+}
+
+h1 {
+  font-size: $fs-largest;
+  line-height: 1em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: $fs-larger;
+  font-weight: 700;
+}
+
+h4 {
+
+}
+
+p {
+  font-size: $fs-normal;
+  line-height: 1.6em;
+}
+
+
+
+.annotation {
+  margin-top: 2em;
+  padding-top: 2em;
+  border-top: 1px $c-disabled solid;
+
+  font-size: $fs-small;
+  line-height: 1.4em;
+  //font-weight: 600;
+
+}
+
+a, a:hover {
+    color: $c-primary;
+  }

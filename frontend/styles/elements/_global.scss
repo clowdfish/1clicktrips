@@ -1,0 +1,10 @@
+.page-title {
+  @include span(12 of 12);
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+.page-subtitle {
+  @include span(12 of 12);
+  margin-bottom: 0.5em;
+}

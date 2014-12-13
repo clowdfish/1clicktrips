@@ -1,0 +1,118 @@
+$icon-size: 1em;
+$padding: 1em;
+
+%icon {
+  @include fa-icon();
+  display: block;
+  position: absolute;
+  left: 0;
+  top: $padding/2;
+  margin-left: 1rem;
+  height: 1em;
+  width: 1em;
+  font-size: 1.5em;
+  color: $c-disabled;
+}
+
+%journey {
+
+  .journey-step {
+    padding: $padding/2 $padding;
+    padding-left: $padding + 2em;
+    position: relative;
+    &.flight::before {
+      @extend %icon;
+      content: $fa-var-plane;
+    }
+    &.taxi::before {
+      @extend %icon;
+      content: $fa-var-taxi;
+    }
+    &.train::before {
+      @extend %icon;
+      content: $fa-var-bus;
+    }
+    &.car::before {
+      @extend %icon;
+      content: $fa-var-car;
+    }
+    &.hotel::before {
+      @extend %icon;
+      content: $fa-var-moon-o;
+      top: auto;
+    }
+    &.appointment {
+      background: #eee;
+    }
+  }
+  .journey-step-title {
+    font-weight: 400;
+  }
+  .journey-step-info {
+    font-size: $fs-small;
+    font-style: italic;
+  }
+  .place {
+    font-weight: 600;
+  }
+}
+
+ol.journey {
+  @extend %journey;
+
+  list-style: none;
+}
+
+
+
+%result {
+  box-shadow: 0 0 5px rgba(black, 0.2);
+  margin-top: 4em;
+  header {
+    position: relative;
+    background: $c-primary;
+    color: $c-text--inverted;
+    padding: $padding;
+    i {
+      box-shadow: 0 0 5px rgba(black, 0.2);
+      color: $c-text;
+      font-size: $fs-largest * 2;
+      width: $icon-size;
+      height: $icon-size;
+      text-align: center;
+      background: white;
+      position: absolute;
+      display: block;
+      top: - $icon-size;
+      left: 50%;
+      margin-top: 10px;
+      margin-left: -($icon-size / 2);
+      border-radius: ($icon-size / 2);
+      //border: 1em white solid;
+    }
+  }
+  dl {
+    @extend %clearfix;
+  }
+  dt {
+    font-weight: 600;
+    float: left;
+    width: 4em;
+  }
+  dd {
+    float: left;
+  }
+  aside {
+    padding: $padding;
+    margin-top: $padding;
+    border-top: 1px #eee solid;
+  }
+}
+
+.result--budget, .result--time, .result--comfort {
+  @extend %result;
+  @include span(4 of 12);
+  //border: 1px red solid;
+}
+
+

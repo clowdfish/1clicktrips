@@ -1,0 +1,70 @@
+.ttg-settings {
+  margin-bottom: 2em;
+  @extend %clearfix;
+
+  [js-collapsible-trigger]::after {
+    @include fa-icon();
+    content: $fa-var-chevron-down;
+  }
+  &.is-collapsed [js-collapsible-trigger]::after {
+    content: $fa-var-chevron-up;
+  }
+}
+
+.settings-table {
+  //@include span(12 of 12);
+  @include with-layout(6 fluid, true) {
+    // Temporary 8-column static grid...
+    fieldset {
+      @include container();
+      margin-bottom: 0.5em;
+    }
+    fieldset > label {
+      @include span(2 of 6);
+      @extend %label;
+      padding: 0.4em 0;
+      line-height: 1.4em;
+    }
+    .value {
+      @include span(4 of 6 last);
+      padding: 0.4em 0;
+      label {
+        width: 100%;
+        float: none;
+      }
+    }
+
+    [data-edit-key] {
+      //display: block;
+      //width: 50%;
+/*
+      &:hover {
+        background: $c-primary--light;
+        cursor: pointer;
+      }*/
+    }
+  }
+}
+/*
+
+          td.ttg-settings-table-value:hover::after {
+            content: "edit";
+            margin-left: 3px;
+            padding-left: 20px;
+            color: $c-primary;
+            background: url("../images/icon_edit.png") no-repeat left;
+          }
+
+          input.ttg-settings-edit {
+            border: none;
+            background-color: transparent;
+          }
+
+          input.ttg-settings-edit:focus {
+            outline-width: 0;
+            border:0;
+            margin:0;
+            padding:0 !important;
+          }
+        }
+      }*/

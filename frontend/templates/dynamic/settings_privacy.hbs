@@ -1,0 +1,11 @@
+<form id="settings-privacy">
+  <fieldset>
+    <label>{{ T.settings.privacy.newsletter }}</label>
+    <div class="value">
+      <input type="hidden" name="newsletter" value="0">
+      <input type="checkbox" name="newsletter" value="1" id="cb-newsletter" {{#equal attributes.newsletter 1}}checked{{/equal}}>
+      <label for="cb-newsletter">{{ T.settings.privacy.newsletterreceive }}</label>
+    </div>
+  </fieldset>
+  <input type="submit" class="button" value="{{ T.settings.privacy.save }}" />
+</form>

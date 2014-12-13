@@ -1,0 +1,23 @@
+<form id="settings-profile">
+{{#each attributes}}
+  <fieldset>
+  {{#equal @key "twitter"}}
+    <label for="">{{ ../../T.settings.profile.twitter.twitter }}</label>
+    <input type="hidden" name="{{ @key }}" value="{{ this }}">
+    {{#equal this ""}}
+      <a href="./connect/twitter">{{{ ../../../T.settings.profile.twitter.connect }}}</a>
+    {{else}}
+      <a href="//twitter.com/{{ this }}" target="_blank">{{ this }}</a> (<span id="unlink-twitter" class="ttg-link">{{ ../../../T.settings.profile.twitter.unlink }}</span>)
+    {{/equal}}
+  {{else}}
+    <label for="">{{ key ../../T.settings.profile @key }}</label>
+    <span class="value">
+      <input type="text" value="{{ this }}" name="{{ @key }}" data-edit-key="{{ @key }}" />
+      <span class="indicator"></span>
+    </span>
+  {{/equal}}
+
+  </fieldset>
+{{/each}}
+<input type="submit" class="button" value="{{ T.settings.profile.save }}" />
+</form>

@@ -1,0 +1,62 @@
+%button {
+  /* Reset */
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  /* Layout */
+  display: inline-block;
+  padding: .6em 1em;
+  /* Looks */
+  background: linear-gradient(lighten($c-primary, 5%), darken($c-primary, 5%));
+  color: $c-text--inverted;
+  text-decoration: none;
+  border-radius: 3px;
+  font-weight: 600;
+
+  &.is-disabled {
+    opacity: 0.4;
+  }
+
+  &:hover {
+    color: $c-text--inverted;
+    background: darken($c-primary, 2%);
+  }
+}
+
+%button-old {
+  padding: .6em 1em;
+  min-width: 140px;
+
+  display: inline-block;
+  border: 2px solid $c-primary;
+  background-color: $c-background;
+  font-family: $ff-body;
+  font-size: $fs-large;
+  font-weight: 600;
+  color: $c-primary;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $c-primary;
+    color: #fff;
+  }
+}
+
+.button, /*input[type="button"], input[type="submit"], button*/ {
+  @extend %button;
+  font-size: $fs-normal;
+}
+
+.button--primary {
+  @extend %button;
+  //font-size: $fs-normal;
+}
+
+.button--secondary {
+  @extend %button;
+  background: linear-gradient(lighten(#444, 5%), darken(#444, 5%));
+  font-size: $fs-normal;
+  &:hover {
+    background-color: #444;
+  }
+}

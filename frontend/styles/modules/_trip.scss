@@ -1,0 +1,79 @@
+%trip {
+  .trip-header {
+    background: $c-primary;
+    color: $c-text--inverted;
+    padding: 1em 0;
+    position: relative;
+  }
+  .trip-journeybox {
+    @include span(5 of 12);
+    margin-top: 2em;
+    background: white;
+    box-shadow: 0 0 5px rgba(black, 0.2);
+  }
+  .trip-overview {
+    @include span(4 of 12);
+  }
+  .trip-type {
+    @include span(4 of 12 last);
+  }
+  .trip-navigation {
+    .trip-prev {
+      position: absolute;
+      left: 1em;
+      top: 50%;
+      margin-top: -0.5em;
+      color: rgba(white, 0.4);
+      font-size: $fs-largest;
+    }
+    .trip-next {
+      position: absolute;
+      right: 1em;
+      top: 50%;
+      margin-top: -0.5em;
+      color: rgba(white, 0.4);
+      font-size: $fs-largest;
+    }
+  }
+  /*dl {
+    @extend %clearfix;
+  }*/
+  dt {
+    font-weight: 600;
+
+  }
+  dd {
+    font-weight: 600;
+    font-size: $fs-large;
+
+  }
+  .journey {
+    //padding: 1em;
+  }
+}
+
+.trip {
+  @extend %trip;
+}
+
+.map-map {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-container {
+  width: 100%;
+  height: 1000px;
+  position: relative;
+}
+
+.map-overlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}

@@ -1,0 +1,28 @@
+<section class="modal" modal="signin">
+    <a href="#" class="modal-close" modal-close><i class="fa fa-close"></i></a>
+
+    <form class="form modal-content" id="signinForm">
+        <h1 class="modal-title">{{ T.login.header }}</h1>
+        <fieldset>
+            <input type="text" name="email" class="ttg-input" placeholder="{{ T.login.form.username }}" v-rules="required|email" />
+            <span class="input-alert" id="username-alert">{{ T.login.form.usernamealert }}</span>
+        </fieldset>
+        <fieldset>
+            <input type="password" name="password" class="ttg-input" placeholder="{{ T.login.form.password }}" v-rules="required" />
+            <span class="input-alert" id="password-alert">{{ T.login.form.passwordalert }}</span>
+        </fieldset>
+        <fieldset>
+            <input type="checkbox" name="agreement" id="ttg-checkbox-signin">
+            <label for="ttg-checkbox-signin">{{ T.login.form.check }}</label>
+        </fieldset>
+
+        <div class="form-actions">
+            <input type="submit" class="button" value="{{ T.login.form.submit }}" />
+            <a id="forgot-password">{{ T.login.form.submitforgot }}</a>
+        </div>
+
+    </form>
+    <div class="annotation">{{{ T.login.action.signup }}}</div>
+
+
+</section>

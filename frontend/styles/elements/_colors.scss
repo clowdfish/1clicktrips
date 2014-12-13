@@ -1,0 +1,23 @@
+// Original theme
+$c-blue1: #00869e;
+$c-blue2: rgba(0, 134, 158, 0.20);
+$c-black: #000;
+
+// Tim's theme
+$c-green: #42b983;
+$c-blue: #4279b9;
+$c-red: red;
+$c-text: #2c3e50;
+$c-text--inverted: #ffffff;
+
+// Theme applied
+$c-primary: $c-blue;
+$c-primary: $c-blue;
+$c-primary--light: lighten($c-blue, 30%);
+$c-background: #ffffff;
+$c-disabled: #aaa;
+$c-error: $c-red;
+
+
+
+$c-label: #555;

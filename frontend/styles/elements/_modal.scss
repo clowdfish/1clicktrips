@@ -1,0 +1,61 @@
+$modal-width: 25em;
+
+%modal {
+  position: fixed;
+  z-index: 1001;
+  width: $modal-width;
+
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50%;
+  margin-left: -($modal-width / 2);
+
+  display: none;
+
+  .modal-close {
+    color: $c-text;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+  }
+  .modal-title {
+    @include span(12 of 12);
+    margin-bottom: 0.5em;
+  }
+
+  .modal-subtitle {
+    @include span(12 of 12);
+    margin-bottom: 1em;
+  }
+
+}
+
+.modal {
+  @extend %modal;
+
+  background: white;
+  padding: 2em;
+  @include with-layout(6 fluid, true) {
+    .modal-content {
+      @include container;
+    }
+    input, .modal-title, .modal-subtitle, label {
+      @include span(6 of 6);
+    }
+    fieldset {
+      clear: both;
+    }
+  }
+}
+
+#dim {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+
+  display: none;
+}
