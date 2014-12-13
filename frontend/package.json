@@ -20,7 +20,7 @@
     "gulp-sass": "^0.7.3",
     "gulp-strip-debug": "^1.0.0",
     "gulp-uglify": "^0.3.2",
-    "js-yaml": "^3.2.2",
+    "js-yaml": "^3.2.2"
   },
   "devDependencies": {
     "del": "^0.1.3",

@@ -22,6 +22,12 @@
     },
     "googlemaps/google.maps.d.ts": {
       "commit": "39531c32fe899cada2cc7e615610644fb6508416"
+    },
+    "handlebars/handlebars.d.ts": {
+      "commit": "017cb72c292ba24e70afad99c12bc04778b7261c"
+    },
+    "moment/moment.d.ts": {
+      "commit": "017cb72c292ba24e70afad99c12bc04778b7261c"
     }
   }
 }
