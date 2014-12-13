@@ -8,3 +8,8 @@
 # build files
 node_modules/
 
+# frontend stuff
+.sass-cache/
+bower_components/
+typings/
+build/
