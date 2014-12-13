@@ -2,6 +2,8 @@
 /// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../typings/underscore/underscore.d.ts" />
 /// <reference path="../../typings/backbone/backbone.d.ts" />
+/// <reference path="../../typings/moment/moment.d.ts" />
+/// <reference path="../../bower_components/v.js/V.d.ts" />
 /// <reference path="../../node_modules/ttg-api/search.api.d.ts" />
 
 module App {
@@ -58,11 +60,13 @@ module App {
     }
 
     // Return string in the form 2014-11-12T19:05:00
-    private getIsoTimeString(date: moment, time: moment): string {
-      return date
+    // TODO: change back to string/clarify format!
+    private getIsoTimeString(date: Moment, time: Moment): number {
+      return 0;
+      /*return date
         .hour(time.hour())
         .minute(time.minute())
-        .format('YYYY-MM-DDTHH:mm:ss');
+        .format('YYYY-MM-DDTHH:mm:ss');*/
     }
 
     geocode(event: JQueryInputEventObject): void {
@@ -107,9 +111,9 @@ module App {
 
       var startTime: string = $('#time-picker-start').val();
       console.log(startTime);
-      var startMoment: moment = moment(startTime, 'HH:mm');
+      var startMoment: Moment = moment(startTime, 'HH:mm');
       var endTime: string = $('#time-picker-end').val();
-      var endMoment: moment = moment(endTime, 'HH:mm');
+      var endMoment: Moment = moment(endTime, 'HH:mm');
 
       var searchData: TTG.IRawSearchData = {
         origin: {

@@ -10,7 +10,7 @@ module App {
       M.subscribe('settings:profile:update', _.bind(this.updateProfile, this));
       M.subscribe('settings:preferences:update', _.bind(this.updatePreferences, this));
       M.subscribe('settings:privacy:update', _.bind(this.updatePrivacy, this));
-      M.subscribe('settings:twitter:unlink', _.bind(this.unlinkTwitter));
+      M.subscribe('settings:twitter:unlink', _.bind(this.unlinkTwitter, this));
       M.subscribe('session:login', _.bind(this.fetchSettings, this));
       this.profile = new App.Profile();
       this.preferences = new App.Preferences();

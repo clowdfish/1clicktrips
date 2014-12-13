@@ -64,10 +64,10 @@ module App {
       Utils.doRedirect('index.html');
     }
 
-    private signin(signinData: Object): void {
+    private signin(signinData: ILogin): void {
       console.log(signinData);
       App.ajax.login(signinData)
-        .done(function (data: Object, textStatus: string, jqXHR): void {
+        .done(function (data: ISession, textStatus: string, jqXHR): void {
           M.publish('notify', 'Login was successful');
           M.publish('session:do:login', signinData.email, data.token, data.expires, signinData.remember);
         }).fail(function (): void {

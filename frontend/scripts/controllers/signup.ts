@@ -9,9 +9,9 @@ module App {
       M.subscribe('signup', _.bind(this.submit, this));
     }
 
-    private submit(signupData: Object): void {
+    private submit(signupData: ILogin): void {
       App.ajax.signup(signupData)
-        .done(function (data: Object, textStatus: string, jqXHR): void {
+        .done(function (data: ISession, textStatus: string, jqXHR): void {
           console.log(data);
           M.publish('notify', 'Signup was successful');
           M.publish('session:do:login', signupData.email, data.token, data.expires);

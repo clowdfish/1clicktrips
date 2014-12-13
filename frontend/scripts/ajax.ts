@@ -1,6 +1,12 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="../node_modules/ttg-api/search.api.d.ts" />
 
+interface ILogin {
+  email: string;
+  password: string;
+  remember?: boolean;
+}
+
 module App.ajax {
   'use strict';
 
@@ -27,11 +33,11 @@ module App.ajax {
     });
   }
 
-  export function login(data: Object): JQueryPromise<any> {
+  export function login(data: ILogin): JQueryPromise<any> {
     return query('/login', 'email=' + data.email + '&password=' + data.password);
   }
 
-  export function signup(data: Object): JQueryPromise<any> {
+  export function signup(data: ILogin): JQueryPromise<any> {
     return query('/signup', 'email=' + data.email + '&password=' + data.password);
   }
 

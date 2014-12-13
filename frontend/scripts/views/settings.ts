@@ -100,7 +100,7 @@ module App {
         return s.slice(8);
       }
       event.preventDefault();
-      var values: Object = {};
+      var values: {priority?: string} = {};
       $.each($(event.target).serializeArray(), function(i: number, field: IInputField): void {
         values[field.name] = field.value;
       });

@@ -6,8 +6,7 @@ var path  = require("path");
 var fs = require("fs");
 
 // include gulp plug-ins
-var jshint      = require('gulp-jshint'),
-    changed 	= require('gulp-changed'),
+var changed 	= require('gulp-changed'),
     imagemin 	= require('gulp-imagemin'),
     minifyHTML 	= require('gulp-minify-html'),
     concat 		= require('gulp-concat'),
@@ -63,43 +62,24 @@ gulp.task('imagemin', function() {
         .pipe(gulp.dest(imgDst));
 });
 
-// minify new or changed HTML pages
-gulp.task('htmlpage', function() {
-    var htmlSrc = './src/*.html',
-        htmlDst = './dist';
-
-    gulp.src(htmlSrc)
-        .pipe(changed(htmlDst))
-        .pipe(minifyHTML())
-        .pipe(gulp.dest(htmlDst));
-});
-
-// run tests once and exit
-gulp.task('test', function (done) {
-    karma.start({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: true
-    }, done);
-});
-
 var production = false;
 
 gulp.task('translate', function() {
-  var translations = ['pl', 'en'];
+  var translations = ['de', 'en'];
 
   translations.forEach(function(translation){
     gulp.src('app/views/**/*.html')
+      .pipe(plumber(plumberErrorHandler))
       .pipe(translate('./locales/'+ translation +'.yml'))
       .pipe(gulp.dest('dist/views/' + translation));
   });
 });
 
-gulp.task('tim-styles', function() {
+gulp.task('styles', function() {
     gulp.src(['bower_components/font-awesome/fonts/*']).pipe(gulp.dest("build/fonts"));
     gulp.src(['bower_components/messenger/build/css/messenger-theme-flat.css']).pipe(gulp.dest("build/styles"));
     gulp.src(['bower_components/jt.timepicker/jquery.timepicker.css']).pipe(gulp.dest("build/styles"));
     gulp.src(['bower_components/pikaday/css/pikaday.css']).pipe(gulp.dest("build/styles"));
-    //gulp.src(['bower_components/jquery.ui/themes/base/all.css']).pipe(gulp.dest("build/styles"));
     return gulp.src(['styles/*.scss'])
         .pipe(plumber(plumberErrorHandler))
         .pipe(sass({ style: 'expanded' }))
@@ -121,11 +101,14 @@ gulp.task('webserver', function() {
   gulp.src('build/')
     .pipe(webserver({
       livereload: true,
-      open: 'en/'
+      open: 'en/',
+      proxies: [
+        { source: '/api', target: 'localhost:8080'}
+      ]
     }));
 });
 
-gulp.task('tim-scripts', ['i18n', 'templates'], function() {
+gulp.task('scripts', ['i18n', 'templates'], function() {
   gulp.src(
     [
       'bower_components/handlebars/handlebars.runtime.js',
@@ -138,6 +121,7 @@ gulp.task('tim-scripts', ['i18n', 'templates'], function() {
       'bower_components/mediator-js/lib/mediator.js',
       'bower_components/moment/moment.js',
       'bower_components/pikaday/pikaday.js',
+      'bower_components/v.js/V.js',
       'scripts/V.ts',
       'scripts/locales.js',
       'scripts/templates.js',
@@ -149,7 +133,8 @@ gulp.task('tim-scripts', ['i18n', 'templates'], function() {
       'scripts/app.ts',
       'scripts/main.ts'
     ]
-  ).pipe(
+  ).pipe(plumber(plumberErrorHandler))
+  .pipe(
     gulpif(
       /[.]ts$/,
       ts({
@@ -167,14 +152,15 @@ gulp.task('tim-scripts', ['i18n', 'templates'], function() {
 
 gulp.task('templates', function() {
   gulp.src('templates/dynamic/*.hbs')
-      .pipe(handlebars())
-      .pipe(wrap('Handlebars.template(<%= contents %>)'))
-      .pipe(declare({
-        namespace: 'Tmpl',
-        noRedeclare: true, // Avoid duplicate declarations
-      }))
-      .pipe(concat('templates.js'))
-      .pipe(gulp.dest('scripts/'));
+    .pipe(plumber(plumberErrorHandler))
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Tmpl',
+      noRedeclare: true, // Avoid duplicate declarations
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('scripts/'));
 });
 
 gulp.task('preprocess', function() {
@@ -195,53 +181,31 @@ gulp.task('preprocess', function() {
       }
     }
     gulp.src('templates/*.html')
+    .pipe(plumber(plumberErrorHandler))
     .pipe(compile(templateData, options))
     .pipe(gulp.dest(path.join('build/', locale)));
   });
-
-});
-
-gulp.task('mock', function() {
-  gulp.src('mock/*')
-      .pipe(
-        gulpif(!production,gulp.dest('build/mock'))
-      );
 });
 
 gulp.task('i18n', function() {
-    gulp.src('i18n/*.yaml')
-        .pipe(yaml().on( "error", console.error ))
-        .pipe(declare({
-          namespace: 'Locales',
-          noRedeclare: true,
-          root: 'window'
-        }))
-        .pipe(concat('locales.js'))
-        .pipe(gulp.dest('scripts/'));
+  gulp.src('i18n/*.yaml')
+    .pipe(plumber(plumberErrorHandler))
+    .pipe(yaml().on( "error", console.error ))
+    .pipe(declare({
+      namespace: 'Locales',
+      noRedeclare: true,
+      root: 'window'
+    }))
+    .pipe(concat('locales.js'))
+    .pipe(gulp.dest('scripts/'));
 });
 
 // DEVELOPMENT
 
-gulp.task('preview', ['tim-styles', 'mock', 'tim-scripts', 'images', 'preprocess', 'webserver'], function() {
-  gulp.watch('styles/**/*.scss', ['tim-styles']);
-  gulp.watch('templates/**/*.hbs', ['tim-scripts']);
-  gulp.watch('scripts/**/*.ts', ['tim-scripts']);
-  gulp.watch('mock/**/*.json', ['mock']);
+gulp.task('preview', ['styles', 'scripts', 'images', 'preprocess', 'webserver'], function() {
+  gulp.watch('styles/**/*.scss', ['styles']);
+  gulp.watch(['templates/**/*.hbs', 'scripts/**/*.ts'], ['scripts']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess']);
 });
 
-gulp.task('build', ['tim-styles', 'mock', 'tim-scripts', 'images', 'preprocess'], function() {});
-
-// PRODUCTION
-
-gulp.task('setproduction', function() {
-  production = true;
-})
-
-gulp.task('preview:production', ['setproduction', 'preview'], function() {
-  //production = true;
-  //gulp.tasks.preview.fn();
-});
-
-gulp.task('build:production', ['setproduction', 'build'], function() {
-});
+gulp.task('build', ['styles', 'scripts', 'images', 'preprocess'], function() {});
