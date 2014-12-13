@@ -51,19 +51,6 @@ var plumberErrorHandler = {
 /* BUILD TASKS                                                                                      */
 /****************************************************************************************************/
 
-// minify new images
-gulp.task('imagemin', function() {
-    var imgSrc = './src/images/**/*',
-        imgDst = './dist/images';
-
-    gulp.src(imgSrc)
-        .pipe(changed(imgDst))
-        .pipe(imagemin())
-        .pipe(gulp.dest(imgDst));
-});
-
-var production = false;
-
 gulp.task('translate', function() {
   var translations = ['de', 'en'];
 
@@ -88,7 +75,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('images', function() {
-    var imgSrc = 'src/images/**/*',
+    var imgSrc = 'images/**/*',
         imgDst = 'build/images';
 
     gulp.src(imgSrc)
@@ -170,7 +157,7 @@ gulp.task('preprocess', function() {
     var templateData = {
       T: yml.safeLoad(fs.readFileSync('./i18n/' + locale + '.yaml', 'utf8'))[locale],
       locale: locale,
-      production: production
+      production: true
     },
     options = {
       batch : ['templates/modules', 'templates/partials'],
