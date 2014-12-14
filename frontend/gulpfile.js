@@ -90,7 +90,7 @@ gulp.task('webserver', function() {
       livereload: true,
       open: 'en/',
       proxies: [
-        { source: '/api', target: 'localhost:8080'}
+        { source: '/api', target: 'http://localhost:8080/'}
       ]
     }));
 });
