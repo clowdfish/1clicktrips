@@ -6,12 +6,14 @@ The business traveler platform offering end to end trip management.
 ## Project structure and content
 
 <ul>
-<li>app: server side code</li>
-<li>config: server side configuration files</li>
+<li><b>app</b>: server side code</li>
+<li><b>config</b>: server side configuration files</li>
 <li>deploy.sh: deployment script to setup server environment</li>
+<li><b>frontend</b>: client side code</li>
 <li>package.json: typical npm package file</li>
 <li>server.js: starting point of the application</li>
 <li>setup.sh: is executed on the server for preparing the Node application</li>
+<li><b>test</b>: test files for server</li>
 </ul>
 
 ## Server requirements
