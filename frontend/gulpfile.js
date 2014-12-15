@@ -189,7 +189,7 @@ gulp.task('i18n', function() {
 
 // DEVELOPMENT
 
-gulp.task('preview', ['styles', 'scripts', 'images', 'preprocess', 'webserver'], function() {
+gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
   gulp.watch(['templates/**/*.hbs', 'scripts/**/*.ts'], ['scripts']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess']);
