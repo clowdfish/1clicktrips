@@ -16,6 +16,26 @@ The business traveler platform offering end to end trip management.
 <li><b>test</b>: test files for server</li>
 </ul>
 
+## Installation
+### Backend
+Just install the npm modules to be ready to go:
+```
+$ npm install && bower install && tsd reinstall
+```
+
+### Frontend
+Go to the `/frontend` directory and install all npm and bower modules and the the Typescript definitions.
+```
+$ cd ./frontend
+$ npm install && bower install && tsd reinstall
+```
+To start the frontend development process, start gulp in `/frontend`.
+```
+$ gulp live
+```
+A watch process is started with a thin server layer delivering the frontend to the client. The process also includes a proxy that redirects all requests for `/api/` to localhost:8080 which is answered by the `server.js` file. On the production server a .htaccess file will be responsible for that part.
+
+
 ## Server requirements
 
 ### Directory structure
