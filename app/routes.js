@@ -157,6 +157,9 @@ module.exports = function (app, express, passport) {
 
     if(checkValidityOfRequest(req)) {
 
+      /*
+       // TODO include this to use the Search API
+
       var searchObject = null;
       var userLicence = null;
 
@@ -216,6 +219,9 @@ module.exports = function (app, express, passport) {
           console.error(error);
           res.status(500).json(error);
         });
+        */
+
+      res.status(200).json(createMockTripResult());
     }
     else {
       res.status(400).send('status.user.error.request.malformed');
@@ -514,4 +520,192 @@ function checkValidityOfRequest(req) {
     return false;
 
   return true;
+}
+
+function createMockTripResult() {
+
+  return [
+      {
+        "outbound": {
+          "origin": {
+            "description": "Home Address",
+            "location": {
+              "latitude": 48.709008,
+              "longitude": 9.457281
+            }
+          },
+          "destination": {
+            "description": "Customer in Hanover",
+            "location": {
+              "latitude": 52.419096,
+              "longitude": 9.82575
+            }
+          },
+          "departureTime": 1416802600,
+          "arrivalTime": 1416821400,
+          "distance": 413.8245964017389,
+          "duration": 313,
+          "segments": [
+            {
+              "start": {
+                "description": "Home Address",
+                "location": {
+                  "latitude": 48.709008,
+                  "longitude": 9.457281
+                }
+              },
+              "end": {
+                "description": "Customer in Hanover",
+                "location": {
+                  "latitude": 52.419096,
+                  "longitude": 9.82575
+                }
+              },
+              "departureTime": 1416802600,
+              "arrivalTime": 1416821400,
+              "duration": 313.3333333333333,
+              "type": 4,
+              "price": {
+                "amount": 177.94457645274773,
+                "currency": "EUR"
+              }
+            }
+          ]
+        },
+        "price": 355.88915290549545,
+        "currency": "EUR",
+        "type": 0,
+        "inbound": {
+          "origin": {
+            "latitude": 52.419096,
+            "longitude": 9.82575
+          },
+          "destination": {
+            "latitude": 48.709008,
+            "longitude": 9.457281
+          },
+          "departureTime": 1416835800,
+          "arrivalTime": 1416854600,
+          "distance": 413.8245964017389,
+          "duration": 313,
+          "segments": [
+            {
+              "start": {
+                "description": "Customer in Hanover",
+                "location": {
+                  "latitude": 52.419096,
+                  "longitude": 9.82575
+                }
+              },
+              "end": {
+                "description": "Home Address",
+                "location": {
+                  "latitude": 48.709008,
+                  "longitude": 9.457281
+                }
+              },
+              "departureTime": 1416835800,
+              "arrivalTime": 1416854600,
+              "duration": 313.3333333333333,
+              "type": 4,
+              "price": {
+                "amount": 177.94457645274773,
+                "currency": "EUR"
+              }
+            }
+          ]
+        }
+      },
+    {
+      "outbound": {
+        "origin": {
+          "description": "Home Address",
+          "location": {
+            "latitude": 48.709008,
+            "longitude": 9.457281
+          }
+        },
+        "destination": {
+          "description": "Customer in Hanover",
+          "location": {
+            "latitude": 52.419096,
+            "longitude": 9.82575
+          }
+        },
+        "departureTime": 1416802600,
+        "arrivalTime": 1416821400,
+        "distance": 413.8245964017389,
+        "duration": 313,
+        "segments": [
+          {
+            "start": {
+              "description": "Home Address",
+              "location": {
+                "latitude": 48.709008,
+                "longitude": 9.457281
+              }
+            },
+            "end": {
+              "description": "Customer in Hanover",
+              "location": {
+                "latitude": 52.419096,
+                "longitude": 9.82575
+              }
+            },
+            "departureTime": 1416802600,
+            "arrivalTime": 1416821400,
+            "duration": 313.3333333333333,
+            "type": 4,
+            "price": {
+              "amount": 177.94457645274773,
+              "currency": "EUR"
+            }
+          }
+        ]
+      },
+      "price": 355.88915290549545,
+      "currency": "EUR",
+      "type": 1,
+      "inbound": {
+        "origin": {
+          "latitude": 52.419096,
+          "longitude": 9.82575
+        },
+        "destination": {
+          "latitude": 48.709008,
+          "longitude": 9.457281
+        },
+        "departureTime": 1416835800,
+        "arrivalTime": 1416854600,
+        "distance": 413.8245964017389,
+        "duration": 313,
+        "segments": [
+          {
+            "start": {
+              "description": "Customer in Hanover",
+              "location": {
+                "latitude": 52.419096,
+                "longitude": 9.82575
+              }
+            },
+            "end": {
+              "description": "Home Address",
+              "location": {
+                "latitude": 48.709008,
+                "longitude": 9.457281
+              }
+            },
+            "departureTime": 1416835800,
+            "arrivalTime": 1416854600,
+            "duration": 313.3333333333333,
+            "type": 4,
+            "price": {
+              "amount": 177.94457645274773,
+              "currency": "EUR"
+            }
+          }
+        ]
+      }
+    }
+  ];
 }
