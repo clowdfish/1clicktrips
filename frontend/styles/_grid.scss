@@ -1,0 +1,44 @@
+/*
+
+Grid and Layout settings
+
+*/
+
+@import "../bower_components/susy/sass/susy";
+
+$width-container: 1080px;
+
+$susy: (
+  columns: 12,
+  gutters: 1/2,
+  container: $width-container,
+  gutter-position: split
+);
+
+.container {
+  @include container;
+}
+
+.clearfix {
+  @include clearfix;
+}
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+%layout {
+  @include span(12 of 12);
+
+  @include respond-above("medium") {
+
+  }
+
+  @include respond-above("large") {
+
+  }
+}

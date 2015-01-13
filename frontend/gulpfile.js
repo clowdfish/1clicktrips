@@ -111,7 +111,7 @@ gulp.task('scripts', ['i18n', 'templates'], function() {
       'bower_components/v.js/V.js',
       'scripts/V.ts',
       'scripts/locales.js',
-      'scripts/templates.js',
+      'scripts/build/templates.js',
       'scripts/ajax.ts',
       'scripts/utils.ts',
       'scripts/models/*.ts',
@@ -144,10 +144,10 @@ gulp.task('templates', function() {
     .pipe(wrap('Handlebars.template(<%= contents %>)'))
     .pipe(declare({
       namespace: 'Tmpl',
-      noRedeclare: true, // Avoid duplicate declarations
+      noRedeclare: true // Avoid duplicate declarations
     }))
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('scripts/'));
+    .pipe(gulp.dest('scripts/build/'));
 });
 
 gulp.task('preprocess', function() {
@@ -184,7 +184,7 @@ gulp.task('i18n', function() {
       root: 'window'
     }))
     .pipe(concat('locales.js'))
-    .pipe(gulp.dest('scripts/'));
+    .pipe(gulp.dest('scripts/build/'));
 });
 
 // DEVELOPMENT

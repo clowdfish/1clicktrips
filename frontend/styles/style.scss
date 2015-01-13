@@ -1,48 +1,13 @@
 $fa-font-path: "../fonts";
 
-@import "../bower_components/susy/sass/susy";
 @import "../bower_components/font-awesome/scss/font-awesome.scss";
 
-$width-container: 1080px;
-
-$susy: (
-  columns: 12,  // The number of columns in your grid
-  gutters: 1/2, // The size of a gutter in relation to a single column
-  container: $width-container,
-  gutter-position: split
-);
-
-
-@mixin clearfix() {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
-%clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
-%container {
-  @include container();
-}
-.container {
-  @extend %container;
-}
-.clearfix {
-  @extend %clearfix;
-}
-
+@import "breakpoints";
+@import "func";
 @import "reset";
+@import "grid";
 
 @import "elements/colors";
-@import "elements/type";
 @import "elements/typography";
 @import "elements/atoms";
 @import "elements/buttons";
@@ -52,31 +17,4 @@ $susy: (
 @import "elements/tabs";
 @import "elements/lists";
 
-@import "modules/header";
-@import "modules/footer";
-@import "modules/intro";
-@import "modules/box";
 @import "modules/settings";
-@import "modules/forms";
-@import "modules/copy";
-@import "modules/results";
-@import "modules/trip";
-
-.input-alert {
-  float: right;
-  margin: 3px 0 12px 0;
-  font-size: $fs-small;
-  font-weight: bold;
-  color: red;
-  font-style: italic;
-  display: none;
-}
-
-.section {
-  display: block;
-  margin-top: 35px;
-}
-
-[js-collapsible-trigger] {
-  cursor: pointer;
-}

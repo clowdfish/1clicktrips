@@ -17,8 +17,7 @@ module App {
           M.publish('session:do:login', signupData.email, data.token, data.expires);
         })
         .fail(function(): void {
-          M.publish('notify', 'Signup failed hard');
-          'status.user.error.signup.exists';
+          M.publish('notify', 'Signup failed hard'); //'status.user.error.signup.exists';
         });
     }
   }

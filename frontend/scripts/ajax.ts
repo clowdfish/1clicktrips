@@ -44,4 +44,4 @@ module App.ajax {
   export function search(data: TTG.IRawSearchData): JQueryPromise<any> {
     return ajax('/search', data);
   }
-};
+}

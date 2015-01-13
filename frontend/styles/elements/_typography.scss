@@ -1,3 +1,26 @@
+$ff-body: 'Source Sans Pro', sans-serif;
+$ff-headline: $ff-body;
+
+$fs-small: 0.85em;
+
+$fs-normal: 1em;
+
+$fs-large: 1.4em;
+$fs-larger: 1.8em;
+$fs-largest: 2em;
+
+html {
+  font-size: 18px;
+}
+
+body {
+  font-size: 100%;
+}
+
+strong {
+  font-weight: 600;
+}
+
 body {
   font-family: $ff-body;
   color: $c-text;
@@ -27,8 +50,6 @@ p {
   line-height: 1.6em;
 }
 
-
-
 .annotation {
   margin-top: 2em;
   padding-top: 2em;
@@ -36,8 +57,6 @@ p {
 
   font-size: $fs-small;
   line-height: 1.4em;
-  //font-weight: 600;
-
 }
 
 a, a:hover {

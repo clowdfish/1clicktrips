@@ -1,7 +1,7 @@
 {
-  "name": "ttg-server",
+  "name": "1clicktrips",
   "version": "0.0.1",
-  "description": "The backend for the business traveler platform offering end to end trip management.",
+  "description": "The API layer for the business traveler platform offering end to end trip management.",
   "main": "server.js",
   "dependencies": {
     "bcrypt": "latest",
@@ -37,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/clowdfish/ttg-server.git"
+    "url": "https://github.com/clowdfish/1clicktrips.git"
   },
   "keywords": [
     "express.js"
@@ -49,7 +49,7 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/clowdfish/ttg-server/issues"
+    "url": "https://github.com/clowdfish/1clicktrips/issues"
   },
-  "homepage": "https://github.com/clowdfish/ttg-server"
+  "homepage": "https://github.com/clowdfish/1clicktrips"
 }

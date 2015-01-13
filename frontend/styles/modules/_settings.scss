@@ -35,36 +35,7 @@
     }
 
     [data-edit-key] {
-      //display: block;
-      //width: 50%;
-/*
-      &:hover {
-        background: $c-primary--light;
-        cursor: pointer;
-      }*/
+
     }
   }
 }
-/*
-
-          td.ttg-settings-table-value:hover::after {
-            content: "edit";
-            margin-left: 3px;
-            padding-left: 20px;
-            color: $c-primary;
-            background: url("../images/icon_edit.png") no-repeat left;
-          }
-
-          input.ttg-settings-edit {
-            border: none;
-            background-color: transparent;
-          }
-
-          input.ttg-settings-edit:focus {
-            outline-width: 0;
-            border:0;
-            margin:0;
-            padding:0 !important;
-          }
-        }
-      }*/

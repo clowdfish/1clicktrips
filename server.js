@@ -38,31 +38,17 @@ function setupAuthentication() {
 }
 
 /**
- * Load routes file and user as routes for Express
- */
-function createRoutes() {
-    // static files are served out of the www directory
-		var baseDirectory = "/var/www/";
-
-    app.use('/', express.static(baseDirectory));
-    app.use('/i18n', express.static(baseDirectory + '/i18n'));
-    app.use('/images', express.static(baseDirectory + '/images'));
-    app.use('/scripts', express.static(baseDirectory + '/scripts'));
-    app.use('/styles', express.static(baseDirectory + '/styles'));
-
-    require('./app/routes.js')(app, express, passport); // load routes with fully configured express and passport
-}
-
-/**
  * Start Express
  */
 function start () {
-    setupServer();
-    setupAuthentication();
-    createRoutes();
+  setupServer();
+  setupAuthentication();
+    
+	// load routes with fully configured express and passport
+	require('./app/routes.js')(app, express, passport); 
 
-    app.listen(port);
-    console.log('\tServer started on port ' + port + '.');
+  app.listen(port);
+  console.log('\tServer started on port ' + port + '.');
 }
 
 // start the server ============================================================

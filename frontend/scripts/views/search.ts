@@ -25,9 +25,10 @@ module App {
         'blur #search-origin': this.geocode,
         'blur [id^=search-destination]': this.geocode
       };
+
       M.subscribe('search:geocode:success', _.bind(this.geocodeSuccess, this));
       M.subscribe('search:geocode:fail', _.bind(this.geocodeFail, this));
-      console.log($('#date-picker').get(0));
+
       this.timepicker = new Pikaday({
         field: $('#date-picker').get(0),
         format: 'D MMM YYYY',
@@ -40,6 +41,7 @@ module App {
         'scrollDefault': 'now',
         timeFormat: 'H:i'
       });
+
       var timeStartElement: JQuery = $('#time-picker-start');
       timeStartElement.timepicker({
         'scrollDefault': 'now',
@@ -55,18 +57,12 @@ module App {
       });
     }
 
-    addAppointment(): void {
-      M.publish('notify', T.toasts.notimplemented);
-    }
-
     // Return string in the form 2014-11-12T19:05:00
-    // TODO: change back to string/clarify format!
-    private getIsoTimeString(date: Moment, time: Moment): number {
-      return 0;
-      /*return date
+    private getIsoTimeString(date: Moment, time: Moment): string {
+      return date
         .hour(time.hour())
         .minute(time.minute())
-        .format('YYYY-MM-DDTHH:mm:ss');*/
+        .format('YYYY-MM-DDTHH:mm:ss');
     }
 
     geocode(event: JQueryInputEventObject): void {
@@ -105,12 +101,10 @@ module App {
     }
 
     startSearch(event): void {
-      var values: Object = {};
       event.preventDefault();
-      console.log($('#search-origin').data('location'));
 
+      /*
       var startTime: string = $('#time-picker-start').val();
-      console.log(startTime);
       var startMoment: Moment = moment(startTime, 'HH:mm');
       var endTime: string = $('#time-picker-end').val();
       var endMoment: Moment = moment(endTime, 'HH:mm');
@@ -141,6 +135,7 @@ module App {
       if (this.$el.validate({})) {
         M.publish('search:search', searchData);
       }
+      */
     }
   }
 }

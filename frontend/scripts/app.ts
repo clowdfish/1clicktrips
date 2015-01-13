@@ -10,7 +10,10 @@ module App {
   export var production: boolean = false;
 
   declare class SearchController {}
+
   export function initialize(): void {
+
+    /*
     Handlebars.registerHelper('key', function(arr: Array<string>, key: string): hbs.SafeString {
       return new Handlebars.SafeString(arr[key]);
     });
@@ -20,6 +23,8 @@ module App {
     Handlebars.registerHelper('date', function(value: number): hbs.SafeString {
       return new Handlebars.SafeString(moment.unix(value).format('L'));
     });
+    */
+
     Handlebars.registerHelper('transportType', function(value: TTG.TravelOption): string {
       switch (value) {
         case TTG.TravelOption.Walk:
@@ -105,8 +110,9 @@ module App {
       switch ( jqxhr.status ) {
         case 401:
           // check if the user is still logged in
-          if(jqxhr.responseText === 'status.user.error.token.expired' && true/*Utils.isUserLoggedIn()*/)
-              // Utils.logoutUser();
+          if(jqxhr.responseText === 'status.user.error.token.expired' && true/*Utils.isUserLoggedIn()*/) {
+            // Utils.logoutUser();
+          }
           // redirect the to the login page.
           // Utils.doRedirect('/#/signin');
           break;

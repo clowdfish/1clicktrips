@@ -1,5 +1,5 @@
-trip-to-go
-==========
+1ClickTrips
+===========
 
 The business traveler platform offering end to end trip management.
 
