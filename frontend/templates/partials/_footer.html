@@ -1,13 +1,15 @@
+{{> modules/mod_footer }}
+
 <section id="dim"></section>
-{{> modules/mod_signup }}
-{{> modules/mod_signin }}
+    {{> modules/mod_signup }}
+    {{> modules/mod_signin }}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY"></script>
 <script src="../scripts/script.js"></script>
 <script>
 
-var locale = '{{ locale }}';
-var T = Locales[locale][locale];
-App.production = {{ production }};
+    var locale = '{{ locale }}';
+    var T = Locales[locale][locale];
+    App.production = {{ production }};
 
 </script>
 </body>
