@@ -60,5 +60,12 @@ p {
 }
 
 a, a:hover {
-    color: $c-primary;
-  }
+  //color: $c-primary;
+  //text-decoration: none;
+}
+
+
+// font classes
+.bold {
+  font-weight: 800;
+}

@@ -1,0 +1,50 @@
+
+%newsletter {
+  @include container;
+
+  /*******************************************************/
+  /* Dashboard Container                                 */
+  /*******************************************************/
+  .newsletter-container {
+    @include span(22 of 24);
+    @include push(1 of 24);
+
+    padding: 2em 0;
+    background: linear-gradient(#f5f0dd, #fff);
+
+    h2 {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  @include respond-above("medium") {
+    .newsletter-container {
+
+    }
+
+    .newsletter-slogan {
+      @include span(6 of 24);
+    }
+
+    .newsletter-form {
+      @include span(12 of 24);
+      display: inline-block;
+    }
+
+    .newsletter-socials {
+      @include span(5 of 24);
+      @include push(1 of 24);
+
+      text-align: right;
+    }
+  }
+
+  @include respond-above("large") {
+
+  }
+}
+
+.newsletter {
+  @extend %newsletter;
+}

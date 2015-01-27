@@ -4,12 +4,15 @@
 $width-container: 1080px;
 
 $susy: (
-  columns: 12,
+  columns: 24,
   gutters: 1/2,
   container: $width-container,
   gutter-position: split
 );
 
+.container {
+  @include container;
+}
 
 .clearfix {
   @include clearfix;
@@ -24,11 +27,11 @@ $susy: (
 }
 
 %layout {
-  @include span(12 of 12);
+  @include span(24 of 24);
 
   @include respond-above("medium") {
-    @include span(10 of 12);
-    @include push(1 of 12);
+    @include span(20 of 24);
+    @include push(2 of 24);
     
   }
 

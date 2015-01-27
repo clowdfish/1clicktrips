@@ -1,17 +1,27 @@
 %footer {
   @include container;
-  margin-top: 2em;
-  margin-bottom: 1em;
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
 
-  img {
-    width: 3em;
+
+  .footer-container {
+    @include span(24 of 24);
+
+    text-align: center;
+    font-size: $fs-small;
+    color: rgba(83, 71, 65, 0.55);
   }
 
-  .reference {
-    @include span(10 of 12);
-    @include push(1 of 12);
 
-    text-align: right;
+  .footer-copyright {
+    display: inline-block;
+    border-right: 1px solid rgba(83, 71, 65, 0.55);
+    padding-right: 2em;
+    margin-right: 2em;
+  }
+
+  .footer-links{
+
   }
 
   @include respond-above("medium") {

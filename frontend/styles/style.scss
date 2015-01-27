@@ -17,7 +17,10 @@ $fa-font-path: "../fonts";
 @import "elements/tabs";
 @import "elements/lists";
 
+@import "modules/basic";
 @import "modules/footer";
 @import "modules/header";
-@import "modules/home";
+@import "modules/newsletter";
+@import "modules/dashboard";
+@import "modules/search";
 @import "modules/settings";

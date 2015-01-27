@@ -1,79 +1,43 @@
-$header-height: 5em;
+$header-height: 4em;
 $header-padding: 1em;
 
 %header {
   @include clearfix;
-  padding: $header-padding - 0.3em 0;
+  height: $header-height;
+  background: linear-gradient(#252330, #423e4c);
+  padding: $header-padding 0;
+
+  color: $c-text-dark-bg;
+
+  .header-logo {
+    float: left;
+    font-size: $fs-larger;
+
+    span {
+      color: #fff;
+    }
+  }
 
   .header-navigation {
-
-    .navigation-menu-toggle {
-      float: left;
-      padding: 1.4em;
-
-      &:hover {
-        //border-width: 0;
-      }
-
-      i {
-        margin-right: 0.2em;
-      }
-    }
-  }
-
-  .header-navigation-hide {
-    display: none;
-  }
-
-  .header-info {
     float: right;
-    margin-right: 1em;
 
-    a:hover {
-      border-bottom: none;
-    }
-
-    .header-logo {
-      width: $header-height - $header-padding -1em;
-      height: $header-height - $header-padding - 1em;
-    }
-
-    h1 {
-      display: none;
+    a, a:hover {
+      display: inline-block;
+      margin-right: 1em;
+      color: #fff;
+      text-decoration: none;
     }
   }
 
-  .header-profile {
-    display: none;
-  }
 
   @include respond-above("medium") {
 
+    .header-logo {
+
+    }
+
     .header-navigation {
-      display: none;
-    }
 
-    .header-info {
-      @include span(10 of 12);
-
-      .header-logo {
-        width: $header-height - $header-padding;
-        height: $header-height - $header-padding;
-        vertical-align: middle;
-      }
-
-      h1 {
-        display: inline-block;
-        margin-left: 1em;
-      }
-    }
-
-    .header-profile {
-      @include span(2 of 12);
-
-      display: inline-block;
-      padding: 1em 0;
-      float: right;
     }
   }
 
