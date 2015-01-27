@@ -1,9 +1,9 @@
 {
-  "name": "trip-to-go",
-  "version": "0.0.0",
-  "homepage": "https://github.com/clowdfish/trip-to-go",
+  "name": "1ClickTrips",
+  "version": "0.0.1",
+  "homepage": "https://github.com/clowdfish/1clicktrips",
   "authors": [
-    "Tim von Oldenburg <tim@tvooo.de>"
+    "Sascha Gros <s.gros@clowdfish.com>"
   ],
   "license": "MIT",
   "private": true,
@@ -15,25 +15,14 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "*",
+    "angular-ui-router": "*",
     "entypo": "*",
-    "susy": "~2.1.3",
-    "vue": "~0.10.6",
-    "underscore": "~1.7.0",
-    "backbone": "~1.1.2",
-    "jquery": "~2.1.1",
-    "mediator-js": "~0.9.7",
-    "jquery.ui": "~1.11.1",
-    "jquery-timepicker": "*",
-    "jt.timepicker": "~1.4.12",
-    "messenger": "~1.4.1",
-    "handlebars.js": "~2.0.0",
-    "handlebars": "~2.0.0",
     "font-awesome": "~4.2.0",
-    "Sortable": "~0.5.2",
-    "timepicker": "https://github.com/wvega/timepicker.git#~1.3.2",
+    "mediator-js": "~0.9.7",
     "moment": "~2.8.3",
-    "pikaday": "~1.2.0",
-    "v.js": "*"
+    "susy": "~2.1.3",
+    "underscore": "~1.7.0"
   },
   "devDependencies": {
     "velocity": "~1.1.0"

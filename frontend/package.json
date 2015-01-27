@@ -1,40 +1,31 @@
 {
-  "name": "ttg-frontend",
+  "name": "1ClickTrips",
   "version": "0.1.0",
   "description": "A business traveler platform offering end to end trip management.",
   "main": "gulpfile.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^0.1.3",
     "gulp": "^3.8.7",
     "gulp-autoprefixer": "0.0.8",
     "gulp-changed": "^1.0.0",
+    "gulp-coffee": "^2.2.0",
     "gulp-compass": "^1.3.1",
+    "gulp-compile-handlebars": "^0.3.3",
     "gulp-concat": "^2.3.4",
+    "gulp-declare": "^0.3.0",
+    "gulp-if": "^1.2.5",
     "gulp-imagemin": "^1.0.1",
-    "gulp-jshint": "^1.8.4",
     "gulp-minify-css": "^0.3.7",
-    "gulp-minify-html": "^0.1.5",
     "gulp-notify": "^1.5.0",
     "gulp-plumber": "^0.6.5",
-    "gulp-rename": "^1.2.0",
     "gulp-ruby-sass": "^0.7.1",
     "gulp-sass": "^0.7.3",
     "gulp-strip-debug": "^1.0.0",
     "gulp-uglify": "^0.3.2",
-    "js-yaml": "^3.2.2"
-  },
-  "devDependencies": {
-    "del": "^0.1.3",
-    "gulp": "^3.8.8",
-    "gulp-compile-handlebars": "^0.3.3",
-    "gulp-declare": "^0.3.0",
-    "gulp-handlebars": "^3.0.1",
-    "gulp-if": "^1.2.5",
-    "gulp-typescript": "^2.0.0",
     "gulp-webserver": "^0.8.2",
-    "gulp-wrap": "^0.3.0",
     "gulp-yml": "^0.1.1",
-    "ttg-api": "git+ssh://git@github.com:clowdfish/ttg-api.git#develop",
-    "yamljs": "^0.2.0"
+    "js-yaml": "^3.2.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -42,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/clowdfish/ttg-frontend.git"
+    "url": "https://github.com/clowdfish/1clicktrips.git"
   },
   "keywords": [
     "javascript",
@@ -56,17 +47,13 @@
   },
   "contributors": [
     {
-      "name": "Marcel Buesing",
-      "email": "buesing.marcel@gmail.com"
-    },
-    {
       "name": "Tim von Oldenburg",
       "email": "tim@tvooo.de"
     }
   ],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/clowdfish/ttg-frontend/issues"
+    "url": "https://github.com/clowdfish/1clicktrips/issues"
   },
-  "homepage": "https://github.com/clowdfish/ttg-frontend"
+  "homepage": "https://github.com/clowdfish/1clicktrips"
 }
