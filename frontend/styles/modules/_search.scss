@@ -5,21 +5,67 @@
   /*******************************************************/
   /* Search Navigation                                   */
   /*******************************************************/
+  $nav-circle-diameter: 5em;
+
+
   .search-navigation {
-    margin-top: 2em;
-    background-color: #fff;
+    position: relative;
+    margin-top: 3em;
+    background-color: rgba(255,255,255,0.7);
+
+    font-size: $fs-small;
   }
 
   .search-navigation-list {
     list-style: none;
+    color: $c-text-dark-bg;
   }
 
   .search-navigation-item {
     @include span(8 of 24);
 
     text-align: center;
-    padding-top: 3em;
-    padding-bottom: 1.5em;
+    padding-bottom: 2em;
+  }
+
+  .navigation-item-circle {
+    height: $nav-circle-diameter;
+    width: $nav-circle-diameter;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+    margin-top: -$nav-circle-diameter/2;
+
+    background-color: #fff;
+    border-radius: $nav-circle-diameter/2;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  }
+
+  .navigation-item-circle.location {
+    background-image: url("../images/nav_location.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .navigation-item-circle.timing {
+    background-image: url("../images/nav_briefcase.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .navigation-item-circle.origin {
+    background-image: url("../images/nav_globe.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .search-navigation-item.active {
+    color: $c-dark;
+
+    .navigation-item-circle {
+      background-color: $c-dark;
+    }
   }
 
   @include respond-above("medium") {

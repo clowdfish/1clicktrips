@@ -28,9 +28,17 @@
   font-size: $fs-normal;
 }
 
-.button--primary {
+.button--dark {
   @extend %button;
-  //font-size: $fs-normal;
+
+  background: linear-gradient(lighten($c-dark, 5%), darken($c-dark, 5%));
+  font-size: $fs-normal;
+  padding: .5em 1.3em;
+
+  &:hover {
+    color: #fff;
+    background: darken($c-dark, 2%);
+  }
 }
 
 .button--secondary {
