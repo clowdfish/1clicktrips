@@ -1,8 +1,3 @@
-/*
-
-Grid and Layout settings
-
-*/
 
 @import "../bower_components/susy/sass/susy";
 
@@ -15,9 +10,6 @@ $susy: (
   gutter-position: split
 );
 
-.container {
-  @include container;
-}
 
 .clearfix {
   @include clearfix;
@@ -35,7 +27,9 @@ $susy: (
   @include span(12 of 12);
 
   @include respond-above("medium") {
-
+    @include span(10 of 12);
+    @include push(1 of 12);
+    
   }
 
   @include respond-above("large") {

@@ -74,11 +74,11 @@ input[type=radio] {
 
 fieldset.is-invalid {
   #{$inputs-text} {
-    border-color: $c-error;
+    border-color: $c-status-error;
   }
   #{$inputs-check} {
     & + label::before {
-      color: $c-error;
+      color: $c-status-error;
     }
   }
 }
@@ -105,7 +105,7 @@ fieldset.is-invalid {
     height: 100%;
     padding: .4em .6em;
     width: 2.2em;
-    color: $c-disabled;
+    color: #444;
   }
   &.is-found::after {
     content: $fa-var-check;
@@ -130,7 +130,7 @@ fieldset.is-invalid {
   height: 100%;
   padding: .4em .6em;
   width: 2.2em;
-  color: $c-disabled;
+  color: #444;
 }
 
 .value::after {

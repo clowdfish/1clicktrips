@@ -1,18 +1,21 @@
-// Tim's theme
-$c-green: #42b983;
-$c-blue: #4279b9;
-$c-red: red;
-$c-text: #2c3e50;
-$c-text--inverted: #ffffff;
+// base colors
+$c-red: #cf1c22;
+$c-dark: #252331;
+$c-creme: #e3d6aa;
+$c-green: #8ec840;
 
-// Theme applied
-$c-primary: $c-blue;
-$c-primary: $c-blue;
-$c-primary--light: lighten($c-blue, 30%);
-$c-background: #ffffff;
-$c-disabled: #aaa;
-$c-error: $c-red;
+// background colors
+$c-background: $c-creme;
+$c-content-bg: #fcfbf7;
+$c-table-row-dark: #f9f8f6;
+$c-status-okay: $c-green;
+$c-status-error: $c-red;
+$c-status-message-bg: #fbf2d5;
 
+// font colors
+$c-text-dark-bg: #9795a2;
+$c-text-dark-bg-highlight: #eaeaea;
+$c-text: #363636;
 
-
-$c-label: #555;
+// standard colors
+$c-primary: $c-red;

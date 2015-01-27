@@ -8,7 +8,7 @@
   padding: .6em 1em;
   /* Looks */
   background: linear-gradient(lighten($c-primary, 5%), darken($c-primary, 5%));
-  color: $c-text--inverted;
+  color: #111;
   text-decoration: none;
   border-radius: 3px;
   font-weight: 600;
@@ -18,27 +18,8 @@
   }
 
   &:hover {
-    color: $c-text--inverted;
+    color: #111;
     background: darken($c-primary, 2%);
-  }
-}
-
-%button-old {
-  padding: .6em 1em;
-  min-width: 140px;
-
-  display: inline-block;
-  border: 2px solid $c-primary;
-  background-color: $c-background;
-  font-family: $ff-body;
-  font-size: $fs-large;
-  font-weight: 600;
-  color: $c-primary;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $c-primary;
-    color: #fff;
   }
 }
 
