@@ -20,8 +20,11 @@
     margin-right: 2em;
   }
 
-  .footer-links{
-
+  .footer-links {
+    a, a:visited {
+      color: rgba(83, 71, 65, 0.55);
+      text-decoration: none;
+    }
   }
 
   @include respond-above("medium") {
