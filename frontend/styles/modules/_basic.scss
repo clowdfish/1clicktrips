@@ -1,6 +1,25 @@
 body {
-  //background-image: url("paper.gif");
   background-image: url("../images/bg.jpg");
   background-size: 100% auto;
   background-color: $c-background;
+}
+
+.view-container {
+  @include span(24 of 24);
+
+  position: relative;
+  min-height: 10em; // to enforce the box-shadow
+  background-color: $c-content-bg;
+  box-shadow: 0 55px 40px -50px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.section-header {
+  @include span(24 of 24);
+  margin-top: 3em;
+  padding: 1em 0;
+  background-color: $c-red;
+
+  font-weight: bold;
+  color: #fff;
 }

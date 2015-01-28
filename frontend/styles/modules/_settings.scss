@@ -1,41 +1,46 @@
-.ttg-settings {
-  margin-bottom: 2em;
-  @extend %clearfix;
+%settings {
 
-  [js-collapsible-trigger]::after {
+  .settings-navigation {
+    @include span(6 of 24);
+
+    ul {
+      list-style: none;
+    }
+
+    li.active {
+      color: $c-text-dark-bg-highlight;
+    }
+  }
+
+  .settings-content {
+    @include span(18 of 24);
+
+  }
+
+  @include respond-above("medium") {
+
+  }
+
+  @include respond-above("large") {
+
+  }
+}
+
+
+.settings {
+  @extend %settings;
+}
+
+/*
+
+EXAMPLE:
+
+[js-collapsible-trigger]::after {
     @include fa-icon();
     content: $fa-var-chevron-down;
   }
   &.is-collapsed [js-collapsible-trigger]::after {
     content: $fa-var-chevron-up;
   }
-}
 
-.settings-table {
-  //@include span(12 of 12);
-  @include with-layout(6 fluid, true) {
-    // Temporary 8-column static grid...
-    fieldset {
-      @include container();
-      margin-bottom: 0.5em;
-    }
-    fieldset > label {
-      @include span(2 of 6);
-      @extend %label;
-      padding: 0.4em 0;
-      line-height: 1.4em;
-    }
-    .value {
-      @include span(4 of 6 last);
-      padding: 0.4em 0;
-      label {
-        width: 100%;
-        float: none;
-      }
-    }
-
-    [data-edit-key] {
-
-    }
-  }
-}
+*/
