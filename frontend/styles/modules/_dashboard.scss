@@ -1,3 +1,4 @@
+$size-dashboard-icons: 5em;
 
 %dashboard {
   @include container;
@@ -7,14 +8,67 @@
   /*******************************************************/
   .dashboard-container {
     @include span(24 of 24);
+    position: relative;
     padding: 2em 0;
     background-color: $c-content-bg;
+    box-shadow: 0 55px 40px -50px rgba(0,0,0,0.3);
+    z-index: 10;
 
     h2 {
       text-align: center;
-      margin-bottom: 0.5em;
+      margin-bottom: 1.2em;
     }
   }
+
+  .dashboard-info-box {
+
+    h3 {
+      color: $c-red;
+      font-weight: 200;
+    }
+  }
+
+  .dashboard-info-icon.trip {
+    background-image: url("../images/trolley.png");
+    background-size: auto 50%;
+  }
+
+  .dashboard-info-icon.plane {
+    background-image: url("../images/airplane.png");
+    background-size: 40% auto;
+  }
+
+  .dashboard-info-icon.calendar {
+    background-image: url("../images/calendar.png");
+    background-size: 40% auto;
+  }
+
+  .dashboard-info-icon.suitcase {
+    background-image: url("../images/suitcase.png");
+    background-size: 40% auto;
+  }
+
+  .dashboard-info-icon {
+    display: inline-block;
+    width: $size-dashboard-icons;
+    height: $size-dashboard-icons;
+    margin: 1em 1em 0 0;
+    vertical-align: top;
+
+    border-radius: $size-dashboard-icons/2;
+    border: 1px solid #eee;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+  }
+
+  .dashboard-info-text {
+    display: inline-block;
+    margin-top: 1em;
+  }
+
+
 
   @include respond-above("medium") {
     .dashboard-container {

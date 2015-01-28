@@ -5,11 +5,14 @@
   .newsletter-container {
     @include span(22 of 24);
     @include push(1 of 24);
+    position: relative;
+    z-index: 5;
 
     background-image: url("../images/newsletter_world.png"), linear-gradient(#f5f0dd, #fff);
     background-repeat: no-repeat;
     background-position: 3% 30%;
     padding: 2em 0;
+    box-shadow: 0 2px 2px 0 rgba(120, 120, 120, 0.3);
   }
 
   .newsletter-slogan {
