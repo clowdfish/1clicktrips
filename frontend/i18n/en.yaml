@@ -10,31 +10,24 @@ en:
   toasts:
     notimplemented: Not yet implemented
   nav:
-    home: Home
-    search: Search & Book
-    about: About
-    signup: Sign up now
-    signin: Sign in
-    settings: Settings
-    mytrips: My trips
-    logout: Log out
-    search: Search
-    annotation: Learn more
+    signup: JOIN
+    signin: Login
   search:
+    navigation:
+      destination: Specify Your Destination
+      timing: Specify Date & Time
+      origin: Specify Your Origin
     form:
-      annotation: Add new appointment
       origin: Where do you want to start?
-      addressbook: from address book
-      description: add description
-      destination: Where is your appointment?
-      date: On which day is your appointment?
+      destination:
+        label: Where is your appointment?
+        placeholder: e.g. address of your location
+      time: When is your appointment?
       start: At what time does your appointment start?
       end: When does your appointment end?
-      submit:
-        button: Start Search
-    header:
-      start: Start
-      destination: Destination
+      control:
+        next: Next
+        submit: Start Search
   signup:
     form:
       firstname:: First name
@@ -62,18 +55,6 @@ en:
     header: Sign In
     action:
       signup: "<h4>Not yet part of Trip-To-Go?</h4><a href='#' modal-open='signup'>Sign up now</a> now or <a href='./auth/twitter'><i class='fa fa-twitter'></i> log in with your Twitter account</a>."
-  about:
-    section1:
-      headline: Are you tired of time-consuming trip planning?
-      text: >
-        Booking business trips is a hassle. You get an invitation from your customer. Your know the time and the location of your trip and you start searching. How can you get there? Should your take the train? Or is it more convenient to take a flight? Do you need an overnight stop? How far is it from the airport to the final destination? Are there flights directly in the morning? And what does each option cost?<br>
-        Are you also spending too much time for organizing your trips? <br />Or is your travel department constantly booking without taking your preferences into account?
-    section2:
-      headline: A new experience in business travel
-      text: >
-        You create your travel profile once. Your type in your trip destination and the correct timings. Trip-To-Go will give your the best travel options available: based on budget, time or your personal preferences.<br>
-        Hassle-free trips with your personal guide right at hand.<br>
-        Give it a try and find your perfect trip <a href='./#/search'>right now</a>..
   footer:
     links:
       privacy: Privacy
@@ -92,16 +73,15 @@ en:
         connect: connect account
         unlink: unlink account
       address: Address
-      save: Save profile
+    payment:
+      title: Payment
     privacy:
       title: Privacy
       newsletter: Newsletter
       newsletterreceive: Receive newsletter
-      save: Save privacy settings
     preferences:
       title: Preferences
       favorite: Favorite
-      save: Save preferences
       options:
         title: Travel options
         instruction : Sort according to your preferences
@@ -144,7 +124,3 @@ en:
   confirm:
     sorry: We are really sorry!
     thanks: Thank you!
-
-
-
-

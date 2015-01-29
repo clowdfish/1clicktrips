@@ -10,29 +10,24 @@ de:
   toasts:
     notimplemented: Leider noch nicht verfügbar
   nav:
-    home: Startseite
-    search: Suche
-    about: Über
-    signup: Anmelden
+    signup: Registrieren
     signin: Anmelden
-    settings: Einstellungen
-    annotation: Mehr erfahren
   search:
+    navigation:
+      destination: Finde den Zielort
+      timing: Meetingzeiten angeben
+      origin: Finde den Startort
     form:
-      annotation: Neuen Termin hinzufügen
       origin: Wo möchten Sie starten?
-      addressbook: aus Adressbuch
-      description: Beschreibung hinzufügen
-      destination: Wo findet der Termin statt?
-      date: An welchem Tag findet der Termin statt?
+      destination:
+        label: Wo findet der Termin statt?
+        placeholder: z.B. die Adresse angeben
+      time: An welchem Tag findet der Termin statt?
       start: Wann beginnt der Termin?
       end: Wann endet der Termin?
-      submit:
-        button: Suche starten
-        notimplemented: Die Suche ist leider noch nicht verfügbar
-    header:
-      start: Start
-      destination: Ziel
+      control:
+        next: Weiter
+        submit: Suche starten
   signup:
     form:
       firstname:: Vorname
@@ -57,22 +52,9 @@ de:
       check: Eingeloggt bleiben
       submitforgot: Passwort vergessen?
       resulterror: "<span>Es gab ein Problem beim Login.</span> <br />Haben Sie sich schon bei Trip-To-Go <a href='./#/signup'>registriert</a>?"
-      notimplemented: Diese Funktion ist leider noch nicht verfügbar
     header: Anmelden
     action:
       signup: "<b>Noch kein Teil von Trip-To-Go?</b><br /><a href='./#/signup'>Registrieren</a> Sie sich noch heute oder melden Sie sich <a href='./auth/twitter'>mit Ihrem Twitter-Account</a> an."
-  about:
-    section1:
-      headline: Geht Ihnen die Reiseplanung auch auf die Nerven?
-      text: >
-        Das Buchen von Geschäftsreise gestaltet sich immer wieder als Ärgernis und kostet eine viel Zeit, die sinnvoller genutzt werden könnte. Meistens kennt man das Ziel und den Zeitrahmen, wie lange man vor Ort sein muss. Dann beginnt die Suche: Wie komme ich am besten zum Ziel? Welche Möglichkeiten habe ich? Sollte ich besser den Zug nehmen oder das Flugzeug? Muss ich am Vortag anreisen? Wie weit ist es vom Flughafen zum Zielort? Wieviel kosten die unterschiedlichen Optionen?<br>
-        Verschwenden Sie auch zu viel Zeit mit der Organisation Ihrer Geschäftsreisen? <br /> Bucht Ihre Reiseabteilung ständig Reisen, die nicht zu Ihrem Profil passen?
-    section2:
-      headline: Eine völlig neue Erfahrung beim Buchen von Geschäftsreisen
-      text: >
-        Sie erstellen Ihr persönliches Reiseprofil genau einmal. Dann geben Sie das Ziel und die Zeiten vor Ort ein. Trip-To-Go wird Ihnen die besten Reisemöglichkeiten vorschlagen: basierend auf Kosten, Zeit oder Ihren persönlichen Einstellungen.<br>
-        Müheloses Erstellen von Geschäftsreisen ist keine Illusion mehr. Mit Ihrem eigenen mobilen Reisebegleiter.<br>
-        Versuchen Sie es und finden Sie noch heute ihren <a href='./#/search'>perfekten Business Trip</a>.
   footer:
     links:
       privacy: Datenschutz
@@ -91,6 +73,8 @@ de:
         connect: Konto verknüpfen
         unlink: Konto abmelden
       address: Adresse
+    payment:
+      title: Bezahldaten
     privacy:
       title: Privatsphäre
       newsletter: Newsletter
@@ -140,7 +124,3 @@ de:
   confirm:
     sorry: Es tut und Leid!
     thanks: Vielen Dank!
-
-
-
-

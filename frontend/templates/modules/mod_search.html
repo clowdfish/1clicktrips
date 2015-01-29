@@ -6,28 +6,28 @@
         <div class="search-step-circle location">
           <span class="search-step-active-indicator"></span>
         </div>
-        Specify Your Destination
+        {{ T.search.navigation.destination }}
       </li>
       <li class="search-step done">
         <div class="search-step-circle timing">
           <span class="search-step-active-indicator"></span>
         </div>
-        Specify Date and Time
+        {{ T.search.navigation.timing }}
       </li>
       <li class="search-step">
         <div class="search-step-circle origin">
           <span class="search-step-active-indicator"></span>
         </div>
-        Specify Your Origin
+        {{ T.search.navigation.origin }}
       </li>
     </ul>
   </div>
   <div class="search-form-container">
     <form class="search-form">
-      <h1>Where is your appointment?</h1>
+      <h1>{{ T.search.form.destination.label }}</h1>
 
-      <input type="text" placeholder="e.g. address of your location">
-      <a href="result.html" class="button--dark">Next</a>
+      <input type="text" placeholder="{{ T.search.form.destination.placeholder }}">
+      <a href="result.html" class="button--dark">{{ T.search.form.control.next }}</a>
     </form>
   </div>
 
