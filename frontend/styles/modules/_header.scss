@@ -2,8 +2,6 @@ $header-height: 3.5em;
 $header-padding: .9em;
 
 %header {
-  //@include clearfix;
-
   .container {
     height: 100%;
   }
@@ -39,6 +37,29 @@ $header-padding: .9em;
       margin-right: 1em;
       color: #fff;
       text-decoration: none;
+    }
+  }
+
+  .header-settings {
+    display: inline-block;
+
+    ul {
+      list-style: none;
+      margin-left: 1em;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0.4em 0.8em;
+      background-color: darken($c-dark, 7%);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    li:after {
+      font-family: FontAwesome, sans-serif;
+      font-size: $fs-small;
+      content: "\00a0\00a0\f0d7";
     }
   }
 
