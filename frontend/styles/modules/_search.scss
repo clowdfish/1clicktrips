@@ -4,43 +4,60 @@
   /* Search Navigation                                   */
   /*******************************************************/
   $nav-circle-diameter: 5em;
+  $nav-container-height: 6.5em;
 
-
-  .search-navigation {
+  .search-steps {
     @include span(22 of 24);
     @include push(1 of 24);
 
+    position: relative;
+    height:  $nav-container-height;
     margin-top: 3em;
     background-color: rgba(255,255,255,0.65);
 
     font-size: $fs-small;
   }
 
-  .search-navigation-list {
+  .search-step-list {
     list-style: none;
     color: $c-text-dark-bg;
   }
 
-  .search-navigation-item {
+  .search-step {
     @include span(8 of 24);
 
     text-align: center;
     padding-bottom: 2em;
   }
 
-  .navigation-item-circle.location {
+  .search-step-circle.location {
     background-image: url("../images/nav_location.png");
+
+    .search-step-active-indicator {
+      left: 16%;
+      display: none;
+    }
   }
 
-  .navigation-item-circle.timing {
+  .search-step-circle.timing {
     background-image: url("../images/nav_briefcase.png");
+
+    .search-step-active-indicator {
+      left: 49%;
+      display: none;
+    }
   }
 
-  .navigation-item-circle.origin {
+  .search-step-circle.origin {
     background-image: url("../images/nav_globe.png");
+
+    .search-step-active-indicator {
+      right: 16%;
+      display: none;
+    }
   }
 
-  .navigation-item-circle {
+  .search-step-circle {
     height: $nav-circle-diameter;
     width: $nav-circle-diameter;
     margin-left: auto;
@@ -57,18 +74,34 @@
     background-repeat: no-repeat;
   }
 
-  .search-navigation-item.active {
+  .search-step-active-indicator {
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-image: url("../images/bg_pattern.jpg");
+    background-repeat: repeat;
+
+    transform: rotate(45deg);
+
+    position: absolute;
+    bottom: -0.6em;
+  }
+
+  .search-step.active {
     color: $c-dark;
 
-    .navigation-item-circle {
+    .search-step-circle {
       background-color: $c-dark;
       border: 1px solid $c-dark;
       cursor: default;
     }
+
+    .search-step-active-indicator {
+      display: block
+    }
   }
 
-  .search-navigation-item.done {
-    //color: $c-dark;
+  .search-step.done {
     background-image: url("../images/tick.png");
     background-repeat: no-repeat;
     background-position: 80% 50%;
@@ -76,7 +109,7 @@
 
   @include respond-above("medium") {
 
-    .search-navigation {
+    .search-steps {
       margin-top: 5em;
     }
   }

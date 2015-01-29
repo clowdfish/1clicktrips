@@ -22,7 +22,10 @@
     font-size: $fs-small;
   }
 
-  .result-type-back {
+  /*******************************************************/
+  /* Back Button                                         */
+  /*******************************************************/
+  .result-type-back-button {
     display: inline-block;
     width: $nav-circle-diameter/1.9;
     height: $nav-circle-diameter/1.9;
@@ -56,14 +59,29 @@
 
   .result-type-item-circle.budget {
     background-image: url("../images/nav_location.png");
+
+    .result-type-item-active-indicator {
+      left: 16%;
+      display: none;
+    }
   }
 
   .result-type-item-circle.time {
     background-image: url("../images/nav_briefcase.png");
+
+    .result-type-item-active-indicator {
+      left: 49.5%;
+      display: none;
+    }
   }
 
   .result-type-item-circle.comfort {
     background-image: url("../images/nav_globe.png");
+
+    .result-type-item-active-indicator {
+      right: 16%;
+      display: none;
+    }
   }
 
   .result-type-item-circle {
@@ -83,6 +101,18 @@
     background-repeat: no-repeat;
   }
 
+  .result-type-item-active-indicator {
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-color: $c-dark;
+
+    transform: rotate(45deg);
+
+    position: absolute;
+    bottom: -0.6em;
+  }
+
   .result-type-item.active {
     color: $c-dark;
 
@@ -90,6 +120,10 @@
       background-color: $c-red;
       border: 1px solid $c-red;
       cursor: default;
+    }
+
+    .result-type-item-active-indicator {
+      display: block
     }
   }
 
