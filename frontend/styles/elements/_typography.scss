@@ -6,9 +6,9 @@ $fs-small: 0.85em;
 
 $fs-normal: 1em;
 
-$fs-large: 1.4em;
-$fs-larger: 1.8em;
-$fs-largest: 2em;
+$fs-large: 1.1em;
+$fs-larger: 1.2em;
+$fs-largest: 1.4em;
 
 html {
   font-size: 18px;
@@ -34,12 +34,12 @@ h1, h2, h3, h4, h5 {
 h1 {
   font-size: $fs-largest;
   line-height: 1em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 h2 {
   font-size: $fs-larger;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 h4 {

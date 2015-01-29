@@ -91,7 +91,9 @@
   .search-form-container {
     @include span(24 of 24);
     padding: 1em 0;
-    background-color: $c-red;
+    background-color: darken($c-red, 3%);
+    background-image: url("../images/bg_pattern.jpg");
+    background-repeat: repeat;
     color: #fff;
   }
 

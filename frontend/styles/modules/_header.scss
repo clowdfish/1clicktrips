@@ -1,5 +1,5 @@
 $header-height: 3.5em;
-$header-padding: .9em;
+$header-padding: .7em;
 
 %header {
   .container {
@@ -17,10 +17,14 @@ $header-padding: .9em;
     float: left;
     font-size: $fs-large;
 
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+
     img {
       height: 70%;
       margin-right: 0.3em;
-      margin-top: -0.2em;
       vertical-align: middle;
     }
 

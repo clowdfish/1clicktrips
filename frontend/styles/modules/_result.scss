@@ -4,6 +4,7 @@
   /* Search Navigation                                   */
   /*******************************************************/
   $nav-circle-diameter: 5em;
+  $nav-container-height: 6.5em;
 
   .view-container {
     padding: 2em 0;
@@ -13,10 +14,32 @@
     @include span(22 of 24);
     @include push(1 of 24);
 
+    position: relative;
+    height:  $nav-container-height;
     margin-top: 3em;
     background-color: rgba(255,255,255,0.65);
 
     font-size: $fs-small;
+  }
+
+  .result-type-back {
+    display: inline-block;
+    width: $nav-circle-diameter/1.9;
+    height: $nav-circle-diameter/1.9;
+    background-color: $c-dark;
+    border-radius: $nav-circle-diameter/3.8;
+    cursor: pointer;
+
+    /* positioning the text */
+    font-size: $fs-smallest;
+    color: #fff;
+    text-align: center;
+    padding-top: $nav-circle-diameter/3.8 - $fs-smallest;
+
+    /* positioning the back button */
+    position: absolute;
+    left: -$nav-circle-diameter/3.8;
+    top:  $nav-container-height/2;
   }
 
   .result-type-list {
@@ -82,20 +105,46 @@
   }
 
   /*******************************************************/
-  /* Search Form                                         */
+  /* Result Type Description                             */
   /*******************************************************/
   .result-description {
     @include span(24 of 24);
-    padding: 1em 0;
+    padding: 1em;
     background-color: $c-dark;
     color: #fff;
+
+    h1 {
+      margin-bottom: 0.7em;
+    }
+
+    p {
+      font-size: $fs-small;
+    }
+  }
+
+  .result-description-favorite {
+    display: inline-block;
+    float: right;
+    font-size: $fs-smallest;
+
+    background-color: darken($c-dark, 7%);
+    padding: 0.5em 0.8em;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .result-description-favorite:before {
+    font-family: FontAwesome, sans-serif;
+    font-size: $fs-small;
+    color: $c-red;
+    content: "\f004\00a0\00a0";
   }
 
   @include respond-above("medium") {
 
     .result-description {
       @include span(24 of 24);
-      padding: 2em 0;
+      padding: 1.4em 1.8em;
 
     }
   }
@@ -108,12 +157,17 @@
 /*******************************************************/
 /* Result View                                         */
 /*******************************************************/
-%result-view {
+%result {
 
-  color: $c-dark; // must be here as long as nothing else is defined
+  .result-view {
+    padding: 1.4em;
+  }
 
   @include respond-above("medium") {
 
+    .result-view {
+
+    }
   }
 
   @include respond-above("large") {
@@ -121,11 +175,14 @@
   }
 }
 
+/*******************************************************/
+/* Element Style Relations                             */
+/*******************************************************/
 .result-type {
   @extend %result-type;
 }
 
-.result-view {
-  @extend %result-view;
+.result {
+  @extend %result;
 }
 
