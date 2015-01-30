@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "1ClickTrips API",
-        "description": "Business Travel at its best",
+        "description": "Business travel at its best",
         "version": "1.0.0"
     },
     "host": "api.1clicktrips.com",
@@ -14,171 +14,10 @@
         "application/json"
     ],
     "paths": {
-        "/products": {
-            "get": {
-                "summary": "Product Types",
-                "description": "The Products endpoint returns information about the *Uber* products\noffered at a given location. The response includes the display name\nand other details about each product, and lists the products in the\nproper display order.\n",
-                "parameters": [
-                    {
-                        "name": "latitude",
-                        "in": "query",
-                        "description": "Latitude component of location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    },
-                    {
-                        "name": "longitude",
-                        "in": "query",
-                        "description": "Longitude component of location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    }
-                ],
-                "tags": [
-                    "Products"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "An array of products",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Product"
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/estimates/price": {
-            "get": {
-                "summary": "Price Estimates",
-                "description": "The Price Estimates endpoint returns an estimated price range\nfor each product offered at a given location. The price estimate is\nprovided as a formatted string with the full price range and the localized\ncurrency symbol.<br><br>The response also includes low and high estimates,\nand the [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code for\nsituations requiring currency conversion. When surge is active for a particular\nproduct, its surge_multiplier will be greater than 1, but the price estimate\nalready factors in this multiplier.\n",
-                "parameters": [
-                    {
-                        "name": "start_latitude",
-                        "in": "query",
-                        "description": "Latitude component of start location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    },
-                    {
-                        "name": "start_longitude",
-                        "in": "query",
-                        "description": "Longitude component of start location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    },
-                    {
-                        "name": "end_latitude",
-                        "in": "query",
-                        "description": "Latitude component of end location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    },
-                    {
-                        "name": "end_longitude",
-                        "in": "query",
-                        "description": "Longitude component of end location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    }
-                ],
-                "tags": [
-                    "Estimates"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "An array of price estimates by product",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/PriceEstimate"
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/estimates/time": {
-            "get": {
-                "summary": "Time Estimates",
-                "description": "The Time Estimates endpoint returns ETAs for all products offered at a given location, with the responses expressed as integers in seconds. We recommend that this endpoint be called every minute to provide the most accurate, up-to-date ETAs.",
-                "parameters": [
-                    {
-                        "name": "start_latitude",
-                        "in": "query",
-                        "description": "Latitude component of start location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    },
-                    {
-                        "name": "start_longitude",
-                        "in": "query",
-                        "description": "Longitude component of start location.",
-                        "required": true,
-                        "type": "number",
-                        "format": "double"
-                    },
-                    {
-                        "name": "customer_uuid",
-                        "in": "query",
-                        "type": "string",
-                        "format": "uuid",
-                        "description": "Unique customer identifier to be used for experience customization."
-                    },
-                    {
-                        "name": "product_id",
-                        "in": "query",
-                        "type": "string",
-                        "description": "Unique identifier representing a specific product for a given latitude & longitude."
-                    }
-                ],
-                "tags": [
-                    "Estimates"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "An array of products",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Product"
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/me": {
+        "/account/profile": {
             "get": {
                 "summary": "User Profile",
-                "description": "The User Profile endpoint returns information about the Uber user that has authorized with the application.",
+                "description": "The User Profile endpoint returns information about the 1clicktrips\nuser that has authorized with the application.\n",
                 "tags": [
                     "User"
                 ],
@@ -198,24 +37,73 @@
                 }
             }
         },
-        "/history": {
+        "/account/settings": {
             "get": {
-                "summary": "User Activity",
-                "description": "The User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.",
+                "summary": "User Settings",
+                "description": "The Settings endpoint returns information on the user settings of \nthe currently authenticated user. \n",
+                "tags": [
+                    "Settings"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of settings",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Setting"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/favorites": {
+            "get": {
+                "summary": "User Favorites",
+                "description": "The User Favorites endpoint returns data about a user's favorites \nthat he saved before.\n- name: limit\n  in: query\n  type: integer\n  format: int32\n  description: |\n    Number of items to retrieve. Default is 5, maximum is 100.\n",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of favorites for the given user",
+                        "schema": {
+                            "$ref": "#/definitions/Favorites"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/bookings": {
+            "get": {
+                "summary": "User History",
+                "description": "The User History endpoint returns data about a user's lifetime \nactivity with 1clicktrips. The response will include \n",
                 "parameters": [
                     {
                         "name": "offset",
                         "in": "query",
                         "type": "integer",
                         "format": "int32",
-                        "description": "Offset the list of returned results by this amount. Default is zero."
+                        "description": "The offset is given as seconds since the UNIX epoche. Only \nlook for trips that have been booked after this date. Default\nis zero.\n"
                     },
                     {
                         "name": "limit",
                         "in": "query",
                         "type": "integer",
                         "format": "int32",
-                        "description": "Number of items to retrieve. Default is 5, maximum is 100."
+                        "description": "Number of items to retrieve. Default is 5, maximum is 30.\n"
                     }
                 ],
                 "tags": [
@@ -225,7 +113,154 @@
                     "200": {
                         "description": "History information for the given user",
                         "schema": {
-                            "$ref": "#/definitions/Activities"
+                            "$ref": "#/definitions/Bookings"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/trips": {
+            "get": {
+                "summary": "Trip Results",
+                "description": "The Trips endpoint returns a collection of trips that matches with \nthe given parameters. \n",
+                "tags": [
+                    "Search"
+                ],
+                "parameters": [
+                    {
+                        "name": "start_description",
+                        "in": "query",
+                        "description": "Description of start location.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "start_latitude",
+                        "in": "query",
+                        "description": "Latitude component of start location.",
+                        "required": true,
+                        "type": "number",
+                        "format": "double"
+                    },
+                    {
+                        "name": "start_longitude",
+                        "in": "query",
+                        "description": "Longitude component of start location.",
+                        "required": true,
+                        "type": "number",
+                        "format": "double"
+                    },
+                    {
+                        "name": "end_description",
+                        "in": "query",
+                        "description": "Description of end location.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_latitude",
+                        "in": "query",
+                        "description": "Latitude component of end location.",
+                        "required": true,
+                        "type": "number",
+                        "format": "double"
+                    },
+                    {
+                        "name": "end_longitude",
+                        "in": "query",
+                        "description": "Longitude component of end location.",
+                        "required": true,
+                        "type": "number",
+                        "format": "double"
+                    },
+                    {
+                        "name": "start_time",
+                        "in": "query",
+                        "description": "Time string for the local start time of the appointment.",
+                        "required": true,
+                        "type": "string",
+                        "format": "2014-11-12T19:05:00"
+                    },
+                    {
+                        "name": "end_time",
+                        "in": "query",
+                        "description": "Time string for the local end time of the appointment.",
+                        "required": true,
+                        "type": "string",
+                        "format": "2014-11-12T19:05:00"
+                    },
+                    {
+                        "name": "roundtrip",
+                        "in": "query",
+                        "description": "Roundtrip option.",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of trips",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Itinerary"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/alternatives": {
+            "get": {
+                "summary": "Trip Alternatives",
+                "description": "The Alternatives endpoint returns a collection of alternatives for a given\ntrip segment. \n",
+                "tags": [
+                    "Search"
+                ],
+                "parameters": [
+                    {
+                        "name": "trip_id",
+                        "in": "query",
+                        "description": "The trip ID of the requested trip.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "segment_id",
+                        "in": "query",
+                        "description": "The segment ID of the segment to be replaced.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limitation",
+                        "in": "query",
+                        "description": "The maximum number of alternatives.",
+                        "required": false,
+                        "type": "number",
+                        "format": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of alternatives",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Product"
+                            }
                         }
                     },
                     "default": {
@@ -239,11 +274,143 @@
         }
     },
     "definitions": {
+        "Setting": {
+            "properties": {
+                "category": {
+                    "type": "string",
+                    "description": "The category of the key-value pair."
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The settings key (e.g. early bird)"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The settings value (e.g. true)"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The description for the key-value pair"
+                }
+            }
+        },
+        "Itinerary": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier ..."
+                },
+                "outbound": {
+                    "$ref": "#/definitions/Trip"
+                },
+                "inbound": {
+                    "$ref": "#/definitions/Trip"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "The ISO currency code ..."
+                },
+                "type": {
+                    "type": "number",
+                    "format": "int32",
+                    "description": "Defines the trip result type\n  0 = budget\n  1 = time\n  2 = comfort\n"
+                }
+            }
+        },
+        "Trip": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "origin": {
+                    "$ref": "#/definitions/Location"
+                },
+                "destination": {
+                    "$ref": "#/definitions/Location"
+                },
+                "departureTime": {
+                    "type": "string",
+                    "format": "2014-11-12T19:05:00"
+                },
+                "arrivalTime": {
+                    "type": "string",
+                    "format": "2014-11-12T19:05:00"
+                },
+                "distance": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "duration": {
+                    "type": "number",
+                    "format": "int32"
+                },
+                "segments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Segment"
+                    }
+                }
+            }
+        },
+        "Location": {
+            "properties": {
+                "latitude": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "longitude": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
+        "Segment": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "origin": {
+                    "$ref": "#/definitions/Location"
+                },
+                "destination": {
+                    "$ref": "#/definitions/Location"
+                },
+                "departureTime": {
+                    "type": "string",
+                    "format": "2014-11-12T19:05:00"
+                },
+                "arrivalTime": {
+                    "type": "string",
+                    "format": "2014-11-12T19:05:00"
+                },
+                "duration": {
+                    "type": "number",
+                    "format": "int32"
+                },
+                "type": {
+                    "type": "number",
+                    "format": "int32",
+                    "description": "Travel option used. 0 = ...; 1 = ..."
+                },
+                "price": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "The ISO currency code ..."
+                }
+            }
+        },
         "Product": {
             "properties": {
                 "product_id": {
                     "type": "string",
-                    "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles."
+                    "description": "Unique identifier representing a specific product for a given latitude \n& longitude. For example, uberX in San Francisco will have a different \nproduct_id than uberX in Los Angeles.\n"
                 },
                 "description": {
                     "type": "string",
@@ -263,92 +430,121 @@
                 }
             }
         },
-        "PriceEstimate": {
-            "properties": {
-                "product_id": {
-                    "type": "string",
-                    "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles"
-                },
-                "currency_code": {
-                    "type": "string",
-                    "description": "[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code."
-                },
-                "display_name": {
-                    "type": "string",
-                    "description": "Display name of product."
-                },
-                "estimate": {
-                    "type": "string",
-                    "description": "Formatted string of estimate in local currency of the start location. Estimate could be a range, a single number (flat rate) or \"Metered\" for TAXI."
-                },
-                "low_estimate": {
-                    "type": "number",
-                    "description": "Lower bound of the estimated price."
-                },
-                "high_estimate": {
-                    "type": "number",
-                    "description": "Upper bound of the estimated price."
-                },
-                "surge_multiplier": {
-                    "type": "number",
-                    "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier."
-                }
-            }
-        },
         "Profile": {
             "properties": {
-                "first_name": {
+                "first-name": {
                     "type": "string",
-                    "description": "First name of the Uber user."
+                    "description": "First name of the user."
                 },
-                "last_name": {
+                "last-name": {
                     "type": "string",
-                    "description": "Last name of the Uber user."
+                    "description": "Last name of the user."
                 },
                 "email": {
                     "type": "string",
-                    "description": "Email address of the Uber user"
+                    "description": "Email address of the user"
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
                 },
                 "picture": {
                     "type": "string",
-                    "description": "Image URL of the Uber user."
+                    "description": "Image URL of the user."
                 },
-                "promo_code": {
+                "promo-code": {
                     "type": "string",
-                    "description": "Promo code of the Uber user."
+                    "description": "Promo code of the user."
                 }
             }
         },
-        "Activity": {
+        "Address": {
             "properties": {
-                "uuid": {
-                    "type": "string",
-                    "description": "Unique identifier for the activity"
+                "street": {
+                    "type": "string"
+                },
+                "zip": {
+                    "type": "number",
+                    "format": "int32"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
                 }
             }
         },
-        "Activities": {
+        "Favorites": {
             "properties": {
-                "offset": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "Position in pagination."
-                },
-                "limit": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "Number of items to retrieve (100 max)."
-                },
                 "count": {
                     "type": "integer",
                     "format": "int32",
-                    "description": "Total number of items available."
+                    "description": "Total number of favorites available."
                 },
-                "history": {
+                "trips": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Activity"
+                        "$ref": "#/definitions/Favorite"
                     }
+                }
+            }
+        },
+        "Favorite": {
+            "properties": {
+                "uuid": {
+                    "type": "string",
+                    "description": "Unique identifier for the favorite"
+                },
+                "start": {
+                    "type": "string",
+                    "description": "The start location of the booking. Can be an address\nor a description (e.g. home)\n"
+                },
+                "end": {
+                    "type": "string",
+                    "description": "The end location of the booking. Can be an address\nor a description (e.g. company name)\n"
+                },
+                "transport": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "format": "int32",
+                        "description": "Describes the means of transport. 0 = ...\n"
+                    }
+                }
+            }
+        },
+        "Bookings": {
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total number of bookings available."
+                },
+                "trips": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Booking"
+                    }
+                }
+            }
+        },
+        "Booking": {
+            "properties": {
+                "uuid": {
+                    "type": "string",
+                    "description": "Unique identifier for the booking"
+                },
+                "start": {
+                    "type": "string",
+                    "description": "The start location of the booking. Can be an address\nor a description (e.g. home)\n"
+                },
+                "end": {
+                    "type": "string",
+                    "description": "The end location of the booking. Can be an address\nor a description (e.g. company name)\n"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "2014-11-12"
                 }
             }
         },

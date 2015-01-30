@@ -1,0 +1,475 @@
+# this is the 1clicktrips API documentation
+swagger: '2.0'
+info:
+  title: 1ClickTrips API
+  description: Business travel at its best
+  version: "1.0.0"
+# the domain of the service
+host: api.1clicktrips.com
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+
+  #########################################################################
+  # Authentication API
+  #########################################################################
+  
+  #/auth/register:
+  
+  
+  #/auth/local:
+  
+  
+  #/auth/twitter:
+  
+  
+  #/auth/google:
+  
+  
+  #/auth/facebook:
+  
+  
+  #/auth/unlink/twitter:
+  
+  
+  #/auth/unlink/google:
+  
+  
+  #/auth/unlink/facebook:
+    
+  #########################################################################
+  # User Account API
+  #########################################################################
+  /account/profile:
+    get:
+      summary: User Profile
+      description: |
+        The User Profile endpoint returns information about the 1clicktrips
+        user that has authorized with the application.
+      tags:
+        - User
+      responses:
+        200:
+          description: Profile information for a user
+          schema:
+            $ref: '#/definitions/Profile'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /account/settings:
+    get:
+      summary: User Settings
+      description: |
+        The Settings endpoint returns information on the user settings of 
+        the currently authenticated user. 
+      tags:
+        - Settings
+      responses:
+        200:
+          description: An array of settings
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Setting'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /account/favorites:
+    get:
+      summary: User Favorites
+      description: |
+        The User Favorites endpoint returns data about a user's favorites 
+        that he saved before.
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          description: |
+            Number of items to retrieve. Default is 5, maximum is 100.
+      tags:
+        - User
+      responses:
+        200:
+          description: List of favorites for the given user
+          schema:
+            $ref: '#/definitions/Favorites'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /account/bookings:
+    get:
+      summary: User History
+      description: |
+        The User History endpoint returns data about a user's lifetime 
+        activity with 1clicktrips. The response will include 
+      parameters:
+        - name: offset
+          in: query
+          type: integer
+          format: int32
+          description: |
+            The offset is given as seconds since the UNIX epoche. Only 
+            look for trips that have been booked after this date. Default
+            is zero.
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          description: |
+            Number of items to retrieve. Default is 5, maximum is 30.
+      tags:
+        - User
+      responses:
+        200:
+          description: History information for the given user
+          schema:
+            $ref: '#/definitions/Bookings'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  #########################################################################
+  # Search API
+  #########################################################################
+  /search/trips:
+    get:
+      summary: Trip Results
+      description: | 
+        The Trips endpoint returns a collection of trips that matches with 
+        the given parameters. 
+      tags:
+        - Search
+      parameters:
+        - name: start_description
+          in: query
+          description: Description of start location.
+          required: false
+          type: string
+        - name: start_latitude
+          in: query
+          description: Latitude component of start location.
+          required: true
+          type: number
+          format: double
+        - name: start_longitude
+          in: query
+          description: Longitude component of start location.
+          required: true
+          type: number
+          format: double
+        - name: end_description
+          in: query
+          description: Description of end location.
+          required: false
+          type: string
+        - name: end_latitude
+          in: query
+          description: Latitude component of end location.
+          required: true
+          type: number
+          format: double
+        - name: end_longitude
+          in: query
+          description: Longitude component of end location.
+          required: true
+          type: number
+          format: double
+        - name: start_time
+          in: query
+          description: Time string for the local start time of the appointment.
+          required: true
+          type: string
+          format: '2014-11-12T19:05:00'
+        - name: end_time
+          in: query
+          description: Time string for the local end time of the appointment.
+          required: true
+          type: string
+          format: '2014-11-12T19:05:00'
+        - name: roundtrip
+          in: query
+          description: Roundtrip option.
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: An array of trips
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Itinerary'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /search/alternatives:
+    get:
+      summary: Trip Alternatives
+      description: | 
+        The Alternatives endpoint returns a collection of alternatives for a given
+        trip segment. 
+      tags:
+        - Search
+      parameters:
+        - name: trip_id
+          in: query
+          description: The trip ID of the requested trip.
+          required: true
+          type: string
+        - name: segment_id
+          in: query
+          description: The segment ID of the segment to be replaced.
+          required: true
+          type: string
+        - name: limitation
+          in: query
+          description: The maximum number of alternatives.
+          required: false
+          type: number
+          format: integer
+      responses:
+          200:
+            description: An array of alternatives
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/Product'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'          
+              
+#########################################################################
+# API Data Definitions
+#########################################################################
+definitions:
+
+  Setting:
+    properties:
+      category: 
+        type: string
+        description: The category of the key-value pair.
+      key: 
+        type: string
+        description: The settings key (e.g. early bird)
+      value:
+        type: string
+        description: The settings value (e.g. true)
+      description: 
+        type: string
+        description: The description for the key-value pair
+  Itinerary:
+    properties:
+      id: 
+        type: string
+        description: Unique identifier ...
+      outbound:
+        $ref: '#/definitions/Trip'
+      inbound:
+        $ref: '#/definitions/Trip'
+      price:
+        type: number
+        format: double
+      currency:
+        type: string
+        description: The ISO currency code ...
+      type: 
+        type: number
+        format: int32
+        description: |
+          Defines the trip result type
+            0 = budget
+            1 = time
+            2 = comfort
+  Trip:
+    properties:
+      id:
+        type: string
+      origin: 
+        $ref: '#/definitions/Location'
+      destination:
+        $ref: '#/definitions/Location'
+      departureTime: 
+        type: string
+        format: '2014-11-12T19:05:00'
+      arrivalTime: 
+        type: string
+        format: '2014-11-12T19:05:00'
+      distance: 
+        type: number
+        format: double
+      duration:
+        type: number
+        format: int32
+      segments:
+        type: array
+        items: 
+          $ref: '#/definitions/Segment'
+  Location:
+    properties:
+      latitude:
+        type: number
+        format: double
+      longitude:
+        type: number
+        format: double
+  Segment: 
+    properties:
+      id:
+        type: string
+      origin: 
+        $ref: '#/definitions/Location'
+      destination:
+        $ref: '#/definitions/Location'
+      departureTime: 
+        type: string
+        format: '2014-11-12T19:05:00'
+      arrivalTime: 
+        type: string
+        format: '2014-11-12T19:05:00'
+      duration:
+        type: number
+        format: int32
+      type:
+        type: number
+        format: int32
+        description: Travel option used. 0 = ...; 1 = ...
+      price:
+        type: number
+        format: double
+      currency:
+        type: string
+        description: The ISO currency code ...
+  Product:
+    properties:
+      product_id:
+        type: string
+        description: |
+          Unique identifier representing a specific product for a given latitude 
+          & longitude. For example, uberX in San Francisco will have a different 
+          product_id than uberX in Los Angeles.
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+  Profile:
+    properties:
+      first-name:
+        type: string
+        description: First name of the user.
+      last-name:
+        type: string
+        description: Last name of the user.
+      email:
+        type: string
+        description: Email address of the user
+      address:
+        $ref: '#/definitions/Address'
+      picture:
+        type: string
+        description: Image URL of the user.
+      promo-code:
+        type: string
+        description: Promo code of the user.
+  Address:
+    properties:
+      street: 
+        type: string
+      zip:
+        type: number
+        format: int32
+      city: 
+        type: string
+      country:
+        type: string
+  Favorites:
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: Total number of favorites available.
+      trips:
+        type: array
+        items:
+          $ref: '#/definitions/Favorite'
+  Favorite:
+    properties:
+      uuid:
+        type: string
+        description: Unique identifier for the favorite
+      start:
+        type: string
+        description: |  
+          The start location of the booking. Can be an address
+          or a description (e.g. home)
+      end:
+        type: string
+        description: |  
+          The end location of the booking. Can be an address
+          or a description (e.g. company name)
+      transport:
+        type: array
+        items:
+          type: number
+          format: int32
+          description: |
+            Describes the means of transport. 0 = ...
+  Bookings:
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: Total number of bookings available.
+      trips:
+        type: array
+        items:
+          $ref: '#/definitions/Booking'
+  Booking:
+    properties:
+      uuid:
+        type: string
+        description: Unique identifier for the booking
+      start:
+        type: string
+        description: |  
+          The start location of the booking. Can be an address
+          or a description (e.g. home)
+      end:
+        type: string
+        description: |  
+          The end location of the booking. Can be an address
+          or a description (e.g. company name)
+      date:
+        type: string
+        format: '2014-11-12'
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+        
