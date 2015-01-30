@@ -14,10 +14,121 @@
         "application/json"
     ],
     "paths": {
+        "/auth/register": {
+            "post": {
+                "summary": "User Signup",
+                "description": "The user signup takes a username and a password as post arguments\nand returns an auth token.\n",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Authentication token for a user",
+                        "schema": {
+                            "properties": {
+                                "token": {
+                                    "type": "string",
+                                    "description": "Authentication token"
+                                },
+                                "expires": {
+                                    "type": "number",
+                                    "format": "int",
+                                    "description": "Expiration date of the auth token"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/local": {
+            "post": {
+                "summary": "User Signin",
+                "description": "The user signin takes a username and a password as post arguments\nand returns an auth token.\n",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Authentication token for a user",
+                        "schema": {
+                            "$ref": "#/definitions/Authentication"
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/twitter": {
+            "get": {
+                "summary": "Twitter Signin",
+                "description": "The Twitter authentication \n",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Twitter signin successful",
+                        "schema": {
+                            "$ref": "#/definitions/Authentication"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/unlink/twitter": {
+            "get": {
+                "summary": "Unlink Twitter Accout",
+                "description": "The Twitter account can be unlinked from the local account. \n",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Twitter unlink successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/account/profile": {
             "get": {
                 "summary": "User Profile",
-                "description": "The User Profile endpoint returns information about the 1clicktrips\nuser that has authorized with the application.\n",
+                "description": "The User Profile endpoint returns information about the 1clicktrips\nuser that has authenticated with the application.\n",
                 "tags": [
                     "User"
                 ],
@@ -225,7 +336,7 @@
         "/search/alternatives": {
             "get": {
                 "summary": "Trip Alternatives",
-                "description": "The Alternatives endpoint returns a collection of alternatives for a given\ntrip segment. \n",
+                "description": "The Alternatives endpoint returns a collection of alternatives \nfor a given trip segment. \n",
                 "tags": [
                     "Search"
                 ],
@@ -259,7 +370,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Product"
+                                "$ref": "#/definitions/Segment"
                             }
                         }
                     },
@@ -274,6 +385,19 @@
         }
     },
     "definitions": {
+        "Authentication": {
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "description": "Authentication token"
+                },
+                "expires": {
+                    "type": "number",
+                    "format": "int",
+                    "description": "Expiration date of the auth token"
+                }
+            }
+        },
         "Setting": {
             "properties": {
                 "category": {
@@ -403,30 +527,6 @@
                 "currency": {
                     "type": "string",
                     "description": "The ISO currency code ..."
-                }
-            }
-        },
-        "Product": {
-            "properties": {
-                "product_id": {
-                    "type": "string",
-                    "description": "Unique identifier representing a specific product for a given latitude \n& longitude. For example, uberX in San Francisco will have a different \nproduct_id than uberX in Los Angeles.\n"
-                },
-                "description": {
-                    "type": "string",
-                    "description": "Description of product."
-                },
-                "display_name": {
-                    "type": "string",
-                    "description": "Display name of product."
-                },
-                "capacity": {
-                    "type": "string",
-                    "description": "Capacity of product. For example, 4 people."
-                },
-                "image": {
-                    "type": "string",
-                    "description": "Image URL representing the product."
                 }
             }
         },
