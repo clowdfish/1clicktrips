@@ -24,16 +24,16 @@ $ npm install && bower install && tsd reinstall
 ```
 
 ### Frontend
-Go to the `/frontend` directory and install all npm and bower modules and the the Typescript definitions.
+Go to the `/frontend` directory and install all npm and bower modules.
 ```
 $ cd ./frontend
-$ npm install && bower install && tsd reinstall
+$ npm install && bower install
 ```
 To start the frontend development process, start gulp in `/frontend`.
 ```
 $ gulp live
 ```
-A watch process is started with a thin server layer delivering the frontend to the client. The process also includes a proxy that redirects all requests for `/api/` to localhost:8080 which is answered by the `server.js` file. On the production server a .htaccess file will be responsible for that part.
+A watch process is started with a thin server layer delivering the frontend to the client. The process also includes a proxy that redirects all requests for `/api/` to localhost:8080 which is answered by the `server.js` file (once you started that server). On the production server a .htaccess file will be responsible for that part.
 
 
 ## Server requirements
@@ -73,4 +73,6 @@ The REST API follows some general guidelines in order to be as consistent, self-
 
 #### Documentation
 The REST API documentation is done with [Swagger 2.0](http://swagger.io/) and can be found [here](http://swagger.homeunix.com/ui/).
+
+The documentation for Swagger 2.0 can be found [here](https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md).
 
