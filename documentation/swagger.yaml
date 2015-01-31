@@ -9,12 +9,12 @@ host: api.1clicktrips.com
 # array of all schemes that your API supports
 schemes:
   - http
+  - https
 # will be prefixed to all paths
 basePath: /v1
 produces:
   - application/json
 paths:
-
   #########################################################################
   # Authentication API
   #########################################################################
@@ -23,21 +23,25 @@ paths:
       summary: User Signup
       description: |
         The user signup takes a username and a password as post arguments
-        and returns an auth token.
+        and returns an auth token with its expiration date.
       tags:
         - Auth
+      parameters:
+        - name: email
+          in: body
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: body
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Authentication token for a user
           schema:
-            properties:
-              token:
-                type: string
-                description: Authentication token
-              expires:
-                type: number
-                format: int
-                description: Expiration date of the auth token
+            $ref: '#/definitions/Authentication'
         401:
           description: Authentication failure
           schema: 
@@ -55,6 +59,17 @@ paths:
         and returns an auth token.
       tags:
         - Auth
+      parameters:
+        - name: email
+          in: body
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: body
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Authentication token for a user
@@ -73,7 +88,7 @@ paths:
     get: 
       summary: Twitter Signin
       description: |
-        The Twitter authentication 
+        The Twitter authentication will be done with Twitter oauth2.
       tags:
         - Auth
       responses:
@@ -85,9 +100,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  
-  #/auth/google:
-  #/auth/facebook:
   
   /auth/unlink/twitter:
     get:
@@ -104,7 +116,10 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
+  #/auth/google:
   #/auth/unlink/google:
+    
+  #/auth/facebook:
   #/auth/unlink/facebook:
             
   #########################################################################
@@ -118,11 +133,32 @@ paths:
         user that has authenticated with the application.
       tags:
         - User
+        - Settings
       responses:
         200:
           description: Profile information for a user
           schema:
             $ref: '#/definitions/Profile'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post: 
+      summary: Update User Profile
+      description: |
+        The User Profile can be only updated collectively.
+      tags:
+        - User
+        - Settings
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema: 
+            $ref: '#/definitions/Profile'
+      responses:
+        200:
+          description: Update of Profile successful
         default:
           description: Unexpected error
           schema:
@@ -136,6 +172,7 @@ paths:
         the currently authenticated user. 
       tags:
         - Settings
+        - User
       responses:
         200:
           description: An array of settings
@@ -147,10 +184,32 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post: 
+      summary: Update User Settings
+      description: |
+        User settings can be updated one at a time. It must be assured, that
+        all information are supplied to be able to create a new setting or 
+        update an existing one.
+      tags:
+        - Settings
+        - User
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema: 
+            $ref: '#/definitions/Setting'
+      responses:
+        200:
+          description: Update of setting successful
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
     
   /account/favorites:
     get:
-      summary: User Favorites
+      summary: Get User Favorites
       description: |
         The User Favorites endpoint returns data about a user's favorites 
         that he saved before.
@@ -171,18 +230,37 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post: 
+      summary: Update Favorites
+      description: |
+        Save a new favorite or edit an existing one. 
+      tags:
+        - User
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema: 
+            $ref: '#/definitions/Favorite'
+      responses:
+        200:
+          description: Creation/Update of favorites successful
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
             
   /account/bookings:
     get:
       summary: User History
       description: |
         The User History endpoint returns data about a user's lifetime 
-        activity with 1clicktrips. The response will include 
+        activity with 1clicktrips.
       parameters:
         - name: offset
           in: query
           type: integer
-          format: int32
+          format: int64
           description: |
             The offset is given as seconds since the UNIX epoche. Only 
             look for trips that have been booked after this date. Default
@@ -219,53 +297,53 @@ paths:
       parameters:
         - name: start_description
           in: query
-          description: Description of start location.
+          description: Description of start location
           required: false
           type: string
         - name: start_latitude
           in: query
-          description: Latitude component of start location.
+          description: Latitude component of start location
           required: true
           type: number
           format: double
         - name: start_longitude
           in: query
-          description: Longitude component of start location.
+          description: Longitude component of start location
           required: true
           type: number
           format: double
         - name: end_description
           in: query
-          description: Description of end location.
+          description: Description of end location
           required: false
           type: string
         - name: end_latitude
           in: query
-          description: Latitude component of end location.
+          description: Latitude component of end location
           required: true
           type: number
           format: double
         - name: end_longitude
           in: query
-          description: Longitude component of end location.
+          description: Longitude component of end location
           required: true
           type: number
           format: double
         - name: start_time
           in: query
-          description: Time string for the local start time of the appointment.
+          description: Time string for the local start time of the appointment
           required: true
           type: string
           format: '2014-11-12T19:05:00'
         - name: end_time
           in: query
-          description: Time string for the local end time of the appointment.
+          description: Time string for the local end time of the appointment
           required: true
           type: string
           format: '2014-11-12T19:05:00'
         - name: roundtrip
           in: query
-          description: Roundtrip option.
+          description: Roundtrip option
           required: false
           type: boolean
       responses:
@@ -291,17 +369,17 @@ paths:
       parameters:
         - name: trip_id
           in: query
-          description: The trip ID of the requested trip.
+          description: The trip ID of the requested trip
           required: true
           type: string
         - name: segment_id
           in: query
-          description: The segment ID of the segment to be replaced.
+          description: The segment ID of the segment to be replaced
           required: true
           type: string
         - name: limitation
           in: query
-          description: The maximum number of alternatives.
+          description: The maximum number of alternatives
           required: false
           type: number
           format: integer
@@ -317,12 +395,40 @@ paths:
             schema:
               $ref: '#/definitions/Error'          
               
+  #########################################################################
+  # Language API
+  #########################################################################
+  /i18n/{languageCode}:
+    get:
+      summary: Language File
+      description: | 
+        The language file for a given language code.
+      tags:
+        - Language
+      parameters:
+        - name: languageCode
+          in: path
+          required: true
+          type: string
+          description: ISO 639-1 Language Codes
+      responses:
+        200:
+          description: A JSON object with the translations
+          schema:
+            type: object
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+              
 #########################################################################
 # API Data Definitions
 #########################################################################
 definitions:
-
   Authentication:
+    required:
+      - token
+      - expires
     properties:
       token:
         type: string
@@ -335,7 +441,7 @@ definitions:
     properties:
       category: 
         type: string
-        description: The category of the key-value pair.
+        description: The category of the key-value pair
       key: 
         type: string
         description: The settings key (e.g. early bird)
@@ -349,7 +455,7 @@ definitions:
     properties:
       id: 
         type: string
-        description: Unique identifier ...
+        description: Unique identifier
       outbound:
         $ref: '#/definitions/Trip'
       inbound:
@@ -359,7 +465,7 @@ definitions:
         format: double
       currency:
         type: string
-        description: The ISO currency code ...
+        description: The ISO 4217 currency code
       type: 
         type: number
         format: int32
@@ -420,21 +526,26 @@ definitions:
       type:
         type: number
         format: int32
-        description: Travel option used. 0 = ...; 1 = ...
+        description: | 
+          Travel option used. 
+          Walk = 1, Taxi = 2, Car = 4, Bus = 8, 
+          Train = 16, Plane = 32
       price:
         type: number
         format: double
       currency:
         type: string
-        description: The ISO currency code ...
+        description: The ISO 4217 currency code
   Profile:
+    required:
+      - email
     properties:
       first-name:
         type: string
-        description: First name of the user.
+        description: First name of the user
       last-name:
         type: string
-        description: Last name of the user.
+        description: Last name of the user
       email:
         type: string
         description: Email address of the user
@@ -442,10 +553,10 @@ definitions:
         $ref: '#/definitions/Address'
       picture:
         type: string
-        description: Image URL of the user.
+        description: Image URL of the user
       promo-code:
         type: string
-        description: Promo code of the user.
+        description: Promo code of the user
   Address:
     properties:
       street: 
@@ -462,12 +573,15 @@ definitions:
       count:
         type: integer
         format: int32
-        description: Total number of favorites available.
+        description: Total number of favorites available
       trips:
         type: array
         items:
           $ref: '#/definitions/Favorite'
   Favorite:
+    required: 
+      - start
+      - end
     properties:
       uuid:
         type: string
@@ -488,13 +602,15 @@ definitions:
           type: number
           format: int32
           description: |
-            Describes the means of transport. 0 = ...
+            Travel option used. 
+            Walk = 1, Taxi = 2, Car = 4, Bus = 8, 
+            Train = 16, Plane = 32
   Bookings:
     properties:
       count:
         type: integer
         format: int32
-        description: Total number of bookings available.
+        description: Total number of bookings available
       trips:
         type: array
         items:

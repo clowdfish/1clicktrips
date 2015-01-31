@@ -7,7 +7,8 @@
     },
     "host": "api.1clicktrips.com",
     "schemes": [
-        "http"
+        "http",
+        "https"
     ],
     "basePath": "/v1",
     "produces": [
@@ -17,25 +18,33 @@
         "/auth/register": {
             "post": {
                 "summary": "User Signup",
-                "description": "The user signup takes a username and a password as post arguments\nand returns an auth token.\n",
+                "description": "The user signup takes a username and a password as post arguments\nand returns an auth token with its expiration date.\n",
                 "tags": [
                     "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
                         "description": "Authentication token for a user",
                         "schema": {
-                            "properties": {
-                                "token": {
-                                    "type": "string",
-                                    "description": "Authentication token"
-                                },
-                                "expires": {
-                                    "type": "number",
-                                    "format": "int",
-                                    "description": "Expiration date of the auth token"
-                                }
-                            }
+                            "$ref": "#/definitions/Authentication"
                         }
                     },
                     "401": {
@@ -59,6 +68,24 @@
                 "description": "The user signin takes a username and a password as post arguments\nand returns an auth token.\n",
                 "tags": [
                     "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -85,7 +112,7 @@
         "/auth/twitter": {
             "get": {
                 "summary": "Twitter Signin",
-                "description": "The Twitter authentication \n",
+                "description": "The Twitter authentication will be done with Twitter oauth2.\n",
                 "tags": [
                     "Auth"
                 ],
@@ -130,7 +157,8 @@
                 "summary": "User Profile",
                 "description": "The User Profile endpoint returns information about the 1clicktrips\nuser that has authenticated with the application.\n",
                 "tags": [
-                    "User"
+                    "User",
+                    "Settings"
                 ],
                 "responses": {
                     "200": {
@@ -146,6 +174,35 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "summary": "Update User Profile",
+                "description": "The User Profile can be only updated collectively.\n",
+                "tags": [
+                    "User",
+                    "Settings"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update of Profile successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
             }
         },
         "/account/settings": {
@@ -153,7 +210,8 @@
                 "summary": "User Settings",
                 "description": "The Settings endpoint returns information on the user settings of \nthe currently authenticated user. \n",
                 "tags": [
-                    "Settings"
+                    "Settings",
+                    "User"
                 ],
                 "responses": {
                     "200": {
@@ -172,11 +230,40 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "summary": "Update User Settings",
+                "description": "User settings can be updated one at a time. It must be assured, that\nall information are supplied to be able to create a new setting or \nupdate an existing one.\n",
+                "tags": [
+                    "Settings",
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Setting"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update of setting successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
             }
         },
         "/account/favorites": {
             "get": {
-                "summary": "User Favorites",
+                "summary": "Get User Favorites",
                 "description": "The User Favorites endpoint returns data about a user's favorites \nthat he saved before.\n- name: limit\n  in: query\n  type: integer\n  format: int32\n  description: |\n    Number of items to retrieve. Default is 5, maximum is 100.\n",
                 "tags": [
                     "User"
@@ -195,18 +282,46 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "summary": "Update Favorites",
+                "description": "Save a new favorite or edit an existing one. \n",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Favorite"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Creation/Update of favorites successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
             }
         },
         "/account/bookings": {
             "get": {
                 "summary": "User History",
-                "description": "The User History endpoint returns data about a user's lifetime \nactivity with 1clicktrips. The response will include \n",
+                "description": "The User History endpoint returns data about a user's lifetime \nactivity with 1clicktrips.\n",
                 "parameters": [
                     {
                         "name": "offset",
                         "in": "query",
                         "type": "integer",
-                        "format": "int32",
+                        "format": "int64",
                         "description": "The offset is given as seconds since the UNIX epoche. Only \nlook for trips that have been booked after this date. Default\nis zero.\n"
                     },
                     {
@@ -247,14 +362,14 @@
                     {
                         "name": "start_description",
                         "in": "query",
-                        "description": "Description of start location.",
+                        "description": "Description of start location",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "start_latitude",
                         "in": "query",
-                        "description": "Latitude component of start location.",
+                        "description": "Latitude component of start location",
                         "required": true,
                         "type": "number",
                         "format": "double"
@@ -262,7 +377,7 @@
                     {
                         "name": "start_longitude",
                         "in": "query",
-                        "description": "Longitude component of start location.",
+                        "description": "Longitude component of start location",
                         "required": true,
                         "type": "number",
                         "format": "double"
@@ -270,14 +385,14 @@
                     {
                         "name": "end_description",
                         "in": "query",
-                        "description": "Description of end location.",
+                        "description": "Description of end location",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "end_latitude",
                         "in": "query",
-                        "description": "Latitude component of end location.",
+                        "description": "Latitude component of end location",
                         "required": true,
                         "type": "number",
                         "format": "double"
@@ -285,7 +400,7 @@
                     {
                         "name": "end_longitude",
                         "in": "query",
-                        "description": "Longitude component of end location.",
+                        "description": "Longitude component of end location",
                         "required": true,
                         "type": "number",
                         "format": "double"
@@ -293,7 +408,7 @@
                     {
                         "name": "start_time",
                         "in": "query",
-                        "description": "Time string for the local start time of the appointment.",
+                        "description": "Time string for the local start time of the appointment",
                         "required": true,
                         "type": "string",
                         "format": "2014-11-12T19:05:00"
@@ -301,7 +416,7 @@
                     {
                         "name": "end_time",
                         "in": "query",
-                        "description": "Time string for the local end time of the appointment.",
+                        "description": "Time string for the local end time of the appointment",
                         "required": true,
                         "type": "string",
                         "format": "2014-11-12T19:05:00"
@@ -309,7 +424,7 @@
                     {
                         "name": "roundtrip",
                         "in": "query",
-                        "description": "Roundtrip option.",
+                        "description": "Roundtrip option",
                         "required": false,
                         "type": "boolean"
                     }
@@ -344,21 +459,21 @@
                     {
                         "name": "trip_id",
                         "in": "query",
-                        "description": "The trip ID of the requested trip.",
+                        "description": "The trip ID of the requested trip",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "name": "segment_id",
                         "in": "query",
-                        "description": "The segment ID of the segment to be replaced.",
+                        "description": "The segment ID of the segment to be replaced",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "name": "limitation",
                         "in": "query",
-                        "description": "The maximum number of alternatives.",
+                        "description": "The maximum number of alternatives",
                         "required": false,
                         "type": "number",
                         "format": "integer"
@@ -382,10 +497,46 @@
                     }
                 }
             }
+        },
+        "/i18n/{languageCode}": {
+            "get": {
+                "summary": "Language File",
+                "description": "The language file for a given language code.\n",
+                "tags": [
+                    "Language"
+                ],
+                "parameters": [
+                    {
+                        "name": "languageCode",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "ISO 639-1 Language Codes"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A JSON object with the translations",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
         "Authentication": {
+            "required": [
+                "token",
+                "expires"
+            ],
             "properties": {
                 "token": {
                     "type": "string",
@@ -402,7 +553,7 @@
             "properties": {
                 "category": {
                     "type": "string",
-                    "description": "The category of the key-value pair."
+                    "description": "The category of the key-value pair"
                 },
                 "key": {
                     "type": "string",
@@ -422,7 +573,7 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier ..."
+                    "description": "Unique identifier"
                 },
                 "outbound": {
                     "$ref": "#/definitions/Trip"
@@ -436,7 +587,7 @@
                 },
                 "currency": {
                     "type": "string",
-                    "description": "The ISO currency code ..."
+                    "description": "The ISO 4217 currency code"
                 },
                 "type": {
                     "type": "number",
@@ -518,7 +669,7 @@
                 "type": {
                     "type": "number",
                     "format": "int32",
-                    "description": "Travel option used. 0 = ...; 1 = ..."
+                    "description": "Travel option used. \nWalk = 1, Taxi = 2, Car = 4, Bus = 8, \nTrain = 16, Plane = 32\n"
                 },
                 "price": {
                     "type": "number",
@@ -526,19 +677,22 @@
                 },
                 "currency": {
                     "type": "string",
-                    "description": "The ISO currency code ..."
+                    "description": "The ISO 4217 currency code"
                 }
             }
         },
         "Profile": {
+            "required": [
+                "email"
+            ],
             "properties": {
                 "first-name": {
                     "type": "string",
-                    "description": "First name of the user."
+                    "description": "First name of the user"
                 },
                 "last-name": {
                     "type": "string",
-                    "description": "Last name of the user."
+                    "description": "Last name of the user"
                 },
                 "email": {
                     "type": "string",
@@ -549,11 +703,11 @@
                 },
                 "picture": {
                     "type": "string",
-                    "description": "Image URL of the user."
+                    "description": "Image URL of the user"
                 },
                 "promo-code": {
                     "type": "string",
-                    "description": "Promo code of the user."
+                    "description": "Promo code of the user"
                 }
             }
         },
@@ -579,7 +733,7 @@
                 "count": {
                     "type": "integer",
                     "format": "int32",
-                    "description": "Total number of favorites available."
+                    "description": "Total number of favorites available"
                 },
                 "trips": {
                     "type": "array",
@@ -590,6 +744,10 @@
             }
         },
         "Favorite": {
+            "required": [
+                "start",
+                "end"
+            ],
             "properties": {
                 "uuid": {
                     "type": "string",
@@ -608,7 +766,7 @@
                     "items": {
                         "type": "number",
                         "format": "int32",
-                        "description": "Describes the means of transport. 0 = ...\n"
+                        "description": "Travel option used. \nWalk = 1, Taxi = 2, Car = 4, Bus = 8, \nTrain = 16, Plane = 32\n"
                     }
                 }
             }
@@ -618,7 +776,7 @@
                 "count": {
                     "type": "integer",
                     "format": "int32",
-                    "description": "Total number of bookings available."
+                    "description": "Total number of bookings available"
                 },
                 "trips": {
                     "type": "array",
