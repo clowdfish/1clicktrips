@@ -1,18 +1,15 @@
 // routes.js
 
 var jwt     = require('jwt-simple');
-var User    = require('../app/models/user');
-var Search  = require('ttg-search');
 var Promise = require('es6-promise').Promise;
 
 var SettingsController = require('./controller/settings');
+var UserController = require('./controller/user');
 
 var ROUTER_PREFIX = "/#/"; // /#/ for the backbone router
 var secret = '';
 
 module.exports = function (app, express, passport) {
-
-  var tripEngine = new Search.SearchApi();
 
   secret = app.get('jwtTokenSecret');
 
@@ -53,6 +50,7 @@ module.exports = function (app, express, passport) {
     );
   });
 
+  /*
   // profile page route (http://localhost:8080/profile/)
   settingsApi.get('/profile/details', function (req, res) {
     var userId = getUserIdFromToken(req);
@@ -141,6 +139,7 @@ module.exports = function (app, express, passport) {
   // Check for access token on particular API calls
   app.all('/profile/*', isLoggedIn);
   app.use('/', settingsApi);
+  */
 
   // ==========================================================================
   // SEARCH API ===============================================================
@@ -181,7 +180,7 @@ module.exports = function (app, express, passport) {
             searchObject = req.body;
 
             if (!req.body['preferences'] &&
-              (user.local || user.twitter || user.google)) {
+              (user.email || user.twitter_token)) {
 
               console.log("Looking up preferences for user...");
 
@@ -328,14 +327,13 @@ module.exports = function (app, express, passport) {
     user.twitter.token = undefined;
     user.twitter.username = undefined;
 
-    user.save(function () {
-      SettingsController.createSettings(user._id, {'profile': {'twitter': ''}}, function (err, settings) {
-        if (err)
+    UserController.set(user.id, 'twitter_token', '')
+      .then(function() {
+          res.status(200).send();
+      })
+      .catch(function(err) {
           res.status(500).json(err);
-        else
-          res.status(200).json(settings);
       });
-    });
   });
 
   // =============================================================================
@@ -388,10 +386,14 @@ function isLoggedIn(req, res, next) {
       }
       else {
         // attach user to request
-        User.findOne({_id: decoded.iss}, function (err, user) {
-          req.user = user;
-          return next();
-        });
+        UserController.getById(decoded.iss)
+          .then(function (err, user) {
+            req.user = user;
+            return next();
+          })
+          .catch(function(err) {
+            throw err;
+          });
       }
     } catch (err) {
       console.error('Error while decoding token: ' + err.message);
@@ -419,16 +421,16 @@ function getUserFromRequest(req, callback) {
       // handle token here
       if (decoded.exp > Date.now()) {
         // attach user to request
-        User.findOne({_id: decoded.iss}, function (err, user) {
-          if(!err) {
+        UserController.getById(decoded.iss)
+          .then(function (user) {
             if(!user.licence)
               user.licence = 0;
 
             callback(user);
-          }
-          else
-            console.warn('No user found for the current session.');
-        });
+          })
+          .catch(function() {
+              console.warn('No user found for the current session.');
+          });
       }
     }
     catch (err) {
@@ -456,14 +458,14 @@ function getExpirationDate(daysFromNow) {
 function createAuthenticationToken(user, expires, secret) {
 
   return jwt.encode({
-    iss: user._id,
+    iss: user.id,
     exp: expires
   }, secret);
 }
 
 function getAuthenticationToken(req, res, secret) {
   if (req.user) {
-    //console.log("User object available! ID: " + req.user._id);
+    //console.log("User object available! ID: " + req.user.id);
 
     var expires = getExpirationDate(7);
     return createAuthenticationToken(req.user, expires, secret);

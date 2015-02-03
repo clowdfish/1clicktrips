@@ -45,12 +45,7 @@
     "email": "gros.sascha@gmail.com",
     "url": "https://twitter.com/swapzone"
   },
-  "contributors": [
-    {
-      "name": "Tim von Oldenburg",
-      "email": "tim@tvooo.de"
-    }
-  ],
+  "contributors": [],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/clowdfish/1clicktrips/issues"

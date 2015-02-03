@@ -1,90 +1,71 @@
 // settings.js
+var dbConfig = require('../../config/database.js');
+var Promise = require('es6-promise').Promise;
 
-var Promise  = require('es6-promise').Promise;
-var Settings = require('../models/settings');
-var mongoose = require('mongoose');
+module.exports = {
+  set: function(userId, key, value) {
 
-exports.createSettings = function(userId, options, callback) {
-    // check if settings already exist
-    Settings.findOne({'user': userId}, function(err, settings) {
-        var settings_object;
+    return new Promise(function(resolve, reject) {
+      var connection = mysql.createConnection(dbConfig.connection);
 
-        if (err || settings == null) {
-            // create new settings object
-            settings_object = new Settings();
-            settings_object.user = mongoose.Types.ObjectId(userId);
-        }
+      var query =
+        'UPDATE settings ' +
+        'SET ' + mysql.escape(key) + '="' + mysql.escape(value) + '"' +
+        'WHERE user_id=' + userId;
+
+      connection.query(query, function(err, result) {
+        if (err) reject(err);
+
+        if(result.affectedRows > 0)
+          resolve();
         else
-            settings_object = settings;
+          reject(new Error('Nothing could be updated.'));
+      });
 
-        addSettings(settings_object, options);
-
-        settings_object.save(function(err, success) {
-            callback(err, success);
-        });
+      connection.end();
     });
-};
+  },
 
-exports.getSettings = function(userId, callback) {
-    Settings.findOne({'user': userId}, function(err, settings) {
+  get: function(userId) {
 
-        if (err) {
-            console.error('Settings for user "' + userId + '" could not be loaded.');
-        }
-        callback(settings);
+    return new Promise(function(resolve, reject) {
+      var connection = mysql.createConnection(dbConfig.connection);
+
+      var query =
+        'SELECT * ' +
+        'FROM settings ' +
+        'WHERE user_id=' + userId;
+
+      connection.query(query, function(err, result) {
+        if (err) reject(err);
+
+        if(result.length === 1)
+          resolve(result[0]);
+        else
+          reject(new Error('Setting could not be retrieved.'));
+      });
+
+      connection.end();
     });
+  },
+
+  print: function(userId) {
+
+    var connection = mysql.createConnection(dbConfig.connection);
+
+    var query =
+      'SELECT * ' +
+      'FROM settings ' +
+      'WHERE user_id=' + userId;
+
+    connection.query(query, function(err, result) {
+      if (err) throw err;
+
+      console.log('The settings are as follows:');
+      if(result.length === 1)
+        console.log(result[0]);
+    });
+
+    connection.end();
+  }
 };
-
-exports.print = function(settingsObject) {
-   printSettings(settingsObject, 0);
-};
-
-/**
- * Helper functions
- */
-
-function addSettings(settingsObject, toAdd) {
-    for (var key in toAdd) {
-        if(toAdd.hasOwnProperty(key)) {
-
-            if(settingsObject[key] && typeof settingsObject[key] === 'object') {
-               addSettings(settingsObject[key], toAdd[key]);
-            }
-            else {
-                settingsObject[key] = toAdd[key];
-            }
-        }
-    }
-}
-
-function printSettings(settingsObject, level) {
-    if(!level)
-        level = 0;
-
-    var spaceholder = "";
-    for(var i=0; i<level; i++)
-        spaceholder += "-";
-
-    for (var key in settingsObject) {
-        if(settingsObject.hasOwnProperty(key)) {
-
-            if (settingsObject[key] && typeof settingsObject[key] !== 'string') {
-                console.log(spaceholder + key);
-                printSettings(settingsObject[key], level + 3);
-            }
-            else {
-                console.log(spaceholder + key + ': ' + settingsObject[key]);
-            }
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-

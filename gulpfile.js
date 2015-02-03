@@ -8,8 +8,7 @@ var karma = require('karma').server;
 var path        = require("path");
 
 // include gulp plug-ins
-var typescript  = require('gulp-tsc'),
-    notify		= require('gulp-notify'),
+var notify		= require('gulp-notify'),
     plumber 	= require('gulp-plumber');
 
 /****************************************************************************************************/
@@ -34,14 +33,6 @@ var plumberErrorHandler = { errorHandler: notify.onError({
 /* DEVELOPMENT TASKS                                                                                */
 /****************************************************************************************************/
 
-// typescript based tasks
-gulp.task('typescript', function() {
-    gulp.src(['./app/**/*.ts'])
-        .pipe(plumber(plumberErrorHandler))
-        .pipe(typescript())
-        .pipe(gulp.dest('./dist/'))
-});
-
 // start Karma for TDD
 gulp.task('dev-test', function (done) {
     karma.start({
@@ -55,7 +46,7 @@ gulp.task('dev-test', function (done) {
 /****************************************************************************************************/
 
 // ----------------------- Development Tasks ----------------------- //
-gulp.task('default', ['typescript'], function() {
+gulp.task('live', [], function() {
 
     // watch for CSS changes
     gulp.watch('./app/**/*.ts', ['typescript']);
@@ -76,10 +67,7 @@ gulp.task('default', ['typescript'], function() {
     }
 });
 
-gulp.task('test', ['typescript', 'dev-test'], function() {
-
-    // watch for CSS changes
-    gulp.watch('./app/**/*.ts', ['typescript']);
+gulp.task('test', ['dev-test'], function() {
 
     //reload when files change
     gulp.watch('./app/**/*.js', function(event) {

@@ -1,6 +1,5 @@
 // set up ======================================================================
 var express     = require('express'),
-    mongoose    = require('mongoose'),
     passport    = require('passport'),
     session     = require('express-session'),
     morgan      = require('morgan'),
@@ -10,7 +9,6 @@ var express     = require('express'),
 var app = express();
 
 // configuration ===============================================================
-var configDB = require('./config/database.js');
 var port = process.env.PORT || 8080;
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -19,7 +17,7 @@ require('./config/passport')(passport); // pass passport for configuration
  * General server setup is happening here
  */
 function setupServer() {
-    mongoose.connect(configDB.url); // connect to database
+
 
     app.use(morgan('dev')); // log every request to the console
     app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
