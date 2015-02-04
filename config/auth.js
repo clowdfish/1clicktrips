@@ -1,6 +1,8 @@
 // auth.js
 
 module.exports = {
+  'secret' : 'theanswertoallquestions42!',
+
   'twitterAuth' : {
     'consumerKey' 		: 'tgWVUNiEvk8mHuTNjDpwXQIRg',
     'consumerSecret' 	: '0OyYVseIGEuTI469dzZ9intMSMUjumey0iEdpEYG8EpfllHj5M',
