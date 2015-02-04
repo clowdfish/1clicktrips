@@ -101,6 +101,23 @@ paths:
           schema:
             $ref: '#/definitions/Error'
   
+#  /auth/connect/twitter:
+#    get:
+#      summary: Twitter Auth
+#      description: |
+#        Connect the Twitter account to the local account.
+#      tags:
+#        - Auth
+#      responses: 
+#        200:
+#          description: Twitter connect successful
+#          schema:
+#            $ref: '#/definitions/Authentication'
+#        default:
+#          description: Unexpected error
+#          schema:
+#            $ref: '#/definitions/Error'
+        
   /auth/unlink/twitter:
     get:
       summary: Unlink Twitter Accout
@@ -111,6 +128,22 @@ paths:
       responses:
         200:
           description: Twitter unlink successful
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /auth/logout:
+    get:
+      summary: Log out 
+      description: |
+        Log out the user and delete the cookie from the server.
+      tags: 
+        - Auth
+        - User
+      responses:
+        200:
+          description: Logout successful
         default:
           description: Unexpected error
           schema:
@@ -287,7 +320,7 @@ paths:
   # Search API
   #########################################################################
   /search/trips:
-    get:
+    post:
       summary: Trip Results
       description: | 
         The Trips endpoint returns a collection of trips that matches with 
@@ -296,56 +329,65 @@ paths:
         - Search
       parameters:
         - name: start_description
-          in: query
+          in: body
           description: Description of start location
           required: false
-          type: string
+          schema:
+            type: string
         - name: start_latitude
-          in: query
+          in: body
           description: Latitude component of start location
           required: true
-          type: number
-          format: double
+          schema:
+            type: number
+            format: double
         - name: start_longitude
-          in: query
+          in: body
           description: Longitude component of start location
           required: true
-          type: number
-          format: double
+          schema:
+            type: number
+            format: double
         - name: end_description
-          in: query
+          in: body
           description: Description of end location
           required: false
-          type: string
+          schema:
+            type: string
         - name: end_latitude
-          in: query
+          in: body
           description: Latitude component of end location
           required: true
-          type: number
-          format: double
+          schema:
+            type: number
+            format: double
         - name: end_longitude
-          in: query
+          in: body
           description: Longitude component of end location
           required: true
-          type: number
-          format: double
+          schema:
+            type: number
+            format: double
         - name: start_time
-          in: query
+          in: body
           description: Time string for the local start time of the appointment
           required: true
-          type: string
-          format: '2014-11-12T19:05:00'
+          schema:
+            type: string
+            format: '2014-11-12T19:05:00'
         - name: end_time
-          in: query
+          in: body
           description: Time string for the local end time of the appointment
           required: true
-          type: string
-          format: '2014-11-12T19:05:00'
+          schema:
+            type: string
+            format: '2014-11-12T19:05:00'
         - name: roundtrip
-          in: query
+          in: body
           description: Roundtrip option
           required: false
-          type: boolean
+          schema:
+            type: boolean
       responses:
         200:
           description: An array of trips
@@ -398,6 +440,25 @@ paths:
   #########################################################################
   # Language API
   #########################################################################
+  /i18n:
+    get:
+      summary: Language File
+      description: | 
+        The language file for a given language code.
+      tags:
+        - Language
+      responses:
+        200:
+          description: A JSON array with the available languages
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Language'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
   /i18n/{languageCode}:
     get:
       summary: Language File
@@ -437,6 +498,14 @@ definitions:
         type: number
         format: int
         description: Expiration date of the auth token
+  Language:
+    properties:
+      code: 
+        type: string
+        description: ISO 639-1 Language Code (e.g. en-US)
+      name: 
+        type: string
+        description: The name of the language (e.g. English)
   Setting:
     properties:
       category: 
@@ -523,13 +592,14 @@ definitions:
       duration:
         type: number
         format: int32
+        description: Duration in minutes
       type:
         type: number
         format: int32
         description: | 
           Travel option used. 
-          Walk = 1, Taxi = 2, Car = 4, Bus = 8, 
-          Train = 16, Plane = 32
+          Stay = 0, Walk = 1, Taxi = 2, Car = 4, 
+          Bus = 8, Train = 16, Plane = 32
       price:
         type: number
         format: double
@@ -642,4 +712,3 @@ definitions:
         type: string
       fields:
         type: string
-        
