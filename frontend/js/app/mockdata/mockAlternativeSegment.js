@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.result')
+    .module('app.mockdata')
     .value('mockAlternativeSegment', [
       {
         id: 5,

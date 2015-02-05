@@ -1,3 +1,7 @@
+/**
+* Google SDK requires that DOM element must be visisble on browser
+* Karma never insert DOM to its browser so we can't test Google Map with Jasmine at this time
+*/
 'use strict';
 
 describe('itineraryMap directive', function() {

@@ -1,6 +1,6 @@
 (function() {
   angular
-    .module('app.result')
+    .module('app.mockdata')
     .value('mockItinerary', {
       id: 1,
       destination: 'DoubleTree by Hilton Metropolitan, New York, USA',

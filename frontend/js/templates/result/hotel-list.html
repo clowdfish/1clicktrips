@@ -1,0 +1,12 @@
+<div class='hotel-list-container'>
+  <p>Please choose your preferred hotel</p>
+  <a ng-click='closeHotelPanel()'>Close</a>
+  <div class='trip-details-hotels-item' ng-repeat='hotel in hotels'>
+    <img ng-src='{{hotel.imageUrl}}' width="100"/>
+    <b>{{hotel.name}}</b>
+    <br/>
+    <div class='hotel-price'>+ {{hotel.price}}</div>
+    <button ng-click='selectHotel(segment, hotel)'>Select Hotel</button>
+    <hr/>
+  </div>
+</div>

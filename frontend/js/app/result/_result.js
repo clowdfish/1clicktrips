@@ -2,6 +2,7 @@
   'use strict';
   angular
     .module('app.result', [
+      'app.mockdata',
       'ngMockE2E'
     ])
     .run(run);
