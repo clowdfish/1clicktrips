@@ -1,12 +1,30 @@
-<div class='hotel-list-container'>
-  <p>Please choose your preferred hotel</p>
-  <a ng-click='closeHotelPanel()'>Close</a>
-  <div class='trip-details-hotels-item' ng-repeat='hotel in hotels'>
-    <img ng-src='{{hotel.imageUrl}}' width="100"/>
-    <b>{{hotel.name}}</b>
-    <br/>
-    <div class='hotel-price'>+ {{hotel.price}}</div>
-    <button ng-click='selectHotel(segment, hotel)'>Select Hotel</button>
-    <hr/>
-  </div>
+<div class='alternatives-container'>
+  <span class="alternatives-container-title">Please choose your preferred hotel</span>
+  <a class="alternatives-container-close" ng-click='closeHotelPanel()'><i class="fa fa-times-circle-o"></i></a>
+
+  <ul class="hotels-list">
+
+    <li class='hotels-list-item' ng-repeat='hotel in hotels'>
+      <img class="hotels-list-item-image" ng-src='{{hotel.imageUrl}}' />
+
+      <div class="hotels-list-item-info">
+         <span class="hotels-list-item-title">
+        {{hotel.name}}
+        </span>
+        <span class="hotels-list-item-rating">
+          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+        </span>
+        <span class="hotels-list-item-distance">
+          1.5 km from destination
+        </span>
+
+        <span class='hotels-list-item-price'>
+          + {{hotel.price}}
+        </span>
+
+        <button class="button" ng-click='selectHotel(segment, hotel)'>Select Hotel</button>
+      </div>
+    </li>
+
+  </ul>
 </div>

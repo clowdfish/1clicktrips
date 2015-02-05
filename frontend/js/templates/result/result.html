@@ -38,21 +38,28 @@
       <div class="result-view view-container">
 
         <div class="trip-header">
-          <small>Your destination</small>
-          <h1>{{itinerary.destination}}</h1><a class='change-location-link' ng-click="changeLocationAndDate()">Change location & date</a>
-          <div class='trip-date'>
-            From <span class="trip-date-content">{{itinerary.startTime | date:"dd MM yyyy"}} to {{itinerary.endTime | date:"dd MM yyyy"}}</span>
+          <span class="fs-smallest">Your destination</span>
+          <h2 class="trip-header-title"><i class="fa fa-map-marker"></i>{{itinerary.destination}}</h2>
+          <a class='change-location-link fs-smallest' ng-click="changeLocationAndDate()">+ Change location & date</a>
+          <div class='fs-smallest'>
+            From <span class="trip-date">{{itinerary.startTime | date: "dd.MM.yyyy"}} to {{itinerary.endTime | date: "dd.MM.yyyy"}}</span>
           </div>
         </div>
 
-        <itinerary-summary itinerary="itinerary"></itinerary-summary>
-        <div class="clearfix"></div>
-        <div class="trip-detail">
+        <div class="trip-summary">
+          <trip-summary itinerary="itinerary"></trip-summary>
+        </div>
+
+        <div class="trip-overview">
           <itinerary-map itinerary="itinerary"></itinerary-map>
         </div>
-        <div class="clearfix"></div>
-        <itinerary-summary itinerary="itinerary"></itinerary-summary>
 
+        <div class="trip-footer">
+          <div class="trip-footer-summary">TRIP FOOTER SUMMARY</div>
+          <div class="trip-footer-action">
+            <a href="#" class="button">Purchase Trip</a>
+          </div>
+        </div>
       </div>
 
     </section>

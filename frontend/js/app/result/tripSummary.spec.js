@@ -1,6 +1,6 @@
 'use strict';
 
-describe('itinerarySummary', function() {
+describe('tripSummary', function() {
   var element,
       compiledDirective,
       scope,
@@ -10,7 +10,7 @@ describe('itinerarySummary', function() {
 
   beforeEach(module('app.common'));
   beforeEach(module('app.result'));
-  beforeEach(module('js/templates/result/itinerary-summary.html'));
+  beforeEach(module('js/templates/result/trip-summary.html'));
 
 
   beforeEach(inject(function(_$compile_, _$rootScope_, mockItinerary) {
@@ -19,7 +19,7 @@ describe('itinerarySummary', function() {
     scope.itinerary = itinerary;
     $compile = _$compile_;
 
-    element = angular.element('<itinerary-summary itinerary="itinerary"></itinerary-summary>');
+    element = angular.element('<trip-summary itinerary="itinerary"></trip-summary>');
     compiledDirective = _$compile_(element)(scope);
     scope.$digest();
     isoScope = element.isolateScope();

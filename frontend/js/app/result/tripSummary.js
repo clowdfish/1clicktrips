@@ -3,12 +3,12 @@
 
   angular
     .module('app.result')
-    .directive('itinerarySummary', itinerarySummary);
+    .directive('tripSummary', tripSummary);
 
-  function itinerarySummary() {
+  function tripSummary() {
     return {
       restrict: 'E',
-      templateUrl: 'js/templates/result/itinerary-summary.html',
+      templateUrl: 'js/templates/result/trip-summary.html',
       scope: {
         itinerary: '='
       },

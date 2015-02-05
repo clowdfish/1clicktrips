@@ -1,9 +1,9 @@
-<ul class="trip-summary">
+<ul class="trip-summary-list">
   <li class="trip-summary-item">
     <div class="trip-summary-item-title">Total Travel Time</div>
     <div class="trip-summary-item-value">
       {{itinerary.duration | durationToTime:"%h hrs %m mins"}}
-      <div class='duration-by-days'>{{itinerary.duration | durationToDate:"%d days %n night"}}</div>
+      <span class='duration-by-days'>({{itinerary.duration | durationToDate:"%d days, %n night"}})</span>
     </div>
   </li>
   <li class="trip-summary-item">

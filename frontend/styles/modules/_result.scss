@@ -194,7 +194,336 @@
 %result {
 
   .result-view {
-    padding: 1.4em;
+    padding: 0;
+  }
+
+  /*******************************************************/
+  /* Result Header                                       */
+  /*******************************************************/
+  .trip-header {
+    padding: 1em;
+
+    .fs-smallest {
+      display: block;
+      color: $c-text-dark-bg;
+    }
+
+    .fa {
+      margin-right: 0.3em;
+    }
+
+    .trip-header-title {
+      margin: 0.2em 1.2em 0.15em 0;
+      display: inline-block;
+    }
+
+    .change-location-link {
+      display: inline;
+      color: $c-red;
+      cursor: pointer;
+    }
+
+    .trip-date {
+      color: $c-red;
+    }
+  }
+
+  /*******************************************************/
+  /* Trip Summary                                        */
+  /*******************************************************/
+  .trip-summary {
+    padding: 1em;
+
+    @include clearfix;
+  }
+
+  .trip-summary-list {
+    list-style: none;
+    //margin-top: 1em;
+  }
+
+  .trip-summary-item {
+    float: left;
+    width: 20%;
+    margin-bottom: 1em;
+  }
+
+  .trip-summary-item-title {
+    font-size: $fs-smallest;
+  }
+
+  .trip-summary-item-value {
+    color: $c-red;
+    font-weight: 800;
+  }
+
+  .duration-by-days {
+    display: block;
+    font-size: $fs-smallest;
+    font-weight: 400;
+  }
+
+  /*******************************************************/
+  /* Trip Result Map                                     */
+  /*******************************************************/
+  #itinerary-map {
+    height: 500px;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .itinerary-map-container {
+    position: relative;
+
+  }
+
+  /*******************************************************/
+  /* Trip Segments                                       */
+  /*******************************************************/
+  .trip-segments-container {
+    z-index: 999;
+    position: absolute;
+    top: 1.5em;
+    left: -1.5em;
+  }
+
+  .trip-segments {
+    display: inline-block;
+    vertical-align: top;
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+  }
+  
+  .trip-segments-header {
+    padding: 1em 1em 0 1em;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .trip-segments-body {
+    padding:  0 1em;
+  }
+
+  .trip-segments-title {
+    margin-bottom: 1.5em;
+    font-weight: 200;
+
+    .fa {
+      margin-right: 0.2em;
+    }
+
+    a.trip-segments-print {
+      float: right;
+      color: $c-text;
+    }
+  }
+
+  /*******************************************************/
+  /* Trip Segments Tab Control                           */
+  /*******************************************************/
+  .trip-segments-day-tab {
+    list-style: none;
+
+    @include clearfix;
+  }
+
+  .trip-segments-day-tab-item {
+    display: inline-block;
+    padding: 0.35em 1.4em;
+    border: 1px solid #e8e8e8;
+    font-weight: 600;
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+
+  .trip-segments-day-tab-item.active {
+    border-top: 2px solid $c-red;
+    border-bottom: 1px solid white;
+    background-color: white;
+    color: $c-red;
+    cursor: default;
+  }
+
+  /*******************************************************/
+  /* Trip Segments List                                  */
+  /*******************************************************/
+  .trip-segments-list {
+    display: table;
+    list-style: none;
+
+    @include clearfix;
+  }
+
+  .trip-segments-day-item {
+    display: table-row;
+    padding: 1em 0;
+  }
+
+  .trip-segments-day-item-col {
+    display: table-cell;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    &:not(:last-child) {
+      padding-right: 0.6em;
+    }
+
+    &:not(:first-child) {
+      border-bottom: 1px solid #e8e8e8;
+    }
+  }
+
+  .trip-segments-day-item-number {
+
+    span {
+      display: block;
+      color: white;
+      background-color: $c-red;
+      height: 1.8em;
+      width: 1.8em;
+      border-radius: 0.9em;
+
+      /* text properties */
+      text-align: center;
+      vertical-align: middle;
+      line-height: 1.8em;
+      font-weight: 800;
+      font-size: $fs-smallest;
+    }
+  }
+
+  .trip-segments-day-item-type {
+
+  }
+
+  .trip-segments-day-item-description {
+    max-width: 15em;
+    font-size: $fs-small;
+
+    a {
+      display: block;
+      color: $c-red;
+      font-size: $fs-smallest;
+      cursor: pointer;
+    }
+  }
+
+  .trip-segments-day-item-timing {
+    text-align: right;
+
+    .trip-segments-day-item-timing-time {
+      display: block;
+      color: $c-red;
+      font-size: $fs-small;
+    }
+
+    .trip-segments-day-item-timing-distance {
+      display: block;
+      color: $c-blue;
+      font-size: $fs-smallest;
+    }
+  }
+
+  .trip-segments-day-item-close {
+
+    a {
+      color: $c-text-dark-bg;
+      cursor: pointer;
+    }
+  }
+
+  /*******************************************************/
+  /* Trip Segments Alternatives                          */
+  /*******************************************************/
+  .trip-segments-alternatives {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 3em;
+    background-color: $c-dark;
+    color: white;
+    padding: 0.6em;
+    font-size: $fs-small;
+  }
+
+  .alternatives-container-title {
+    display: inline-block;
+    margin-right: 0.6em;
+    margin-bottom: 0.6em;
+  }
+
+  .alternatives-container-close {
+    cursor: pointer;
+    float: right;
+  }
+
+  .hotels-list {
+    list-style: none;
+  }
+
+  .hotels-list-item {
+    padding: 0.6em 0;
+
+    button {
+      margin-top: 0.6em;
+    }
+  }
+
+  .hotels-list-item-info {
+    display: inline-block;
+  }
+
+  .hotels-list-item-title {
+    font-weight: 600;
+    display: block;
+  }
+
+  .hotels-list-item-image {
+    width: 8em;
+    vertical-align: top;
+    margin-right: 0.6em;
+  }
+
+  .hotels-list-item-rating {
+    display: inline-block;
+    margin-right: 1em;
+    color: yellow;
+
+  }
+
+  .hotels-list-item-distance {
+    font-size: $fs-smallest;
+
+    @include clearfix;
+  }
+
+  .hotels-list-item-price {
+    display: inline-block;
+    margin-right: 1em;
+    margin-top: 0.6em;
+    font-size: $fs-larger;
+    font-weight: 600;
+  }
+
+  /*******************************************************/
+  /* Trip Footer                                         */
+  /*******************************************************/
+  .trip-footer {
+
+  }
+
+  .trip-footer-summary {
+    padding: 1em;
+    background-color: white;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .trip-footer-action {
+    padding: 0 1em;
+    background-color: $c-background;
+
+    a {
+      float: right;
+      margin: 1.5em 0;
+    }
   }
 
   @include respond-above("medium") {
@@ -218,76 +547,4 @@
 
 .result {
   @extend %result;
-}
-
-/*******************************************************/
-/* Result Header                                       */
-/*******************************************************/
-.change-location-link {
-  float: right;
-}
-
-.trip-summary {
-  list-style: none;
-  margin:50px 0;
-}
-
-.trip-summary-item {
-  float: left;
-  width: 20%;
-}
-/*******************************************************/
-/* Result Map                                          */
-/*******************************************************/
-#itinerary-map {
-  height: 500px;
-}
-
-.itinerary-map-container {
-
-  position: relative;
-
-  .trip-details {
-    z-index: 999;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width:500px;
-    height: 400px;
-  }
-
-  .trip-details-day-tab {
-    list-style: none;
-  }
-
-  .trip-details-day-tab-item {
-    float: left;
-    display: inline;
-    width: 150px;
-    height: 30px;
-    border: 1px solid black;
-  }
-
-  .trip-details-day-tab-item.active {
-    border-top: 1px solid red;
-  }
-
-  .trip-details-day-item-col {
-    float: left;
-    border: 1px solid white;
-  }
-
-  .trip-details-day-item-col-1 {
-    width: 30px;
-  }
-  .trip-details-day-item-col-2 {
-    width: 30px;
-  }
-  .trip-details-day-item-col-3 {
-    width: 200px;
-  }
-  .trip-details-day-item-col-4 {
-    width: 80px;
-  }
-
 }

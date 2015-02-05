@@ -135,15 +135,15 @@
       function showSegmentHotels(segment) {
         if (typeof(segment['hotels']) != 'undefined' && segment.hotels.length > 0) {
           scope.hotels = segment.hotels;
-          scope.showHotelPanel = true;
+          scope.showAlternativesPanel = true;
         } else {
           scope.hotels = [];
-          scope.showHotelPanel = false;
+          scope.showAlternativesPanel = false;
         }
       }
 
       function closeHotelPanel() {
-        scope.showHotelPanel = false;
+        scope.showAlternativesPanel = false;
       }
 
       function selectHotel(segment, hotel) {
