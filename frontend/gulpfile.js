@@ -1,6 +1,6 @@
 // include gulp
 var gulp = require('gulp');
-
+var karma = require('karma').server;
 // include core modules
 var path  = require("path");
 var fs    = require("fs");
@@ -78,6 +78,7 @@ gulp.task('images', function() {
 gulp.task('webserver', function() {
   gulp.src('build/')
     .pipe(webserver({
+      port: 3000,
       livereload: true,
       open: 'en/',
       proxies: [
@@ -92,9 +93,13 @@ gulp.task('scripts', ['i18n'], function() {
     [
       'bower_components/angular/angular.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/underscore/underscore.js',
       'bower_components/mediator-js/lib/mediator.js',
-      'bower_components/moment/moment.js'
+      'bower_components/moment/moment.js',
+      'bower_components/lodash/lodash.js',
+      'js/app/**/*.js',
+      '!js/app/**/*.spec.js'
     ]
   )
     .pipe(plumber(plumberErrorHandler))
@@ -110,6 +115,14 @@ gulp.task('scripts', ['i18n'], function() {
     .pipe(gulp.dest('build/scripts'));
 });
 
+gulp.task('angular-templates', function() {
+  gulp
+    .src([
+      'js/templates/**/*'
+    ])
+    .pipe(gulp.dest('build/en/js/templates'))
+    .pipe(gulp.dest('build/de/js/templates'));
+});
 // compile html files and replace language strings
 gulp.task('preprocess', function() {
   var locales = ['en', 'de'];
@@ -151,11 +164,19 @@ gulp.task('i18n', function() {
     .pipe(gulp.dest('scripts/build/'));
 });
 
-// gulp task suite
-gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver'], function() {
-  gulp.watch('styles/**/*.scss', ['styles']);
-  gulp.watch(['scripts/**/*.coffee'], ['scripts']);
-  gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess']);
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false
+  }, done);
 });
 
-gulp.task('build', ['styles', 'scripts', 'images', 'preprocess'], function() {});
+// gulp task suite
+gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates'], function() {
+  gulp.watch('styles/**/*.scss', ['styles']);
+  gulp.watch(['js/app/**/*.js'], ['scripts']);
+  gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess']);
+  gulp.watch(['js/templates/**/*.html'], ['angular-templates']);
+});
+
+gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates'], function() {});

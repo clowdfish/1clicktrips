@@ -17,6 +17,8 @@
   "dependencies": {
     "angular": "*",
     "angular-ui-router": "*",
+    "angular-mocks": "*",
+    "lodash": "*",
     "entypo": "*",
     "font-awesome": "~4.2.0",
     "mediator-js": "~0.9.7",

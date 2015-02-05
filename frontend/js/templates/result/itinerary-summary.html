@@ -1,0 +1,29 @@
+<ul class="trip-summary">
+  <li class="trip-summary-item">
+    <div class="trip-summary-item-title">Total Travel Time</div>
+    <div class="trip-summary-item-value">
+      {{itinerary.duration | durationToTime:"%h hrs %m mins"}}
+      <div class='duration-by-days'>{{itinerary.duration | durationToDate:"%d days %n night"}}</div>
+    </div>
+  </li>
+  <li class="trip-summary-item">
+    <div class="trip-summary-item-title">Means of travel used</div>
+    <div class="trip-summary-item-value">
+      <span ng-repeat='type in itinerary.vehicleTypeList'>
+        <img src='/images/{{type}}'/>
+      </span>
+    </div>
+  </li>
+  <li class="trip-summary-item">
+    <div class="trip-summary-item-title">Start time</div>
+    <div class="trip-summary-item-value">{{itinerary.startTime | date:"EEE hh:mm"}}</div>
+  </li>
+  <li class="trip-summary-item">
+    <div class="trip-summary-item-title">End time</div>
+    <div class="trip-summary-item-value">{{itinerary.endTime | date:"EEE hh:mm"}}</div>
+  </li>
+  <li class="trip-summary-item">
+    <div class="trip-summary-item-title">Total Cost</div>
+    <div class="trip-summary-item-value">{{itinerary.price}}</div>
+  </li>
+</ul>

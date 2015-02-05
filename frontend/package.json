@@ -25,7 +25,12 @@
     "gulp-uglify": "^0.3.2",
     "gulp-webserver": "^0.8.2",
     "gulp-yml": "^0.1.1",
-    "js-yaml": "^3.2.2"
+    "js-yaml": "^3.2.2",
+    "karma": "0.12.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "0.1.0",
+    "karma-ng-html2js-preprocessor": "~0.1",
+    "jasmine-jquery": "^2.0.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -220,3 +220,74 @@
   @extend %result;
 }
 
+/*******************************************************/
+/* Result Header                                       */
+/*******************************************************/
+.change-location-link {
+  float: right;
+}
+
+.trip-summary {
+  list-style: none;
+  margin:50px 0;
+}
+
+.trip-summary-item {
+  float: left;
+  width: 20%;
+}
+/*******************************************************/
+/* Result Map                                          */
+/*******************************************************/
+#itinerary-map {
+  height: 500px;
+}
+
+.itinerary-map-container {
+
+  position: relative;
+
+  .trip-details {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:500px;
+    height: 400px;
+  }
+
+  .trip-details-day-tab {
+    list-style: none;
+  }
+
+  .trip-details-day-tab-item {
+    float: left;
+    display: inline;
+    width: 150px;
+    height: 30px;
+    border: 1px solid black;
+  }
+
+  .trip-details-day-tab-item.active {
+    border-top: 1px solid red;
+  }
+
+  .trip-details-day-item-col {
+    float: left;
+    border: 1px solid white;
+  }
+
+  .trip-details-day-item-col-1 {
+    width: 30px;
+  }
+  .trip-details-day-item-col-2 {
+    width: 30px;
+  }
+  .trip-details-day-item-col-3 {
+    width: 200px;
+  }
+  .trip-details-day-item-col-4 {
+    width: 80px;
+  }
+
+}

@@ -1,0 +1,61 @@
+<div ng-app='app.result'>
+  <div ng-controller='resultCtrl'>
+    <section class="result-type container">
+
+      <div class="result-type-selection">
+        <ul class="result-type-list">
+          <li class="result-type-item active" ng-click="findTripByBudget()">
+            <div class="result-type-item-circle budget">
+              <span class="result-type-item-active-indicator"></span>
+            </div>
+            Low Budget Trip
+          </li>
+          <li class="result-type-item" ng-click="findTripByTime()">
+            <div class="result-type-item-circle time">
+              <span class="result-type-item-active-indicator"></span>
+            </div>
+            Time Saving Trip
+          </li>
+          <li class="result-type-item" ng-click="findTripByComfort()">
+            <div class="result-type-item-circle comfort">
+              <span class="result-type-item-active-indicator"></span>
+            </div>
+            Comfort Trip
+          </li>
+        </ul>
+        <span class="result-type-back-button"><i class="fa fa-chevron-left"></i></span>
+      </div>
+      <div class="result-description">
+        <span class="result-description-favorite">+ Add to favorites</span>
+        <h1>The Cheapest Trip</h1>
+        <p>Text description</p>
+      </div>
+
+    </section>
+
+    <section class="result container">
+
+      <div class="result-view view-container">
+
+        <div class="trip-header">
+          <small>Your destination</small>
+          <h1>{{itinerary.destination}}</h1><a class='change-location-link' ng-click="changeLocationAndDate()">Change location & date</a>
+          <div class='trip-date'>
+            From <span class="trip-date-content">{{itinerary.startTime | date:"dd MM yyyy"}} to {{itinerary.endTime | date:"dd MM yyyy"}}</span>
+          </div>
+        </div>
+
+        <itinerary-summary itinerary="itinerary"></itinerary-summary>
+        <div class="clearfix"></div>
+        <div class="trip-detail">
+          <itinerary-map itinerary="itinerary"></itinerary-map>
+        </div>
+        <div class="clearfix"></div>
+        <itinerary-summary itinerary="itinerary"></itinerary-summary>
+
+      </div>
+
+    </section>
+  </div>
+</div>
+

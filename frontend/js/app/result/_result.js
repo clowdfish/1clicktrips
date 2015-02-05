@@ -1,0 +1,20 @@
+(function() {
+  'use strict';
+  angular
+    .module('app.result', [
+      'ngMockE2E'
+    ])
+    .run(run);
+
+  /**
+  * Because we don't have any server, we use $httpBackend to create fake data
+  */
+  function run($httpBackend, mockItinerary, mockAlternativeSegment) {
+
+    var itinerary = mockItinerary;
+    var alternatives = mockAlternativeSegment;
+    $httpBackend.whenGET(/^js\/templates\//).passThrough();
+    $httpBackend.whenGET('/search/trips').respond(itinerary);
+    $httpBackend.whenGET('/search/alternatives').respond(alternatives);
+  }
+})();

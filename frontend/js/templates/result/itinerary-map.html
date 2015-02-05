@@ -1,0 +1,51 @@
+<div class='itinerary-map-container'>
+  <div class='trip-details'>
+    <ul class='trip-details-day-tab'>
+      <li class='trip-details-day-tab-item' ng-class="{active: activeSegment == header}" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
+        Day {{header}}
+      </li>
+    </ul>
+
+    <div class="clearfix"></div>
+
+    <div ng-repeat='header in segmentsHeaders' class='trip-details-days' ng-show='activeSegment == header'>
+      <div class='trip-details-day-item' ng-repeat='segment in segments[header]' ng-click='showSegmentHotels(segment, $event)'>
+
+        <div class='trip-details-day-item-col trip-details-day-item-col-1'>{{ $index + 1 }}</div>
+        <div class='trip-details-day-item-col trip-details-day-item-col-2'>{{ getImageByVehicleType(segment.type) }}</div>
+        <div class='trip-details-day-item-col trip-details-day-item-col-3'>
+          {{segment.name}}
+          <br/>
+          <a ng-click='findAlternatives(segment)'>+View alternatives</a>
+          <div class='trip-details-day-item-alternatives' ng-show-'segment.alternatives'>
+
+          </div>
+        </div>
+        <div class='trip-details-day-item-col trip-details-day-item-col-4'>
+          {{segment.duration | durationToTime : "%hh %m min"}}
+          <br/>
+          {{segment.distance}} km
+        </div>
+        <div class='trip-details-day-item-col trip-details-day-item-col-5'>
+          <a ng-click='deleteSegment(segment)'>X</a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class='trip-details-hotels' ng-show='showHotelPanel' ng-style="{left: hotelPanelLeft}">
+        <p>Please choose your preferred hotel</p>
+        <a ng-click='closeHotelPanel()'>Close</a>
+        <div class='trip-details-hotels-item' ng-repeat='hotel in hotels'>
+          <img ng-src='{{hotel.imageUrl}}' width="100"/>
+          <b>{{hotel.name}}</b>
+          <br/>
+          <div class='hotel-price'>+ {{hotel.price}}</div>
+          <button ng-click='selectHotel(segment, hotel)'>Select Hotel</button>
+          <hr/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id='itinerary-map'></div>
+</div>
