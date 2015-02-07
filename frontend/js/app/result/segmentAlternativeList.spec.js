@@ -19,7 +19,13 @@ describe('itinerarySummary', function() {
     scope.hotels = mockItinerary.outbound.segments[2].hotels;
     scope.segment = mockItinerary.outbound.segments[2];
 
-    element = angular.element("<hotel-list select-hotel='selectHotel' segment='segment' hotels='hotels' close-hotel-panel='closeHotelPanel'></hotel-list>");
+    element = angular.element([
+      "<segment-alternative-list",
+        "select='selectAlternativeSegment'",
+        "segment='segment'",
+        "alternatives='alternatives'",
+        "close-panel='closeAlternativePanel'>"
+      ].join(' '));
     compiledDirective = _$compile_(element)(scope);
     scope.$digest();
     isoScope = element.isolateScope();

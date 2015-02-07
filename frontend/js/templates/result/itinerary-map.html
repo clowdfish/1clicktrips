@@ -1,68 +1,25 @@
 <div class='itinerary-map-container'>
   <div class='trip-segments-container'>
-    <!-- trip segments box -->
-    <div class='trip-segments'>
-      <div class="trip-segments-header">
-        <!-- trip segments list title -->
-        <h3 class="trip-segments-title">
-          <i class="fa fa-info-circle"></i>
-          Trip Details
-          <a href="#" class="trip-segments-print">
-            <i class="fa fa-print right"></i>
-          </a>
-        </h3>
-
-        <!-- tab control for the trip segments list -->
-        <ul class='trip-segments-day-tab'>
-          <li class='trip-segments-day-tab-item' ng-class="{active: activeSegment == header}" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
-            Day {{header}}
-          </li>
-        </ul>
-      </div>
-
-      <div class="trip-segments-body">
-        <!-- the trip segments list for the selected day -->
-        <ul ng-repeat='header in segmentsHeaders' class='trip-segments-list' ng-show='activeSegment == header'>
-
-          <li class='trip-segments-day-item' ng-repeat='segment in segments[header]' ng-click='showSegmentHotels(segment, $event)'>
-
-            <span class='trip-segments-day-item-col trip-segments-day-item-number'>
-              <span>
-                {{ $index + 1 }}
-              </span>
-            </span>
-              <span class='trip-segments-day-item-col trip-segments-day-item-type'>{{ getImageByVehicleType(segment.type) }}</span>
-            <span class='trip-segments-day-item-col trip-segments-day-item-description'>
-              {{segment.name}}
-              <a ng-click='findAlternatives(segment)'>+View alternatives</a>
-            </span>
-            <span class='trip-segments-day-item-col trip-segments-day-item-timing'>
-              <span class="trip-segments-day-item-timing-time">
-                {{segment.duration | durationToTime : "%hh %m min"}}
-              </span>
-              <span class="trip-segments-day-item-timing-distance">
-                {{segment.distance}} km
-              </span>
-            </span>
-            <span class='trip-segments-day-item-col trip-segments-day-item-close'>
-              <a ng-click='deleteSegment(segment)'><i class="fa fa-times-circle-o"></i></a>
-            </span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
+    <trip-segments
+      itinerary='itinerary'
+      active-segments='activeSegments'
+      show-alternatives-panel='showAlternativesPanel'
+      >
+    </trip-segments>
     <!-- alternatives pane -->
-    <div class='trip-segments-alternatives' ng-show='showAlternativesPanel'>
-      <hotel-list
-              select-hotel='selectHotel'
-              segment='segment'
-              hotels='hotels'
-              close-hotel-panel='closeHotelPanel'>
-      </hotel-list>
+    <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
+      <segment-alternative-list
+              select='selectAlternativeSegment'
+              segment='activeSegmentOnAlternativePanel'
+              alternatives='alternatives'
+              is-showing='isShowAlternativesPanel'
+              >
+      </segment-alternative-list>
     </div>
   </div>
 
   <!-- map view -->
-  <div id='itinerary-map'></div>
+  <map itinerary='itinerary'></map>
+
+
 </div>

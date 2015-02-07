@@ -1,24 +1,30 @@
 (function(){
   angular
     .module('app.result')
-    .directive('segmentList', segmentList);
+    .directive('tripSegments', tripSegments);
 
-  function segmentList() {
+  function tripSegments() {
     return {
+      require: '^itineraryMap',
       restrict: 'E',
-      templateUrl: 'js/templates/result/segment-list.html',
+      templateUrl: 'js/templates/result/trip-segments.html',
       scope: {
-        itinerary: '=itinerary',
-        changeSegments: '=changeSegments'
+        itinerary: '=',
+        activeSegments: '=', //the segments which will display on google map
+        showAlternativesPanel:'='
       },
       link: link
     }
 
-    function link() {
+    function link(scope, element, attrs, itineraryMapCtrl) {
       scope.activeSegment = 1;
-      scope.segments = groupSegmentByDate(scope.itinerary);
-      scope.segmentsHeaders = _.keys(scope.segments);
       scope.showTab = showTab;
+      if (scope.itinerary != null) {
+        scope.segments = groupSegmentByDate(scope.itinerary);
+        scope.segmentsHeaders = _.keys(scope.segments);
+        scope.activeSegments = scope.segments[1];
+        itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
+      }
 
       function groupSegmentByDate(itinerary) {
         var i = 0;
@@ -59,16 +65,13 @@
 
       function showTab(segmentNumber) {
         scope.activeSegment = segmentNumber;
-        //notify parent to re-draw route on map
-        scope.changeSegments(scope.segments[segmentNumber]);
+        scope.activeSegments = scope.segments[segmentNumber];
+        itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
       }
 
-      function showTab(segmentNumber) {
-        scope.activeSegment = segmentNumber;
-        directionsDisplay.setMap(null);
-        directionsDisplay = null;
-        createMapBySegments(scope.itinerary, scope.segments[segmentNumber]);
-      }
+
+
+
     }
   }
 })();

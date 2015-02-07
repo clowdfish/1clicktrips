@@ -76,7 +76,7 @@
             departureTime: '2015-01-01T00:00:00Z',
             arrivalTime: '2015-01-02T00:00:00Z',
             name: "Stay one night at your destination hotel",
-            hotels: [
+            alternatives: [
               {
                 id: 1,
                 name: "The New Yorker hotel",

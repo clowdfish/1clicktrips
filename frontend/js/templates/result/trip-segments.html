@@ -1,0 +1,51 @@
+<!-- trip segments box -->
+<div class='trip-segments'>
+  <div class="trip-segments-header">
+    <!-- trip segments list title -->
+    <h3 class="trip-segments-title">
+      <i class="fa fa-info-circle"></i>
+      Trip Details
+      <a href="#" class="trip-segments-print">
+        <i class="fa fa-print right"></i>
+      </a>
+    </h3>
+
+    <!-- tab control for the trip segments list -->
+    <ul class='trip-segments-day-tab'>
+      <li class='trip-segments-day-tab-item' ng-class="{active: activeSegment == header}" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
+        Day {{header}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="trip-segments-body">
+    <!-- the trip segments list for the selected day -->
+    <ul ng-repeat='header in segmentsHeaders' class='trip-segments-list' ng-show='activeSegment == header'>
+
+      <li class='trip-segments-day-item' ng-repeat='segment in segments[header]'>
+
+        <span class='trip-segments-day-item-col trip-segments-day-item-number'>
+          <span>
+            {{ $index + 1 }}
+          </span>
+        </span>
+          <span class='trip-segments-day-item-col trip-segments-day-item-type'>{{ getImageByVehicleType(segment.type) }}</span>
+        <span class='trip-segments-day-item-col trip-segments-day-item-description'>
+          {{segment.name}}
+          <a ng-click='showAlternativesPanel(segment)'>+View alternatives</a>
+        </span>
+        <span class='trip-segments-day-item-col trip-segments-day-item-timing'>
+          <span class="trip-segments-day-item-timing-time">
+            {{segment.duration | durationToTime : "%hh %m min"}}
+          </span>
+          <span class="trip-segments-day-item-timing-distance">
+            {{segment.distance}} km
+          </span>
+        </span>
+        <span class='trip-segments-day-item-col trip-segments-day-item-close'>
+          <a ng-click='deleteSegment(segment)'><i class="fa fa-times-circle-o"></i></a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>

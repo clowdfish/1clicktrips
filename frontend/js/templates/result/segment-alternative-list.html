@@ -1,10 +1,10 @@
 <div class='alternatives-container'>
   <span class="alternatives-container-title">Please choose your preferred hotel</span>
-  <a class="alternatives-container-close" ng-click='closeHotelPanel()'><i class="fa fa-times-circle-o"></i></a>
+  <a class="alternatives-container-close" ng-click='closePanel()'><i class="fa fa-times-circle-o"></i></a>
 
   <ul class="hotels-list">
 
-    <li class='hotels-list-item' ng-repeat='hotel in hotels'>
+    <li class='hotels-list-item' ng-repeat='hotel in alternatives'>
       <img class="hotels-list-item-image" ng-src='{{hotel.imageUrl}}' />
 
       <div class="hotels-list-item-info">
@@ -22,7 +22,7 @@
           + {{hotel.price}}
         </span>
 
-        <button class="button" ng-click='selectHotel(segment, hotel)'>Select Hotel</button>
+        <button class="button" ng-click='select(segment, hotel)'>Select Hotel</button>
       </div>
     </li>
 
