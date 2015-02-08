@@ -14,7 +14,7 @@
 
     var itinerary = mockItinerary;
     var alternatives = mockAlternativeSegment;
-    $httpBackend.whenGET(/^js\/templates\//).passThrough();
+    $httpBackend.whenGET(/^templates\//).passThrough();
     $httpBackend.whenGET('/search/trips').respond(itinerary);
     $httpBackend.whenGET('/search/alternatives').respond(alternatives);
   }

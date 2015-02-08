@@ -7,7 +7,7 @@
     return {
       require: '^itineraryMap',
       restrict: 'EA',
-      templateUrl: 'js/templates/result/segment-alternative-list.html',
+      templateUrl: 'templates/result/segment-alternative-list.html',
       scope: {
         select: '=',
         segment: '=',

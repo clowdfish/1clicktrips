@@ -19,12 +19,11 @@ module.exports = function(config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/underscore/underscore.js',
-      'bower_components/mediator-js/lib/mediator.js',
       'bower_components/moment/moment.js',
       'bower_components/lodash/lodash.js',
-      'js/app/**/*.js',
-      'js/app/**/*.spec.js',
-      'js/templates/**/*.html',
+      'scripts/**/*.js',
+      'scripts/test/**/*.spec.js',
+      'scripts/templates/**/*.html',
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY'
     ],
 
@@ -38,7 +37,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'js/templates/**/*.html': 'ng-html2js'
+        'scripts/templates/**/*.html': 'ng-html2js'
     },
 
 

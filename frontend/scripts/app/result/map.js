@@ -9,7 +9,7 @@
     return {
       require: '^itineraryMap',
       restrict: 'E',
-      templateUrl: 'js/templates/result/map.html',
+      templateUrl: 'templates/result/map.html',
       scope: {
         itinerary: '=',
         refreshItinerary: '='

@@ -10,7 +10,7 @@ describe('itinerarySummary', function() {
 
   beforeEach(module('app.common'));
   beforeEach(module('app.result'));
-  beforeEach(module('js/templates/result/hotel-list.html'));
+  beforeEach(module('scripts/templates/result/segment-alternative-list.html'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_, mockItinerary, mockHotels) {
 
@@ -38,6 +38,6 @@ describe('itinerarySummary', function() {
   });
 
   it('has valid html', function() {
-    expect(compiledDirective.html()).toContain('<img ng-src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg" width="100" src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg">');
+    expect(compiledDirective.html()).toContain('<img class="hotels-list-item-image" ng-src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg" />');
   });
 });

@@ -8,7 +8,7 @@
   function tripSummary() {
     return {
       restrict: 'E',
-      templateUrl: 'js/templates/result/trip-summary.html',
+      templateUrl: 'templates/result/trip-summary.html',
       scope: {
         itinerary: '='
       },

@@ -31,6 +31,9 @@ var changed 	  = require('gulp-changed'),
 // development/production flag
 var production = false;
 
+// available locales
+var locales = ['en', 'de'];
+
 // the title and icon that will be used for notifications
 var notifyInfo = {
   title: 'Gulp',
@@ -95,11 +98,10 @@ gulp.task('scripts', ['i18n'], function() {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/underscore/underscore.js',
-      'bower_components/mediator-js/lib/mediator.js',
       'bower_components/moment/moment.js',
       'bower_components/lodash/lodash.js',
-      'js/app/**/*.js',
-      '!js/app/**/*.spec.js'
+      'scripts/**/*.js',
+      '!scripts/**/*.spec.js'
     ]
   )
     .pipe(plumber(plumberErrorHandler))
@@ -115,17 +117,20 @@ gulp.task('scripts', ['i18n'], function() {
     .pipe(gulp.dest('build/scripts'));
 });
 
+// compile angular templates to make them available on client
 gulp.task('angular-templates', function() {
-  gulp
-    .src([
-      'js/templates/**/*'
-    ])
-    .pipe(gulp.dest('build/en/js/templates'))
-    .pipe(gulp.dest('build/de/js/templates'));
+
+  locales.forEach( function( locale ) {
+    gulp
+      .src([
+        'scripts/templates/**/*'
+      ])
+      .pipe(gulp.dest(path.join('build/', locale, 'templates')));
+  });
 });
+
 // compile html files and replace language strings
 gulp.task('preprocess', function() {
-  var locales = ['en', 'de'];
 
   locales.forEach( function( locale ) {
     var templateData = {
@@ -161,7 +166,7 @@ gulp.task('i18n', function() {
       root: 'window'
     }))
     .pipe(concat('locales.js'))
-    .pipe(gulp.dest('scripts/build/'));
+    .pipe(gulp.dest('scripts/locale/'));
 });
 
 gulp.task('test', function (done) {
@@ -174,9 +179,9 @@ gulp.task('test', function (done) {
 // gulp task suite
 gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
-  gulp.watch(['js/app/**/*.js'], ['scripts']);
+  gulp.watch(['scripts/app/**/*.js', 'scripts/common/**/*.js', 'scripts/mockdata/**/*.js'], ['scripts']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess']);
-  gulp.watch(['js/templates/**/*.html'], ['angular-templates']);
+  gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
 });
 
 gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates'], function() {});

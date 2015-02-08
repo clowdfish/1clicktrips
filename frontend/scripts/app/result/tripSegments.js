@@ -7,7 +7,7 @@
     return {
       require: '^itineraryMap',
       restrict: 'E',
-      templateUrl: 'js/templates/result/trip-segments.html',
+      templateUrl: 'templates/result/trip-segments.html',
       scope: {
         itinerary: '=',
         activeSegments: '=', //the segments which will display on google map
@@ -42,7 +42,6 @@
             if (segment.type == 0) {
               day++
             }
-
           }
         }
 
@@ -68,10 +67,6 @@
         scope.activeSegments = scope.segments[segmentNumber];
         itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
       }
-
-
-
-
     }
   }
 })();

@@ -13,7 +13,7 @@ describe('itineraryMap directive', function() {
 
   beforeEach(module('app.result'));
   beforeEach(module('app.common'));
-  beforeEach(module('js/templates/result/itinerary-map.html'));
+  beforeEach(module('scripts/templates/result/itinerary-map.html'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_, mockItinerary) {
     scope = _$rootScope_.$new();

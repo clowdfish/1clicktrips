@@ -15,7 +15,7 @@
         itinerary: '=',
         refreshItinerary: '='
       },
-      templateUrl: 'js/templates/result/itinerary-map.html',
+      templateUrl: 'templates/result/itinerary-map.html',
       controller: controller
     };
 
@@ -42,7 +42,7 @@
       function showAlternativesPanel(segment) {
         console.log(segment);
         if (typeof(segment['alternatives']) != 'undefined' && segment.alternatives.length > 0) {
-          $scope.activeSegmentOnAlternativePanel = segment
+          $scope.activeSegmentOnAlternativePanel = segment;
           $scope.alternatives = segment.alternatives;
           $scope.isShowAlternativesPanel = true;
         } else {

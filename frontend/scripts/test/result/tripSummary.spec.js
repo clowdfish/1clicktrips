@@ -10,7 +10,7 @@ describe('tripSummary', function() {
 
   beforeEach(module('app.common'));
   beforeEach(module('app.result'));
-  beforeEach(module('js/templates/result/trip-summary.html'));
+  beforeEach(module('scripts/templates/result/trip-summary.html'));
 
 
   beforeEach(inject(function(_$compile_, _$rootScope_, mockItinerary) {
