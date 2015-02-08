@@ -6,6 +6,7 @@
 
   function resultCtrl($scope, tripService) {
     $scope.itinerary = null;
+    $scope.showMap = true;
     $scope.findTripByBudget = findTripByBudget;
     $scope.findTripByTime = findTripByTime;
     $scope.findTripByComfort =  findTripByComfort;

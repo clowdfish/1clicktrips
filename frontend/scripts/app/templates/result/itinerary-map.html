@@ -2,10 +2,11 @@
   <div class='trip-segments-container'>
     <trip-segments
       itinerary='itinerary'
-      active-segments='activeSegments'
+      active-segments='activeSegmentsOnMap'
       show-alternatives-panel='showAlternativesPanel'
       >
     </trip-segments>
+
     <!-- alternatives pane -->
     <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
       <segment-alternative-list
@@ -19,7 +20,9 @@
   </div>
 
   <!-- map view -->
-  <map itinerary='itinerary'></map>
+  <div ng-if='showMap'>
+    <map itinerary='itinerary' active-segments='activeSegmentsOnMap'></map>
+  </div>
 
 
 </div>

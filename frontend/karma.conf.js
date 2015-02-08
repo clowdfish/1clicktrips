@@ -22,8 +22,8 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/lodash/lodash.js',
       'scripts/**/*.js',
-      'scripts/test/**/*.spec.js',
-      'scripts/templates/**/*.html',
+      'scripts/**/*.spec.js',
+      'scripts/**/*.html',
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY'
     ],
 
@@ -37,7 +37,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'scripts/templates/**/*.html': 'ng-html2js'
+        'scripts/**/*.html': 'ng-html2js'
     },
 
 

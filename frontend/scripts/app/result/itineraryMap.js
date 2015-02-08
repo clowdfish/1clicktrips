@@ -13,9 +13,9 @@
       restrict: 'E',
       scope: {
         itinerary: '=',
-        refreshItinerary: '='
+        showMap:'='
       },
-      templateUrl: 'templates/result/itinerary-map.html',
+      templateUrl: 'scripts/app/templates/result/itinerary-map.html',
       controller: controller
     };
 
@@ -26,21 +26,14 @@
       $scope.selectAlternativeSegment = selectAlternativeSegment;
       $scope.showAlternativesPanel = showAlternativesPanel;
 
-      //use "this" so we can reuse this method on tripSegments directive
       this.changeActiveSegmentsOnMap = changeActiveSegmentsOnMap;
 
       function changeActiveSegmentsOnMap(segments)
       {
-        console.log(segments);
         $scope.activeSegmentsOnMap = segments;
-        $scope.$broadcast('drawRoutesOnMap', {
-          segments: segments
-        });
       }
 
-
       function showAlternativesPanel(segment) {
-        console.log(segment);
         if (typeof(segment['alternatives']) != 'undefined' && segment.alternatives.length > 0) {
           $scope.activeSegmentOnAlternativePanel = segment;
           $scope.alternatives = segment.alternatives;

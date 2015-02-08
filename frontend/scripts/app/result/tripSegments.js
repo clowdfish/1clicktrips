@@ -7,18 +7,19 @@
     return {
       require: '^itineraryMap',
       restrict: 'E',
-      templateUrl: 'templates/result/trip-segments.html',
+      templateUrl: 'scripts/app/templates/result/trip-segments.html',
       scope: {
         itinerary: '=',
-        activeSegments: '=', //the segments which will display on google map
         showAlternativesPanel:'='
       },
       link: link
     }
 
     function link(scope, element, attrs, itineraryMapCtrl) {
-      scope.activeSegment = 1;
+      scope.activeSegmentNumber = 1;
+      scope.activeSegments = [];
       scope.showTab = showTab;
+
       if (scope.itinerary != null) {
         scope.segments = groupSegmentByDate(scope.itinerary);
         scope.segmentsHeaders = _.keys(scope.segments);
@@ -63,7 +64,7 @@
       }
 
       function showTab(segmentNumber) {
-        scope.activeSegment = segmentNumber;
+        scope.activeSegmentNumber = segmentNumber;
         scope.activeSegments = scope.segments[segmentNumber];
         itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
       }

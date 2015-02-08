@@ -9,10 +9,10 @@
     return {
       require: '^itineraryMap',
       restrict: 'E',
-      templateUrl: 'templates/result/map.html',
+      templateUrl: 'scripts/app/templates/result/map.html',
       scope: {
         itinerary: '=',
-        refreshItinerary: '='
+        activeSegments: '='
       },
       link: link
     };
@@ -31,11 +31,13 @@
         map = new google.maps.Map(document.getElementById('itinerary-map'),
             mapOptions);
 
-        scope.$on('drawRoutesOnMap', function(event, data) {
-          console.log(data);
-          createMapBySegments(data.segments);
-        });
       }
+
+      scope.$watch('activeSegments', function() {
+        if (scope.activeSegments.length >= 2) {
+          createMapBySegments(scope.activeSegments);
+        }
+      });
 
       function createMapBySegments(segments) {
         if (directionsDisplay) {

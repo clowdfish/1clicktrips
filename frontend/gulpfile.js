@@ -123,9 +123,9 @@ gulp.task('angular-templates', function() {
   locales.forEach( function( locale ) {
     gulp
       .src([
-        'scripts/templates/**/*'
+        'scripts/app/templates/**/*'
       ])
-      .pipe(gulp.dest(path.join('build/', locale, 'templates')));
+      .pipe(gulp.dest(path.join('build/', locale, 'scripts/app/templates')));
   });
 });
 
@@ -179,7 +179,8 @@ gulp.task('test', function (done) {
 // gulp task suite
 gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
-  gulp.watch(['scripts/app/**/*.js', 'scripts/common/**/*.js', 'scripts/mockdata/**/*.js'], ['scripts']);
+  gulp.watch(['scripts/app/**/*.js'], ['scripts']);
+  gulp.watch(['scripts/app/**/*.html'], ['angular-templates']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess']);
   gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
 });
