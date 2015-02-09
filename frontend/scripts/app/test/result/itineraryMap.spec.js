@@ -33,25 +33,23 @@ describe('itineraryMap directive', function() {
     compiledDirective = _$compile_(element)(scope);
     scope.$digest();
     directiveScope = element.isolateScope();
-
   }));
 
-  //Scope has valid data
   it('has valid data in directiveScope', function() {
     expect(directiveScope.itinerary.id).toEqual(1);
     expect(directiveScope.itinerary.destination).toEqual('DoubleTree by Hilton Metropolitan, New York, USA');
     expect(directiveScope.itinerary.price).toEqual(450);
   });
 
-  //alternative list should have valid data
   describe('segmentAlternativeList directive', function() {
     it('has valid alternative list', function() {
       //when not click on "View alternatives"
       expect(compiledDirective.html()).not.toContain('<img class="hotels-list-item-image" ng-src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg" src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg">');
-
+      expect(directiveScope.isShowAlternativesPanel).toEqual(false);
       //simulate click on "View alternatives"
       directiveScope.showAlternativesPanel(scope.itinerary.outbound.segments[2]);
       scope.$digest();
+      expect(directiveScope.isShowAlternativesPanel).toEqual(true);
       expect(compiledDirective.html()).toContain('<img class="hotels-list-item-image" ng-src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg" src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg">');
     });
   });
@@ -63,17 +61,23 @@ describe('itineraryMap directive', function() {
       tripSegmentElement = element.find('trip-segments');
       scope.$digest();
       tripSegmentIsolateScope = tripSegmentElement.isolateScope();
-
     });
 
-    it('tripSegments as valid initial data', function() {
+    it('tripSegments as valid isolate scope data', function() {
       expect(tripSegmentIsolateScope.activeSegments.length).toEqual(3);
       expect(tripSegmentIsolateScope.activeSegmentNumber).toEqual(1);
       expect(tripSegmentIsolateScope.segments['1'].length).toEqual(3);
       expect(tripSegmentIsolateScope.segments['2'].length).toEqual(4);
     });
 
-    it('change segments when click on tab', function() {
+    it('tripSegments output valid html', function() {
+      expect(compiledDirective.html()).toContain('Trip Details');
+      expect(compiledDirective.html()).toContain('Walk to bus station');
+      expect(compiledDirective.html()).toContain('Take bus E23 to K20');
+      expect(compiledDirective.html()).toContain('Stay one night at your destination hotel');
+    });
+
+    it('tripSegments response correctly when change tab', function() {
       expect(tripSegmentIsolateScope.activeSegments.length).toEqual(3);
       //change in tripSegmentIsolateScope.activeSegments will change in parent activeSegmentsOnMap too
       expect(directiveScope.activeSegmentsOnMap.length).toEqual(3);
