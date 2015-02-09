@@ -29,8 +29,6 @@ describe('itineraryMap directive', function() {
     expect(directiveScope.itinerary.id).toEqual(1);
     expect(directiveScope.itinerary.destination).toEqual('DoubleTree by Hilton Metropolitan, New York, USA');
     expect(directiveScope.itinerary.price).toEqual(450);
-
-    console.log(directiveScope.activeSegments);
   });
 
   it('output valid html', function() {

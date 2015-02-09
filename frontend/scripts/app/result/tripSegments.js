@@ -57,7 +57,6 @@
               day++
             }
           }
-          console.log(result);
         }
 
         return result;
