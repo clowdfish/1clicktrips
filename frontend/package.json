@@ -25,12 +25,13 @@
     "gulp-uglify": "^0.3.2",
     "gulp-webserver": "^0.8.2",
     "gulp-yml": "^0.1.1",
+    "jasmine-jquery": "^2.0.6",
     "js-yaml": "^3.2.2",
     "karma": "0.12.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "0.1.0",
-    "karma-ng-html2js-preprocessor": "~0.1",
-    "jasmine-jquery": "^2.0.6"
+    "karma-mocha-reporter": "^0.3.1",
+    "karma-ng-html2js-preprocessor": "~0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -50,7 +51,12 @@
     "email": "gros.sascha@gmail.com",
     "url": "https://twitter.com/swapzone"
   },
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Nam Trần Khánh",
+      "email": "nam.trankhanh.vn@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/clowdfish/1clicktrips/issues"
