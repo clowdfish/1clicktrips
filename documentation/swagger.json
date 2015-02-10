@@ -537,12 +537,13 @@
                 }
             }
         },
-        "/i18n": {
+        "/locales": {
             "get": {
                 "summary": "Language File",
                 "description": "The language file for a given language code.\n",
                 "tags": [
-                    "Language"
+                    "Language",
+                    "Localization"
                 ],
                 "responses": {
                     "200": {
@@ -563,12 +564,13 @@
                 }
             }
         },
-        "/i18n/{languageCode}": {
+        "/locales/{languageCode}": {
             "get": {
                 "summary": "Language File",
                 "description": "The language file for a given language code.\n",
                 "tags": [
-                    "Language"
+                    "Language",
+                    "Localization"
                 ],
                 "parameters": [
                     {
@@ -584,6 +586,33 @@
                         "description": "A JSON object with the translations",
                         "schema": {
                             "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/currencies": {
+            "get": {
+                "summary": "List of Currencies",
+                "description": "The list of available currencies.\n",
+                "tags": [
+                    "Language",
+                    "Localization"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A JSON array with the available currencies",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Currency"
+                            }
                         }
                     },
                     "default": {
@@ -623,6 +652,39 @@
                 "name": {
                     "type": "string",
                     "description": "The name of the language (e.g. English)"
+                }
+            }
+        },
+        "Currency": {
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "EUR"
+                },
+                "symbol": {
+                    "type": "string",
+                    "description": "€"
+                },
+                "thousandsSeparator": {
+                    "type": "string"
+                },
+                "decimalSeparator": {
+                    "type": "number",
+                    "format": "int16"
+                },
+                "symbolOnLeft": {
+                    "type": "boolean"
+                },
+                "spaceBetweenAmountAndSymbol": {
+                    "type": "boolean"
+                },
+                "roundingCoefficient": {
+                    "type": "number",
+                    "format": "int16"
+                },
+                "decimalDigits": {
+                    "type": "number",
+                    "format": "int16"
                 }
             }
         },

@@ -6,7 +6,7 @@ module.exports = function (app, production) {
   // LANGUAGE ====================================================================
   // =============================================================================
 
-  app.get('/i18n', function (req, res) {
+  app.get('/locales', function (req, res) {
 
     if(!production) {
       res.status(200).json(
@@ -27,7 +27,7 @@ module.exports = function (app, production) {
     }
   });
 
-  app.get('/i18n/:code', function (req, res) {
+  app.get('/locales/:code', function (req, res) {
 
     var languageCode = req.param('code');
     console.log('Language code retrieved: ' + languageCode);
@@ -44,6 +44,42 @@ module.exports = function (app, production) {
     }
     else {
       // TODO retrieve and parse language file and deliver to client
+    }
+  });
+
+  // =============================================================================
+  // CURRENCY ====================================================================
+  // =============================================================================
+  app.get('/currencies', function (req, res) {
+
+    if(!production) {
+      res.status(200).json(
+        [
+          {
+            code: "EUR",
+            symbol: "€",
+            thousandsSeparator: ".",
+            decimalSeparator: ",",
+            symbolOnLeft: false,
+            spaceBetweenAmountAndSymbol: true,
+            roundingCoefficient: 0,
+            decimalDigits: 2
+          },
+          {
+            code: "USD",
+            symbol: "$",
+            thousandsSeparator: ",",
+            decimalSeparator: ".",
+            symbolOnLeft: true,
+            spaceBetweenAmountAndSymbol: false,
+            roundingCoefficient: 0,
+            decimalDigits: 2
+          }
+        ]
+      );
+    }
+    else {
+      // TODO retrieve currencies from database and deliver to client
     }
   });
 

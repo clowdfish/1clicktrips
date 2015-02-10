@@ -440,13 +440,14 @@ paths:
   #########################################################################
   # Language API
   #########################################################################
-  /i18n:
+  /locales:
     get:
       summary: Language File
       description: | 
         The language file for a given language code.
       tags:
         - Language
+        - Localization
       responses:
         200:
           description: A JSON array with the available languages
@@ -459,13 +460,14 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-  /i18n/{languageCode}:
+  /locales/{languageCode}:
     get:
       summary: Language File
       description: | 
         The language file for a given language code.
       tags:
         - Language
+        - Localization
       parameters:
         - name: languageCode
           in: path
@@ -481,7 +483,30 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-              
+            
+  #########################################################################
+  # Currency API
+  #########################################################################
+  /currencies:
+    get:
+      summary: List of Currencies
+      description: | 
+        The list of available currencies.
+      tags:
+        - Language
+        - Localization
+      responses:
+        200:
+          description: A JSON array with the available currencies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Currency'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
 #########################################################################
 # API Data Definitions
 #########################################################################
@@ -506,6 +531,29 @@ definitions:
       name: 
         type: string
         description: The name of the language (e.g. English)
+  Currency:
+    properties:
+      code:
+        type: string
+        description: EUR
+      symbol: 
+        type: string
+        description: €
+      thousandsSeparator: 
+        type: string
+      decimalSeparator: 
+        type: number
+        format: int16
+      symbolOnLeft: 
+        type: boolean
+      spaceBetweenAmountAndSymbol: 
+        type: boolean
+      roundingCoefficient: 
+        type: number
+        format: int16
+      decimalDigits: 
+        type: number
+        format: int16
   Setting:
     properties:
       category: 
