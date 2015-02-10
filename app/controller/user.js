@@ -12,6 +12,14 @@ module.exports = {
     // TODO implement
   },
 
+  getFavorites: function(userId) {
+    // TODO implement
+  },
+
+  setFavorite: function(userId, favoriteObject) {
+    // TODO implement
+  },
+
   set: function(userId, key, value) {
 
     return new Promise(function(resolve, reject) {

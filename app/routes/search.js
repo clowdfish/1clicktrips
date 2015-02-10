@@ -20,7 +20,7 @@ module.exports = function (app, express, production) {
   }
 
   // ==========================================================================
-  // SEARCH API ===============================================================
+  // ROUTER SETUP =============================================================
   // ==========================================================================
 
   // get an instance of router
@@ -29,7 +29,67 @@ module.exports = function (app, express, production) {
   // route all search requests to /search/
   app.use('/search', searchApi);
 
-  // home page route
+  // ==========================================================================
+  // EVENT API ================================================================
+  // ==========================================================================
+  searchApi.get('/events', function (req, res) {
+
+    // the events API is not available in production as of now
+    if(production) {
+      res.status(404).send("Events Service not available yet.");
+    }
+    else {
+      res.status(200).json({
+        "id" : 1,
+        "title" : "World Event Las Vegas",
+        "description" : "An example meetings space",
+        "location" : {
+          "longitude" : 1234,
+          "latitude" : 1234
+        },
+        "tags" : [
+          "test", "another tag", "cool"
+        ],
+        "dates" : [
+          {
+            "start" : "2015-02-09T02:54:51+00:0",
+            "end" : "2015-02-15T09:54:51+00:0"
+          }
+        ],
+        "open": true,
+        "url" : "http://whatever.com",
+        "image" : "http://whatever.com/image.jpg"
+      });
+    }
+  });
+
+  // ==========================================================================
+  // MEETING SPACES API =======================================================
+  // ==========================================================================
+  searchApi.get('/spaces', function (req, res) {
+
+    // the meeting spaces API is not available in production as of now
+    if(production) {
+      res.status(404).send("Meeting Spaces Service not available yet.");
+    }
+    else {
+      res.status(200).json({
+        "id" : 1
+      });
+    }
+  });
+
+  // ==========================================================================
+  // ALTERNATIVES API =========================================================
+  // ==========================================================================
+  searchApi.post('/alternatives', function (req, res) {
+
+  });
+
+  // ==========================================================================
+  // SEARCH API ===============================================================
+  // ==========================================================================
+
   searchApi.post('/trips', function (req, res) {
 
     var secret = app.get('jwtTokenSecret');

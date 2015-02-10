@@ -319,6 +319,48 @@ paths:
   #########################################################################
   # Search API
   #########################################################################
+  /search/events:
+    get:
+      summary: Event List
+      description: |
+        The events endpoint will deliver a list of events to the client
+        that match with the given query criteria.
+      tags:
+        - Search
+      parameters:
+        - name: search_string
+          in: query
+          description: The search string to filter the events for
+          required: true
+          type: string
+        - name: start_date
+          in: query
+          description: The start date of the trip to be planned
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: The end date of the trip to be planned
+          required: false
+          type: string
+        - name: limitation
+          in: query
+          description: The maximum number of events to return
+          required: false
+          type: number
+          format: integer
+      responses:
+          200:
+            description: An array of events
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/Event'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'  
+    
   /search/trips:
     post:
       summary: Trip Results
@@ -751,6 +793,47 @@ definitions:
       date:
         type: string
         format: '2014-11-12'
+  Event:
+    properties:
+      id:
+        type: number
+        format: int64
+      title:
+        type: string
+      description:
+        type: string
+      location:
+        type: object
+        $ref: '#/definitions/Location'
+      tags:
+        type: array
+        items:
+          type: string
+      dates:
+        type: array
+        items: 
+           $ref: '#/definitions/Timing'
+      open:
+        type: boolean
+        description: |
+          Indicates if the event is open, when the user planned 
+          the according trip.
+      url:
+        type: string
+      image:
+        type: string
+  Timing:
+    properties:
+      start:
+        type: string
+        description: |
+          ISO 8601 time and date
+          "2015-02-09T02:54:51+00:0"
+      end:
+        type: string
+        description: |
+          ISO 8601 time and date
+          "2015-02-09T02:54:51+00:0"
   Error:
     properties:
       code:

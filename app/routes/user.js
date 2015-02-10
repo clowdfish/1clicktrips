@@ -106,14 +106,14 @@ module.exports = function (app, express, production) {
     if (req.body) {
       var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      SettingsController.set(userId, {'preferences': req.body}, function (err, success) {
-        if (err) {
+      SettingsController.set(userId, req.body)
+        .then(function () {
+          res.status(200).send();
+        })
+        .catch(function(err) {
           console.error('There was a problem updating the settings.');
-          res.status(500).send();
-        }
-
-        res.status(200).send(success);
-      });
+          res.status(500).send(err.message);
+        });
     }
     else {
       res.status(400).send();
