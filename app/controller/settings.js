@@ -3,7 +3,20 @@ var dbConfig = require('../../config/database.js');
 var Promise = require('es6-promise').Promise;
 
 module.exports = {
-  set: function(userId, key, value) {
+  set: function(userId, settingsObject) {
+
+    // TODO implement storage of complex settings object
+    /*
+     Setting {
+       category: string
+       description:	string
+       key:	string
+       value:	string
+     }
+     */
+
+    var key = settingsObject['key'];
+    var value = settingsObject['value'];
 
     return new Promise(function(resolve, reject) {
       var connection = mysql.createConnection(dbConfig.connection);

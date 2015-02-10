@@ -1,9 +1,23 @@
 // routes/search.js
 
 var Promise = require('es6-promise').Promise;
-var AuthController = require('../controller/auth');
 
-module.exports = function (app, express) {
+module.exports = function (app, express, production) {
+
+  // ==========================================================================
+  // CONTROLLER SETUP =========================================================
+  // ==========================================================================
+
+  var AuthController = require('../controller/auth');
+  var UserController = null;
+
+  if(production) {
+    UserController = require('./../controller/user');
+    AuthController.setProduction();
+  }
+  else {
+    UserController = require('./../mocking/user');
+  }
 
   // ==========================================================================
   // SEARCH API ===============================================================
@@ -28,13 +42,18 @@ module.exports = function (app, express) {
       var userLicence = null;
 
       console.log("Extracting user:");
-      AuthController.getUserFromRequest(req, secret)
+      var userId = AuthController.getUserIdFromRequest(req, secret);
+
+      UserController.getById(userId)
         .then(function (user) {
           console.log(user);
 
           userLicence = user.licence;
 
-          res.status(200).json(createMockTripResult());
+          if(!production)
+            res.status(200).json(createMockTripResult());
+          else
+            res.status(404).send("Search Service not available yet.");
 
           /*
           return new Promise(function (resolve) {

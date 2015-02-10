@@ -4,13 +4,28 @@ var Promise = require('es6-promise').Promise;
 var jwt = require('jwt-simple');
 var configAuth = require('../../config/auth');
 
+var UserController = require('./user');
+
 module.exports = {
+
+  production: false,
+
+  setProduction: function() {
+    this.production = true;
+  },
 
   isLoggedIn: function(req, res, next) {
 
-    // if user is authenticated.  carry on
-    var token = (req.body && req.body.access_token) || (req.query && req.query.access_token)
-      || req.headers['x-access-token'];
+    if(!this.production) {
+      req.user = {
+        id: 42,
+        licence: 1
+      };
+
+      return next();
+    }
+
+    var token = req.headers['x-access-token'];
 
     if (token) {
       try {
@@ -43,38 +58,26 @@ module.exports = {
     }
   },
 
-  getUserFromRequest: function(req, secret) {
+  getUserIdFromRequest: function(req, secret) {
 
-    // if user is authenticated.  carry on
-    var token = (req.body && req.body.access_token) || (req.query && req.query.access_token)
-      || req.headers['x-access-token'];
+    var production = this.production;
+    var token = req.headers['x-access-token'];
 
-    return new Promise(function(resolve, reject) {
+    if (token && production) {
+      try {
+        var decoded = jwt.decode(token, secret);
 
-      if (token) {
-        try {
-          var decoded = jwt.decode(token, secret);
-
-          // handle token here
-          if (decoded.exp > Date.now()) {
-            UserController.getById(decoded.iss)
-              .then(function (user) {
-                if(!user.licence)
-                  user.licence = 0;
-
-                resolve(user);
-              });
-          }
-        }
-        catch (err) {
-          console.error('Error while decoding token: ' + err.message);
+        // handle token here
+        if (decoded.exp > Date.now()) {
+          return decoded.iss;
         }
       }
+      catch (err) {
+        console.error('Error while decoding token: ' + err.message);
+      }
+    }
 
-      resolve({
-        licence: 0
-      });
-    });
+    return production ? -1 : 42;
   },
 
   getExpirationDate: function(daysFromNow) {

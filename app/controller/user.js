@@ -4,6 +4,14 @@ var Promise = require('es6-promise').Promise;
 
 module.exports = {
 
+  getProfile: function(userId) {
+    // TODO implement
+  },
+
+  setProfile: function(userId, profileObject) {
+    // TODO implement
+  },
+
   set: function(userId, key, value) {
 
     return new Promise(function(resolve, reject) {

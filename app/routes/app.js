@@ -1,6 +1,6 @@
 // routes/app.js
 
-module.exports = function (app) {
+module.exports = function (app, production) {
 
   // =============================================================================
   // LANGUAGE ====================================================================
@@ -8,33 +8,43 @@ module.exports = function (app) {
 
   app.get('/i18n', function (req, res) {
 
-    res.status(200).json(
-      [
-        {
-          'iso': 'de-DE',
-          'name': 'Deutsch'
-        },
-        {
-          'iso': 'en-US',
-          'name': 'English'
-        }
-      ]
-    );
+    if(!production) {
+      res.status(200).json(
+        [
+          {
+            'code': 'de-DE',
+            'name': 'Deutsch'
+          },
+          {
+            'code': 'en-US',
+            'name': 'English'
+          }
+        ]
+      );
+    }
+    else {
+      // TODO retrieve languages from database and deliver to client
+    }
   });
 
   app.get('/i18n/:code', function (req, res) {
 
-    var languageCode = req.params.id;
+    var languageCode = req.param('code');
     console.log('Language code retrieved: ' + languageCode);
 
-    // send language with the given language code
-    res.status(200).json(
-      {
-        'test': 'test',
-        'bla': 'bla',
-        'name': 'name'
-      }
-    );
+    if(!production) {
+      // send language with the given language code
+      res.status(200).json(
+        {
+          'test': 'test',
+          'bla': 'bla',
+          'name': 'name'
+        }
+      );
+    }
+    else {
+      // TODO retrieve and parse language file and deliver to client
+    }
   });
 
   // =============================================================================
