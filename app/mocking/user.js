@@ -1,26 +1,31 @@
-// user.js
+// mocking/user.js
 var Promise = require('es6-promise').Promise;
 
 module.exports = {
+
+  getUser: function(userId) {
+
+    return new Promise(function(resolve, reject) {
+
+      if(userId > 0) {
+        resolve({
+          'id': 42,
+          'email': 'john.doe@test.com',
+          'licence' : 1
+        });
+      }
+      else {
+        reject(new Error('Could not retrieve user.'));
+      }
+    });
+  },
 
   getProfile: function(userId) {
 
     return new Promise(function(resolve, reject) {
 
       if(userId > 0) {
-        resolve({
-          'address': {
-            'city': 'Test City',
-            'country': 'Far Far Away',
-            'street': 'Test Street 1',
-            'zip': '123456'
-          },
-          'email': 'john.doe@test.com',
-          'first-name': 'John',
-          'last-name': 'Doe',
-          'picture': 'http://imaginative.url',
-          'promo-code': '1234556'
-        });
+        resolve(createProfileMock());
       }
       else {
         reject(new Error('Could not retrieve user profile.'));
@@ -30,49 +35,89 @@ module.exports = {
 
   setProfile: function(userId, profileObject) {
 
-    //console.log('User Profile: ');
-    //console.log(profileObject);
+    console.log('User Profile to be stored: '); // DEBUG
+    console.log(profileObject); // DEBUG
 
     return new Promise(function(resolve, reject) {
 
       if(userId > 0)
         resolve();
       else
-        reject(new Error('There was an error.'));
+        reject(new Error('Could not set user profile.'));
     });
   },
 
   getFavorites: function(userId) {
-    // TODO implement
+
+    return new Promise(function(resolve, reject) {
+
+      if(userId > 0) {
+        resolve(createFavoritesMock());
+      }
+      else {
+        reject(new Error('Could not retrieve favorites.'));
+      }
+    });
   },
 
   setFavorite: function(userId, favoriteObject) {
-    // TODO implement
-  },
 
-  set: function(userId, key, value) {
+    console.log('Favorite to be stored: '); // DEBUG
+    console.log(favoriteObject); // DEBUG
 
     return new Promise(function(resolve, reject) {
 
       if(userId > 0)
         resolve();
       else
-        reject(new Error('There was an error.'));
+        reject(new Error('Could not set favorite.'));
     });
   },
 
-  getById: function(userId) {
+  getMessages: function(userId) {
 
     return new Promise(function(resolve, reject) {
 
       if(userId > 0)
-        resolve({
-          id: userId,
-          email: "mocking@user.com",
-          licence: 1
-        });
+        resolve(createMessagesMock());
       else
-        resolve(null);
+        reject(new Error('Could not retrieve messages.'));
     });
   }
 };
+
+// ==========================================================================
+// MOCKING OBJECT CREATORS ==================================================
+// ==========================================================================
+
+function createProfileMock() {
+  return {
+    'email': 'john.doe@test.com',
+    'first-name': 'John',
+    'last-name': 'Doe',
+    'address': {
+      'city': 'Test City',
+      'country': 'Far Far Away',
+      'street': 'Test Street 1',
+      'zip': '123456'
+    },
+    'image': 'http://imaginative.url',
+    'licence': '1'
+  }
+}
+
+function createFavoritesMock() {
+  return [
+    {
+
+    }
+  ]
+}
+
+function createMessagesMock() {
+  return [
+    {
+
+    }
+  ]
+}

@@ -12,16 +12,19 @@ module.exports = function (app, express, production) {
   var AuthController = null;
   var SettingsController = null;
   var UserController = null;
+  var BookingController = null;
 
   if(production) {
     SettingsController = require('../controller/settings');
     UserController = require('../controller/user');
     AuthController = require('../controller/auth');
+    BookingController = require('../controller/booking');
   }
   else {
     SettingsController = require('../mocking/settings');
     UserController = require('../mocking/user');
     AuthController = require('../mocking/auth');
+    BookingController = require('../mocking/booking');
   }
 
   var secret = app.get('jwtTokenSecret');
@@ -35,7 +38,6 @@ module.exports = function (app, express, production) {
 
   // account root
   accountApi.get('/', function (req, res) {
-
     res.status(403).send('not accessible');
   });
 
@@ -62,7 +64,6 @@ module.exports = function (app, express, production) {
       .catch(function(err) {
         res.status(500).send(err.message);
       });
-
   });
 
   accountApi.post('/profile', function (req, res) {
@@ -128,8 +129,16 @@ module.exports = function (app, express, production) {
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    // TODO implement
-    res.status(200).send({});
+    UserController.getFavorites(userId)
+      .then(function (favorites) {
+        if (favorites)
+          res.status(200).json(favorites);
+        else
+          res.status(500);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 
   accountApi.post('/favorites', function (req, res) {
@@ -137,8 +146,14 @@ module.exports = function (app, express, production) {
     if (req.body) {
       var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      // TODO implement
-      res.status(200).send();
+      UserController.setProfile(userId, req.body)
+        .then(function () {
+          res.status(200).send();
+        })
+        .catch(function(err) {
+          console.error('There was a problem updating the favorites.');
+          res.status(500).send(err.message);
+        });
     }
     else {
       res.send(400).send();
@@ -153,22 +168,34 @@ module.exports = function (app, express, production) {
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    // TODO implement
-    res.status(200).send({});
+    BookingController.getBookings(userId, 3)
+      .then(function (bookings) {
+        if (bookings)
+          res.status(200).json(bookings);
+        else
+          res.status(500);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 
   accountApi.post('/bookings', function (req, res) {
 
-
     if (req.body) {
-     var userId = AuthController.getUserIdFromRequest(req, secret);
+      var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      // TODO implement
-      res.status(200).send();
+      BookingController.setBooking(userId, req.body)
+        .then(function () {
+          res.status(200).send();
+        })
+        .catch(function(err) {
+          console.error('There was a problem updating the favorites.');
+          res.status(500).send(err.message);
+        });
     }
     else {
       res.send(400).send();
     }
-
   });
 };

@@ -21,7 +21,7 @@ module.exports = {
         }
         else {
           // attach user to request
-          UserController.getById(decoded.iss)
+          UserController.getUser(decoded.iss)
             .then(function (err, user) {
               req.user = user;
               return next();

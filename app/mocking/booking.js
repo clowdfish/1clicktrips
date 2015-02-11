@@ -1,9 +1,9 @@
-// user.js
+// mocking/booking.js
 var Promise = require('es6-promise').Promise;
 
 module.exports = {
 
-  getBookings: function(userId) {
+  getBookings: function(userId, limit) {
 
     return new Promise(function(resolve, reject) {
 
@@ -24,7 +24,7 @@ module.exports = {
     });
   },
 
-  makeBooking: function(userId, bookingObject) {
+  setBooking: function(userId, bookingObject) {
 
     console.log('Booking Details: '); // DEBUG
     console.log(bookingObject); // DEBUG
@@ -49,6 +49,10 @@ module.exports = {
     });
   }
 };
+
+// ==========================================================================
+// MOCKING OBJECT CREATORS ==================================================
+// ==========================================================================
 
 function createBookingMock() {
   return {

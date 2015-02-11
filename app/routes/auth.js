@@ -122,16 +122,10 @@ module.exports = function (app, express, passport, production) {
   // UNLINK ACCOUNTS =============================================================
   // =============================================================================
 
-  authApi.get('/unlink/twitter',
-    AuthController.isLoggedIn,
+  authApi.get('/unlink/twitter', AuthController.isLoggedIn,
     function (req, res) {
 
-    UserController.set(req.user.id, 'twitter_token', '')
-      .then(function() {
-          res.status(200).send();
-      })
-      .catch(function(err) {
-          res.status(500).json(err);
-      });
-  });
+      // TODO implement reset of Twitter account
+      // set twitter_token to empty string
+    });
 };

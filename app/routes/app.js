@@ -9,18 +9,7 @@ module.exports = function (app, production) {
   app.get('/locales', function (req, res) {
 
     if(!production) {
-      res.status(200).json(
-        [
-          {
-            'code': 'de-DE',
-            'name': 'Deutsch'
-          },
-          {
-            'code': 'en-US',
-            'name': 'English'
-          }
-        ]
-      );
+      res.status(200).json(createLanguagesMock());
     }
     else {
       // TODO retrieve languages from database and deliver to client
@@ -34,13 +23,7 @@ module.exports = function (app, production) {
 
     if(!production) {
       // send language with the given language code
-      res.status(200).json(
-        {
-          'test': 'test',
-          'bla': 'bla',
-          'name': 'name'
-        }
-      );
+      res.status(200).json(createTranslationMock());
     }
     else {
       // TODO retrieve and parse language file and deliver to client
@@ -53,30 +36,7 @@ module.exports = function (app, production) {
   app.get('/currencies', function (req, res) {
 
     if(!production) {
-      res.status(200).json(
-        [
-          {
-            code: "EUR",
-            symbol: "€",
-            thousandsSeparator: ".",
-            decimalSeparator: ",",
-            symbolOnLeft: false,
-            spaceBetweenAmountAndSymbol: true,
-            roundingCoefficient: 0,
-            decimalDigits: 2
-          },
-          {
-            code: "USD",
-            symbol: "$",
-            thousandsSeparator: ",",
-            decimalSeparator: ".",
-            symbolOnLeft: true,
-            spaceBetweenAmountAndSymbol: false,
-            roundingCoefficient: 0,
-            decimalDigits: 2
-          }
-        ]
-      );
+      res.status(200).json(createCurrencyMock());
     }
     else {
       // TODO retrieve currencies from database and deliver to client
@@ -92,3 +52,54 @@ module.exports = function (app, production) {
     res.status(404).send('status.user.error.server.failure');
   });
 };
+
+// ==========================================================================
+// MOCKING OBJECT CREATORS ==================================================
+// ==========================================================================
+
+
+function createLanguagesMock() {
+  return [
+    {
+      'code': 'de-DE',
+      'name': 'Deutsch'
+    },
+    {
+      'code': 'en-US',
+      'name': 'English'
+    }
+  ]
+}
+
+function createCurrencyMock() {
+  return [
+    {
+      code: "EUR",
+      symbol: "€",
+      thousandsSeparator: ".",
+      decimalSeparator: ",",
+      symbolOnLeft: false,
+      spaceBetweenAmountAndSymbol: true,
+      roundingCoefficient: 0,
+      decimalDigits: 2
+    },
+    {
+      code: "USD",
+      symbol: "$",
+      thousandsSeparator: ",",
+      decimalSeparator: ".",
+      symbolOnLeft: true,
+      spaceBetweenAmountAndSymbol: false,
+      roundingCoefficient: 0,
+      decimalDigits: 2
+    }
+  ]
+}
+
+function createTranslationMock() {
+  return {
+    'test': 'test',
+    'bla': 'bla',
+    'name': 'name'
+  }
+}
