@@ -285,9 +285,9 @@ paths:
             
   /account/bookings:
     get:
-      summary: User History
+      summary: Booking History
       description: |
-        The User History endpoint returns data about a user's lifetime 
+        The Bookings endpoint returns data about a user's lifetime 
         activity with 1clicktrips.
       parameters:
         - name: offset
@@ -308,9 +308,11 @@ paths:
         - User
       responses:
         200:
-          description: History information for the given user
+          description: Booking history for the given user
           schema:
-            $ref: '#/definitions/Bookings'
+            type: array
+            items:
+              $ref: '#/definitions/Booking'
         default:
           description: Unexpected error
           schema:
@@ -347,8 +349,8 @@ paths:
           in: query
           description: The maximum number of events to return
           required: false
-          type: number
-          format: integer
+          type: integer
+          format: int32
       responses:
           200:
             description: An array of events
@@ -465,8 +467,8 @@ paths:
           in: query
           description: The maximum number of alternatives
           required: false
-          type: number
-          format: integer
+          type: integer
+          format: int32
       responses:
           200:
             description: An array of alternatives
@@ -562,8 +564,8 @@ definitions:
         type: string
         description: Authentication token
       expires:
-        type: number
-        format: int
+        type: integer
+        format: int32
         description: Expiration date of the auth token
   Language:
     properties:
@@ -584,17 +586,17 @@ definitions:
       thousandsSeparator: 
         type: string
       decimalSeparator: 
-        type: number
+        type: integer
         format: int16
       symbolOnLeft: 
         type: boolean
       spaceBetweenAmountAndSymbol: 
         type: boolean
       roundingCoefficient: 
-        type: number
+        type: integer
         format: int16
       decimalDigits: 
-        type: number
+        type: integer
         format: int16
   Setting:
     properties:
@@ -626,7 +628,7 @@ definitions:
         type: string
         description: The ISO 4217 currency code
       type: 
-        type: number
+        type: integer
         format: int32
         description: |
           Defines the trip result type
@@ -651,7 +653,7 @@ definitions:
         type: number
         format: double
       duration:
-        type: number
+        type: integer
         format: int32
       segments:
         type: array
@@ -711,7 +713,7 @@ definitions:
         description: Email address of the user
       address:
         $ref: '#/definitions/Address'
-      picture:
+      image:
         type: string
         description: Image URL of the user
       promo-code:
@@ -722,7 +724,7 @@ definitions:
       street: 
         type: string
       zip:
-        type: number
+        type: integer
         format: int32
       city: 
         type: string
@@ -765,38 +767,96 @@ definitions:
             Travel option used. 
             Walk = 1, Taxi = 2, Car = 4, Bus = 8, 
             Train = 16, Plane = 32
-  Bookings:
-    properties:
-      count:
-        type: integer
-        format: int32
-        description: Total number of bookings available
-      trips:
-        type: array
-        items:
-          $ref: '#/definitions/Booking'
   Booking:
-    properties:
-      uuid:
-        type: string
-        description: Unique identifier for the booking
-      start:
-        type: string
-        description: |  
-          The start location of the booking. Can be an address
-          or a description (e.g. home)
-      end:
-        type: string
-        description: |  
-          The end location of the booking. Can be an address
-          or a description (e.g. company name)
-      date:
-        type: string
-        format: '2014-11-12'
-  Event:
+    required:
+      - id
+      - title
+      - destination
+      - startDate
+      - endDate
+      - participants
     properties:
       id:
-        type: number
+        type: string
+        description: Unique identifier for the booking
+      title:
+        type: string
+        description: A speaking title for the booking
+      destination:
+        type: string
+        description: |  
+          The destination location of the booking. Can be an address
+          or a description (e.g. company name)
+      tags:
+        type: array
+        items:
+          type: string
+          description: Tags that can be used to identify the trip.
+      startDate:
+        type: string
+        format: '2015-02-09T02:54:51+00:0'
+      endDate:
+        type: string
+        format: '2015-02-09T02:54:51+00:0'
+      reference:
+        type: string
+        description: | 
+          A url to any sort of information for that trip. Could
+          be a link to the event or the host company.
+      hotel:
+        type: object
+        $ref: '#/definitions/Hotel'
+      participants:
+        type: array
+        items: 
+          type: object
+          $ref: '#/definitions/Participant'
+  Hotel:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      checkIn:
+        type: string
+        format: ""
+      url:
+        type: string
+        decription: Link to the hotel website
+      image:
+        type: string
+        decription: Link to the hotel image
+  Participant:
+    required:
+      - email
+      - booked
+      - image
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      booked:
+        type: boolean
+      arrivalTime:
+        type: string
+        description: '2015-02-09T02:54:51+00:0'
+      image:
+        type: string
+        description: Image url for the participant
+      profile:
+        type: string
+        description: Link to a user profile.
+  Event:
+    required:
+      - id
+      - title
+      - location
+    properties:
+      id:
+        type: integer
         format: int64
       title:
         type: string
@@ -822,6 +882,7 @@ definitions:
         type: string
       image:
         type: string
+        description: Image url of the event
   Timing:
     properties:
       start:

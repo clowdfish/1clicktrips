@@ -335,8 +335,8 @@
         },
         "/account/bookings": {
             "get": {
-                "summary": "User History",
-                "description": "The User History endpoint returns data about a user's lifetime \nactivity with 1clicktrips.\n",
+                "summary": "Booking History",
+                "description": "The Bookings endpoint returns data about a user's lifetime \nactivity with 1clicktrips.\n",
                 "parameters": [
                     {
                         "name": "offset",
@@ -358,9 +358,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "History information for the given user",
+                        "description": "Booking history for the given user",
                         "schema": {
-                            "$ref": "#/definitions/Bookings"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Booking"
+                            }
                         }
                     },
                     "default": {
@@ -406,8 +409,8 @@
                         "in": "query",
                         "description": "The maximum number of events to return",
                         "required": false,
-                        "type": "number",
-                        "format": "integer"
+                        "type": "integer",
+                        "format": "int32"
                     }
                 ],
                 "responses": {
@@ -571,8 +574,8 @@
                         "in": "query",
                         "description": "The maximum number of alternatives",
                         "required": false,
-                        "type": "number",
-                        "format": "integer"
+                        "type": "integer",
+                        "format": "int32"
                     }
                 ],
                 "responses": {
@@ -694,8 +697,8 @@
                     "description": "Authentication token"
                 },
                 "expires": {
-                    "type": "number",
-                    "format": "int",
+                    "type": "integer",
+                    "format": "int32",
                     "description": "Expiration date of the auth token"
                 }
             }
@@ -726,7 +729,7 @@
                     "type": "string"
                 },
                 "decimalSeparator": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int16"
                 },
                 "symbolOnLeft": {
@@ -736,11 +739,11 @@
                     "type": "boolean"
                 },
                 "roundingCoefficient": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int16"
                 },
                 "decimalDigits": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int16"
                 }
             }
@@ -786,7 +789,7 @@
                     "description": "The ISO 4217 currency code"
                 },
                 "type": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int32",
                     "description": "Defines the trip result type\n  0 = budget\n  1 = time\n  2 = comfort\n"
                 }
@@ -816,7 +819,7 @@
                     "format": "double"
                 },
                 "duration": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int32"
                 },
                 "segments": {
@@ -898,7 +901,7 @@
                 "address": {
                     "$ref": "#/definitions/Address"
                 },
-                "picture": {
+                "image": {
                     "type": "string",
                     "description": "Image URL of the user"
                 },
@@ -914,7 +917,7 @@
                     "type": "string"
                 },
                 "zip": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int32"
                 },
                 "city": {
@@ -968,45 +971,124 @@
                 }
             }
         },
-        "Bookings": {
+        "Booking": {
+            "required": [
+                "id",
+                "title",
+                "destination",
+                "startDate",
+                "endDate",
+                "participants"
+            ],
             "properties": {
-                "count": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "Total number of bookings available"
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the booking"
                 },
-                "trips": {
+                "title": {
+                    "type": "string",
+                    "description": "A speaking title for the booking"
+                },
+                "destination": {
+                    "type": "string",
+                    "description": "The destination location of the booking. Can be an address\nor a description (e.g. company name)\n"
+                },
+                "tags": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Booking"
+                        "type": "string",
+                        "description": "Tags that can be used to identify the trip."
+                    }
+                },
+                "startDate": {
+                    "type": "string",
+                    "format": "2015-02-09T02:54:51+00:0"
+                },
+                "endDate": {
+                    "type": "string",
+                    "format": "2015-02-09T02:54:51+00:0"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "A url to any sort of information for that trip. Could\nbe a link to the event or the host company.\n"
+                },
+                "hotel": {
+                    "type": "object",
+                    "$ref": "#/definitions/Hotel"
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "$ref": "#/definitions/Participant"
                     }
                 }
             }
         },
-        "Booking": {
+        "Hotel": {
+            "required": [
+                "name"
+            ],
             "properties": {
-                "uuid": {
-                    "type": "string",
-                    "description": "Unique identifier for the booking"
+                "name": {
+                    "type": "string"
                 },
-                "start": {
+                "checkIn": {
                     "type": "string",
-                    "description": "The start location of the booking. Can be an address\nor a description (e.g. home)\n"
+                    "format": ""
                 },
-                "end": {
+                "url": {
                     "type": "string",
-                    "description": "The end location of the booking. Can be an address\nor a description (e.g. company name)\n"
+                    "decription": "Link to the hotel website"
                 },
-                "date": {
+                "image": {
                     "type": "string",
-                    "format": "2014-11-12"
+                    "decription": "Link to the hotel image"
+                }
+            }
+        },
+        "Participant": {
+            "required": [
+                "email",
+                "booked",
+                "image"
+            ],
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "booked": {
+                    "type": "boolean"
+                },
+                "arrivalTime": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51+00:0"
+                },
+                "image": {
+                    "type": "string",
+                    "description": "Image url for the participant"
+                },
+                "profile": {
+                    "type": "string",
+                    "description": "Link to a user profile."
                 }
             }
         },
         "Event": {
+            "required": [
+                "id",
+                "title",
+                "location"
+            ],
             "properties": {
                 "id": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int64"
                 },
                 "title": {
@@ -1039,7 +1121,8 @@
                     "type": "string"
                 },
                 "image": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Image url of the event"
                 }
             }
         },
