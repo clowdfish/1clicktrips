@@ -13,6 +13,8 @@ $header-padding: .7em;
   color: $c-text-dark-bg;
 
   .header-logo {
+    @include span(4 of 6);
+
     height: 100%;
     float: left;
     font-size: $fs-large;

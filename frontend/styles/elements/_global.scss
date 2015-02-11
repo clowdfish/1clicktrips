@@ -1,6 +1,4 @@
 body {
-  background-image: url("../images/bg.jpg");
-  background-size: 100% auto;
   background-color: $c-background;
 }
 
@@ -28,5 +26,12 @@ body {
 
   .fa {
     margin-right: 0.5em;
+  }
+}
+
+@include respond-above("medium") {
+  body {
+    background-image: url("../images/bg.jpg");
+    background-size: 100% auto;
   }
 }
