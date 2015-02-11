@@ -1,53 +1,30 @@
-// user.js
+// controller/user.js
 var dbConfig = require('../../config/database.js');
 var Promise = require('es6-promise').Promise;
 
 module.exports = {
 
-  set: function(userId, key, value) {
-
-    return new Promise(function(resolve, reject) {
-
-      var connection = mysql.createConnection(dbConfig.connection);
-
-      var query =
-        'UPDATE user ' +
-        'SET ' + mysql.escape(key) + '="' + mysql.escape(value) + '"' +
-        'WHERE user_id=' + userId + ';';
-
-      connection.query(query, function(err, result) {
-        if (err) reject(err);
-
-        if(result.affectedRows > 0)
-          resolve();
-        else
-          reject(new Error('Nothing could be updated.'));
-      });
-
-      connection.end();
-    });
+  getUser: function(userId) {
+    // TODO implement
   },
 
-  getById: function(userId) {
+  getProfile: function(userId) {
+    // TODO implement
+  },
 
-    return new Promise(function(resolve, reject) {
-      var connection = mysql.createConnection(dbConfig.connection);
+  setProfile: function(userId, profileObject) {
+    // TODO implement
+  },
 
-      var query =
-        'SELECT * ' +
-        'FROM user ' +
-        'WHERE user_id="' + userId + '";';
+  getFavorites: function(userId) {
+    // TODO implement
+  },
 
-      connection.query(query, function(err, result) {
-        if (err) reject(err);
+  setFavorite: function(userId, favoriteObject) {
+    // TODO implement
+  },
 
-        if(result.length > 0)
-          resolve(result[0]);
-        else
-          resolve(null);
-      });
-
-      connection.end();
-    });
+  getMessages: function(userId) {
+    // TODO implement
   }
 };

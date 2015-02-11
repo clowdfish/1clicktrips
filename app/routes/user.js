@@ -3,25 +3,48 @@
 var jwt     = require('jwt-simple');
 var Promise = require('es6-promise').Promise;
 
-var AuthController = require('../controller/auth');
-var SettingsController = require('./../controller/settings');
-var UserController = require('./../controller/user');
+module.exports = function (app, express, production) {
 
+  // ==========================================================================
+  // CONTROLLER SETUP =========================================================
+  // ==========================================================================
 
-module.exports = function (app, express) {
+  var AuthController = null;
+  var SettingsController = null;
+  var UserController = null;
+  var BookingController = null;
+
+  if(production) {
+    SettingsController = require('../controller/settings');
+    UserController = require('../controller/user');
+    AuthController = require('../controller/auth');
+    BookingController = require('../controller/booking');
+  }
+  else {
+    SettingsController = require('../mocking/settings');
+    UserController = require('../mocking/user');
+    AuthController = require('../mocking/auth');
+    BookingController = require('../mocking/booking');
+  }
 
   var secret = app.get('jwtTokenSecret');
+
+  // ==========================================================================
+  // ROUTER SETUP =============================================================
+  // ==========================================================================
 
   // get an instance of router
   var accountApi = express.Router();
 
   // account root
   accountApi.get('/', function (req, res) {
-
     res.status(403).send('not accessible');
   });
 
   app.use('/account', accountApi);
+
+  // Check for access token on particular API calls
+  accountApi.all('/*', AuthController.isLoggedIn);
 
   // ==========================================================================
   // PROFILE  =================================================================
@@ -29,37 +52,34 @@ module.exports = function (app, express) {
 
   accountApi.get('/profile', function (req, res) {
 
-    var user = AuthController.getUserFromRequest(req, secret);
+    var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    /*
-    SettingsController.getSettings(userId, function (callback_settings) {
-      if (callback_settings)
-        res.status(200).json(callback_settings.profile);
-      else
-        res.status(500);
-    });*/
-
+    UserController.getProfile(userId)
+      .then(function (profile) {
+        if (profile)
+          res.status(200).json(profile);
+        else
+          res.status(500);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 
   accountApi.post('/profile', function (req, res) {
 
-    /*
     if (req.body) {
-      var userId = getUserIdFromToken(req);
+      var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      SettingsController.createSettings(userId, {'profile': req.body}, function (err, success) {
-        if (err) {
-          console.error('There was a problem updating the settings.');
+      UserController.setProfile(userId, req.body['Profile'])
+        .then(function() {
+          res.status(200).send();
+        })
+        .catch(function(err) {
+          console.error('There was a problem updating the profile.');
           res.status(500).send();
-        }
-
-        res.status(200).send(success);
-      });
+        });
     }
-    else {
-      res.status(400).send();
-    }*/
-
   });
 
   // ==========================================================================
@@ -68,36 +88,37 @@ module.exports = function (app, express) {
 
   accountApi.get('/settings', function (req, res) {
 
-    var user = AuthController.getUserFromRequest(req, secret);
+    var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    /*
-    SettingsController.getSettings(userId, function (callback_settings) {
-      if (callback_settings)
-        res.status(200).json(callback_settings.preferences);
-      else
-        res.status(500);
-    });*/
+    SettingsController.get(userId)
+      .then(function (settings) {
+        if (settings)
+          res.status(200).json(settings);
+        else
+          res.status(500);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 
   accountApi.post('/settings', function (req, res) {
 
-    /*
     if (req.body) {
-      var userId = getUserIdFromToken(req);
+      var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      SettingsController.createSettings(userId, {'preferences': req.body}, function (err, success) {
-        if (err) {
+      SettingsController.set(userId, req.body)
+        .then(function () {
+          res.status(200).send();
+        })
+        .catch(function(err) {
           console.error('There was a problem updating the settings.');
-          res.status(500).send();
-        }
-
-        res.status(200).send(success);
-      });
+          res.status(500).send(err.message);
+        });
     }
     else {
       res.status(400).send();
-    }*/
-
+    }
   });
 
   // ==========================================================================
@@ -106,37 +127,37 @@ module.exports = function (app, express) {
 
   accountApi.get('/favorites', function (req, res) {
 
-    var user = AuthController.getUserFromRequest(req, secret);
+    var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    /*
-    SettingsController.getSettings(userId, function (callback_settings) {
-      if (callback_settings)
-        res.status(200).json(callback_settings.privacy);
-      else
-        res.status(500);
-    });*/
-
+    UserController.getFavorites(userId)
+      .then(function (favorites) {
+        if (favorites)
+          res.status(200).json(favorites);
+        else
+          res.status(500);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 
   accountApi.post('/favorites', function (req, res) {
 
-    /*
     if (req.body) {
-      var userId = getUserIdFromToken(req);
+      var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      SettingsController.createSettings(userId, {'privacy': req.body}, function (err, success) {
-        if (err) {
-          console.error('There was a problem updating the settings.');
-          res.status(500).send();
-        }
-
-        res.status(200).send(success);
-      });
+      UserController.setProfile(userId, req.body)
+        .then(function () {
+          res.status(200).send();
+        })
+        .catch(function(err) {
+          console.error('There was a problem updating the favorites.');
+          res.status(500).send(err.message);
+        });
     }
     else {
       res.send(400).send();
-    }*/
-
+    }
   });
 
   // ==========================================================================
@@ -145,39 +166,36 @@ module.exports = function (app, express) {
 
   accountApi.get('/bookings', function (req, res) {
 
-    var user = AuthController.getUserFromRequest(req, secret);
+    var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    /*
-    SettingsController.getSettings(userId, function (callback_settings) {
-      if (callback_settings)
-        res.status(200).json(callback_settings.privacy);
-      else
-        res.status(500);
-    });*/
-
+    BookingController.getBookings(userId, 3)
+      .then(function (bookings) {
+        if (bookings)
+          res.status(200).json(bookings);
+        else
+          res.status(500);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 
   accountApi.post('/bookings', function (req, res) {
 
-    /*
     if (req.body) {
-      var userId = getUserIdFromToken(req);
+      var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      SettingsController.createSettings(userId, {'privacy': req.body}, function (err, success) {
-        if (err) {
-          console.error('There was a problem updating the settings.');
-          res.status(500).send();
-        }
-
-        res.status(200).send(success);
-      });
+      BookingController.setBooking(userId, req.body)
+        .then(function () {
+          res.status(200).send();
+        })
+        .catch(function(err) {
+          console.error('There was a problem updating the favorites.');
+          res.status(500).send(err.message);
+        });
     }
     else {
       res.send(400).send();
-    }*/
-
+    }
   });
-
-  // Check for access token on particular API calls
-  app.all('/account/*', AuthController.isLoggedIn);
 };

@@ -15,6 +15,9 @@ var app = express();
 var configAuth = require('./config/auth');
 var port = process.env.PORT || 8080;
 
+// development/production flag
+var production = false;
+
 require('./config/passport')(passport); // pass passport for configuration
 
 
@@ -60,10 +63,13 @@ function start () {
   setupAuthentication();
     
 	// load routes with fully configured express and passport
-  require('./app/routes/app.js')(app);
-  require('./app/routes/auth.js')(app, express, passport);
-	require('./app/routes/search.js')(app, express);
-  require('./app/routes/user.js')(app, express);
+  require('./app/routes/auth.js')(app, express, passport, production);
+	require('./app/routes/search.js')(app, express, production);
+  require('./app/routes/user.js')(app, express, production);
+
+  // put this at end of the list. It will deny all requests that are
+  // not defined in the previous routes files.
+  require('./app/routes/app.js')(app, production);
 
   app.listen(port);
   console.log('\tServer started on port ' + port + '.');

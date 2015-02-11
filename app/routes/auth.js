@@ -1,10 +1,27 @@
 // routes/auth.js
 
 var jwt = require('jwt-simple');
-var AuthController = require('../controller/auth');
-var UserController = require('./../controller/user');
 
-module.exports = function (app, express, passport) {
+module.exports = function (app, express, passport, production) {
+
+  // ==========================================================================
+  // CONTROLLER SETUP =========================================================
+  // ==========================================================================
+  var AuthController = null;
+  var UserController = null;
+
+  if(production) {
+    UserController = require('../controller/user');
+    AuthController = require('../controller/auth');
+  }
+  else {
+    UserController = require('../mocking/user');
+    AuthController = require('../mocking/auth');
+  }
+
+  // ==========================================================================
+  // ROUTER SETUP =============================================================
+  // ==========================================================================
 
   // get an instance of router
   var authApi = express.Router();
@@ -105,16 +122,10 @@ module.exports = function (app, express, passport) {
   // UNLINK ACCOUNTS =============================================================
   // =============================================================================
 
-  authApi.get('/unlink/twitter',
-    AuthController.isLoggedIn,
+  authApi.get('/unlink/twitter', AuthController.isLoggedIn,
     function (req, res) {
 
-    UserController.set(req.user.id, 'twitter_token', '')
-      .then(function() {
-          res.status(200).send();
-      })
-      .catch(function(err) {
-          res.status(500).json(err);
-      });
-  });
+      // TODO implement reset of Twitter account
+      // set twitter_token to empty string
+    });
 };

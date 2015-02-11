@@ -1,16 +1,15 @@
 // controller/auth.js
 
-var Promise = require('es6-promise').Promise;
 var jwt = require('jwt-simple');
 var configAuth = require('../../config/auth');
+
+var UserController = require('./user');
 
 module.exports = {
 
   isLoggedIn: function(req, res, next) {
 
-    // if user is authenticated.  carry on
-    var token = (req.body && req.body.access_token) || (req.query && req.query.access_token)
-      || req.headers['x-access-token'];
+    var token = req.headers['x-access-token'];
 
     if (token) {
       try {
@@ -22,7 +21,7 @@ module.exports = {
         }
         else {
           // attach user to request
-          UserController.getById(decoded.iss)
+          UserController.getUser(decoded.iss)
             .then(function (err, user) {
               req.user = user;
               return next();
@@ -43,38 +42,24 @@ module.exports = {
     }
   },
 
-  getUserFromRequest: function(req, secret) {
+  getUserIdFromRequest: function(req, secret) {
 
-    // if user is authenticated.  carry on
-    var token = (req.body && req.body.access_token) || (req.query && req.query.access_token)
-      || req.headers['x-access-token'];
+    var token = req.headers['x-access-token'];
 
-    return new Promise(function(resolve, reject) {
+    if (token) {
+      try {
+        var decoded = jwt.decode(token, secret);
 
-      if (token) {
-        try {
-          var decoded = jwt.decode(token, secret);
-
-          // handle token here
-          if (decoded.exp > Date.now()) {
-            UserController.getById(decoded.iss)
-              .then(function (user) {
-                if(!user.licence)
-                  user.licence = 0;
-
-                resolve(user);
-              });
-          }
-        }
-        catch (err) {
-          console.error('Error while decoding token: ' + err.message);
+        // handle token here
+        if (decoded.exp > Date.now()) {
+          return decoded.iss;
         }
       }
-
-      resolve({
-        licence: 0
-      });
-    });
+      catch (err) {
+        console.error('Error while decoding token: ' + err.message);
+      }
+    }
+    return -1;
   },
 
   getExpirationDate: function(daysFromNow) {

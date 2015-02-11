@@ -1,12 +1,27 @@
 // routes/search.js
 
 var Promise = require('es6-promise').Promise;
-var AuthController = require('../controller/auth');
 
-module.exports = function (app, express) {
+module.exports = function (app, express, production) {
 
   // ==========================================================================
-  // SEARCH API ===============================================================
+  // CONTROLLER SETUP =========================================================
+  // ==========================================================================
+
+  var AuthController = null;
+  var UserController = null;
+
+  if(production) {
+    UserController = require('../controller/user');
+    AuthController = require('../controller/auth');
+  }
+  else {
+    UserController = require('../mocking/user');
+    AuthController = require('../mocking/auth');
+  }
+
+  // ==========================================================================
+  // ROUTER SETUP =============================================================
   // ==========================================================================
 
   // get an instance of router
@@ -15,7 +30,74 @@ module.exports = function (app, express) {
   // route all search requests to /search/
   app.use('/search', searchApi);
 
-  // home page route
+  // ==========================================================================
+  // EVENT API ================================================================
+  // ==========================================================================
+  searchApi.get('/events', function (req, res) {
+
+    // the events API is not available in production as of now
+    if(production) {
+      res.status(404).send("Events Service not available yet.");
+    }
+    else {
+      var eventOne = createMockEvent();
+      var eventTwo = createMockEvent();
+      var eventThree = createMockEvent();
+
+      res.status(200).json([
+        eventOne,
+        eventTwo,
+        eventThree
+      ]);
+    }
+  });
+
+  // ==========================================================================
+  // MEETING SPACES API =======================================================
+  // ==========================================================================
+  searchApi.get('/spaces', function (req, res) {
+
+    // the meeting spaces API is not available in production as of now
+    if(production) {
+      res.status(404).send("Meeting Spaces Service not available yet.");
+    }
+    else {
+      var meetingSpaceOne = createMockMeetingSpace();
+      var meetingSpaceTwo = createMockMeetingSpace();
+      var meetingSpaceThree = createMockMeetingSpace();
+
+      res.status(200).json([
+        meetingSpaceOne,
+        meetingSpaceTwo,
+        meetingSpaceThree
+      ]);
+    }
+  });
+
+  // ==========================================================================
+  // ALTERNATIVES API =========================================================
+  // ==========================================================================
+  searchApi.post('/alternatives', function (req, res) {
+
+    // the meeting spaces API is not available in production as of now
+    if(production) {
+      res.status(404).send("Meeting Spaces Service not available yet.");
+    }
+    else {
+      var alternativeOne = createMockAlternative();
+      var alternativeTwo = createMockAlternative();
+
+      res.status(200).json([
+        alternativeOne,
+        alternativeTwo
+      ]);
+    }
+  });
+
+  // ==========================================================================
+  // SEARCH API ===============================================================
+  // ==========================================================================
+
   searchApi.post('/trips', function (req, res) {
 
     var secret = app.get('jwtTokenSecret');
@@ -28,57 +110,38 @@ module.exports = function (app, express) {
       var userLicence = null;
 
       console.log("Extracting user:");
-      AuthController.getUserFromRequest(req, secret)
+      var userId = AuthController.getUserIdFromRequest(req, secret);
+
+      UserController.getById(userId)
         .then(function (user) {
           console.log(user);
 
           userLicence = user.licence;
 
-          res.status(200).json(createMockTripResult());
+          if(!production)
+            res.status(200).json(createMockTripResult());
+          else
+            res.status(404).send("Search Service not available yet.");
 
           /*
           return new Promise(function (resolve) {
-
-            searchObject = req.body;
-
-            if (!req.body['preferences'] &&
-              (user.email || user.twitter_token)) {
-
-              console.log("Looking up preferences for user...");
-
-              var userId = getUserIdFromToken(req);
-
-              SettingsController.getSettings(userId, function (callback_settings) {
-                if (callback_settings)
-                  searchObject.preferences = callback_settings;
-                resolve();
-              });
-            }
-            else {
-              console.log("No preferences available for user!");
-              resolve();
-            }
-          });
-          */
+            // resolve with preferences object
+          }); */
         });
 
         /*
         .then(function () {
-          console.log("Start search with object: ");
-          console.log(searchObject);
+          searchObject = req.body;
 
           // use TTG Search API to get results
           return tripEngine.getTrips(searchObject, userLicence);
         })
         .then(function (results) {
-          console.log("Success.");
           res.status(200).json(results);
         })
         .catch(function (error) {
-          console.error(error);
           res.status(500).json(error);
-        });
-       */
+        }); */
     }
     else {
       res.status(400).send('status.user.error.request.malformed');
@@ -120,8 +183,58 @@ function checkValidityOfRequest(req) {
   return true;
 }
 
-function createMockTripResult() {
+// ==========================================================================
+// MOCKING OBJECT CREATORS ==================================================
+// ==========================================================================
 
+function createMockEvent() {
+  return {
+    "id" : 1,
+    "title" : "World Event Las Vegas",
+    "description" : "An example event",
+    "location" : {
+      "longitude" : 1234,
+      "latitude" : 1234
+    },
+    "tags" : [
+      "test", "another tag", "cool"
+    ],
+    "dates" : [
+      {
+        "start" : "2015-02-09T02:54:51+00:0",
+        "end" : "2015-02-15T09:54:51+00:0"
+      }
+    ],
+    "open": true,
+    "url" : "http://whatever.com",
+    "image" : "http://whatever.com/image.jpg"
+  }
+}
+
+function createMockMeetingSpace() {
+  return {
+    "id" : 1,
+    "title" : "MeetNow Space",
+    "description" : "An example meeting space",
+    "location" : {
+      "latitude" : 48.709008,
+      "longitude" : 9.457281
+    },
+    "seatsAvailable" : 20,
+    "catering" : false
+  }
+}
+
+function createMockAlternative() {
+
+  // TODO implement
+
+  return {
+
+  }
+}
+
+function createMockTripResult() {
   return [
     {
       "outbound": {
