@@ -4,11 +4,15 @@
 $width-container: 1080px;
 
 $susy: (
-  columns: 24,
-  gutters: 1/2,
+  columns: 6,
+  gutters: 1/3,
   container: $width-container,
-  gutter-position: split
+  gutter-position: split,
+  //debug: (image: show),
+  global-box-sizing: border-box
 );
+
+@include border-box-sizing;
 
 .container {
   @include container;

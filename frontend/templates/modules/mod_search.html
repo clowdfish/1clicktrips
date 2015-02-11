@@ -23,21 +23,19 @@
       </ul>
     </div>
     <div class="search-form-container">
-      <form name='searchForm' class="search-form" ng-show='step==1'>
+      <form name='searchForm' class="search-form" ng-show='step == 1'>
         <h1>{{ T.search.form.destination.label }}</h1>
         <input
-          type="text"
-          placeholder="{{ T.search.form.destination.placeholder }}"
-          name='destination'
-          ng-model='destination'
-          typeahead="address.description for address in getSuggestion($viewValue)"
-          typeahead-on-select="selectSuggestion($item, $model, $label)">
+                type="text"
+                placeholder="{{ T.search.form.destination.placeholder }}"
+                name='destination'
+                ng-model='destination'
+                typeahead="address.description for address in getSuggestion($viewValue)"
+                typeahead-on-select="selectSuggestion($item, $model, $label)">
         <select ng-model='destinationType' ng-options='item for item in destinationTypeArray'>
         </select>
         <a ng-click="step2()" class="button--dark">{{ T.search.form.control.next }}</a>
         <map-marker address="destinationAddress"></map-marker>
-
-
       </form>
 
       <form name='scheduleForm' class='search-form' ng-show='step == 2'>
@@ -65,7 +63,6 @@
           <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
         </span>
       </form>
-
-    </div>
-  </section>
+  </div>
+</section>
 </div>
