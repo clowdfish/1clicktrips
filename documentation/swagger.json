@@ -610,7 +610,9 @@
                         "description": "Roundtrip option",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "format": "int16",
+                            "description": "This should be boolean, but Swagger UI is not \nable to render it proberly.\n"
                         }
                     },
                     {
@@ -632,7 +634,7 @@
                         }
                     },
                     {
-                        "name": "numberOfTraveler",
+                        "name": "numberOfTravelers",
                         "in": "body",
                         "required": false,
                         "schema": {
@@ -652,7 +654,7 @@
                     {
                         "name": "preferences",
                         "in": "body",
-                        "description": "A preferences set that will be used for finding a \nproper custom trip.\n",
+                        "description": "A preference set that will be used for finding a \nproper custom trip.\n",
                         "required": false,
                         "schema": {
                             "type": "array",
@@ -905,8 +907,7 @@
         "Itinerary": {
             "properties": {
                 "id": {
-                    "type": "string",
-                    "description": "Unique identifier"
+                    "type": "string"
                 },
                 "outbound": {
                     "$ref": "#/definitions/Trip"
@@ -942,11 +943,11 @@
                 },
                 "departureTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "arrivalTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "distance": {
                     "type": "number",
@@ -989,11 +990,11 @@
                 },
                 "departureTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "arrivalTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "duration": {
                     "type": "number",
@@ -1121,11 +1122,11 @@
                 },
                 "startDate": {
                     "type": "string",
-                    "format": "2015-02-09T02:54:51+00:0"
+                    "description": "2015-02-09T02:54:51+00:0"
                 },
                 "endDate": {
                     "type": "string",
-                    "format": "2015-02-09T02:54:51+00:0"
+                    "description": "2015-02-09T02:54:51+00:0"
                 },
                 "reference": {
                     "type": "string",
@@ -1153,8 +1154,7 @@
                     "type": "string"
                 },
                 "checkIn": {
-                    "type": "string",
-                    "format": ""
+                    "type": "string"
                 },
                 "url": {
                     "type": "string",
