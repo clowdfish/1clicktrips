@@ -2,13 +2,13 @@
   <section class="search container" ng-controller='searchCtrl'>
     <div class="search-steps">
       <ul class="search-step-list">
-        <li class="search-step" ng-class="{active: step == 1}">
+        <li class="search-step" ng-class="{active: step == 1}" ng-click='step1()'>
           <div class="search-step-circle location">
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.destination }}
         </li>
-        <li class="search-step" ng-class="{active: step == 2}">
+        <li class="search-step" ng-class="{active: step == 2}" ng-click='step2()'>
           <div class="search-step-circle timing">
             <span class="search-step-active-indicator"></span>
           </div>
@@ -23,7 +23,7 @@
       </ul>
     </div>
     <div class="search-form-container">
-      <form name='searchForm' class="search-form">
+      <form name='searchForm' class="search-form" ng-show='step==1'>
         <h1>{{ T.search.form.destination.label }}</h1>
         <input
           type="text"
@@ -34,10 +34,36 @@
           typeahead-on-select="selectSuggestion($item, $model, $label)">
         <select ng-model='destinationType' ng-options='item for item in destinationTypeArray'>
         </select>
-        <a ng-click="dateAndTimeStep()" class="button--dark">{{ T.search.form.control.next }}</a>
-        <map-marker address="destinationAddress">
-      </div>
+        <a ng-click="step2()" class="button--dark">{{ T.search.form.control.next }}</a>
+        <map-marker address="destinationAddress"></map-marker>
 
+
+      </form>
+
+      <form name='scheduleForm' class='search-form' ng-show='step == 2'>
+        <h1>{{ T.search.form.time }}</h1>
+        <input type="text" class="form-control"
+          show-weeks="false"
+          ng-model="startDate"
+          datepicker-options="dateOptions"
+          datepicker-popup="{{format}}"
+          ng-required="true"
+          placeholder="Start Date"
+          is-open="opened"
+          close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+        <input type="text" class="form-control"
+          show-weeks="false"
+          ng-model="startDate"
+          datepicker-options="dateOptions"
+          ng-required="true"
+          placeholder="End Date"
+          close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
       </form>
 
     </div>

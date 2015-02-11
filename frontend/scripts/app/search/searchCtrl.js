@@ -27,6 +27,24 @@
     //Select suggestion
     $scope.selectSuggestion = selectSuggestion;
 
+    $scope.step1 = step1;
+    $scope.step2 = step2;
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.showWeeks = false;
+    $scope.open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      console.log(1);
+      $scope.opened = true;
+    };
+
     /**
     * Get suggestion for text input
     * @param {string} val - input source
@@ -61,9 +79,9 @@
     }
 
     function step2() {
-      if ($scope.destinationAddress == null) {
-        return;
-      }
+      // if ($scope.destinationAddress == null) {
+      //   return;
+      // }
       $scope.step = 2;
     }
   }
