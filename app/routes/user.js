@@ -9,19 +9,19 @@ module.exports = function (app, express, production) {
   // CONTROLLER SETUP =========================================================
   // ==========================================================================
 
-  var AuthController = require('../controller/auth');
+  var AuthController = null;
   var SettingsController = null;
   var UserController = null;
 
   if(production) {
-    SettingsController = require('./../controller/settings');
-    UserController = require('./../controller/user');
-
-    AuthController.setProduction();
+    SettingsController = require('../controller/settings');
+    UserController = require('../controller/user');
+    AuthController = require('../controller/auth');
   }
   else {
-    SettingsController = require('./../mocking/settings');
-    UserController = require('./../mocking/user');
+    SettingsController = require('../mocking/settings');
+    UserController = require('../mocking/user');
+    AuthController = require('../mocking/auth');
   }
 
   var secret = app.get('jwtTokenSecret');

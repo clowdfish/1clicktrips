@@ -7,15 +7,16 @@ module.exports = function (app, express, passport, production) {
   // ==========================================================================
   // CONTROLLER SETUP =========================================================
   // ==========================================================================
-  var AuthController = require('../controller/auth');
+  var AuthController = null;
   var UserController = null;
 
   if(production) {
-    UserController = require('./../controller/user');
-    AuthController.setProduction();
+    UserController = require('../controller/user');
+    AuthController = require('../controller/auth');
   }
   else {
-    UserController = require('./../mocking/user');
+    UserController = require('../mocking/user');
+    AuthController = require('../mocking/auth');
   }
 
   // ==========================================================================

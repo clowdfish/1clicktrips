@@ -1,6 +1,5 @@
 // controller/auth.js
 
-var Promise = require('es6-promise').Promise;
 var jwt = require('jwt-simple');
 var configAuth = require('../../config/auth');
 
@@ -8,22 +7,7 @@ var UserController = require('./user');
 
 module.exports = {
 
-  production: false,
-
-  setProduction: function() {
-    this.production = true;
-  },
-
   isLoggedIn: function(req, res, next) {
-
-    if(!this.production) {
-      req.user = {
-        id: 42,
-        licence: 1
-      };
-
-      return next();
-    }
 
     var token = req.headers['x-access-token'];
 
@@ -60,10 +44,9 @@ module.exports = {
 
   getUserIdFromRequest: function(req, secret) {
 
-    var production = this.production;
     var token = req.headers['x-access-token'];
 
-    if (token && production) {
+    if (token) {
       try {
         var decoded = jwt.decode(token, secret);
 
@@ -76,8 +59,7 @@ module.exports = {
         console.error('Error while decoding token: ' + err.message);
       }
     }
-
-    return production ? -1 : 42;
+    return -1;
   },
 
   getExpirationDate: function(daysFromNow) {
