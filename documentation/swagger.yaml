@@ -5,13 +5,13 @@ info:
   description: Business travel at its best
   version: "1.0.0"
 # the domain of the service
-host: api.1clicktrips.com
+host: 1clicktrips.com
 # array of all schemes that your API supports
 schemes:
   - http
   - https
 # will be prefixed to all paths
-basePath: /v1
+basePath: /api
 produces:
   - application/json
 paths:
@@ -206,6 +206,12 @@ paths:
       tags:
         - Settings
         - User
+      parameters:
+        - name: category
+          in: query
+          type: string
+          description: |
+            Settings category to retrieve.
       responses:
         200:
           description: An array of settings
@@ -246,19 +252,22 @@ paths:
       description: |
         The User Favorites endpoint returns data about a user's favorites 
         that he saved before.
+      tags:
+        - User
+      parameters:
         - name: limit
           in: query
           type: integer
           format: int32
           description: |
             Number of items to retrieve. Default is 5, maximum is 100.
-      tags:
-        - User
       responses:
         200:
-          description: List of favorites for the given user
+          description: Array of favorites for the given user
           schema:
-            $ref: '#/definitions/Favorites'
+            type: array
+            items:
+              $ref: '#/definitions/Favorite'
         default:
           description: Unexpected error
           schema:
@@ -289,9 +298,12 @@ paths:
       description: |
         The Bookings endpoint returns data about a user's lifetime 
         activity with 1clicktrips.
+      tags:
+        - User
       parameters:
         - name: offset
           in: query
+          required: false
           type: integer
           format: int64
           description: |
@@ -300,12 +312,11 @@ paths:
             is zero.
         - name: limit
           in: query
+          required: false
           type: integer
           format: int32
           description: |
             Number of items to retrieve. Default is 5, maximum is 30.
-      tags:
-        - User
       responses:
         200:
           description: Booking history for the given user
@@ -313,6 +324,44 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Booking'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post: 
+      summary: Add Booking
+      description: Create a new booking. 
+      tags:
+        - User
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema: 
+            $ref: '#/definitions/Booking'
+      responses:
+        200:
+          description: Creation of booking successful
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /account/messages:
+    get:
+      summary: Get Messages for the user
+      description: |
+        The Messages endpoint returns data that is supposed to
+        be presented to the user in the frontend.
+      tags:
+        - User
+      responses:
+        200:
+          description: Array of messages for the given user
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Message'
         default:
           description: Unexpected error
           schema:
@@ -330,9 +379,9 @@ paths:
       tags:
         - Search
       parameters:
-        - name: search_string
+        - name: qs
           in: query
-          description: The search string to filter the events for
+          description: The search string to filter the events
           required: true
           type: string
         - name: start_date
@@ -345,7 +394,7 @@ paths:
           description: The end date of the trip to be planned
           required: false
           type: string
-        - name: limitation
+        - name: limit
           in: query
           description: The maximum number of events to return
           required: false
@@ -363,6 +412,48 @@ paths:
             schema:
               $ref: '#/definitions/Error'  
     
+  /search/spaces:
+    get:
+      summary: Meeting Spaces List
+      description: |
+        The spaces endpoint will deliver a list of meeting spaces
+        to the client that match with the given query criteria.
+      tags:
+        - Search
+      parameters:
+        - name: qs
+          in: query
+          description: The search string to filter the meeting spaces
+          required: true
+          type: string
+        - name: start_date
+          in: query
+          description: The start date of the trip to be planned
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: The end date of the trip to be planned
+          required: false
+          type: string
+        - name: limit
+          in: query
+          description: The maximum number of meeting spaces to return
+          required: false
+          type: integer
+          format: int32
+      responses:
+          200:
+            description: An array of meeting spaces
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/MeetingSpace'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'  
+
   /search/trips:
     post:
       summary: Trip Results
@@ -372,66 +463,67 @@ paths:
       tags:
         - Search
       parameters:
-        - name: start_description
+        - name: origin
           in: body
-          description: Description of start location
+          description: Origin location
+          required: true
+          schema:
+            type: object
+            $ref: '#/definitions/Location'
+        - name: originDescription
+          in: body
+          description: Description of the origin location
           required: false
           schema:
             type: string
-        - name: start_latitude
+        - name: appointments
           in: body
-          description: Latitude component of start location
+          description: Array of appointments
           required: true
           schema:
-            type: number
-            format: double
-        - name: start_longitude
-          in: body
-          description: Longitude component of start location
-          required: true
-          schema:
-            type: number
-            format: double
-        - name: end_description
-          in: body
-          description: Description of end location
-          required: false
-          schema:
-            type: string
-        - name: end_latitude
-          in: body
-          description: Latitude component of end location
-          required: true
-          schema:
-            type: number
-            format: double
-        - name: end_longitude
-          in: body
-          description: Longitude component of end location
-          required: true
-          schema:
-            type: number
-            format: double
-        - name: start_time
-          in: body
-          description: Time string for the local start time of the appointment
-          required: true
-          schema:
-            type: string
-            format: '2014-11-12T19:05:00'
-        - name: end_time
-          in: body
-          description: Time string for the local end time of the appointment
-          required: true
-          schema:
-            type: string
-            format: '2014-11-12T19:05:00'
-        - name: roundtrip
+            type: array
+            items: 
+              $ref: '#/definitions/Appointment'
+        - name: roundTrip
           in: body
           description: Roundtrip option
-          required: false
-          schema:
+          required: true
+          schema: 
             type: boolean
+        - name: currency
+          in: body
+          description: Active currency
+          required: true
+          schema: 
+            type: string
+        - name: locale
+          in: body
+          description: Active locale
+          required: true
+          schema: 
+            type: string
+        - name: numberOfTraveler
+          in: body
+          required: false
+          schema: 
+            type: integer
+            format: int16
+        - name: numberOfChildren
+          in: body
+          required: false
+          schema: 
+            type: integer
+            format: int16
+        - name: preferences
+          in: body
+          description: |
+            A preferences set that will be used for finding a 
+            proper custom trip.
+          required: false
+          schema: 
+            type: array
+            items:
+              $ref: '#/definitions/Setting'
       responses:
         200:
           description: An array of trips
@@ -453,17 +545,17 @@ paths:
       tags:
         - Search
       parameters:
-        - name: trip_id
+        - name: tripId
           in: query
           description: The trip ID of the requested trip
           required: true
           type: string
-        - name: segment_id
+        - name: segmentId
           in: query
           description: The segment ID of the segment to be replaced
           required: true
           type: string
-        - name: limitation
+        - name: limit
           in: query
           description: The maximum number of alternatives
           required: false
@@ -730,22 +822,12 @@ definitions:
         type: string
       country:
         type: string
-  Favorites:
-    properties:
-      count:
-        type: integer
-        format: int32
-        description: Total number of favorites available
-      trips:
-        type: array
-        items:
-          $ref: '#/definitions/Favorite'
   Favorite:
     required: 
       - start
       - end
     properties:
-      uuid:
+      id:
         type: string
         description: Unique identifier for the favorite
       start:
@@ -895,6 +977,58 @@ definitions:
         description: |
           ISO 8601 time and date
           "2015-02-09T02:54:51+00:0"
+  Appointment:
+    required:
+      - location
+      - start
+      - end
+    properties:
+      location:
+        type: object
+        $ref: '#/definitions/Location'
+      start:
+        type: string
+        description: "2015-02-09T02:54:51"
+      end:
+        type: string
+        description: "2015-02-09T02:54:51"
+      description:
+        type: string
+  MeetingSpace:
+    required: 
+      - title
+      - location
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      location:
+        type: object
+        $ref: '#/definitions/Location'
+      seatsAvailable:
+        type: integer
+        format: int32
+      catering:
+        type: boolean
+  Message:
+    properties:
+      id:
+        type: string
+      content:
+        type: string
+      date:
+        type: string
+        description: "2015-02-10T02:54:51+00:0"
+      url:
+        type: string
+      type:
+        type: string
+        description: |
+          Can be used to store any type of information that 
+          then can be used to show an icon in the frontend.
   Error:
     properties:
       code:

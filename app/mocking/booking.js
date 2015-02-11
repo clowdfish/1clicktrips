@@ -63,12 +63,12 @@ function createBookingMock() {
     ],
     "startDate": "2015-02-09T02:54:51+00:0",
     "endDate": "2015-02-10T02:54:51+00:0",
-    "reference": "http://imaginative.url",
+    "reference": "http://somewhere.com",
     "hotel": {
-      "name": "Awesome Hotel",
+      "name": "Double Tree by Hilton Metropolitan",
       "checkIn": "2015-02-10T02:54:51+00:0",
-      "url": "http://imaginative.url",
-      "image": "http://imaginative.url"
+      "url": "http://somewhere.com",
+      "image": "http://placehold.it/150x150"
     },
     "participants": [
       {
@@ -77,7 +77,7 @@ function createBookingMock() {
         "email": "eric@conan.com",
         "booked": true,
         "arrivalTime": "2015-02-09T02:54:51+00:0",
-        "image": "http://imaginative.url",
+        "image": "http://placehold.it/150x150",
         "profile": "http://somewhere.com"
       },
       {
@@ -86,7 +86,7 @@ function createBookingMock() {
         "email": "jenny@kandone.com",
         "booked": true,
         "arrivalTime": "2015-02-09T02:54:51+00:0",
-        "image": "http://imaginative.url",
+        "image": "http://placehold.it/150x150",
         "profile": "http://somewhere.com"
       },
       {
@@ -95,7 +95,7 @@ function createBookingMock() {
         "email": "alvin@cooke.com",
         "booked": false,
         "arrivalTime": "2015-02-09T02:54:51+00:0",
-        "image": "http://imaginative.url",
+        "image": "http://placehold.it/150x150",
         "profile": "http://somewhere.com"
       }
     ]

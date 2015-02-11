@@ -220,8 +220,8 @@ function createMockEvent() {
     "title" : "World Event Las Vegas",
     "description" : "An example event",
     "location" : {
-      "longitude" : 1234,
-      "latitude" : 1234
+      "latitude" : 36.161805,
+      "longitude" : -115.141183
     },
     "tags" : [
       "test", "another tag", "cool"
@@ -234,7 +234,7 @@ function createMockEvent() {
     ],
     "open": true,
     "url" : "http://whatever.com",
-    "image" : "http://whatever.com/image.jpg"
+    "image" : "http://placehold.it/150x150"
   }
 }
 

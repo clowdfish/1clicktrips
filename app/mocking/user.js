@@ -110,7 +110,7 @@ function createProfileMock() {
       "street": "Test Street 1",
       "zip": "123456"
     },
-    "image": "http://imaginative.url",
+    "image": "http://placehold.it/150x150",
     "licence": "1"
   }
 }
@@ -121,15 +121,15 @@ function createFavoriteMock() {
     "origin" : {
       "description" : "9579 Quaking Hill, Panther Valley, Indiana",
       "location" : {
-        "longitude" : 123456,
-        "latitude" : 123456
+        "latitude" : 48.709008,
+        "longitude" : 9.457281
       }
     },
     "destination" : {
       "description" : "Double Tree by Hilton Metropolitan, New York, USA",
       "location" : {
-        "longitude" : 123456,
-        "latitude" : 123456
+        "latitude" : 36.161805,
+        "longitude" : -115.141183
       }
     }
   }

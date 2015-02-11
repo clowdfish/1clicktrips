@@ -36,19 +36,19 @@ function createSettingsMock() {
   return [
     {
       "category": "General",
-      "description": "",
+      "description": "(De)Activates a taxi for a trip.",
       "key": "taxi",
       "value": "1"
     },
     {
       "category": "General",
-      "description": "",
+      "description": "Defines the priority of means of travel.",
       "key": "priority",
       "value": "taxi,plane,rental,public"
     },
     {
       "category": "General",
-      "description": "",
+      "description": "Register for the newsletter.",
       "key": "newsletter",
       "value": "true"
     }
