@@ -7,7 +7,8 @@
       'app.result',
       'app.search'
     ])
-    .config(config);
+    .config(config)
+    .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY');
 
   function config($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');

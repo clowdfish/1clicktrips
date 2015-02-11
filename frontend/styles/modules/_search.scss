@@ -131,11 +131,20 @@
     color: #fff;
   }
 
+  .search-form-container input{
+    color: #000;
+  }
+
   .search-form {
 
     h1 {
       margin-bottom: 0.5em;
     }
+  }
+
+  #search-destination-map {
+    width: 500px;
+    height:500px
   }
 
   @include respond-above("medium") {

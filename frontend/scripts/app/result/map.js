@@ -11,7 +11,6 @@
       restrict: 'E',
       templateUrl: 'scripts/app/templates/result/map.html',
       scope: {
-        itinerary: '=',
         activeSegments: '='
       },
       link: link

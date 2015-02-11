@@ -2,19 +2,19 @@
   <section class="search container" ng-controller='searchCtrl'>
     <div class="search-steps">
       <ul class="search-step-list">
-        <li class="search-step active">
+        <li class="search-step" ng-class="{active: step == 1}">
           <div class="search-step-circle location">
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.destination }}
         </li>
-        <li class="search-step done">
+        <li class="search-step" ng-class="{active: step == 2}">
           <div class="search-step-circle timing">
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.timing }}
         </li>
-        <li class="search-step">
+        <li class="search-step" ng-class="{active: step == 3}">
           <div class="search-step-circle origin">
             <span class="search-step-active-indicator"></span>
           </div>
@@ -23,14 +23,23 @@
       </ul>
     </div>
     <div class="search-form-container">
-      <form class="search-form">
+      <form name='searchForm' class="search-form">
         <h1>{{ T.search.form.destination.label }}</h1>
         <input
           type="text"
           placeholder="{{ T.search.form.destination.placeholder }}"
-          ng-model='destination'>
-        <a href="result.html" class="button--dark">{{ T.search.form.control.next }}</a>
+          name='destination'
+          ng-model='destination'
+          typeahead="address.description for address in getSuggestion($viewValue)"
+          typeahead-on-select="selectSuggestion($item, $model, $label)">
+        <select ng-model='destinationType' ng-options='item for item in destinationTypeArray'>
+        </select>
+        <a ng-click="dateAndTimeStep()" class="button--dark">{{ T.search.form.control.next }}</a>
+        <map-marker address="destinationAddress">
+      </div>
+
       </form>
+
     </div>
   </section>
 </div>
