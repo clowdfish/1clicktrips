@@ -39,10 +39,10 @@
 
         <div class="trip-header">
           <span class="fs-smallest">Your destination</span>
-          <h2 class="trip-header-title"><i class="fa fa-map-marker"></i>{{itinerary.destination}}</h2>
+          <h2 class="trip-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
           <a class='change-location-link fs-smallest' ng-click="changeLocationAndDate()">+ Change location & date</a>
           <div class='fs-smallest'>
-            From <span class="trip-date">{{itinerary.startTime | date: "dd.MM.yyyy"}} to {{itinerary.endTime | date: "dd.MM.yyyy"}}</span>
+            From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
           </div>
         </div>
 

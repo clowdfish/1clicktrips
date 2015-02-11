@@ -1,41 +1,42 @@
-<section class="search container">
-
-  <div class="search-steps">
-    <ul class="search-step-list">
-      <li class="search-step active">
-        <div class="search-step-circle location">
-          <span class="search-step-active-indicator"></span>
-        </div>
-        {{ T.search.navigation.destination }}
-      </li>
-      <li class="search-step done">
-        <div class="search-step-circle timing">
-          <span class="search-step-active-indicator"></span>
-        </div>
-        {{ T.search.navigation.timing }}
-      </li>
-      <li class="search-step">
-        <div class="search-step-circle origin">
-          <span class="search-step-active-indicator"></span>
-        </div>
-        {{ T.search.navigation.origin }}
-      </li>
-    </ul>
+<div ng-app='app.search'>
+  <section class="search container" ng-controller='searchCtrl'>
+    <div class="search-steps">
+      <ul class="search-step-list">
+        <li class="search-step" ng-class="{active: step == 1}">
+          <div class="search-step-circle location">
+            <span class="search-step-active-indicator"></span>
+          </div>
+          {{ T.search.navigation.destination }}
+        </li>
+        <li class="search-step" ng-class="{active: step == 2}">
+          <div class="search-step-circle timing">
+            <span class="search-step-active-indicator"></span>
+          </div>
+          {{ T.search.navigation.timing }}
+        </li>
+        <li class="search-step" ng-class="{active: step == 3}">
+          <div class="search-step-circle origin">
+            <span class="search-step-active-indicator"></span>
+          </div>
+          {{ T.search.navigation.origin }}
+        </li>
+      </ul>
+    </div>
+    <div class="search-form-container">
+      <form name='searchForm' class="search-form">
+        <h1>{{ T.search.form.destination.label }}</h1>
+        <input
+                type="text"
+                placeholder="{{ T.search.form.destination.placeholder }}"
+                name='destination'
+                ng-model='destination'
+                typeahead="address.description for address in getSuggestion($viewValue)"
+                typeahead-on-select="selectSuggestion($item, $model, $label)">
+        <select ng-model='destinationType' ng-options='item for item in destinationTypeArray'>
+        </select>
+        <a ng-click="dateAndTimeStep()" class="button--dark">{{ T.search.form.control.next }}</a>
+        <map-marker address="destinationAddress"></map-marker>
+      </form>
   </div>
-  <div class="search-form-container">
-    <form class="search-form">
-      <h1>{{ T.search.form.destination.label }}</h1>
-
-      <input type="text" placeholder="{{ T.search.form.destination.placeholder }}">
-      <span class="search-form-process-control">
-        <ul>
-          <li class="active"></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </span>
-      <a href="result.html" class="button--dark search-form-button">{{ T.search.form.control.next }}</a>
-    </form>
-  </div>
-
 </section>
+</div>
