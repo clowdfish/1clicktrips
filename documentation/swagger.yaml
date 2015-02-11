@@ -489,7 +489,11 @@ paths:
           description: Roundtrip option
           required: true
           schema: 
-            type: boolean
+            type: integer
+            format: int16
+            description: | 
+              This should be boolean, but Swagger UI is not 
+              able to render it proberly.
         - name: currency
           in: body
           description: Active currency
@@ -502,7 +506,7 @@ paths:
           required: true
           schema: 
             type: string
-        - name: numberOfTraveler
+        - name: numberOfTravelers
           in: body
           required: false
           schema: 
@@ -517,7 +521,7 @@ paths:
         - name: preferences
           in: body
           description: |
-            A preferences set that will be used for finding a 
+            A preference set that will be used for finding a 
             proper custom trip.
           required: false
           schema: 
@@ -708,7 +712,6 @@ definitions:
     properties:
       id: 
         type: string
-        description: Unique identifier
       outbound:
         $ref: '#/definitions/Trip'
       inbound:
@@ -737,10 +740,10 @@ definitions:
         $ref: '#/definitions/Location'
       departureTime: 
         type: string
-        format: '2014-11-12T19:05:00'
+        description: '2014-11-12T19:05:00'
       arrivalTime: 
         type: string
-        format: '2014-11-12T19:05:00'
+        description: '2014-11-12T19:05:00'
       distance: 
         type: number
         format: double
@@ -769,10 +772,10 @@ definitions:
         $ref: '#/definitions/Location'
       departureTime: 
         type: string
-        format: '2014-11-12T19:05:00'
+        description: '2014-11-12T19:05:00'
       arrivalTime: 
         type: string
-        format: '2014-11-12T19:05:00'
+        description: '2014-11-12T19:05:00'
       duration:
         type: number
         format: int32
@@ -876,10 +879,10 @@ definitions:
           description: Tags that can be used to identify the trip.
       startDate:
         type: string
-        format: '2015-02-09T02:54:51+00:0'
+        description: '2015-02-09T02:54:51+00:0'
       endDate:
         type: string
-        format: '2015-02-09T02:54:51+00:0'
+        description: '2015-02-09T02:54:51+00:0'
       reference:
         type: string
         description: | 
@@ -901,7 +904,6 @@ definitions:
         type: string
       checkIn:
         type: string
-        format: ""
       url:
         type: string
         decription: Link to the hotel website
