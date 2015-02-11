@@ -1,4 +1,5 @@
 // mocking/user.js
+
 var Promise = require('es6-promise').Promise;
 
 module.exports = {
@@ -52,7 +53,11 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       if(userId > 0) {
-        resolve(createFavoritesMock());
+        resolve([
+          createFavoriteMock(),
+          createFavoriteMock(),
+          createFavoriteMock()
+        ]);
       }
       else {
         reject(new Error('Could not retrieve favorites.'));
@@ -79,7 +84,11 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       if(userId > 0)
-        resolve(createMessagesMock());
+        resolve([
+          createMessageMock(),
+          createMessageMock(),
+          createMessageMock()
+        ]);
       else
         reject(new Error('Could not retrieve messages.'));
     });
@@ -92,32 +101,46 @@ module.exports = {
 
 function createProfileMock() {
   return {
-    'email': 'john.doe@test.com',
-    'first-name': 'John',
-    'last-name': 'Doe',
-    'address': {
-      'city': 'Test City',
-      'country': 'Far Far Away',
-      'street': 'Test Street 1',
-      'zip': '123456'
+    "email": "john.doe@test.com",
+    "first-name": "John",
+    "last-name": "Doe",
+    "address": {
+      "city": "Test City",
+      "country": "Far Far Away",
+      "street": "Test Street 1",
+      "zip": "123456"
     },
-    'image': 'http://imaginative.url',
-    'licence': '1'
+    "image": "http://imaginative.url",
+    "licence": "1"
   }
 }
 
-function createFavoritesMock() {
-  return [
-    {
-
+function createFavoriteMock() {
+  return {
+    "id" : 1,
+    "origin" : {
+      "description" : "9579 Quaking Hill, Panther Valley, Indiana",
+      "location" : {
+        "longitude" : 123456,
+        "latitude" : 123456
+      }
+    },
+    "destination" : {
+      "description" : "Double Tree by Hilton Metropolitan, New York, USA",
+      "location" : {
+        "longitude" : 123456,
+        "latitude" : 123456
+      }
     }
-  ]
+  }
 }
 
-function createMessagesMock() {
-  return [
-    {
-
-    }
-  ]
+function createMessageMock() {
+  return {
+    "id" : 1,
+    "content" : "Your next trip will be on Tuesday, 20 Jan 2015.",
+    "date" : "2015-02-10T02:54:51+00:0",
+    "url" : "http://imaginative.url",
+    "type" : "info"
+  }
 }

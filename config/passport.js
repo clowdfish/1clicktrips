@@ -1,4 +1,5 @@
 // passport.js
+
 var mysql = require('mysql');
 var Promise = require('es6-promise').Promise;
 

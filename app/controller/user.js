@@ -1,4 +1,5 @@
 // controller/user.js
+
 var dbConfig = require('../../config/database.js');
 var Promise = require('es6-promise').Promise;
 
