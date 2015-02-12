@@ -5,12 +5,12 @@
         "description": "Business travel at its best",
         "version": "1.0.0"
     },
-    "host": "api.1clicktrips.com",
+    "host": "1clicktrips.com",
     "schemes": [
         "http",
         "https"
     ],
-    "basePath": "/v1",
+    "basePath": "/api",
     "produces": [
         "application/json"
     ],
@@ -234,6 +234,14 @@
                     "Settings",
                     "User"
                 ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Settings category to retrieve.\n"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "An array of settings",
@@ -285,15 +293,27 @@
         "/account/favorites": {
             "get": {
                 "summary": "Get User Favorites",
-                "description": "The User Favorites endpoint returns data about a user's favorites \nthat he saved before.\n- name: limit\n  in: query\n  type: integer\n  format: int32\n  description: |\n    Number of items to retrieve. Default is 5, maximum is 100.\n",
+                "description": "The User Favorites endpoint returns data about a user's favorites \nthat he saved before.\n",
                 "tags": [
                     "User"
                 ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Number of items to retrieve. Default is 5, maximum is 100.\n"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "List of favorites for the given user",
+                        "description": "Array of favorites for the given user",
                         "schema": {
-                            "$ref": "#/definitions/Favorites"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Favorite"
+                            }
                         }
                     },
                     "default": {
@@ -337,10 +357,14 @@
             "get": {
                 "summary": "Booking History",
                 "description": "The Bookings endpoint returns data about a user's lifetime \nactivity with 1clicktrips.\n",
+                "tags": [
+                    "User"
+                ],
                 "parameters": [
                     {
                         "name": "offset",
                         "in": "query",
+                        "required": false,
                         "type": "integer",
                         "format": "int64",
                         "description": "The offset is given as seconds since the UNIX epoche. Only \nlook for trips that have been booked after this date. Default\nis zero.\n"
@@ -348,13 +372,11 @@
                     {
                         "name": "limit",
                         "in": "query",
+                        "required": false,
                         "type": "integer",
                         "format": "int32",
                         "description": "Number of items to retrieve. Default is 5, maximum is 30.\n"
                     }
-                ],
-                "tags": [
-                    "User"
                 ],
                 "responses": {
                     "200": {
@@ -363,6 +385,60 @@
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/Booking"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add Booking",
+                "description": "Create a new booking.",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Booking"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Creation of booking successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/messages": {
+            "get": {
+                "summary": "Get Messages for the user",
+                "description": "The Messages endpoint returns data that is supposed to\nbe presented to the user in the frontend.\n",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of messages for the given user",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Message"
                             }
                         }
                     },
@@ -384,9 +460,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "search_string",
+                        "name": "qs",
                         "in": "query",
-                        "description": "The search string to filter the events for",
+                        "description": "The search string to filter the events",
                         "required": true,
                         "type": "string"
                     },
@@ -405,7 +481,7 @@
                         "type": "string"
                     },
                     {
-                        "name": "limitation",
+                        "name": "limit",
                         "in": "query",
                         "description": "The maximum number of events to return",
                         "required": false,
@@ -432,6 +508,63 @@
                 }
             }
         },
+        "/search/spaces": {
+            "get": {
+                "summary": "Meeting Spaces List",
+                "description": "The spaces endpoint will deliver a list of meeting spaces\nto the client that match with the given query criteria.\n",
+                "tags": [
+                    "Search"
+                ],
+                "parameters": [
+                    {
+                        "name": "qs",
+                        "in": "query",
+                        "description": "The search string to filter the meeting spaces",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "The start date of the trip to be planned",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "The end date of the trip to be planned",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of meeting spaces to return",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of meeting spaces",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/MeetingSpace"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/search/trips": {
             "post": {
                 "summary": "Trip Results",
@@ -441,90 +574,93 @@
                 ],
                 "parameters": [
                     {
-                        "name": "start_description",
+                        "name": "origin",
                         "in": "body",
-                        "description": "Description of start location",
+                        "description": "Origin location",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/Location"
+                        }
+                    },
+                    {
+                        "name": "originDescription",
+                        "in": "body",
+                        "description": "Description of the origin location",
                         "required": false,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "start_latitude",
+                        "name": "appointments",
                         "in": "body",
-                        "description": "Latitude component of start location",
+                        "description": "Array of appointments",
                         "required": true,
                         "schema": {
-                            "type": "number",
-                            "format": "double"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Appointment"
+                            }
                         }
                     },
                     {
-                        "name": "start_longitude",
-                        "in": "body",
-                        "description": "Longitude component of start location",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "format": "double"
-                        }
-                    },
-                    {
-                        "name": "end_description",
-                        "in": "body",
-                        "description": "Description of end location",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "end_latitude",
-                        "in": "body",
-                        "description": "Latitude component of end location",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "format": "double"
-                        }
-                    },
-                    {
-                        "name": "end_longitude",
-                        "in": "body",
-                        "description": "Longitude component of end location",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "format": "double"
-                        }
-                    },
-                    {
-                        "name": "start_time",
-                        "in": "body",
-                        "description": "Time string for the local start time of the appointment",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "2014-11-12T19:05:00"
-                        }
-                    },
-                    {
-                        "name": "end_time",
-                        "in": "body",
-                        "description": "Time string for the local end time of the appointment",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "2014-11-12T19:05:00"
-                        }
-                    },
-                    {
-                        "name": "roundtrip",
+                        "name": "roundTrip",
                         "in": "body",
                         "description": "Roundtrip option",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int16",
+                            "description": "This should be boolean, but Swagger UI is not \nable to render it proberly.\n"
+                        }
+                    },
+                    {
+                        "name": "currency",
+                        "in": "body",
+                        "description": "Active currency",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "body",
+                        "description": "Active locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "numberOfTravelers",
+                        "in": "body",
                         "required": false,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "format": "int16"
+                        }
+                    },
+                    {
+                        "name": "numberOfChildren",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int16"
+                        }
+                    },
+                    {
+                        "name": "preferences",
+                        "in": "body",
+                        "description": "A preference set that will be used for finding a \nproper custom trip.\n",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Setting"
+                            }
                         }
                     }
                 ],
@@ -556,21 +692,21 @@
                 ],
                 "parameters": [
                     {
-                        "name": "trip_id",
+                        "name": "tripId",
                         "in": "query",
                         "description": "The trip ID of the requested trip",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "name": "segment_id",
+                        "name": "segmentId",
                         "in": "query",
                         "description": "The segment ID of the segment to be replaced",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "name": "limitation",
+                        "name": "limit",
                         "in": "query",
                         "description": "The maximum number of alternatives",
                         "required": false,
@@ -771,8 +907,7 @@
         "Itinerary": {
             "properties": {
                 "id": {
-                    "type": "string",
-                    "description": "Unique identifier"
+                    "type": "string"
                 },
                 "outbound": {
                     "$ref": "#/definitions/Trip"
@@ -808,11 +943,11 @@
                 },
                 "departureTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "arrivalTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "distance": {
                     "type": "number",
@@ -855,11 +990,11 @@
                 },
                 "departureTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "arrivalTime": {
                     "type": "string",
-                    "format": "2014-11-12T19:05:00"
+                    "description": "2014-11-12T19:05:00"
                 },
                 "duration": {
                     "type": "number",
@@ -928,28 +1063,13 @@
                 }
             }
         },
-        "Favorites": {
-            "properties": {
-                "count": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "Total number of favorites available"
-                },
-                "trips": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Favorite"
-                    }
-                }
-            }
-        },
         "Favorite": {
             "required": [
                 "start",
                 "end"
             ],
             "properties": {
-                "uuid": {
+                "id": {
                     "type": "string",
                     "description": "Unique identifier for the favorite"
                 },
@@ -1002,11 +1122,11 @@
                 },
                 "startDate": {
                     "type": "string",
-                    "format": "2015-02-09T02:54:51+00:0"
+                    "description": "2015-02-09T02:54:51+00:0"
                 },
                 "endDate": {
                     "type": "string",
-                    "format": "2015-02-09T02:54:51+00:0"
+                    "description": "2015-02-09T02:54:51+00:0"
                 },
                 "reference": {
                     "type": "string",
@@ -1034,8 +1154,7 @@
                     "type": "string"
                 },
                 "checkIn": {
-                    "type": "string",
-                    "format": ""
+                    "type": "string"
                 },
                 "url": {
                     "type": "string",
@@ -1135,6 +1254,79 @@
                 "end": {
                     "type": "string",
                     "description": "ISO 8601 time and date\n\"2015-02-09T02:54:51+00:0\"\n"
+                }
+            }
+        },
+        "Appointment": {
+            "required": [
+                "location",
+                "start",
+                "end"
+            ],
+            "properties": {
+                "location": {
+                    "type": "object",
+                    "$ref": "#/definitions/Location"
+                },
+                "start": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51"
+                },
+                "end": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "MeetingSpace": {
+            "required": [
+                "title",
+                "location"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "object",
+                    "$ref": "#/definitions/Location"
+                },
+                "seatsAvailable": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "catering": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Message": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "description": "2015-02-10T02:54:51+00:0"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Can be used to store any type of information that \nthen can be used to show an icon in the frontend.\n"
                 }
             }
         },

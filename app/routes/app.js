@@ -36,7 +36,7 @@ module.exports = function (app, production) {
   app.get('/currencies', function (req, res) {
 
     if(!production) {
-      res.status(200).json(createCurrencyMock());
+      res.status(200).json(createCurrenciesMock());
     }
     else {
       // TODO retrieve currencies from database and deliver to client
@@ -57,7 +57,6 @@ module.exports = function (app, production) {
 // MOCKING OBJECT CREATORS ==================================================
 // ==========================================================================
 
-
 function createLanguagesMock() {
   return [
     {
@@ -71,7 +70,7 @@ function createLanguagesMock() {
   ]
 }
 
-function createCurrencyMock() {
+function createCurrenciesMock() {
   return [
     {
       code: "EUR",

@@ -35,19 +35,27 @@ module.exports = function (app, express, production) {
   // ==========================================================================
   searchApi.get('/events', function (req, res) {
 
+    var queryString = req.query.qs;
+    // other query params: start_date, end_date, limit
+
+    if(queryString) {
+      console.log('Query for events received: ' + queryString);
+
+      // TODO return only events matching the query string
+    }
+    else {
+      // TODO return all events
+    }
+
     // the events API is not available in production as of now
     if(production) {
       res.status(404).send("Events Service not available yet.");
     }
     else {
-      var eventOne = createMockEvent();
-      var eventTwo = createMockEvent();
-      var eventThree = createMockEvent();
-
       res.status(200).json([
-        eventOne,
-        eventTwo,
-        eventThree
+        createMockEvent(),
+        createMockEvent(),
+        createMockEvent()
       ]);
     }
   });
@@ -57,19 +65,26 @@ module.exports = function (app, express, production) {
   // ==========================================================================
   searchApi.get('/spaces', function (req, res) {
 
+    var queryString = req.query.qs;
+
+    if(queryString) {
+      console.log('Query for meeting spaces received: ' + queryString);
+
+      // TODO return only meetings spaces matching the query string
+    }
+    else {
+      // TODO return all events
+    }
+
     // the meeting spaces API is not available in production as of now
     if(production) {
       res.status(404).send("Meeting Spaces Service not available yet.");
     }
     else {
-      var meetingSpaceOne = createMockMeetingSpace();
-      var meetingSpaceTwo = createMockMeetingSpace();
-      var meetingSpaceThree = createMockMeetingSpace();
-
       res.status(200).json([
-        meetingSpaceOne,
-        meetingSpaceTwo,
-        meetingSpaceThree
+        createMockMeetingSpace(),
+        createMockMeetingSpace(),
+        createMockMeetingSpace()
       ]);
     }
   });
@@ -77,20 +92,31 @@ module.exports = function (app, express, production) {
   // ==========================================================================
   // ALTERNATIVES API =========================================================
   // ==========================================================================
-  searchApi.post('/alternatives', function (req, res) {
+  searchApi.get('/alternatives', function (req, res) {
 
-    // the meeting spaces API is not available in production as of now
-    if(production) {
-      res.status(404).send("Meeting Spaces Service not available yet.");
+    var segmentId = req.query.segmentId;
+    var tripId = req.query.tripId;
+    // other query params: limit
+
+    if(segmentId && tripId) {
+      console.log('Query for segment received. Segment ID=' + segmentId
+        + '; Trip ID=' + tripId);
+
+      // TODO return only alternatives matching the given ID
+
+      // the meeting spaces API is not available in production as of now
+      if(production) {
+        res.status(404).send("Meeting Spaces Service not available yet.");
+      }
+      else {
+        res.status(200).json([
+          createMockAlternative(),
+          createMockAlternative()
+        ]);
+      }
     }
     else {
-      var alternativeOne = createMockAlternative();
-      var alternativeTwo = createMockAlternative();
-
-      res.status(200).json([
-        alternativeOne,
-        alternativeTwo
-      ]);
+      res.status(400).send("status.user.error.request.malformed");
     }
   });
 
@@ -112,7 +138,7 @@ module.exports = function (app, express, production) {
       console.log("Extracting user:");
       var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      UserController.getById(userId)
+      UserController.getUser(userId)
         .then(function (user) {
           console.log(user);
 
@@ -156,8 +182,9 @@ function checkValidityOfRequest(req) {
   }
 
   if(req.body['origin'] && req.body['appointments'] &&
-    req.body['appointments'].length>0 && req.body['settings'] && (
-    req.body['oneWay'] === true || req.body['oneWay'] === false)) {
+    req.body['appointments'].length > 0 && req.body['currency'] &&
+    req.body['locale'] && (req.body['roundTrip'] === true ||
+    req.body['roundTrip'] === false)) {
 
     if(!isNumber(req.body['origin']['latitude'])
       || !isNumber(req.body['origin']['longitude']))
@@ -193,8 +220,8 @@ function createMockEvent() {
     "title" : "World Event Las Vegas",
     "description" : "An example event",
     "location" : {
-      "longitude" : 1234,
-      "latitude" : 1234
+      "latitude" : 36.161805,
+      "longitude" : -115.141183
     },
     "tags" : [
       "test", "another tag", "cool"
@@ -207,7 +234,7 @@ function createMockEvent() {
     ],
     "open": true,
     "url" : "http://whatever.com",
-    "image" : "http://whatever.com/image.jpg"
+    "image" : "http://placehold.it/150x150"
   }
 }
 
@@ -230,7 +257,7 @@ function createMockAlternative() {
   // TODO implement
 
   return {
-
+    "id" : "test"
   }
 }
 

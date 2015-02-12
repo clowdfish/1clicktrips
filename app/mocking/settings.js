@@ -1,4 +1,5 @@
 // mocking/settings.js
+
 var Promise = require('es6-promise').Promise;
 
 module.exports = {
@@ -34,22 +35,22 @@ module.exports = {
 function createSettingsMock() {
   return [
     {
-      category: "General",
-      description: "",
-      key: "taxi",
-      value: "1"
+      "category": "General",
+      "description": "(De)Activates a taxi for a trip.",
+      "key": "taxi",
+      "value": "1"
     },
     {
-      category: "General",
-      description: "",
-      key: "priority",
-      value: "taxi,plane,rental,public"
+      "category": "General",
+      "description": "Defines the priority of means of travel.",
+      "key": "priority",
+      "value": "taxi,plane,rental,public"
     },
     {
-      category: "General",
-      description: "",
-      key: "newsletter",
-      value: "true"
+      "category": "General",
+      "description": "Register for the newsletter.",
+      "key": "newsletter",
+      "value": "true"
     }
   ]
 }

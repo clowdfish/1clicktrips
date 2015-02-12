@@ -167,8 +167,10 @@ module.exports = function (app, express, production) {
   accountApi.get('/bookings', function (req, res) {
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
+    var limit = req.query.limit;
+    // other query params: offset
 
-    BookingController.getBookings(userId, 3)
+    BookingController.getBookings(userId, limit ? limit : 3)
       .then(function (bookings) {
         if (bookings)
           res.status(200).json(bookings);
@@ -197,5 +199,25 @@ module.exports = function (app, express, production) {
     else {
       res.send(400).send();
     }
+  });
+
+  // ==========================================================================
+  // MESSAGES =================================================================
+  // ==========================================================================
+
+  accountApi.get('/messages', function (req, res) {
+
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+
+    UserController.getMessages(userId)
+      .then(function (messages) {
+        if (messages)
+          res.status(200).json(messages);
+        else
+          res.status(500);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 };

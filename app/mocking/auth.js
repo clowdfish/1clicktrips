@@ -3,7 +3,6 @@
 var Promise = require('es6-promise').Promise;
 var jwt = require('jwt-simple');
 
-
 module.exports = {
 
   isLoggedIn: function(req, res, next) {
@@ -12,7 +11,6 @@ module.exports = {
       id: 42,
       licence: 1
     };
-
     return next();
   },
 
