@@ -127,11 +127,22 @@
     background-color: darken($c-red, 3%);
     background-image: url("../images/bg_pattern.jpg");
     background-repeat: repeat;
-    color: #fff;
-  }
 
-  .search-form-container input{
-    color: #000;
+    h1 {
+      color: #fff;
+    }
+
+    .popup-date-picker-container {
+      position: relative;
+      .btn-open-datepicker-popup {
+        position: absolute;
+        right: 10px;
+        top:5px;
+      }
+      .dropdown-menu {
+        left: auto;
+      }
+    }
   }
 
   .search-form {

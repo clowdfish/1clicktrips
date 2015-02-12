@@ -40,28 +40,59 @@
 
       <form name='scheduleForm' class='search-form' ng-show='step == 2'>
         <h1>{{ T.search.form.time }}</h1>
-        <input type="text" class="form-control"
-          show-weeks="false"
-          ng-model="startDate"
-          datepicker-options="dateOptions"
-          datepicker-popup="{{format}}"
-          ng-required="true"
-          placeholder="Start Date"
-          is-open="opened"
-          close-text="Close" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
-        <input type="text" class="form-control"
-          show-weeks="false"
-          ng-model="startDate"
-          datepicker-options="dateOptions"
-          ng-required="true"
-          placeholder="End Date"
-          close-text="Close" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
+        <div class='popup-date-picker-container'>
+          <input type="text" class="form-control"
+            show-weeks="false"
+            ng-model="startDate"
+            datepicker-options="dateOptions"
+            datepicker-popup="{{format}}"
+            ng-required="true"
+            placeholder="Start Date"
+            is-open="isOpenStartDatePicker"
+            show-button-bar="false"
+            close-text="Close" />
+
+          <a class='btn-open-datepicker-popup' ng-click="openStartDatePicker($event)"><i class="fa fa-calendar"></i></a>
+
+        </div>
+        <div class='popup-date-picker-container'>
+          <input type="text" class="form-control"
+            show-weeks="false"
+            ng-model="endDate"
+            datepicker-options="dateOptions"
+            datepicker-popup="{{format}}"
+            ng-required="true"
+            placeholder="End Date"
+            is-open="isOpenEndDatePicker"
+            show-button-bar="false"
+            close-text="Close" />
+
+          <a class='btn-open-datepicker-popup' ng-click="openEndDatePicker($event)"><i class="fa fa-calendar"></i></a>
+        </div>
+
+        <div class='popup-date-picker-container'>
+          <input
+            sy-timepicker-popup="HH:mm"
+            class="form-control"
+            ng-model="startTime"
+            show-meridian="true"
+            is-open="isOpenStartTimePicker"
+            show-seconds="false"
+            placeholder="Start time"
+            ng-click="openStartTimePicker($event)" />
+        </div>
+
+        <div class='popup-date-picker-container'>
+          <input
+            sy-timepicker-popup="HH:mm"
+            class="form-control"
+            ng-model="endTime"
+            show-meridian="true"
+            is-open="isOpenEndTimePicker"
+            show-seconds="false"
+            placeholder="End time"
+            ng-click="openEndtTimePicker($event)" />
+        </div>
       </form>
   </div>
 </section>

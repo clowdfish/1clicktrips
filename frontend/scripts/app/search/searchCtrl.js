@@ -32,19 +32,30 @@
 
     $scope.dateOptions = {
       formatYear: 'yy',
-      startingDay: 1
+      startingDay: 0
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
     $scope.showWeeks = false;
-    $scope.open = function($event) {
+
+    $scope.openStartDatePicker = function($event) {
       $event.preventDefault();
       $event.stopPropagation();
-      console.log(1);
-      $scope.opened = true;
+      $scope.isOpenStartDatePicker = true;
     };
 
+    $scope.openEndDatePicker = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope.isOpenEndDatePicker = true;
+    }
+
+    $scope.openStartTimePicker = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope.isOpenStartTimePicker = true;
+    }
     /**
     * Get suggestion for text input
     * @param {string} val - input source
