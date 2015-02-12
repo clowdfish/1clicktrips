@@ -23,13 +23,15 @@
 
     //Show suggestion when typing to address textbox
     $scope.getSuggestion = getSuggestion;
+    $scope.getAddressSuggestion = getAddressSuggestion;
 
     //Select suggestion
-    $scope.selectSuggestion = selectSuggestion;
+    $scope.selectDestinationSuggestion = selectDestinationSuggestion;
+    $scope.selectOriginSuggestion = selectOriginSuggestion;
 
     $scope.step1 = step1;
     $scope.step2 = step2;
-
+    $scope.step3 = step3;
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 0
@@ -63,8 +65,19 @@
     */
     function getSuggestion(val) {
       console.log('Gest suggestion for text', val,' type:', $scope.destinationType);
-      return suggestionAdapter
-        .getSuggestion(val, $scope.destinationType);
+      return  suggestionAdapter
+                .getSuggestion(val, $scope.destinationType);
+    }
+
+    /**
+    * Get suggestion for address only
+    * @param {string} val - input
+    * @return {promise} - return a promise for typeahead
+    */
+    function getAddressSuggestion(val) {
+      return  suggestionAdapter
+                .getSuggestion(val, SUGGESTION_TYPES.address);
+
     }
 
     /**
@@ -74,15 +87,23 @@
     function selectSuggestion($item) {
       switch ($scope.destinationType) {
         case SUGGESTION_TYPES.address:
-          $scope.destinationAddress = $item.description;
+          return $item.description;
           break;
         case SUGGESTION_TYPES.events:
-          $scope.destinationAddress = $item.location;
+          return $item.location;
           break;
         case SUGGESTION_TYPES.meetingSpace:
-          $scope.destinationAddress = $item.location;
+          return $item.location;
           break;
       }
+    }
+
+    function selectDestinationSuggestion($item) {
+      $scope.destinationAddress = selectSuggestion($item);
+    }
+
+    function selectOriginSuggestion($item) {
+      $scope.originAddress = selectSuggestion($item);
     }
 
     function step1() {
@@ -94,6 +115,10 @@
       //   return;
       // }
       $scope.step = 2;
+    }
+
+    function step3() {
+      $scope.step = 3;
     }
   }
 })();

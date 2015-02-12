@@ -13,7 +13,6 @@
   function mapMarker() {
     return {
       restrict: 'EA',
-      template: '<div id="search-destination-map"></div>',
       scope: {
         address: '=',
         displayError: '='
@@ -24,7 +23,8 @@
     function link(scope, element, attrs) {
 
       var map, displayError, mapContainer, mapMarker;
-      mapContainer = document.getElementById('search-destination-map');
+
+      mapContainer = element[0];
       mapContainer.style.display = 'none';
       var geocoder = new google.maps.Geocoder();
       if (scope.displayError == null) {
@@ -69,7 +69,7 @@
 
         mapContainer.style.display = 'block';
         if (map == null) {
-          map = new google.maps.Map(document.getElementById('search-destination-map'), {
+          map = new google.maps.Map(mapContainer, {
             zoom: 15
           });
         }
@@ -87,7 +87,7 @@
             if (status == google.maps.GeocoderStatus.OK) {
               mapContainer.style.display = 'block';
               if (map == null) {
-                map = new google.maps.Map(document.getElementById('search-destination-map'), {
+                map = new google.maps.Map(mapContainer, {
                   zoom: 15
                 });
               }

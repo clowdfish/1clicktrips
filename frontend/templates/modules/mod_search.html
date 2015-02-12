@@ -14,7 +14,7 @@
           </div>
           {{ T.search.navigation.timing }}
         </li>
-        <li class="search-step" ng-class="{active: step == 3}">
+        <li class="search-step" ng-class="{active: step == 3}" ng-click='step3()'>
           <div class="search-step-circle origin">
             <span class="search-step-active-indicator"></span>
           </div>
@@ -31,11 +31,11 @@
                 name='destination'
                 ng-model='destination'
                 typeahead="address.description for address in getSuggestion($viewValue)"
-                typeahead-on-select="selectSuggestion($item, $model, $label)">
+                typeahead-on-select="selectDestinationSuggestion($item, $model, $label)">
         <select ng-model='destinationType' ng-options='item for item in destinationTypeArray'>
         </select>
         <a ng-click="step2()" class="button--dark">{{ T.search.form.control.next }}</a>
-        <map-marker address="destinationAddress"></map-marker>
+        <map-marker address="destinationAddress" class="search-destination-map"></map-marker>
       </form>
 
       <form name='scheduleForm' class='search-form' ng-show='step == 2'>
@@ -93,7 +93,22 @@
             placeholder="End time"
             ng-click="openEndtTimePicker($event)" />
         </div>
+
+        <a ng-click="step3()" class="button--dark">{{ T.search.form.control.next }}</a>
       </form>
+
+      <form name='searchForm' class="search-form" ng-show='step == 3'>
+        <h1>{{ T.search.form.origin }}</h1>
+        <input
+                type="text"
+                placeholder="{{ T.search.form.origin }}"
+                name='origin'
+                ng-model='origin'
+                typeahead="address.description for address in getAddressSuggestion($viewValue)"
+                typeahead-on-select="selectOriginSuggestion($item, $model, $label)">
+        <map-marker address="originAddress" class="search-destination-map"></map-marker>
+      </form>
+
   </div>
 </section>
 </div>
