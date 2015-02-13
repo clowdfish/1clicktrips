@@ -9,18 +9,29 @@
     var service = this;
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;
+    service.callSearchItineraryApi = callSearchItineraryApi;
 
     function findItinerary() {
       var deferred = $q.defer();
-      $http.get('/search/trips')
-        .success(function(response) {
+      this.callSearchItineraryApi()
+        .then(function(response) {
           var itinerary = transformItinerary(response);
           deferred.resolve(itinerary);
-        })
-        .error(function(){
+        }, function(){
           deferred.reject('error');
         });
+      return deferred.promise;
+    }
 
+    function callSearchItineraryApi() {
+      var deferred = $q.defer();
+      $http.get('/search/trips')
+        .success(function(response) {
+          deferred.resolve(response);
+        })
+        .error(function() {
+          deferred.reject();
+        });
       return deferred.promise;
     }
 
