@@ -17,9 +17,15 @@
       meetingSpace: 'Meeting Space'
     })
     .config(decorateDatePicker)
-    .config(decoratePopupDatePicker);
+    .config(decoratePopupDatePicker)
+    .config(interpolateConfig);
 
-  function run($httpBackend, mockEvents) {
+  function interpolateConfig($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[');
+    $interpolateProvider.endSymbol(']}');
+  }
+
+  function run($httpBackend, mockEvents, mockAddress) {
     //passThrough for google api request
     $httpBackend.whenGET(/^https:\/\/maps.googleapis.com\/maps\/api\//).passThrough();
     $httpBackend.whenGET(/^scripts\/app\/templates\//).passThrough();

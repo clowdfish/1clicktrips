@@ -4,8 +4,12 @@
     .factory('suggestionAdapter', suggestionAdapter);
 
   function suggestionAdapter($http, $q, SUGGESTION_TYPES) {
+    var _this = this;
     this.getSuggestionType = getSuggestionType;
     this.getSuggestion = getSuggestion;
+    this.getAddressSuggestion = getAddressSuggestion;
+    this.getEventSuggestion = getEventSuggestion;
+    this.getMeetingSpaceSuggestion = getMeetingSpaceSuggestion;
 
     /**
     * Get suggestion types
@@ -27,13 +31,13 @@
     function getSuggestion(text, type) {
       switch(type) {
         case SUGGESTION_TYPES.address:
-          return getAddressSuggestion(text);
+          return this.getAddressSuggestion(text);
           break;
         case SUGGESTION_TYPES.events:
-          return getEventSuggestion(text);
+          return this.getEventSuggestion(text);
           break;
         case SUGGESTION_TYPES.meetingSpace:
-          return getMeetingSpaceSuggestion(text);
+          return this.getMeetingSpaceSuggestion(text);
           break;
         default:
           throw new Error("Invalid suggestion type");
@@ -51,6 +55,7 @@
       var service = new google.maps.places.AutocompleteService();
       service.getQueryPredictions({input: address}, function(response, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+          console.log(response);
           deferred.resolve(response);
         } else {
           deferred.reject();

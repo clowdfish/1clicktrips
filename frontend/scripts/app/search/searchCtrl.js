@@ -110,13 +110,16 @@
       $scope.step = 1;
     }
 
+    /**
+    * @todo validate step 1 data
+    */
     function step2() {
-      // if ($scope.destinationAddress == null) {
-      //   return;
-      // }
       $scope.step = 2;
     }
 
+    /**
+    * @todo validate step 2 data
+    */
     function step3() {
       $scope.step = 3;
     }

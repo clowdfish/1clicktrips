@@ -5,7 +5,7 @@
     .module('app.result')
     .service('tripService', tripService);
 
-  function tripService($http, $q, $httpBackend) {
+  function tripService($http, $q) {
     var service = this;
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;

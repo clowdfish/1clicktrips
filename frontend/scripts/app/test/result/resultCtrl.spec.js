@@ -13,7 +13,7 @@ describe('resultCtrl', function() {
 
     var deferred = $q.defer();
     deferred.resolve(itinerary);
-    spyOn(tripService, 'findItinerary').andReturn(deferred.promise);
+    spyOn(tripService, 'findItinerary').and.returnValue(deferred.promise);
   }));
 
   describe('$scope.itinerary', function() {
