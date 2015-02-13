@@ -64,9 +64,8 @@
     * @return {promise} - return a promise for typeahead
     */
     function getSuggestion(val) {
-      console.log('Gest suggestion for text', val,' type:', $scope.destinationType);
-      return  suggestionAdapter
-                .getSuggestion(val, $scope.destinationType);
+      return suggestionAdapter
+              .getSuggestion(val, $scope.destinationType);
     }
 
     /**

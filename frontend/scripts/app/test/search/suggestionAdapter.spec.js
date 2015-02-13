@@ -36,7 +36,7 @@ describe('suggestionAdapter', function() {
     it('get address suggestion correctly', function() {
       var returnValue;
       suggestionAdapter
-        .getSuggestion('16 Nguyen Duc Thuan', SUGGESTION_TYPES.address)
+        .getSuggestion('Stuttgart, Baden-Württemberg, Germany', SUGGESTION_TYPES.address)
         .then(function(data) {
           returnValue = data;
         });
@@ -57,7 +57,7 @@ describe('suggestionAdapter', function() {
     it('get events suggestion correctly', function() {
       var returnValue;
       suggestionAdapter
-        .getSuggestion('16 Nguyen Duc Thuan', SUGGESTION_TYPES.events)
+        .getSuggestion('Stuttgart, Baden-Württemberg, Germany', SUGGESTION_TYPES.events)
         .then(function(data) {
           returnValue = data;
         });
@@ -78,7 +78,7 @@ describe('suggestionAdapter', function() {
     it('get meetings suggestion correctly', function() {
       var returnValue;
       suggestionAdapter
-        .getSuggestion('16 Nguyen Duc Thuan', SUGGESTION_TYPES.meetingSpace)
+        .getSuggestion('Stuttgart, Baden-Württemberg, Germany', SUGGESTION_TYPES.meetingSpace)
         .then(function(data) {
           returnValue = data;
         });
@@ -94,7 +94,7 @@ describe('suggestionAdapter', function() {
   it('throws error when given invalid suggestion type', function() {
     expect(function() {
       suggestionAdapter
-        .getSuggestion('16 Nguyen Duc Thuan', 'invalid_type');
+        .getSuggestion('Stuttgart, Baden-Württemberg, Germany', 'invalid_type');
     }).toThrow(new Error('Invalid suggestion type'));
   });
 });
