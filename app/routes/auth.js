@@ -11,12 +11,12 @@ module.exports = function (app, express, passport, production) {
   var UserController = null;
 
   if(production) {
-    UserController = require('../controller/user');
-    AuthController = require('../controller/auth');
+    UserController = require('../controller/userController');
+    AuthController = require('../controller/authController');
   }
   else {
-    UserController = require('../mocking/user');
-    AuthController = require('../mocking/auth');
+    UserController = require('../mocking/userController');
+    AuthController = require('../mocking/authController');
   }
 
   // ==========================================================================

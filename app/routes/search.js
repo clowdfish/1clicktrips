@@ -10,14 +10,17 @@ module.exports = function (app, express, production) {
 
   var AuthController = null;
   var UserController = null;
+  var SearchController = null;
 
   if(production) {
-    UserController = require('../controller/user');
-    AuthController = require('../controller/auth');
+    UserController = require('../controller/userController');
+    AuthController = require('../controller/authController');
+    SearchController = require('../controller/searchController');
   }
   else {
-    UserController = require('../mocking/user');
-    AuthController = require('../mocking/auth');
+    UserController = require('../mocking/userController');
+    AuthController = require('../mocking/authController');
+    SearchController = require('../mocking/searchController');
   }
 
   // ==========================================================================
@@ -52,11 +55,13 @@ module.exports = function (app, express, production) {
       res.status(404).send("Events Service not available yet.");
     }
     else {
-      res.status(200).json([
-        createMockEvent(),
-        createMockEvent(),
-        createMockEvent()
-      ]);
+      SearchController.getEvents(null, 3)
+        .then(function(events) {
+          res.status(200).json(events);
+        })
+        .catch(function(err) {
+          res.status(500).json(err.message);
+        });
     }
   });
 
@@ -81,11 +86,13 @@ module.exports = function (app, express, production) {
       res.status(404).send("Meeting Spaces Service not available yet.");
     }
     else {
-      res.status(200).json([
-        createMockMeetingSpace(),
-        createMockMeetingSpace(),
-        createMockMeetingSpace()
-      ]);
+      SearchController.getMeetingSpaces(null, 3)
+        .then(function(meetingSpaces) {
+          res.status(200).json(meetingSpaces);
+        })
+        .catch(function(err) {
+          res.status(500).json(err.message);
+        });
     }
   });
 
@@ -109,10 +116,13 @@ module.exports = function (app, express, production) {
         res.status(404).send("Meeting Spaces Service not available yet.");
       }
       else {
-        res.status(200).json([
-          createMockAlternative(),
-          createMockAlternative()
-        ]);
+        SearchController.getTripAlternatives(1, 1, null)
+          .then(function(tripAlternatives) {
+            res.status(200).json(tripAlternatives);
+          })
+          .catch(function(err) {
+            res.status(500).json(err.message);
+          });
       }
     }
     else {
@@ -145,7 +155,13 @@ module.exports = function (app, express, production) {
           userLicence = user.licence;
 
           if(!production)
-            res.status(200).json(createMockTripResult());
+            SearchController.getTripResults({})
+              .then(function(tripResults) {
+                res.status(200).json(tripResults);
+              })
+              .catch(function(err) {
+                res.status(500).json(err.message);
+              });
           else
             res.status(404).send("Search Service not available yet.");
 
@@ -208,242 +224,4 @@ function checkValidityOfRequest(req) {
     return false;
 
   return true;
-}
-
-// ==========================================================================
-// MOCKING OBJECT CREATORS ==================================================
-// ==========================================================================
-
-function createMockEvent() {
-  return {
-    "id" : 1,
-    "title" : "World Event Las Vegas",
-    "description" : "An example event",
-    "location" : {
-      "latitude" : 36.161805,
-      "longitude" : -115.141183
-    },
-    "tags" : [
-      "test", "another tag", "cool"
-    ],
-    "dates" : [
-      {
-        "start" : "2015-02-09T02:54:51+00:0",
-        "end" : "2015-02-15T09:54:51+00:0"
-      }
-    ],
-    "open": true,
-    "url" : "http://whatever.com",
-    "image" : "http://placehold.it/150x150"
-  }
-}
-
-function createMockMeetingSpace() {
-  return {
-    "id" : 1,
-    "title" : "MeetNow Space",
-    "description" : "An example meeting space",
-    "location" : {
-      "latitude" : 48.709008,
-      "longitude" : 9.457281
-    },
-    "seatsAvailable" : 20,
-    "catering" : false
-  }
-}
-
-function createMockAlternative() {
-
-  // TODO implement
-
-  return {
-    "id" : "test"
-  }
-}
-
-function createMockTripResult() {
-  return [
-    {
-      "outbound": {
-        "origin": {
-          "description": "Home Address",
-          "location": {
-            "latitude": 48.709008,
-            "longitude": 9.457281
-          }
-        },
-        "destination": {
-          "description": "Customer in Hanover",
-          "location": {
-            "latitude": 52.419096,
-            "longitude": 9.82575
-          }
-        },
-        "departureTime": 1416802600,
-        "arrivalTime": 1416821400,
-        "distance": 413.8245964017389,
-        "duration": 313,
-        "segments": [
-          {
-            "start": {
-              "description": "Home Address",
-              "location": {
-                "latitude": 48.709008,
-                "longitude": 9.457281
-              }
-            },
-            "end": {
-              "description": "Customer in Hanover",
-              "location": {
-                "latitude": 52.419096,
-                "longitude": 9.82575
-              }
-            },
-            "departureTime": 1416802600,
-            "arrivalTime": 1416821400,
-            "duration": 313.3333333333333,
-            "type": 4,
-            "price": {
-              "amount": 177.94457645274773,
-              "currency": "EUR"
-            }
-          }
-        ]
-      },
-      "price": 355.88915290549545,
-      "currency": "EUR",
-      "type": 0,
-      "inbound": {
-        "origin": {
-          "latitude": 52.419096,
-          "longitude": 9.82575
-        },
-        "destination": {
-          "latitude": 48.709008,
-          "longitude": 9.457281
-        },
-        "departureTime": 1416835800,
-        "arrivalTime": 1416854600,
-        "distance": 413.8245964017389,
-        "duration": 313,
-        "segments": [
-          {
-            "start": {
-              "description": "Customer in Hanover",
-              "location": {
-                "latitude": 52.419096,
-                "longitude": 9.82575
-              }
-            },
-            "end": {
-              "description": "Home Address",
-              "location": {
-                "latitude": 48.709008,
-                "longitude": 9.457281
-              }
-            },
-            "departureTime": 1416835800,
-            "arrivalTime": 1416854600,
-            "duration": 313.3333333333333,
-            "type": 4,
-            "price": {
-              "amount": 177.94457645274773,
-              "currency": "EUR"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "outbound": {
-        "origin": {
-          "description": "Home Address",
-          "location": {
-            "latitude": 48.709008,
-            "longitude": 9.457281
-          }
-        },
-        "destination": {
-          "description": "Customer in Hanover",
-          "location": {
-            "latitude": 52.419096,
-            "longitude": 9.82575
-          }
-        },
-        "departureTime": 1416802600,
-        "arrivalTime": 1416821400,
-        "distance": 413.8245964017389,
-        "duration": 313,
-        "segments": [
-          {
-            "start": {
-              "description": "Home Address",
-              "location": {
-                "latitude": 48.709008,
-                "longitude": 9.457281
-              }
-            },
-            "end": {
-              "description": "Customer in Hanover",
-              "location": {
-                "latitude": 52.419096,
-                "longitude": 9.82575
-              }
-            },
-            "departureTime": 1416802600,
-            "arrivalTime": 1416821400,
-            "duration": 313.3333333333333,
-            "type": 4,
-            "price": {
-              "amount": 177.94457645274773,
-              "currency": "EUR"
-            }
-          }
-        ]
-      },
-      "price": 355.88915290549545,
-      "currency": "EUR",
-      "type": 1,
-      "inbound": {
-        "origin": {
-          "latitude": 52.419096,
-          "longitude": 9.82575
-        },
-        "destination": {
-          "latitude": 48.709008,
-          "longitude": 9.457281
-        },
-        "departureTime": 1416835800,
-        "arrivalTime": 1416854600,
-        "distance": 413.8245964017389,
-        "duration": 313,
-        "segments": [
-          {
-            "start": {
-              "description": "Customer in Hanover",
-              "location": {
-                "latitude": 52.419096,
-                "longitude": 9.82575
-              }
-            },
-            "end": {
-              "description": "Home Address",
-              "location": {
-                "latitude": 48.709008,
-                "longitude": 9.457281
-              }
-            },
-            "departureTime": 1416835800,
-            "arrivalTime": 1416854600,
-            "duration": 313.3333333333333,
-            "type": 4,
-            "price": {
-              "amount": 177.94457645274773,
-              "currency": "EUR"
-            }
-          }
-        ]
-      }
-    }
-  ];
 }

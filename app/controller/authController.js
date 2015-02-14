@@ -1,9 +1,9 @@
-// controller/auth.js
+// controller/authController.js
 
 var jwt = require('jwt-simple');
 var configAuth = require('../../config/auth');
 
-var UserController = require('./user');
+var UserController = require('./userController');
 
 module.exports = {
 

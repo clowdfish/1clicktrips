@@ -1,4 +1,4 @@
-// mocking/booking.js
+// mocking/bookingController.js
 
 var Promise = require('es6-promise').Promise;
 

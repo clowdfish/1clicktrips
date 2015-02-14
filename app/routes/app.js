@@ -2,18 +2,32 @@
 
 module.exports = function (app, production) {
 
+  // ==========================================================================
+  // CONTROLLER SETUP =========================================================
+  // ==========================================================================
+
+  var AppController = null;
+
+  if(production) {
+    AppController = require('../controller/appController');
+  }
+  else {
+    AppController = require('../mocking/appController');
+  }
+
   // =============================================================================
   // LANGUAGE ====================================================================
   // =============================================================================
 
   app.get('/locales', function (req, res) {
 
-    if(!production) {
-      res.status(200).json(createLanguagesMock());
-    }
-    else {
-      // TODO retrieve languages from database and deliver to client
-    }
+    AppController.getAvailableLanguages()
+      .then(function(languages) {
+        res.status(200).json(languages);
+      })
+      .catch(function(err) {
+        res.status(500).json(err.message);
+      });
   });
 
   app.get('/locales/:code', function (req, res) {
@@ -21,13 +35,13 @@ module.exports = function (app, production) {
     var languageCode = req.param('code');
     console.log('Language code retrieved: ' + languageCode);
 
-    if(!production) {
-      // send language with the given language code
-      res.status(200).json(createTranslationMock());
-    }
-    else {
-      // TODO retrieve and parse language file and deliver to client
-    }
+    AppController.getTranslations(languageCode)
+      .then(function(translations) {
+        res.status(200).json(translations);
+      })
+      .catch(function(err) {
+        res.status(500).json(err.message);
+      });
   });
 
   // =============================================================================
@@ -35,12 +49,13 @@ module.exports = function (app, production) {
   // =============================================================================
   app.get('/currencies', function (req, res) {
 
-    if(!production) {
-      res.status(200).json(createCurrenciesMock());
-    }
-    else {
-      // TODO retrieve currencies from database and deliver to client
-    }
+    AppController.getAvailableCurrencies()
+      .then(function(currencies) {
+        res.status(200).json(currencies);
+      })
+      .catch(function(err) {
+        res.status(500).json(err.message);
+      });
   });
 
   // =============================================================================
@@ -52,53 +67,3 @@ module.exports = function (app, production) {
     res.status(404).send('status.user.error.server.failure');
   });
 };
-
-// ==========================================================================
-// MOCKING OBJECT CREATORS ==================================================
-// ==========================================================================
-
-function createLanguagesMock() {
-  return [
-    {
-      'code': 'de-DE',
-      'name': 'Deutsch'
-    },
-    {
-      'code': 'en-US',
-      'name': 'English'
-    }
-  ]
-}
-
-function createCurrenciesMock() {
-  return [
-    {
-      code: "EUR",
-      symbol: "€",
-      thousandsSeparator: ".",
-      decimalSeparator: ",",
-      symbolOnLeft: false,
-      spaceBetweenAmountAndSymbol: true,
-      roundingCoefficient: 0,
-      decimalDigits: 2
-    },
-    {
-      code: "USD",
-      symbol: "$",
-      thousandsSeparator: ",",
-      decimalSeparator: ".",
-      symbolOnLeft: true,
-      spaceBetweenAmountAndSymbol: false,
-      roundingCoefficient: 0,
-      decimalDigits: 2
-    }
-  ]
-}
-
-function createTranslationMock() {
-  return {
-    'test': 'test',
-    'bla': 'bla',
-    'name': 'name'
-  }
-}

@@ -1,4 +1,4 @@
-// mocking/settings.js
+// mocking/settingsController.js
 
 var Promise = require('es6-promise').Promise;
 

@@ -15,16 +15,16 @@ module.exports = function (app, express, production) {
   var BookingController = null;
 
   if(production) {
-    SettingsController = require('../controller/settings');
-    UserController = require('../controller/user');
-    AuthController = require('../controller/auth');
-    BookingController = require('../controller/booking');
+    SettingsController = require('../controller/settingsController');
+    UserController = require('../controller/userController');
+    AuthController = require('../controller/authController');
+    BookingController = require('../controller/bookingController');
   }
   else {
-    SettingsController = require('../mocking/settings');
-    UserController = require('../mocking/user');
-    AuthController = require('../mocking/auth');
-    BookingController = require('../mocking/booking');
+    SettingsController = require('../mocking/settingsController');
+    UserController = require('../mocking/userController');
+    AuthController = require('../mocking/authController');
+    BookingController = require('../mocking/bookingController');
   }
 
   var secret = app.get('jwtTokenSecret');

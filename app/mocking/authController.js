@@ -1,4 +1,4 @@
-// mocking/auth.js
+// mocking/authController.js
 
 var Promise = require('es6-promise').Promise;
 var jwt = require('jwt-simple');

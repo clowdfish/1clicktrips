@@ -1,4 +1,4 @@
-// mocking/user.js
+// mocking/userController.js
 
 var Promise = require('es6-promise').Promise;
 
