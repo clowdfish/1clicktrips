@@ -10,17 +10,12 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
 
-      if(userId > 0) {
-        var eventsArray = [];
-        for(var i=0; i<limit; i++) {
-          eventsArray.push(createMockEvent(i+1));
-        }
+      var eventsArray = [];
+      for(var i=0; i<limit; i++) {
+        eventsArray.push(createMockEvent(i+1));
+      }
 
-        resolve(eventsArray);
-      }
-      else {
-        reject(new Error('Could not retrieve events.'));
-      }
+      resolve(eventsArray);
     });
   },
 
@@ -28,19 +23,14 @@ module.exports = {
 
     console.log("Retrieving meeting spaces. Limit=" + limit);
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
 
-      if(userId > 0) {
-        var meetingSpacesArray = [];
-        for(var i=0; i<limit; i++) {
-          meetingSpacesArray.push(createMockMeetingSpace(i+1));
-        }
+      var meetingSpacesArray = [];
+      for(var i=0; i<limit; i++) {
+        meetingSpacesArray.push(createMockMeetingSpace(i+1));
+      }
 
-        resolve(meetingSpacesArray);
-      }
-      else {
-        reject(new Error('Could not retrieve meeting spaces.'));
-      }
+      resolve(meetingSpacesArray);
     });
   },
 
@@ -48,19 +38,14 @@ module.exports = {
 
     console.log("Retrieving trip alternatives.");
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
 
-      if(userId > 0) {
-        var alternativesArray = [];
+      var alternativesArray = [];
 
-        alternativesArray.push(createMockAlternative(1));
-        alternativesArray.push(createMockAlternative(2));
+      alternativesArray.push(createMockAlternative(1));
+      alternativesArray.push(createMockAlternative(2));
 
-        resolve(alternativesArray);
-      }
-      else {
-        reject(new Error('Could not retrieve trip alternatives.'));
-      }
+      resolve(alternativesArray);
     });
   },
 
@@ -68,14 +53,9 @@ module.exports = {
 
     console.log("Retrieving trip results.");
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
 
-      if(userId > 0) {
-        resolve(createMockTripResult());
-      }
-      else {
-        reject(new Error('Could not retrieve trip result.'));
-      }
+      resolve(createMockTripResult());
     });
   }
 };

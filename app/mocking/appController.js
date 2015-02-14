@@ -6,25 +6,15 @@ module.exports = {
 
   getAvailableCurrencies: function() {
 
-    return new Promise(function(resolve, reject) {
-
-      if(userId > 0) {
-        resolve(createCurrenciesMock());
-      }
-      else {
-        reject(new Error('Could not retrieve currencies.'));
-      }
+    return new Promise(function(resolve) {
+      resolve(createCurrenciesMock());
     });
   },
 
   getAvailableLanguages: function() {
 
-    return new Promise(function(resolve, reject) {
-
-      if(userId > 0)
-        resolve(createLanguagesMock());
-      else
-        reject(new Error('Could not retrieve languages.'));
+    return new Promise(function(resolve) {
+      resolve(createLanguagesMock());
     });
   },
 
@@ -34,10 +24,10 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
 
-      if(bookingId > 0)
+      if(languageCode.length > 0)
         resolve(createTranslationMock());
       else
-        resolve(null);
+        reject(new Error('Could not retrieve language for given language code.'));
     });
   }
 };
