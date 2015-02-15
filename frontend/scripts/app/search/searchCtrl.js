@@ -18,6 +18,7 @@
 
     //Destination type: address, event, meeting, company...
     $scope.destinationType = SUGGESTION_TYPES.address;
+    $scope.setDestinationType = setDestinationType;
 
     $scope.destinationTypeArray = suggestionAdapter.getSuggestionType();
 
@@ -51,13 +52,18 @@
       $event.preventDefault();
       $event.stopPropagation();
       $scope.isOpenEndDatePicker = true;
-    }
+    };
 
     $scope.openStartTimePicker = function($event) {
       $event.preventDefault();
       $event.stopPropagation();
       $scope.isOpenStartTimePicker = true;
+    };
+
+    function setDestinationType(item) {
+        $scope.destinationType = item;
     }
+
     /**
     * Get suggestion for text input
     * @param {string} val - input source
