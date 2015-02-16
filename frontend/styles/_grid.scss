@@ -1,18 +1,18 @@
-
 @import "../bower_components/susy/sass/susy";
 
 $width-container: 1080px;
 
+// mobile layout
 $susy: (
   columns: 6,
-  gutters: 0.25,
+  gutters: 0.35,
   container: $width-container,
   gutter-position: split,
   //debug: (image: show),
   global-box-sizing: border-box
 );
 
-.container {
+.wrapper {
   @include container;
 }
 
@@ -29,11 +29,8 @@ $susy: (
 }
 
 %layout {
-  @include span(24 of 24);
 
   @include respond-above("medium") {
-    @include span(20 of 24);
-    @include push(2 of 24);
     
   }
 

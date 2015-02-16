@@ -2,22 +2,20 @@ $header-height: 3.5em;
 $header-padding: .7em;
 
 %header {
-  .container {
+  .wrapper {
     height: 100%;
   }
 
   height: $header-height;
   background: linear-gradient(#252330, #423e4c);
   padding-top: $header-padding;
-
   color: $c-text-dark-bg;
 
   .header-logo {
-    @include span(4 of 6);
-
     height: 100%;
     float: left;
-    font-size: $fs-large;
+    font-size: 1.5em;
+    padding-left: 0.3em;
 
     a {
       text-decoration: none;
@@ -25,59 +23,63 @@ $header-padding: .7em;
     }
 
     img {
-      height: 70%;
-      margin-right: 0.3em;
-      vertical-align: middle;
+      display: none;
     }
 
-    span {
-      color: #fff;
+    span.light {
+      color: $c-text-dark-bg;
     }
   }
 
   .header-navigation {
-    float: right;
-
-    a, a:hover {
-      display: inline-block;
-      margin-right: 1em;
-      color: #fff;
-      text-decoration: none;
-    }
+    display: none;
   }
-
-  .header-settings {
-    display: inline-block;
-
-    ul {
-      list-style: none;
-      margin-left: 1em;
-    }
-
-    li {
-      display: inline-block;
-      padding: 0.4em 0.8em;
-      background-color: darken($c-dark, 7%);
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    li:after {
-      font-family: FontAwesome, sans-serif;
-      font-size: $fs-small;
-      content: "\00a0\00a0\f0d7";
-    }
-  }
-
 
   @include respond-above("medium") {
 
     .header-logo {
 
+      img {
+        display: inline-block;
+        height: 70%;
+        margin-right: 0.3em;
+        vertical-align: middle;
+      }
     }
 
     .header-navigation {
+      display: block;
+      float: right;
 
+      a, a:hover {
+        display: inline-block;
+        margin-right: 1em;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+
+    .header-settings {
+      display: inline-block;
+
+      ul {
+        list-style: none;
+        margin-left: 1em;
+      }
+
+      li {
+        display: inline-block;
+        padding: 0.4em 0.8em;
+        background-color: darken($c-dark, 7%);
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      li:after {
+        font-family: FontAwesome, sans-serif;
+        font-size: $fs-small;
+        content: "\00a0\00a0\f0d7";
+      }
     }
   }
 

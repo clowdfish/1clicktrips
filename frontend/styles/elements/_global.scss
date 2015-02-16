@@ -3,7 +3,7 @@ body {
 }
 
 .view-container {
-  @include span(24 of 24);
+  @include span(6 of 6);
 
   position: relative;
   min-height: 10em; // to enforce the box-shadow
@@ -14,12 +14,10 @@ body {
 }
 
 .section-header {
-  @include span(24 of 24);
+  @include span(6 of 6);
   margin-top: 3em;
   padding: 1em;
-  background-color: $c-red;
-  background-image: url("../images/bg_pattern.jpg");
-  background-repeat: repeat;
+  background: $c-red url("../images/bg_pattern.jpg") repeat;
 
   font-weight: bold;
   color: #fff;
