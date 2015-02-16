@@ -3,17 +3,18 @@
     .module('app.common')
     .filter('destinationTypeToIcon', destinationTypeToIcon);
 
-  function destinationTypeToIcon() {
-    return function(destinationType) {
+  function destinationTypeToIcon(SUGGESTION_TYPES) {
 
+    return function(destinationType) {
       switch(destinationType) {
-        case "Event":
+        case SUGGESTION_TYPES.events:
           return "fa-rocket";
-        case "Meeting Space":
+        case SUGGESTION_TYPES.meetingSpaces:
           return "fa-group";
         default:
           return "fa-map-marker";
       }
     }
+
   }
 })();
