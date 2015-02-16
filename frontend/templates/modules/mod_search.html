@@ -25,26 +25,26 @@
     <div class="search-form-container">
       <form name='searchForm' class="search-form" ng-show='step == 1'>
         <h1>{{ T.search.form.destination.label }}</h1>
-        <input
-                type="text"
-                placeholder="{{ T.search.form.destination.placeholder }}"
-                name='destination'
-                ng-model='destination'
-                typeahead="address.description for address in getSuggestion($viewValue)"
-                typeahead-on-select="selectDestinationSuggestion($item, $model, $label)">
 
-        <div ng-model='destinationType' class="btn-group" dropdown is-open="status.isopen">
-          <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-            <i class="fa {[ destinationType | destinationTypeToIcon ]}"></i><span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li ng-repeat="item in destinationTypeArray" ng-click="setDestinationType(item)">{[item]}</li>
-            <!--<li class="divider"></li>-->
-          </ul>
+        <div class="search-form-location-field">
+          <input
+                  type="text"
+                  placeholder="{{ T.search.form.destination.placeholder }}"
+                  name='destination'
+                  ng-model='destination'
+                  typeahead="address.description for address in getSuggestion($viewValue)"
+                  typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
+
+          <div ng-model='destinationType' class="btn-group search-form-location-field-dropdown" dropdown is-open="status.isopen">
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              <i class="fa {[ destinationType | destinationTypeToIcon ]}"></i><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <li ng-repeat="item in destinationTypeArray" ng-click="setDestinationType(item)">{[item]}</li>
+              <!--<li class="divider"></li>-->
+            </ul>
+          </div>
         </div>
-
-        <!--<select ng-model='destinationType' ng-options='item for item in destinationTypeArray'>
-        </select>-->
 
         <a ng-click="step2()" class="button--dark">{{ T.search.form.control.next }}</a>
         <map-marker address="destinationAddress" class="search-destination-map"></map-marker>
@@ -111,13 +111,17 @@
 
       <form name='searchForm' class="search-form" ng-show='step == 3'>
         <h1>{{ T.search.form.origin }}</h1>
-        <input
-                type="text"
-                placeholder="{{ T.search.form.origin }}"
-                name='origin'
-                ng-model='origin'
-                typeahead="address.description for address in getAddressSuggestion($viewValue)"
-                typeahead-on-select="selectOriginSuggestion($item, $model, $label)">
+
+        <div class="search-form-location-field">
+          <input
+                  type="text"
+                  placeholder="{{ T.search.form.origin }}"
+                  name='origin'
+                  ng-model='origin'
+                  typeahead="address.description for address in getAddressSuggestion($viewValue)"
+                  typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
+        </div>
+
         <a href="./result.html" class="button--dark">{{ T.search.form.control.submit }}</a>
         <map-marker address="originAddress" class="search-destination-map"></map-marker>
       </form>
