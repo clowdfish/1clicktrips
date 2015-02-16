@@ -111,6 +111,13 @@
       background: url("../images/tick.png") no-repeat 80% 50%;
     }
 
+    .search-step-circle {
+      height: $nav-circle-diameter;
+      width: $nav-circle-diameter;
+      margin: -$nav-circle-diameter/2 auto 0.8em;
+      border-radius: $nav-circle-diameter/2;
+    }
+
     .search-step-circle.location {
       .search-step-active-indicator {
         left: 16%;

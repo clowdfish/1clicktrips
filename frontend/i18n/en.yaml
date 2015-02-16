@@ -26,7 +26,7 @@ en:
       start: At what time does your appointment start?
       end: When does your appointment end?
       control:
-        next: Next
+        next: CONTINUE
         submit: Start Search
   signup:
     form:
