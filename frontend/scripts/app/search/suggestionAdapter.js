@@ -67,7 +67,11 @@
     function getEventSuggestion(text) {
       var deferred = $q.defer();
       $http
-        .get('/suggestion/event/' + text)
+        .get('/api/search/events', {
+          params: {
+            qs: text
+          }
+        })
         .success(function(response) {
           deferred.resolve(response);
         });
@@ -77,7 +81,11 @@
     function getMeetingSpaceSuggestion(text) {
       var deferred = $q.defer();
       $http
-        .get('/suggestion/meeting_space/' + text)
+        .get('/api/search/spaces', {
+          params: {
+            qs: text
+          }
+        })
         .success(function(response) {
           deferred.resolve(response);
         })

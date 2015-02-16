@@ -29,8 +29,8 @@
     //passThrough for google api request
     $httpBackend.whenGET(/^https:\/\/maps.googleapis.com\/maps\/api\//).passThrough();
     $httpBackend.whenGET(/^scripts\/app\/templates\//).passThrough();
-    $httpBackend.whenGET(/^\/suggestion\/event\//).respond(mockEvents);
-    $httpBackend.whenGET(/^\/suggestion\/meeting_space\//).respond(mockEvents);
+    $httpBackend.whenGET(/^\/api\/search\/events/).passThrough();
+    $httpBackend.whenGET(/^\/api\/search\/spaces/).passThrough();
   }
 
   function decorateDatePicker($provide) {
