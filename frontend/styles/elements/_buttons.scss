@@ -18,6 +18,7 @@ $button-height: 2.3em;
 
   &.is-disabled {
     opacity: 0.4;
+    cursor: default;
   }
 
   &:hover {

@@ -33,6 +33,7 @@
     $scope.step1 = step1;
     $scope.step2 = step2;
     $scope.step3 = step3;
+    $scope.startSearch = startSearch;
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 0
@@ -115,18 +116,22 @@
       $scope.step = 1;
     }
 
-    /**
-    * @todo validate step 1 data
-    */
     function step2() {
-      $scope.step = 2;
+      if($scope.destinationAddress != null)
+        $scope.step = 2;
+    }
+
+    function step3() {
+      if($scope.startDate != null && $scope.endDate != null &&
+        $scope.startTime != null && $scope.endTime != null)
+        $scope.step = 3;
     }
 
     /**
-    * @todo validate step 2 data
-    */
-    function step3() {
-      $scope.step = 3;
+     * @todo implement
+     */
+    function startSearch() {
+
     }
   }
 })();
