@@ -24,13 +24,16 @@
 
   .search-step {
     @include span(2);
-
     text-align: center;
     padding-bottom: 2em;
   }
 
   .search-step-circle.location {
-    background-image: url("../images/nav_location.png");
+
+    .fa {
+      font-size: 2.2em;
+      padding-top: 0.5em;
+    }
 
     .search-step-active-indicator {
       left: 14%;
@@ -39,7 +42,11 @@
   }
 
   .search-step-circle.timing {
-    background-image: url("../images/nav_briefcase.png");
+
+    .fa {
+      font-size: 2.2em;
+      padding-top: 0.5em;
+    }
 
     .search-step-active-indicator {
       left: 49%;
@@ -48,7 +55,11 @@
   }
 
   .search-step-circle.origin {
-    background-image: url("../images/nav_globe.png");
+
+    .fa {
+      font-size: 2.4em;
+      padding-top: 0.4em;
+    }
 
     .search-step-active-indicator {
       right: 14%;
@@ -66,6 +77,7 @@
     cursor: pointer;
 
     background: #fff no-repeat center;
+    color: #afabc8;
   }
 
   .search-step-active-indicator {
@@ -87,6 +99,7 @@
       background-color: $c-dark;
       border: 1px solid $c-dark;
       cursor: default;
+      color: $c-text-dark-bg-highlight;
     }
 
     .search-step-active-indicator {
@@ -119,18 +132,33 @@
     }
 
     .search-step-circle.location {
+
+      .fa {
+        padding-top: 0.6em;
+      }
+
       .search-step-active-indicator {
         left: 16%;
       }
     }
 
     .search-step-circle.timing {
+
+      .fa {
+        padding-top: 0.6em;
+      }
+
       .search-step-active-indicator {
         left: 49%;
       }
     }
 
     .search-step-circle.origin {
+
+      .fa {
+        padding-top: 0.5em;
+      }
+
       .search-step-active-indicator {
         right: 16%;
       }

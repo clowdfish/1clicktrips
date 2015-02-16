@@ -15,6 +15,5 @@
           return "fa-map-marker";
       }
     }
-
   }
 })();

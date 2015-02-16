@@ -7,18 +7,21 @@
       <ul class="search-step-list">
         <li class="search-step" ng-class="{active: step == 1, done: destinationAddress != null}" ng-click='step1()'>
           <div class="search-step-circle location">
+            <i class="fa fa-map-marker"></i>
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.destination }}
         </li>
         <li class="search-step" ng-class="{active: step == 2, done: (startDate != null && startTime != null && endDate != null && endTime != null)}" ng-click='step2()'>
           <div class="search-step-circle timing">
+            <i class="fa fa-suitcase"></i>
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.timing }}
         </li>
         <li class="search-step" ng-class="{active: step == 3, done: originAddress != null}" ng-click='step3()'>
           <div class="search-step-circle origin">
+            <i class="fa fa-home"></i>
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.origin }}

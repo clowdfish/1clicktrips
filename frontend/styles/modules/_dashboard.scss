@@ -7,6 +7,7 @@ $size-dashboard-icons: 5em;
   .view-container {
     @include span(6);
     padding: 2em 0;
+    box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.3);
 
     h1 {
       display: block;
@@ -25,6 +26,7 @@ $size-dashboard-icons: 5em;
     margin: ($size-dashboard-icons/2 + 1em) auto 1em auto;
     padding: ($size-dashboard-icons/2 + 0.5em) 1em 1.2em 1em;
     box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
+    min-height: 13em;
 
     h3 {
       display: block;
@@ -85,6 +87,10 @@ $size-dashboard-icons: 5em;
   }
 
   @include respond-above("medium") {
+
+    .view-container {
+      box-shadow: 0 55px 40px -50px rgba(0,0,0,0.3);
+    }
 
     .dashboard-info-box {
       @include span(2 of 4);
