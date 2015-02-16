@@ -84,7 +84,6 @@ gulp.task('images', function() {
 gulp.task('webserver', function() {
   gulp.src('build/')
     .pipe(webserver({
-      port: 3000,
       livereload: true,
       open: 'en/',
       proxies: [

@@ -1,118 +1,7 @@
-// mocking/searchController.js
-
-var Promise = require('es6-promise').Promise;
-
-module.exports = {
-
-  getEvents: function(filter, limit) {
-
-    console.log("Retrieving events. Limit=" + limit);
-
-    return new Promise(function(resolve, reject) {
-
-      var eventsArray = [];
-      for(var i=0; i<limit; i++) {
-        eventsArray.push(createMockEvent(i+1));
-      }
-
-      resolve(eventsArray);
-    });
-  },
-
-  getMeetingSpaces: function(filter, limit) {
-
-    console.log("Retrieving meeting spaces. Limit=" + limit);
-
-    return new Promise(function(resolve) {
-
-      var meetingSpacesArray = [];
-      for(var i=0; i<limit; i++) {
-        meetingSpacesArray.push(createMockMeetingSpace(i+1));
-      }
-
-      resolve(meetingSpacesArray);
-    });
-  },
-
-  getTripAlternatives: function(tripId, segmentId, limit) {
-
-    console.log("Retrieving trip alternatives.");
-
-    return new Promise(function(resolve) {
-
-      var alternativesArray = [];
-
-      alternativesArray.push(createMockAlternative(1));
-      alternativesArray.push(createMockAlternative(2));
-
-      resolve(alternativesArray);
-    });
-  },
-
-  getTripResults: function(searchObject, userLicence) {
-
-    console.log("Retrieving trip results.");
-
-    return new Promise(function(resolve) {
-
-      resolve(createMockTripResult());
-    });
-  }
-};
-
-// ==========================================================================
-// MOCKING OBJECT CREATORS ==================================================
-// ==========================================================================
-
-function createMockEvent(id) {
-  return {
-    "id" : id,
-    "title" : "World Event Las Vegas",
-    "description" : "An example event",
-    "location" : {
-      "latitude" : 36.161805,
-      "longitude" : -115.141183
-    },
-    "tags" : [
-      "test", "another tag", "cool"
-    ],
-    "dates" : [
-      {
-        "start" : "2015-02-09T02:54:51+00:0",
-        "end" : "2015-02-15T09:54:51+00:0"
-      }
-    ],
-    "open": true,
-    "url" : "http://whatever.com",
-    "image" : "http://placehold.it/150x150"
-  }
-}
-
-function createMockMeetingSpace(id) {
-  return {
-    "id" : id,
-    "title" : "MeetNow Space",
-    "description" : "An example meeting space",
-    "location" : {
-      "latitude" : 48.709008,
-      "longitude" : 9.457281
-    },
-    "seatsAvailable" : 20,
-    "catering" : false
-  }
-}
-
-function createMockAlternative(id) {
-
-  // TODO implement
-
-  return {
-    "id" : id
-  }
-}
-
-function createMockTripResult() {
-  return [
+(function() {
+  angular
+    .module('app.result')
+    .value('mockItinerary', [
     {
       "outbound": {
         "origin": {
@@ -520,5 +409,5 @@ function createMockTripResult() {
         ]
       }
     }
-  ];
-}
+  ]);
+})();

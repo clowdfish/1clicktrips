@@ -11,21 +11,25 @@
     service.findAlternativeSegment = findAlternativeSegment;
     service.callSearchItineraryApi = callSearchItineraryApi;
 
-    function findItinerary() {
+    function findItinerary(searchObject) {
       var deferred = $q.defer();
-      this.callSearchItineraryApi()
+      this.callSearchItineraryApi(searchObject)
         .then(function(response) {
-          var itinerary = transformItinerary(response);
-          deferred.resolve(itinerary);
+          var result = [];
+          for (var i = 0; i < response.length; i++) {
+            var itinerary = transformItinerary(response[i]);
+            result.push(itinerary);
+          }
+          deferred.resolve(result);
         }, function(){
           deferred.reject('error');
         });
       return deferred.promise;
     }
 
-    function callSearchItineraryApi() {
+    function callSearchItineraryApi(searchObject) {
       var deferred = $q.defer();
-      $http.get('/search/trips')
+      $http.post('/api/search/trips', searchObject)
         .success(function(response) {
           deferred.resolve(response);
         })
@@ -36,7 +40,7 @@
     }
 
     function findAlternativeSegment() {
-      return $http.get('/search/alternatives');
+      return $http.get('/api/search/alternatives');
     }
 
     function transformItinerary(itinerary) {

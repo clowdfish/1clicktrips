@@ -6,7 +6,12 @@
       'ngMockE2E'
     ])
     .run(run)
-    .config(config);
+    .config(config)
+    .constant('TRIP_TYPE', {
+      lowBudget: 0,
+      timeSaving: 1,
+      comfortTrip: 2
+    });
 
   /**
   * Because we don't have any server, we use $httpBackend to create fake data
@@ -16,8 +21,8 @@
     var itinerary = mockItinerary;
     var alternatives = mockAlternativeSegment;
     $httpBackend.whenGET(/^scripts\/app\/templates\//).passThrough();
-    $httpBackend.whenGET('/search/trips').respond(itinerary);
-    $httpBackend.whenGET('/search/alternatives').respond(alternatives);
+    $httpBackend.whenPOST('/api/search/trips').passThrough();
+    $httpBackend.whenGET('/api/search/alternatives').passThrough();
   }
 
   function config($interpolateProvider) {

@@ -196,7 +196,7 @@ function checkValidityOfRequest(req) {
   function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
-
+  console.log(req.body);
   if(req.body['origin'] && req.body['appointments'] &&
     req.body['appointments'].length > 0 && req.body['currency'] &&
     req.body['locale'] && (req.body['roundTrip'] === true ||

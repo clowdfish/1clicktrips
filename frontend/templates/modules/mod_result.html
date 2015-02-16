@@ -1,1 +1,68 @@
-<div ng-include='"scripts/app/templates/result/result.html"'></div>
+<div ng-app='app.result'>
+  <div ng-controller='resultCtrl'>
+    <section class="result-type container">
+
+      <div class="result-type-selection">
+        <ul class="result-type-list">
+          <li class="result-type-item active" ng-click="findTripByBudget()">
+            <div class="result-type-item-circle budget">
+              <span class="result-type-item-active-indicator"></span>
+            </div>
+            Low Budget Trip
+          </li>
+          <li class="result-type-item" ng-click="findTripByTime()">
+            <div class="result-type-item-circle time">
+              <span class="result-type-item-active-indicator"></span>
+            </div>
+            Time Saving Trip
+          </li>
+          <li class="result-type-item" ng-click="findTripByComfort()">
+            <div class="result-type-item-circle comfort">
+              <span class="result-type-item-active-indicator"></span>
+            </div>
+            Comfort Trip
+          </li>
+        </ul>
+        <span class="result-type-back-button"><i class="fa fa-chevron-left"></i></span>
+      </div>
+      <div class="result-description">
+        <span class="result-description-favorite">+ Add to favorites</span>
+        <h1>The Cheapest Trip</h1>
+        <p>Text description</p>
+      </div>
+
+    </section>
+
+    <section class="result container">
+
+      <div class="result-view view-container">
+
+        <div class="trip-header">
+          <span class="fs-smallest">Your destination</span>
+          <h2 class="trip-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
+          <a class='change-location-link fs-smallest' ng-click="changeLocationAndDate()">+ Change location & date</a>
+          <div class='fs-smallest'>
+            From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
+          </div>
+        </div>
+
+        <div class="trip-summary">
+          <trip-summary itinerary="itinerary"></trip-summary>
+        </div>
+
+        <div class="trip-overview ">
+          <itinerary-map itinerary="itinerary" show-map="showMap"></itinerary-map>
+        </div>
+
+        <div class="trip-footer">
+          <div class="trip-footer-summary">TRIP FOOTER SUMMARY</div>
+          <div class="trip-footer-action">
+            <a href="#" class="button">Purchase Trip</a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</div>
+
