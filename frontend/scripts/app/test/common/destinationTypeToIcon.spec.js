@@ -13,10 +13,10 @@ describe("destinationTypeToIcon", function() {
   it('should work with valid parameter', function() {
     expect(destinationTypeToIcon(SUGGESTION_TYPES.address)).toEqual('fa-map-marker');
     expect(destinationTypeToIcon(SUGGESTION_TYPES.events)).toEqual('fa-rocket');
-    expect(destinationTypeToIcon(SUGGESTION_TYPES.meetingSpaces)).toEqual('fa-group');
+    expect(destinationTypeToIcon(SUGGESTION_TYPES.meetingSpace)).toEqual('fa-group');
   });
 
   it('should return default data when give invalid parameter', function() {
     expect(destinationTypeToIcon('some things')).toEqual('fa-map-marker');
-  })
+  });
 });

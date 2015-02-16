@@ -40,8 +40,15 @@ describe('searchCtrl', function() {
   it('change step correctly', function() {
     $scope.step1();
     expect($scope.step).toEqual(1);
+
+    $scope.destinationAddress = 'Sample address to move to step 2';
     $scope.step2();
     expect($scope.step).toEqual(2);
+
+    $scope.startDate = '2015-12-31';
+    $scope.startTime = '00:00:00';
+    $scope.endDate = '2015-12-31';
+    $scope.endTime = '00:00:00';
     $scope.step3();
     expect($scope.step).toEqual(3);
   });
