@@ -9,7 +9,7 @@
       switch(destinationType) {
         case SUGGESTION_TYPES.events:
           return "fa-rocket";
-        case SUGGESTION_TYPES.meetingSpaces:
+        case SUGGESTION_TYPES.meetingSpace:
           return "fa-group";
         default:
           return "fa-map-marker";
