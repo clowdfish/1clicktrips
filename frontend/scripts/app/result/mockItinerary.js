@@ -316,6 +316,7 @@
       "price": 355.88915290549545,
       "currency": "EUR",
       "type": 1,
+      "destination": "Mave Hotel NYC",
       "inbound": {
         "origin": {
           "latitude": 52.419096,

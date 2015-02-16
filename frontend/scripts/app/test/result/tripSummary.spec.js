@@ -16,7 +16,7 @@ describe('tripSummary', function() {
   beforeEach(inject(function(_$compile_, _$rootScope_, mockItinerary) {
     itinerary = mockItinerary;
     scope = _$rootScope_.$new();
-    scope.itinerary = itinerary;
+    scope.itinerary = itinerary[0];
     $compile = _$compile_;
 
     element = angular.element('<trip-summary itinerary="itinerary"></trip-summary>');
@@ -27,15 +27,15 @@ describe('tripSummary', function() {
   }));
 
   it('isolated scope has valid data', function() {
-    expect(isoScope.itinerary.id).toEqual(1);
-    expect(isoScope.itinerary.destination).toEqual('DoubleTree by Hilton Metropolitan, New York, USA');
-    expect(isoScope.itinerary.price).toEqual(450);
+    expect(isoScope.itinerary.currency).toEqual('EUR');
+    expect(isoScope.itinerary.destination).toEqual('Customer in Hanover');
+    expect(isoScope.itinerary.price).toEqual(355.88915290549545);
   });
 
   it('has valid html', function() {
     expect(compiledDirective.html()).toContain('<div class="trip-summary-item-title">Total Travel Time</div>');
     expect(compiledDirective.html()).toContain('<div class="trip-summary-item-title">Total Cost</div>');
-    expect(compiledDirective.html()).toContain('<div class="trip-summary-item-value ng-binding">450</div>');
+    expect(compiledDirective.html()).toContain('<div class="trip-summary-item-value ng-binding">75</div>');
   });
 
 });

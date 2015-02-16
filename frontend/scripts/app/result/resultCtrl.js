@@ -16,7 +16,6 @@
 
     $scope.findTrip().then(function(){
       $scope.findTripByBudget();
-      console.log($scope.itinerary);
     });
 
 

@@ -27,7 +27,7 @@ describe('itineraryMap directive', function() {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     mockItinerary = _mockItinerary_;
-    scope.itinerary = mockItinerary;
+    scope.itinerary = mockItinerary[0];
     scope.showMap = false; //show map will cause error
     element = angular.element('<itinerary-map itinerary="itinerary" show-map="showMap"></itinerary-map>');
     compiledDirective = _$compile_(element)(scope);
@@ -35,10 +35,10 @@ describe('itineraryMap directive', function() {
     directiveScope = element.isolateScope();
   }));
 
-  it('has valid data in directiveScope', function() {
-    expect(directiveScope.itinerary.id).toEqual(1);
-    expect(directiveScope.itinerary.destination).toEqual('DoubleTree by Hilton Metropolitan, New York, USA');
-    expect(directiveScope.itinerary.price).toEqual(450);
+  it('isolated scope has valid data', function() {
+    expect(directiveScope.itinerary.currency).toEqual('EUR');
+    expect(directiveScope.itinerary.destination).toEqual('Customer in Hanover');
+    expect(directiveScope.itinerary.price).toEqual(355.88915290549545);
   });
 
   describe('segmentAlternativeList directive', function() {

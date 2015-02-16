@@ -29,7 +29,7 @@ describe('tripService', function() {
   }));
 
   it('it find and have valid data', function() {
-    var returnValue = null;
+    var returnValue, itinerary;
     tripService
       .findItinerary()
       .then(function(itinerary) {
@@ -37,14 +37,15 @@ describe('tripService', function() {
       });
 
     $rootScope.$digest();
-    expect(returnValue.hasOwnProperty('destination')).toEqual(true);
-    expect(returnValue.hasOwnProperty('outbound')).toEqual(true);
-    expect(returnValue.hasOwnProperty('inbound')).toEqual(true);
-    expect(returnValue.hasOwnProperty('price')).toEqual(true);
-    expect(returnValue.hasOwnProperty('currency')).toEqual(true);
-    expect(returnValue.hasOwnProperty('startTime')).toEqual(true);
-    expect(returnValue.hasOwnProperty('endTime')).toEqual(true);
-    expect(returnValue.hasOwnProperty('duration')).toEqual(true);
+    itinerary = returnValue[0];
+    expect(itinerary.hasOwnProperty('destination')).toEqual(true);
+    expect(itinerary.hasOwnProperty('outbound')).toEqual(true);
+    expect(itinerary.hasOwnProperty('inbound')).toEqual(true);
+    expect(itinerary.hasOwnProperty('price')).toEqual(true);
+    expect(itinerary.hasOwnProperty('currency')).toEqual(true);
+    expect(itinerary.hasOwnProperty('startTime')).toEqual(true);
+    expect(itinerary.hasOwnProperty('endTime')).toEqual(true);
+    expect(itinerary.hasOwnProperty('duration')).toEqual(true);
   });
 
 });
