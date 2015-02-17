@@ -67,10 +67,10 @@ a, a:hover {
 
 
 // font classes
-.bold {
+span.bold {
   font-weight: 800;
 }
 
-.fs-smallest {
-  font-size: $fs-smallest;
+span.light {
+  font-weight: 300;
 }

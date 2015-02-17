@@ -2,49 +2,50 @@
 %newsletter {
 
   .newsletter-container {
-    @include span(6 of 6);
+    @include span(6);
     position: relative;
     z-index: 5;
+    background-size: 80%;
+    background: $c-content-bg url("../images/newsletter_world.png") no-repeat 50% 25%;
 
-    background-image: url("../images/newsletter_world.png"), linear-gradient(#f5f0dd, #fff);
-    background-repeat: no-repeat;
-    background-position: 3% 30%;
     padding: 2em 0;
     box-shadow: 0 2px 2px 0 rgba(120, 120, 120, 0.3);
   }
 
   .newsletter-icon {
-    @include span(2 of 6);
-    @include push(2 of 6);
-
-    width: 18%
+    display: block;
+    text-align: center;
+    font-size: 2.1em;
   }
 
   .newsletter-slogan {
-    @include span(6 of 6);
-
-    padding-top: .55em;
-    padding-left: 1.5em;
+    display: block;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 0.4em 0 1em 0;
   }
 
   .newsletter-form {
-    display: inline-block;
+    display: block;
+    width: 95%;
+    margin: 0 auto;
 
     input[type="text"] {
       display: inline-block;
+      height: $input-mobile-height;
       width: 70%;
     }
 
     .button {
+      height: $input-mobile-height;
       padding-top: .55em;
       padding-bottom: .55em;
     }
   }
 
   .newsletter-socials {
-    text-align: right;
-    padding-top: .25em;
-    padding-right: 1.5em;
+    text-align: center;
+    margin: 1.5em 0;
 
     ul {
       list-style: none;
@@ -52,8 +53,8 @@
 
     li {
       display: inline-block;
-      padding-left: 1.1em;
-      font-size: $fs-large;
+      padding: 0 0.6em;
+      font-size: 1.7em;
     }
 
     a, a:visited {
@@ -61,43 +62,41 @@
     }
   }
 
-  /*******************************************************/
-  /* Medium Sized Devices                                */
-  /*******************************************************/
   @include respond-above("medium") {
+
     .newsletter-container {
       @include span(22 of 24);
       @include push(1 of 24);
+
+      background: url("../images/newsletter_world.png"), linear-gradient(#f5f0dd, #fff) 3% 30%;
+      background-repeat: no-repeat;
+      background-size: auto;
     }
 
     .newsletter-icon {
-      @include push(0 of 6);
-      width: auto;
-      vertical-align: middle;
-      margin-right: 0.5em;
+      display: inline-block;
+      font-size: 1.2em;
+      margin: 0 1em 0 2em;
     }
 
     .newsletter-slogan {
-      @include span(6 of 24);
-      padding-top: .55em;
-      padding-left: 1.5em;
+      display: inline-block;
     }
 
     .newsletter-form {
-      @include span(12 of 24);
+      display: inline-block;
+      margin-left: 2em;
+      width: 60%;
+
+      input[type='text'] {
+        height: $input-height;
+      }
+
+      input[type='button'] {
+        height: $input-height;
+        padding: 0.3em 1em;
+      }
     }
-
-    .newsletter-socials {
-      @include span(5 of 24);
-      @include push(1 of 24);
-    }
-  }
-
-  /*******************************************************/
-  /* Large Sized Devices                                 */
-  /*******************************************************/
-  @include respond-above("large") {
-
   }
 }
 

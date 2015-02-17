@@ -4,7 +4,7 @@
 
 
   .footer-container {
-    @include span(24 of 24);
+    @include span(6);
 
     text-align: center;
     font-size: $fs-small;
@@ -13,25 +13,28 @@
 
 
   .footer-copyright {
-    display: inline-block;
-    border-right: 1px solid rgba(83, 71, 65, 0.55);
-    padding-right: 2em;
-    margin-right: 2em;
+    display: block;
+    text-align: center;
+    margin-bottom: 1em;
   }
 
   .footer-links {
     a, a:visited {
+      display: inline-block;
+      margin: 0 0.8em;
       color: rgba(83, 71, 65, 0.55);
       text-decoration: none;
     }
   }
 
   @include respond-above("medium") {
-
-  }
-
-  @include respond-above("large") {
-
+    .footer-copyright {
+      display: inline-block;
+      padding-right: 2em;
+      margin-right: 2em;
+      border-right: 1px solid rgba(83, 71, 65, 0.55);
+      text-align: left;
+    }
   }
 }
 

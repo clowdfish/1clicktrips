@@ -7,18 +7,32 @@ $size-dashboard-icons: 5em;
   .view-container {
     @include span(6);
     padding: 2em 0;
+    box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.3);
 
-    h2 {
+    h1 {
+      display: block;
       text-align: center;
       margin-bottom: 1.2em;
     }
   }
 
+  /*******************************************************/
+  /* Dashboard Info Boxes                                */
+  /*******************************************************/
   .dashboard-info-box {
+    position: relative;
+    width: 95%;
+    background-color: #fff;
+    margin: ($size-dashboard-icons/2 + 1em) auto 1em auto;
+    padding: ($size-dashboard-icons/2 + 0.5em) 1em 1.2em 1em;
+    box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
+    min-height: 13em;
 
     h3 {
+      display: block;
       color: $c-red;
       font-weight: 200;
+      text-align: center;
     }
   }
 
@@ -43,58 +57,45 @@ $size-dashboard-icons: 5em;
   }
 
   .dashboard-info-icon {
-    display: inline-block;
+    position: absolute;
     width: $size-dashboard-icons;
     height: $size-dashboard-icons;
-    margin: 1em 1em 0 0;
     vertical-align: top;
+
+    top: -($size-dashboard-icons/2);
+    left: 50%;
+    margin-left: -($size-dashboard-icons/2);
 
     border-radius: $size-dashboard-icons/2;
     border: 1px solid #eee;
 
-    background-position: center;
-    background-repeat: no-repeat;
+    background: white no-repeat center;
     background-size: auto 50%;
   }
 
   .dashboard-info-text {
-    display: inline-block;
+    display: block;
     margin-top: 1em;
-  }
+    text-align: center;
+    font-weight: 200;
+    color: #808080;
 
-
-
-  @include respond-above("medium") {
-    .view-container {
-
+    span {
+      display: block;
+      margin-bottom: 1em;
     }
   }
 
-  @include respond-above("large") {
-
-  }
-
-  /*******************************************************/
-  /* Dashboard Info Boxes                                */
-  /*******************************************************/
-  .dashboard-info-box {
-    background-color: #fff;
-    margin-bottom: 1em;
-    padding: 2em;
-
-    box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
-  }
-
   @include respond-above("medium") {
+
+    .view-container {
+      box-shadow: 0 55px 40px -50px rgba(0,0,0,0.3);
+    }
 
     .dashboard-info-box {
       @include span(2 of 4);
       margin-bottom: 2em;
     }
-  }
-
-  @include respond-above("large") {
-
   }
 }
 

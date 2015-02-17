@@ -1,30 +1,40 @@
 <div ng-app='app.search'>
-  <section class="search container" ng-controller='searchCtrl'>
+  <section class="search wrapper" ng-controller='searchCtrl'>
     <div class="search-steps">
+      <!----------------------->
+      <!-- SEARCH NAVIGATION -->
+      <!----------------------->
       <ul class="search-step-list">
         <li class="search-step" ng-class="{active: step == 1, done: destinationAddress != null}" ng-click='step1()'>
           <div class="search-step-circle location">
+            <i class="fa fa-map-marker"></i>
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.destination }}
         </li>
         <li class="search-step" ng-class="{active: step == 2, done: (startDate != null && startTime != null && endDate != null && endTime != null)}" ng-click='step2()'>
           <div class="search-step-circle timing">
+            <i class="fa fa-suitcase"></i>
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.timing }}
         </li>
         <li class="search-step" ng-class="{active: step == 3, done: originAddress != null}" ng-click='step3()'>
           <div class="search-step-circle origin">
+            <i class="fa fa-home"></i>
             <span class="search-step-active-indicator"></span>
           </div>
           {{ T.search.navigation.origin }}
         </li>
       </ul>
     </div>
+
     <div class="search-form-container">
+      <!----------------------->
+      <!-- DESTINATION FORM -------->
+      <!----------------------->
       <form name='searchForm' class="search-form" ng-show='step == 1'>
-        <h1>{{ T.search.form.destination.label }}</h1>
+        <h2>{{ T.search.form.destination.label }}</h2>
 
         <div class="search-form-location-field">
           <input
@@ -46,12 +56,20 @@
           </div>
         </div>
 
-        <a ng-click="step2()" class="button--dark" ng-class="{ 'is-disabled': destinationAddress == null }">{{ T.search.form.control.next }}</a>
         <map-marker address="destinationAddress" class="search-destination-map"></map-marker>
+        <div class="search-form-process-indicator">
+          <span class="search-form-process-step active"></span>
+          <span class="search-form-process-step"></span>
+          <span class="search-form-process-step"></span>
+        </div>
+        <a ng-click="step2()" class="button--dark" ng-class="{ 'is-disabled': destinationAddress == null }">{{ T.search.form.control.next }}</a>
       </form>
 
+      <!----------------------->
+      <!-- SCHEDULE FORM ------>
+      <!----------------------->
       <form name='scheduleForm' class='search-form' ng-show='step == 2'>
-        <h1>{{ T.search.form.time }}</h1>
+        <h2>{{ T.search.form.time }}</h2>
         <div class='popup-date-picker-container'>
           <input type="text" class="form-control"
             show-weeks="false"
@@ -106,11 +124,19 @@
             ng-click="openEndtTimePicker($event)" />
         </div>
 
+        <div class="search-form-process-indicator">
+          <span class="search-form-process-step"></span>
+          <span class="search-form-process-step active"></span>
+          <span class="search-form-process-step"></span>
+        </div>
         <a ng-click="step3()" class="button--dark">{{ T.search.form.control.next }}</a>
       </form>
 
+      <!----------------------->
+      <!-- ORIGIN FORM -------->
+      <!----------------------->
       <form name='searchForm' class="search-form" ng-show='step == 3'>
-        <h1>{{ T.search.form.origin }}</h1>
+        <h2>{{ T.search.form.origin }}</h2>
 
         <div class="search-form-location-field">
           <input
@@ -122,10 +148,14 @@
                   typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
         </div>
 
-        <a ng-click="startSearch()" class="button--dark" ng-class="{ 'is-disabled': originAddress != null }">{{ T.search.form.control.submit }}</a>
         <map-marker address="originAddress" class="search-destination-map"></map-marker>
+        <div class="search-form-process-indicator">
+          <span class="search-form-process-step"></span>
+          <span class="search-form-process-step"></span>
+          <span class="search-form-process-step active"></span>
+        </div>
+        <a ng-click="startSearch()" class="button--dark" ng-class="{ 'is-disabled': originAddress != null }">{{ T.search.form.control.submit }}</a>
       </form>
-
-  </div>
-</section>
+    </div>
+  </section>
 </div>
