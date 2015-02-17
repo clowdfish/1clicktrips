@@ -18,7 +18,6 @@
       $scope.findTripByBudget();
     });
 
-
     function findTrip() {
       var deferred = $q.defer();
       var searchObject = {
@@ -39,7 +38,8 @@
         locale: 1,
         roundTrip: false,
         currency: 1
-      }
+      };
+
       tripService.findItinerary(searchObject).then(function(itineraries) {
         $scope.itineraries = itineraries;
         deferred.resolve();
@@ -67,8 +67,5 @@
       }
       return null;
     }
-
   }
-
-
 })();
