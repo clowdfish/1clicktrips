@@ -7,6 +7,7 @@
     .controller('searchCtrl', searchCtrl);
 
   function searchCtrl($scope, SUGGESTION_TYPES, suggestionAdapter) {
+
     //Trip destination
     $scope.destination = null;
 
@@ -33,12 +34,14 @@
     $scope.step1 = step1;
     $scope.step2 = step2;
     $scope.step3 = step3;
+
     $scope.startSearch = startSearch;
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 0
     };
 
+    // configure date picker
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
     $scope.showWeeks = false;
@@ -46,23 +49,55 @@
     $scope.openStartDatePicker = function($event) {
       $event.preventDefault();
       $event.stopPropagation();
+
+      closeAll();
       $scope.isOpenStartDatePicker = true;
     };
 
     $scope.openEndDatePicker = function($event) {
       $event.preventDefault();
       $event.stopPropagation();
+
+      closeAll();
       $scope.isOpenEndDatePicker = true;
     };
 
     $scope.openStartTimePicker = function($event) {
       $event.preventDefault();
       $event.stopPropagation();
+
+      closeAll();
       $scope.isOpenStartTimePicker = true;
+    };
+
+    $scope.closeStartTimePicker = function($event) {
+      $scope.isOpenStartTimePicker = false;
+    };
+
+    $scope.openEndTimePicker = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      closeAll();
+      $scope.isOpenEndTimePicker = true;
+    };
+
+    $scope.closeEndTimePicker = function($event) {
+      $scope.isOpenEndTimePicker = false;
     };
 
     function setDestinationType(item) {
         $scope.destinationType = item;
+    }
+
+    /**
+     * Close all open date or time pickers
+     */
+    function closeAll() {
+      $scope.isOpenStartDatePicker = false;
+      $scope.isOpenStartTimePicker = false;
+      $scope.isOpenEndDatePicker = false;
+      $scope.isOpenEndTimePicker = false;
     }
 
     /**
@@ -131,7 +166,7 @@
      * @todo implement
      */
     function startSearch() {
-
+      return false;
     }
   }
 })();

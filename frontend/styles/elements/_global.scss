@@ -27,6 +27,22 @@ body {
   }
 }
 
+.btn-info {
+  background-color: $c-dark;
+  border: none;
+}
+
+.btn-danger {
+  background-color: $c-red;
+  border: none;
+}
+
+.btn-success {
+  background-color: $c-green;
+  border: none;
+}
+
+
 @include respond-above("medium") {
   body {
     background-image: url("../images/bg.jpg");

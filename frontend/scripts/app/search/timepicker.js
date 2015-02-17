@@ -3,7 +3,7 @@ angular.module('app.search.timepicker',
 
 .constant('syTimepickerConfig', {
   hourStep: 1,
-  minuteStep: 1,
+  minuteStep: 15,
   secondStep: 1,
   showMeridian: true,
   showSeconds: true,
