@@ -1,16 +1,17 @@
 (function() {
   angular
     .module('app.dashboard')
-    .service('favoriteService', favoriteService);
+    .service('bookingService', bookingService);
 
-  function favoriteService($http, $q) {
+  function bookingService($http, $q) {
     var _this = this;
-    _this.getFarvoriteList = getFarvoriteList;
 
-    function getFarvoriteList(arguments) {
+    this.getBookedTrips = getBookedTrips;
+
+    function getBookedTrips() {
       var deferred = $q.defer();
       $http
-        .get('/api/account/favorites')
+        .get('/api/account/bookings')
         .success(function(response) {
           deferred.resolve(response);
         })
@@ -21,6 +22,5 @@
     }
 
     return this;
-
   }
 })();

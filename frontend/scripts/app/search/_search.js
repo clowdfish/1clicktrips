@@ -5,13 +5,11 @@
   angular
     .module('app.search', [
       'app.mockdata',
-      'ngMockE2E',
       'ui.bootstrap',
       'ui.bootstrap.tpls',
       'app.search.timepicker',
       'pascalprecht.translate'
     ])
-    .run(run)
     .constant('SUGGESTION_TYPES', {
       address: 'Address',
       events: 'Event',
@@ -26,13 +24,6 @@
     $interpolateProvider.endSymbol(']}');
   }
 
-  function run($httpBackend, mockEvents, mockAddress) {
-    //passThrough for google api request
-    $httpBackend.whenGET(/^https:\/\/maps.googleapis.com\/maps\/api\//).passThrough();
-    $httpBackend.whenGET(/^scripts\/app\/templates\//).passThrough();
-    $httpBackend.whenGET(/^\/api\/search\/events/).passThrough();
-    $httpBackend.whenGET(/^\/api\/search\/spaces/).passThrough();
-  }
 
   function decorateDatePicker($provide) {
     $provide.decorator('daypickerDirective', function($delegate) {

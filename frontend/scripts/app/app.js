@@ -5,7 +5,8 @@
     .module('app', [
       'app.common',
       'app.result',
-      'app.search'
+      'app.search',
+      'app.dashboard'
     ])
     .config(config)
     .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY');

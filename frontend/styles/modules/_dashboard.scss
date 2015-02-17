@@ -102,3 +102,32 @@ $size-dashboard-icons: 5em;
 .dashboard {
   @extend %dashboard;
 }
+
+/******Favorite list*******/
+.favorite-list-container {
+  overflow: hidden;
+}
+
+.slide-left.ng-enter, .slide-left.ng-move {
+  -webkit-animation-delay: 1s;
+  @include animation(bounceInLeft 1s);
+}
+
+.slide-left.ng-leave {
+  @include animation(bounceOutRight 0s);
+}
+
+.slide-right.ng-enter,
+.slide-right.ng-move {
+  -webkit-animation-delay: 1s;
+  @include animation(bounceInRight 1s);
+}
+
+.slide-right.ng-leave {
+  @include animation(bounceOutLeft 0s);
+}
+
+/******* Booked Trip ********/
+.slick-dots li button:before {
+  font-size: 20px;
+}

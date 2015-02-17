@@ -53,11 +53,11 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       if(userId > 0) {
-        resolve([
-          createFavoriteMock(),
-          createFavoriteMock(),
-          createFavoriteMock()
-        ]);
+        var favorites = [];
+        for (var i = 0; i < 14; i++) {
+          favorites.push(createFavoriteMock());
+        }
+        resolve(favorites);
       }
       else {
         reject(new Error('Could not retrieve favorites.'));

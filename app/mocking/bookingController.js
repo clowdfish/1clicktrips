@@ -11,11 +11,11 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       if(userId > 0) {
-        resolve([
-          createBookingMock(),
-          createBookingMock(),
-          createBookingMock()
-        ]);
+        bookings = [];
+        for (var i = 0; i < 14; i++) {
+          bookings.push(createBookingMock(i));
+        }
+        resolve(bookings);
       }
       else {
         reject(new Error('Could not retrieve user profile.'));
@@ -53,10 +53,10 @@ module.exports = {
 // MOCKING OBJECT CREATORS ==================================================
 // ==========================================================================
 
-function createBookingMock() {
+function createBookingMock(number) {
   return {
     "id": 1,
-    "title": "3rd Phoenix World IT Conference",
+    "title": "3rd Phoenix World IT Conference " + number,
     "destination": "Double Tree by Hilton Metropolitan, New York, USA",
     "tags": [
       "test", "another", "bla"
