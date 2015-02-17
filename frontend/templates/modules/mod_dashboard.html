@@ -1,34 +1,43 @@
-<section class="dashboard container">
+<section class="dashboard container" ng-app='app.dashboard'>
+  <div ng-controller='dashboardCtrl'>
+    <div ng-controller='favoriteCtrl' ng-show='isLogin'>
 
-  <div class="view-container">
-    <h2>Why 1ClickTrips?</h2>
-
-    <div class="dashboard-info-box">
-      <h3>End-To-End trip management</h3>
-
-      <span class="dashboard-info-icon trip"></span>
-      <span class="dashboard-info-text">TEXT</span>
     </div>
 
-    <div class="dashboard-info-box">
-      <h3>Create a personal travel profile</h3>
+    <div ng-controller='upcomingTripCtrl' ng-show='isLogin'>
 
-      <span class="dashboard-info-icon plane"></span>
-      <span class="dashboard-info-text">TEXT</span>
     </div>
 
-    <div class="dashboard-info-box">
-      <h3>A trip matching your target date</h3>
+    <div class="view-container" ng-hide='isLogin'>
+      <h2>Why 1ClickTrips?</h2>
 
-      <span class="dashboard-info-icon calendar"></span>
-      <span class="dashboard-info-text">TEXT</span>
-    </div>
+      <div class="dashboard-info-box">
+        <h3>End-To-End trip management</h3>
 
-    <div class="dashboard-info-box">
-      <h3>Schedule your meetings with ease</h3>
+        <span class="dashboard-info-icon trip"></span>
+        <span class="dashboard-info-text">TEXT</span>
+      </div>
 
-      <span class="dashboard-info-icon suitcase"></span>
-      <span class="dashboard-info-text">TEXT</span>
+      <div class="dashboard-info-box">
+        <h3>Create a personal travel profile</h3>
+
+        <span class="dashboard-info-icon plane"></span>
+        <span class="dashboard-info-text">TEXT</span>
+      </div>
+
+      <div class="dashboard-info-box">
+        <h3>A trip matching your target date</h3>
+
+        <span class="dashboard-info-icon calendar"></span>
+        <span class="dashboard-info-text">TEXT</span>
+      </div>
+
+      <div class="dashboard-info-box">
+        <h3>Schedule your meetings with ease</h3>
+
+        <span class="dashboard-info-icon suitcase"></span>
+        <span class="dashboard-info-text">TEXT</span>
+      </div>
     </div>
   </div>
 </section>

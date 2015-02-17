@@ -8,7 +8,8 @@
       'ngMockE2E',
       'ui.bootstrap',
       'ui.bootstrap.tpls',
-      'app.search.timepicker'
+      'app.search.timepicker',
+      'pascalprecht.translate'
     ])
     .run(run)
     .constant('SUGGESTION_TYPES', {

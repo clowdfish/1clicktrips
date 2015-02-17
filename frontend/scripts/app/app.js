@@ -14,4 +14,8 @@
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
   }
+
+  function run($rootScope) {
+    $rootScope.T = T;
+  }
 })();
