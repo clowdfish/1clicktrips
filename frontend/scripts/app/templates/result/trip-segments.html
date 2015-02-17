@@ -29,7 +29,7 @@
             {[ $index + 1 ]}
           </span>
         </span>
-          <span class='trip-segments-day-item-col trip-segments-day-item-type'>{[ getImageByVehicleType(segment.type) ]}</span>
+          <span class='trip-segments-day-item-col trip-segments-day-item-type'><i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i></span>
         <span class='trip-segments-day-item-col trip-segments-day-item-description'>
           {[segment.name]}
           <a ng-click='showAlternativesPanel(segment)'>+View alternatives</a>

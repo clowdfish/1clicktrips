@@ -10,7 +10,7 @@
     <div class="trip-summary-item-title">Means of travel used</div>
     <div class="trip-summary-item-value">
       <span ng-repeat='type in itinerary.vehicleTypeList'>
-        <img src='/images/{[type]}'/>
+        <i class='fa {[ type | vehicleTypeToIcon ]}'></i>
       </span>
     </div>
   </li>
