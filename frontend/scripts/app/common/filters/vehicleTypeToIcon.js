@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.result')
+    .module('app.common')
     .filter('vehicleTypeToIcon', vehicleTypeToIcon);
 
   function vehicleTypeToIcon() {
