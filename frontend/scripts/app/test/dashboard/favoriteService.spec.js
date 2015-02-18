@@ -13,12 +13,11 @@ describe('favoriteService', function() {
     favoriteService = _favoriteService_;
     $q = _$q_;
 
-    spyOn(favoriteService, 'getFarvoriteList')
-      .and.callFake(function() {
-        var deferred = $q.defer();
-        deferred.resolve(_mockFavorites_);
-        return deferred.promise;
-      });
+    spyOn(favoriteService, 'getFarvoriteList').and.callFake(function() {
+      var deferred = $q.defer();
+      deferred.resolve(_mockFavorites_);
+      return deferred.promise;
+    });
 
   }));
 
