@@ -7,8 +7,7 @@
       'app.mockdata',
       'ui.bootstrap',
       'ui.bootstrap.tpls',
-      'app.search.timepicker',
-      'pascalprecht.translate'
+      'app.search.timepicker'
     ])
     .constant('SUGGESTION_TYPES', {
       address: 'Address',
