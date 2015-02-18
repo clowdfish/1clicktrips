@@ -166,7 +166,7 @@
   /*******************************************************/
   .result-summary {
     padding: 0.5em 0.8em;
-    background-color: #f6f6f6;
+    background-color: $c-grey;
 
     @include clearfix;
   }
@@ -296,6 +296,7 @@
 
   // Trip Segments Tab Control
   .trip-segments-day-tab {
+    margin-left: 1em; // mobile
     list-style: none;
 
     @include clearfix;
@@ -306,7 +307,7 @@
     padding: 0.35em 1.4em;
     border: 1px solid #e8e8e8;
     font-weight: 600;
-    background-color: #f7f7f7;
+    background-color: #fff; // mobile // normal: #f7f7f7;
     cursor: pointer;
   }
 
@@ -335,9 +336,10 @@
     display: table-cell;
     padding-top: 1em;
     padding-bottom: 1em;
+    padding-left: 0.2em;
 
     &:not(:last-child) {
-      padding-right: 0.6em;
+      padding-right: 0.3em;
     }
 
     &:not(:first-child) {
@@ -360,47 +362,100 @@
       vertical-align: middle;
       line-height: 1.8em;
       font-weight: 800;
-      font-size: $fs-smallest;
+      font-size: $fs-small;
     }
   }
 
   .trip-segments-day-item-type {
     color: $c-red;
+
+    .fa {
+      font-size: $fs-large;
+      margin: 0;
+    }
   }
 
   .trip-segments-day-item-description {
-    max-width: 15em;
+    max-width: 11em;
     font-size: $fs-small;
 
     a {
-      display: block;
-      color: $c-red;
-      font-size: $fs-smallest;
+      display: inline-block;
+      padding: 0.5em;
+      margin-top: 0.7em;
+      color: $c-blue;
+      background-color: $c-grey;
       cursor: pointer;
+    }
+
+    a, a:visited, a:active {
+      text-decoration: none;
     }
   }
 
   .trip-segments-day-item-timing {
     text-align: right;
+    font-size: $fs-small;
 
     .trip-segments-day-item-timing-time {
       display: block;
       color: $c-red;
-      font-size: $fs-small;
     }
 
     .trip-segments-day-item-timing-distance {
       display: block;
       color: $c-blue;
-      font-size: $fs-smallest;
     }
   }
 
   .trip-segments-day-item-close {
+    display: none;
+  }
 
-    a {
-      color: $c-text-dark-bg;
-      cursor: pointer;
+  @include respond-above("medium") {
+
+    .trip-segments-day-item-col {
+      padding-left: 0;
+
+      &:not(:last-child) {
+        padding-right: 0.6em;
+      }
+
+      &:not(:first-child) {
+        border-bottom: 1px solid #e8e8e8;
+      }
+    }
+
+    .trip-segments-day-item-number {
+      span {
+        font-size: $fs-smallest;
+      }
+    }
+
+    .trip-segments-day-item-description {
+      max-width: 15em;
+
+      a {
+        color: $c-red;
+        font-size: $fs-smallest;
+        padding: 0;
+        margin-top: 0;
+        background-color: transparent;
+      }
+    }
+
+    .trip-segments-day-item-timing-distance {
+      font-size: $fs-smallest;
+    }
+
+    .trip-segments-day-item-close {
+      display: none;
+      padding-right: 0.8em;
+
+      a {
+        color: $c-text-dark-bg;
+        cursor: pointer;
+      }
     }
   }
 
@@ -410,7 +465,6 @@
   .trip-segments-alternatives {
     display: inline-block;
     vertical-align: top;
-    margin-top: 3em;
     background-color: $c-dark;
     color: white;
     padding: 0.6em;
@@ -426,6 +480,7 @@
   .alternatives-container-close {
     cursor: pointer;
     float: right;
+    color: #fff;
   }
 
   .hotels-list {
@@ -442,6 +497,7 @@
 
   .hotels-list-item-info {
     display: inline-block;
+    width: 50%;
   }
 
   .hotels-list-item-title {
@@ -450,7 +506,8 @@
   }
 
   .hotels-list-item-image {
-    width: 8em;
+    width: 50%;
+    max-width: 8em;
     vertical-align: top;
     margin-right: 0.6em;
   }
@@ -463,6 +520,7 @@
   }
 
   .hotels-list-item-distance {
+    display: block;
     font-size: $fs-smallest;
 
     @include clearfix;
@@ -470,10 +528,29 @@
 
   .hotels-list-item-price {
     display: inline-block;
-    margin-right: 1em;
     margin-top: 0.6em;
     font-size: $fs-larger;
     font-weight: 600;
+  }
+
+  .hotels-list-item-select {
+    float: right;
+    margin-right: 0.5em;
+  }
+
+  @include respond-above("medium") {
+
+    .trip-segments-alternatives {
+      margin-top: 3em;
+    }
+
+    .hotels-list-item-image {
+      width: 8em;
+    }
+
+    .hotels-list-item-distance {
+      display: inline;
+    }
   }
 
   /*******************************************************/

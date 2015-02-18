@@ -8,9 +8,18 @@
     var itineraries = null;
     $scope.itinerary = null;
 
+
+    // non-mobile setup (uncomment to activate)
     $scope.showMap = true;
     $scope.showList = true;
     $scope.isMobile = false;
+
+    /*
+    // mobile setup (uncomment to activate)
+    $scope.showMap = false;
+    $scope.showList = true;
+    $scope.isMobile = true;
+    */
 
     $scope.findTrip = findTrip;
     $scope.findTripByBudget = findTripByBudget;

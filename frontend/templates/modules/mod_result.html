@@ -47,7 +47,7 @@
       <!-- NON-MOBILE VERSION -->
       <!------------------------>
 
-      <div class="result-view view-container" ng-if="true">
+      <div class="result-view view-container" ng-if="!isMobile">
 
         <!-- RESULT HEADER -->
         <div class="result-header">
@@ -83,7 +83,7 @@
       <!-------------------->
 
       <!-- MAP VIEW -->
-      <div class="result-view view-container" ng-if="false && showMap == true">
+      <div class="result-view view-container" ng-if="isMobile && showMap == true">
 
         <!-- RESULT HEADER -->
         <div class="result-header">
@@ -119,7 +119,7 @@
       </div>
 
       <!-- LIST VIEW -->
-      <div class="result-view view-container" ng-if="false && showList == true">
+      <div class="result-view view-container" ng-if="isMobile && showList == true">
 
         <!-- RESULT HEADER -->
         <div class="result-header result-header-table">
