@@ -65,7 +65,6 @@ a, a:hover {
   //text-decoration: none;
 }
 
-
 // font classes
 span.bold {
   font-weight: 800;
@@ -73,4 +72,8 @@ span.bold {
 
 span.light {
   font-weight: 300;
+}
+
+.fs-smallest {
+  font-size: $fs-smallest;
 }

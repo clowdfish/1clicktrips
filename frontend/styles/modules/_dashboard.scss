@@ -7,7 +7,6 @@ $size-dashboard-icons: 5em;
   .view-container {
     @include span(6);
     padding: 2em 0;
-    box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.3);
 
     h1 {
       display: block;
@@ -87,10 +86,6 @@ $size-dashboard-icons: 5em;
   }
 
   @include respond-above("medium") {
-
-    .view-container {
-      box-shadow: 0 55px 40px -50px rgba(0,0,0,0.3);
-    }
 
     .dashboard-info-box {
       @include span(2 of 4);

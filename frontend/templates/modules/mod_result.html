@@ -2,22 +2,26 @@
   <div ng-controller='resultCtrl'>
     <section class="result-type wrapper">
 
+      <!-- RESULT TYPE -->
       <div class="result-type-selection">
         <ul class="result-type-list">
           <li class="result-type-item active" ng-click="findTripByBudget()">
             <div class="result-type-item-circle budget">
+              <i class="fa fa-dollar"></i>
               <span class="result-type-item-active-indicator"></span>
             </div>
             Low Budget Trip
           </li>
           <li class="result-type-item" ng-click="findTripByTime()">
             <div class="result-type-item-circle time">
+              <i class="fa fa-clock-o"></i>
               <span class="result-type-item-active-indicator"></span>
             </div>
             Time Saving Trip
           </li>
           <li class="result-type-item" ng-click="findTripByComfort()">
             <div class="result-type-item-circle comfort">
+              <i class="fa fa-diamond"></i>
               <span class="result-type-item-active-indicator"></span>
             </div>
             Comfort Trip
@@ -25,44 +29,130 @@
         </ul>
         <span class="result-type-back-button"><i class="fa fa-chevron-left"></i></span>
       </div>
-      <div class="result-description">
-        <span class="result-description-favorite">+ Add to favorites</span>
+
+      <!-- RESULT TYPE DESCRIPTION -->
+      <div class="result-description" ng-class="{ folded: showList && isMobile }">
+        <span class="result-description-favorite">
+          <i class="fa fa-heart"></i>
+          <span>+ Add to favorites</span>
+        </span>
         <h1>The Cheapest Trip</h1>
         <p>Text description</p>
       </div>
-
     </section>
 
-    <section class="result container">
+    <section class="result wrapper">
 
-      <div class="result-view view-container">
+      <!------------------------>
+      <!-- NON-MOBILE VERSION -->
+      <!------------------------>
 
-        <div class="trip-header">
+      <div class="result-view view-container" ng-if="true">
+
+        <!-- RESULT HEADER -->
+        <div class="result-header">
           <span class="fs-smallest">Your destination</span>
-          <h2 class="trip-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
+          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
           <a class='change-location-link fs-smallest' ng-click="changeLocationAndDate()">+ Change location & date</a>
           <div class='fs-smallest'>
             From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
           </div>
         </div>
 
-        <div class="trip-summary">
+        <!-- RESULT SUMMARY -->
+        <div class="result-summary">
           <trip-summary itinerary="itinerary"></trip-summary>
         </div>
 
-        <div class="trip-overview ">
-          <itinerary-map itinerary="itinerary" show-map="showMap"></itinerary-map>
+        <!-- RESULT MAP AND RESULT LIST -->
+        <div class="result-overview ">
+          <itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>
         </div>
 
-        <div class="trip-footer">
-          <div class="trip-footer-summary">TRIP FOOTER SUMMARY</div>
-          <div class="trip-footer-action">
+        <!-- RESULT FOOTER -->
+        <div class="result-footer">
+          <div class="result-footer-summary">TRIP FOOTER SUMMARY</div>
+          <div class="result-footer-action">
             <a href="#" class="button">Purchase Trip</a>
           </div>
         </div>
       </div>
 
+      <!-------------------->
+      <!-- MOBILE VERSION -->
+      <!-------------------->
+
+      <!-- MAP VIEW -->
+      <div class="result-view view-container" ng-if="false && showMap == true">
+
+        <!-- RESULT HEADER -->
+        <div class="result-header">
+          <span class="result-header-destination">Your destination</span>
+          <span class="result-header-timing">
+            From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
+          </span>
+          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
+        </div>
+
+        <div class="result-overview">
+
+          <!-- RESULT SUMMARY -->
+          <div class="result-summary-button">
+            <div class="result-summary-button-details">
+              <div class="result-summary-button-details-time">
+                <span>Total Travel Time</span>
+                <span>{[itinerary.duration | durationToTime:"%h hrs %m mins"]}</span>
+              </div>
+              <div class="result-summary-button-details-cost">
+                <span>Total Cost</span>
+                <span>{[itinerary.cost]}</span>
+              </div>
+            </div>
+            <div class="result-summary-button-list-link" ng-click="showListView()">
+              <i class="fa fa-angle-right"></i>
+            </div>
+          </div>
+
+          <!-- RESULT MAP AND RESULT LIST -->
+          <itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>
+        </div>
+      </div>
+
+      <!-- LIST VIEW -->
+      <div class="result-view view-container" ng-if="false && showList == true">
+
+        <!-- RESULT HEADER -->
+        <div class="result-header result-header-table">
+          <div class="result-header-col">
+             <span class="result-header-back-link" ng-click="showMapView()">
+            <i class="fa fa-angle-left"></i>
+          </span>
+          </div>
+          <div class="result-header-col">
+            <span class="result-header-destination">Your destination</span>
+            <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
+          </div>
+        </div>
+
+        <!-- RESULT SUMMARY -->
+        <div class="result-summary">
+          <trip-summary itinerary="itinerary"></trip-summary>
+        </div>
+
+        <!-- RESULT MAP AND RESULT LIST -->
+        <itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>
+
+        <!-- RESULT FOOTER -->
+        <div class="result-footer">
+          <div class="result-footer-action">
+            <span class="result-footer-price">
+              <span>Total Cost</span>
+              <span>{[itinerary.cost]}</span>
+            </span>
+            <a class="button"><i class="fa fa-check-circle-o"></i>PURCHASE</a>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </div>
-

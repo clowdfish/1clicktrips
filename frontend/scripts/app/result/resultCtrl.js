@@ -7,12 +7,18 @@
   function resultCtrl($scope, $q, tripService, TRIP_TYPE) {
     var itineraries = null;
     $scope.itinerary = null;
+
     $scope.showMap = true;
+    $scope.showList = true;
+    $scope.isMobile = false;
 
     $scope.findTrip = findTrip;
     $scope.findTripByBudget = findTripByBudget;
     $scope.findTripByTime = findTripByTime;
     $scope.findTripByComfort =  findTripByComfort;
+
+    $scope.showListView = showList;
+    $scope.showMapView = showMap;
 
     $scope.findTrip().then(function(){
       $scope.findTripByBudget();
@@ -66,6 +72,16 @@
         }
       }
       return null;
+    }
+
+    function showList() {
+      $scope.showMap = false;
+      $scope.showList = true;
+    }
+
+    function showMap() {
+      $scope.showMap = true;
+      $scope.showList = false;
     }
   }
 })();

@@ -13,7 +13,7 @@
         itinerary: '='
       },
       link: link
-    }
+    };
 
     function link(scope, element, attrs) {
 
