@@ -5,21 +5,21 @@
       <!-- RESULT TYPE -->
       <div class="result-type-selection">
         <ul class="result-type-list">
-          <li class="result-type-item active" ng-click="findTripByBudget()">
+          <li class="result-type-item" ng-class="{active: activeTrip == 0}" ng-click="findTripByBudget()">
             <div class="result-type-item-circle budget">
               <i class="fa fa-dollar"></i>
               <span class="result-type-item-active-indicator"></span>
             </div>
             Low Budget Trip
           </li>
-          <li class="result-type-item" ng-click="findTripByTime()">
+          <li class="result-type-item" ng-class="{active: activeTrip == 1}" ng-click="findTripByTime()" ng-hide="itineraries.length<2">
             <div class="result-type-item-circle time">
               <i class="fa fa-clock-o"></i>
               <span class="result-type-item-active-indicator"></span>
             </div>
             Time Saving Trip
           </li>
-          <li class="result-type-item" ng-click="findTripByComfort()">
+          <li class="result-type-item" ng-class="{active: activeTrip == 2}" ng-click="findTripByComfort()" ng-hide="itineraries.length<3">
             <div class="result-type-item-circle comfort">
               <i class="fa fa-diamond"></i>
               <span class="result-type-item-active-indicator"></span>
@@ -36,8 +36,18 @@
           <i class="fa fa-heart"></i>
           <span>+ Add to favorites</span>
         </span>
-        <h1>The Cheapest Trip</h1>
-        <p>Text description</p>
+        <div ng-if="activeTrip == 0">
+          <h1>Low Budget Trip</h1>
+          <p>Text description</p>
+        </div>
+        <div ng-if="activeTrip == 1">
+          <h1>Time Saving Trip</h1>
+          <p>Text description</p>
+        </div>
+        <div ng-if="activeTrip == 2">
+          <h1>Comfort Trip</h1>
+          <p>Text description</p>
+        </div>
       </div>
     </section>
 
@@ -62,7 +72,7 @@
         <!-- RESULT HEADER -->
         <div class="result-header">
           <span class="result-header-destination">Your destination</span>
-          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
+          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
           <a class='change-location-link' ng-click="refineSearch()">+ Change location & date</a>
           <div class='result-header-timing'>
             From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>

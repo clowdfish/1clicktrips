@@ -1,9 +1,9 @@
 #!/bin/bash
 
 deployment_profile=$1
-base_directory="~/server/dev"
+base_directory="~/1clicktrips"
 user="sascha"
-domain="dev.efexcon.com"
+domain="192.168.178.100"
 
 if [ $# -eq 1 ] ; then
 	if [ "$deployment_profile" == "dev" ] ; then

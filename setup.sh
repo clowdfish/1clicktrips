@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # script is executed from the home directory of the given user
-cd server/dev
+cd 1clicktrips
 
 if [ ! -f ./package.json ] ; then
 	echo 'No package.json found.'		
