@@ -7,6 +7,11 @@
   function resultCtrl($scope, $q, tripService, TRIP_TYPE) {
     var itineraries = null;
     $scope.itinerary = null;
+    $scope.notifications = [
+      {
+        "message" : "test",
+        "action" : null
+      }];
 
 
     // non-mobile setup (uncomment to activate)
@@ -25,6 +30,11 @@
     $scope.findTripByBudget = findTripByBudget;
     $scope.findTripByTime = findTripByTime;
     $scope.findTripByComfort =  findTripByComfort;
+
+    $scope.refineSearch = refineSearch;
+
+    $scope.deleteNotification = deleteNotification;
+    $scope.acceptNotification = acceptNotification;
 
     $scope.showListView = showList;
     $scope.showMapView = showMap;
@@ -74,6 +84,15 @@
       $scope.itinerary = filterItinerary(TRIP_TYPE.comfortTrip);
     }
 
+    /**
+     * @todo implement
+     */
+    function refineSearch() {
+
+      // temporary hack
+      window.location = "./";
+    }
+
     function filterItinerary(type) {
       for (var i = 0; i < $scope.itineraries.length; i++) {
         if ($scope.itineraries[i].type == type) {
@@ -91,6 +110,34 @@
     function showMap() {
       $scope.showMap = true;
       $scope.showList = false;
+    }
+
+
+    // notification functionality
+
+    /**
+     * Delete the currently presented notification.
+     *
+     * @param {integer} item - position of notification in notification array
+     */
+    function deleteNotification(item) {
+      item = typeof item !== 'undefined' ? item : 0;
+
+      $scope.notifications.splice(item, 1);
+    }
+
+    /**
+     * Accept the currently presented notification and execute action that is
+     * defined in the the notification object.
+     *
+     * @param {integer} item - position of notification in notification array
+     */
+    function acceptNotification(item) {
+      item = typeof item !== 'undefined' ? item : 0;
+
+      // TODO execute action ...
+
+      $scope.notifications.splice(item, 1);
     }
   }
 })();

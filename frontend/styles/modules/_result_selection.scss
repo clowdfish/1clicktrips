@@ -128,7 +128,7 @@
 
       height:  $nav-container-height;
       margin-top: 5em;
-      background-color: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.7);
     }
 
     .result-type-back-button {
@@ -137,6 +137,7 @@
       height: $nav-circle-diameter/1.9;
       background-color: $c-dark;
       border-radius: $nav-circle-diameter/3.8;
+      border: 2px solid #fff;
       cursor: pointer;
 
       /* positioning the text */

@@ -5,6 +5,36 @@
   }
 
   /*******************************************************/
+  /* Result Notification                                 */
+  /*******************************************************/
+  .result-notification {
+    width: 97%;
+    margin: 1em auto 0;
+    padding: .5em 1em;
+    background-color: $c-yellow;
+    border-radius: 3px;
+    border: 1px solid darken($c-grey, 5%);
+
+    .fa {
+      opacity: 0.4;
+    }
+  }
+
+  .result-notification-message {
+    margin: 0 1em;
+    opacity: 0.5;
+    font-size: $fs-small;
+  }
+
+  .result-notification-action {
+    float: right;
+
+    .fa {
+      cursor: pointer;
+    }
+  }
+
+  /*******************************************************/
   /* Result Header                                       */
   /*******************************************************/
   .result-header {
@@ -41,6 +71,7 @@
 
   .change-location-link {
     display: inline;
+    font-size: $fs-smallest;
     color: $c-red;
     cursor: pointer;
   }
@@ -78,8 +109,21 @@
 
   @include respond-above("medium") {
 
+    .result-header {
+      padding: 1em;
+    }
+
+    .result-header-destination {
+      float: none;
+    }
+
     .result-header-title {
-      margin: 0.8em 1.2em 0 0;
+      margin: 0.2em 1em 0.2em 0;
+      float: none;
+    }
+
+    .result-header-timing {
+      float: none;
     }
   }
 
@@ -159,6 +203,9 @@
 
   @include respond-above("medium") {
 
+    .result-summary-button {
+      display: none;
+    }
   }
 
   /*******************************************************/
@@ -201,7 +248,8 @@
 
   @include respond-above("medium") {
     .result-summary {
-      padding: 1em;
+      padding: 0 1em;
+      background-color: $c-content-bg;
     }
 
     .trip-summary-item {
@@ -213,6 +261,10 @@
       display: block;
       font-size: $fs-smallest;
       font-weight: 400;
+    }
+
+    .trip-summary-item.cost {
+      display: block;
     }
   }
 
@@ -296,7 +348,7 @@
 
   // Trip Segments Tab Control
   .trip-segments-day-tab {
-    margin-left: 1em; // mobile
+    margin-left: 1em;
     list-style: none;
 
     @include clearfix;
@@ -414,6 +466,26 @@
 
   @include respond-above("medium") {
 
+    .trip-segments-header {
+      padding: .5em .5em 0 .5em;
+    }
+
+    .trip-segments-title {
+      margin-bottom: 0.5em;
+    }
+
+    .trip-segments-day-tab {
+      margin-left: 0;
+    }
+
+    .trip-segments-day-tab-item {
+      margin-bottom: -1px;
+    }
+
+    .trip-segments-day-tab-item {
+      background-color:#f7f7f7;
+    }
+
     .trip-segments-day-item-col {
       padding-left: 0;
 
@@ -436,8 +508,9 @@
       max-width: 15em;
 
       a {
-        color: $c-red;
-        font-size: $fs-smallest;
+        display: block;
+        color: $c-blue;
+        font-size: $fs-smaller;
         padding: 0;
         margin-top: 0;
         background-color: transparent;
@@ -445,12 +518,11 @@
     }
 
     .trip-segments-day-item-timing-distance {
-      font-size: $fs-smallest;
+      font-size: $fs-smaller;
     }
 
     .trip-segments-day-item-close {
-      display: none;
-      padding-right: 0.8em;
+      display: table-cell;
 
       a {
         color: $c-text-dark-bg;
@@ -551,6 +623,15 @@
     .hotels-list-item-distance {
       display: inline;
     }
+
+    .hotels-list-item-price {
+      display: block;
+      float: none;
+    }
+
+    .hotels-list-item-select {
+      float: none;
+    }
   }
 
   /*******************************************************/
@@ -604,7 +685,7 @@
     .result-footer-action {
 
       a {
-        margin: 1.5em 0;
+        margin: 1.5em;
       }
     }
   }

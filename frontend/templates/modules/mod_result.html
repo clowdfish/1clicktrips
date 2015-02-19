@@ -27,7 +27,7 @@
             Comfort Trip
           </li>
         </ul>
-        <span class="result-type-back-button"><i class="fa fa-chevron-left"></i></span>
+        <span class="result-type-back-button" ng-click="refineSearch()"><i class="fa fa-chevron-left"></i></span>
       </div>
 
       <!-- RESULT TYPE DESCRIPTION -->
@@ -49,12 +49,22 @@
 
       <div class="result-view view-container" ng-if="!isMobile">
 
+        <!-- NOTIFICATION AREA -->
+        <div class="result-notification" ng-if="notifications.length>0">
+          <i class="fa fa-exclamation-triangle"></i>
+          <span class="result-notification-message">{[ notifications[0].message ]}</span>
+          <span class="result-notification-action">
+            <i class="fa fa-check-circle-o" ng-click="acceptNotification()"></i>
+            <i class="fa fa-times-circle-o" ng-click="deleteNotification()"></i>
+          </span>
+        </div>
+
         <!-- RESULT HEADER -->
         <div class="result-header">
-          <span class="fs-smallest">Your destination</span>
+          <span class="result-header-destination">Your destination</span>
           <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
-          <a class='change-location-link fs-smallest' ng-click="changeLocationAndDate()">+ Change location & date</a>
-          <div class='fs-smallest'>
+          <a class='change-location-link' ng-click="refineSearch()">+ Change location & date</a>
+          <div class='result-header-timing'>
             From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
           </div>
         </div>
@@ -73,7 +83,7 @@
         <div class="result-footer">
           <div class="result-footer-summary">TRIP FOOTER SUMMARY</div>
           <div class="result-footer-action">
-            <a href="#" class="button">Purchase Trip</a>
+            <a href="#" class="button"><i class="fa fa-check-circle-o"></i>PURCHASE TRIP</a>
           </div>
         </div>
       </div>
@@ -84,6 +94,16 @@
 
       <!-- MAP VIEW -->
       <div class="result-view view-container" ng-if="isMobile && showMap == true">
+
+        <!-- NOTIFICATION AREA -->
+        <div class="result-notification" ng-if="notifications.length>0">
+          <i class="fa fa-exclamation-triangle"></i>
+          <span class="result-notification-message">{[ notifications[0].message ]}</span>
+          <span class="result-notification-action">
+            <i class="fa fa-check-circle-o" ng-click="acceptNotification()"></i>
+            <i class="fa fa-times-circle-o" ng-click="deleteNotification()"></i>
+          </span>
+        </div>
 
         <!-- RESULT HEADER -->
         <div class="result-header">
