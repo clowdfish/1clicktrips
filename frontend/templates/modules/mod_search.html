@@ -88,7 +88,7 @@
                     close-text="Close"
                     ng-click="openStartDatePicker($event)"
                     readonly />
-            <i class="fa fa-calendar"></i>
+            <i class="fa fa-calendar" ng-click="openStartDatePicker($event)"></i>
           </div>
           <div class='popup-date-picker-container time'>
             <input
@@ -103,7 +103,7 @@
                     placeholder="Start time"
                     ng-click="openStartTimePicker($event)"
                     readonly />
-            <i class="fa fa-clock-o"></i>
+            <i class="fa fa-clock-o" ng-click="openStartTimePicker($event)"></i>
           </div>
         </div>
         <div class='search-form-timing-container end'>
@@ -123,7 +123,7 @@
                     close-text="Close"
                     ng-click="openEndDatePicker($event)"
                     readonly />
-            <i class="fa fa-calendar"></i>
+            <i class="fa fa-calendar" ng-click="openEndDatePicker($event)"></i>
           </div>
           <div class='popup-date-picker-container time'>
             <input
@@ -138,7 +138,7 @@
                     placeholder="End time"
                     ng-click="openEndTimePicker($event)"
                     readonly />
-            <i class="fa fa-clock-o"></i>
+            <i class="fa fa-clock-o" ng-click="openEndTimePicker($event)"></i>
           </div>
         </div>
 
