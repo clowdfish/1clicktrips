@@ -1,5 +1,5 @@
 <div class='booked-trips-container'>
-  <slick dots=true arrows=false slides-to-show="{{itemPerPage}}" slides-to-scroll="{{itemPerPage}}">
+  <slick init-on-load=true data='listItems' dots=true arrows=false slides-to-show="{{itemPerPage}}" slides-to-scroll="{{itemPerPage}}">
     <div class='booked-trip-item' ng-repeat='item in listItems'>
       {[item.title]}
     </div>

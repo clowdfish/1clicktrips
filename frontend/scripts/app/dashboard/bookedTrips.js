@@ -15,16 +15,17 @@
     }
 
     function link(scope, elements, attrs) {
+      initialize();
 
       scope.$watch('listItems', function() {
         initialize();
       });
 
       function initialize() {
+        console.log('Initialize booked trips directive');
         if (scope.listItems.length == 0) {
           return;
         }
-        console.log(scope.listItems, scope.itemPerPage);
         scope.currentPage = 1;
         scope.itemPerPage = parseInt(scope.itemPerPage);
         scope.totalPage = Math.round(scope.listItems.length / scope.itemPerPage);

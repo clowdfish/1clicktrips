@@ -2,17 +2,25 @@
   'use strict';
   angular
     .module('app.result', [
-      'app.mockdata'
+      'ui.router'
     ])
-    .config(config)
+    .config(interpolateConfig)
+    .config(uiRouterConfig)
     .constant('TRIP_TYPE', {
       lowBudget: 0,
       timeSaving: 1,
       comfortTrip: 2
     });
 
-  function config($interpolateProvider) {
+  function interpolateConfig($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
+  }
+
+  function uiRouterConfig($stateProvider, $urlRouterProvider) {
+      $stateProvider.state('result', {
+        url: '/result',
+        templateUrl: 'scripts/app/templates/result/result.html'
+      })
   }
 })();

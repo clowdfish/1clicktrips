@@ -1,9 +1,9 @@
 <div ng-app='app.search'>
   <section class="search wrapper" ng-controller='searchCtrl'>
     <div class="search-steps">
-      <!----------------------->
+      <!--------------------- -->
       <!-- SEARCH NAVIGATION -->
-      <!----------------------->
+      <!--------------------- -->
       <ul class="search-step-list">
         <li class="search-step" ng-class="{active: step == 1, done: destinationAddress != null}" ng-click='step1()'>
           <div class="search-step-circle location">
@@ -30,9 +30,9 @@
     </div>
 
     <div class="search-form-container">
-      <!----------------------->
-      <!-- DESTINATION FORM -------->
-      <!----------------------->
+      <!--------------------- -->
+      <!-- DESTINATION FORM ------ -->
+      <!--------------------- -->
       <form name='searchForm' class="search-form" ng-show='step == 1'>
         <h2>{{ T.search.form.destination.label }}</h2>
 
@@ -65,9 +65,9 @@
         <a ng-click="step2()" class="button--dark" ng-class="{ 'is-disabled': destinationAddress == null }">{{ T.search.form.control.next }}</a>
       </form>
 
-      <!----------------------->
-      <!-- SCHEDULE FORM ------>
-      <!----------------------->
+      <!--------------------- -->
+      <!-- SCHEDULE FORM ---- -->
+      <!--------------------- -->
       <form name='scheduleForm' class='search-form' ng-show='step == 2'>
         <h2>{{ T.search.form.time }}</h2>
 
@@ -150,9 +150,9 @@
         <a ng-click="step3()" class="button--dark" ng-class="{ 'is-disabled': startDate == null || startTime == null || endTime == null }">{{ T.search.form.control.next }}</a>
       </form>
 
-      <!----------------------->
-      <!-- ORIGIN FORM -------->
-      <!----------------------->
+      <!--------------------- -->
+      <!-- ORIGIN FORM ------ -->
+      <!--------------------- -->
       <form name='searchForm' class="search-form" ng-show='step == 3'>
         <h2>{{ T.search.form.origin }}</h2>
 

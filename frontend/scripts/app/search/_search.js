@@ -7,7 +7,8 @@
       'app.mockdata',
       'ui.bootstrap',
       'ui.bootstrap.tpls',
-      'app.search.timepicker'
+      'app.search.timepicker',
+      'ui.router'
     ])
     .constant('SUGGESTION_TYPES', {
       address: 'Address',
@@ -16,7 +17,8 @@
     })
     .config(decorateDatePicker)
     .config(decoratePopupDatePicker)
-    .config(interpolateConfig);
+    .config(interpolateConfig)
+    .config(uiRouterConfig);
 
   function interpolateConfig($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
@@ -37,6 +39,14 @@
       var directive = $delegate[0];
       directive.templateUrl = 'scripts/app/templates/search/datepicker/popup.html';
       return $delegate;
+    });
+  }
+
+  function uiRouterConfig($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stateProvider.state('search', {
+      url: '/',
+      templateUrl: 'scripts/app/templates/search/search.html'
     });
   }
 

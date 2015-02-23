@@ -17,7 +17,8 @@ describe('bookingService', function() {
       var deferred = $q.defer();
       deferred.resolve(_mockBooking_);
       return deferred.promise;
-    })
+    });
+
   }));
 
   it('get booked trip and return data', function() {

@@ -27,6 +27,7 @@
       $scope.showAlternativesPanel = showAlternativesPanel;
 
       this.changeActiveSegmentsOnMap = changeActiveSegmentsOnMap;
+
       function changeActiveSegmentsOnMap(segments)
       {
         $scope.activeSegmentsOnMap = segments;

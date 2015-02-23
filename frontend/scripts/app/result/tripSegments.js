@@ -20,12 +20,17 @@
       scope.activeSegments = [];
       scope.showTab = showTab;
 
-      if (scope.itinerary != null) {
+      scope.$watch('itinerary', function() {
+        if (scope.itinerary == null) {
+          return;
+        }
         scope.segments = groupSegmentByDate(scope.itinerary);
         scope.segmentsHeaders = _.keys(scope.segments);
         scope.activeSegments = scope.segments[1];
         itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
-      }
+      });
+
+
 
       function groupSegmentByDate(itinerary) {
         var i = 0;
