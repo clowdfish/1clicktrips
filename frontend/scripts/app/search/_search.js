@@ -44,9 +44,9 @@
 
   function uiRouterConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
-    $stateProvider.state('search', {
+    $stateProvider.state('home', {
       url: '/',
-      templateUrl: 'scripts/app/templates/search/search.html'
+      templateUrl: 'scripts/app/templates/search/home.html'
     });
   }
 

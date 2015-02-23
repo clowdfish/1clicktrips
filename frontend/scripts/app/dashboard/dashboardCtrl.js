@@ -4,7 +4,7 @@
     .controller('dashboardCtrl', dashboardCtrl);
 
   function dashboardCtrl($scope, favoriteService, bookingService) {
-    $scope.isLogin = false; //true;
+    $scope.isLogin = true; //true;
     $scope.favoriteList = [];
     $scope.bookedTripList = [];
 

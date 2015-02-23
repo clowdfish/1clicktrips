@@ -7,7 +7,7 @@
     .controller('searchCtrl', searchCtrl);
 
 
-  function searchCtrl($scope, SUGGESTION_TYPES, suggestionAdapter, $document) {
+  function searchCtrl($scope, SUGGESTION_TYPES, suggestionAdapter, $document, $translate) {
 
     //Trip destination
     $scope.destination = null;

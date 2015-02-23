@@ -27,6 +27,7 @@ module.exports = function(config) {
       'bower_components/lodash/lodash.js',
       'bower_components/slick.js/slick/slick.min.js',
       'bower_components/angular-slick/dist/slick.min.js',
+      'bower_components/use-angular-translate/src/**/*.js',
       'scripts/**/*.js',
       'scripts/**/*.spec.js',
       'scripts/**/*.html',
