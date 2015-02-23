@@ -17,6 +17,7 @@ describe('tripSummary', function() {
     itinerary = mockItinerary;
     scope = _$rootScope_.$new();
     scope.itinerary = itinerary[0];
+    console.log(scope.itinerary);
     $compile = _$compile_;
 
     element = angular.element('<trip-summary itinerary="itinerary"></trip-summary>');

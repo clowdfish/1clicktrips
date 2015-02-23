@@ -29,7 +29,8 @@ describe('itineraryMap directive', function() {
     mockItinerary = _mockItinerary_;
     scope.itinerary = mockItinerary[0];
     scope.showMap = false; //show map will cause error
-    element = angular.element('<itinerary-map itinerary="itinerary" show-map="showMap"></itinerary-map>');
+    scope.showList = true;
+    element = angular.element('<itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>');
     compiledDirective = _$compile_(element)(scope);
     scope.$digest();
     directiveScope = element.isolateScope();

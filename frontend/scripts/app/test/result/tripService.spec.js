@@ -9,7 +9,7 @@ describe('tripService', function() {
       $q;
 
   beforeEach(module('app.result'));
-
+  beforeEach(module('app.mockdata'));
   beforeEach(inject(function(_tripService_,
                             _$rootScope_,
                             mockItinerary,
@@ -23,7 +23,7 @@ describe('tripService', function() {
 
     spyOn(tripService, 'callSearchItineraryApi').and.callFake(function(){
       var deferred = $q.defer();
-      deferred.resolve(itinerary);
+      deferred.resolve(itinerary[0]);
       return deferred.promise;
     })
   }));
