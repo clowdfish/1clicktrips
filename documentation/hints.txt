@@ -1,0 +1,101 @@
+Here are the basic design flaws I have seen at a few of the start-ups I have worked for.
+
+Flaw #1: failure to instrument
+
+You need to start logging and reporting on "what's happening" early on. It needs to be baked into the system. 
+
+If your product has a "User Profile" page, you should have a ready report on how often that page was visited and how long it took to load, how many queries were involved (to cache and db). In fact, you should have that for basically every page in the system. If you have a "single-page" app, you should have it for every AJAX call to the server.
+
+You should be able to count the number of calls to any given public method or API end-point. You should be able to graph this stuff over time.
+
+This should be baked into the system. It should happen with minimal developer intervention. It should just work.
+
+The same logic applies to servers. Take a look at Nagios/Cacti/Munin/Zabbix or something hosted like ServerDensity (pick one). Regardless of which one you choose, it should be running on every server you deploy. Make it part of your default VM image. Put it on your production box and your Dev boxes.
+
+Make this server health stuff visible to your developers. They will be the cause of most of the issues, they need access to debug this stuff.
+
+Flaw #2: failure to exception log
+
+You will get exceptions, they will not always be evident to users of the app. They need to be logged to the box on which they happen and a centralized store. 
+
+You need a centralized store.
+
+Any non-trivial system will soon have multiple boxes that will all be logging exceptions. It's way too time consuming logging into multiple boxes hunting for logs.
+
+Flaw #3: no change history on data
+
+Most modern data systems have two types of data: core data & transactional data. (think Users vs. User actions)
+
+In such systems, the footprint of the core data is generally small. But changes to that core data tend to have a far-reaching impact.
+
+You should add hooks to your core data that tracks any and all changes automatically. So if I update my User Profile Name, the old name should be logged to some form of UserProfileHistory table.
+
+This is really easy to bake in (especially with relational databases), but a pain to add later. 
+
+Additionally, every core data object should have CreatedDate and ModifiedDate fields. These should "just work" within whatever ORM / data mapping tool you have. Developers should not have to code for this, they should have to take extra steps to remove this data.
+
+Failure to have this data will bite you if you don't have it. It's free once you bake it in. It's expensive later.
+
+Flaw #4: failure to consider deletes
+
+Most core data can never be physically deleted, so you need to write in logical deletes from the beginning. This means identifying data that requires logical deletes and clarifying the related data that also gets logically deleted.
+
+I have seen a lot of "first draft" code with zero delete support. People just don't think about deletes early on.
+
+Don't be caught in this trap. Identify delete cases early on and ensure that your framework supports logical deletions out of the box. This can be as simple as the existence of an "IsDeleted" column in the data store / data object.
+
+In any case, it should be immediately obvious from the code that an object is physical or logical delete. It should be immediately obvious from the code how this delete "cascades" to other related tables.
+
+Flaw #4a: failure to consider deletes part 2
+
+Your system will probably have a bunch of transactional data. (like your exceptions logs from #2). Certain classes of transactional data will have limited life spans.
+
+Identify these early and plan for these deletions. Remember that normal deletions in a DB carry the same cost as inserts. So every piece of transactional data that you plan to delete will effectively be "written twice".
+
+Most DBs have a way around this, some form of "truncate table", but it generally only works if you actually plan for it in advance.
+
+Plan for it.
+
+Interlude: But this isn't scaling?
+
+If you look at the suggestions above, none of them seem to really address "scaling" directly. These seem like just "good practices". Honestly, most scaling is centered around "good practices".
+
+If you ignore the practices above, you will hit a # of servers and suddenly realize how important it would be to have these in place. In many cases, lack of the above practices will completely hamstring your ability to debug a scaling problem. You will end up retro-fitting this stuff late at night just to figure out where the bottleneck is.
+
+Flaw #5: Poor deployment process
+
+Deploying your system should be easy. It should be a one or two-step process, every developer and ops person should know how to do it.
+
+You should also be able to deploy "new environments" quickly. I should be able to get the latest code, tweak some configs and deploy a working system to bunch of VMs running locally.
+
+If you're running "in the cloud", you should have processes to add "workers" to the system. If you need a new web server, you should have a "push-button" deploy process that fires up the appropriate VM, grabs the newest code, registers itself with the Monitoring system and adds itself to the load balancer.
+
+You should test this stuff on a regular basis. As your system gets larger the odds of losing a node go to 100%. That means that every node has to be treated as frail, everything has to have a fail-over (and the fail-over should be tested).
+
+Tools like Chef and Puppet are typically key to making this stuff work. 
+
+New PaaS providers (Heroku, Azure, CloudFoundry, etc.) are really focusing on making this stuff much easier.
+
+A good mindset here is to think of your operating environment as something that you can "check in".
+
+Flaw #6: High Coupling
+
+This is the big one.
+
+Small systems rarely fail (at least it feels that way), big systems fail all of the time. As you move from small to big, the part of the code that grows the most is the part that handles failure.
+
+Sadly, this part of the process is not really easy to quantify. What qualifies as "too much coupling" or "too little"? This is the stuff people write books and PhD theses about.
+
+Here's my rule of thumb on the subject: build sub-systems & vertical slices.
+
+To make a system "scalable" it needs to be built from small composable pieces that can themselves be scaled.
+
+Need to send e-mails? There should be an e-mail sub-system with basic hooks for "send this" and "that e-mail was bounced" and "I got an unsub request". Maybe it does very little to start with, maybe it just makes some simple SMTP call with a string of text. But you want to isolate it because some day it will be doing much more "at scale". It will be batching and sending with SendGrid and tracking unsubs for a daily roll-up and firing off data logging to other parts of the system, etc.
+
+E-mail is just one simple example. Look around at your system and you will see lots of these pieces. If you can start by defining interfaces or contracts for these pieces early on, you will naturally build a system where pieces can be moved around, expanded, managed by different teams, etc.
+
+Flaw #7: this is not free
+
+Done correctly, a system built with scalability in mind will be less expensive to manage over the long-term and easier to build out. It will need less people, be easier to QA and easier to debug.
+
+But it's not free in the short term. There are known patterns for much of this stuff, but there are lots of pieces and separate providers. You need experienced developers to make decisions about how to implement these best practices. And it's going to delay your initial product launch.

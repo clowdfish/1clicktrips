@@ -86,6 +86,8 @@
     height: 1em;
     background: $c-red url("../images/bg_pattern.jpg") repeat;
 
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
 
     position: absolute;

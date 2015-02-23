@@ -8,7 +8,6 @@
 
 
   function searchCtrl($scope, SUGGESTION_TYPES, suggestionAdapter, $document) {
-
     //Trip destination
     $scope.destination = null;
 

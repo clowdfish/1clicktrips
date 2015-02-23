@@ -121,7 +121,7 @@
           <span class="result-header-timing">
             From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
           </span>
-          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
+          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
         </div>
 
         <div class="result-overview">
@@ -160,7 +160,7 @@
           </div>
           <div class="result-header-col">
             <span class="result-header-destination">Your destination</span>
-            <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.destination]}</h2>
+            <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
           </div>
         </div>
 
