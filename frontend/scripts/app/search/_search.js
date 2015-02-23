@@ -17,8 +17,7 @@
     })
     .config(decorateDatePicker)
     .config(decoratePopupDatePicker)
-    .config(interpolateConfig)
-    .config(uiRouterConfig);
+    .config(interpolateConfig);
 
   function interpolateConfig($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
@@ -39,14 +38,6 @@
       var directive = $delegate[0];
       directive.templateUrl = 'scripts/app/templates/search/datepicker/popup.html';
       return $delegate;
-    });
-  }
-
-  function uiRouterConfig($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
-    $stateProvider.state('home', {
-      url: '/',
-      templateUrl: 'scripts/app/templates/search/home.html'
     });
   }
 

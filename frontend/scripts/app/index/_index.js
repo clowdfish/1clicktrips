@@ -6,10 +6,12 @@
 
   angular
     .module('app.index', [
-      'pascalprecht.translate'
+      'pascalprecht.translate',
+      'ui.router'
     ])
     .config(interpolateConfig)
     .config(languageConfig)
+    .config(routerConfig)
     .run(run);
 
   function languageConfig($translateProvider) {
@@ -37,6 +39,15 @@
   function interpolateConfig($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
+  }
+
+  function routerConfig($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stateProvider.state('index', {
+      url: '/',
+      templateUrl: 'scripts/app/templates/index/index.html'
+    });
+
   }
 
   function formatLanguageObject(object, prefix) {

@@ -4,13 +4,12 @@
 
   angular
     .module('app', [
-      'app.index',
       'app.common',
+      'app.index',
       'app.result',
       'app.search',
       'app.dashboard',
-      'app.settings',
-      'pascalprecht.translate'
+      'app.settings'
     ])
     .config(config)
     .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY');
