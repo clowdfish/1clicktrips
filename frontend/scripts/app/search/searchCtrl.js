@@ -167,7 +167,7 @@
      * @todo implement
      */
     function startSearch() {
-      return false;
+      window.location = "./result.html";
     }
   }
 })();

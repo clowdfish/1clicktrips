@@ -1,196 +1,3 @@
-
-%result-type {
-  /*******************************************************/
-  /* Search Navigation                                   */
-  /*******************************************************/
-  $nav-circle-diameter: 5em;
-  $nav-container-height: 6.5em;
-
-  /*.view-container {
-    padding: 2em 0;
-  }*/
-
-  .result-type-selection {
-    @include span(22 of 24);
-    @include push(1 of 24);
-
-    position: relative;
-    height:  $nav-container-height;
-    margin-top: 3em;
-    background-color: rgba(255,255,255,0.65);
-
-    font-size: $fs-small;
-  }
-
-  /*******************************************************/
-  /* Back Button                                         */
-  /*******************************************************/
-  .result-type-back-button {
-    display: inline-block;
-    width: $nav-circle-diameter/1.9;
-    height: $nav-circle-diameter/1.9;
-    background-color: $c-dark;
-    border-radius: $nav-circle-diameter/3.8;
-    cursor: pointer;
-
-    /* positioning the text */
-    font-size: $fs-smallest;
-    color: #fff;
-    text-align: center;
-    padding-top: $nav-circle-diameter/3.8 - $fs-smallest;
-
-    /* positioning the back button */
-    position: absolute;
-    left: -$nav-circle-diameter/3.8;
-    top:  $nav-container-height/2;
-  }
-
-  .result-type-list {
-    list-style: none;
-    color: $c-text-dark-bg;
-  }
-
-  .result-type-item {
-    @include span(8 of 24);
-
-    text-align: center;
-    padding-bottom: 2em;
-  }
-
-  .result-type-item-circle.budget {
-    background-image: url("../images/nav_location.png");
-
-    .result-type-item-active-indicator {
-      left: 16%;
-      display: none;
-    }
-  }
-
-  .result-type-item-circle.time {
-    background-image: url("../images/nav_briefcase.png");
-
-    .result-type-item-active-indicator {
-      left: 49.5%;
-      display: none;
-    }
-  }
-
-  .result-type-item-circle.comfort {
-    background-image: url("../images/nav_globe.png");
-
-    .result-type-item-active-indicator {
-      right: 16%;
-      display: none;
-    }
-  }
-
-  .result-type-item-circle {
-    height: $nav-circle-diameter;
-    width: $nav-circle-diameter;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1em;
-    margin-top: -$nav-circle-diameter/2;
-
-    background-color: #fff;
-    border-radius: $nav-circle-diameter/2;
-    border: 1px solid #ddd;
-    cursor: pointer;
-
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .result-type-item-active-indicator {
-    display: block;
-    width: 1em;
-    height: 1em;
-    background-color: $c-dark;
-
-    transform: rotate(45deg);
-
-    position: absolute;
-    bottom: -0.6em;
-  }
-
-  .result-type-item.active {
-    color: $c-dark;
-
-    .result-type-item-circle {
-      background-color: $c-red;
-      border: 1px solid $c-red;
-      cursor: default;
-    }
-
-    .result-type-item-active-indicator {
-      display: block
-    }
-  }
-
-  @include respond-above("medium") {
-
-    .result-type-selection {
-      margin-top: 5em;
-    }
-  }
-
-  @include respond-above("large") {
-
-  }
-
-  /*******************************************************/
-  /* Result Type Description                             */
-  /*******************************************************/
-  .result-description {
-    @include span(24 of 24);
-    padding: 1em;
-    background-color: $c-dark;
-    color: #fff;
-
-    h1 {
-      margin-bottom: 0.7em;
-    }
-
-    p {
-      font-size: $fs-small;
-    }
-  }
-
-  .result-description-favorite {
-    display: inline-block;
-    float: right;
-    font-size: $fs-smallest;
-
-    background-color: darken($c-dark, 7%);
-    padding: 0.5em 0.8em;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  .result-description-favorite:before {
-    font-family: FontAwesome, sans-serif;
-    font-size: $fs-small;
-    color: $c-red;
-    content: "\f004\00a0\00a0";
-  }
-
-  @include respond-above("medium") {
-
-    .result-description {
-      @include span(24 of 24);
-      padding: 1.4em 1.8em;
-
-    }
-  }
-
-  @include respond-above("large") {
-
-  }
-}
-
-/*******************************************************/
-/* Result View                                         */
-/*******************************************************/
 %result {
 
   .result-view {
@@ -198,54 +5,228 @@
   }
 
   /*******************************************************/
-  /* Result Header                                       */
+  /* Result Notification                                 */
   /*******************************************************/
-  .trip-header {
-    padding: 1em;
-
-    .fs-smallest {
-      display: block;
-      color: $c-text-dark-bg;
-    }
+  .result-notification {
+    width: 97%;
+    margin: 1em auto 0;
+    padding: .5em 1em;
+    background-color: $c-yellow;
+    border-radius: 3px;
+    border: 1px solid darken($c-grey, 5%);
 
     .fa {
-      margin-right: 0.3em;
+      opacity: 0.4;
     }
+  }
 
-    .trip-header-title {
-      margin: 0.2em 1.2em 0.15em 0;
-      display: inline-block;
-    }
+  .result-notification-message {
+    margin: 0 1em;
+    opacity: 0.5;
+    font-size: $fs-small;
+  }
 
-    .change-location-link {
-      display: inline;
-      color: $c-red;
+  .result-notification-action {
+    float: right;
+
+    .fa {
       cursor: pointer;
-    }
-
-    .trip-date {
-      color: $c-red;
     }
   }
 
   /*******************************************************/
-  /* Trip Summary                                        */
+  /* Result Header                                       */
   /*******************************************************/
-  .trip-summary {
-    padding: 1em;
+  .result-header {
+    display: table;
+    padding: 0.8em;
+  }
+
+  .result-header-col {
+    display: table-cell;
+  }
+
+  .result-header-col:first-child {
+    vertical-align: middle;
+  }
+
+  .result-header-destination {
+    display: block;
+    float: left;
+    font-size: $fs-smallest;
+    color: $c-text-dark-bg;
+  }
+
+  .result-header-timing {
+    display: block;
+    float: right;
+    font-size: $fs-smallest;
+    color: $c-text-dark-bg;
+    margin-bottom: 0.6em;
+  }
+
+  .fa {
+    margin-right: 0.3em;
+  }
+
+  .change-location-link {
+    display: inline;
+    font-size: $fs-smallest;
+    color: $c-red;
+    cursor: pointer;
+  }
+
+  .trip-date {
+    color: $c-red;
+  }
+
+  .result-header-title {
+    display: inline-block;
+    margin: 0.3em 0 0 0;
+  }
+
+  .result-header-back-link {
+    $button-size: 3.4em;
+
+    display: block;
+    float: left;
+    width: $button-size;
+    height: $button-size;
+    background-color: $c-red;
+    color: #fff;
+    text-align: center;
+    padding-top: $button-size/2;
+    cursor: pointer;
+    margin-right: 0.5em;
+    margin-left: -0.8em;
+
+    .fa {
+      margin-top: -1.5em;
+      margin-right: 0.1em;
+      font-size: 2.6em;
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .result-header {
+      padding: 1em;
+    }
+
+    .result-header-destination {
+      float: none;
+    }
+
+    .result-header-title {
+      margin: 0.2em 1em 0.2em 0;
+      float: none;
+    }
+
+    .result-header-timing {
+      float: none;
+    }
+  }
+
+  /*******************************************************/
+  /* Result Summary                                      */
+  /*******************************************************/
+  $trip-summary-height: 4em;
+
+  .result-overview {
+    position: relative;
+  }
+
+  .result-summary-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: $trip-summary-height;
+    background-color: $c-dark;
+    color: #fff;
+    margin: 0.4em;
+  }
+
+  .result-summary-button-details {
+    display: inline-block;
+    width: 80%;
+
+    div {
+      display: inline-block;
+      float: left;
+      padding: 0.6em 0.5em;
+    }
+  }
+
+  .result-summary-button-details-time,
+  .result-summary-button-details-cost {
+
+    span {
+      display: block;
+    }
+
+    span:first-child {
+      font-size: $fs-smallest;
+    }
+
+    span:last-child {
+      font-size: $fs-larger;
+      font-weight: 600;
+    }
+  }
+
+  .result-summary-button-details-time {
+    width: 65%;
+  }
+
+  .result-summary-button-details-cost {
+    width: 35%;
+  }
+
+  .result-summary-button-list-link {
+    display: block;
+    float: right;
+    width: 20%;
+    height: 100%;
+    background-color: $c-red;
+    color: #fff;
+    text-align: center;
+    padding-top: $trip-summary-height/2;
+    cursor: pointer;
+
+    .fa {
+      margin-top: -1.3em;
+      font-size: 2.6em;
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .result-summary-button {
+      display: none;
+    }
+  }
+
+  /*******************************************************/
+  /* Result Summary (Details)                            */
+  /*******************************************************/
+  .result-summary {
+    padding: 0.5em 0.8em;
+    background-color: $c-grey;
 
     @include clearfix;
   }
 
+  // trip summary directive
   .trip-summary-list {
     list-style: none;
-    //margin-top: 1em;
   }
 
   .trip-summary-item {
     float: left;
-    width: 20%;
-    margin-bottom: 1em;
+    width: 50%;
+    margin-bottom: 0.5em;
   }
 
   .trip-summary-item-title {
@@ -258,69 +239,116 @@
   }
 
   .duration-by-days {
-    display: block;
-    font-size: $fs-smallest;
-    font-weight: 400;
+    display: none;
+  }
+
+  .trip-summary-item.cost {
+    display: none;
+  }
+
+  @include respond-above("medium") {
+    .result-summary {
+      padding: 0 1em;
+      background-color: $c-content-bg;
+    }
+
+    .trip-summary-item {
+      width: 20%;
+      margin-bottom: 1em;
+    }
+
+    .duration-by-days {
+      display: block;
+      font-size: $fs-smallest;
+      font-weight: 400;
+    }
+
+    .trip-summary-item.cost {
+      display: block;
+    }
   }
 
   /*******************************************************/
   /* Trip Result Map                                     */
   /*******************************************************/
   #itinerary-map {
-    height: 500px;
+    height: 20em;
     border-top: 1px solid #e8e8e8;
     border-bottom: 1px solid #e8e8e8;
   }
 
   .itinerary-map-container {
     position: relative;
+    z-index: 0;
+  }
 
+  @include respond-above("medium") {
+
+    #itinerary-map {
+      height: 35em;
+    }
   }
 
   /*******************************************************/
   /* Trip Segments                                       */
   /*******************************************************/
   .trip-segments-container {
-    z-index: 999;
-    position: absolute;
-    top: 1.5em;
-    left: -1.5em;
-  }
 
-  .trip-segments {
-    display: inline-block;
-    vertical-align: top;
-    background-color: white;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
-  }
-  
-  .trip-segments-header {
-    padding: 1em 1em 0 1em;
-    border-bottom: 1px solid #e8e8e8;
-  }
-
-  .trip-segments-body {
-    padding:  0 1em;
   }
 
   .trip-segments-title {
-    margin-bottom: 1.5em;
-    font-weight: 200;
+    padding: 0.5em;
+    font-size: $fs-normal;
+  }
 
-    .fa {
-      margin-right: 0.2em;
+  .trip-segments-print {
+    display: none;
+  }
+
+  @include respond-above("medium") {
+
+    .trip-segments-container {
+      z-index: 999;
+      position: absolute;
+      top: 1.5em;
+      left: -1.5em;
     }
 
-    a.trip-segments-print {
-      float: right;
-      color: $c-text;
+    .trip-segments {
+      display: inline-block;
+      vertical-align: top;
+      background-color: white;
+      box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    }
+
+    .trip-segments-header {
+      padding: 1em 1em 0 1em;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .trip-segments-body {
+      padding:  0 1em;
+    }
+
+    .trip-segments-title {
+      margin-bottom: 1.5em;
+      font-weight: 200;
+
+      .fa {
+        margin-right: 0.2em;
+      }
+
+      .trip-segments-print {
+        display: inline;
+        float: right;
+        color: $c-text;
+      }
     }
   }
 
-  /*******************************************************/
-  /* Trip Segments Tab Control                           */
-  /*******************************************************/
+  // Trip Segments Tab Control
   .trip-segments-day-tab {
+    margin-left: 1em;
     list-style: none;
 
     @include clearfix;
@@ -331,7 +359,7 @@
     padding: 0.35em 1.4em;
     border: 1px solid #e8e8e8;
     font-weight: 600;
-    background-color: #f7f7f7;
+    background-color: #fff; // mobile // normal: #f7f7f7;
     cursor: pointer;
   }
 
@@ -343,9 +371,7 @@
     cursor: default;
   }
 
-  /*******************************************************/
-  /* Trip Segments List                                  */
-  /*******************************************************/
+  // Trip Segments List
   .trip-segments-list {
     display: table;
     list-style: none;
@@ -362,9 +388,10 @@
     display: table-cell;
     padding-top: 1em;
     padding-bottom: 1em;
+    padding-left: 0.2em;
 
     &:not(:last-child) {
-      padding-right: 0.6em;
+      padding-right: 0.3em;
     }
 
     &:not(:first-child) {
@@ -387,47 +414,120 @@
       vertical-align: middle;
       line-height: 1.8em;
       font-weight: 800;
-      font-size: $fs-smallest;
+      font-size: $fs-small;
     }
   }
 
   .trip-segments-day-item-type {
+    color: $c-red;
 
+    .fa {
+      font-size: $fs-large;
+      margin: 0;
+    }
   }
 
   .trip-segments-day-item-description {
-    max-width: 15em;
+    max-width: 11em;
     font-size: $fs-small;
 
     a {
-      display: block;
-      color: $c-red;
-      font-size: $fs-smallest;
+      display: inline-block;
+      padding: 0.5em;
+      margin-top: 0.7em;
+      color: $c-blue;
+      background-color: $c-grey;
       cursor: pointer;
+    }
+
+    a, a:visited, a:active {
+      text-decoration: none;
     }
   }
 
   .trip-segments-day-item-timing {
     text-align: right;
+    font-size: $fs-small;
 
     .trip-segments-day-item-timing-time {
       display: block;
       color: $c-red;
-      font-size: $fs-small;
     }
 
     .trip-segments-day-item-timing-distance {
       display: block;
       color: $c-blue;
-      font-size: $fs-smallest;
     }
   }
 
   .trip-segments-day-item-close {
+    display: none;
+  }
 
-    a {
-      color: $c-text-dark-bg;
-      cursor: pointer;
+  @include respond-above("medium") {
+
+    .trip-segments-header {
+      padding: .5em .5em 0 .5em;
+    }
+
+    .trip-segments-title {
+      margin-bottom: 0.5em;
+    }
+
+    .trip-segments-day-tab {
+      margin-left: 0;
+    }
+
+    .trip-segments-day-tab-item {
+      margin-bottom: -1px;
+    }
+
+    .trip-segments-day-tab-item {
+      background-color:#f7f7f7;
+    }
+
+    .trip-segments-day-item-col {
+      padding-left: 0;
+
+      &:not(:last-child) {
+        padding-right: 0.6em;
+      }
+
+      &:not(:first-child) {
+        border-bottom: 1px solid #e8e8e8;
+      }
+    }
+
+    .trip-segments-day-item-number {
+      span {
+        font-size: $fs-smallest;
+      }
+    }
+
+    .trip-segments-day-item-description {
+      max-width: 15em;
+
+      a {
+        display: block;
+        color: $c-blue;
+        font-size: $fs-smaller;
+        padding: 0;
+        margin-top: 0;
+        background-color: transparent;
+      }
+    }
+
+    .trip-segments-day-item-timing-distance {
+      font-size: $fs-smaller;
+    }
+
+    .trip-segments-day-item-close {
+      display: table-cell;
+
+      a {
+        color: $c-text-dark-bg;
+        cursor: pointer;
+      }
     }
   }
 
@@ -437,7 +537,6 @@
   .trip-segments-alternatives {
     display: inline-block;
     vertical-align: top;
-    margin-top: 3em;
     background-color: $c-dark;
     color: white;
     padding: 0.6em;
@@ -453,6 +552,7 @@
   .alternatives-container-close {
     cursor: pointer;
     float: right;
+    color: #fff;
   }
 
   .hotels-list {
@@ -469,6 +569,7 @@
 
   .hotels-list-item-info {
     display: inline-block;
+    width: 50%;
   }
 
   .hotels-list-item-title {
@@ -477,7 +578,8 @@
   }
 
   .hotels-list-item-image {
-    width: 8em;
+    width: 50%;
+    max-width: 8em;
     vertical-align: top;
     margin-right: 0.6em;
   }
@@ -490,6 +592,7 @@
   }
 
   .hotels-list-item-distance {
+    display: block;
     font-size: $fs-smallest;
 
     @include clearfix;
@@ -497,52 +600,95 @@
 
   .hotels-list-item-price {
     display: inline-block;
-    margin-right: 1em;
     margin-top: 0.6em;
     font-size: $fs-larger;
     font-weight: 600;
   }
 
-  /*******************************************************/
-  /* Trip Footer                                         */
-  /*******************************************************/
-  .trip-footer {
-
+  .hotels-list-item-select {
+    float: right;
+    margin-right: 0.5em;
   }
 
-  .trip-footer-summary {
+  @include respond-above("medium") {
+
+    .trip-segments-alternatives {
+      margin-top: 3em;
+    }
+
+    .hotels-list-item-image {
+      width: 8em;
+    }
+
+    .hotels-list-item-distance {
+      display: inline;
+    }
+
+    .hotels-list-item-price {
+      display: block;
+      float: none;
+    }
+
+    .hotels-list-item-select {
+      float: none;
+    }
+  }
+
+  /*******************************************************/
+  /* Result Footer                                       */
+  /*******************************************************/
+  .result-footer {
+    background-color: #fff;
+  }
+
+  .result-footer-summary {
     padding: 1em;
     background-color: white;
     border-bottom: 1px solid #e8e8e8;
   }
 
-  .trip-footer-action {
-    padding: 0 1em;
-    background-color: $c-background;
+  .result-footer-price {
+    float: left;
+    margin: 1em 1.2em;
+
+    span:first-child {
+      display: block;
+      font-size: $fs-smallest;
+    }
+
+    span:last-child {
+      display: block;
+      font-size: $fs-largest;
+      font-weight: 600;
+      color: $c-red;
+    }
+  }
+
+  .result-footer-action {
+    background-color: #fff;
 
     a {
       float: right;
-      margin: 1.5em 0;
+      height: $input-mobile-height;
+      padding: 0.6em 1em;
+      margin: 1.2em 0.8em;
+    }
+
+    a, a:visited, a:hover {
+      color: #fff;
+      text-decoration: none;
     }
   }
 
   @include respond-above("medium") {
 
-    .result-view {
+    .result-footer-action {
 
+      a {
+        margin: 1.5em;
+      }
     }
   }
-
-  @include respond-above("large") {
-
-  }
-}
-
-/*******************************************************/
-/* Element Style Relations                             */
-/*******************************************************/
-.result-type {
-  @extend %result-type;
 }
 
 .result {

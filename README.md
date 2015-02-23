@@ -6,21 +6,27 @@ The business traveler platform offering end to end trip management.
 ## Project structure and content
 
 <ul>
-<li><b>app</b>: server side code</li>
-<li><b>config</b>: server side configuration files</li>
-<li>deploy.sh: deployment script to setup server environment</li>
+<li><b>app</b>: API layer code</li>
+<li><b>config</b>: API layer configuration files</li>
+<li>deploy.sh: deployment script</li>
 <li><b>frontend</b>: client side code</li>
-<li>package.json: typical npm package file</li>
+<li>karma.conf.js: test runner configuration file</li>
+<li>package.json: npm package file</li>
 <li>server.js: starting point of the application</li>
 <li>setup.sh: is executed on the server for preparing the Node application</li>
-<li><b>test</b>: test files for server</li>
+<li><b>test</b>: test files for API layer</li>
 </ul>
 
 ## Installation
 ### Backend
 Just install the npm modules to be ready to go:
 ```
-$ npm install && bower install && tsd reinstall
+$ npm install
+```
+
+The server can be started with
+```
+$ node server 
 ```
 
 ### Frontend
@@ -33,16 +39,17 @@ To start the frontend development process, start gulp in `/frontend`.
 ```
 $ gulp live
 ```
-A watch process is started with a thin server layer delivering the frontend to the client. The process also includes a proxy that redirects all requests for `/api/` to localhost:8080 which is answered by the `server.js` file (once you started that server). On the production server a .htaccess file will be responsible for that part.
+A watch process is started with a thin server layer delivering the frontend to the client. The process also includes a proxy that redirects all requests for `/api/` to localhost:8080 which is answered by the `server.js` file (once you started the server). On the production server a properly configured Apache proxy will be responsible for that part.
 
 
 ## Server requirements
 
 ### Directory structure
-The application is deployed to `~/server/dev` (add "dev" as parameter) or `~/server/build` (add "prod" as parameter), so make sure those folders exist. 
+The application is deployed to `~/1clicktrips` (add "dev" as parameter) so make sure this folder exists. 
 
-The Express.js server is configured to serve its static files from `/var/www`.
-So you either put the static files (e.g. html, images, js, css) directly into that directory or you create a symlink that redirects `/var/www` to the proper folder with the static content.
+Make sure to create a symlink within `/var/www` that refers to `~/1clicktrips/frontend/build`.
+Copy the htaccess file in `/documentation` within the repository to `~/1clicktrips/frontend/build` to ensure the language capabilities of the web application. 
+Also configure Apache accordingly (see setup.txt within `/documentation`).
 
 Express.js listens on port 8080, so make sure that no other application is listening on the same port when the application starts. 
 

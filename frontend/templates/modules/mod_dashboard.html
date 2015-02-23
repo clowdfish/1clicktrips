@@ -1,18 +1,18 @@
-<section class="dashboard container" ng-app='app.dashboard'>
+<section class="dashboard wrapper" ng-app='app.dashboard'>
   <div ng-controller='dashboardCtrl'>
 
-    <div class="view-container" ng-show='isLogin'>
-      <div class='favorite-trip'>
+    <div class="view-container" ng-if='isLogin'>
+      <div class='dashboard-favorites-container'>
         <h3>My favorites</h3>
         <favorite-list list-items='favoriteList' item-per-page="3"></favorite-list>
       </div>
-      <div class='booked-trip-container'>
+      <div class='dashboard-booked-container'>
         <h3>Upcoming trips</h3>
         <booked-trips list-items='bookedTripList' item-per-page="3"></booked-trips>
       </div>
     </div>
 
-    <div class="view-container" ng-hide='isLogin'>
+    <div class="view-container" ng-if='!isLogin'>
       <h1>Why 1ClickTrips?</h1>
 
       <div class="dashboard-info-box">

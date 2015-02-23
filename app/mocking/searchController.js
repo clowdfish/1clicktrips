@@ -123,7 +123,7 @@ function createMockTripResult() {
           }
         },
         "destination": {
-          "description": "Customer in Hanover",
+          "description": "1. Customer in Hanover",
           "location": {
             "latitude": 52.419096,
             "longitude": 9.82575
@@ -220,7 +220,6 @@ function createMockTripResult() {
           }
         ]
       },
-      "destination": "Customer in Hanover",
       "price": 355.88915290549545,
       "currency": "EUR",
       "type": 0,
@@ -327,7 +326,7 @@ function createMockTripResult() {
           }
         },
         "destination": {
-          "description": "Customer in Hanover",
+          "description": "2. Customer in Hanover",
           "location": {
             "latitude": 52.419096,
             "longitude": 9.82575
@@ -424,6 +423,7 @@ function createMockTripResult() {
           }
         ]
       },
+			"destination": "A nice roundtrip in Saigon",
       "price": 355.88915290549545,
       "currency": "EUR",
       "type": 1,

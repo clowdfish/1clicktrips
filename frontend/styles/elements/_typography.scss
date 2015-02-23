@@ -2,6 +2,7 @@ $ff-body: 'Source Sans Pro', sans-serif;
 $ff-headline: $ff-body;
 
 $fs-smallest: 0.65em;
+$fs-smaller: 0.75em;
 $fs-small: 0.85em;
 
 $fs-normal: 1em;
@@ -59,12 +60,6 @@ p {
   font-size: $fs-small;
   line-height: 1.4em;
 }
-
-a, a:hover {
-  //color: $c-primary;
-  //text-decoration: none;
-}
-
 
 // font classes
 span.bold {

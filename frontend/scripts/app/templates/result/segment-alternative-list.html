@@ -8,8 +8,8 @@
       <img class="hotels-list-item-image" ng-src='{[hotel.imageUrl]}' />
 
       <div class="hotels-list-item-info">
-         <span class="hotels-list-item-title">
-        {[hotel.name]}
+        <span class="hotels-list-item-title">
+          {[hotel.name]}
         </span>
         <span class="hotels-list-item-rating">
           <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
@@ -17,13 +17,13 @@
         <span class="hotels-list-item-distance">
           1.5 km from destination
         </span>
-
-        <span class='hotels-list-item-price'>
-          + {[hotel.price]}
-        </span>
-
-        <button class="button" ng-click='select(segment, hotel)'>Select Hotel</button>
       </div>
+
+      <span class='hotels-list-item-price'>
+        + {[hotel.price]}
+      </span>
+
+      <button class="button hotels-list-item-select" ng-click='select(segment, hotel)'>Select Hotel</button>
     </li>
 
   </ul>

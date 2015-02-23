@@ -9,7 +9,6 @@ var fs    = require("fs");
 var changed 	  = require('gulp-changed'),
     imagemin 	  = require('gulp-imagemin'),
     concat 		  = require('gulp-concat'),
-    concatCss   = require('gulp-concat-css'),
     coffee      = require('gulp-coffee'),
     stripDebug 	= require('gulp-strip-debug'),
     uglify 		  = require('gulp-uglify'),
@@ -57,25 +56,26 @@ var plumberErrorHandler = {
 // copy font-awesome and compile styles
 gulp.task('styles', function() {
   gulp.src([
-      'bower_components/font-awesome/fonts/*'
-    ])
-    .pipe(gulp.dest("build/fonts"));
+    'bower_components/font-awesome/fonts/*'
+  ])
+  .pipe(gulp.dest("build/fonts"));
+
   gulp.src([
-      'bower_components/bootstrap/dist/css/bootstrap.min.css',
-      'bower_components/animate.css/animate.css',
-      'bower_components/slick.js/slick/slick.css',
-      'bower_components/slick.js/slick/slick-theme.css'
-    ])
-    .pipe(gulp.dest("build/styles"));
+    'bower_components/bootstrap/dist/css/bootstrap.min.css',
+    'bower_components/animate.css/animate.css',
+    'bower_components/slick.js/slick/slick.css',
+    'bower_components/slick.js/slick/slick-theme.css'
+  ])
+  .pipe(gulp.dest("build/styles"));
+
   return gulp.src([
-      'styles/*.scss',
-      'bower_components/animate.css/animate.css'
-    ])
-    .pipe(plumber(plumberErrorHandler))
-    .pipe(sass({ style: 'expanded' }))
-    .pipe(gulpif(production, autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1')))
-    .pipe(gulpif(production, minifyCSS()))
-    .pipe(gulp.dest('build/styles'));
+    'styles/*.scss'
+  ])
+  .pipe(plumber(plumberErrorHandler))
+  .pipe(sass({ style: 'expanded' }))
+  .pipe(gulpif(production, autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1')))
+  .pipe(gulpif(production, minifyCSS()))
+  .pipe(gulp.dest('build/styles'));
 });
 
 // minify images
@@ -103,36 +103,34 @@ gulp.task('webserver', function() {
 
 // process and compile all script files
 gulp.task('scripts', ['i18n'], function() {
-  gulp.src(
-    [
-      'bower_components/jquery/dist/jquery.min.js',
-      'bower_components/angular/angular.js',
-      'bower_components/angular-ui-router/release/angular-ui-router.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/underscore/underscore.js',
-      'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
-      'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
-      'bower_components/use-angular-translate/src/**/*.js',
-      'bower_components/angular-animate/angular-animate.js',
-      'bower_components/moment/moment.js',
-      'bower_components/lodash/lodash.js',
-      'bower_components/slick.js/slick/slick.min.js',
-      'bower_components/angular-slick/dist/slick.min.js',
-      'scripts/**/*.js',
-      '!scripts/**/*.spec.js'
-    ]
-  )
-    .pipe(plumber(plumberErrorHandler))
-    .pipe(
-      gulpif(
-        /[.]coffee$/,
-        coffee({bare: true})
-      )
+  gulp.src([
+    'bower_components/jquery/dist/jquery.min.js',
+    'bower_components/angular/angular.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/underscore/underscore.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
+    'bower_components/use-angular-translate/src/**/*.js',
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/moment/moment.js',
+    'bower_components/lodash/lodash.js',
+    'bower_components/slick.js/slick/slick.min.js',
+    'bower_components/angular-slick/dist/slick.min.js',
+    'scripts/**/*.js',
+    '!scripts/**/*.spec.js'
+  ])
+  .pipe(plumber(plumberErrorHandler))
+  .pipe(
+    gulpif(
+      /[.]coffee$/,
+      coffee({bare: true})
     )
-    .pipe(concat('script.js'))
-    .pipe(gulpif(production, stripDebug()))
-    .pipe(gulpif(production, uglify()))
-    .pipe(gulp.dest('build/scripts'));
+  )
+  .pipe(concat('script.js'))
+  .pipe(gulpif(production, stripDebug()))
+  .pipe(gulpif(production, uglify()))
+  .pipe(gulp.dest('build/scripts'));
 });
 
 // compile angular templates to make them available on client

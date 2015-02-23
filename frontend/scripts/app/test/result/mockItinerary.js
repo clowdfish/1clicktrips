@@ -308,7 +308,7 @@
                 "standard": 3,
                 "distance": 4,
                 "price": 10
-              },
+              }
             ]
           }
         ]

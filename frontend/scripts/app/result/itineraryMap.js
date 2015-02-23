@@ -13,7 +13,8 @@
       restrict: 'E',
       scope: {
         itinerary: '=',
-        showMap:'='
+        showMap:'=',
+        showList:'='
       },
       templateUrl: 'scripts/app/templates/result/itinerary-map.html',
       controller: controller

@@ -18,7 +18,7 @@ describe('tripService', function() {
     tripService = _tripService_;
     $rootScope = _$rootScope_;
     itinerary = mockItinerary;
-    alternativeSegment = mockAlternativeSegment
+    alternativeSegment = mockAlternativeSegment;
     $q = _$q_;
 
     spyOn(tripService, 'callSearchItineraryApi').and.callFake(function(){

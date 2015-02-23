@@ -298,6 +298,7 @@
       right: 0.8em;
       top: $input-mobile-height/2 - 0.5em;
       color: lighten($c-text, 50%);
+      cursor: pointer;
     }
 
     .dropdown-menu {
