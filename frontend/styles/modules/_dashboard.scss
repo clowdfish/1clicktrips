@@ -126,3 +126,49 @@ $size-dashboard-icons: 5em;
 .slick-dots li button:before {
   font-size: 20px;
 }
+
+.booked-trips-container {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+
+  ul {
+    list-style: none;
+    li {
+      display: inline;
+    }
+  }
+
+  .carousel-inner {
+
+    .booked-trips-participants-item {
+      margin-bottom: 5px;
+
+      .participant-image {
+        width: 50px;
+      }
+      .participant-status {
+        background-color: gray;
+      }
+      .participant-status.booked {
+        background-color: blue;
+      }
+    }
+
+  }
+
+  .carousel-dots {
+    li {
+      color: gray;
+    }
+    li.active{
+      color: black;
+    }
+  }
+
+  .booked-trips-item.ng-enter{
+    @include animation(fadeIn 1s);
+  }
+
+}
+

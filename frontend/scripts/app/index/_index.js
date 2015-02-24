@@ -1,3 +1,6 @@
+/*
+* This module contain global configuration like authentication, languages
+*/
 (function() {
 
   'use strict';
@@ -23,8 +26,6 @@
     for (var i = 0; i < languageKeys.length; i++) {
       i18n[languageKeys[i]] = languageKeys[i];
     }
-
-    console.log(en, de, i18n);
 
     $translateProvider.translations('en', en);
     $translateProvider.translations('de', de);
