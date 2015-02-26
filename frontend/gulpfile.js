@@ -62,9 +62,7 @@ gulp.task('styles', function() {
 
   gulp.src([
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    'bower_components/animate.css/animate.css',
-    'bower_components/slick.js/slick/slick.css',
-    'bower_components/slick.js/slick/slick-theme.css'
+    'bower_components/animate.css/animate.css'
   ])
   .pipe(gulp.dest("build/styles"));
 
@@ -115,8 +113,6 @@ gulp.task('scripts', ['i18n'], function() {
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/moment/moment.js',
     'bower_components/lodash/lodash.js',
-    'bower_components/slick.js/slick/slick.min.js',
-    'bower_components/angular-slick/dist/slick.min.js',
     'bower_components/use-angular-translate/src/**/*.js',
     'scripts/**/*.js',
     '!scripts/**/*.spec.js'

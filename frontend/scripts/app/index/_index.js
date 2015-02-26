@@ -10,7 +10,10 @@
   angular
     .module('app.index', [
       'pascalprecht.translate',
-      'ui.router'
+      'ui.router',
+      'ui.bootstrap',
+      'ui.bootstrap.tpls',      
+      'app.search.timepicker'
     ])
     .config(interpolateConfig)
     .config(languageConfig)
@@ -48,7 +51,14 @@
       url: '/',
       templateUrl: 'scripts/app/templates/index/index.html'
     });
+  }
 
+  function getFavoriteList(favoriteService) {
+    return favoriteService.getFarvoriteList();
+  }
+
+  function getBookedTripList(bookingService) {
+    return bookingService.getBookedTrips();
   }
 
   function formatLanguageObject(object, prefix) {

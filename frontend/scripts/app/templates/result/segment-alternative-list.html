@@ -5,11 +5,11 @@
   <ul class="hotels-list">
 
     <li class='hotels-list-item' ng-repeat='hotel in alternatives'>
-      <img class="hotels-list-item-image" ng-src='{[hotel.imageUrl]}' />
+      <img class="hotels-list-item-image" ng-src='{[ hotel.imageUrl ]}' />
 
       <div class="hotels-list-item-info">
         <span class="hotels-list-item-title">
-          {[hotel.name]}
+          {[ hotel.name ]}
         </span>
         <span class="hotels-list-item-rating">
           <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
@@ -20,7 +20,7 @@
       </div>
 
       <span class='hotels-list-item-price'>
-        + {[hotel.price]}
+        + {[ hotel.price | currency: currencySymbol ]}
       </span>
 
       <button class="button hotels-list-item-select" ng-click='select(segment, hotel)'>Select Hotel</button>

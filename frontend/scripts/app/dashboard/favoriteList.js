@@ -9,7 +9,8 @@
       templateUrl: 'scripts/app/templates/dashboard/favorite-list.html',
       scope: {
         listItems: '=',
-        itemPerPage: '@itemPerPage'
+        itemPerPage: '@itemPerPage',
+        selectFavorite: '='
       },
       link: link
     }

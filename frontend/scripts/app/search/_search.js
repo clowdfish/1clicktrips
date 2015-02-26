@@ -4,11 +4,10 @@
 
   angular
     .module('app.search', [
-      'app.mockdata',
       'ui.bootstrap',
       'ui.bootstrap.tpls',
-      'app.search.timepicker',
-      'ui.router'
+      'ui.router',
+      'app.search.timepicker'
     ])
     .constant('SUGGESTION_TYPES', {
       address: 'Address',

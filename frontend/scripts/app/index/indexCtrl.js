@@ -3,7 +3,7 @@
     .module('app.index')
     .controller('indexCtrl', indexCtrl);
 
-  function indexCtrl($scope, $translate) {
+  function indexCtrl($scope, $rootScope, $translate) {
     $scope.languages = {
       en: 'Eng',
       de: 'Ger'
@@ -20,6 +20,17 @@
     function changeLanguage() {
       $scope.activeLanguageKey = $scope.activeLanguageKey == 'en' ? 'de' : 'en';
       $translate.use($scope.activeLanguageKey);
+      $rootScope.currencySymbol = getCurrencySymbol($scope.activeLanguageKey);
+    }
+
+    function getCurrencySymbol(activeLanguageKey) {
+      switch (activeLanguageKey) {
+        case 'de':
+          return '€';
+        case 'en':
+        default:
+          return '$';
+      }
     }
   }
 })();

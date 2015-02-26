@@ -6,7 +6,19 @@
     .module('app.search')
     .controller('searchCtrl', searchCtrl);
 
-  function searchCtrl($scope, SUGGESTION_TYPES, suggestionAdapter, $document) {
+  function searchCtrl($scope, 
+                      $state, 
+                      $q,
+                      $timeout,
+                      SUGGESTION_TYPES, 
+                      suggestionAdapter, 
+                      $document, 
+                      $location, 
+                      googleMap
+                      ) {
+    var favoriteOriginLocation = null;
+    $scope.isLogin = true;
+    $scope.isOpenStartDatePicker = false;
 
     //Trip destination
     $scope.destination = null;
@@ -31,13 +43,30 @@
     $scope.selectDestinationSuggestion = selectDestinationSuggestion;
     $scope.selectOriginSuggestion = selectOriginSuggestion;
 
+    //Select step functions
     $scope.step1 = step1;
     $scope.step2 = step2;
     $scope.step3 = step3;
 
+    //Start search function
     $scope.startSearch = startSearch;
+
+    //User select favorite event
+    $scope.$on('selectFavorite', function(e, favorite) {
+      selectFavorite(favorite);
+    });
+
+    function selectFavorite(favorite) {
+      step1();
+      $scope.destination = favorite.destination.description;
+      $scope.destinationAddress = favorite.destination.location;
+
+      $scope.origin = favorite.origin.description;
+      favoriteOriginLocation = favorite.origin.location;
+    }
+
     $scope.dateOptions = {
-      formatYear: 'yy',
+      formatYear: 'yyyy',
       startingDay: 0
     };
 
@@ -126,21 +155,31 @@
     * @param {object|string} $item - Suggestion object
     */
     function selectSuggestion($item) {
+      var deferred = $q.defer();
       switch ($scope.destinationType) {
-        case SUGGESTION_TYPES.address:
-          return $item.description;
+        case SUGGESTION_TYPES.address:          
+          googleMap
+            .geocode($item.description)
+            .then(function(location) {
+              deferred.resolve(location);
+            });
           break;
         case SUGGESTION_TYPES.events:
-          return $item.location;
+          deferred.resolve($item.location);
           break;
         case SUGGESTION_TYPES.meetingSpace:
-          return $item.location;
+          deferred.resolve($item.location);
           break;
+        default:
+          deferred.reject();
       }
+      return deferred.promise;
     }
 
     function selectDestinationSuggestion($item) {
-      $scope.destinationAddress = selectSuggestion($item);
+      selectSuggestion($item).then(function(location) {
+        $scope.destinationAddress = location;
+      });
     }
 
     function selectOriginSuggestion($item) {
@@ -152,21 +191,48 @@
     }
 
     function step2() {
-      if($scope.destinationAddress != null)
-        $scope.step = 2;
+      if ($scope.destinationAddress == null) {
+        return;
+      }
+
+      $scope.step = 2;
+        
     }
 
     function step3() {
-      if($scope.startDate != null && $scope.endDate != null &&
-        $scope.startTime != null && $scope.endTime != null)
-        $scope.step = 3;
+      if ($scope.startDate == null || 
+        $scope.endDate == null ||
+        $scope.startTime == null || 
+        $scope.endTime == null) {
+        return;
+      }
+
+      $scope.step = 3;
+      
+      $timeout(function() {
+        if ($scope.origin && favoriteOriginLocation) {
+          $scope.originAddress = favoriteOriginLocation;
+        }
+      }, 50);
+
     }
+
+    $scope.$watchGroup(['startDate', 'startTime', 'endDate', 'endTime'], function() {
+      console.log($scope.startDate, $scope.startTime, $scope.endDate, $scope.endTime);
+    });
 
     /**
      * @todo implement
      */
     function startSearch() {
-      window.location = "./result.html";
+      $state.go('search_result', {
+        originLatitude: 1,
+        originLongitude: 1,
+        destinationLatitude: 1,
+        destinationLongitude: 1,
+        startTime: 1,
+        endTime: 1
+      });
     }
   }
 })();

@@ -1,6 +1,8 @@
 <div class='favorite-list-container'>
   <div class='visible-list'>
-    <div ng-repeat='item in listItems | arraySlice:offset:itemPerPage' class='{[slideDirection]}'>
+    <div ng-repeat='item in listItems | arraySlice:offset:itemPerPage' 
+          class='{[slideDirection]}' 
+          ng-click='selectFavorite(item)'>
       {[item.origin.description]} -- {[item.destination.description]}
     </div>
   </div>

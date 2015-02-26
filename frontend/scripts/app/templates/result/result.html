@@ -1,9 +1,9 @@
 
-<div ng-controller='resultCtrl'>
+<div>
   <section class="result-type wrapper">
 
     <!-- RESULT TYPE -->
-    <div class="result-type-selection">
+    <div class="recysult-type-selection">
       <ul class="result-type-list">
         <li class="result-type-item" ng-class="{active: activeTrip == 0}" ng-click="findTripByBudget()">
           <div class="result-type-item-circle budget">
@@ -135,7 +135,7 @@
             </div>
             <div class="result-summary-button-details-cost">
               <span>Total Cost</span>
-              <span>{[itinerary.cost]}</span>
+              <span>{[itinerary.cost | currency: currencySymbol]}</span>
             </div>
           </div>
           <div class="result-summary-button-list-link" ng-click="showListView()">
@@ -177,7 +177,7 @@
         <div class="result-footer-action">
           <span class="result-footer-price">
             <span>Total Cost</span>
-            <span>{[itinerary.cost]}</span>
+            <span>{[ itinerary.cost | currency: currencySymbol ]}</span>
           </span>
           <a class="button"><i class="fa fa-check-circle-o"></i>PURCHASE</a>
         </div>

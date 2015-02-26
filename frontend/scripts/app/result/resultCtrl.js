@@ -4,8 +4,8 @@
   angular.module('app.result')
     .controller('resultCtrl', resultCtrl);
 
-  function resultCtrl($scope, $q, tripService, TRIP_TYPE, browser) {
-    $scope.itineraries = null;
+  function resultCtrl($scope, $q, tripService, TRIP_TYPE, itineraries, browser) {
+    $scope.itineraries = itineraries;
     $scope.itinerary = null;
     $scope.notifications = [
       {
@@ -18,7 +18,6 @@
     $scope.showMap = true;
     $scope.showList = $scope.isMobile ? false : true;
 
-    $scope.findTrip = findTrip;
     $scope.findTripByBudget = findTripByBudget;
     $scope.findTripByTime = findTripByTime;
     $scope.findTripByComfort =  findTripByComfort;
@@ -31,38 +30,7 @@
     $scope.showListView = showList;
     $scope.showMapView = showMap;
 
-    $scope.findTrip().then(function(){
-      $scope.findTripByBudget();
-    });
-
-    function findTrip() {
-      var deferred = $q.defer();
-      var searchObject = {
-        origin: {
-          latitude: 1,
-          longitude: 1
-        },
-        appointments: [
-          {
-            location: {
-              latitude: 1,
-              longitude: 1
-            },
-            start: '2015-12-31T00:00:00',
-            end: '2015-12-31T00:00:00'
-          }
-        ],
-        locale: 1,
-        roundTrip: false,
-        currency: 1
-      };
-
-      tripService.findItinerary(searchObject).then(function(itineraries) {
-        $scope.itineraries = itineraries;
-        deferred.resolve();
-      });
-      return deferred.promise;
-    }
+    $scope.findTripByBudget();
 
     function findTripByBudget() {
       $scope.itinerary = filterItinerary(TRIP_TYPE.lowBudget);
