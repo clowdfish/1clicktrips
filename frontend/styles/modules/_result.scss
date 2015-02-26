@@ -1,3 +1,10 @@
+.result-loaded.ng-enter {
+  @include animation(fadeInUp 5s);
+}
+.result-loaded.ng-leave {
+  
+}
+
 %result {
 
   .result-view {

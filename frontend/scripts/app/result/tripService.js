@@ -5,7 +5,7 @@
     .module('app.result')
     .service('tripService', tripService);
 
-  function tripService($http, $q) {
+  function tripService($http, $q, $timeout) {
     var service = this;
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;
@@ -29,13 +29,15 @@
 
     function callSearchItineraryApi(searchObject) {
       var deferred = $q.defer();
-      $http.post('/api/search/trips', searchObject)
+      $timeout(function() {
+        $http.post('/api/search/trips', searchObject)
         .success(function(response) {
           deferred.resolve(response);
         })
         .error(function() {
           deferred.reject();
         });
+      }, 2000);
       return deferred.promise;
     }
 

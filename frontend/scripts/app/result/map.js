@@ -21,17 +21,10 @@
       var directionsDisplay = null;
       var directionsService = null;
 
-      init();
-
-      function init() {
-        var mapOptions = {
-          zoom: 19
-        };
-        map = new google.maps.Map(document.getElementById('itinerary-map'),
-            mapOptions);
-
-      }
-
+      var mapOptions = {
+        zoom: 19
+      };
+      
       scope.$watch('activeSegments', function() {
         if (scope.activeSegments.length >= 2) {
           createMapBySegments(scope.activeSegments);
@@ -39,6 +32,10 @@
       });
 
       function createMapBySegments(segments) {
+        if (map == null) {
+          map = new google.maps.Map(document.getElementById('itinerary-map'), mapOptions);
+        }
+        
         if (directionsDisplay) {
           directionsDisplay.setMap(null);
           directionsDisplay = null;

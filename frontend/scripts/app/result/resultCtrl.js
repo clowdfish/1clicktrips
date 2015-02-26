@@ -4,8 +4,10 @@
   angular.module('app.result')
     .controller('resultCtrl', resultCtrl);
 
-  function resultCtrl($scope, $q, tripService, TRIP_TYPE, itineraries, browser) {
-    $scope.itineraries = itineraries;
+  function resultCtrl($scope, $q, $stateParams, tripService, TRIP_TYPE, browser) {
+
+    findAllItineraries();
+
     $scope.itinerary = null;
     $scope.notifications = [
       {
@@ -30,20 +32,48 @@
     $scope.showListView = showList;
     $scope.showMapView = showMap;
 
-    $scope.findTripByBudget();
+    function findAllItineraries() {
+      var searchObject = {
+        origin: {
+          latitude: $stateParams.originLatitude,
+          longitude: $stateParams.originLongitude
+        },
+        appointments: [
+          {
+            location: {
+              latitude: 1,
+              longitude: 1
+            },
+            start: '2015-12-31T00:00:00',
+            end: '2015-12-31T00:00:00'
+          }
+        ],
+        locale: 1,
+        roundTrip: false,
+        currency: 1
+      };      
+      tripService
+        .findItinerary(searchObject)
+        .then(function(itineraries) {
+          $scope.itineraries = itineraries;
+          if ($scope.itinerary == null) {
+            $scope.findTripByBudget();
+          }
+        });
+    }
 
     function findTripByBudget() {
-      $scope.itinerary = filterItinerary(TRIP_TYPE.lowBudget);
+      $scope.itinerary = filterItineraryByType(TRIP_TYPE.lowBudget);
       $scope.activeTrip = 0;
     }
 
     function findTripByTime() {
-      $scope.itinerary = filterItinerary(TRIP_TYPE.timeSaving);
+      $scope.itinerary = filterItineraryByType(TRIP_TYPE.timeSaving);
       $scope.activeTrip = 1;
     }
 
     function findTripByComfort() {
-      $scope.itinerary = filterItinerary(TRIP_TYPE.comfortTrip);
+      $scope.itinerary = filterItineraryByType(TRIP_TYPE.comfortTrip);
       $scope.activeTrip = 2;
     }
 
@@ -56,7 +86,7 @@
       window.location = "./";
     }
 
-    function filterItinerary(type) {
+    function filterItineraryByType(type) {
       for (var i = 0; i < $scope.itineraries.length; i++) {
         if ($scope.itineraries[i].type == type) {
           return $scope.itineraries[i];
