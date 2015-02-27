@@ -1,10 +1,10 @@
 
 <div>
   <section class="result-type wrapper">
-    
-    <!-- RESULT TYPE -->  
+
+    <!-- RESULT TYPE -->
     <div class="recysult-type-selection" ng-show='itinerary != null'>
-    
+
       <ul class="result-type-list">
         <li class="result-type-item" ng-class="{active: activeTrip == 0}" ng-click="findTripByBudget()">
           <div class="result-type-item-circle budget">
@@ -29,7 +29,7 @@
         </li>
       </ul>
       <span class="result-type-back-button" ng-click="refineSearch()"><i class="fa fa-chevron-left"></i></span>
-    
+
 
       <!-- RESULT TYPE DESCRIPTION -->
       <div class="result-description" ng-class="{ folded: showList && isMobile }">
@@ -51,17 +51,21 @@
         </div>
       </div>
     </div>
-    
+
   </section>
 
   <section class="result wrapper">
     <div class='result-waiting' ng-hide='itinerary != null'>
       <div class="result-view view-container">
-        Searching, please wait...
+        <center>
+          Searching, please wait...
+          <br/>
+          <img src='../images/spinner.gif'/>
+        </center>
       </div>
     </div>
 
-    <div class='result-loaded' ng-show='itinerary != null' ng-animate-children>
+    <div class='result-loaded' ng-show='itinerary != null'>
       <!------------------------>
       <!-- NON-MOBILE VERSION -->
       <!------------------------>
