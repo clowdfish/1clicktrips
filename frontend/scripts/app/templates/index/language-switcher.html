@@ -1,0 +1,7 @@
+<li class='language-switcher-wrapper'>{[ languages[activeLanguageKey].name ]}
+  <ul>
+    <li ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)'>
+      {[ language.name ]}
+    </li>
+  </ul>
+</li>

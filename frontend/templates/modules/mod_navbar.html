@@ -11,8 +11,8 @@
             <a href="#" class="button">JOIN</a>
             <div class="header-settings">
                 <ul>
-                  <li>USD</li>
-                  <li ng-click='changeLanguage()'>{[ languages[activeLanguageKey] ]}</li>
+                  <currency-switcher active-currency='activeCurrency'></currency-switcher>
+                  <language-switcher active-language-key='activeLanguageKey'></language-switcher>
                 </ul>
             </div>
         </nav>

@@ -68,6 +68,7 @@ $header-padding: .7em;
       }
 
       li {
+        position: relative;
         display: inline-block;
         padding: 0.4em 0.8em;
         background-color: darken($c-dark, 7%);
@@ -79,6 +80,32 @@ $header-padding: .7em;
         font-family: FontAwesome, sans-serif;
         font-size: $fs-small;
         content: "\00a0\00a0\f0d7";
+      }
+
+      ul ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 0;
+        margin: 0;
+      }
+
+      ul ul li
+      {
+        float: none;
+        width: 200px;
+        line-height: 120%;
+        padding: 10px 15px;
+        border-radius: 0;
+      }
+
+      ul ul li:after {
+        content: none;
+      }
+
+      ul li:hover ul {
+        display: block;
       }
     }
   }

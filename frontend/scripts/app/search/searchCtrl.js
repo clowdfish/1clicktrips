@@ -16,6 +16,7 @@
                       $location, 
                       googleMap
                       ) {
+    
     var favoriteOriginLocation = null;
     $scope.isLogin = true;
 

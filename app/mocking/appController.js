@@ -39,11 +39,11 @@ module.exports = {
 function createLanguagesMock() {
   return [
     {
-      'code': 'de-DE',
+      'code': 'de',
       'name': 'Deutsch'
     },
     {
-      'code': 'en-US',
+      'code': 'en',
       'name': 'English'
     }
   ]
