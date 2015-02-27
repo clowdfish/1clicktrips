@@ -37,7 +37,7 @@
         .error(function() {
           deferred.reject();
         });
-      }, 1000);
+      }, 2000);
       return deferred.promise;
     }
 

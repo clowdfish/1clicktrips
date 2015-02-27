@@ -1,4 +1,7 @@
 (function() {
+
+  'use strict';
+
 	angular
 		.module('app.index')
 		.directive('currencySwitcher', currencySwitcher);
@@ -20,19 +23,24 @@
 			});
 
 			scope.currencies = {};
+			scope.activeCurrency = currencyService.getActiveCurrency();
+			if (scope.activeCurrency == null) {
+				scope.activeCurrency = 'usd';
+			}
 	    currencyService
 	      .getAvailableCurrencies()
 	      .then(function(data) {
-	        scope.currencies = data;  
-	        scope.activeCurrency = 'usd';
+	        scope.currencies = data;
+
 	      });
 
 	    scope.changeCurrency = changeCurrency;
 
 	    function changeCurrency(key) {
 	      if (_.has(scope.currencies, key)) {
+	      	currencyService.setActiveCurrency(key);
 	        scope.activeCurrency = key;
-	        wrapper.addClass('hide');      
+	        wrapper.addClass('hide');
 	      }
 	    }
 		}

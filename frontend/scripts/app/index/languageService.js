@@ -1,17 +1,22 @@
 (function() {
+
+  'use strict';
+
 	angular
 		.module('app.index')
 		.service('languageService', languageService);
 
-	function languageService($http, $q) {
+	function languageService($http, $q, localStorageService) {
 		var _this = this;
 		this.getAvailableLanguages = getAvailableLanguages;
 		this.callAvailableLanguagesApi = callAvailableLanguagesApi;
-		
+		this.setActiveLanguageKey = setActiveLanguageKey;
+		this.getActiveLanguageKey = getActiveLanguageKey;
+
 		function getAvailableLanguages() {
 			return $q(function(resolve, reject) {
 				_this
-					.callAvailableLanguagesApi()	
+					.callAvailableLanguagesApi()
 					.then(function(response) {
 						var result = {};
 						for (var i = 0; i < response.length; i++) {
@@ -20,7 +25,7 @@
 						resolve(result);
 					}, function() {
 						reject();
-					});	
+					});
 			});
 		}
 
@@ -36,6 +41,15 @@
 					})
 			});
 		}
+
+		function setActiveLanguageKey(key) {
+			localStorageService.set('activeLanguageKey', key);
+		}
+
+		function getActiveLanguageKey() {
+			return localStorageService.get('activeLanguageKey');
+		}
+
 		return this;
 	}
 })();

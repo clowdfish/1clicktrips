@@ -11,9 +11,7 @@
     .module('app.index', [
       'pascalprecht.translate',
       'ui.router',
-      'ui.bootstrap',
-      'ui.bootstrap.tpls',
-      'app.search.timepicker'
+      'LocalStorageModule'
     ])
     .config(interpolateConfig)
     .config(languageConfig)

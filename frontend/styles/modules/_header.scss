@@ -107,6 +107,10 @@ $header-padding: .7em;
       ul li:hover ul {
         display: block;
       }
+
+      .currency-switcher-wrapper, .language-switcher-wrapper{
+        z-index: 9999;
+      }
     }
   }
 

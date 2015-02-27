@@ -1,12 +1,18 @@
 (function() {
+
+  'use strict';
+
 	angular
 		.module('app.index')
 		.service('currencyService', currencyService);
 
-	function currencyService($http, $q) {
+	function currencyService($http, $q, localStorageService) {
 		var _this = this;
+
 		this.getAvailableCurrencies = getAvailableCurrencies;
 		this.callGetAvailableCurrenciesApi = callGetAvailableCurrenciesApi;
+		this.setActiveCurrency = setActiveCurrency;
+		this.getActiveCurrency = getActiveCurrency;
 
 		function getAvailableCurrencies() {
 			return $q(function(resolve, reject) {
@@ -35,6 +41,14 @@
 						reject();
 					});
 			});
+		}
+
+		function setActiveCurrency(key) {
+			localStorageService.set('activeCurrency', key);
+		}
+
+		function getActiveCurrency() {
+			return localStorageService.get('activeCurrency');
 		}
 
 		return this;
