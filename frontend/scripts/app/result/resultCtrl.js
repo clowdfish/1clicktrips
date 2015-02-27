@@ -48,9 +48,9 @@
             end: $stateParams.endDate
           }
         ],
-        locale: $rootScope.activeLanguageKey,
+        locale: 'en',
         roundTrip: false,
-        currency: $rootScope.activeCurrency
+        currency: 'usd'
       };
       tripService
         .findItinerary(searchObject)
