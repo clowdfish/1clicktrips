@@ -4,7 +4,7 @@
   angular.module('app.result')
     .controller('resultCtrl', resultCtrl);
 
-  function resultCtrl($scope, $q, $stateParams, tripService, TRIP_TYPE, browser) {
+  function resultCtrl($scope, $rootScope, $q, $stateParams, tripService, TRIP_TYPE, browser) {
 
     findAllItineraries();
 
@@ -41,17 +41,17 @@
         appointments: [
           {
             location: {
-              latitude: 1,
-              longitude: 1
+              latitude: $stateParams.destinationLatitude,
+              longitude: $stateParams.destinationLongitude
             },
-            start: '2015-12-31T00:00:00',
-            end: '2015-12-31T00:00:00'
+            start: $stateParams.startDate,
+            end: $stateParams.endDate
           }
         ],
-        locale: 1,
+        locale: $rootScope.activeLanguageKey,
         roundTrip: false,
-        currency: 1
-      };      
+        currency: $rootScope.activeCurrency
+      };
       tripService
         .findItinerary(searchObject)
         .then(function(itineraries) {

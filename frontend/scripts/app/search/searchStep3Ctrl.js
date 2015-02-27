@@ -7,6 +7,7 @@
 		.controller('searchStep3Ctrl', searchStep3Ctrl);
 
 	function searchStep3Ctrl ($scope, $q, $state, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
+
 		$scope.getAddressSuggestion = getAddressSuggestion;
 
     $scope.selectOriginSuggestion = selectOriginSuggestion;
@@ -31,22 +32,31 @@
       		$scope.$parent.originAddress = location;
       		$scope.$parent.isStep3Ready = true;
       	}, function() {
-					$scope.$parent.isStep3Ready = false;      		
+					$scope.$parent.isStep3Ready = false;
       	});
     }
 
     /**
-     * @todo implement
+     * Send search parameter to result page
      */
     function startSearch() {
+      var startDate = createDateFromDateAndTime($scope.$parent.startDate, $scope.$parent.startTime);
+      var endDate = createDateFromDateAndTime($scope.$parent.endDate, $scope.$parent.endTime);
       $state.go('search_result', {
-        originLatitude: 1,
-        originLongitude: 1,
-        destinationLatitude: 1,
-        destinationLongitude: 1,
-        startTime: 1,
-        endTime: 1
+        originLatitude: $scope.$parent.originAddress.latitude,
+        originLongitude: $scope.$parent.originAddress.longitude,
+        destinationLatitude: $scope.$parent.destinationAddress.latitude,
+        destinationLongitude: $scope.$parent.destinationAddress.longitude,
+        startDate: startDate,
+        endDate: endDate
       });
+
+      function createDateFromDateAndTime(date, time) {
+        console.log(date, time);
+        console.log(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
+        return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
+      }
     }
+
 	}
 })();

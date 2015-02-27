@@ -6,17 +6,17 @@
     .module('app.search')
     .controller('searchCtrl', searchCtrl);
 
-  function searchCtrl($scope, 
-                      $state, 
+  function searchCtrl($scope,
+                      $state,
                       $q,
                       $timeout,
-                      SUGGESTION_TYPES, 
-                      suggestionAdapter, 
-                      $document, 
-                      $location, 
+                      SUGGESTION_TYPES,
+                      suggestionAdapter,
+                      $document,
+                      $location,
                       googleMap
                       ) {
-    
+
     var favoriteOriginLocation = null;
     $scope.isLogin = true;
 
@@ -42,8 +42,9 @@
     $scope.$watchGroup(['startDate', 'startTime', 'endDate', 'endTime'], function() {
       if ($scope.startDate != null &&
         $scope.endDate != null &&
-        $scope.startTime != null && 
+        $scope.startTime != null &&
         $scope.endTime != null) {
+        console.log($scope.endTime);
         $scope.isStep2Ready = true;
       }
     });
@@ -67,7 +68,7 @@
       favoriteOriginLocation = favorite.origin.location;
     }
 
-  
+
     function step1() {
       $scope.step = 1;
     }
@@ -76,19 +77,19 @@
       if ($scope.destinationAddress == null) {
         return;
       }
-      $scope.step = 2; 
+      $scope.step = 2;
     }
 
     function step3() {
-      if ($scope.startDate == null || 
+      if ($scope.startDate == null ||
         $scope.endDate == null ||
-        $scope.startTime == null || 
+        $scope.startTime == null ||
         $scope.endTime == null) {
         return;
       }
 
       $scope.step = 3;
-      
+
       $timeout(function() {
         if ($scope.origin && favoriteOriginLocation) {
           $scope.originAddress = favoriteOriginLocation;
@@ -97,6 +98,6 @@
 
     }
 
-    
+
   }
 })();

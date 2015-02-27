@@ -12,7 +12,7 @@
       'pascalprecht.translate',
       'ui.router',
       'ui.bootstrap',
-      'ui.bootstrap.tpls',      
+      'ui.bootstrap.tpls',
       'app.search.timepicker'
     ])
     .config(interpolateConfig)
@@ -47,18 +47,19 @@
 
   function routerConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
+
     $stateProvider.state('index', {
       url: '/',
       templateUrl: 'scripts/app/templates/index/index.html'
     });
   }
 
-  function getFavoriteList(favoriteService) {
-    return favoriteService.getFarvoriteList();
+  function getLanguages(languageService) {
+    return languageService.getAvailableLanguages();
   }
 
-  function getBookedTripList(bookingService) {
-    return bookingService.getBookedTrips();
+  function getCurrencies(currencyService) {
+    return currencyService.getAvailableCurrencies();
   }
 
   function formatLanguageObject(object, prefix) {
