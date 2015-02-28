@@ -22,6 +22,7 @@ module.exports = function(config) {
       'bower_components/underscore/underscore.js',
       'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
       'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
+      'bower_components/use-angular-translate/src/translate.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/moment/moment.js',
       'bower_components/lodash/lodash.js',

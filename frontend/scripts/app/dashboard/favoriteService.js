@@ -5,9 +5,9 @@
 
   function favoriteService($http, $q) {
     var _this = this;
-    _this.getFarvoriteList = getFarvoriteList;
+    _this.getFavoriteList = getFavoriteList;
 
-    function getFarvoriteList(arguments) {
+    function getFavoriteList(arguments) {
       var deferred = $q.defer();
       $http
         .get('/api/account/favorites')

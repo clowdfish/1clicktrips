@@ -12,7 +12,7 @@
         itemPerPage: '@'
       },
       link: link
-    }
+    };
 
     function link(scope, elements, attrs) {
       initialize();

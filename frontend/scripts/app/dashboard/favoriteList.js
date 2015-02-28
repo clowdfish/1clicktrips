@@ -13,7 +13,7 @@
         selectFavorite: '='
       },
       link: link
-    }
+    };
 
     function link(scope, element, attrs) {
       if ( scope.itemPerPage <= 0) {

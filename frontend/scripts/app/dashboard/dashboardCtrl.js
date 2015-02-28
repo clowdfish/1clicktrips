@@ -11,10 +11,10 @@
     $scope.selectFavorite = function(favorite) {
       console.log(favorite);
       $rootScope.$broadcast('selectFavorite', favorite);
-    }
+    };
 
     favoriteService
-      .getFarvoriteList()
+      .getFavoriteList()
       .then(function(data) {
         $scope.favoriteList = data;
       });
@@ -24,7 +24,5 @@
       .then(function(data) {
         $scope.bookedTripList = data;
       });
-
   }
-
 })();

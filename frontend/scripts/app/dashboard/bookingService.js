@@ -17,7 +17,7 @@
         .callBookingApi()
         .then(function(data) {
           var transformedData = _this.transformResponseData(data);
-          deferred.resolve(data);
+          deferred.resolve(transformedData);
         }, function() {
           deferred.reject();
         });
