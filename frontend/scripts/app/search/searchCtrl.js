@@ -68,7 +68,6 @@
       favoriteOriginLocation = favorite.origin.location;
     }
 
-
     function step1() {
       $scope.step = 1;
     }
@@ -95,9 +94,6 @@
           $scope.originAddress = favoriteOriginLocation;
         }
       }, 50);
-
     }
-
-
   }
 })();

@@ -1,5 +1,5 @@
-<li class='currency-switcher-wrapper'>{[ activeCurrency.toUpperCase() ]}
-  <ul>
+<li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}
+  <ul class='currency-switch'>
     <li ng-repeat='(key, currency) in currencies' ng-click='changeCurrency(key)'>
       {[ currency.code ]}
     </li>

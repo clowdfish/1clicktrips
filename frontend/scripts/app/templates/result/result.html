@@ -1,9 +1,8 @@
-
 <div>
   <section class="result-type wrapper">
 
     <!-- RESULT TYPE -->
-    <div class="recysult-type-selection" ng-show='itinerary != null'>
+    <div class="result-type-selection" ng-show='itinerary != null'>
 
       <ul class="result-type-list">
         <li class="result-type-item" ng-class="{active: activeTrip == 0}" ng-click="findTripByBudget()">
@@ -29,43 +28,46 @@
         </li>
       </ul>
       <span class="result-type-back-button" ng-click="refineSearch()"><i class="fa fa-chevron-left"></i></span>
+    </div>
 
-
-      <!-- RESULT TYPE DESCRIPTION -->
-      <div class="result-description" ng-class="{ folded: showList && isMobile }">
-        <span class="result-description-favorite">
-          <i class="fa fa-heart"></i>
-          <span>+ Add to favorites</span>
-        </span>
-        <div ng-if="activeTrip == 0">
-          <h1>Low Budget Trip</h1>
-          <p>Text description</p>
-        </div>
-        <div ng-if="activeTrip == 1">
-          <h1>Time Saving Trip</h1>
-          <p>Text description</p>
-        </div>
-        <div ng-if="activeTrip == 2">
-          <h1>Comfort Trip</h1>
-          <p>Text description</p>
-        </div>
+    <!-- RESULT TYPE DESCRIPTION -->
+    <div class="result-description" ng-class="{ folded: showList && isMobile }">
+      <span class="result-description-favorite">
+        <i class="fa fa-heart"></i>
+        <span>+ Add to favorites</span>
+      </span>
+      <div ng-if="activeTrip == 0">
+        <h1>Low Budget Trip</h1>
+        <p>Text description</p>
+      </div>
+      <div ng-if="activeTrip == 1">
+        <h1>Time Saving Trip</h1>
+        <p>Text description</p>
+      </div>
+      <div ng-if="activeTrip == 2">
+        <h1>Comfort Trip</h1>
+        <p>Text description</p>
       </div>
     </div>
 
   </section>
 
   <section class="result wrapper">
+
+    <!------------->
+    <!-- SPINNER -->
+    <!------------->
+
     <div class='result-waiting' ng-hide='itinerary != null'>
       <div class="result-view view-container">
-        <center>
           Searching, please wait...
           <br/>
           <img src='../images/spinner.gif'/>
-        </center>
       </div>
     </div>
 
     <div class='result-loaded' ng-show='itinerary != null'>
+
       <!------------------------>
       <!-- NON-MOBILE VERSION -->
       <!------------------------>

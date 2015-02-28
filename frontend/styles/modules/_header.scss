@@ -82,33 +82,35 @@ $header-padding: .7em;
         content: "\00a0\00a0\f0d7";
       }
 
-      ul ul {
+      li:hover {
+
+        .currency-switch, .language-switch {
+          display: block;
+        }
+      }
+
+      .currency-switch, .language-switch {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
         padding: 0;
         margin: 0;
+
+        li {
+          float: none;
+          width: 200px;
+          line-height: 120%;
+          padding: 10px 15px;
+          border-radius: 0;
+
+          &:after {
+            content: none;
+          }
+        }
       }
 
-      ul ul li
-      {
-        float: none;
-        width: 200px;
-        line-height: 120%;
-        padding: 10px 15px;
-        border-radius: 0;
-      }
-
-      ul ul li:after {
-        content: none;
-      }
-
-      ul li:hover ul {
-        display: block;
-      }
-
-      .currency-switcher-wrapper, .language-switcher-wrapper{
+      .currency-switch-wrapper, .language-switch-wrapper{
         z-index: 9999;
       }
     }
