@@ -13,6 +13,7 @@
 		this.callGetAvailableCurrenciesApi = callGetAvailableCurrenciesApi;
 		this.setActiveCurrency = setActiveCurrency;
 		this.getActiveCurrency = getActiveCurrency;
+		this.getCurrencySymbol = getCurrencySymbol;
 
 		function getAvailableCurrencies() {
 			return $q(function(resolve, reject) {
@@ -50,6 +51,16 @@
 		function getActiveCurrency() {
 			return localStorageService.get('activeCurrency');
 		}
+
+		function getCurrencySymbol(currencyKey) {
+      switch (currencyKey) {
+        case 'eur':
+          return '€';
+        case 'usd':
+        default:
+          return '$';
+      }
+    }
 
 		return this;
 	}

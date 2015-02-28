@@ -52,8 +52,6 @@
       });
 
       function createDateFromDateAndTime(date, time) {
-        console.log(date, time);
-        console.log(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
         return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
       }
     }

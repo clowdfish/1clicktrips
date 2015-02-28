@@ -55,7 +55,6 @@
       var service = new google.maps.places.AutocompleteService();
       service.getQueryPredictions({input: address}, function(response, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          console.log(response);
           deferred.resolve(response);
         } else {
           deferred.reject();

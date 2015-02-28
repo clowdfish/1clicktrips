@@ -4,7 +4,8 @@
   angular.module('app.result')
     .controller('resultCtrl', resultCtrl);
 
-  function resultCtrl($scope, $rootScope, $q, $stateParams, tripService, TRIP_TYPE, browser) {
+  function resultCtrl($scope, $rootScope, $q, $stateParams, tripService, TRIP_TYPE, browser, appConfig) {
+    $scope.appConfig = appConfig;
 
     findAllItineraries();
 
