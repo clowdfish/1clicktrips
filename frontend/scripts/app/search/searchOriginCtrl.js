@@ -50,10 +50,10 @@
         startDate: startDate,
         endDate: endDate
       });
+    }
 
-      function createDateFromDateAndTime(date, time) {
-        return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
-      }
+    function createDateFromDateAndTime(date, time) {
+      return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
     }
 
 	}

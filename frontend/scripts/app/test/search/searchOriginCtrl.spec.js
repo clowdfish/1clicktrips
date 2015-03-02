@@ -3,6 +3,7 @@ describe('searchOriginCtrl', function() {
       $rootScope,
       $scope,
       $q,
+      $state,
       mockLocation,
       suggestionAdapter,
       mockAddress,
@@ -11,7 +12,8 @@ describe('searchOriginCtrl', function() {
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
   beforeEach(module('app.search'));
-
+  beforeEach(module('scripts/app/templates/result/result.html'));
+  beforeEach(module('app.result'));
   beforeEach(inject(function(_$rootScope_,
                             _$q_,
                             _$controller_,
@@ -21,6 +23,7 @@ describe('searchOriginCtrl', function() {
                             _googleMap_,
                             _mockAddress_) {
     $scope = _$rootScope_.$new();
+    $rootScope = _$rootScope_;
     $q = _$q_;
     mockLocation = {
       latitude: 1,
@@ -29,6 +32,7 @@ describe('searchOriginCtrl', function() {
     googleMap = _googleMap_;
     suggestionAdapter = _suggestionAdapter_;
     mockAddress = _mockAddress_;
+    $state = _$state_;
 
     ctrl = _$controller_('searchOriginCtrl', {
       $scope: $scope,
@@ -44,11 +48,11 @@ describe('searchOriginCtrl', function() {
       });
     });
 
-    spyOn(suggestionAdapter, 'getAddressSuggestion').and.callFake(function(input){
-        var deferred = $q.defer();
-        deferred.resolve(mockAddress);
-        return deferred.promise;
-      });
+    spyOn(suggestionAdapter, 'getAddressSuggestion').and.callFake(function(input) {
+      var deferred = $q.defer();
+      deferred.resolve(mockAddress);
+      return deferred.promise;
+    });
 
   }));
 
@@ -75,6 +79,14 @@ describe('searchOriginCtrl', function() {
   });
 
   it('send search data to form correctly', function() {
-
+    $scope.$parent.startDate = new Date();
+    $scope.$parent.endDate = new Date();
+    $scope.$parent.startTime = new Date();
+    $scope.$parent.endTime = new Date();
+    $scope.$parent.destinationAddress = mockLocation;
+    $scope.$parent.originAddress = mockLocation;
+    $scope.startSearch();
+    $rootScope.$digest();
+    expect($state.current.name).toBe('search_result');
   });
 });
