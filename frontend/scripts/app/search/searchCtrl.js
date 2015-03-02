@@ -49,7 +49,7 @@
       if ($scope.originAddress != null) {
         $scope.isStep3Ready = true;
       }
-    })
+    });
 
     $scope.$watchGroup(['startDate', 'startTime', 'endDate', 'endTime'], function() {
       if ($scope.startDate != null &&

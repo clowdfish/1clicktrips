@@ -2,7 +2,8 @@
 
 describe('searchDateTimeSelectCtrl', function() {
   var ctrl,
-    $scope;
+    $scope,
+    $rootScope;
 
   beforeEach(module('app.search'));
   beforeEach(module('app.common'));
@@ -12,6 +13,7 @@ describe('searchDateTimeSelectCtrl', function() {
                               _$controller_,
                               _$rootScope_,
                               _$q_) {
+    $rootScope = _$rootScope_;
     $scope = _$rootScope_.$new();
     _$controller_('searchDateTimeSelectCtrl', {
       $scope: $scope
@@ -32,12 +34,12 @@ describe('searchDateTimeSelectCtrl', function() {
     expect($scope.isOpenEndTimePicker).toEqual(false);
   });
 
-  xit('watch for isStep2Ready value correctly', function() {
+  it('watch for isStep2Ready value correctly', function() {
     $scope.$parent.startDate = new Date();
     $scope.$parent.endDate = new Date();
     $scope.$parent.startTime = new Date();
     $scope.$parent.endTime = new Date();
-    $scope.$digest();
+    $rootScope.$digest();
     expect($scope.$parent.isStep2Ready).toEqual(true);
   });
 });
