@@ -4,9 +4,9 @@
 
 	angular
 		.module('app.search')
-		.controller('searchStep3Ctrl', searchStep3Ctrl);
+		.controller('searchOriginCtrl', searchOriginCtrl);
 
-	function searchStep3Ctrl ($scope, $q, $state, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
+	function searchOriginCtrl ($scope, $q, $state, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
 
 		$scope.getAddressSuggestion = getAddressSuggestion;
 

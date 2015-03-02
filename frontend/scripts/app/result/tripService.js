@@ -29,15 +29,15 @@
 
     function callSearchItineraryApi(searchObject) {
       var deferred = $q.defer();
-      $timeout(function() {
-        $http.post('/api/search/trips', searchObject)
-        .success(function(response) {
-          deferred.resolve(response);
-        })
-        .error(function() {
-          deferred.reject();
-        });
-      }, 2000);
+
+      $http.post('/api/search/trips', searchObject)
+      .success(function(response) {
+        deferred.resolve(response);
+      })
+      .error(function() {
+        deferred.reject();
+      });
+
       return deferred.promise;
     }
 

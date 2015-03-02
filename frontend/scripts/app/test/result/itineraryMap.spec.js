@@ -13,7 +13,9 @@ describe('itineraryMap directive', function() {
       $compile,
       $rootScope,
       controller,
-      mockItinerary;
+      mockItinerary,
+      $q,
+      tripService;
 
   beforeEach(module('app.result'));
   beforeEach(module('app.common'));
@@ -22,16 +24,34 @@ describe('itineraryMap directive', function() {
   beforeEach(module('scripts/app/templates/result/segment-alternative-list.html'));
   beforeEach(module('scripts/app/templates/result/map.html'));
 
-  beforeEach(inject(function(_$compile_, _$rootScope_, _mockItinerary_) {
+  beforeEach(inject(function(_$compile_, _$rootScope_, _mockItinerary_, _tripService_, _$q_) {
     scope = _$rootScope_.$new();
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     mockItinerary = _mockItinerary_;
-    scope.itinerary = mockItinerary[0];
+
+    $q = _$q_;
+    tripService = _tripService_;
+
+    spyOn(tripService, 'callSearchItineraryApi').and.callFake(function() {
+      return $q(function(resolve) {
+        resolve(mockItinerary);
+      });
+    })
+
+    var searchObject = {};
+    var itinerary = null;
+    tripService
+      .findItinerary(searchObject)
+      .then(function(data) {
+        itinerary = data;
+      });
     scope.showMap = false; //show map will cause error
-    scope.showList = true;
+    scope.showList = false;
+    scope.$digest();
+    scope.itinerary = itinerary[0];
     element = angular.element('<itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>');
-    compiledDirective = _$compile_(element)(scope);
+    compiledDirective = $compile(element)(scope);
     scope.$digest();
     directiveScope = element.isolateScope();
   }));

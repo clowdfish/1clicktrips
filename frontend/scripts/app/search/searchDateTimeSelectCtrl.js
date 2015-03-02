@@ -1,12 +1,12 @@
 (function() {
 
 	'use strict';
-	
+
 	angular
 		.module('app.search')
-		.controller('searchStep2Ctrl', searchStep2Ctrl);
+		.controller('searchDateTimeSelectCtrl', searchDateTimeSelectCtrl);
 
-	function searchStep2Ctrl ($scope) {
+	function searchDateTimeSelectCtrl ($scope) {
 		// configure date picker
 		$scope.dateOptions = {
       formatYear: 'yyyy',
@@ -56,7 +56,7 @@
       $scope.isOpenEndTimePicker = false;
     };
 
-    
+
     /**
      * Close all open date or time pickers
      */

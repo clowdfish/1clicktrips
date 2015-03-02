@@ -1,6 +1,9 @@
 'use strict';
 
 describe('resultCtrl', function() {
+
+  beforeEach(module('app.common'));
+  beforeEach(module('app.index'));
   beforeEach(module('app.result'));
 
   var $scope,
@@ -26,36 +29,28 @@ describe('resultCtrl', function() {
     deferred.resolve(itinerary);
     spyOn(tripService, 'findItinerary').and.returnValue(deferred.promise);
     $controller('resultCtrl', {$scope: $scope, tripService: tripService});
+    $scope.$digest();
   }));
 
-  it('itinerary is null when start', function() {
-    expect($scope.itinerary).toEqual(null);
-  });
 
   it('findTripByBudget', function() {
-    $scope.findTrip().then(function(){
-      $scope.findTripByBudget();
-    });
-    expect(tripService.findItinerary).toHaveBeenCalled();
+    $scope.findTripByBudget();
     $scope.$digest();
+    expect($scope.activeTrip).toEqual(0);
     expect($scope.itinerary.type).toEqual(TRIP_TYPE.lowBudget);
   });
 
   it('findTripByTime', function() {
-    $scope.findTrip().then(function(){
-      $scope.findTripByTime();
-    });
-    expect(tripService.findItinerary).toHaveBeenCalled();
+    $scope.findTripByTime();
     $scope.$digest();
+    expect($scope.activeTrip).toEqual(1);
     expect($scope.itinerary.type).toEqual(TRIP_TYPE.timeSaving);
   });
 
   it('findTripByComfort', function() {
-    $scope.findTrip().then(function(){
-      $scope.findTripByComfort();
-    });
-    expect(tripService.findItinerary).toHaveBeenCalled();
+    $scope.findTripByComfort();
     $scope.$digest();
+    expect($scope.activeTrip).toEqual(2);
     expect($scope.itinerary).toEqual(null);
   });
 

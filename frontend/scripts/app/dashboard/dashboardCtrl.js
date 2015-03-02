@@ -9,7 +9,6 @@
     $scope.bookedTripList = [];
 
     $scope.selectFavorite = function(favorite) {
-      console.log(favorite);
       $rootScope.$broadcast('selectFavorite', favorite);
     };
 
@@ -25,4 +24,9 @@
         $scope.bookedTripList = data;
       });
   }
+<<<<<<< HEAD
 })();
+=======
+
+})();
+>>>>>>> 7ce2123... fix unit test

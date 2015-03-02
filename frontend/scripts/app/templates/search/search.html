@@ -32,7 +32,7 @@
     <!--------------------- -->
     <!-- DESTINATION FORM ------ -->
     <!--------------------- -->
-    <div ng-controller='searchStep1Ctrl'>
+    <div ng-controller='searchDestinationFormCtrl'>
       <form name='searchForm' class="search-form" ng-show='step == 1'>
         <h2>{[ i18n.search_form_destination_label | translate ]}</h2>
 
@@ -69,7 +69,7 @@
     <!--------------------- -->
     <!-- SCHEDULE FORM ---- -->
     <!--------------------- -->
-    <div ng-controller='searchStep2Ctrl'>
+    <div ng-controller='searchDateTimeSelectCtrl'>
       <form name='scheduleForm' class='search-form' ng-show='step == 2'>
         <h2>{[ i18n.search_form_time | translate ]}</h2>
 
@@ -149,9 +149,9 @@
           <span class="search-form-process-step active"></span>
           <span class="search-form-process-step"></span>
         </div>
-        <a 
-          ng-click="step3()" 
-          class="button--dark" 
+        <a
+          ng-click="step3()"
+          class="button--dark"
           ng-class="{ 'is-disabled': ! $parent.isStep2Ready }">
           {[ i18n.search_form_control_next | translate ]}
         </a>
@@ -161,7 +161,7 @@
     <!--------------------- -->
     <!-- ORIGIN FORM ------ -->
     <!--------------------- -->
-    <div ng-controller='searchStep3Ctrl'>
+    <div ng-controller='searchOriginCtrl'>
       <form name='searchForm' class="search-form" ng-show='step == 3'>
         <h2>{[ i18n.search_form_origin | translate ]}</h2>
 
@@ -181,9 +181,9 @@
           <span class="search-form-process-step"></span>
           <span class="search-form-process-step active"></span>
         </div>
-        <a 
-          ng-click="startSearch()" 
-          class="button--dark" 
+        <a
+          ng-click="startSearch()"
+          class="button--dark"
           ng-class="{ 'is-disabled': ! $parent.isStep3Ready }">
           {[ i18n.search_form_control_submit | translate ]}
         </a>

@@ -39,21 +39,35 @@
     $scope.step2 = step2;
     $scope.step3 = step3;
 
+    $scope.$watch('destinationAddress', function() {
+      if ($scope.destinationAddress != null) {
+        $scope.isStep1Ready = true;
+      }
+    });
+
+    $scope.$watch('originAddress', function() {
+      if ($scope.originAddress != null) {
+        $scope.isStep3Ready = true;
+      }
+    })
+
     $scope.$watchGroup(['startDate', 'startTime', 'endDate', 'endTime'], function() {
       if ($scope.startDate != null &&
         $scope.endDate != null &&
         $scope.startTime != null &&
         $scope.endTime != null) {
-        console.log($scope.endTime);
         $scope.isStep2Ready = true;
       }
     });
 
-    //User select favorite event
-    $scope.$on('selectFavorite', function(e, favorite) {
-      selectFavorite(favorite);
+    $scope.$on('selectFavorite', function(e, data) {
+      $scope.destinationAddress = data.destination.location;
+      $scope.destination = data.destination.description;
+      $scope.origin = data.origin.description;
+      favoriteOriginLocation = data.origin.location;
     });
 
+<<<<<<< HEAD
     /**
     * Select favorite:
     * Back to step 1
@@ -68,6 +82,8 @@
       favoriteOriginLocation = favorite.origin.location;
     }
 
+=======
+>>>>>>> 7ce2123... fix unit test
     function step1() {
       $scope.step = 1;
     }

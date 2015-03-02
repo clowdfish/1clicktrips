@@ -23,7 +23,7 @@ describe('tripService', function() {
 
     spyOn(tripService, 'callSearchItineraryApi').and.callFake(function(){
       var deferred = $q.defer();
-      deferred.resolve(itinerary[0]);
+      deferred.resolve(itinerary);
       return deferred.promise;
     })
   }));

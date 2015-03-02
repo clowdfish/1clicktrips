@@ -4,7 +4,10 @@ describe('bookingService', function() {
   var bookingService,
       $rootScope,
       $q;
+
+  beforeEach(module('app.common'));
   beforeEach(module('app.dashboard'));
+
   beforeEach(inject(function(_bookingService_,
                             _$rootScope_,
                             _$q_,

@@ -6,7 +6,10 @@ describe('dashboardCtrl', function() {
       $controller,
       bookingService,
       favoriteService,
-      $q;
+      $q,
+      mockFavorites;
+
+  beforeEach(module('app.common'));
   beforeEach(module('app.dashboard'));
   beforeEach(inject(function(_$rootScope_,
                             _$controller_,
@@ -19,6 +22,7 @@ describe('dashboardCtrl', function() {
     $controller = _$controller_;
     bookingService = _bookingService_;
     favoriteService = _favoriteService_;
+    mockFavorites = _mockFavorites_;
     $q = _$q_;
 
     $scope = $rootScope.$new();
@@ -35,6 +39,10 @@ describe('dashboardCtrl', function() {
       return deferred.promise;
     });
 
+    spyOn($rootScope, '$broadcast').and.callFake(function() {
+      return mockFavorites[0];
+    });
+
     $controller('dashboardCtrl', {
       $scope: $scope,
       favoriteService: favoriteService,
@@ -47,5 +55,18 @@ describe('dashboardCtrl', function() {
   it('take data after initialize', function() {
     expect($scope.favoriteList.length).toBeGreaterThan(0);
     expect($scope.bookedTripList.length).toBeGreaterThan(0);
+  });
+
+  it('send favorite event', function() {
+    var favorite = null;
+    $scope.selectFavorite(mockFavorites[0]);
+    $scope.$digest();
+    $scope.$on('selectFavorite', function(e, data) {
+      console.log(data);
+      favorite = data;
+    });
+    $scope.$digest();
+    expect(favorite, mockFavorites[0]);
+
   });
 });

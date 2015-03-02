@@ -1,12 +1,12 @@
 (function() {
 
 	'use strict';
-	
+
 	angular
 		.module('app.search')
-		.controller('searchStep1Ctrl', searchStep1Ctrl);
+		.controller('searchDestinationFormCtrl', searchDestinationFormCtrl);
 
-	function searchStep1Ctrl ($scope, $q, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
+	function searchDestinationFormCtrl ($scope, $q, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
 
 		$scope.setDestinationType = setDestinationType;
 		$scope.getSuggestion = getSuggestion;
@@ -37,7 +37,7 @@
     function selectSuggestion($item) {
       var deferred = $q.defer();
       switch ($scope.destinationType) {
-        case SUGGESTION_TYPES.address:          
+        case SUGGESTION_TYPES.address:
           googleMap
             .geocode($item.description)
             .then(function(location) {
