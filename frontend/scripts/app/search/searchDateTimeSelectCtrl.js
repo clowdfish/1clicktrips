@@ -17,24 +17,31 @@
     $scope.showWeeks = false;
 
     $scope.openStartDatePicker = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
+      if ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
 
       closeAll();
       $scope.isOpenStartDatePicker = true;
     };
 
     $scope.openEndDatePicker = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
+      if ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
 
       closeAll();
       $scope.isOpenEndDatePicker = true;
     };
 
     $scope.openStartTimePicker = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
+      if ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
+
 
       closeAll();
       $scope.isOpenStartTimePicker = true;
@@ -45,8 +52,10 @@
     };
 
     $scope.openEndTimePicker = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
+      if ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
 
       closeAll();
       $scope.isOpenEndTimePicker = true;

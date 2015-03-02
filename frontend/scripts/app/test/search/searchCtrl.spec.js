@@ -57,26 +57,4 @@ describe('searchCtrl', function() {
     expect($scope.isStep3Ready).toEqual(true);
   });
 
-  xit('get correct data when click on typeahead suggestion', function() {
-    var item = {
-      description: 'Stuttgart, Baden-Württemberg, Germany',
-      location: {
-        latitude: 10.802305,
-        longitude: 106.641142
-      }
-    }
-
-    $scope.destinationType = SUGGESTION_TYPES.address;
-    $scope.selectDestinationSuggestion(item);
-    expect($scope.destinationAddress).toEqual(item.description);
-
-    $scope.destinationType = SUGGESTION_TYPES.events;
-    $scope.selectDestinationSuggestion(item);
-    expect($scope.destinationAddress).toEqual(item.location);
-
-    $scope.destinationType = SUGGESTION_TYPES.meetingSpace;
-    $scope.selectDestinationSuggestion(item);
-    expect($scope.destinationAddress).toEqual(item.location);
-  });
-
 });
