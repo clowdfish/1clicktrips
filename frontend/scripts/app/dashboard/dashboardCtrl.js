@@ -24,9 +24,5 @@
         $scope.bookedTripList = data;
       });
   }
-<<<<<<< HEAD
 })();
-=======
 
-})();
->>>>>>> 7ce2123... fix unit test

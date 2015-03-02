@@ -61,13 +61,9 @@
     });
 
     $scope.$on('selectFavorite', function(e, data) {
-      $scope.destinationAddress = data.destination.location;
-      $scope.destination = data.destination.description;
-      $scope.origin = data.origin.description;
-      favoriteOriginLocation = data.origin.location;
+      selectFavorite(data);
     });
 
-<<<<<<< HEAD
     /**
     * Select favorite:
     * Back to step 1
@@ -82,8 +78,6 @@
       favoriteOriginLocation = favorite.origin.location;
     }
 
-=======
->>>>>>> 7ce2123... fix unit test
     function step1() {
       $scope.step = 1;
     }
