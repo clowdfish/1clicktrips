@@ -37,7 +37,7 @@ describe('itineraryMap directive', function() {
       return $q(function(resolve) {
         resolve(mockItinerary);
       });
-    })
+    });
 
     var searchObject = {};
     var itinerary = null;
@@ -46,10 +46,12 @@ describe('itineraryMap directive', function() {
       .then(function(data) {
         itinerary = data;
       });
-    scope.showMap = false; //show map will cause error
-    scope.showList = false;
+
     scope.$digest();
     scope.itinerary = itinerary[0];
+    scope.showMap = false; //show map will cause error
+    scope.showList = false;
+
     element = angular.element('<itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>');
     compiledDirective = $compile(element)(scope);
     scope.$digest();
@@ -80,7 +82,6 @@ describe('itineraryMap directive', function() {
     var tripSegmentElement, tripSegmentScope, tripSegmentIsolateScope;
     beforeEach(function() {
       tripSegmentElement = element.find('trip-segments');
-      scope.$digest();
       tripSegmentIsolateScope = tripSegmentElement.isolateScope();
     });
 

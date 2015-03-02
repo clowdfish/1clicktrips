@@ -10,6 +10,7 @@ describe('searchCtrl', function() {
 
   beforeEach(module('app.search'));
   beforeEach(module('app.common'));
+  beforeEach(module('app.index'));
   beforeEach(inject(function(
                               _$controller_,
                               _$rootScope_,
@@ -54,57 +55,6 @@ describe('searchCtrl', function() {
     $scope.originAddress = {latitude: 1, longitude: 1};
     $scope.$digest();
     expect($scope.isStep3Ready).toEqual(true);
-  });
-
-  xdescribe('get suggestion', function() {
-    beforeEach(function() {
-      spyOn(suggestionAdapter, 'getAddressSuggestion').and.callFake(function(input){
-        var deferred = $q.defer();
-        deferred.resolve(mockAddress);
-        return deferred.promise;
-      });
-
-      spyOn(suggestionAdapter, 'getEventSuggestion').and.callFake(function() {
-        var deferred = $q.defer();
-        deferred.resolve(mockEvents);
-        return deferred.promise;
-      });
-
-      spyOn(suggestionAdapter, 'getMeetingSpaceSuggestion').and.callFake(function() {
-        var deferred = $q.defer();
-        deferred.resolve(mockMeetingSpaces);
-        return deferred.promise;
-      });
-    });
-
-    it('get address suggestion correctly', function() {
-      var addresses;
-      var input = 'Stuttgart, Baden-Württemberg, Germany';
-      $scope.destinationType = SUGGESTION_TYPES.address;
-      $scope.getSuggestion(input)
-            .then(function(response) {
-              addresses = response;
-            });
-      $scope.$digest();
-      expect(suggestionAdapter.getAddressSuggestion).toHaveBeenCalledWith(input)
-      expect(addresses).toEqual(mockAddress);
-      expect(addresses.length).toEqual(5);
-    });
-
-    it('get events suggestion correctly', function() {
-      var meetingSpaces;
-      var input = 'Stuttgart, Baden-Württemberg, Germany';
-      $scope.destinationType = SUGGESTION_TYPES.meetingSpace;
-      $scope.getSuggestion(input)
-            .then(function(response) {
-              meetingSpaces = response;
-            });
-      $scope.$digest();
-      expect(suggestionAdapter.getMeetingSpaceSuggestion).toHaveBeenCalledWith(input)
-      expect(meetingSpaces).toEqual(mockMeetingSpaces);
-      expect(meetingSpaces.length).toEqual(3);
-    });
-
   });
 
   xit('get correct data when click on typeahead suggestion', function() {

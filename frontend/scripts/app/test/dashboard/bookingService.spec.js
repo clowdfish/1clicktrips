@@ -16,10 +16,10 @@ describe('bookingService', function() {
     bookingService = _bookingService_;
     $q = _$q_;
 
-    spyOn(bookingService, 'getBookedTrips').and.callFake(function() {
-      var deferred = $q.defer();
-      deferred.resolve(_mockBooking_);
-      return deferred.promise;
+    spyOn(bookingService, 'callBookingApi').and.callFake(function() {
+      return $q(function(resolve) {
+        resolve(_mockBooking_);
+      });
     });
 
   }));

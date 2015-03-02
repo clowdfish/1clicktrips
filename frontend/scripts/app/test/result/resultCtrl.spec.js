@@ -17,7 +17,8 @@ describe('resultCtrl', function() {
                             _tripService_,
                             _$q_,
                             mockItinerary,
-                            _TRIP_TYPE_) {
+                            _TRIP_TYPE_,
+                            _browser_) {
     itinerary = mockItinerary;
     TRIP_TYPE = _TRIP_TYPE_;
     $controller = _$controller_;
@@ -28,7 +29,11 @@ describe('resultCtrl', function() {
     var deferred = $q.defer();
     deferred.resolve(itinerary);
     spyOn(tripService, 'findItinerary').and.returnValue(deferred.promise);
-    $controller('resultCtrl', {$scope: $scope, tripService: tripService});
+    $controller('resultCtrl', {
+      $scope: $scope,
+      tripService: tripService,
+      browser: _browser_
+    });
     $scope.$digest();
   }));
 

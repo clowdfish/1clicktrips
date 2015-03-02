@@ -33,7 +33,7 @@ describe('dashboardCtrl', function() {
       return deferred.promise;
     });
 
-    spyOn(favoriteService, 'getFarvoriteList').and.callFake(function() {
+    spyOn(favoriteService, 'getFavoriteList').and.callFake(function() {
       var deferred = $q.defer();
       deferred.resolve(_mockFavorites_);
       return deferred.promise;

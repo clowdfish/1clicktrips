@@ -13,7 +13,7 @@ describe('favoriteService', function() {
     favoriteService = _favoriteService_;
     $q = _$q_;
 
-    spyOn(favoriteService, 'getFarvoriteList').and.callFake(function() {
+    spyOn(favoriteService, 'getFavoriteList').and.callFake(function() {
       var deferred = $q.defer();
       deferred.resolve(_mockFavorites_);
       return deferred.promise;
@@ -24,7 +24,7 @@ describe('favoriteService', function() {
   it('get favorite list', function() {
     var favorites = [];
     favoriteService
-      .getFarvoriteList()
+      .getFavoriteList()
       .then(function(data){
         favorites = data;
       });
