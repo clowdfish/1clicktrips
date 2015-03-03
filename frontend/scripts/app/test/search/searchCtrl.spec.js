@@ -1,16 +1,20 @@
 describe('searchCtrl', function() {
   var searchCtrl,
     $scope,
+    $rootScope,
+    $controller,
     suggestionAdapter,
     SUGGESTION_TYPES,
     $q,
     mockAddress,
     mockEvents,
-    mockMeetingSpaces;
+    mockMeetingSpaces,
+    mockFavorites;
 
   beforeEach(module('app.search'));
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
+  beforeEach(module('app.dashboard'));
   beforeEach(inject(function(
                               _$controller_,
                               _$rootScope_,
@@ -18,15 +22,19 @@ describe('searchCtrl', function() {
                               _SUGGESTION_TYPES_,
                               _$q_,
                               _mockAddress_,
-                              _mockEvents_ ) {
+                              _mockEvents_,
+                              _mockFavorites_ ) {
     $scope = _$rootScope_.$new();
+    $rootScope = _$rootScope_;
     SUGGESTION_TYPES = _SUGGESTION_TYPES_;
     suggestionAdapter = _suggestionAdapter_;
     $q = _$q_;
+    $controller = _$controller_;
     mockAddress = _mockAddress_;
     mockEvents = _mockEvents_;
     mockMeetingSpaces = _mockEvents_; //we use same data now
-    searchCtrl = _$controller_('searchCtrl', {
+    mockFavorites = _mockFavorites_;
+    searchCtrl = $controller('searchCtrl', {
       $scope: $scope,
       SUGGESTION_TYPES: SUGGESTION_TYPES,
       suggestionAdapter: suggestionAdapter
@@ -55,6 +63,16 @@ describe('searchCtrl', function() {
     $scope.originAddress = {latitude: 1, longitude: 1};
     $scope.$digest();
     expect($scope.isStep3Ready).toEqual(true);
+  });
+
+  it('populate search form with data from selectFavorite event', function() {
+    favorite = mockFavorites[0];
+    $rootScope.$broadcast('selectFavorite', favorite);
+    $scope.$digest();
+    expect($scope.destination).toEqual(favorite.destination.description);
+    expect($scope.origin).toEqual(favorite.origin.description);
+    expect($scope.destinationAddress).toEqual(favorite.destination.location);
+    expect($scope.step).toEqual(1);
   });
 
 });

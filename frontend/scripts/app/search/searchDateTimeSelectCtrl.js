@@ -42,7 +42,6 @@
         $event.stopPropagation();
       }
 
-
       closeAll();
       $scope.isOpenStartTimePicker = true;
     };
