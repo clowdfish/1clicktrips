@@ -25,7 +25,7 @@
       scope.previousPage = previousPage;
 
       scope.$watch('currentPage', function() {
-        getVisibleItems();
+        scope.offset = (scope.currentPage - 1) * scope.itemPerPage;
       });
 
       scope.$watch('listItems', function() {
@@ -34,12 +34,7 @@
         scope.currentPage = 1;
         scope.disablePreviousPageButton = true;
         scope.disableNextPageButton = scope.totalPage == 1;
-        getVisibleItems();
       });
-
-      function getVisibleItems() {
-        scope.offset = (scope.currentPage - 1) * scope.itemPerPage;
-      }
 
       function nextPage() {
         if (scope.currentPage < scope.totalPage) {
