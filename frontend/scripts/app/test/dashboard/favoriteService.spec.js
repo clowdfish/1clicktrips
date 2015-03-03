@@ -31,7 +31,7 @@ describe('favoriteService', function() {
 
     $rootScope.$digest();
 
-    expect(favorites.length).toEqual(3);
+    expect(favorites.length).toBeGreaterThan(3);
     expect(favorites[0].origin.description).toEqual("9579 Quaking Hill, Panther Valley, Indiana");
   });
 });
