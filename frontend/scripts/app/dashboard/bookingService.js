@@ -44,7 +44,6 @@
     */
     function transformResponseData(response) {
       for (var bookingId = 0; bookingId < response.length; bookingId++ ) {
-
         response[bookingId].startDate = date.stringToDate(response[bookingId].startDate);
         response[bookingId].endDate = date.stringToDate(response[bookingId].endDate);
 
