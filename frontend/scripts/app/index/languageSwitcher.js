@@ -11,38 +11,21 @@
 			restrict: 'EA',
 			templateUrl: 'scripts/app/templates/index/language-switcher.html',
 			scope: {
-				activeLanguageKey: '='
+				activeLanguageKey: '=',
+				languages: '='
 			},
 			link: link
 		}
 
 		function link(scope, element, attrs) {
 			var wrapper = angular.element('.language-switcher-wrapper');
+
+			scope.changeLanguage = changeLanguage;
+
 			wrapper.hover(function() {
 				$(this).removeClass('hide');
 			});
 
-			scope.languages = {};
-	    languageService
-	      .getAvailableLanguages()
-	      .then(function(data) {
-	        scope.languages = data;
-	      });
-
-	    //Set default languages
-	    var storageLanguageKey = languageService.getActiveLanguageKey();
-	    if (storageLanguageKey == null) {
-	    	if (locale && scope.languages[locale]) {
-		      scope.activeLanguageKey = locale;
-		    } else {
-		      scope.activeLanguageKey = 'en';
-		    }
-	    } else {
-	    	scope.activeLanguageKey = storageLanguageKey;
-	    }
-	    $translate.use(scope.activeLanguageKey);
-
-	    scope.changeLanguage = changeLanguage;
 
 	    function changeLanguage(key) {
 	      if (_.has(scope.languages, key)) {

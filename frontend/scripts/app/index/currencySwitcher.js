@@ -11,7 +11,8 @@
 			restrict: 'EA',
 			templateUrl: 'scripts/app/templates/index/currency-switcher.html',
 			scope: {
-				activeCurrency: '='
+				activeCurrency: '=',
+				currencies: '='
 			},
 			link: link
 		}
@@ -21,14 +22,6 @@
 			wrapper.hover(function() {
 				$(this).removeClass('hide');
 			});
-
-			scope.currencies = {};
-
-	    currencyService
-	      .getAvailableCurrencies()
-	      .then(function(data) {
-	        scope.currencies = data;
-	      });
 
 	    scope.changeCurrency = changeCurrency;
 

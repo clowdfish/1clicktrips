@@ -17,23 +17,17 @@
   function range() {
     return function(input) {
       var lowBound,
-          highBound,
-          step = 0;
+          highBound;
       if (input.length == 1) {
         lowBound = 0;
         highBound = input[0];
       } else if (input.length == 2) {
         lowBound = input[0];
         highBound = input[1];
-      } else if (input.length == 3) {
-        lowBound = input[0];
-        highBound = input[1];
-        step = input[2];
       }
       var result = [];
-      for (var i = lowBound; i < highBound; i++ ) {
-        var number = i + step;
-        result.push(number);
+      for (var i = lowBound; i <= highBound; i++ ) {
+        result.push(i);
       }
       return result;
     }
