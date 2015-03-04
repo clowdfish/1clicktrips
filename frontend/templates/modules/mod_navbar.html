@@ -11,14 +11,20 @@
             <a href="#" class="button">JOIN</a>
             <div class="header-settings">
                 <ul>
-                  <currency-switcher
-                    active-currency='appConfig.activeCurrency'
-                    currencies='currencies'>
-                  </currency-switcher>
-                  <language-switcher
-                    active-language-key='activeLanguageKey'
-                    languages='languages'>
-                  </language-switcher>
+                  <li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}
+                    <ul class='currency-switch'>
+                      <li ng-repeat='(key, currency) in currencies' ng-click='changeCurrency(key)'>
+                        {[ currency.code ]}
+                      </li>
+                    </ul>
+                  </li>
+                  <li class='language-switch-wrapper'>{[ languages[activeLanguageKey].name ]}
+                    <ul class='language-switch'>
+                      <li ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)'>
+                        {[ language.name ]}
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
             </div>
         </nav>

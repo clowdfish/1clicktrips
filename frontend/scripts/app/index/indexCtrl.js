@@ -7,7 +7,18 @@
     .controller('indexCtrl', indexCtrl);
 
   function indexCtrl($scope, $translate, currencyService, appConfig, localStorageService, languageService) {
+
     $scope.appConfig = appConfig;
+    $scope.changeLanguage = changeLanguage;
+    $scope.changeCurrency = changeCurrency;
+
+    $scope.$watch('appConfig.activeCurrency', function() {
+      $scope.activeCurrency = appConfig.activeCurrency;
+    });
+
+    $scope.$watch('appConfig.activeLanguageKey', function() {
+      $scope.activeLanguageKey = appConfig.activeLanguageKey;
+    });
 
     initLanguages();
 
@@ -24,12 +35,12 @@
     }
 
     function initActiveCurrency() {
-      $scope.activeCurrency = 'usd';
       appConfig.activeCurrency = currencyService.getActiveCurrency();
       if (appConfig.activeCurrency == null) {
         appConfig.activeCurrency = 'usd';
       }
       appConfig.currencySymbol = currencyService.getCurrencySymbol(appConfig.activeCurrency);
+      appConfig.currencyDecimalDigits = $scope.currencies[appConfig.activeCurrency].decimalDigits;
     }
 
     function initLanguages() {
@@ -54,6 +65,18 @@
         $scope.activeLanguageKey = storageLanguageKey;
       }
       $translate.use($scope.activeLanguageKey);
+    }
+
+    function changeLanguage(key) {
+      languageService.setActiveLanguageKey(key);
+      $scope.activeLanguageKey = key;
+      $translate.use($scope.activeLanguageKey);
+    }
+
+    function changeCurrency(key) {
+      currencyService.setActiveCurrency(key);
+      appConfig.currencySymbol = currencyService.getCurrencySymbol(key);
+      appConfig.activeCurrency = key;
     }
   }
 })();
