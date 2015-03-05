@@ -92,10 +92,10 @@ module.exports = function (app, express, passport, production) {
       var token =
         AuthController.getAuthenticationToken(req, res, app.get('jwtTokenSecret'));
 
-      if(token)
-        res.status(200).json({ token: token });
-      else
-        res.status(401).send('status.user.error.authorization.failure');
+      res.render('auth/after-auth.ejs', {
+        token: token
+      });
+
     });
 
   // =============================================================================

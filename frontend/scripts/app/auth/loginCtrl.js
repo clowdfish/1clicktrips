@@ -6,13 +6,16 @@
     .module('app.auth')
     .controller('loginCtrl', loginCtrl);
 
-  function loginCtrl($scope, $window) {
+  function loginCtrl($scope, $rootScope, $window, AUTH_EVENTS, session) {
     $scope.loginTwitter = loginTwitter;
 
     function loginTwitter() {
       createAuthDialog();
     }
 
+    /**
+    * Create auth dialog
+    */
     function createAuthDialog() {
       var url = '/api/auth/twitter';
       var width = 800;
@@ -24,7 +27,28 @@
       windowOptions += ',scrollbars=0';
       windowOptions += ',top=' + top;
       windowOptions += ',left=' + left;
-      $window.open(url, 'twitter_login', windowOptions);
+      var child = $window.open(url, 'twitter_login', windowOptions);
+      window.addEventListener("message", authDialogEventListener);
+    }
+
+    function authDialogEventListener(msg) {
+      if (msg.data.name === "authState") {
+        $rootScope.$apply(function() {
+          switch (msg.data.state) {
+            case 'success':
+              session.authSuccess(msg.data.token);
+              $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+              console.log('Login successful');
+              break;
+            case 'failed':
+            default:
+              session.authFailed();
+              $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+              console.log('Login failed');
+              break;
+          }
+        });
+      }
     }
   }
 })();

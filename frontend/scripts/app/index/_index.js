@@ -34,8 +34,11 @@
     $translateProvider.preferredLanguage('en');
   }
 
-  function run($rootScope) {
+  function run($rootScope, $state, AUTH_EVENTS) {
     $rootScope.i18n = i18n;
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $state.go('index');
+    });
   }
 
   function interpolateConfig($interpolateProvider) {

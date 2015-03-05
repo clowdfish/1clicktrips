@@ -32,6 +32,8 @@ function setupServer() {
     }));
     app.use(bodyParser.json());     // parse application/json
     app.use(cookieParser());
+    app.set('view engine', 'ejs');
+    app.set('views', __dirname + '/app/views');
     app.use(session({
       secret: 'errare humanum est',
       cookie: {
@@ -61,7 +63,7 @@ function setupAuthentication() {
 function start () {
   setupServer();
   setupAuthentication();
-    
+
 	// load routes with fully configured express and passport
   require('./app/routes/auth.js')(app, express, passport, production);
 	require('./app/routes/search.js')(app, express, production);
