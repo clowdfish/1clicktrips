@@ -27,5 +27,28 @@ module.exports = {
 
   getMessages: function(userId) {
     // TODO implement
+  },
+
+ /**
+   * Retrieves the user licence for a user with the given id from the database.
+   *
+   * @param database
+   * @param userId
+   * @returns a Promise resolving to the user licence
+   */
+  getUserLicence: function(database:any,
+                 					 userId:string):Promise<number> {
+
+    return new Promise<number>(function(resolve, reject) {
+
+      var pattern:RegExp =
+        /^[a-zA-Z0-9._-]+[\+[a-zA-Z0-9._-]+]?@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+      if(pattern.test(userId)) {
+				// TODO implement database access
+      }
+      else
+        resolve(0);
+    });
   }
 };

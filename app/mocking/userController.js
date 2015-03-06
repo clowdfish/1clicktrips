@@ -92,7 +92,15 @@ module.exports = {
       else
         reject(new Error('Could not retrieve messages.'));
     });
-  }
+  },
+
+  getUserLicence: function(database:any,
+                 					 userId:string):Promise<number> {
+
+	  return new Promise<number>(function(resolve, reject) {
+	  	resolve(0);
+	  });
+	}
 };
 
 // ==========================================================================
