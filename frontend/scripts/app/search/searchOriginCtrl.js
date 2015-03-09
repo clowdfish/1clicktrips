@@ -40,8 +40,8 @@
      * Send search parameter to result page
      */
     function startSearch() {
-      var startDate = createDateFromDateAndTime($scope.$parent.startDate, $scope.$parent.startTime);
-      var endDate = createDateFromDateAndTime($scope.$parent.endDate, $scope.$parent.endTime);
+      var startDate = createDateFromDateAndTime($scope.$parent.startDate, $scope.$parent.startTime).getTime();
+      var endDate = createDateFromDateAndTime($scope.$parent.endDate, $scope.$parent.endTime).getTime();
       $state.go('search_result', {
         originLatitude: $scope.$parent.originAddress.latitude,
         originLongitude: $scope.$parent.originAddress.longitude,
@@ -53,7 +53,7 @@
     }
 
     function createDateFromDateAndTime(date, time) {
-      return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
     }
 
 	}

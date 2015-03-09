@@ -45,8 +45,8 @@
               latitude: parseFloat($stateParams.destinationLatitude),
               longitude: parseFloat($stateParams.destinationLongitude)
             },
-            start: moment(parseInt($stateParams.startDate)).toISOString(),
-            end: moment(parseInt($stateParams.endDate)).toISOString()
+            start: moment(parseInt($stateParams.startDate)).format('YYYY-MM-DDTHH:mm:ss'),
+            end: moment(parseInt($stateParams.endDate)).format('YYYY-MM-DDTHH:mm:ss'),
           }
         ],
         locale: appConfig.activeLanguage,

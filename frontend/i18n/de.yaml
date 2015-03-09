@@ -7,6 +7,7 @@ de:
   general:
     yes: Ja
     no: Nein
+    or: oder
   toasts:
     notimplemented: Leider noch nicht verfügbar
   nav:
@@ -39,7 +40,7 @@ de:
       check: Ich stimme den <a href=''>Trip-To-Go Bedingungen</a> zu
       submitsub : oder <a href='signin.html' class='ttg-link' id='signin'>hier anmelden</a>
       signin: "hier anmelden"
-    header: Registrierung *
+    header: Registrierung
     headersub: Erleben Sie die Welt der einfachen Reisebuchung. Noch heute.
     annotation: '* Trip-To-Go is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate <a href="./#/contact">your feedback</a>.'
     confirm: Sie haben sich erfolgreich angemeldet
@@ -55,7 +56,7 @@ de:
       resulterror: "<span>Es gab ein Problem beim Login.</span> <br />Haben Sie sich schon bei Trip-To-Go <a href='./#/signup'>registriert</a>?"
     header: Anmelden
     action:
-      signup: "<b>Noch kein Teil von Trip-To-Go?</b><br /><a href='./#/signup'>Registrieren</a> Sie sich noch heute oder melden Sie sich <a href='./auth/twitter'>mit Ihrem Twitter-Account</a> an."
+      signup: "<b>Noch kein Teil von Trip-To-Go?</b><br />{{signupLink}} Sie sich noch heute oder melden Sie sich <a href='./auth/twitter'>mit Ihrem Twitter-Account</a> an."
   footer:
     links:
       privacy: Datenschutz
