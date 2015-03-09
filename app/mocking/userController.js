@@ -94,10 +94,9 @@ module.exports = {
     });
   },
 
-  getUserLicence: function(database:any,
-                 					 userId:string):Promise<number> {
+  getUserLicence: function(database, userId) {
 
-	  return new Promise<number>(function(resolve, reject) {
+	  return new Promise(function(resolve, reject) {
 	  	resolve(0);
 	  });
 	}

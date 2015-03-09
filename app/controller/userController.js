@@ -36,12 +36,11 @@ module.exports = {
    * @param userId
    * @returns a Promise resolving to the user licence
    */
-  getUserLicence: function(database:any,
-                 					 userId:string):Promise<number> {
+  getUserLicence: function(database, userId) {
 
-    return new Promise<number>(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
 
-      var pattern:RegExp =
+      var pattern =
         /^[a-zA-Z0-9._-]+[\+[a-zA-Z0-9._-]+]?@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
       if(pattern.test(userId)) {
