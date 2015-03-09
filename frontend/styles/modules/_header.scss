@@ -51,7 +51,7 @@ $header-padding: .7em;
       display: block;
       float: right;
 
-      a, a:hover {
+      .userProfile, a, a:hover {
         display: inline-block;
         margin-right: 1em;
         color: #fff;
@@ -111,7 +111,7 @@ $header-padding: .7em;
       }
 
       .currency-switch-wrapper, .language-switch-wrapper{
-        z-index: 9999;
+        z-index: 1000;
       }
     }
   }

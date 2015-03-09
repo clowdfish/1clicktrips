@@ -11,7 +11,9 @@
     .module('app.index', [
       'pascalprecht.translate',
       'ui.router',
-      'LocalStorageModule'
+      'LocalStorageModule',
+      'ui.bootstrap',
+      'ui.bootstrap.tpls'
     ])
     .config(interpolateConfig)
     .config(languageConfig)
@@ -51,7 +53,28 @@
 
     $stateProvider.state('index', {
       url: '/',
-      templateUrl: 'scripts/app/templates/index/index.html'
+      views: {
+        '': {
+          templateUrl: 'scripts/app/templates/index/index.html',
+          controller: 'indexCtrl'
+        },
+        'search@index': {
+          templateUrl: 'scripts/app/templates/search/search.html',
+          controller: 'searchCtrl'
+        },
+        'dashboard@index': {
+          templateUrl: 'scripts/app/templates/dashboard/dashboard.html',
+          controller: 'dashboardCtrl',
+          resolve: {
+            favoriteList: function(favoriteService) {
+              return favoriteService.getFavoriteList();
+            },
+            bookedTripList: function(bookingService) {
+              return bookingService.getBookedTrips();
+            }
+          }
+        }
+      }
     });
   }
 

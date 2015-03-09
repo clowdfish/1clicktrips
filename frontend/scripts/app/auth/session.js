@@ -1,4 +1,4 @@
-(function() {
+  (function() {
 
   'use strict';
 
@@ -13,6 +13,7 @@
 
     var _this = this;
     var tokenLocalStorageKey = 'session_token';
+    var userProfileKey = 'session_user_profile';
     /**
     * Auth success, store token to localstorage
     * @param {string} token
@@ -25,11 +26,27 @@
     * Auth fail, remove token
     */
     this.authFailed = function() {
-      localStorageService.remove(tokenLocalStorageKey);
+      _this.removeAuthToken();
     }
 
     this.getAuthToken = function() {
       return localStorageService.get(tokenLocalStorageKey);
+    }
+
+    this.removeAuthToken = function() {
+      localStorageService.remove(tokenLocalStorageKey);
+    }
+
+    this.setUserProfile = function(userProfile) {
+      localStorageService.set(userProfileKey, userProfile);
+    }
+
+    this.removeUserProfile = function() {
+      localStorageService.remove(userProfileKey);
+    }
+
+    this.getUserProfile = function() {
+      return localStorageService.get(userProfileKey);
     }
 
   }

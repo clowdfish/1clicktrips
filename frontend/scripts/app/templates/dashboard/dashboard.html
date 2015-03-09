@@ -1,9 +1,9 @@
-<section class="dashboard container" ng-controller='dashboardCtrl'>
+<section class="dashboard container">
   <div class="view-container" ng-if='isLogin'>
     <div class='dashboard-favorites-container'>
       <h3>My favorites</h3>
-      <favorite-list 
-        list-items='favoriteList' 
+      <favorite-list
+        list-items='favoriteList'
         item-per-page="3"
         select-favorite='selectFavorite'></favorite-list>
     </div>

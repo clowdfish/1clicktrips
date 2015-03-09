@@ -1,0 +1,39 @@
+<form class="form modal-content" id="signinForm" name="loginForm" ng-submit="login()">
+  <h1 class="modal-title">{[ i18n.login_header | translate ]}</h1>
+  <span class="loginForm-error"
+        ng-show="loginForm.$error.unauthorized">
+    Email or password is wrong
+  </span>
+  <fieldset>
+    <input type="email"
+          name="email"
+          class="ttg-input"
+          placeholder="{[ i18n.login_form_username | translate ]}"
+          ng-model="email"
+          required/>
+  </fieldset>
+  <fieldset>
+    <input type="password"
+          name="password"
+          class="ttg-input"
+          placeholder="{[ i18n.login_form_password | translate ]}"
+          ng-model="password"
+          required />
+  </fieldset>
+  <fieldset>
+    <input type="checkbox" name="agreement" id="ttg-checkbox-signin">
+    <label for="ttg-checkbox-signin">{[ i18n.login_form_check | translate ]}</label>
+  </fieldset>
+
+  <div class="form-actions">
+    <input type="submit" class="button" value="{[ i18n.login_form_submit | translate ]}" />
+    <a id="forgot-password">{[ i18n.login_form_submitforgot | translate ]}</a>
+  </div>
+
+  <div class="form-actions">
+    <a id="twitter-login" ng-click="loginTwitter()">Twitter</a>
+  </div>
+</form>
+
+<div class="annotation">{[ i18n.login_action_signup | translate ]}</div>
+

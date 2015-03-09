@@ -47,6 +47,7 @@ function setupServer() {
     }));
 
     app.set('jwtTokenSecret', configAuth.secret);
+    app.set('loginCallbackUrl', configAuth.loginCallbackUrl);
 }
 
 /**

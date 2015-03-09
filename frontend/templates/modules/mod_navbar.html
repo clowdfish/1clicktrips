@@ -7,8 +7,13 @@
           </a>
         </div>
         <nav class="header-navigation">
-            <a href="#">Login</a>
-            <a href="#" class="button">JOIN</a>
+            <div ng-hide="userProfile" class="userProfile">
+              <a href="#" ng-click='createLoginModal()'>Login</a>
+              <a href="#" class="button" ng-click='createSignupModal()'>JOIN</a>
+            </div>
+            <div ng-show="userProfile" class="userProfile">
+              Hi {[userProfile['first-name']]} {[userProfile['last-name']]} <a ng-click="logout()">(Logout)</a>
+            </div>
             <div class="header-settings">
                 <ul>
                   <li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}

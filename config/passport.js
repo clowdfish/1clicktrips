@@ -53,17 +53,19 @@ module.exports = function(passport) {
       function(req, email, password, done) {
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        connection.query("SELECT * FROM users WHERE email = ?", [email], function(err, rows) {
+        connection.query("SELECT * FROM user WHERE email = ?", [email], function(err, rows) {
           if (err)
             return done(err);
           if (rows.length) {
             return done(null, false, {message: 'status.user.error.signup.exists'});
           } else {
+            //temp salt
+            var salt = bcrypt.genSaltSync(10);
             // if there is no user with that username
             // create the user
             var newUser = {
               email: email,
-              password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+              password: bcrypt.hashSync(password, salt)  // use the generateHash function in our user model
             };
 
             var insertQuery = "INSERT INTO users ( email, password ) values (?,?)";

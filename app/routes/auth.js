@@ -54,10 +54,24 @@ module.exports = function (app, express, passport, production) {
         var token =
           AuthController.getAuthenticationToken(req, res, app.get('jwtTokenSecret'));
 
-        if(token)
-          res.status(200).json({ token: token });
-        else
+        if (!token) {
           res.status(401).send('status.user.error.authorization.failure');
+        }
+
+        UserController
+          .getProfile(userId)
+          .then(function (profile) {
+            if (profile) {
+              profile['token'] = token;
+              res.status(200).json(profile);
+            }
+            else {
+              res.status(500);
+            }
+          })
+          .catch(function(err) {
+            res.status(500).send(err.message);
+          });
       }
     })(req, res, next);
   });
@@ -67,15 +81,31 @@ module.exports = function (app, express, passport, production) {
   // ==========================================================================
 
   authApi.post('/local', passport.authenticate('local-login', {session: true}),
-    function (req, res) {
+    function (req, res, user) {
 
       var token =
         AuthController.getAuthenticationToken(req, res, app.get('jwtTokenSecret'));
 
-      if(token)
-        res.status(200).json({ token: token });
-      else
+      if (!token) {
         res.status(401).send('status.user.error.authorization.failure');
+      }
+
+      UserController
+        .getProfile(userId)
+        .then(function (profile) {
+          if (profile) {
+            profile['token'] = token;
+            res.status(200).json(profile);
+          }
+          else {
+            res.status(500);
+          }
+        })
+        .catch(function(err) {
+          res.status(500).send(err.message);
+        });
+
+
     });
 
   // ==========================================================================
@@ -92,9 +122,8 @@ module.exports = function (app, express, passport, production) {
       var token =
         AuthController.getAuthenticationToken(req, res, app.get('jwtTokenSecret'));
 
-      res.render('auth/after-auth.ejs', {
-        token: token
-      });
+      redirectUrl = app.get('loginCallbackUrl') + '?token=' + token;
+      res.redirect(redirectUrl);
 
     });
 
