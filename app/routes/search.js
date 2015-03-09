@@ -141,7 +141,7 @@ module.exports = function (app, express, production) {
     console.log('Request coming from the client:');
     console.log(JSON.stringify(req.body, null, 2));
 
-    if(checkValidityOfRequest(req)) {
+    if(checkValidity(req)) {
 
       var userLicence = null;
 
@@ -155,7 +155,7 @@ module.exports = function (app, express, production) {
           userLicence = user.licence;
 
           if(!production)
-            SearchController.getTripResults({}, user.licence)
+            SearchController.getTripResults(req, user.licence)
               .then(function(tripResults) {
                 res.status(200).json(tripResults);
               })
@@ -164,26 +164,7 @@ module.exports = function (app, express, production) {
               });
           else
             res.status(404).send("Search Service not available yet.");
-
-          /*
-          return new Promise(function (resolve) {
-            // resolve with preferences object
-          }); */
         });
-
-        /*
-        .then(function () {
-          searchObject = req.body;
-
-          // use TTG Search API to get results
-          return tripEngine.getTrips(searchObject, userLicence);
-        })
-        .then(function (results) {
-          res.status(200).json(results);
-        })
-        .catch(function (error) {
-          res.status(500).json(error);
-        }); */
     }
     else {
       res.status(400).send('status.user.error.request.malformed');
@@ -191,12 +172,22 @@ module.exports = function (app, express, production) {
   });
 };
 
-function checkValidityOfRequest(req) {
+function checkValidity(req) {
+
+  var isValid = true;
 
   function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
-  console.log(req.body);
+
+  function checkAppointmentTimes(appointment) {
+    var timePattern =
+      /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+
+    return timePattern.test(appointment['start']) &&
+      timePattern.test(appointment['end'])
+  }
+
   if(req.body['origin'] && req.body['appointments'] &&
     req.body['appointments'].length > 0 && req.body['currency'] &&
     req.body['locale'] && (req.body['roundTrip'] === true ||
@@ -204,24 +195,25 @@ function checkValidityOfRequest(req) {
 
     if(!isNumber(req.body['origin']['latitude'])
       || !isNumber(req.body['origin']['longitude']))
-      return false;
+      isValid = false;
 
     req.body['appointments'].forEach(function(appointment) {
+
       if(!(appointment['location']
         && isNumber(appointment['location']['latitude'])
-        && isNumber(appointment['location']['longitude'])))
-        return false;
+        && isNumber(appointment['location']['longitude']))) {
 
-      var timePattern =
-        /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+        isValid = false;
+      }
 
-      if(!(timePattern.test(appointment['start']) &&
-          timePattern.test(appointment['end'])))
-        return false;
+      if(!checkAppointmentTimes(appointment)) {
+
+        isValid = false;
+      }
     });
   }
   else
-    return false;
+    isValid = false;
 
-  return true;
+  return isValid;
 }
