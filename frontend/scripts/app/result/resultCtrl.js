@@ -36,17 +36,17 @@
     function findAllItineraries() {
       var searchObject = {
         origin: {
-          latitude: $stateParams.originLatitude,
-          longitude: $stateParams.originLongitude
+          latitude: parseFloat($stateParams.originLatitude),
+          longitude: parseFloat($stateParams.originLongitude)
         },
         appointments: [
           {
             location: {
-              latitude: $stateParams.destinationLatitude,
-              longitude: $stateParams.destinationLongitude
+              latitude: parseFloat($stateParams.destinationLatitude),
+              longitude: parseFloat($stateParams.destinationLongitude)
             },
-            start: $stateParams.startDate,
-            end: $stateParams.endDate
+            start: parseInt($stateParams.startDate),
+            end: parseInt($stateParams.endDate)
           }
         ],
         locale: 'en',
