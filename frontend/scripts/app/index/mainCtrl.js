@@ -112,16 +112,15 @@
     }
 
     function initActiveLanguage() {
-      var storageLanguageKey = languageService.getActiveLanguageKey();
-      if (storageLanguageKey == null) {
+      appConfig.activeLanguageKey = languageService.getActiveLanguageKey();
+      if (appConfig.activeLanguageKey == null) {
         if (locale && $scope.languages[locale]) {
-          $scope.activeLanguageKey = locale;
+          appConfig.activeLanguageKey = locale;
         } else {
-          $scope.activeLanguageKey = 'en';
+          appConfig.activeLanguageKey = 'en';
         }
-      } else {
-        $scope.activeLanguageKey = storageLanguageKey;
       }
+      $scope.activeLanguageKey = appConfig.activeLanguageKey;
       $translate.use($scope.activeLanguageKey);
     }
 

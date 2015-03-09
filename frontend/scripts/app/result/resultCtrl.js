@@ -4,7 +4,7 @@
   angular.module('app.result')
     .controller('resultCtrl', resultCtrl);
 
-  function resultCtrl($scope, $rootScope, $q, $stateParams, tripService, TRIP_TYPE, browser, appConfig) {
+  function resultCtrl($scope, $rootScope, $q, $stateParams, tripService, TRIP_TYPE, browser, appConfig, date) {
     $scope.appConfig = appConfig;
 
     findAllItineraries();
@@ -45,13 +45,13 @@
               latitude: parseFloat($stateParams.destinationLatitude),
               longitude: parseFloat($stateParams.destinationLongitude)
             },
-            start: parseInt($stateParams.startDate),
-            end: parseInt($stateParams.endDate)
+            start: moment(parseInt($stateParams.startDate)).toISOString(),
+            end: moment(parseInt($stateParams.endDate)).toISOString()
           }
         ],
-        locale: 'en',
+        locale: appConfig.activeLanguage,
         roundTrip: false,
-        currency: 'usd'
+        currency: appConfig.activeCurrency
       };
       tripService
         .findItinerary(searchObject)
