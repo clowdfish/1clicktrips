@@ -155,11 +155,13 @@ module.exports = function (app, express, production) {
           userLicence = user.licence;
 
           if(!production)
-            SearchController.getTripResults(req, user.licence)
+            SearchController.getTripResults(req.body, user.licence)
               .then(function(tripResults) {
                 res.status(200).json(tripResults);
               })
               .catch(function(err) {
+                console.log("Error!");
+
                 res.status(500).json(err.message);
               });
           else
