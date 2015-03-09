@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('signupCtrl', signupCtrl);
 
-  function signupCtrl($scope, $modalInstance, $rootScope, AUTH_EVENTS, authService) {
+  function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authService) {
 
     $scope.signup = function(signupData) {
       authService
@@ -23,6 +23,15 @@
       $modalInstance.close();
     });
 
+    $scope.login = function() {
+      $modalInstance.close();
+      var modalInstance = $modal.open({
+        templateUrl: 'scripts/app/templates/auth/login-modal.html',
+        controller: 'loginCtrl',
+        size: 'lg'
+      });
+    }
+
     function handleSignupError(signupResponse) {
       switch (signupResponse) {
         case 'status.user.error.signup.exists':
@@ -35,6 +44,8 @@
           break;
       }
     }
+
+
 
   }
 })();

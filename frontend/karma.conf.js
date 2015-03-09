@@ -29,6 +29,7 @@ module.exports = function(config) {
       'bower_components/use-angular-translate/src/translate.js',
       'bower_components/use-angular-translate/src/**/*.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
+      'bower_components/angular-sanitize/angular-sanitize.js',
       'scripts/**/*.js',
       'scripts/**/*.spec.js',
       'scripts/**/*.html',

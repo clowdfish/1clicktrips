@@ -35,13 +35,13 @@
           name="agreement"
           id="ttg-checkbox-signup"
           />
-    <label for="ttg-checkbox-signup">{[ i18n.signup_form_check | translate ]}</label>
+    <label for="ttg-checkbox-signup" ng-bind-html="i18n.signup_form_check | translate"></label>
   </fieldset>
   <div class="form-actions">
     <input type="submit"
           class="button signup"
           value="{[ i18n.signup_form_submit | translate ]}" />
-    <span class="alternative">{[ i18n.signup_form_submitsub | translate ]}</span>
+    <span class="alternative">{[ i18n.general_or | translate ]} <a ng-click="login()">{[ i18n.signup_form_signin | translate ]}</a></span>
   </div>
 </form>
 

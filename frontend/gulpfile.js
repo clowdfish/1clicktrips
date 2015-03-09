@@ -115,6 +115,7 @@ gulp.task('scripts', ['i18n'], function() {
     'bower_components/lodash/lodash.js',
     'bower_components/use-angular-translate/src/**/*.js',
     'bower_components/angular-local-storage/dist/angular-local-storage.js',
+    'bower_components/angular-sanitize/angular-sanitize.js',
     'scripts/**/*.js',
     '!scripts/**/*.spec.js'
   ])
@@ -195,7 +196,7 @@ gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'an
   gulp.watch('styles/**/*.scss', ['styles']);
   gulp.watch(['scripts/app/**/*.js'], ['scripts']);
   gulp.watch(['scripts/app/**/*.html'], ['angular-templates']);
-  gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess']);
+  gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n']);
   gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
 });
 

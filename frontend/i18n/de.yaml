@@ -38,6 +38,7 @@ de:
       submit: Registrieren
       check: Ich stimme den <a href=''>Trip-To-Go Bedingungen</a> zu
       submitsub : oder <a href='signin.html' class='ttg-link' id='signin'>hier anmelden</a>
+      signin: "hier anmelden"
     header: Registrierung *
     headersub: Erleben Sie die Welt der einfachen Reisebuchung. Noch heute.
     annotation: '* Trip-To-Go is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate <a href="./#/contact">your feedback</a>.'

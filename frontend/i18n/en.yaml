@@ -7,6 +7,7 @@ en:
   general:
     yes: Yes
     no: No
+    or: or
   toasts:
     notimplemented: Not yet implemented
   nav:
@@ -38,6 +39,7 @@ en:
       submit: Sign Up
       check: I agree to the <a href=''>Trip-To-Go terms</a>
       submitsub : "or <a href='#' modal-open='signin'>sign in</a>"
+      signin: sign in
     header: Sign Up *
     headersub: Join the world of easy business travel. Today.
     annotation: '* Trip-To-Go is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate <a href="./#/contact">your feedback</a>.'
@@ -51,10 +53,10 @@ en:
       submit: Sign in
       check: Remember me
       submitforgot: Forgot your password?
-      resulterror: "<span>A problem occured during the log-in process. </span><br />Did you already <a href='./#/signup'>sign up</a> for a user account?"
+      resulterror: "<span>A problem occured during the log-in process. </span><br />Did you already <a data-ng-click='signin()'>sign up</a> for a user account?"
     header: Sign In
     action:
-      signup: "<h4>Not yet part of Trip-To-Go?</h4><a href='#' modal-open='signup'>Sign up now</a> now or <a href='./auth/twitter'><i class='fa fa-twitter'></i> log in with your Twitter account</a>."
+      signup: "<h4>Not yet part of Trip-To-Go?</h4><a href='#' data-ng-click='signin()' modal-open='signup'>Sign up now</a> or <a data-ng-click='loginTwitter()'><i class='fa fa-twitter'></i> log in with your Twitter account</a>."
   footer:
     links:
       privacy: Privacy
