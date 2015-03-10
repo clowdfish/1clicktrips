@@ -4,6 +4,7 @@
 
   angular
     .module('app.result', [
+      'app.common',
       'ui.router',
       'ngAnimate'
     ])

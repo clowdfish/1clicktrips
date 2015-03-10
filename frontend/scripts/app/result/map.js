@@ -24,9 +24,9 @@
       var mapOptions = {
         zoom: 19
       };
-      
+
       scope.$watch('activeSegments', function() {
-        if (scope.activeSegments.length >= 2) {
+        if (scope.activeSegments.length >= 1) {
           createMapBySegments(scope.activeSegments);
         }
       });
@@ -35,7 +35,7 @@
         if (map == null) {
           map = new google.maps.Map(document.getElementById('itinerary-map'), mapOptions);
         }
-        
+
         if (directionsDisplay) {
           directionsDisplay.setMap(null);
           directionsDisplay = null;
@@ -48,8 +48,9 @@
         var waypts = [];
         for (var i = 0;i < segments.length; i++) {
           var segment = segments[i];
+          console.log(segment);
           waypts.push({
-            location: new google.maps.LatLng(segment.destination.latitude, segment.destination.longitude),
+            location: new google.maps.LatLng(segment.end.location.latitude, segment.end.location.longitude),
             stopover: true
           });
         }
@@ -57,8 +58,8 @@
         var startSegment = segments[0];
         var endSegment = segments[segments.length - 1];
         var request = {
-          origin: new google.maps.LatLng(startSegment.origin.latitude, startSegment.origin.longitude),
-          destination: new google.maps.LatLng(endSegment.destination.latitude, endSegment.destination.longitude),
+          origin: new google.maps.LatLng(startSegment.start.location.latitude, startSegment.start.location.longitude),
+          destination: new google.maps.LatLng(endSegment.end.location.latitude, endSegment.end.location.longitude),
           waypoints: waypts,
           travelMode: google.maps.DirectionsTravelMode.DRIVING,
           optimizeWaypoints: false

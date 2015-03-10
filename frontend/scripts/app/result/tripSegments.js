@@ -25,6 +25,7 @@
           return;
         }
         scope.segments = groupSegmentByDate(scope.itinerary);
+        console.log(scope.segments);
         scope.segmentsHeaders = _.keys(scope.segments);
         scope.activeSegments = scope.segments[1];
         itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
@@ -38,7 +39,7 @@
         var day = 1;
         result[day] = [];
 
-        if (itinerary.outbound.hasOwnProperty('segments')) {
+        if (itinerary.outbound && itinerary.outbound.hasOwnProperty('segments')) {
           for (i = 0; i < itinerary.outbound.segments.length; i++) {
             var segment = itinerary.outbound.segments[i];
             if (result[day] == null) {
@@ -51,7 +52,7 @@
           }
         }
 
-        if (itinerary.inbound.hasOwnProperty('segments')) {
+        if (itinerary.inbound && itinerary.inbound.hasOwnProperty('segments')) {
           for (i = 0; i < itinerary.inbound.segments.length; i++) {
             var segment = itinerary.inbound.segments[i];
             if (result[day] == null) {

@@ -5,7 +5,7 @@
     .module('app.result')
     .service('tripService', tripService);
 
-  function tripService($http, $q, $timeout) {
+  function tripService($http, $q, $timeout, currencySymbolFilter) {
     var service = this;
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;
@@ -15,10 +15,15 @@
       var deferred = $q.defer();
       this.callSearchItineraryApi(searchObject)
         .then(function(response) {
+          console.log(response);
+          var data = response[0];
+
           var result = [];
-          for (var i = 0; i < response.length; i++) {
-            var itinerary = transformItinerary(response[i]);
+          for (var i = 0; i < data.length; i++) {
+
+            var itinerary = transformItinerary(data[i]);
             result.push(itinerary);
+            console.log(itinerary);
           }
           deferred.resolve(result);
         }, function(){
@@ -49,6 +54,7 @@
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
 
+      itinerary['currencySymbol'] = currencySymbolFilter(itinerary['currency']);
       itinerary['startTime'] = getItineraryStartTime(itinerary);
       itinerary['endTime'] = getItineraryEndTime(itinerary);
       itinerary['vehicleTypeList'] = getVehicleTypeList(outboundSegments, inboundSegments);
@@ -90,15 +96,13 @@
     }
 
     function getItineraryStartTime(itinerary) {
-      if (itinerary.outbound.hasOwnProperty('departureTime')) {
-        return itinerary.outbound.departureTime;
-      }
+      return getObjectValue(itinerary.outbound, 'departureTime', 0);
     }
 
     function getItineraryEndTime(itinerary) {
       var arrivalTime = getObjectValue(itinerary.inbound, 'arrivalTime', null);
       if (arrivalTime == null) {
-        arrivalTime = getObjectValue(itinerary.outbound, 'arrivalTime', null);
+        arrivalTime = getObjectValue(itinerary.outbound, 'arrivalTime', 0);
       }
       return arrivalTime;
     }
@@ -117,21 +121,20 @@
     function getItineraryCost(outboundSegments, inboundSegments) {
       var cost = 0;
       for (var i = 0; i < outboundSegments.length; i++) {
-        cost += outboundSegments[i].price;
+        cost += outboundSegments[i].price.amount;
       }
       for (var i = 0; i < inboundSegments.length; i++) {
-        cost += inboundSegments[i].price;
+        cost += inboundSegments[i].price.amount;
       }
       return cost;
     }
 
     function getObjectValue(object, key, defaultValue) {
-      var result = object[key];
-      if (result == null) {
+      if (!object || !object[key]) {
         return defaultValue;
-      } else {
-        return result;
       }
+      return object[key];
+
     }
   }
 })();
