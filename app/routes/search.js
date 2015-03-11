@@ -160,7 +160,7 @@ module.exports = function (app, express, production) {
                 res.status(200).json(tripResults);
               })
               .catch(function(err) {
-                console.log("Error!");
+                console.log(err.message);
 
                 res.status(500).json(err.message);
               });
