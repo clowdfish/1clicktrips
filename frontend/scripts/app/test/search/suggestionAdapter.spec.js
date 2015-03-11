@@ -10,6 +10,7 @@ describe('suggestionAdapter', function() {
       $rootScope;
 
   beforeEach(module('app.search'));
+  beforeEach(module('app-templates'));
 
   beforeEach(inject(function(_$rootScope_,
                               _SUGGESTION_TYPES_,

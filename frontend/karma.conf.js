@@ -49,6 +49,10 @@ module.exports = function(config) {
         'scripts/**/*.html': 'ng-html2js'
     },
 
+    ngHtml2JsPreprocessor: {
+      moduleName: 'app-templates'
+    },
+
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

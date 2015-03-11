@@ -10,9 +10,8 @@ describe('searchDestinationFormCtrl', function() {
     googleMap,
     mockLocation;
 
-  beforeEach(module('app.search'));
-  beforeEach(module('app.common'));
-  beforeEach(module('app.index'));
+  beforeEach(module('app'));
+  beforeEach(module('app-templates'));
 
   beforeEach(inject(function(
                               _$controller_,
@@ -22,7 +21,8 @@ describe('searchDestinationFormCtrl', function() {
                               _$q_,
                               _mockAddress_,
                               _mockEvents_,
-                              _googleMap_ ) {
+                              _googleMap_,
+                              _AUTH_EVENTS_ ) {
     $scope = _$rootScope_.$new();
     SUGGESTION_TYPES = _SUGGESTION_TYPES_;
     suggestionAdapter = _suggestionAdapter_;
@@ -39,7 +39,8 @@ describe('searchDestinationFormCtrl', function() {
       $scope: $scope,
       SUGGESTION_TYPES: SUGGESTION_TYPES,
       suggestionAdapter: suggestionAdapter,
-      googleMap: googleMap
+      googleMap: googleMap,
+      AUTH_EVENTS: _AUTH_EVENTS_
     });
 
     spyOn(googleMap, 'geocode').and.callFake(function() {

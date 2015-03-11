@@ -10,6 +10,8 @@ describe('tripService', function() {
 
   beforeEach(module('app.result'));
   beforeEach(module('app.mockdata'));
+  beforeEach(module('app-templates'));
+
   beforeEach(inject(function(_tripService_,
                             _$rootScope_,
                             mockItinerary,
@@ -38,11 +40,11 @@ describe('tripService', function() {
 
     $rootScope.$digest();
     itinerary = returnValue[0];
-    expect(itinerary.hasOwnProperty('destination')).toEqual(true);
     expect(itinerary.hasOwnProperty('outbound')).toEqual(true);
-    expect(itinerary.hasOwnProperty('inbound')).toEqual(true);
-    expect(itinerary.hasOwnProperty('price')).toEqual(true);
+    expect(itinerary.hasOwnProperty('inbound')).toEqual(false);
+    expect(itinerary.hasOwnProperty('cost')).toEqual(true);
     expect(itinerary.hasOwnProperty('currency')).toEqual(true);
+    expect(itinerary.hasOwnProperty('currencySymbol')).toEqual(true);
     expect(itinerary.hasOwnProperty('startTime')).toEqual(true);
     expect(itinerary.hasOwnProperty('endTime')).toEqual(true);
     expect(itinerary.hasOwnProperty('duration')).toEqual(true);

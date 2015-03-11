@@ -11,6 +11,8 @@ describe('dashboardCtrl', function() {
 
   beforeEach(module('app.common'));
   beforeEach(module('app.dashboard'));
+  beforeEach(module('app-templates'));
+
   beforeEach(inject(function(_$rootScope_,
                             _$controller_,
                             _bookingService_,
@@ -45,8 +47,9 @@ describe('dashboardCtrl', function() {
 
     $controller('dashboardCtrl', {
       $scope: $scope,
-      favoriteService: favoriteService,
-      bookingService: bookingService
+      $rootScope: $rootScope,
+      favoriteList: _mockFavorites_,
+      bookedTripList: _mockBooking_
     });
 
     $scope.$digest();

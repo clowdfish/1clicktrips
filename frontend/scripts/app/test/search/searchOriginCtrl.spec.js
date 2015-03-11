@@ -12,8 +12,10 @@ describe('searchOriginCtrl', function() {
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
   beforeEach(module('app.search'));
-  beforeEach(module('scripts/app/templates/result/result.html'));
   beforeEach(module('app.result'));
+  beforeEach(module('app.auth'));
+  beforeEach(module('app-templates'));
+
   beforeEach(inject(function(_$rootScope_,
                             _$q_,
                             _$controller_,
@@ -21,7 +23,8 @@ describe('searchOriginCtrl', function() {
                             _SUGGESTION_TYPES_,
                             _suggestionAdapter_,
                             _googleMap_,
-                            _mockAddress_) {
+                            _mockAddress_,
+                            _AUTH_EVENTS_) {
     $scope = _$rootScope_.$new();
     $rootScope = _$rootScope_;
     $q = _$q_;
@@ -39,7 +42,8 @@ describe('searchOriginCtrl', function() {
       $state: _$state_,
       SUGGESTION_TYPES: _SUGGESTION_TYPES_,
       suggestionAdapter: _suggestionAdapter_,
-      googleMap: _googleMap_
+      googleMap: _googleMap_,
+      AUTH_EVENTS: _AUTH_EVENTS_
     });
 
     spyOn(googleMap, 'geocode').and.callFake(function() {

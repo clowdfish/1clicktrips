@@ -4,7 +4,10 @@ describe('favoriteService', function() {
   var favoriteService,
       $q,
       $rootScope;
+
   beforeEach(module('app.dashboard'));
+  beforeEach(module('app-templates'));
+
   beforeEach(inject(function(_$rootScope_,
                             _favoriteService_,
                             _$q_,

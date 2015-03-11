@@ -19,10 +19,7 @@ describe('itineraryMap directive', function() {
 
   beforeEach(module('app.result'));
   beforeEach(module('app.common'));
-  beforeEach(module('scripts/app/templates/result/itinerary-map.html'));
-  beforeEach(module('scripts/app/templates/result/trip-segments.html'));
-  beforeEach(module('scripts/app/templates/result/segment-alternative-list.html'));
-  beforeEach(module('scripts/app/templates/result/map.html'));
+  beforeEach(module('app-templates'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_, _mockItinerary_, _tripService_, _$q_) {
     scope = _$rootScope_.$new();
@@ -60,17 +57,18 @@ describe('itineraryMap directive', function() {
 
   it('isolated scope has valid data', function() {
     expect(directiveScope.itinerary.currency).toEqual('EUR');
-    expect(directiveScope.itinerary.destination).toEqual('Customer in Hanover');
-    expect(directiveScope.itinerary.price).toEqual(355.88915290549545);
+    expect(directiveScope.itinerary.cost).toEqual(360);
   });
 
   describe('segmentAlternativeList directive', function() {
     it('has valid alternative list', function() {
-      //when not click on "View alternatives"
+      /**
+       * Hotel list is not showing, it is showed after we call showAlternativesPanel() function
+       */
       expect(compiledDirective.html()).not.toContain('<img class="hotels-list-item-image" ng-src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg" src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg">');
       expect(directiveScope.isShowAlternativesPanel).toEqual(false);
       //simulate click on "View alternatives"
-      directiveScope.showAlternativesPanel(scope.itinerary.outbound.segments[2]);
+      directiveScope.showAlternativesPanel(scope.itinerary.outbound.segments[3]);
       scope.$digest();
       expect(directiveScope.isShowAlternativesPanel).toEqual(true);
       expect(compiledDirective.html()).toContain('<img class="hotels-list-item-image" ng-src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg" src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg">');
@@ -85,13 +83,6 @@ describe('itineraryMap directive', function() {
       tripSegmentIsolateScope = tripSegmentElement.isolateScope();
     });
 
-    it('tripSegments as valid isolate scope data', function() {
-      expect(tripSegmentIsolateScope.activeSegments.length).toEqual(3);
-      expect(tripSegmentIsolateScope.activeSegmentNumber).toEqual(1);
-      expect(tripSegmentIsolateScope.segments['1'].length).toEqual(3);
-      expect(tripSegmentIsolateScope.segments['2'].length).toEqual(4);
-    });
-
     it('tripSegments output valid html', function() {
       expect(compiledDirective.html()).toContain('Trip Details');
       expect(compiledDirective.html()).toContain('Walk to bus station');
@@ -100,13 +91,19 @@ describe('itineraryMap directive', function() {
     });
 
     it('tripSegments response correctly when change tab', function() {
-      expect(tripSegmentIsolateScope.activeSegments.length).toEqual(3);
+      /**
+       * We have 4 segments in day 1 and 1 segment in day 2
+       * At first, we select tab 1, so we should have 4 segments
+       * After that, we change tab with showTab() function.
+       * Tab 2 only have 1 segment
+       */
+      expect(tripSegmentIsolateScope.activeSegments.length).toEqual(4);
       //change in tripSegmentIsolateScope.activeSegments will change in parent activeSegmentsOnMap too
-      expect(directiveScope.activeSegmentsOnMap.length).toEqual(3);
+      expect(directiveScope.activeSegmentsOnMap.length).toEqual(4);
       tripSegmentIsolateScope.showTab(2);
       scope.$digest();
-      expect(tripSegmentIsolateScope.activeSegments.length).toEqual(4);
-      expect(directiveScope.activeSegmentsOnMap.length).toEqual(4);
+      expect(tripSegmentIsolateScope.activeSegments.length).toEqual(1);
+      expect(directiveScope.activeSegmentsOnMap.length).toEqual(1);
     });
   });
 

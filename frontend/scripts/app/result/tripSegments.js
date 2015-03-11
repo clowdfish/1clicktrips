@@ -25,7 +25,6 @@
           return;
         }
         scope.segments = groupSegmentByDate(scope.itinerary);
-        console.log(scope.segments);
         scope.segmentsHeaders = _.keys(scope.segments);
         scope.activeSegments = scope.segments[1];
         itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);

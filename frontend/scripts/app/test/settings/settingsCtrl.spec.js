@@ -4,7 +4,7 @@ describe('settingsCtrl', function() {
       $state;
 
   beforeEach(module('app.settings'));
-  beforeEach(module('scripts/app/templates/settings/settings.html'));
+  beforeEach(module('app-templates'));
 
   beforeEach(inject(function(_$controller_,
                             _$rootScope_,

@@ -15,15 +15,11 @@
       var deferred = $q.defer();
       this.callSearchItineraryApi(searchObject)
         .then(function(response) {
-          console.log(response);
           var data = response[0];
-
           var result = [];
           for (var i = 0; i < data.length; i++) {
-
             var itinerary = transformItinerary(data[i]);
             result.push(itinerary);
-            console.log(itinerary);
           }
           deferred.resolve(result);
         }, function(){

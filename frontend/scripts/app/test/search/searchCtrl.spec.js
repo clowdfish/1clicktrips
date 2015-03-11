@@ -15,6 +15,9 @@ describe('searchCtrl', function() {
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
   beforeEach(module('app.dashboard'));
+  beforeEach(module('app.auth'));
+  beforeEach(module('app-templates'));
+
   beforeEach(inject(function(
                               _$controller_,
                               _$rootScope_,

@@ -10,6 +10,7 @@
 
     beforeEach(module('app.common'));
     beforeEach(module('app.dashboard'));
+    beforeEach(module('app-templates'));
 
     beforeEach(inject(function(_bookingService_,
                               _$rootScope_,

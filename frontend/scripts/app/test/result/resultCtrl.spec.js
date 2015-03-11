@@ -5,7 +5,9 @@ describe('resultCtrl', function() {
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
   beforeEach(module('app.result'));
-  beforeEach(module('scripts/app/templates/result/result.html'));
+  beforeEach(module('app.auth'));
+  beforeEach(module('app-templates'));
+
   var $scope,
       $controller,
       tripService,
@@ -31,9 +33,11 @@ describe('resultCtrl', function() {
     $scope = _$rootScope_.$new();
     $state = _$state_;
     $stateParams = _$stateParams_;
-    var deferred = $q.defer();
-    deferred.resolve(itinerary);
-    spyOn(tripService, 'findItinerary').and.returnValue(deferred.promise);
+    spyOn(tripService, 'callSearchItineraryApi').and.callFake(function(){
+      var deferred = $q.defer();
+      deferred.resolve(itinerary);
+      return deferred.promise;
+    });
     $controller('resultCtrl', {
       $scope: $scope,
       tripService: tripService,
@@ -58,6 +62,9 @@ describe('resultCtrl', function() {
   });
 
   it('findTripByComfort', function() {
+    /**
+     * Our mockup doesn't have data for comfort trip type
+     */
     $scope.findTripByComfort();
     $scope.$digest();
     expect($scope.activeTrip).toEqual(2);

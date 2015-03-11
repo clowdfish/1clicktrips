@@ -8,15 +8,19 @@ describe('searchDateTimeSelectCtrl', function() {
   beforeEach(module('app.search'));
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
+  beforeEach(module('app.auth'));
+  beforeEach(module('app-templates'));
 
   beforeEach(inject(function(
                               _$controller_,
                               _$rootScope_,
-                              _$q_) {
+                              _$q_,
+                              _AUTH_EVENTS_) {
     $rootScope = _$rootScope_;
     $scope = _$rootScope_.$new();
     _$controller_('searchDateTimeSelectCtrl', {
-      $scope: $scope
+      $scope: $scope,
+      AUTH_EVENTS: _AUTH_EVENTS_
     });
   }));
 

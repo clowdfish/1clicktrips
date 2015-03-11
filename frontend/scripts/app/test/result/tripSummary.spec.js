@@ -13,7 +13,8 @@ describe('tripSummary', function() {
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
   beforeEach(module('app.result'));
-  beforeEach(module('scripts/app/templates/result/trip-summary.html'));
+  beforeEach(module('app.auth'));
+  beforeEach(module('app-templates'));
 
 
   beforeEach(inject(function(_$compile_, _$rootScope_, _$q_, mockItinerary, _tripService_) {
@@ -47,14 +48,13 @@ describe('tripSummary', function() {
 
   it('isolated scope has valid data', function() {
     expect(isoScope.itinerary.currency).toEqual('EUR');
-    expect(isoScope.itinerary.destination).toEqual('Customer in Hanover');
-    expect(isoScope.itinerary.price).toEqual(355.88915290549545);
+    expect(isoScope.itinerary.cost).toEqual(360);
   });
 
   it('has valid html', function() {
     expect(compiledDirective.html()).toContain('<div class="trip-summary-item-title">Total Travel Time</div>');
     expect(compiledDirective.html()).toContain('<div class="trip-summary-item-title">Total Cost</div>');
-    expect(compiledDirective.html()).toContain('<div class="trip-summary-item-value ng-binding">$75.00</div>');
+    expect(compiledDirective.html()).toContain('<div class="trip-summary-item-value ng-binding">€360.00</div>');
   });
 
 });

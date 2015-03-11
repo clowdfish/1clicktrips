@@ -12,7 +12,7 @@
 
     beforeEach(module('app.common'));
     beforeEach(module('app.dashboard'));
-    beforeEach(module('scripts/app/templates/dashboard/booked-trips.html'));
+    beforeEach(module('app-templates'));
 
     beforeEach(inject(function(_$q_,
                               _$rootScope_,
