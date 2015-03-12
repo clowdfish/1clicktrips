@@ -48,22 +48,6 @@
       });
     }
 
-    this.callLoginApi = function(loginData) {
-      return $q(function(resolve, reject) {
-        $http
-          .post('/api/auth/local', loginData)
-          .success(function(data) {
-            resolve(data);
-          })
-          .error(function(data, status) {
-            reject({
-              message: data,
-              status: status
-            });
-          })
-      })
-    }
-
     /**
      * Remove user data and logout
      */

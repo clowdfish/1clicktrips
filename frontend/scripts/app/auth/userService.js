@@ -18,19 +18,6 @@
           reject("Token is not available");
         }
 
-        _this
-          .callUserApi()
-          .then(function(data) {
-            resolve(data);
-          }, function(reason) {
-            reject(reason);
-          });
-
-      })
-    }
-
-    this.callUserApi = function() {
-      return $q(function(resolve, reject) {
         $http
           .get('/api/account/profile')
           .success(function(response) {
@@ -41,7 +28,7 @@
               message: data,
               status: status
             });
-          })
+          });
       });
     }
 
