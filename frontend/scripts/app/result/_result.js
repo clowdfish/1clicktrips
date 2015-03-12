@@ -4,9 +4,8 @@
 
   angular
     .module('app.result', [
-      'app.common',
-      'ui.router',
-      'ngAnimate'
+      'app.core',
+      'app.common'
     ])
     .config(interpolateConfig)
     .config(uiRouterConfig)

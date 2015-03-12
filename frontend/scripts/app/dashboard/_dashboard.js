@@ -1,7 +1,7 @@
 (function() {
   angular
     .module('app.dashboard', [
-      'ngAnimate'
+      'app.core'
     ])
     .config(interpolateConfig);
 

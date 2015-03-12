@@ -4,9 +4,7 @@
 
   angular
     .module('app.search', [
-      'ui.bootstrap',
-      'ui.bootstrap.tpls',
-      'ui.router',
+      'app.core',
       'app.search.timepicker'
     ])
     .constant('SUGGESTION_TYPES', {

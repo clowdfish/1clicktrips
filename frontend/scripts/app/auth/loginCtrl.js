@@ -19,10 +19,10 @@
      * Login by email and password
      */
     $scope.login = function() {
+
       var loginData = {
         email: $scope.email,
-        password: $scope.password,
-        username: $scope.email
+        password: $scope.password
       };
       authService
         .login(loginData)
@@ -48,7 +48,6 @@
      */
     function handleLoginError(data) {
       if (data.status == 401) {
-        console.log('$scope.loginForm.$error.unauthorized');
         $scope.loginForm.$error.unauthorized = true;
       }
     }

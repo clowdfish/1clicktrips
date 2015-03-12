@@ -4,7 +4,9 @@
 
   angular
     .module('app.auth', [
-      'ui.router'
+      'app.core',
+      'ui.bootstrap',
+      'ui.bootstrap.tpls'
     ])
     .config(httpConfig)
     .constant('AUTH_EVENTS', {

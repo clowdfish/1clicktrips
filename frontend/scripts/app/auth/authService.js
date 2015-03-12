@@ -11,21 +11,11 @@
 
     this.signup = function(signupData) {
       return $q(function(resolve, reject) {
-        _this.callSignupApi(signupData)
-          .then(function(data) {
-            session.authSuccess(data.token);
-            resolve(data)
-          }, function(reason) {
-            reject(reason);
-          });
-      });
-    }
 
-    this.callSignupApi = function(signupData) {
-      return $q(function(resolve, reject) {
         $http
           .post('/api/auth/register', signupData)
           .success(function(data) {
+            session.authSuccess(data.token);
             resolve(data);
           })
           .error(function(data, status) {
@@ -39,14 +29,21 @@
 
     this.login = function(loginData) {
       return $q(function(resolve, reject) {
-        _this
-          .callLoginApi(loginData)
-          .then(function(data) {
+
+        if (!validateLoginData(loginData)) {
+          reject('invalid.login.data');
+        }
+        $http
+          .post('/api/auth/local', loginData)
+          .success(function(data) {
             session.authSuccess(data.token);
-            resolve(data)
-          }, function(data, status) {
-            console.log(data);
-            reject(data, status);
+            resolve(data);
+          })
+          .error(function(data, status) {
+            reject({
+              message: data,
+              status: status
+            });
           });
       });
     }
@@ -76,6 +73,15 @@
       $rootScope.$broadcast(AUTH_EVENTS.logout);
       $http
         .get('/api/auth/logout');
+    }
+
+    function validateLoginData(loginData) {
+      if (!loginData ||
+         !loginData.email ||
+         !loginData.password) {
+        return false;
+      }
+      return true;
     }
   }
 })();

@@ -4,7 +4,7 @@
 
   angular
     .module('app.settings', [
-      'ui.router'
+      'app.core'
     ])
     .config(routerConfig);
 

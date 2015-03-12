@@ -11,9 +11,9 @@
      * Signup by email and password
      * @param  {Object} signupData [object contains email and password]
      */
-    $scope.signup = function(signupData) {
+    $scope.signup = function() {
       authService
-        .signup(signupData)
+        .signup($scope.signupData)
         .then(function() {
           $rootScope.$broadcast(AUTH_EVENTS.signupSuccess);
         }, function(data) {
@@ -39,7 +39,7 @@
 
     //Show error message when signup failed
     function handleSignupError(signupResponse) {
-      switch (signupResponse) {
+      switch (signupResponse.message) {
         case 'status.user.error.signup.exists':
           $scope.errorMessage = 'This email is already used.';
           $scope.signupForm.email.$error.exist = true;

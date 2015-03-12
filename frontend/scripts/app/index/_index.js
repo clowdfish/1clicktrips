@@ -9,11 +9,7 @@
 
   angular
     .module('app.index', [
-      'pascalprecht.translate',
-      'ui.router',
-      'LocalStorageModule',
-      'ui.bootstrap',
-      'ui.bootstrap.tpls'
+      'app.core'
     ])
     .config(interpolateConfig)
     .config(languageConfig)
