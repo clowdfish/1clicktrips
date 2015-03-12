@@ -49,5 +49,9 @@
       return localStorageService.get(userProfileKey);
     }
 
+    this.isLogin = function() {
+      return _this.getAuthToken() != null;
+    }
+
   }
 })();

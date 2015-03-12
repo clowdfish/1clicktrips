@@ -80,7 +80,6 @@ describe('resultCtrl', function() {
       startDate: 5,
       endDate: 6
     });
-
     $scope.$digest();
 
     expect(parseInt($stateParams.originLatitude)).toEqual(1);

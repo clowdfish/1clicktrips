@@ -6,7 +6,7 @@
     .module('app.auth')
     .service('authService', authService);
 
-  function authService($http, $q, session) {
+  function authService($http, $q, $rootScope, AUTH_EVENTS, session) {
     var _this = this;
 
     this.signup = function(signupData) {
@@ -70,6 +70,7 @@
     this.logout = function() {
       session.removeAuthToken();
       session.removeUserProfile();
+      $rootScope.$broadcast(AUTH_EVENTS.logout);
       $http
         .get('/api/auth/logout');
     }

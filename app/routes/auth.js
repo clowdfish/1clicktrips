@@ -91,7 +91,7 @@ module.exports = function (app, express, passport, production) {
       }
 
       UserController
-        .getProfile(userId)
+        .getProfile(req.user.id)
         .then(function (profile) {
           if (profile) {
             profile['token'] = token;
