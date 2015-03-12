@@ -6,6 +6,9 @@
     .module('app.auth')
     .service('userService', userService);
 
+  /**
+  * This service get and set user profile data
+  */
   function userService($http, $q, session) {
     var _this = this;
     this.getUserProfile = function() {

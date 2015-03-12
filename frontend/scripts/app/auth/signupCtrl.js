@@ -7,7 +7,10 @@
     .controller('signupCtrl', signupCtrl);
 
   function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authService) {
-
+    /**
+     * Signup by email and password
+     * @param  {Object} signupData [object contains email and password]
+     */
     $scope.signup = function(signupData) {
       authService
         .signup(signupData)
@@ -19,11 +22,13 @@
         });
     }
 
+    //Close signup modal when sign up success
     $scope.$on(AUTH_EVENTS.signupSuccess, function() {
       $modalInstance.close();
     });
 
-    $scope.login = function() {
+    //Show logo modal
+    $scope.showLoginModal = function() {
       $modalInstance.close();
       var modalInstance = $modal.open({
         templateUrl: 'scripts/app/templates/auth/login-modal.html',
@@ -32,6 +37,7 @@
       });
     }
 
+    //Show error message when signup failed
     function handleSignupError(signupResponse) {
       switch (signupResponse) {
         case 'status.user.error.signup.exists':

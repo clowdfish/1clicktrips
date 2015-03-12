@@ -67,6 +67,9 @@
       })
     }
 
+    /**
+     * Remove user data and logout
+     */
     this.logout = function() {
       session.removeAuthToken();
       session.removeUserProfile();

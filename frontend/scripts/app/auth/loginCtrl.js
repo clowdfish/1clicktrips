@@ -8,10 +8,16 @@
 
   function loginCtrl($scope, $rootScope, $modalInstance, AUTH_EVENTS, oAuthDialog, authService) {
 
+    /**
+     * Login by Twitter
+     */
     $scope.loginTwitter = function() {
       oAuthDialog.createAuthDialog('twitter');
     };
 
+    /**
+     * Login by email and password
+     */
     $scope.login = function() {
       var loginData = {
         email: $scope.email,
@@ -28,12 +34,19 @@
         });
     }
 
+    /**
+     * Close login modal when login success
+     */
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
       $modalInstance.close();
     });
 
+    /**
+     * Show message when login error
+     * @param  {Object} data [Object contains error message and error status code]
+     * @return {null}
+     */
     function handleLoginError(data) {
-      console.log($scope.loginForm);
       if (data.status == 401) {
         console.log('$scope.loginForm.$error.unauthorized');
         $scope.loginForm.$error.unauthorized = true;

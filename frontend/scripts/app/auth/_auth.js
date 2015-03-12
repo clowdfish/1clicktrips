@@ -6,7 +6,6 @@
     .module('app.auth', [
       'ui.router'
     ])
-   // .config(routerConfig)
     .config(httpConfig)
     .constant('AUTH_EVENTS', {
       loginSuccess: 'Login success',
@@ -19,14 +18,6 @@
     })
     .run(run);
 
-
-  function routerConfig($stateProvider) {
-    $stateProvider.state('login', {
-      url: '/login',
-      templateUrl: 'scripts/app/templates/auth/login.html',
-      controller: 'loginCtrl'
-    });
-  }
 
   function httpConfig($httpProvider) {
     $httpProvider.interceptors.push('tokenInjector');
