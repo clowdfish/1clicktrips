@@ -1,8 +1,13 @@
 // mocking/searchController.js
 
 var Promise = require('es6-promise').Promise;
+var Config = require('../../config/general');
 var SearchEngine = require('ttg-search');
 var SearchApi = SearchEngine.SearchApi;
+
+// handle different timezones?
+var disableTimezones = true;
+var searchApi = new SearchApi(disableTimezones, Config.logLocation);
 
 module.exports = {
 
@@ -56,11 +61,6 @@ module.exports = {
     console.log("Retrieving trip results.");
 
     return new Promise(function(resolve, reject) {
-
-      // handle different timezones?
-      var disableTimezones = true;
-
-      var searchApi = new SearchApi(disableTimezones);
 
       // example API request
       searchApi.search(searchObject, 0, userLicence, 0)
