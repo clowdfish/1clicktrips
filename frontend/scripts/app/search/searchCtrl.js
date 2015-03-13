@@ -57,13 +57,16 @@
     });
 
     $scope.$watch('originAddress', function() {
-      if ($scope.originAddress != null) {
+      if ($scope.isStep1Ready &&
+        $scope.isStep2Ready &&
+        $scope.originAddress != null) {
         $scope.isStep3Ready = true;
       }
     });
 
     $scope.$watchGroup(['startDate', 'startTime', 'endDate', 'endTime'], function() {
-      if ($scope.startDate != null &&
+      if ($scope.isStep1Ready == true &&
+        $scope.startDate != null &&
         $scope.endDate != null &&
         $scope.startTime != null &&
         $scope.endTime != null) {
@@ -94,13 +97,17 @@
     }
 
     function step2() {
-      if ($scope.destinationAddress == null) {
+      if (!$scope.isStep1Ready || $scope.destinationAddress == null) {
         return;
       }
       $scope.step = 2;
     }
 
     function step3() {
+      if (!$scope.isStep1Ready || !$scope.isStep2Ready) {
+        return;
+      }
+
       if ($scope.startDate == null ||
         $scope.endDate == null ||
         $scope.startTime == null ||

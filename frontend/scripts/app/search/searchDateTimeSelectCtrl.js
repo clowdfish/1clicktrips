@@ -77,7 +77,9 @@
     }
 
     $scope.$watchGroup(['$parent.startDate', '$parent.startTime', '$parent.endDate', '$parent.endTime'], function() {
-      if ($scope.$parent.startDate != null &&
+      if (
+        $scope.$parent.isStep1Ready &&
+        $scope.$parent.startDate != null &&
         $scope.$parent.endDate != null &&
         $scope.$parent.startTime != null &&
         $scope.$parent.endTime != null) {
