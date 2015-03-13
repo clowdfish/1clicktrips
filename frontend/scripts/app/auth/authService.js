@@ -67,5 +67,10 @@
       }
       return true;
     }
+
+    this.isLogin = function() {
+      return session.getAuthToken() != null;
+    }
+
   }
 })();
