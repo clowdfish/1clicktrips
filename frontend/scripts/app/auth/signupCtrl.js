@@ -20,14 +20,14 @@
           $rootScope.$broadcast(AUTH_EVENTS.signupFailed);
           handleSignupError(data);
         });
-    }
+    };
 
-    //Close signup modal when sign up success
+    // close signup modal when sign up success
     $scope.$on(AUTH_EVENTS.signupSuccess, function() {
       $modalInstance.close();
     });
 
-    //Show logo modal
+    // show login modal
     $scope.showLoginModal = function() {
       $modalInstance.close();
       var modalInstance = $modal.open({
@@ -35,7 +35,7 @@
         controller: 'loginCtrl',
         size: 'lg'
       });
-    }
+    };
 
     //Show error message when signup failed
     function handleSignupError(signupResponse) {
@@ -51,7 +51,8 @@
       }
     }
 
-
-
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
   }
 })();

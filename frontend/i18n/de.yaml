@@ -42,7 +42,7 @@ de:
       signin: "hier anmelden"
     header: Registrierung
     headersub: Erleben Sie die Welt der einfachen Reisebuchung. Noch heute.
-    annotation: '* Trip-To-Go is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate <a href="./#/contact">your feedback</a>.'
+    annotation: '* 1ClickTrips ist noch in der Erprobungsphase. Die Funktionalität und Qualität des Service wird laufend verbessert. Falls Sie irgendwelche konkreten Fehler finden, freuen wir uns immer über Ihr Feedback.'
     confirm: Sie haben sich erfolgreich angemeldet
   login:
     form:
@@ -55,8 +55,10 @@ de:
       submitforgot: Passwort vergessen?
       resulterror: "<span>Es gab ein Problem beim Login.</span> <br />Haben Sie sich schon bei Trip-To-Go <a href='./#/signup'>registriert</a>?"
     header: Anmelden
-    action:
-      signup: "<b>Noch kein Teil von Trip-To-Go?</b><br />{{signupLink}} Sie sich noch heute oder melden Sie sich <a href='./auth/twitter'>mit Ihrem Twitter-Account</a> an."
+    annotation:
+      notyet: "Noch kein Teil von 1ClickTrips?"
+      signup: "Jetzt registrieren"
+      twitter: "mit Twitter anmelden"
   footer:
     links:
       privacy: Datenschutz

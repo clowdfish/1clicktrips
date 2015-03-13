@@ -50,7 +50,7 @@
         controller: 'loginCtrl',
         size: 'lg'
       });
-    }
+    };
 
     $scope.createSignupModal = function() {
       var modalInstance = $modal.open({
@@ -58,13 +58,13 @@
         controller: 'signupCtrl',
         size: 'lg'
       });
-    }
+    };
 
     $scope.logout = function() {
       authService.logout();
       $scope.userProfile = null;
       alert('Logout successful');
-    }
+    };
 
     function initCurrencies() {
       $scope.currencies = {};

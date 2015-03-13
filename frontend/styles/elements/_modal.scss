@@ -1,16 +1,4 @@
-$modal-width: 25em;
-
 %modal {
-  position: fixed;
-  z-index: 1001;
-  width: $modal-width;
-
-  top: 50%;
-  transform: translateY(-50%);
-  left: 50%;
-  margin-left: -($modal-width / 2);
-
-  display: none;
 
   .modal-close {
     color: $c-text;
@@ -18,46 +6,72 @@ $modal-width: 25em;
     right: 1em;
     top: 1em;
   }
+
   .modal-title {
-    @include span(12 of 12);
+    display: block;
     margin-bottom: 0.5em;
   }
 
   .modal-subtitle {
-    @include span(12 of 12);
-    margin-bottom: 1em;
+    display: block;
   }
-
 }
-/*
+
 .modal {
   @extend %modal;
 
-  background: white;
   padding: 2em;
-  @include with-layout(6 fluid, true) {
-    .modal-content {
-      @include container;
-    }
-    input, .modal-title, .modal-subtitle, label {
-      @include span(6 of 6);
-    }
-    fieldset {
-      clear: both;
-    }
-  }
-
 }
-*/
 
-#dim {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.5);
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 0;
+  -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  background-clip: padding-box;
+  outline: 0;
+}
 
-  display: none;
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-body {
+
+  fieldset {
+    margin-bottom: 0.3em;
+  }
+}
+
+.modal-footer {
+  margin: 0;
+  padding: 0 1em 1em 1em;
+  border-top: none;
+}
+
+.modal-footer-annotation {
+  display: block;
+  text-align: left;
+  margin-top: 1.5em;
+  font-size: $fs-small;
+  font-style: italic;
+}
+
+.modal-twitter-link {
+  display: block;
+}
+
+.modal-forgot-password {
+  display: block;
+  margin-top: 0.3em;
+  font-size: $fs-small;
+}
+
+.modal-annotation {
+  display: block;
+  margin-top: 2em;
+  font-size: $fs-small;
+  line-height: 1.4em;
 }

@@ -196,7 +196,7 @@ gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'an
   gulp.watch('styles/**/*.scss', ['styles']);
   gulp.watch(['scripts/app/**/*.js'], ['scripts']);
   gulp.watch(['scripts/app/**/*.html'], ['angular-templates']);
-  gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n']);
+  gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n', 'scripts']);
   gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
 });
 

@@ -42,7 +42,7 @@ en:
       signin: sign in
     header: Sign Up *
     headersub: Join the world of easy business travel. Today.
-    annotation: '* Trip-To-Go is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate <a href="./#/contact">your feedback</a>.'
+    annotation: '* 1ClickTrips is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate your feedback.'
     confirm: You signed in successfully.
   login:
     form:
@@ -55,8 +55,10 @@ en:
       submitforgot: Forgot your password?
       resulterror: "<span>A problem occured during the log-in process. </span><br />Did you already <a data-ng-click='signin()'>sign up</a> for a user account?"
     header: Sign In
-    action:
-      signup: "<h4>Not yet part of Trip-To-Go?</h4><a href='#' data-ng-click='signin()' modal-open='signup'>Sign up now</a> or <a data-ng-click='loginTwitter()'><i class='fa fa-twitter'></i> log in with your Twitter account</a>."
+    annotation:
+      notyet: "Not yet part of 1ClickTrips?"
+      signup: "Signup now"
+      twitter: "login with Twitter"
   footer:
     links:
       privacy: Privacy

@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('loginCtrl', loginCtrl);
 
-  function loginCtrl($scope, $rootScope, $modalInstance, AUTH_EVENTS, oAuthDialog, authService) {
+  function loginCtrl($scope, $rootScope, $modal, $modalInstance, AUTH_EVENTS, oAuthDialog, authService) {
 
     /**
      * Login by Twitter
@@ -32,7 +32,7 @@
           $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
           handleLoginError(data);
         });
-    }
+    };
 
     /**
      * Close login modal when login success
@@ -40,6 +40,17 @@
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
       $modalInstance.close();
     });
+
+    // show signup modal
+    $scope.showSignupModal = function() {
+      $modalInstance.close();
+      var modalInstance = $modal.open({
+        templateUrl: 'scripts/app/templates/auth/signup-modal.html',
+        controller: 'signupCtrl',
+        size: 'lg'
+      });
+    };
+
 
     /**
      * Show message when login error
@@ -52,5 +63,8 @@
       }
     }
 
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
   }
 })();

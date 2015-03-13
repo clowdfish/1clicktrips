@@ -54,7 +54,6 @@ input[type=radio] {
 /*
  * Text Inputs
  */
-
 %input {
   font-family: $ff-body;
   display: block;
@@ -85,72 +84,3 @@ fieldset.is-invalid {
     }
   }
 }
-
-/*
-// Must be restricted to particular areas of website
-
-.date input, .location input {
-  padding: .4em 2.2em .4em .6em;
-}
-
-.date, .value, .location {
-  display: block;
-  position: relative;
-}
-
-.location {
-  &::after {
-    @include fa-icon();
-    content: '';
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 50;
-    line-height: 1.4em;
-    height: 100%;
-    padding: .4em .6em;
-    width: 2.2em;
-    color: #444;
-  }
-  &.is-found::after {
-    content: $fa-var-check;
-  }
-  &.is-searching::after {
-    content: $fa-var-spinner;
-  }
-  &.not-found::after {
-    content: $fa-var-times;
-  }
-}
-
-.date::after {
-  @include fa-icon();
-  content: $fa-var-calendar;
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 50;
-  line-height: 1.4em;
-  height: 100%;
-  padding: .4em .6em;
-  width: 2.2em;
-  color: #444;
-}
-
-.value::after {
-  @include fa-icon();
-  content: $fa-var-check;
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 50;
-  line-height: 1.4em;
-  height: 100%;
-  padding: .4em .6em;
-  width: 2.2em;
-  color: $c-green;
-}
-*/
