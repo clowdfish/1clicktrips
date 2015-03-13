@@ -6,7 +6,7 @@ $size-dashboard-icons: 5em;
   /*******************************************************/
   .view-container {
     @include span(6);
-    padding: 2em 0;
+    padding: 1.2em 0 2em 0;
 
     h1 {
       display: block;
@@ -92,35 +92,122 @@ $size-dashboard-icons: 5em;
       margin-bottom: 2em;
     }
   }
+
+  /*******************************************************/
+  /* Dashboard Favorites                                 */
+  /*******************************************************/
+  .dashboard-favorites-container {
+    overflow: hidden;
+
+    h3 {
+      text-align: center;
+      margin-bottom: 0.8em;
+    }
+  }
+
+  .favorite-list-box {
+    @include span(6);
+    position: relative;
+    background-color: #fff;
+    padding: 1em 1em 1em 2em;
+    margin-bottom: 0.6em;
+    box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
+
+    &:last-of-type {
+      margin-bottom: 1em;
+    }
+
+    .fa {
+      position: absolute;
+      font-size: $fs-small;
+      top: 0.4em;
+      left: 0.4em;
+      color: $c-red;
+    }
+
+    span {
+      display: block;
+    }
+  }
+
+  .favorite-list-box-corner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 2.5em;
+    height: 2.5em;
+
+    /* diagonal radiant */
+    background: rgb(0,0,0);
+    background: -moz-linear-gradient(-45deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0) 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(50%,rgba(0,0,0,1)), color-stop(51%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    background: linear-gradient(135deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff',GradientType=1 );
+  }
+
+  .favorite-list-box-label {
+    font-size: $fs-small;
+    color: grey;
+  }
+
+  .favorite-list-box-location {
+    font-size: $fs-large;
+    color: $c-red;
+  }
+
+  .favorite-list-box-separator {
+   margin-bottom: 0.5em;
+  }
+
+  .slide-left.ng-enter, .slide-left.ng-move {
+    -webkit-animation-delay: 1s;
+    @include animation(bounceInLeft 1s);
+  }
+
+  .slide-left.ng-leave {
+    @include animation(bounceOutRight 0s);
+  }
+
+  .slide-right.ng-enter,
+  .slide-right.ng-move {
+    -webkit-animation-delay: 1s;
+    @include animation(bounceInRight 1s);
+  }
+
+  .slide-right.ng-leave {
+    @include animation(bounceOutLeft 0s);
+  }
+
+  .favorite-list-paging {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.8em;
+
+    .fa {
+      display: inline-block;
+      background-color: #fff;
+      font-size: $fs-large;
+      color: black;
+      padding: 0.3em 0.6em;
+      margin: 0 1em;
+      border: 1px solid rgb(219, 219, 219);
+    }
+  }
+
+
+  @include respond-above("medium") {
+
+  }
 }
 
 .dashboard {
   @extend %dashboard;
 }
 
-/******Favorite list*******/
-.dashboard-favorites-container {
-  overflow: hidden;
-}
-
-.slide-left.ng-enter, .slide-left.ng-move {
-  -webkit-animation-delay: 1s;
-  @include animation(bounceInLeft 1s);
-}
-
-.slide-left.ng-leave {
-  @include animation(bounceOutRight 0s);
-}
-
-.slide-right.ng-enter,
-.slide-right.ng-move {
-  -webkit-animation-delay: 1s;
-  @include animation(bounceInRight 1s);
-}
-
-.slide-right.ng-leave {
-  @include animation(bounceOutLeft 0s);
-}
 
 /******* Booked Trip ********/
 .slick-dots li button:before {

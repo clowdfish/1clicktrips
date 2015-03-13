@@ -63,7 +63,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       // example API request
-      searchApi.search(searchObject, 0, userLicence, 0)
+      searchApi.search(searchObject, 0, userLicence)
         .then(function(itineraries) {
 
          resolve(itineraries);

@@ -1,19 +1,19 @@
-<section class="dashboard container">
-  <div class="view-container" ng-if='isLogin'>
+<section class="dashboard wrapper">
+  <div class="view-container" ng-if='!isLogin'>
     <div class='dashboard-favorites-container'>
       <h3>My favorites</h3>
       <favorite-list
         list-items='favoriteList'
-        item-per-page="3"
+        item-per-page="{[numberOfFavorites]}"
         select-favorite='selectFavorite'></favorite-list>
     </div>
     <div class='dashboard-booked-container'>
       <h3>Upcoming trips</h3>
-      <booked-trips list-items='bookedTripList' item-per-page="3"></booked-trips>
+      <booked-trips list-items='bookedTripList' item-per-page="{[numberOfTrips]}"></booked-trips>
     </div>
   </div>
 
-  <div class="view-container" ng-if='!isLogin'>
+  <div class="view-container" ng-if='isLogin'>
     <h1>Why 1ClickTrips?</h1>
 
     <div class="dashboard-info-box">

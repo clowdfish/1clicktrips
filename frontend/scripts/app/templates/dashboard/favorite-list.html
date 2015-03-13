@@ -1,14 +1,19 @@
-<div class='favorite-list-container'>
   <div class='visible-list'>
     <div ng-repeat='item in listItems | arraySlice:offset:itemPerPage' 
-          class='{[slideDirection]}' 
+          class='{[slideDirection]} favorite-list-box'
           ng-click='selectFavorite(item)'>
-      {[item.origin.description]} -- {[item.destination.description]}
+      <span class="favorite-list-box-corner">
+        <i class="fa fa-heart"></i>
+      </span>
+      <span class="favorite-list-box-label">From</span>
+      <span class="favorite-list-box-location">{[item.origin.description]}</span>
+      <span class="favorite-list-box-separator">...</span>
+      <span class="favorite-list-box-label">Destination</span>
+      <span class="favorite-list-box-location">{[item.destination.description]}</span>
     </div>
   </div>
-  <div class='paging'>
-    <a ng-click='previousPage()' ng-disabled='disablePreviousPageButton'><i class='fa fa-arrow-left'></i></a>
-    {[currentPage]} of {[totalPage]}
-    <a ng-click='nextPage()' ng-disabled='disableNextPageButton'><i class='fa fa-arrow-right'></i></a>
+  <div class='paging favorite-list-paging'>
+    <a ng-click='previousPage()' ng-disabled='disablePreviousPageButton'><i class='fa fa-angle-left'></i></a>
+    Page {[currentPage]} of {[totalPage]}
+    <a ng-click='nextPage()' ng-disabled='disableNextPageButton'><i class='fa fa-angle-right'></i></a>
   </div>
-</div>
