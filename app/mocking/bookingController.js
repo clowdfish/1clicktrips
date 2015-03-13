@@ -12,7 +12,7 @@ module.exports = {
 
       if(userId > 0) {
         bookings = [];
-        for (var i = 0; i < 14; i++) {
+        for (var i = 0; i < 3; i++) {
           bookings.push(createBookingMock(i));
         }
         resolve(bookings);
@@ -55,8 +55,8 @@ module.exports = {
 
 function createBookingMock(number) {
   return {
-    "id": 1,
-    "title": "3rd Phoenix World IT Conference " + number,
+    "id": number+1,
+    "title": "3rd Phoenix World IT Conference",
     "destination": "Double Tree by Hilton Metropolitan, New York, USA",
     "tags": [
       "test", "another", "bla"

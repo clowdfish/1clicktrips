@@ -1,13 +1,13 @@
 <section class="dashboard wrapper">
   <div class="view-container" ng-if='!isLogin'>
-    <div class='dashboard-favorites-container'>
+    <div class='dashboard-favorites-container' ng-if='false'>
       <h3>My favorites</h3>
       <favorite-list
         list-items='favoriteList'
         item-per-page="{[numberOfFavorites]}"
         select-favorite='selectFavorite'></favorite-list>
     </div>
-    <div class='dashboard-booked-container'>
+    <div class='dashboard-bookings-container'>
       <h3>Upcoming trips</h3>
       <booked-trips list-items='bookedTripList' item-per-page="{[numberOfTrips]}"></booked-trips>
     </div>

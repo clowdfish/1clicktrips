@@ -1,59 +1,53 @@
-<div class='booked-trips-container'>
+<div class='bookings-container' xmlns="http://www.w3.org/1999/html">
   <div class='carousel-container'>
     <div class='carousel-inner'>
       <div class='row'>
-        <div ng-repeat='item in listItems | arraySlice:offset:itemPerPage' class='booked-trips-item col-md-4'>
-          <div class='booked-trips-item-container'>
+        <div ng-repeat='item in listItems | arraySlice:offset:itemPerPage' class='booking-item col-md-4'>
+          <div class='booking-item-container'>
 
-            <div class='booked-trips-item-data-group'>
-              <h3>Event Name</h3>
-              <p>{[item.title]}</p>
+            <div class='booking-item-data-group'>
+              <span class='booking-item-label'>Event Name</span>
+              <span class='booking-item-event'>{[item.title]}</span>
             </div>
 
-            <div class='booked-trips-item-data-group'>
-              <h3>Destination</h3>
-              <p>{[item.destination]}</p>
+            <div class='booking-item-data-group'>
+              <span class='booking-item-label'>Destination</span>
+              <span class='booking-item-location'>{[item.destination]}</span>
             </div>
 
-            <div class='booked-trips-item-data-group'>
-              <h3>Travel Date</h3>
-              <p>{[item.startDate | date:"dd MMM yyyy"]} - {[item.endDate | date:"dd MMM yyyy"]}</p>
+            <div class='booking-item-data-group'>
+              <span class='booking-item-label'>Travel Date</span>
+              <span class='booking-item-date'>{[item.startDate | date:"dd MMM yyyy"]} - {[item.endDate | date:"dd MMM yyyy"]}</span>
             </div>
 
-            <div class='booked-trips-item-data-group'>
-              <div class='row'>
-                <div class='col-md-6'>
-                  <h3>Start Time</h3>
-                  <p>{[item.startDate | date:"hh:mm a"]}</p>
+            <div class='booking-item-data-group'>
+                <div class='booking-item-column'>
+                  <span class='booking-item-label'>Start Time</span>
+                  <span class='booking-item-date'>{[item.startDate | date:"hh:mm a"]}</span>
                 </div>
-                <div class='col-md-6'>
-                  <h3>End Time</h3>
-                  <p>{[item.endDate | date:"hh:mm a"]}</p>
+                <div class='booking-item-column'>
+                  <span class='booking-item-label'>End Time</span>
+                  <span class='booking-item-date'>{[item.endDate | date:"hh:mm a"]}</span>
                 </div>
-              </div>
             </div>
 
-            <div class='booked-trips-item-data-group'>
-              + View all information
+            <div class='booking-item-data-group'>
+              <span class="button">
+                + View all information
+              </span>
             </div>
 
             <hr/>
 
-            <div class='booked-trips-participants'>
-              <div class='booked-trips-participants-item' ng-repeat='participant in item.participants'>
-                <div class='row'>
-                  <div class='col-md-2'>
-                    <img src='{[participant.image]}' class='participant-image'/>
-                  </div>
-                  <div class='col-md-7'>
-                    <div class='participant-name'>{[participant.firstName]} {[participant.lastName]}</div>
-                    Est arrival time {[participant.arrivalTime | date: "hh:mm a"]}
-                  </div>
-                  <div class='col-md-3'>
-                    <div class='participant-status' ng-class='{booked: participant.booked}'>
-                      Booked
-                    </div>
-                  </div>
+            <div class='booking-participants'>
+              <div class='booking-participant-item' ng-repeat='participant in item.participants'>
+                <img src='{[participant.image]}' class='booking-participant-image'/>
+                <div class='booking-participant-details'>
+                  <span class='booking-participant-name'>{[participant.firstName]} {[participant.lastName]}</span>
+                  <span class='booking-participant-arrival-time' ng-if='participant.booked'>Arrival time {[participant.arrivalTime | date: "hh:mm a"]}</span>
+                </div>
+                <div class='booking-participant-status'>
+                    <span class='booking-participant-status-indicator' ng-class='{booked: participant.booked}'>Booked</span>
                 </div>
               </div>
             </div>
@@ -61,12 +55,10 @@
         </div>
       </div>
     </div>
-    <div class='carousel-dots'>
-      <ul>
-        <li ng-repeat='number in [1,totalPage ] | range' ng-click='changePage(number)' ng-class='{active: number == currentPage}'>
-          <i class='fa fa-circle'></i>
-        </li>
-      </ul>
+    <div class='paging list-paging'>
+      <a ng-click='changePage(currentPage-1)' ng-disabled='disablePreviousPageButton'><i class='fa fa-angle-left'></i></a>
+      Page {[currentPage]} of {[totalPage]}
+      <a ng-click='changePage(currentPage+1)' ng-disabled='disableNextPageButton'><i class='fa fa-angle-right'></i></a>
     </div>
   </div>
 </div>

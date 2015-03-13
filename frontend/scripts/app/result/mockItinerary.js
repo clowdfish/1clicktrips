@@ -70,7 +70,7 @@
             "location": {
               "latitude": 10.800914,
               "longitude": 106.666762
-            },
+            }
           },
           "type": 2,
           "price": {
@@ -90,13 +90,13 @@
             "location": {
               "latitude": 10.800914,
               "longitude": 106.666762
-            },
+            }
           },
           "end": {
             "location": {
               "latitude": 10.801672,
               "longitude": 106.651012
-            },
+            }
           },
           "type": 8,
           "price": {
@@ -157,7 +157,7 @@
               "standard": 3,
               "distance": 4,
               "price": 10
-            },
+            }
           ]
         },
         {
@@ -166,13 +166,13 @@
             "location": {
               "latitude": 10.800914,
               "longitude": 106.666762
-            },
+            }
           },
           "end": {
             "location": {
               "latitude": 10.801672,
               "longitude": 106.651012
-            },
+            }
           },
           "type": 8,
           "price": {
@@ -185,7 +185,7 @@
           "arrivalTime": '2015-01-02T00:00:00Z',
           "name": "Take bus E23 to K20"
         }
-      ],
+      ]
       },
       "price": 90,
       "currency": "EUR",

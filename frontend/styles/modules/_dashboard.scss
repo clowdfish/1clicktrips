@@ -182,7 +182,7 @@ $size-dashboard-icons: 5em;
     @include animation(bounceOutLeft 0s);
   }
 
-  .favorite-list-paging {
+  .list-paging {
     width: 100%;
     text-align: center;
     margin-bottom: 0.8em;
@@ -202,60 +202,132 @@ $size-dashboard-icons: 5em;
   @include respond-above("medium") {
 
   }
+
+  /*******************************************************/
+  /* Dashboard Bookings                                  */
+  /*******************************************************/
+
+  .dashboard-bookings-container {
+    padding: 0.6em 0.2em;
+
+    h3 {
+      text-align: center;
+      margin-bottom: 0.8em;
+    }
+  }
+
+  .booking-item-data-group {
+    @include clearfix;
+    margin-bottom: 1em;
+  }
+
+  .booking-item-column {
+    @include span(3);
+  }
+
+  .booking-item-label {
+    display: block;
+    font-size: $fs-small;
+    color: grey;
+  }
+
+  .booking-item-event {
+    font-size: $fs-large;
+  }
+
+  .booking-item-location {
+    font-size: $fs-large;
+    color: $c-red;
+  }
+
+  .booking-item-date {
+    font-size: $fs-large;
+  }
+
+  .booking-participants {
+    display: table;
+  }
+
+  .booking-participant-item {
+    display: table-row;
+  }
+
+  .booking-participant-image {
+    display: table-cell;
+    width: 2.5em;
+    padding-bottom: 1em;
+  }
+
+  .booking-participant-details {
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 0.8em 0 0.5em;
+  }
+
+  .booking-participant-status {
+    display: table-cell;
+    color: #fff;
+    vertical-align: top;
+    font-size: $fs-small;
+    padding-top: 0.6em;
+  }
+
+  .booking-participant-status-indicator {
+    background-color: #dddddd;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+
+    &.booked {
+      background-color: $c-green;
+    }
+  }
+
+  .booking-participant-name {
+    display: block;
+    color: $c-blue;
+  }
+
+  .booking-participant-arrival-time {
+    display: block;
+    color: grey;
+    font-size: $fs-small;
+  }
+
+
+
+
+
+  .slick-dots li button:before {
+    font-size: 20px;
+  }
+
+  .bookings-container {
+    width: 100%;
+    position: relative;
+    padding: 10px;
+
+    ul {
+      list-style: none;
+      li {
+        display: inline;
+      }
+    }
+
+    .carousel-dots {
+      li {
+        color: gray;
+      }
+      li.active{
+        color: black;
+      }
+    }
+
+    .bookings-item.ng-enter{
+      @include animation(fadeIn 1s);
+    }
+  }
 }
 
 .dashboard {
   @extend %dashboard;
 }
-
-
-/******* Booked Trip ********/
-.slick-dots li button:before {
-  font-size: 20px;
-}
-
-.booked-trips-container {
-  width: 100%;
-  position: relative;
-  padding: 10px;
-
-  ul {
-    list-style: none;
-    li {
-      display: inline;
-    }
-  }
-
-  .carousel-inner {
-
-    .booked-trips-participants-item {
-      margin-bottom: 5px;
-
-      .participant-image {
-        width: 50px;
-      }
-      .participant-status {
-        background-color: gray;
-      }
-      .participant-status.booked {
-        background-color: blue;
-      }
-    }
-
-  }
-
-  .carousel-dots {
-    li {
-      color: gray;
-    }
-    li.active{
-      color: black;
-    }
-  }
-
-  .booked-trips-item.ng-enter{
-    @include animation(fadeIn 1s);
-  }
-
-}
-
