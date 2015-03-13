@@ -1,6 +1,6 @@
 <section class="dashboard wrapper">
-  <div class="view-container" ng-if='!isLogin'>
-    <div class='dashboard-favorites-container' ng-if='false'>
+  <div class="view-container" ng-if='isLogin'>
+    <div class='dashboard-favorites-container'>
       <h3>My favorites</h3>
       <favorite-list
         list-items='favoriteList'
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="view-container" ng-if='isLogin'>
+  <div class="view-container" ng-if='!isLogin'>
     <h1>Why 1ClickTrips?</h1>
 
     <div class="dashboard-info-box">

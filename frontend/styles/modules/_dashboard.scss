@@ -7,6 +7,7 @@ $size-dashboard-icons: 5em;
   .view-container {
     @include span(6);
     padding: 1.2em 0 2em 0;
+    background-color: $c-mobile-content-bg;
 
     h1 {
       display: block;
@@ -112,6 +113,7 @@ $size-dashboard-icons: 5em;
     padding: 1em 1em 1em 2em;
     margin-bottom: 0.6em;
     box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
+    cursor: pointer;
 
     &:last-of-type {
       margin-bottom: 1em;
@@ -198,9 +200,11 @@ $size-dashboard-icons: 5em;
     }
   }
 
-
   @include respond-above("medium") {
 
+    .favorite-list-box {
+      @include span(3);
+    }
   }
 
   /*******************************************************/
@@ -209,10 +213,25 @@ $size-dashboard-icons: 5em;
 
   .dashboard-bookings-container {
     padding: 0.6em 0.2em;
+    width: 100%;
 
     h3 {
       text-align: center;
       margin-bottom: 0.8em;
+    }
+  }
+
+  .booking-item {
+    @include span(6);
+  }
+
+  .booking-item-container {
+    padding: 0.6em 0.6em 0 0.6em;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
+
+    &:last-of-type {
+      margin-bottom: 1em,
     }
   }
 
@@ -293,37 +312,10 @@ $size-dashboard-icons: 5em;
     font-size: $fs-small;
   }
 
+  @include respond-above("medium") {
 
-
-
-
-  .slick-dots li button:before {
-    font-size: 20px;
-  }
-
-  .bookings-container {
-    width: 100%;
-    position: relative;
-    padding: 10px;
-
-    ul {
-      list-style: none;
-      li {
-        display: inline;
-      }
-    }
-
-    .carousel-dots {
-      li {
-        color: gray;
-      }
-      li.active{
-        color: black;
-      }
-    }
-
-    .bookings-item.ng-enter{
-      @include animation(fadeIn 1s);
+    .booking-item {
+      @include span(2);
     }
   }
 }
