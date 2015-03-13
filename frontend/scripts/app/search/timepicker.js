@@ -342,6 +342,11 @@ function ($compile, $parse, $document, $position, dateFilter, syTimepickerPopupC
         scope.$destroy();
       });
 
+      var dateFormat = attrs.syTimepickerPopup || syTimepickerPopupConfig.timeFormat;
+      ngModel.$formatters.push(function (value) {
+        return dateFilter(value, dateFormat);
+      });
+
       var getIsOpen, setIsOpen;
       if ( attrs.isOpen ) {
         getIsOpen = $parse(attrs.isOpen);

@@ -15,6 +15,7 @@
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
     $scope.showWeeks = false;
+    $scope.now = new Date();
 
     $scope.openStartDatePicker = function($event) {
       if ($event) {
@@ -83,5 +84,16 @@
         $scope.$parent.isStep2Ready = true;
       }
     });
+
+    function createDateFromDateAndTime(date, time) {
+      return moment([
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        time.getHours(),
+        time.getMinutes(),
+        time.getSeconds()
+      ]).format('YYYY-MM-DDTHH:mm:ss');
+    }
 	}
 })();

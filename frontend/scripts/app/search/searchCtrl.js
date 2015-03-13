@@ -39,6 +39,17 @@
     $scope.step2 = step2;
     $scope.step3 = step3;
 
+    //Search data
+    $scope.destinationAddress = null;
+    $scope.originAddress = null;
+
+    $scope.startDate = new Date();
+    $scope.startTime = new Date();
+    $scope.startTime.setHours(14); //Default start time is 2pm
+    $scope.endDate = new Date();
+    $scope.endTime = new Date();
+    $scope.endTime.setHours(16); //Default end time is 2pm
+
     $scope.$watch('destinationAddress', function() {
       if ($scope.destinationAddress != null) {
         $scope.isStep1Ready = true;
