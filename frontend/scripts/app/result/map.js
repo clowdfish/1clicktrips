@@ -11,7 +11,8 @@
       restrict: 'E',
       templateUrl: 'scripts/app/templates/result/map.html',
       scope: {
-        activeSegments: '='
+        activeSegments: '=',
+        selectedSegment: '='
       },
       link: link
     };
@@ -27,15 +28,25 @@
 
       scope.$watch('activeSegments', function() {
         if (scope.activeSegments.length >= 1) {
+          map = new google.maps.Map(document.getElementById('itinerary-map'), mapOptions);
           createMapBySegments(scope.activeSegments);
         }
       });
 
-      function createMapBySegments(segments) {
-        if (map == null) {
-          map = new google.maps.Map(document.getElementById('itinerary-map'), mapOptions);
+      scope.$watch('selectedSegment', function() {
+        var segment = scope.selectedSegment;
+        if (scope.selectedSegment) {
+          var location = new google.maps.LatLng(segment.start.location.latitude, segment.start.location.longitude);
+          map.panTo(location);
+          map.setZoom(15);
+        } else {
+          createMapBySegments(scope.activeSegments);
         }
+      });
 
+      scope.selectSegment = selectSegment;
+
+      function createMapBySegments(segments) {
         if (directionsDisplay) {
           directionsDisplay.setMap(null);
           directionsDisplay = null;
@@ -48,7 +59,6 @@
         var waypts = [];
         for (var i = 0;i < segments.length; i++) {
           var segment = segments[i];
-          console.log(segment);
           waypts.push({
             location: new google.maps.LatLng(segment.end.location.latitude, segment.end.location.longitude),
             stopover: true
@@ -74,6 +84,12 @@
             console.log(response);
           }
         });
+      }
+
+      //Handler for segment click event
+      function selectSegment(segment) {
+        //zoom on the origin
+
       }
 
     }

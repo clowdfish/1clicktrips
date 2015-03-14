@@ -4,6 +4,7 @@
       itinerary='itinerary'
       active-segments='activeSegmentsOnMap'
       show-alternatives-panel='showAlternativesPanel'
+      select-segment='selectSegment'
       >
     </trip-segments>
 
@@ -20,6 +21,8 @@
 
   <!-- map view -->
   <div ng-if='showMap'>
-    <map itinerary='itinerary' active-segments='activeSegmentsOnMap'></map>
+    <map itinerary='itinerary'
+        active-segments='activeSegmentsOnMap'
+        selected-segment='selectedSegment'></map>
   </div>
 </div>

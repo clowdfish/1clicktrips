@@ -22,7 +22,7 @@
     <!-- the trip segments list for the selected day -->
     <ul ng-repeat='header in segmentsHeaders' class='trip-segments-list' ng-show='activeSegmentNumber == header'>
 
-      <li class='trip-segments-day-item' ng-repeat='segment in segments[header]'>
+      <li class='trip-segments-day-item' ng-repeat='segment in segments[header]' ng-click='selectSegment(segment)'>
 
         <span class='trip-segments-day-item-col trip-segments-day-item-number'>
           <span>

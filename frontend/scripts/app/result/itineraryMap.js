@@ -24,9 +24,10 @@
       $scope.activeSegmentsOnMap = [];
       $scope.activeSegmentOnAlternativePanel = null;
       $scope.isShowAlternativesPanel = false;
+      $scope.selectedSegment = null;
       $scope.selectAlternativeSegment = selectAlternativeSegment;
       $scope.showAlternativesPanel = showAlternativesPanel;
-
+      $scope.selectSegment = selectSegment;
       this.changeActiveSegmentsOnMap = changeActiveSegmentsOnMap;
 
       function changeActiveSegmentsOnMap(segments)
@@ -47,6 +48,15 @@
 
       function selectAlternativeSegment(segment, alternative) {
         console.log('Selected segment ', alternative.name);
+      }
+
+      function selectSegment(segment) {
+        if ($scope.selectedSegment == segment) {
+          $scope.selectedSegment = null;
+        } else {
+          $scope.selectedSegment = segment;
+        }
+
       }
 
     }

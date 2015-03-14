@@ -10,7 +10,8 @@
       templateUrl: 'scripts/app/templates/result/trip-segments.html',
       scope: {
         itinerary: '=',
-        showAlternativesPanel:'='
+        showAlternativesPanel:'=',
+        selectSegment: '='
       },
       link: link
     }
