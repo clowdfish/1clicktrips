@@ -9,12 +9,12 @@
     var images = {
       0: "fa-bed",
       1: "fa-street-view",
-      2: "fa-cab",
-      4: "fa-car",
-      8: "fa-bus",
-      14: "fa-subway",
-      16: "fa-train",
-      32: "fa-plane",
+      2: "fa-car",
+      4: "fa-bus",
+      6: "fa-subway",
+      8: "fa-train",
+      16: "fa-plane",
+      32: "fa-cab",
       64: "fa-ship"
     };
 
