@@ -130,7 +130,7 @@
         return defaultValue;
       }
       return object[key];
-
     }
+
   }
 })();

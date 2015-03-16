@@ -31,7 +31,15 @@
         </span>
           <span class='trip-segments-day-item-col trip-segments-day-item-type'><i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i></span>
         <span class='trip-segments-day-item-col trip-segments-day-item-description'>
-          {[segment.name]}
+          <span ng-if='segment.start.description == "Origin"'>
+            {[segment.end.description]}
+          </span>
+          <span ng-if='segment.end.description == "Destination"'>
+            {[segment.start.description]}
+          </span>
+          <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"'>
+            {[segment.start.description]} - {[segment.end.description]}
+          </span>
           <a ng-click='showAlternativesPanel(segment)'>+View alternatives</a>
         </span>
         <span class='trip-segments-day-item-col trip-segments-day-item-timing'>
