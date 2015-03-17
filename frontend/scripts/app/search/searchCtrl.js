@@ -101,6 +101,9 @@
         return;
       }
       $scope.step = 2;
+
+      //Since default data for step2 is populated, so step 2 is already ready
+      $scope.$parent.isStep2Ready = true;
     }
 
     function step3() {
