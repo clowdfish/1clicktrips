@@ -10,7 +10,6 @@
     return {
       require: '^itineraryMap',
       restrict: 'E',
-      templateUrl: 'scripts/app/templates/result/map.html',
       scope: {
         activeSegments: '=',
         selectedSegment: '='
@@ -51,10 +50,11 @@
         }
 
         drawPolylineOnMap(scope.activeSegments);
-        //map.fitBounds(mapBounds);
+
 
         setTimeout(function() {
           google.maps.event.trigger(map, 'resize');
+          map.fitBounds(mapBounds);
         }, 100);
 
       });
