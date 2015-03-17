@@ -118,7 +118,7 @@
       <!-------------------->
 
       <!-- MAP VIEW -->
-      <div class="result-view view-container" ng-if="isMobile && showMap == true">
+      <div class="result-view view-container" ng-show="isMobile && showMap == true">
 
         <!-- NOTIFICATION AREA -->
         <div class="result-notification" ng-if="notifications.length>0">
@@ -164,7 +164,7 @@
       </div>
 
       <!-- LIST VIEW -->
-      <div class="result-view view-container" ng-if="isMobile && showList == true">
+      <div class="result-view view-container" ng-show="isMobile && showList == true">
 
         <!-- RESULT HEADER -->
         <div class="result-header result-header-table">

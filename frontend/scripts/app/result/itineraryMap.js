@@ -25,7 +25,8 @@
 
     }
 
-    function controller($scope) {
+    function controller($scope, shareMapData) {
+      $scope.shareMapData = shareMapData;
       $scope.activeSegmentsOnMap = [];
       $scope.activeSegmentOnAlternativePanel = null;
       $scope.isShowAlternativesPanel = false;
@@ -34,6 +35,10 @@
       $scope.showAlternativesPanel = showAlternativesPanel;
       $scope.selectSegment = selectSegment;
       this.changeActiveSegmentsOnMap = changeActiveSegmentsOnMap;
+
+      $scope.$watch('shareMapData.selectedSegment', function() {
+        $scope.selectedSegment = shareMapData.selectedSegment;
+      });
 
       function changeActiveSegmentsOnMap(segments)
       {
@@ -60,10 +65,9 @@
           $scope.selectedSegment = null;
         } else {
           $scope.selectedSegment = segment;
+          shareMapData.selectedSegment = segment;
         }
-
       }
-
     }
 
   }
