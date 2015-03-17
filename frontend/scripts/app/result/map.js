@@ -62,14 +62,11 @@
       scope.$watch('selectedSegment', function() {
         var segment = scope.selectedSegment;
         if (scope.selectedSegment != null) {
-          var location = new google.maps.LatLng(segment.start.location.latitude,
-                                                segment.start.location.longitude);
-          map.panTo(location);
-          map.setZoom(15);
+          zoomSegment(scope.selectedSegment);
 
         } else if (scope.isInitialize) {
           map.fitBounds(mapBounds);
-          //drawPolylineOnMap(scope.activeSegments);
+          drawPolylineOnMap(scope.activeSegments);
         }
       });
 
@@ -77,6 +74,32 @@
         cleanupMap();
       });
 
+      /**
+       * Zoom the whole path of a segment
+       * @param  {Object} segment - Segment data
+       * @return null
+       */
+      function zoomSegment(segment) {
+        var bounds = new google.maps.LatLngBounds();
+        if (segment.path != '') {
+          var decodedPath = google.maps.geometry.encoding.decodePath(segment.path)
+          for (var i = 0; i < decodedPath.length; i++) {
+            var location = new google.maps.LatLng(decodedPath[i].lat().toFixed(5),
+                                                  decodedPath[i].lng().toFixed(5));
+            bounds.extend(location)
+          }
+        } else {
+          bounds.extend(new google.maps.LatLng(segment.start.location.latitude,
+                                              segment.start.location.longitude));
+          bounds.extend(new google.maps.LatLng(segment.end.location.latitude,
+                                              segment.end.location.longitude));
+        }
+        map.fitBounds(bounds);
+      }
+
+      /**
+       * Cleanup map data after directive is destroyed
+       */
       function cleanupMap() {
         if (scope.isInitialize) {
           mapBounds = null;
