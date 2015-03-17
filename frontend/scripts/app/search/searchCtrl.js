@@ -14,7 +14,8 @@
                       suggestionAdapter,
                       $document,
                       $location,
-                      googleMap
+                      googleMap,
+                      searchFormData
                       ) {
 
     var favoriteOriginLocation = null;
@@ -40,15 +41,15 @@
     $scope.step3 = step3;
 
     //Search data
-    $scope.destinationAddress = null;
-    $scope.originAddress = null;
-
-    $scope.startDate = new Date();
-    $scope.startTime = new Date();
-    $scope.startTime.setHours(14); //Default start time is 2pm
-    $scope.endDate = new Date();
-    $scope.endTime = new Date();
-    $scope.endTime.setHours(16); //Default end time is 2pm
+    $scope.destinationAddress = searchFormData.destinationLocation;
+    $scope.originAddress =  null;
+    favoriteOriginLocation = searchFormData.originLocation != null ? searchFormData.originLocation : null;
+    $scope.destination = searchFormData.destination;
+    $scope.origin = searchFormData.origin;
+    $scope.startDate = searchFormData.startDate;
+    $scope.startTime = searchFormData.startDate;
+    $scope.endDate = searchFormData.endDate;
+    $scope.endTime = searchFormData.endDate;
 
     $scope.$watch('destinationAddress', function() {
       if ($scope.destinationAddress != null) {

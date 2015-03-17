@@ -41,7 +41,7 @@
                   type="text"
                   placeholder="{[ i18n.search_form_destination_placeholder | translate ]}"
                   name='destination'
-                  ng-model='destination'
+                  ng-model='$parent.destination'
                   typeahead="address.description for address in getSuggestion($viewValue)"
                   typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
 
@@ -172,7 +172,7 @@
                   type="text"
                   placeholder="{[ i18n.search.form.origin | translate ]}"
                   name='origin'
-                  ng-model='origin'
+                  ng-model='$parent.origin'
                   typeahead="address.description for address in getAddressSuggestion($viewValue)"
                   typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
         </div>

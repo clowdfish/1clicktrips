@@ -56,7 +56,10 @@
         },
         'search@index': {
           templateUrl: 'scripts/app/templates/search/search.html',
-          controller: 'searchCtrl'
+          controller: 'searchCtrl',
+          resolve: {
+            searchFormData: getDefaultSearchFormData
+          }
         },
         'dashboard@index': {
           templateUrl: 'scripts/app/templates/dashboard/dashboard.html',
@@ -72,6 +75,70 @@
         }
       }
     });
+
+    //Load search form with pre-populated data
+    $stateProvider.state('refineSearch', {
+
+      url: '/search?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:origin,:destination',
+      views: {
+        '': {
+          templateUrl: 'scripts/app/templates/index/index.html',
+          controller: 'indexCtrl'
+        },
+        'search@refineSearch': {
+          templateUrl: 'scripts/app/templates/search/search.html',
+          controller: 'searchCtrl',
+          resolve: {
+            searchFormData: getSearchFormData
+          }
+        },
+        'dashboard@refineSearch': {
+          templateUrl: 'scripts/app/templates/dashboard/dashboard.html',
+          controller: 'dashboardCtrl',
+          resolve: {
+            favoriteList: function(favoriteService) {
+              return favoriteService.getFavoriteList();
+            },
+            bookedTripList: function(bookingService) {
+              return bookingService.getBookedTrips();
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function getSearchFormData($stateParams) {
+    return {
+      destinationLocation: {
+        latitude: parseFloat($stateParams.destinationLatitude),
+        longitude: parseFloat($stateParams.destinationLongitude)
+      },
+      originLocation: {
+        latitude: parseFloat($stateParams.originLatitude),
+        longitude: parseFloat($stateParams.originLongitude)
+      },
+      startDate: moment($stateParams.startDate).toDate(),
+      endDate: moment($stateParams.endDate).toDate(),
+      destination: $stateParams.destination,
+      origin: $stateParams.origin
+    };
+  }
+
+  function getDefaultSearchFormData() {
+    var startDate = new Date();
+    startDate.setHours(14);
+    var endDate = new Date();
+    endDate.setHours(16);
+
+    return {
+      destinationLocation: null,
+      originLocation: null,
+      startDate: startDate,
+      endDate: endDate,
+      destination: null,
+      origin: null
+    }
   }
 
   function getLanguages(languageService) {

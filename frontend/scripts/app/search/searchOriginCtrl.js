@@ -40,16 +40,22 @@
      * Send search parameter to result page
      */
     function startSearch() {
+      if (false == $scope.$parent.isStep3Ready) {
+        return;
+      }
       var startDate = createDateFromDateAndTime($scope.$parent.startDate, $scope.$parent.startTime);
       var endDate = createDateFromDateAndTime($scope.$parent.endDate, $scope.$parent.endTime);
-      $state.go('search_result', {
+      var requestParameters = {
         originLatitude: $scope.$parent.originAddress.latitude,
         originLongitude: $scope.$parent.originAddress.longitude,
+        origin: $scope.$parent.origin,
         destinationLatitude: $scope.$parent.destinationAddress.latitude,
         destinationLongitude: $scope.$parent.destinationAddress.longitude,
+        destination: $scope.$parent.destination,
         startDate: startDate,
         endDate: endDate
-      });
+      }
+      $state.go('search_result', requestParameters);
     }
 
     function createDateFromDateAndTime(date, time) {

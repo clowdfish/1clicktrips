@@ -43,7 +43,7 @@
       scope.$watch('activeSegments', function() {
         if (!scope.activeSegments ||
           scope.activeSegments.length == 0) {
-          return false;
+          return;
         }
 
         if (!scope.isInitialize) {
@@ -62,11 +62,14 @@
       });
 
       scope.$watch('selectedSegment', function() {
+        if (!scope.isInitialize) {
+          return;
+        }
+
         var segment = scope.selectedSegment;
         if (scope.selectedSegment != null) {
           zoomSegment(scope.selectedSegment);
-
-        } else if (scope.isInitialize) {
+        } else {
           map.fitBounds(mapBounds);
           drawPolylineOnMap(scope.activeSegments);
         }
@@ -103,22 +106,20 @@
        * Cleanup map data after directive is destroyed
        */
       function cleanupMap() {
-        if (scope.isInitialize) {
-          console.log('Cleanup map');
-          mapBounds = null;
-          latlngs.clear();
-          for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-          }
-          markers = [];
-          displayPath.setMap(null);
-          $map.remove();
+        if (!scope.isInitialize) {
+          return;
         }
-
+        mapBounds = null;
+        latlngs.clear();
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+        displayPath.setMap(null);
+        $map.remove();
       }
 
       function initialize() {
-        console.log('Initialize map');
         $element.append('<div id="itinerary-map"></div>')
         $map = $element.find('#itinerary-map');
         var center = new google.maps.LatLng(scope.activeSegments[0].start.location.latitude,

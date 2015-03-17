@@ -12,7 +12,8 @@
                       TRIP_TYPE,
                       browser,
                       appConfig,
-                      date) {
+                      date,
+                      $state) {
     $scope.appConfig = appConfig;
 
     findAllItineraries();
@@ -22,8 +23,7 @@
       {
         "message" : "test",
         "action" : null
-      }
-    ];
+      }];
 
     // check for device type and configure accordingly
     $scope.isMobile = browser.isMobileDevice();
@@ -91,9 +91,16 @@
      * @todo implement
      */
     function refineSearch() {
-
-      // temporary hack
-      window.location = "./";
+      $state.go('refineSearch', {
+        originLatitude: $stateParams.originLatitude,
+        originLongitude: $stateParams.originLongitude,
+        destinationLatitude: $stateParams.destinationLatitude,
+        destinationLongitude: $stateParams.destinationLongitude,
+        startDate: $stateParams.startDate,
+        endDate: $stateParams.endDate,
+        origin: $stateParams.origin,
+        destination: $stateParams.destination
+      });
     }
 
     function filterItineraryByType(type) {

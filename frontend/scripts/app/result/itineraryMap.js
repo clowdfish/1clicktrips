@@ -22,9 +22,7 @@
     };
 
     function link(scope, element, attrs) {
-      scope.$watch(attrs.showList, function(showList) {
-        console.log(showList);
-      })
+
     }
 
     function controller($scope) {

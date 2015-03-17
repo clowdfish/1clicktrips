@@ -23,7 +23,7 @@
   function uiRouterConfig($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('search_result', {
-      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate',
+      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:destination,:origin',
       templateUrl: 'scripts/app/templates/result/result.html',
       controller: 'resultCtrl'
     });
