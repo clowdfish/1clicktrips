@@ -4,7 +4,15 @@
   angular.module('app.result')
     .controller('resultCtrl', resultCtrl);
 
-  function resultCtrl($scope, $rootScope, $q, $stateParams, tripService, TRIP_TYPE, browser, appConfig, date) {
+  function resultCtrl($scope,
+                      $rootScope,
+                      $q,
+                      $stateParams,
+                      tripService,
+                      TRIP_TYPE,
+                      browser,
+                      appConfig,
+                      date) {
     $scope.appConfig = appConfig;
 
     findAllItineraries();
@@ -14,7 +22,8 @@
       {
         "message" : "test",
         "action" : null
-      }];
+      }
+    ];
 
     // check for device type and configure accordingly
     $scope.isMobile = browser.isMobileDevice();

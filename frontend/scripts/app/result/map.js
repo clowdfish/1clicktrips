@@ -18,6 +18,7 @@
     };
 
     function link(scope, element, attrs) {
+      console.log('Create map directive');
       var $element = $(element);
 
       //Is this directive initialize
@@ -40,7 +41,8 @@
       };
 
       scope.$watch('activeSegments', function() {
-        if (!scope.activeSegments || scope.activeSegments.length == 0) {
+        if (!scope.activeSegments ||
+          scope.activeSegments.length == 0) {
           return false;
         }
 
@@ -102,6 +104,7 @@
        */
       function cleanupMap() {
         if (scope.isInitialize) {
+          console.log('Cleanup map');
           mapBounds = null;
           latlngs.clear();
           for (var i = 0; i < markers.length; i++) {
@@ -115,6 +118,7 @@
       }
 
       function initialize() {
+        console.log('Initialize map');
         $element.append('<div id="itinerary-map"></div>')
         $map = $element.find('#itinerary-map');
         var center = new google.maps.LatLng(scope.activeSegments[0].start.location.latitude,
