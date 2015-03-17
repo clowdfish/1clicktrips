@@ -50,13 +50,28 @@ $header-padding: .7em;
     .header-navigation {
       display: block;
       float: right;
+    }
 
-      .userProfile, a, a:hover {
+    .header-navigation-login {
+      display: inline-block;
+
+      a, a:hover {
         display: inline-block;
-        margin-right: 1em;
+        margin-right: 0.6em;
         color: #fff;
         text-decoration: none;
       }
+    }
+
+    .header-navigation-profile {
+      display: inline-block;
+    }
+
+    .header-navigation-logout {
+      text-decoration: underline;
+      color: #fff;
+      font-style: italic;
+      cursor: pointer;
     }
 
     .header-settings {

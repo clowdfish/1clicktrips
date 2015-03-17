@@ -7,12 +7,12 @@
           </a>
         </div>
         <nav class="header-navigation">
-            <div ng-hide="userProfile" class="userProfile">
+            <div ng-hide="userProfile" class="header-navigation-login">
               <a href="#" ng-click='createLoginModal()'>Login</a>
               <a href="#" class="button" ng-click='createSignupModal()'>JOIN</a>
             </div>
-            <div ng-show="userProfile" class="userProfile">
-              Hi {[userProfile['first-name']]} {[userProfile['last-name']]} <a ng-click="logout()">(Logout)</a>
+            <div ng-show="userProfile" class="header-navigation-profile">
+              Hi, {[userProfile['first-name']]} {[userProfile['last-name']]} ( <a class="header-navigation-logout" ng-click="logout()">Logout</a> )
             </div>
             <div class="header-settings">
                 <ul>

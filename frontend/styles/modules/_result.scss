@@ -64,6 +64,10 @@
     color: $c-text-dark-bg;
   }
 
+  .result-header-destination.no-float {
+    float:none;
+  }
+
   .result-header-timing {
     display: block;
     float: right;
