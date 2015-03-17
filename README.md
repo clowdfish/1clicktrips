@@ -41,9 +41,20 @@ $ gulp live
 ```
 A watch process is started with a thin server layer delivering the frontend to the client. The process also includes a proxy that redirects all requests for `/api/` to localhost:8080 which is answered by the `server.js` file (once you started the server). On the production server a properly configured Apache proxy will be responsible for that part.
 
+## Deployment
+The deployment process can be started with:
+```
+$ ./deploy.sh dev
+```
+
+If you also want to install or reinstall the node modules run:
+```
+$ ./deploy.sh dev -install
+```
+This command might take quite some time to finish (~3 minutes).
+
 
 ## Server requirements
-
 ### Directory structure
 The application is deployed to `~/1clicktrips` (add "dev" as parameter) so make sure this folder exists. 
 
@@ -60,7 +71,6 @@ Within `$TEST_ROOT` is the bootstrap.js that is defining the paths to ALL files 
 This file is responsible for finding and listing all existing tests. 
 
 ## REST API
-
 ### Guidelines
 The REST API follows some general guidelines in order to be as consistent, self-explanatory, simple, and clear as possible.
 

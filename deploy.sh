@@ -5,7 +5,7 @@ base_directory="~/1clicktrips"
 user="sascha"
 domain="192.168.178.100"
 
-if [ $# -eq 1 ] ; then
+if [ $# -eq 1 ] || [ $# -eq 2 ] ; then
 	if [ "$deployment_profile" == "dev" ] ; then
 		if [ ! -f ./package.json ]; then
 			echo -e "File \"package.json\" not found. Did you start the script in a proper directory?"
@@ -17,8 +17,15 @@ if [ $# -eq 1 ] ; then
 
 			echo "Preparing server"
 			echo "..."
-			ssh $user@$domain $base_directory/setup.sh
-			
+
+			if [ $# -eq 1 ] ; then
+				ssh $user@$domain $base_directory/setup.sh
+			else 
+				if [ "$2" == "-install" ] ; then
+					ssh $user@$domain $base_directory/setup.sh $2
+				fi
+			fi
+
 			if [[ $? != 0 ]] ; then
 				echo "SUCCESS: Server is up and running."
 			else

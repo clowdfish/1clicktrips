@@ -8,9 +8,11 @@ if [ ! -f ./package.json ] ; then
 	# exit code 0 indicates an error
 	exit 0
 else
-	echo "Installing Node modules"
-	echo "..."
-	npm install
+	if [ $# -eq 1 ] && [ "$1" == "-install" ] ; then
+		echo "Installing Node modules"
+		echo "..."
+		npm install
+	fi
 
 	echo "Stop existing Forever processes"
 	echo "..."
