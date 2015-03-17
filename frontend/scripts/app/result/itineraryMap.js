@@ -12,7 +12,9 @@
     return {
       restrict: 'E',
       scope: {
-        itinerary: '='
+        itinerary: '=',
+        showList: '=',
+        showMap: '='
       },
       templateUrl: 'scripts/app/templates/result/itinerary-map.html',
       link: link,
@@ -35,7 +37,8 @@
       $scope.selectSegment = selectSegment;
       this.changeActiveSegmentsOnMap = changeActiveSegmentsOnMap;
 
-      function changeActiveSegmentsOnMap(segments) {
+      function changeActiveSegmentsOnMap(segments)
+      {
         $scope.activeSegmentsOnMap = segments;
       }
 
