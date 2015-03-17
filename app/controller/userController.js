@@ -1,16 +1,52 @@
 // controller/userController.js
 
-var dbConfig = require('../../config/database.js');
 var Promise = require('es6-promise').Promise;
+var mysql = require('mysql');
+
+var dbConfig = require('../../config/database.js');
+var connection = mysql.createConnection(dbConfig.connection);
 
 module.exports = {
 
   getUser: function(userId) {
-    // TODO implement
+
+    return new Promise(function(resolve, reject) {
+
+      connection.query("SELECT * FROM user WHERE id=?;", [userId], function (err, rows) {
+        if (err)
+          reject(err);
+
+        if(rows.length)
+          resolve({
+            'id': rows[0].id,
+            'email': rows[0].email,
+            'licence' : rows[0].licence
+          });
+        else
+          reject(new Error("User with ID=" + userId + " does not exist in database."));
+      });
+    });
   },
 
   getProfile: function(userId) {
-    // TODO implement
+
+    return new Promise(function(resolve, reject) {
+
+      connection.query("SELECT * FROM user WHERE id=?;", [userId], function (err, rows) {
+        if (err)
+          reject(err);
+
+        if(rows.length)
+          connection.query("SELECT * FROM profile WHERE id=?;", [rows[0]['profile_id']], function (err, rows) {
+            if (err)
+              reject(err);
+
+            resolve(rows[0]);
+          });
+        else
+          reject(new Error("User with ID=" + userId + " does not exist in database."));
+      });
+    });
   },
 
   setProfile: function(userId, profileObject) {
@@ -18,7 +54,22 @@ module.exports = {
   },
 
   getFavorites: function(userId) {
-    // TODO implement
+
+    return new Promise(function(resolve, reject) {
+
+      connection.query("SELECT * FROM favorite WHERE user_id=?;", [userId], function (err, rows) {
+        if (err)
+          reject(err);
+
+        if(rows.length) {
+          // create specific favorite format?
+          resolve(rows);
+        }
+        else {
+          reject(new Error('Could not retrieve favorites.'));
+        }
+      });
+    });
   },
 
   setFavorite: function(userId, favoriteObject) {
@@ -26,28 +77,29 @@ module.exports = {
   },
 
   getMessages: function(userId) {
-    // TODO implement
-  },
-
- /**
-   * Retrieves the user licence for a user with the given id from the database.
-   *
-   * @param database
-   * @param userId
-   * @returns a Promise resolving to the user licence
-   */
-  getUserLicence: function(database, userId) {
 
     return new Promise(function(resolve, reject) {
 
-      var pattern =
-        /^[a-zA-Z0-9._-]+[\+[a-zA-Z0-9._-]+]?@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      var queryString = "SELECT * FROM message AS a " +
+      "WHERE EXISTS (" +
+        "SELECT 1 " +
+        "FROM user_has_message AS b " +
+        "WHERE b.user_id=? AND a.id=b.message_id " +
+        "GROUP BY b.message_id " +
+        "HAVING count(*) > 0);";
 
-      if(pattern.test(userId)) {
-				// TODO implement database access
-      }
-      else
-        resolve(0);
+      connection.query(queryString, [userId], function (err, rows) {
+        if (err)
+          reject(err);
+
+        if(rows.length) {
+          // create specific message format?
+          resolve(rows)
+        }
+        else {
+          reject(new Error('Could not retrieve favorites.'));
+        }
+      });
     });
   }
 };

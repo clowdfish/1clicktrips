@@ -59,7 +59,7 @@ module.exports = function (app, express, passport, production) {
         }
 
         UserController
-          .getProfile(userId)
+          .getProfile(user.id)
           .then(function (profile) {
             if (profile) {
               profile['token'] = token;
@@ -104,8 +104,6 @@ module.exports = function (app, express, passport, production) {
         .catch(function(err) {
           res.status(500).send(err.message);
         });
-
-
     });
 
   // ==========================================================================
@@ -122,7 +120,7 @@ module.exports = function (app, express, passport, production) {
       var token =
         AuthController.getAuthenticationToken(req, res, app.get('jwtTokenSecret'));
 
-      redirectUrl = app.get('loginCallbackUrl') + '?token=' + token;
+      var redirectUrl = app.get('loginCallbackUrl') + '?token=' + token;
       res.redirect(redirectUrl);
 
     });

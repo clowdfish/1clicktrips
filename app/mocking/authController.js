@@ -32,9 +32,7 @@ module.exports = {
 
   getAuthenticationToken: function(req, res, secret) {
 
-      var expires = this.getExpirationDate(7);
-      return jwt.encode({ iss: 1, exp: expires }, secret);
-
-    return null;
+    var expires = this.getExpirationDate(7);
+    return jwt.encode({ iss: 1, exp: expires }, secret);
   }
 };

@@ -30,7 +30,7 @@ module.exports = function(passport) {
 
   // used to deserialize the user
   passport.deserializeUser(function(id, done) {
-    connection.query("SELECT * FROM user WHERE id = ? ", [id], function(err, rows){
+    connection.query("SELECT * FROM user WHERE id = ? ;", [id], function(err, rows){
       done(err, rows[0]);
     });
   });
@@ -53,9 +53,10 @@ module.exports = function(passport) {
       function(req, email, password, done) {
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        connection.query("SELECT * FROM user WHERE email = ?", [email], function(err, rows) {
+        connection.query("SELECT * FROM user WHERE email = ? ;", [email], function(err, rows) {
           if (err)
             return done(err);
+
           if (rows.length) {
             return done(null, false, {message: 'status.user.error.signup.exists'});
           } else {
@@ -68,12 +69,20 @@ module.exports = function(passport) {
               password: bcrypt.hashSync(password, salt)  // use the generateHash function in our user model
             };
 
-            var insertQuery = "INSERT INTO users ( email, password ) values (?,?)";
+            var insertQuery = "INSERT INTO user ( email, password ) VALUES (?,?); ";
 
             connection.query(insertQuery, [newUser.email, newUser.password],function(err, rows) {
               newUser.id = rows.insertId;
 
-              return done(null, newUser);
+              createUserData(rows.insertId)
+                .then(function() {
+                  // attach user to request
+                  //req.user = newUser; // TODO is this line required?
+                  return done(null, newUser);
+                })
+                .catch(function(err) {
+                  return done(err);
+                });
             });
           }
         });
@@ -95,7 +104,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
       },
       function(req, email, password, done) { // callback with email and password from our form
-        connection.query("SELECT * FROM user WHERE email = ?", [email], function(err, rows){
+        connection.query("SELECT * FROM user WHERE email = ? ;", [email], function(err, rows){
           if (err)
             return done(err);
 
@@ -129,7 +138,7 @@ module.exports = function(passport) {
       process.nextTick(function () {
         // check if the user is already logged in
         if (!req.user) {
-          connection.query("SELECT * FROM user WHERE twitter_id = ?", [profile.id], function (err, rows) {
+          connection.query("SELECT * FROM user WHERE twitter_id = ? ;", [profile.id], function (err, rows) {
             if (err)
               return done(err);
 
@@ -186,9 +195,15 @@ module.exports = function(passport) {
 
                 newUser.id = rows.insertId;
 
-                // attach user to request
-                req.user = newUser; // TODO is this line required?
-                return done(null, newUser);
+                createUserData(rows.insertId)
+                  .then(function() {
+                    // attach user to request
+                    //req.user = newUser; // TODO is this line required?
+                    return done(null, newUser);
+                  })
+                  .catch(function(err) {
+                    return done(err);
+                  });
               });
             }
           });
@@ -224,3 +239,30 @@ module.exports = function(passport) {
       });
     }));
 };
+
+/**
+ * Create user data for new user.
+ *
+ * @param userId
+ * @returns {Promise}
+ */
+function createUserData(userId) {
+
+  return new Promise(function(resolve, reject) {
+
+    connection.query("INSERT INTO profile (first_name, last_name) VALUES (?, ?);", ["", ""], function (err, rows) {
+      if (err)
+        reject(err);
+
+      var profileId = rows.insertId;
+
+      // add profile id to user data
+      connection.query("UPDATE user SET profile_id=? WHERE id=?;", [profileId, userId], function (err, rows) {
+        if (err)
+          reject(err);
+
+        resolve(rows);
+      });
+    });
+  });
+}
