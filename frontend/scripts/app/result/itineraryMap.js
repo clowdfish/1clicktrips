@@ -8,13 +8,14 @@
     .module('app.result')
     .directive('itineraryMap', itineraryMap);
 
-  function itineraryMap() {
+  function itineraryMap(browser) {
     return {
       restrict: 'E',
       scope: {
         itinerary: '=',
         showList: '=',
-        showMap: '='
+        showMap: '=',
+        closeSegmentPanelFn: '='
       },
       templateUrl: 'scripts/app/templates/result/itinerary-map.html',
       link: link,
@@ -66,6 +67,9 @@
         } else {
           $scope.selectedSegment = segment;
           shareMapData.selectedSegment = segment;
+          if (browser.isMobileDevice() && $scope.closeSegmentPanelFn != null) {
+            $scope.closeSegmentPanelFn();
+          }
         }
       }
     }

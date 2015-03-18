@@ -18,7 +18,6 @@
     };
 
     function link(scope, element, attrs) {
-      console.log('Create map directive');
       var $element = $(element);
 
       //Is this directive initialize
