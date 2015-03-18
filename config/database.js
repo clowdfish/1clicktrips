@@ -4,8 +4,8 @@ module.exports = {
 
   connection : {
     host      : 'localhost',
-    user      : 'root',
-    password  : '',
+    user      : '1clicktrips',
+    password  : '0Zh1eE-TG.HJ',
     database  : '1clicktrips'
   }
 };

@@ -132,9 +132,12 @@ module.exports = function (app, express, production) {
     UserController.getFavorites(userId)
       .then(function (favorites) {
         if (favorites)
-          res.status(200).json(favorites);
+          if(favorites.length)
+            res.status(200).json(favorites);
+          else
+            res.sendStatus(404);
         else
-          res.status(500);
+          res.status(500).send("Could not retrieve favorites.");
       })
       .catch(function(err) {
         res.status(500).send(err.message);
@@ -143,12 +146,14 @@ module.exports = function (app, express, production) {
 
   accountApi.post('/favorites', function (req, res) {
 
-    if (req.body) {
+    if (req.body && req.body.origin && req.body.origin.description && req.body.origin.location &&
+        req.body.destination && req.body.destination.description && req.body.destination.location) {
+
       var userId = AuthController.getUserIdFromRequest(req, secret);
 
-      UserController.setProfile(userId, req.body)
+      UserController.setFavorite(userId, req.body)
         .then(function () {
-          res.status(200).send();
+          res.sendStatus(200);
         })
         .catch(function(err) {
           console.error('There was a problem updating the favorites.');
@@ -156,8 +161,24 @@ module.exports = function (app, express, production) {
         });
     }
     else {
-      res.send(400).send();
+      res.sendStatus(400);
     }
+  });
+
+  accountApi.delete('/favorites/:id', function(req, res) {
+
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+
+    var favoriteId = req.param('id');
+    console.log('Favorite id retrieved: ' + favoriteId);
+
+    UserController.deleteFavorite(userId, favoriteId)
+      .then(function() {
+        res.sendStatus(200);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
   });
 
   // ==========================================================================
@@ -175,7 +196,7 @@ module.exports = function (app, express, production) {
         if (bookings)
           res.status(200).json(bookings);
         else
-          res.status(500);
+          res.sendStatus(500);
       })
       .catch(function(err) {
         res.status(500).send(err.message);
@@ -189,7 +210,7 @@ module.exports = function (app, express, production) {
 
       BookingController.setBooking(userId, req.body)
         .then(function () {
-          res.status(200).send();
+          res.sendStatus(200);
         })
         .catch(function(err) {
           console.error('There was a problem updating the favorites.');
@@ -197,7 +218,7 @@ module.exports = function (app, express, production) {
         });
     }
     else {
-      res.send(400).send();
+      res.sendStatus(400);
     }
   });
 
@@ -214,7 +235,7 @@ module.exports = function (app, express, production) {
         if (messages)
           res.status(200).json(messages);
         else
-          res.status(500);
+          res.sendStatus(500);
       })
       .catch(function(err) {
         res.status(500).send(err.message);

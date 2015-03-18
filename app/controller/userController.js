@@ -62,18 +62,92 @@ module.exports = {
           reject(err);
 
         if(rows.length) {
-          // create specific favorite format?
-          resolve(rows);
+          var favoritesArray = [];
+
+          rows.forEach(function(row) {
+
+            favoritesArray.push({
+                "id" : row['id'],
+                "origin" : {
+                "description" : row['start'],
+                "location" : parseLocation(row['start_location'])
+              },
+                "destination" : {
+                "description" : row['end'],
+                "location" : parseLocation(row['end_location'])
+              }
+            });
+          });
+
+          resolve(favoritesArray);
         }
         else {
-          reject(new Error('Could not retrieve favorites.'));
+          resolve([]);
         }
       });
     });
   },
 
   setFavorite: function(userId, favoriteObject) {
-    // TODO implement
+
+    return new Promise(function(resolve, reject) {
+
+      if(favoriteObject.hasOwnProperty('id')) {
+        // update favorite
+        console.error("You cannot update existing favorites.");
+      }
+      else {
+        // create new favorite
+        var queryString =
+          "INSERT INTO favorite " +
+          "(user_id, start, start_location, end, end_location, transport) " +
+          "VALUES (?, ?, ?, ?, ?, ?);";
+
+        var queryParams = [];
+
+        queryParams.push(
+          userId,
+          favoriteObject.origin.description,
+          createLocationString(favoriteObject.origin.location),
+          favoriteObject.destination.description,
+          createLocationString(favoriteObject.destination.location)
+        );
+
+        var transport = "";
+        if(favoriteObject.hasOwnProperty('transport') && favoriteObject['transport'] != null)
+          transport = favoriteObject['transport'].join();
+
+        queryParams.push(transport);
+
+        connection.query(queryString, queryParams, function (err, result) {
+            if (err)
+              reject(err);
+
+            resolve();
+          }
+        );
+      }
+    });
+  },
+
+  deleteFavorite: function(userId, favoriteId) {
+
+    return new Promise(function(resolve, reject) {
+
+      var queryString =
+        "DELETE FROM favorite " +
+        "WHERE user_id=? AND id=?;";
+
+      connection.query(queryString, [userId, favoriteId], function (err, result) {
+        if (err)
+          reject(err);
+
+        if(result.affectedRows)
+          resolve();
+        else
+          reject(new Error('Could not delete the favorite.'));
+      });
+    });
   },
 
   getMessages: function(userId) {
@@ -103,3 +177,29 @@ module.exports = {
     });
   }
 };
+
+/**
+ * Parses the location given as a string and transforms it into an
+ * location object.
+ *
+ * @param location
+ * @returns {object}
+ */
+function parseLocation(location) {
+  var locationData = location.split(',');
+
+  return {
+    latitude: parseFloat(locationData[0]),
+    longitude: parseFloat(locationData[1])
+  }
+}
+
+/**
+ *
+ *
+ * @param location
+ * @returns {string}
+ */
+function createLocationString(location) {
+  return location.latitude + "," + location.longitude;
+}

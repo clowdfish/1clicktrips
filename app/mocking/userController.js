@@ -79,6 +79,17 @@ module.exports = {
     });
   },
 
+  deleteFavorite: function(userId, favoriteId) {
+
+    return new Promise(function(resolve, reject) {
+
+      if(userId > 0)
+        resolve();
+      else
+        reject(new Error('Could not delete favorite.'));
+    });
+  },
+
   getMessages: function(userId) {
 
     return new Promise(function(resolve, reject) {
