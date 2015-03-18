@@ -11,6 +11,7 @@
                     $translate,
                     currencyService,
                     appConfig,
+                    browser,
                     localStorageService,
                     languageService,
                     AUTH_EVENTS,
@@ -21,6 +22,10 @@
     $scope.appConfig = appConfig;
     $scope.changeLanguage = changeLanguage;
     $scope.changeCurrency = changeCurrency;
+    $scope.isMobile = browser.isMobileDevice();
+    $scope.showMenu = false;
+    $scope.showLanguages = false;
+    $scope.showCurrencies = false;
 
     initLanguages();
 
@@ -44,27 +49,43 @@
       $scope.activeLanguageKey = appConfig.activeLanguageKey;
     });
 
-    $scope.createLoginModal = function() {
+    $scope.createLoginModal = function(size) {
       var modalInstance = $modal.open({
         templateUrl: 'scripts/app/templates/auth/login-modal.html',
         controller: 'loginCtrl',
-        size: 'lg'
+        size: size ? size : 'lg'
       });
     };
 
-    $scope.createSignupModal = function() {
+    $scope.createSignupModal = function(size) {
       var modalInstance = $modal.open({
         templateUrl: 'scripts/app/templates/auth/signup-modal.html',
         controller: 'signupCtrl',
-        size: 'lg'
+        size: size ? size : 'lg'
       });
     };
 
     $scope.logout = function() {
       authService.logout();
       $scope.userProfile = null;
-      alert('Logout successful');
+      //alert('Logout successful');
     };
+
+    /* MOBILE MENU FUNCTIONS */
+
+    $scope.toggleMenu = function() {
+      $scope.showMenu = !$scope.showMenu;
+    };
+
+    $scope.toggleLanguages = function() {
+      $scope.showLanguages = !$scope.showLanguages;
+    };
+
+    $scope.toggleCurrencies = function() {
+      $scope.showCurrencies = !$scope.showCurrencies;
+    };
+
+    /* END OF MOBILE MENU FUNCTIONS */
 
     function initCurrencies() {
       $scope.currencies = {};
@@ -140,6 +161,5 @@
       appConfig.currencySymbol = currencyService.getCurrencySymbol(key);
       appConfig.activeCurrency = key;
     }
-
   }
 })();

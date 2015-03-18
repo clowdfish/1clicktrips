@@ -1,37 +1,68 @@
 <header class="header">
-    <div class="wrapper">
-        <div class="header-logo">
-          <a ui-sref="index">
-            <img src="../images/logo.png" alt="1ClickTrips logo">
-            <span class="bold">1Click</span><span class="light">Trips</span>
-          </a>
-        </div>
-        <nav class="header-navigation">
-            <div ng-hide="userProfile" class="header-navigation-login">
-              <a href="#" ng-click='createLoginModal()'>Login</a>
-              <a href="#" class="button" ng-click='createSignupModal()'>JOIN</a>
-            </div>
-            <div ng-show="userProfile" class="header-navigation-profile">
-              Hi, {[userProfile['first-name']]} {[userProfile['last-name']]} ( <a class="header-navigation-logout" ng-click="logout()">Logout</a> )
-            </div>
-            <div class="header-settings">
-                <ul>
-                  <li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}
-                    <ul class='currency-switch'>
-                      <li ng-repeat='(key, currency) in currencies' ng-click='changeCurrency(key)'>
-                        {[ currency.code ]}
-                      </li>
-                    </ul>
-                  </li>
-                  <li class='language-switch-wrapper'>{[ languages[activeLanguageKey].name ]}
-                    <ul class='language-switch'>
-                      <li ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)'>
-                        {[ language.name ]}
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-            </div>
-        </nav>
+  <div class="wrapper">
+    <div class="header-logo">
+      <a ui-sref="index">
+        <img src="../images/logo.png" alt="1ClickTrips logo">
+        <span class="bold">1Click</span><span class="light">Trips</span>
+      </a>
     </div>
+    <nav class="header-navigation">
+
+      <div ng-if="isMobile">
+        <!-- MOBILE VIEW -->
+        <a ng-click="toggleMenu()" class="header-navigation-menu-toggle"><i class="fa fa-bars" ng-class="{'fa-bars': !showMenu, 'fa-close': showMenu }"></i></a>
+        <ul ng-show="showMenu" class="header-navigation-menu">
+          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createLoginModal()'>Login</a></li>
+          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createSignupModal()'>Signup</a></li>
+          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click=''>Profile</a></li>
+          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='logout()'>Logout</a></li>
+          <li class="header-navigation-menu-item"><a ng-click='toggleLanguages()'>Language</a></li>
+          <li ng-show="showLanguages">
+            <ul class='header-navigation-menu-languages'>
+              <li class="header-navigation-menu-sub-item" ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)' ng-class='{active: appConfig.activeLanguageKey === key}'>
+                {[ language.name ]}
+              </li>
+            </ul>
+          </li>
+          <li class="header-navigation-menu-item"><a ng-click='toggleCurrencies()'>Currency</a></li>
+          <li ng-show="showCurrencies">
+            <ul class='header-navigation-menu-currencies'>
+              <li class="header-navigation-menu-sub-item" ng-repeat='(key, currency) in currencies' ng-click='changeCurrency(key)' ng-class='{active: appConfig.activeCurrency === key}'>
+                {[ currency.code ]}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div ng-if="!isMobile">
+        <!-- NON MOBILE VIEW -->
+        <div ng-if="!userProfile" class="header-navigation-login">
+          <a href="#" ng-click='createLoginModal()'>Login</a>
+          <a href="#" class="button" ng-click='createSignupModal()'>JOIN</a>
+        </div>
+        <div ng-if="userProfile" class="header-navigation-profile">
+          Hi, {[userProfile['first-name']]} {[userProfile['last-name']]} ( <a class="header-navigation-logout" ng-click="logout()">Logout</a> )
+        </div>
+        <div class="header-settings">
+          <ul>
+            <li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}
+              <ul class='currency-switch'>
+                <li ng-repeat='(key, currency) in currencies' ng-click='changeCurrency(key)' ng-class='{active: appConfig.activeCurrency === key}'>
+                  {[ currency.code ]}
+                </li>
+              </ul>
+            </li>
+            <li class='language-switch-wrapper'>{[ languages[activeLanguageKey].name ]}
+              <ul class='language-switch'>
+                <li ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)' ng-class='{active: appConfig.activeLanguageKey === key}'>
+                  {[ language.name ]}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 </header>

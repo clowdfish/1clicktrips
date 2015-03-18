@@ -20,7 +20,11 @@
 .modal {
   @extend %modal;
 
-  padding: 2em;
+  padding: 0.5em;
+}
+
+.modal-dialog {
+  margin: 1em 0 0 0;
 }
 
 .modal-content {
@@ -74,4 +78,16 @@
   margin-top: 2em;
   font-size: $fs-small;
   line-height: 1.4em;
+}
+
+@include respond-above("medium") {
+
+  .modal {
+    padding: 2em;
+  }
+
+  .modal-dialog {
+    margin: 2.5em auto;
+    padding: 1.5em;
+  }
 }
