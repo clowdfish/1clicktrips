@@ -9,6 +9,7 @@
   function mainCtrl($scope,
                     $modal,
                     $translate,
+                    $location,
                     currencyService,
                     appConfig,
                     localStorageService,
@@ -112,22 +113,29 @@
     }
 
     function initActiveLanguage() {
-      appConfig.activeLanguageKey = languageService.getActiveLanguageKey();
-      if (appConfig.activeLanguageKey == null) {
-        if (locale && $scope.languages[locale]) {
-          appConfig.activeLanguageKey = locale;
-        } else {
-          appConfig.activeLanguageKey = 'en';
-        }
+      if (locale && $scope.languages[locale]) {
+        appConfig.activeLanguageKey = locale;
+      } else {
+        appConfig.activeLanguageKey = languageService.getActiveLanguageKey();
       }
+
+      if (appConfig.activeLanguageKey === null) {
+        appConfig.activeLanguageKey = 'en';
+      }
+
       $scope.activeLanguageKey = appConfig.activeLanguageKey;
       $translate.use($scope.activeLanguageKey);
     }
 
     function changeLanguage(key) {
-      languageService.setActiveLanguageKey(key);
-      $scope.activeLanguageKey = key;
-      $translate.use($scope.activeLanguageKey);
+      if (!$scope.languages[key]) {
+        return;
+      }
+      var hrefArray = location.href.split('#');
+      console.log(hrefArray);
+      var newHref = '/' + key + '/#' + hrefArray[1];
+      console.log(newHref);
+      location.href = newHref;
     }
 
     function changeCurrency(key) {
