@@ -9,7 +9,6 @@
   function mainCtrl($scope,
                     $modal,
                     $translate,
-                    $location,
                     currencyService,
                     appConfig,
                     localStorageService,
@@ -132,9 +131,7 @@
         return;
       }
       var hrefArray = location.href.split('#');
-      console.log(hrefArray);
       var newHref = '/' + key + '/#' + hrefArray[1];
-      console.log(newHref);
       location.href = newHref;
     }
 
