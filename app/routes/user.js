@@ -132,10 +132,7 @@ module.exports = function (app, express, production) {
     UserController.getFavorites(userId)
       .then(function (favorites) {
         if (favorites)
-          if(favorites.length)
-            res.status(200).json(favorites);
-          else
-            res.sendStatus(404);
+          res.status(200).json(favorites);
         else
           res.status(500).send("Could not retrieve favorites.");
       })

@@ -106,6 +106,12 @@ $size-dashboard-icons: 5em;
     }
   }
 
+  .favorites-empty-message {
+    font-style: italic;
+    text-align: center;
+    margin: 0 0.3em 2em 0.3em;
+  }
+
   .favorite-list-box {
     @include span(6);
     position: relative;
@@ -221,6 +227,12 @@ $size-dashboard-icons: 5em;
     }
   }
 
+  .bookings-empty-message {
+    font-style: italic;
+    text-align: center;
+    margin: 0 0.3em 2em 0.3em;
+  }
+
   .booking-item {
     @include span(6);
   }
@@ -311,6 +323,8 @@ $size-dashboard-icons: 5em;
     color: grey;
     font-size: $fs-small;
   }
+
+
 
   @include respond-above("medium") {
 
