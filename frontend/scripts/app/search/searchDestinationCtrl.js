@@ -58,7 +58,7 @@
 
     function selectDestinationSuggestion($item) {
       selectSuggestion($item).then(function(location) {
-        $scope.$parent.destinationAddress = location;
+        $scope.$parent.destinationLocation = location;
         $scope.$parent.isStep1Ready = true;
       }, function() {
       	$scope.$parent.isStep1Ready = false;

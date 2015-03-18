@@ -17,6 +17,27 @@
     $scope.showWeeks = false;
     $scope.now = new Date();
 
+    $scope.changeToStep3 = function() {
+      var canChangeStep = true;
+      var now = new Date();
+
+      if ($scope.$parent.startDate > $scope.$parent.endDate) {
+        alert('End Date must larger than Start Date');
+        canChangeStep = false;
+      }
+
+      if ($scope.$parent.startDate < now || $scope.$parent.endDate < now) {
+        alert('Can not choose date and time in the past');
+        canChangeStep = false;
+      }
+
+      if (canChangeStep) {
+        $scope.$parent.step3();
+      }
+
+    }
+
+
     $scope.openStartDatePicker = function($event) {
       if ($event) {
         $event.preventDefault();
@@ -76,26 +97,16 @@
       $scope.isOpenEndTimePicker = false;
     }
 
-    $scope.$watchGroup(['$parent.startDate', '$parent.startTime', '$parent.endDate', '$parent.endTime'], function() {
+    $scope.$watchGroup(['$parent.startDate', '$parent.endDate'], function() {
       if (
-        $scope.$parent.isStep1Ready &&
-        $scope.$parent.startDate != null &&
-        $scope.$parent.endDate != null &&
-        $scope.$parent.startTime != null &&
-        $scope.$parent.endTime != null) {
-        $scope.$parent.isStep2Ready = true;
+        !$scope.$parent.isStep1Ready ||
+        $scope.$parent.startDate == null ||
+        $scope.$parent.endDate == null) {
+        return;
       }
+
+      $scope.$parent.isStep2Ready = true;
     });
 
-    function createDateFromDateAndTime(date, time) {
-      return moment([
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        time.getHours(),
-        time.getMinutes(),
-        time.getSeconds()
-      ]).format('YYYY-MM-DDTHH:mm:ss');
-    }
 	}
 })();

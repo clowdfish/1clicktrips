@@ -41,36 +41,32 @@
     $scope.step3 = step3;
 
     //Search data
-    $scope.destinationAddress = searchFormData.destinationLocation;
-    $scope.originAddress =  null;
+    $scope.destinationLocation = searchFormData.destinationLocation;
+    $scope.originLocation =  null;
     favoriteOriginLocation = searchFormData.originLocation != null ? searchFormData.originLocation : null;
     $scope.destination = searchFormData.destination;
     $scope.origin = searchFormData.origin;
     $scope.startDate = searchFormData.startDate;
-    $scope.startTime = searchFormData.startDate;
     $scope.endDate = searchFormData.endDate;
-    $scope.endTime = searchFormData.endDate;
 
-    $scope.$watch('destinationAddress', function() {
-      if ($scope.destinationAddress != null) {
+    $scope.$watch('destinationLocation', function() {
+      if ($scope.destinationLocation != null) {
         $scope.isStep1Ready = true;
       }
     });
 
-    $scope.$watch('originAddress', function() {
+    $scope.$watch('originLocation', function() {
       if ($scope.isStep1Ready &&
         $scope.isStep2Ready &&
-        $scope.originAddress != null) {
+        $scope.originLocation != null) {
         $scope.isStep3Ready = true;
       }
     });
 
-    $scope.$watchGroup(['startDate', 'startTime', 'endDate', 'endTime'], function() {
+    $scope.$watchGroup(['startDate', 'endDate'], function() {
       if ($scope.isStep1Ready == true &&
         $scope.startDate != null &&
-        $scope.endDate != null &&
-        $scope.startTime != null &&
-        $scope.endTime != null) {
+        $scope.endDate != null) {
         $scope.isStep2Ready = true;
       }
     });
@@ -88,7 +84,7 @@
     function selectFavorite(favorite) {
       step1();
       $scope.destination = favorite.destination.description;
-      $scope.destinationAddress = favorite.destination.location;
+      $scope.destinationLocation = favorite.destination.location;
       $scope.origin = favorite.origin.description;
       favoriteOriginLocation = favorite.origin.location;
     }
@@ -98,7 +94,7 @@
     }
 
     function step2() {
-      if (!$scope.isStep1Ready || $scope.destinationAddress == null) {
+      if (!$scope.isStep1Ready || $scope.destinationLocation == null) {
         return;
       }
       $scope.step = 2;
@@ -113,9 +109,7 @@
       }
 
       if ($scope.startDate == null ||
-        $scope.endDate == null ||
-        $scope.startTime == null ||
-        $scope.endTime == null) {
+        $scope.endDate == null) {
         return;
       }
 
@@ -123,7 +117,7 @@
 
       $timeout(function() {
         if ($scope.origin && favoriteOriginLocation) {
-          $scope.originAddress = favoriteOriginLocation;
+          $scope.originLocation = favoriteOriginLocation;
         }
       }, 50);
     }

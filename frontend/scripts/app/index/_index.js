@@ -109,6 +109,21 @@
   }
 
   function getSearchFormData($stateParams) {
+    //Minutes value must be in this range
+    var validTimeValues = [0, 15, 30, 45];
+
+    var startDate = moment($stateParams.startDate);
+    startDate.seconds(0);
+    if (validTimeValues.indexOf(startDate.minutes()) == -1) {
+      startDate.minutes(0);
+    }
+
+    var endDate = moment($stateParams.endDate);
+    endDate.seconds(0);
+    if (validTimeValues.indexOf(endDate.minutes()) == -1) {
+      endDate.minutes(0);
+    }
+
     return {
       destinationLocation: {
         latitude: parseFloat($stateParams.destinationLatitude),
@@ -118,8 +133,8 @@
         latitude: parseFloat($stateParams.originLatitude),
         longitude: parseFloat($stateParams.originLongitude)
       },
-      startDate: moment($stateParams.startDate).toDate(),
-      endDate: moment($stateParams.endDate).toDate(),
+      startDate: startDate.toDate(),
+      endDate: endDate.toDate(),
       destination: $stateParams.destination,
       origin: $stateParams.origin
     };
@@ -128,8 +143,12 @@
   function getDefaultSearchFormData() {
     var startDate = new Date();
     startDate.setHours(14);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
     var endDate = new Date();
     endDate.setHours(16);
+    endDate.setMinutes(0);
+    endDate.setSeconds(0);
 
     return {
       destinationLocation: null,

@@ -29,7 +29,7 @@
       googleMap
       	.geocode($item.description)
       	.then(function(location) {
-      		$scope.$parent.originAddress = location;
+      		$scope.$parent.originLocation = location;
       		$scope.$parent.isStep3Ready = true;
       	}, function() {
 					$scope.$parent.isStep3Ready = false;
@@ -43,14 +43,14 @@
       if (false == $scope.$parent.isStep3Ready) {
         return;
       }
-      var startDate = createDateFromDateAndTime($scope.$parent.startDate, $scope.$parent.startTime);
-      var endDate = createDateFromDateAndTime($scope.$parent.endDate, $scope.$parent.endTime);
+      var startDate = formatDate($scope.$parent.startDate);
+      var endDate = formatDate($scope.$parent.endDate);
       var requestParameters = {
-        originLatitude: $scope.$parent.originAddress.latitude,
-        originLongitude: $scope.$parent.originAddress.longitude,
+        originLatitude: $scope.$parent.originLocation.latitude,
+        originLongitude: $scope.$parent.originLocation.longitude,
         origin: $scope.$parent.origin,
-        destinationLatitude: $scope.$parent.destinationAddress.latitude,
-        destinationLongitude: $scope.$parent.destinationAddress.longitude,
+        destinationLatitude: $scope.$parent.destinationLocation.latitude,
+        destinationLongitude: $scope.$parent.destinationLocation.longitude,
         destination: $scope.$parent.destination,
         startDate: startDate,
         endDate: endDate
@@ -58,15 +58,8 @@
       $state.go('search_result', requestParameters);
     }
 
-    function createDateFromDateAndTime(date, time) {
-      return moment([
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        time.getHours(),
-        time.getMinutes(),
-        time.getSeconds()
-      ]).format('YYYY-MM-DDTHH:mm:ss');
+    function formatDate(date) {
+      return moment(date).format('YYYY-MM-DDTHH:mm:ss');
     }
 
 	}

@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        <map-marker address="$parent.destinationAddress" class="search-destination-map"></map-marker>
+        <map-marker address="$parent.destinationLocation" class="search-destination-map"></map-marker>
         <div class="search-form-process-indicator">
           <span class="search-form-process-step active"></span>
           <span class="search-form-process-step"></span>
@@ -98,13 +98,14 @@
                     type="text"
                     class="form-control time"
                     tab-index="2"
-                    ng-model="$parent.startTime"
+                    ng-model="$parent.startDate"
                     sy-timepicker-popup="HH:mm"
-                    show-meridian="true"
+                    show-meridian="false"
                     is-open="isOpenStartTimePicker"
                     show-seconds="false"
                     placeholder="Start time"
                     ng-click="openStartTimePicker($event)"
+                    minute-step='15'
                     readonly />
             <i class="fa fa-clock-o"></i>
           </div>
@@ -135,12 +136,13 @@
                     class="form-control time"
                     tab-index="4"
                     sy-timepicker-popup="HH:mm"
-                    ng-model="$parent.endTime"
-                    show-meridian="true"
+                    ng-model="$parent.endDate"
+                    show-meridian="false"
                     is-open="isOpenEndTimePicker"
                     show-seconds="false"
                     placeholder="End time"
                     ng-click="openEndTimePicker($event)"
+                    minute-step='15'
                     readonly />
             <i class="fa fa-clock-o"></i>
           </div>
@@ -152,7 +154,7 @@
           <span class="search-form-process-step"></span>
         </div>
         <a
-          ng-click="step3()"
+          ng-click="changeToStep3()"
           class="button--dark"
           ng-class="{ 'is-disabled': ! $parent.isStep2Ready }">
           {[ i18n.search_form_control_next | translate ]}
@@ -177,7 +179,7 @@
                   typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
         </div>
 
-        <map-marker address="$parent.originAddress" class="search-destination-map"></map-marker>
+        <map-marker address="$parent.originLocation" class="search-destination-map"></map-marker>
         <div class="search-form-process-indicator">
           <span class="search-form-process-step"></span>
           <span class="search-form-process-step"></span>
