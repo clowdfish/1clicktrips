@@ -50,7 +50,12 @@ module.exports = {
   },
 
   setProfile: function(userId, profileObject) {
-    // TODO implement
+
+   // TODO implement
+
+    return new Promise(function(resolve, reject) {
+      resolve();
+    });
   },
 
   getFavorites: function(userId) {
@@ -167,11 +172,24 @@ module.exports = {
           reject(err);
 
         if(rows.length) {
-          // create specific message format?
-          resolve(rows)
+          var messagesArray = [];
+
+          rows.forEach(function(row) {
+
+            messagesArray.push({
+              "id" : row['id'],
+              "content" : row['content'],
+              "type" : row['type'],
+              "date" : row['date'],
+              "url" : row['url'],
+              "action" : row['action']
+            });
+          });
+
+          resolve(messagesArray);
         }
         else {
-          reject(new Error('Could not retrieve favorites.'));
+          resolve([]);
         }
       });
     });
@@ -195,7 +213,7 @@ function parseLocation(location) {
 }
 
 /**
- *
+ * Creates a string out of the given location object.
  *
  * @param location
  * @returns {string}

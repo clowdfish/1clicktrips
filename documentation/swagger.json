@@ -97,13 +97,13 @@
                     "401": {
                         "description": "Authentication failure",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "type": "string"
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
+                    "500": {
+                        "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "type": "string"
                         }
                     }
                 }
@@ -308,7 +308,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Array of favorites for the given user",
+                        "description": "Array of favorites for the authenticated user.",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -316,17 +316,14 @@
                             }
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
+                    "404": {
+                        "description": "No favorites found"
                     }
                 }
             },
             "post": {
                 "summary": "Update Favorites",
-                "description": "Save a new favorite or edit an existing one. \n",
+                "description": "Save a new favorite or edit an existing one.",
                 "tags": [
                     "User"
                 ],
@@ -342,13 +339,39 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Creation/Update of favorites successful"
+                        "description": "Creation/Update of favorites successful."
                     },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
+                    "400": {
+                        "description": "Request malformed."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            }
+        },
+        "/account/favorites/{favoriteId}": {
+            "delete": {
+                "summary": "Delete Favorite",
+                "description": "Deletes the favorite with the given id.",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "favoriteId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletion of favorite sucessful"
+                    },
+                    "500": {
+                        "description": "Internal server error."
                     }
                 }
             }
@@ -380,7 +403,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Booking history for the given user",
+                        "description": "Booking history for the given user.",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -388,11 +411,11 @@
                             }
                         }
                     },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
+                    "404": {
+                        "description": "No booking available."
+                    },
+                    "500": {
+                        "description": "Internal server error."
                     }
                 }
             },
@@ -977,6 +1000,16 @@
                 }
             }
         },
+        "Place": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "#/definitions/Location"
+                }
+            }
+        },
         "Segment": {
             "properties": {
                 "id": {
@@ -1004,7 +1037,7 @@
                 "type": {
                     "type": "number",
                     "format": "int32",
-                    "description": "Travel option used. \nStay = 0, Walk = 1, Taxi = 2, Car = 4, \nBus = 8, Train = 16, Plane = 32\n"
+                    "description": "Travel option used. \nWalk = 1, Car = 2, Bus = 4, Train = 8, \nFlight = 16, Taxi = 32, Ferry = 64\n"
                 },
                 "price": {
                     "type": "number",
@@ -1039,10 +1072,6 @@
                 "image": {
                     "type": "string",
                     "description": "Image URL of the user"
-                },
-                "promo-code": {
-                    "type": "string",
-                    "description": "Promo code of the user"
                 }
             }
         },
@@ -1065,28 +1094,26 @@
         },
         "Favorite": {
             "required": [
-                "start",
-                "end"
+                "origin",
+                "destination"
             ],
             "properties": {
                 "id": {
                     "type": "string",
                     "description": "Unique identifier for the favorite"
                 },
-                "start": {
-                    "type": "string",
-                    "description": "The start location of the booking. Can be an address\nor a description (e.g. home)\n"
+                "origin": {
+                    "$ref": "#/definitions/Place"
                 },
-                "end": {
-                    "type": "string",
-                    "description": "The end location of the booking. Can be an address\nor a description (e.g. company name)\n"
+                "destination": {
+                    "$ref": "#/definitions/Place"
                 },
                 "transport": {
                     "type": "array",
                     "items": {
                         "type": "number",
                         "format": "int32",
-                        "description": "Travel option used. \nWalk = 1, Taxi = 2, Car = 4, Bus = 8, \nTrain = 16, Plane = 32\n"
+                        "description": "Travel option used. \nWalk = 1, Car = 2, Bus = 4, Train = 8, \nFlight = 16, Taxi = 32, Ferry = 64\n"
                     }
                 }
             }
@@ -1327,6 +1354,10 @@
                 "type": {
                     "type": "string",
                     "description": "Can be used to store any type of information that \nthen can be used to show an icon in the frontend.\n"
+                },
+                "action": {
+                    "type": "string",
+                    "description": "The action property can be used to store some action\nthat will be executed, if the user accepts the message.\n"
                 }
             }
         },

@@ -150,8 +150,9 @@ function createMessageMock() {
   return {
     "id" : 1,
     "content" : "Your next trip will be on Tuesday, 20 Jan 2015.",
+    "type" : "info",
     "date" : "2015-02-10T02:54:51+00:0",
     "url" : "http://imaginative.url",
-    "type" : "info"
+    "action" : "TestAction"
   }
 }

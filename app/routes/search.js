@@ -15,7 +15,7 @@ module.exports = function (app, express, production) {
   if(production) {
     UserController = require('../controller/userController');
     AuthController = require('../controller/authController');
-    SearchController = require('../controller/searchController');
+    SearchController = require('../mocking/searchController');
   }
   else {
     UserController = require('../mocking/userController');
