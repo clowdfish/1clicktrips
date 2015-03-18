@@ -65,12 +65,8 @@
           templateUrl: 'scripts/app/templates/dashboard/dashboard.html',
           controller: 'dashboardCtrl',
           resolve: {
-            favoriteList: function(favoriteService) {
-              return favoriteService.getFavoriteList();
-            },
-            bookedTripList: function(bookingService) {
-              return bookingService.getBookedTrips();
-            }
+            favoriteList: getFavoriteList,
+            bookedTripList: getBookedTrips
           }
         }
       }
@@ -96,16 +92,26 @@
           templateUrl: 'scripts/app/templates/dashboard/dashboard.html',
           controller: 'dashboardCtrl',
           resolve: {
-            favoriteList: function(favoriteService) {
-              return favoriteService.getFavoriteList();
-            },
-            bookedTripList: function(bookingService) {
-              return bookingService.getBookedTrips();
-            }
+            favoriteList: getFavoriteList,
+            bookedTripList: getBookedTrips
           }
         }
       }
     });
+  }
+
+  function getFavoriteList(authService, favoriteService) {
+    if (!authService.isLogin()) {
+      return [];
+    }
+    return favoriteService.getFavoriteList();
+  }
+
+  function getBookedTrips(authService, bookingService) {
+    if (!authService.isLogin()) {
+      return [];
+    }
+    return bookingService.getBookedTrips();
   }
 
   function getSearchFormData($stateParams) {
