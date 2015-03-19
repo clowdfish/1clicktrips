@@ -20,47 +20,46 @@
     */
     this.authSuccess = function(token) {
       localStorageService.set(tokenLocalStorageKey, token);
-    }
+    };
 
     /**
     * Auth fail, remove token
     */
     this.authFailed = function() {
       _this.removeAuthToken();
-    }
+    };
 
     /**
      * Get authentication token
      */
     this.getAuthToken = function() {
       return localStorageService.get(tokenLocalStorageKey);
-    }
+    };
 
     /**
      * Remove authentication token from localstorage
      */
     this.removeAuthToken = function() {
       localStorageService.remove(tokenLocalStorageKey);
-    }
+    };
 
     //Save user profile to localStorage
     this.setUserProfile = function(userProfile) {
       localStorageService.set(userProfileKey, userProfile);
-    }
+    };
 
     //Remove user profile data
     this.removeUserProfile = function() {
       localStorageService.remove(userProfileKey);
-    }
+    };
 
     //Get user profile
     this.getUserProfile = function() {
       return localStorageService.get(userProfileKey);
-    }
+    };
 
     this.isLogin = function() {
       return _this.getAuthToken() != null;
-    }
-
+    };
   }
 })();
