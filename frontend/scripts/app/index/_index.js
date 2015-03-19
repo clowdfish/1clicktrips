@@ -34,9 +34,6 @@
 
   function run($rootScope, $state, AUTH_EVENTS) {
     $rootScope.i18n = i18n;
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $state.go('index');
-    });
   }
 
   function interpolateConfig($interpolateProvider) {
@@ -100,15 +97,15 @@
     });
   }
 
-  function getFavoriteList(authService, favoriteService) {
-    if (!authService.isLogin()) {
+  function getFavoriteList(session, favoriteService) {
+    if (!session.isLogin()) {
       return [];
     }
     return favoriteService.getFavoriteList();
   }
 
-  function getBookedTrips(authService, bookingService) {
-    if (!authService.isLogin()) {
+  function getBookedTrips(session, bookingService) {
+    if (!session.isLogin()) {
       return [];
     }
     return bookingService.getBookedTrips();

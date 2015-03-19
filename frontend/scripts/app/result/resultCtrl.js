@@ -8,14 +8,19 @@
                       $rootScope,
                       $q,
                       $stateParams,
+                      $state,
+                      $modal,
                       tripService,
                       TRIP_TYPE,
                       browser,
                       appConfig,
                       date,
-                      $state) {
+                      session,
+                      AUTH_EVENTS,
+                      favoriteService,
+                      searchObject) {
     $scope.appConfig = appConfig;
-
+    $scope.showAddToFavorite = true;
     findAllItineraries();
 
     $scope.itinerary = null;
@@ -42,26 +47,13 @@
     $scope.showListView = showList;
     $scope.showMapView = showMap;
 
+    $scope.addToFavorites = addToFavorites;
+
+    $scope.$on('$destroy', function() {
+      destroyController();
+    });
+
     function findAllItineraries() {
-      var searchObject = {
-        origin: {
-          latitude: parseFloat($stateParams.originLatitude),
-          longitude: parseFloat($stateParams.originLongitude)
-        },
-        appointments: [
-          {
-            location: {
-              latitude: parseFloat($stateParams.destinationLatitude),
-              longitude: parseFloat($stateParams.destinationLongitude)
-            },
-            start: $stateParams.startDate,
-            end: $stateParams.endDate
-          }
-        ],
-        locale: appConfig.activeLanguage,
-        roundTrip: false,
-        currency: appConfig.activeCurrency
-      };
       tripService
         .findItinerary(searchObject)
         .then(function(itineraries) {
@@ -146,5 +138,67 @@
 
       $scope.notifications.splice(item, 1);
     }
+
+    function addToFavorites() {
+      if (session.isLogin()) {
+        addFavorite();
+      } else {
+        //create modal instance
+        var modalInstance = $modal.open({
+          templateUrl: 'scripts/app/templates/auth/login-modal.html',
+          controller: 'loginCtrl',
+          size: 'lg'
+        });
+
+        $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+          //save favorite
+          addFavorite();
+        });
+        $scope.$on(AUTH_EVENTS.signupSuccess, function() {
+          //save favorite
+          addFavorite();
+        });
+      }
+    }
+
+    function destroyController() {
+      console.log('Destroy resultCtrl');
+      destroyAuthenticationListener();
+    }
+
+    function destroyAuthenticationListener() {
+      $scope.$on(AUTH_EVENTS.loginSuccess, null);
+      $scope.$on(AUTH_EVENTS.signupSuccess, null);
+    }
+
+    function addFavorite() {
+      var favorite = {
+        origin: {
+          description: $stateParams.origin,
+          location: {
+            latitude: $stateParams.originLatitude,
+            longitude: $stateParams.originLongitude
+          }
+        },
+        destination: {
+          description: $stateParams.destination,
+          location: {
+            latitude: $stateParams.destinationLatitude,
+            longitude: $stateParams.destinationLongitude
+          }
+        }
+      };
+      favoriteService
+        .addFavorite(favorite)
+        .then(function() {
+          $scope.showAddToFavorite = false;
+          alert('Add favorite successful');
+        }, function() {
+          alert('Error while add result to favorite');
+        });
+
+      destroyAuthenticationListener();
+    }
+
   }
 })();

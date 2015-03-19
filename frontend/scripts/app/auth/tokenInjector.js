@@ -12,7 +12,7 @@
       request: function(config) {
         var token = session.getAuthToken();
         if (token) {
-          config.headers['x-auth-token'] = token;
+          config.headers['x-access-token'] = token;
         }
         return config;
       },

@@ -32,7 +32,7 @@
 
     <!-- RESULT TYPE DESCRIPTION -->
     <div class="result-description" ng-class="{ folded: showList && isMobile }">
-      <span class="result-description-favorite">
+      <span class="result-description-favorite" ng-click="addToFavorites()" ng-show="showAddToFavorite">
         <i class="fa fa-heart"></i>
         <span>+ Add to favorites</span>
       </span>
