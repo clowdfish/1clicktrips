@@ -7,7 +7,6 @@
     .service('authService', authService);
 
   function authService($http, $q, $rootScope, AUTH_EVENTS, session) {
-    var _this = this;
 
     this.signup = function(signupData) {
       return $q(function(resolve, reject) {
@@ -25,7 +24,7 @@
             });
           });
       });
-    }
+    };
 
     this.login = function(loginData) {
       return $q(function(resolve, reject) {
@@ -46,7 +45,7 @@
             });
           });
       });
-    }
+    };
 
     /**
      * Remove user data and logout
@@ -57,16 +56,10 @@
       $rootScope.$broadcast(AUTH_EVENTS.logout);
       $http
         .get('/api/auth/logout');
-    }
+    };
 
     function validateLoginData(loginData) {
-      if (!loginData ||
-         !loginData.email ||
-         !loginData.password) {
-        return false;
-      }
-      return true;
+      return (loginData && loginData.email && loginData.password);
     }
-
   }
 })();
