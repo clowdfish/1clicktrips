@@ -50,19 +50,13 @@ module.exports = function (app, express, production) {
       // TODO return all events
     }
 
-    // the events API is not available in production as of now
-    if(production) {
-      res.status(404).send("Events Service not available yet.");
-    }
-    else {
-      SearchController.getEvents(null, 3)
-        .then(function(events) {
-          res.status(200).json(events);
-        })
-        .catch(function(err) {
-          res.status(500).json(err.message);
-        });
-    }
+    SearchController.getEvents(null, 3)
+      .then(function(events) {
+        res.status(200).json(events);
+      })
+      .catch(function(err) {
+        res.status(500).json(err.message);
+      });
   });
 
   // ==========================================================================
@@ -81,19 +75,13 @@ module.exports = function (app, express, production) {
       // TODO return all events
     }
 
-    // the meeting spaces API is not available in production as of now
-    if(production) {
-      res.status(404).send("Meeting Spaces Service not available yet.");
-    }
-    else {
-      SearchController.getMeetingSpaces(null, 3)
-        .then(function(meetingSpaces) {
-          res.status(200).json(meetingSpaces);
-        })
-        .catch(function(err) {
-          res.status(500).json(err.message);
-        });
-    }
+    SearchController.getMeetingSpaces(null, 3)
+      .then(function(meetingSpaces) {
+        res.status(200).json(meetingSpaces);
+      })
+      .catch(function(err) {
+        res.status(500).json(err.message);
+      });
   });
 
   // ==========================================================================
@@ -111,19 +99,13 @@ module.exports = function (app, express, production) {
 
       // TODO return only alternatives matching the given ID
 
-      // the meeting spaces API is not available in production as of now
-      if(production) {
-        res.status(404).send("Meeting Spaces Service not available yet.");
-      }
-      else {
-        SearchController.getTripAlternatives(1, 1, null)
-          .then(function(tripAlternatives) {
-            res.status(200).json(tripAlternatives);
-          })
-          .catch(function(err) {
-            res.status(500).json(err.message);
-          });
-      }
+      SearchController.getTripAlternatives(1, 1, null)
+        .then(function(tripAlternatives) {
+          res.status(200).json(tripAlternatives);
+        })
+        .catch(function(err) {
+          res.status(500).json(err.message);
+        });
     }
     else {
       res.status(400).send("status.user.error.request.malformed");
@@ -154,18 +136,15 @@ module.exports = function (app, express, production) {
 
           userLicence = user.licence;
 
-          if(!production)
-            SearchController.getTripResults(req.body, user.licence)
-              .then(function(tripResults) {
-                res.status(200).json(tripResults);
-              })
-              .catch(function(err) {
-                console.log(err.message);
+          SearchController.getTripResults(req.body, user.licence)
+            .then(function(tripResults) {
+              res.status(200).json(tripResults);
+            })
+            .catch(function(err) {
+              console.log(err.message);
 
-                res.status(500).json(err.message);
-              });
-          else
-            res.status(404).send("Search Service not available yet.");
+              res.status(500).json(err.message);
+            });
         });
     }
     else {
