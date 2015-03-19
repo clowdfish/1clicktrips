@@ -22,7 +22,11 @@
 
 
   function httpConfig($httpProvider) {
+    //Inject x-auth-token header into request if token available;
     $httpProvider.interceptors.push('tokenInjector');
+
+    //Stop certains request if user is not authenticated
+    $httpProvider.interceptors.push('requestChecker');
   }
 
   function run($rootScope, session, AUTH_EVENTS) {
