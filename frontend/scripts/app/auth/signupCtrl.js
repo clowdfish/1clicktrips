@@ -7,22 +7,28 @@
     .controller('signupCtrl', signupCtrl);
 
   function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authService) {
+
+    $scope.agreement = false;
+
     /**
-     * Signup by email and password
-     * @param  {Object} signupData [object contains email and password]
+     * Sign up by email and password
      */
     $scope.signup = function() {
-      authService
-        .signup($scope.signupData)
-        .then(function() {
-          $rootScope.$broadcast(AUTH_EVENTS.signupSuccess);
-        }, function(data) {
-          $rootScope.$broadcast(AUTH_EVENTS.signupFailed);
-          handleSignupError(data);
-        });
+      if($scope.agreement)
+        authService
+          .signup($scope.signupData)
+          .then(function() {
+            $rootScope.$broadcast(AUTH_EVENTS.signupSuccess);
+          }, function(data) {
+            $rootScope.$broadcast(AUTH_EVENTS.signupFailed);
+            console.log(data.message);
+            handleSignupError(data);
+          });
+      else
+        handleSignupError({ message: "status.user.error.signup.agreement" });
     };
 
-    // close signup modal when sign up success
+    // close sign up modal when sign up success
     $scope.$on(AUTH_EVENTS.signupSuccess, function() {
       $modalInstance.close();
     });
@@ -37,16 +43,23 @@
       });
     };
 
-    //Show error message when signup failed
+    // show error message when sign up failed
     function handleSignupError(signupResponse) {
       switch (signupResponse.message) {
         case 'status.user.error.signup.exists':
-          $scope.errorMessage = 'This email is already used.';
           $scope.signupForm.email.$error.exist = true;
+          $scope.signupForm.email.$error.other = false;
+          $scope.signupForm.email.$error.agreement = false;
           break;
-        case 'status.user.error.authorization.failure':
+        case 'status.user.error.signup.agreement':
+          $scope.signupForm.email.$error.agreement = true;
+          $scope.signupForm.email.$error.exist = false;
+          $scope.signupForm.email.$error.other = false;
+          break;
         default:
-          //@todo: show error message for other errors
+          $scope.signupForm.email.$error.other = true;
+          $scope.signupForm.email.$error.agreement = false;
+          $scope.signupForm.email.$error.exist = false;
           break;
       }
     }

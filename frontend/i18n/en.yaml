@@ -1,18 +1,15 @@
 en:
   locale: en
-  language:
-    de: Deutsch
-    en: English
-    language: 'Switch language:'
   general:
-    yes: Yes
-    no: No
+    yes: yes
+    no: no
     or: or
   toasts:
     notimplemented: Not yet implemented
   nav:
     signup: JOIN
     signin: Login
+    greeting: Hi
   search:
     navigation:
       destination: Specify Your Destination
@@ -31,15 +28,15 @@ en:
         submit: Start Search
   signup:
     form:
-      firstname:: First name
-      lastname: Last name
-      username: Choose a username
       email: Enter your email address
       password: Forge a crazy password
       submit: Sign Up
-      check: I agree to the <a href=''>Trip-To-Go terms</a>
-      submitsub : "or <a href='#' modal-open='signin'>sign in</a>"
+      check: I agree to the 1ClickTrips <a href=''>conditions</a>
       signin: sign in
+      error:
+        email: This email is already registered.
+        agreement: Please sign the agreement first.
+        other: Could not register for 1ClickTrips. Please try again later.
     header: Sign Up *
     headersub: Join the world of easy business travel. Today.
     annotation: '* 1ClickTrips is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate your feedback.'
@@ -47,9 +44,9 @@ en:
   login:
     form:
       username: Email address
-      usernamealert: username is required
+      usernamealert: An email addess is required!
       password: Password
-      passwordalert : password is required
+      passwordalert : A password is required!
       submit: Sign in
       check: Remember me
       submitforgot: Forgot your password?

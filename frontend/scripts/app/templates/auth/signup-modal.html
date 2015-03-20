@@ -1,43 +1,42 @@
 <a href="#" class="modal-close" ng-click="cancel()"><i class="fa fa-close"></i></a>
 <form id="signupForm" name="signupForm" ng-submit='signup(signupData)'>
-
   <div class="modal-header">
     <h1 class="modal-title">{[ i18n.signup_header | translate ]}</h1>
     <h4 class="modal-subtitle">{[ i18n.signup_headersub | translate ]}</h4>
-    <span class='form-alert' ng-show="signupForm.$error.message"></span>
   </div>
 
   <div class="modal-body">
+    <span>
+      <span id="signup-agreement-alert" class="input-alert" ng-show="signupForm.email.$error.agreement">
+        {[ i18n.signup_form_error_agreement | translate ]}
+      </span>
+      <span id="signup-email-alert" class="input-alert" ng-show="signupForm.email.$error.exist">
+        {[ i18n.signup_form_error_email | translate ]}
+      </span>
+       <span id="signup-other-alert" class="input-alert" ng-show="signupForm.email.$error.other">
+         {[ i18n.signup_form_error_other | translate ]}
+      </span>
+    </span>
+
     <fieldset>
       <input type="email"
              name="email"
              placeholder="{[ i18n.signup_form_email | translate ]}"
              ng-model='signupData.email'
-             required/>
-    <span class="input-alert"
-          id="signup-email-alert"
-          ng-show="signupForm.email.$error.exist">This email is already used.</span>
-    <span class="input-alert"
-          id="signup-email-alert"
-          ng-show="signupForm.email.$error.invalid">Invalid email.</span>
-      <span class="input-alert" id="signup-email-alert"></span>
+             required />
     </fieldset>
     <fieldset>
       <input type="password"
-             class="bla-bla-test"
              name="password"
              placeholder="{[ i18n.signup_form_password | translate ]}"
              ng-model='signupData.password'
              required />
-    <span class="input-alert"
-          id="signup-password-alert"
-          ng-show="signupForm.password.$error.invalid">Invalid email</span>
     </fieldset>
     <fieldset>
       <input type="checkbox"
              name="agreement"
              id="ttg-checkbox-signup"
-              />
+             ng-model="agreement" />
       <label for="ttg-checkbox-signup" ng-bind-html="i18n.signup_form_check | translate"></label>
     </fieldset>
   </div>
@@ -50,4 +49,3 @@
     <span class="modal-footer-annotation">{[ i18n.signup_annotation | translate ]}</span>
   </div>
 </form>
-

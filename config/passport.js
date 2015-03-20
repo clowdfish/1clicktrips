@@ -77,7 +77,7 @@ module.exports = function(passport) {
               createUserData(rows.insertId)
                 .then(function() {
                   // attach user to request
-                  //req.user = newUser; // TODO is this line required?
+                  req.user = newUser; // required to work with req.user in subsequent middle wares
                   return done(null, newUser);
                 })
                 .catch(function(err) {
@@ -166,13 +166,13 @@ module.exports = function(passport) {
                   if(rows.affectedRows = 0) console.error("Could not update user.");
 
                   // attach user to request
-                  //req.user = user; // TODO is this line required?
+                  req.user = user; // required to work with req.user in subsequent middle wares
                   return done(null, user);
                 });
               }
 
               // attach user to request
-              //req.user = user; // TODO is this line required?
+              req.user = user; // required to work with req.user in subsequent middle wares
               return done(null, user);
             }
             else {
@@ -198,7 +198,7 @@ module.exports = function(passport) {
                 createUserData(rows.insertId)
                   .then(function() {
                     // attach user to request
-                    //req.user = newUser; // TODO is this line required?
+                    req.user = newUser; // required to work with req.user in subsequent middle wares
                     return done(null, newUser);
                   })
                   .catch(function(err) {
@@ -230,7 +230,7 @@ module.exports = function(passport) {
             if(rows.affectedRows = 0) console.error("Could not update user.");
 
             // attach user to request
-            //req.user = user; // TODO is this line required?
+            req.user = user; // required to work with req.user in subsequent middle wares
             return done(null, user);
           });
 

@@ -48,13 +48,16 @@ module.exports = function (app, express, passport, production) {
       if (err)
         res.status(500).json(err);
 
-      if (!user && info)
+      if (!user && info) {
+        console.log("No user!");
         res.status(401).send(info.message);
+      }
       else {
         var token =
           AuthController.getAuthenticationToken(req, res, app.get('jwtTokenSecret'));
 
         if (!token) {
+          console.log("No token!");
           res.status(401).send('status.user.error.authorization.failure');
         }
 

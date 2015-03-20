@@ -80,6 +80,19 @@
   line-height: 1.4em;
 }
 
+
+.input-alert {
+  display: block;
+  margin-bottom: 0.5em;
+  margin-left: 0.3em;
+  color: $c-red;
+
+  &:before {
+    font-family: FontAwesome;
+    content: "\f071\00a0";
+  }
+}
+
 @include respond-above("medium") {
 
   .modal {
