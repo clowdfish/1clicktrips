@@ -93,7 +93,6 @@ en:
       starttime: Start time
       endtime: End time
       transport: Means of travel used
-
   settings:
     title: Settings
     profile:

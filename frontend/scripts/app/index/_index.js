@@ -25,7 +25,7 @@
     for (var i = 0; i < languageKeys.length; i++) {
       i18n[languageKeys[i]] = languageKeys[i];
     }
-    console.log(en);
+
     $translateProvider.translations('en', en);
     $translateProvider.translations('de', de);
 
@@ -33,6 +33,7 @@
   }
 
   function run($rootScope, $state, AUTH_EVENTS) {
+    // TODO do we need that part?
     $rootScope.i18n = i18n;
   }
 
