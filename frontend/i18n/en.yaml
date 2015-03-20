@@ -1,45 +1,33 @@
 en:
   locale: en
-  language:
-    de: Deutsch
-    en: English
-    language: 'Switch language:'
   general:
-    yes: Yes
-    no: No
+    yes: yes
+    no: no
     or: or
+    from: from
+    until: to
   toasts:
     notimplemented: Not yet implemented
   nav:
     signup: JOIN
     signin: Login
-  search:
-    navigation:
-      destination: Specify Your Destination
-      timing: Specify Date & Time
-      origin: Specify Your Origin
-    form:
-      origin: Where do you want to start?
-      destination:
-        label: Where is your appointment?
-        placeholder: e.g. address of your location
-      time: When is your appointment?
-      start: At what time does your appointment start?
-      end: When does your appointment end?
-      control:
-        next: CONTINUE
-        submit: Start Search
+    greeting: Hi
+    logout: logout
+    mobile:
+      signup: Signup
+      language: Language
+      profile: Profile
   signup:
     form:
-      firstname:: First name
-      lastname: Last name
-      username: Choose a username
       email: Enter your email address
       password: Forge a crazy password
       submit: Sign Up
-      check: I agree to the <a href=''>Trip-To-Go terms</a>
-      submitsub : "or <a href='#' modal-open='signin'>sign in</a>"
+      check: I agree to the 1ClickTrips <a href=''>conditions</a>
       signin: sign in
+      error:
+        email: This email is already registered.
+        agreement: Please sign the agreement first.
+        other: Could not register for 1ClickTrips. Please try again later.
     header: Sign Up *
     headersub: Join the world of easy business travel. Today.
     annotation: '* 1ClickTrips is still in beta phase. The functionality and quality of our service will be continuously improved over the next couple of weeks. If you find any bugs or unwanted behavior, we highly appreciate your feedback.'
@@ -47,80 +35,83 @@ en:
   login:
     form:
       username: Email address
-      usernamealert: username is required
       password: Password
-      passwordalert : password is required
       submit: Sign in
       check: Remember me
-      submitforgot: Forgot your password?
-      resulterror: "<span>A problem occured during the log-in process. </span><br />Did you already <a data-ng-click='signin()'>sign up</a> for a user account?"
+      forgot: Forgot your password?
+      error: Sorry, your email or password is wrong.
     header: Sign In
     annotation:
-      notyet: "Not yet part of 1ClickTrips?"
-      signup: "Signup now"
-      twitter: "login with Twitter"
+      notyet: Not yet part of 1ClickTrips?
+      signup: Signup now
+      twitter: login with Twitter
+    success: Login successful.
   footer:
+    copyright: 1ClickTrips 2015. All Rights Reserved.
     links:
-      privacy: Privacy
-      legal: Legal
-      contact: Contact
+      privacy: Privacy Policy
+      legal: Terms of Use
+  newsletter:
+    title: Join our newsletter
+    placeholder: Your email address
+    submit: JOIN
+  search:
+      navigation:
+        destination: Specify Your Destination
+        timing: Specify Date & Time
+        origin: Specify Your Origin
+      form:
+        origin: Where do you want to start?
+        destination:
+          label: Where is your appointment?
+          placeholder: e.g. address of your location
+        time: When is your appointment?
+        start: At what time does your appointment start?
+        end: When does your appointment end?
+        control:
+          next: CONTINUE
+          submit: Start Search
+  result:
+    budget:
+      title: Low Budget Trip
+      description: Text description
+    time:
+      title: Time Saving Trip
+      description: Text description
+    comfort:
+      title: Comfort Trip
+      description: Text description
+    favorite: '+ Add to favorites'
+    searching: Searching, please wait...
+    destination:
+      label: Your destination
+      action: '+ Change location & date'
+    checkout: PURCHASE TRIP
+    summary:
+      duration: Total Travel Time
+      cost: Total Cost
+      starttime: Start time
+      endtime: End time
+      transport: Means of travel used
+
   settings:
     title: Settings
     profile:
       title: Profile
       firstname: First name
       lastname: Last name
-      username: Username
       email: Email
       twitter:
         twitter: Twitter
         connect: connect account
         unlink: unlink account
       address: Address
-    payment:
+    history:
       title: Payment
     privacy:
       title: Privacy
-      newsletter: Newsletter
-      newsletterreceive: Receive newsletter
     preferences:
       title: Preferences
-      favorite: Favorite
-      options:
-        title: Travel options
-        instruction : Sort according to your preferences
-        plane: flights
-        public: public transport
-        taxi: taxi
-        rental: rental cars
-      priority: Travel priority
-      arrival:
-        title: Arrival times
-        morning: Arrival on the same day
-        overnight: Arrival on the day before
-      hotel: Hotel
-      breakfast: with breakfast
-      buffer: Time before meeting (minutes)
-      transfer:
-        title: Transfer times
-        short: short
-        medium: normal
-        long: long
-    action:
-      logout: logout
-  contact:
-    form:
-      name: Your name
-      email: Your email
-      emailalert: email cannot be empty
-      subject: Subject
-      subjectalert: subject cannot be empty
-      message: Message
-      messagealert: message cannot be empty
-      submit: Send
-    title: Contact
-    text: Do you have questions or feedback for us? Don't hesitate to contact us! We will get back to you as soon as possible.
-    error: An error occurred while sending the contact formular. <br />Please try again later.
   legal:
     title: Legal
   privacy:

@@ -127,7 +127,6 @@ module.exports = function (app, express, production) {
 
       var userLicence = null;
 
-      console.log("Extracting user:");
       var userId = AuthController.getUserIdFromRequest(req, secret);
 
       UserController.getUser(userId)

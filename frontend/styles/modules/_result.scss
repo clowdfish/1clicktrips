@@ -12,6 +12,24 @@
   }
 
   /*******************************************************/
+  /* Result Search Progress                              */
+  /*******************************************************/
+  .result-view-search-container {
+    margin: 3em auto;
+    text-align: center;
+  }
+
+  .result-view-search-progress {
+    display: block;
+    font-style: italic;
+  }
+
+  .result-view-search-animation {
+    display: block;
+    margin: 4em auto;
+  }
+
+  /*******************************************************/
   /* Result Notification                                 */
   /*******************************************************/
   .result-notification {
@@ -650,12 +668,6 @@
   /*******************************************************/
   .result-footer {
     background-color: #fff;
-  }
-
-  .result-footer-summary {
-    padding: 1em;
-    background-color: white;
-    border-bottom: 1px solid #e8e8e8;
   }
 
   .result-footer-price {

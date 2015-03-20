@@ -12,11 +12,11 @@
         <!-- MOBILE VIEW -->
         <a ng-click="toggleMenu()" class="header-navigation-menu-toggle"><i class="fa fa-bars" ng-class="{'fa-bars': !showMenu, 'fa-close': showMenu }"></i></a>
         <ul ng-show="showMenu" class="header-navigation-menu">
-          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createLoginModal()'>Login</a></li>
-          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createSignupModal()'>Signup</a></li>
-          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click=''>Profile</a></li>
-          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='logout()'>Logout</a></li>
-          <li class="header-navigation-menu-item"><a ng-click='toggleLanguages()'>Language</a></li>
+          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createLoginModal()'>{{ T.nav.signin }}</a></li>
+          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createSignupModal()'>{{ T.nav.mobile.signup }}</a></li>
+          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click=''>{{ T.nav.mobile.profile }}</a></li>
+          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='logout()'>{{ T.nav.logout }}</a></li>
+          <li class="header-navigation-menu-item"><a ng-click='toggleLanguages()'>{{ T.nav.mobile.language }}</a></li>
           <li ng-show="showLanguages">
             <ul class='header-navigation-menu-languages'>
               <li class="header-navigation-menu-sub-item" ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)' ng-class='{active: appConfig.activeLanguageKey === key}'>
@@ -38,11 +38,11 @@
       <div ng-if="!isMobile">
         <!-- NON MOBILE VIEW -->
         <div ng-if="!userProfile" class="header-navigation-login">
-          <a href="#" ng-click='createLoginModal()'>Login</a>
-          <a href="#" class="button" ng-click='createSignupModal()'>JOIN</a>
+          <a href="#" ng-click='createLoginModal()'>{{ T.nav.signin }}</a>
+          <a href="#" class="button" ng-click='createSignupModal()'>{{ T.nav.signup }}</a>
         </div>
         <div ng-if="userProfile" class="header-navigation-profile">
-          Hi, {[userProfile['first-name']]} {[userProfile['last-name']]} ( <a class="header-navigation-logout" ng-click="logout()">Logout</a> )
+          Hi, {[userProfile['first-name']]} {[userProfile['last-name']]} ( <a class="header-navigation-logout" ng-click="logout()">{{ T.nav.logout }}</a> )
         </div>
         <div class="header-settings">
           <ul>

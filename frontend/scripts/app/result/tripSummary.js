@@ -5,7 +5,7 @@
     .module('app.result')
     .directive('tripSummary', tripSummary);
 
-  function tripSummary(appConfig) {
+  function tripSummary($rootScope) {
     return {
       restrict: 'E',
       templateUrl: 'scripts/app/templates/result/trip-summary.html',
@@ -16,7 +16,7 @@
     };
 
     function link(scope, element, attrs) {
-      scope.appConfig = appConfig;
+      //scope.i18n = $rootScope.i18n;
     }
   }
 

@@ -46,7 +46,7 @@ module.exports = {
 
     var token = req.headers['x-access-token'];
 
-    if (token) {
+    if (token !== undefined) {
       try {
         var decoded = jwt.decode(token, secret);
 
@@ -59,6 +59,7 @@ module.exports = {
         console.error('Error while decoding token: ' + err.message);
       }
     }
+
     return -1;
   },
 

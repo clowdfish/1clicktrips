@@ -10,21 +10,21 @@
             <i class="fa fa-dollar"></i>
             <span class="result-type-item-active-indicator"></span>
           </div>
-          Low Budget Trip
+          {[ i18n.result_budget_title | translate ]}
         </li>
         <li class="result-type-item" ng-class="{active: activeTrip == 1}" ng-click="findTripByTime()" ng-hide="itineraries.length<2">
           <div class="result-type-item-circle time">
             <i class="fa fa-clock-o"></i>
             <span class="result-type-item-active-indicator"></span>
           </div>
-          Time Saving Trip
+          {[ i18n.result_time_title | translate ]}
         </li>
         <li class="result-type-item" ng-class="{active: activeTrip == 2}" ng-click="findTripByComfort()" ng-hide="itineraries.length<3">
           <div class="result-type-item-circle comfort">
             <i class="fa fa-diamond"></i>
             <span class="result-type-item-active-indicator"></span>
           </div>
-          Comfort Trip
+          {[ i18n.result_comfort_title | translate ]}
         </li>
       </ul>
       <span class="result-type-back-button" ng-click="refineSearch()"><i class="fa fa-chevron-left"></i></span>
@@ -34,19 +34,19 @@
     <div class="result-description" ng-class="{ folded: showList && isMobile }">
       <span class="result-description-favorite" ng-click="addToFavorites()" ng-show="showAddToFavorite">
         <i class="fa fa-heart"></i>
-        <span>+ Add to favorites</span>
+        <span>{[ i18n.result_favorite | translate ]}</span>
       </span>
       <div ng-if="activeTrip == 0">
-        <h1>Low Budget Trip</h1>
-        <p>Text description</p>
+        <h1>{[ i18n.result_budget_title | translate ]}</h1>
+        <p>{[ i18n.result_budget_description | translate ]}</p>
       </div>
       <div ng-if="activeTrip == 1">
-        <h1>Time Saving Trip</h1>
-        <p>Text description</p>
+        <h1>{[ i18n.result_time_title | translate ]}</h1>
+        <p>{[ i18n.result_time_description | translate ]}</p>
       </div>
       <div ng-if="activeTrip == 2">
-        <h1>Comfort Trip</h1>
-        <p>Text description</p>
+        <h1>{[ i18n.result_comfort_title | translate ]}</h1>
+        <p>{[ i18n.result_comfort_description | translate ]}</p>
       </div>
     </div>
 
@@ -54,15 +54,19 @@
 
   <section class="result wrapper">
 
-    <!------------->
+    <!----------- -->
     <!-- SPINNER -->
-    <!------------->
+    <!----------- -->
 
     <div class='result-waiting' ng-hide='itinerary != null'>
       <div class="result-view view-container">
-          Searching, please wait...
-          <br/>
-          <img src='../images/spinner.gif'/>
+        <div class="result-view-search-container">
+          <span class="result-view-search-progress">
+            {[ i18n.result_searching | translate ]}
+          </span>
+
+          <img class="result-view-search-animation" src='../images/spinner.gif'/>
+        </div>
       </div>
     </div>
 
@@ -86,11 +90,11 @@
 
         <!-- RESULT HEADER -->
         <div class="result-header">
-          <span class="result-header-destination">Your destination</span>
+          <span class="result-header-destination">{[ i18n.result_destination_label | translate ]}</span>
           <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
-          <a class='change-location-link' ng-click="refineSearch()">+ Change location & date</a>
+          <a class='change-location-link' ng-click="refineSearch()">{[ i18n.result_destination_action | translate ]}</a>
           <div class='result-header-timing'>
-            From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
+            {[ i18n.general_from | translate ]} <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]}  {[ i18n.general_until | translate ]} {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
           </div>
         </div>
 
@@ -106,9 +110,8 @@
 
         <!-- RESULT FOOTER -->
         <div class="result-footer">
-          <div class="result-footer-summary">TRIP FOOTER SUMMARY</div>
           <div class="result-footer-action">
-            <a href="#" class="button"><i class="fa fa-check-circle-o"></i>PURCHASE TRIP</a>
+            <a href="#" class="button"><i class="fa fa-check-circle-o"></i>{[ i18n.result_checkout | translate ]}</a>
           </div>
         </div>
       </div>
@@ -132,9 +135,9 @@
 
         <!-- RESULT HEADER -->
         <div class="result-header">
-          <span class="result-header-destination">Your destination</span>
+          <span class="result-header-destination">{[ i18n.result_destination_label | translate ]}</span>
           <span class="result-header-timing">
-            From <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} to {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
+            {[ i18n.general_from | translate ]} <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} {[ i18n.general_until | translate ]} {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
           </span>
           <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
         </div>
@@ -145,11 +148,11 @@
           <div class="result-summary-button">
             <div class="result-summary-button-details">
               <div class="result-summary-button-details-time">
-                <span>Total Travel Time</span>
+                <span>{[ i18n.result_summary_duration | translate ]}</span>
                 <span>{[itinerary.duration | durationToTime:"%h hrs %m mins"]}</span>
               </div>
               <div class="result-summary-button-details-cost">
-                <span>Total Cost</span>
+                <span>{[ i18n.result_summary_cost | translate ]}</span>
                 <span>{[itinerary.cost | price: itinerary.currency ]}</span>
               </div>
             </div>
@@ -174,7 +177,7 @@
           </span>
           </div>
           <div class="result-header-col">
-            <span class="result-header-destination no-float">Your destination</span>
+            <span class="result-header-destination no-float">{[ i18n.result_destination_label | translate ]}</span>
             <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
           </div>
         </div>
@@ -194,10 +197,10 @@
         <div class="result-footer">
           <div class="result-footer-action">
             <span class="result-footer-price">
-              <span>Total Cost</span>
+              <span>{[ i18n.result_summary_cost | translate ]}</span>
               <span>{[ itinerary.cost | price: itinerary.currency ]}</span>
             </span>
-            <a class="button"><i class="fa fa-check-circle-o"></i>PURCHASE</a>
+            <a class="button"><i class="fa fa-check-circle-o"></i>{[ i18n.result_checkout | translate ]}</a>
           </div>
         </div>
       </div>
