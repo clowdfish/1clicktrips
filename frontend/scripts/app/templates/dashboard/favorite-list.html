@@ -6,20 +6,20 @@
       <span class="favorite-list-box-corner">
         <i class="fa fa-heart"></i>
       </span>
-      <span class="favorite-list-box-label">From</span>
+      <span class="favorite-list-box-label">{[ "general_from" | translate ]}</span>
       <span class="favorite-list-box-location">{[item.origin.description]}</span>
       <span class="favorite-list-box-separator">...</span>
-      <span class="favorite-list-box-label">Destination</span>
+      <span class="favorite-list-box-label">{[ "general_destination" | translate ]}</span>
       <span class="favorite-list-box-location">{[item.destination.description]}</span>
     </div>
   </div>
   <div class='paging list-paging'>
     <a ng-click='previousPage()' ng-disabled='disablePreviousPageButton'><i class='fa fa-angle-left'></i></a>
-    Page {[currentPage]} of {[totalPage]}
+      {[ "general_pagination_page" | translate ]} {[currentPage]} {[ "general_pagination_of" | translate ]} {[totalPage]}
     <a ng-click='nextPage()' ng-disabled='disableNextPageButton'><i class='fa fa-angle-right'></i></a>
   </div>
 </div>
 
 <div class='favorites-empty-message' ng-show='listItems.length === 0'>
-  You have not yet added any favorites. Once you do so, they will be shown here.
+  {[ "dashboard_favorites_empty" | translate ]}
 </div>

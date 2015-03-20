@@ -4,7 +4,7 @@
     <!-- trip segments list title -->
     <h3 class="trip-segments-title">
       <i class="fa fa-info-circle"></i>
-      Trip Details
+      {[ "result_segments_title" | translate ]}
       <a href="#" class="trip-segments-print">
         <i class="fa fa-print right"></i>
       </a>
@@ -13,7 +13,7 @@
     <!-- tab control for the trip segments list -->
     <ul class='trip-segments-day-tab'>
       <li class='trip-segments-day-tab-item' ng-class="{active: activeSegmentNumber == header}" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
-        Day {[header]}
+          {[ "result_segments_day" | translate ]} {[header]}
       </li>
     </ul>
   </div>
@@ -40,7 +40,7 @@
           <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"'>
             {[segment.start.description]} - {[segment.end.description]}
           </span>
-          <a ng-click='showAlternativesPanel(segment)'>+View alternatives</a>
+          <a ng-click='showAlternativesPanel(segment)'>{[ "result_segments_alternatives" | translate ]}</a>
         </span>
         <span class='trip-segments-day-item-col trip-segments-day-item-timing'>
           <span class="trip-segments-day-item-timing-time">

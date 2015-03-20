@@ -6,6 +6,10 @@ en:
     or: or
     from: from
     until: to
+    destination: Destination
+    pagination:
+      page: Page
+      of: of
   toasts:
     notimplemented: Not yet implemented
   nav:
@@ -65,6 +69,10 @@ en:
         destination:
           label: Where is your appointment?
           placeholder: e.g. address of your location
+          type:
+            address: Address
+            event: Event
+            meeting: Meeting Space
         time: When is your appointment?
         start: At what time does your appointment start?
         end: When does your appointment end?
@@ -93,6 +101,38 @@ en:
       starttime: Start time
       endtime: End time
       transport: Means of travel used
+    segments:
+      title: Trip Details
+      day: Day
+      alternatives: '+View alternatives'
+  dashboard:
+    title: Why 1ClickTrips?
+    info:
+      endtoend:
+        title: End-To-End trip management
+        text1: You know where. You know when.
+        text2:  We know everything else. Have your next trip at your fingertips within less than 2 minutes.
+      profile:
+        title: Create a personal travel profile
+        text: You prefer a flight over public transport? Air Cheaponia is not your favorite airline? No worries, 1ClickTrips will take your individual preferences into account, when creating the perfect trip.
+      date:
+        title: A trip matching your target date
+        text: Planning a trip to meet a particular schedule can become quite complicated, when comparing the different possibilities. 1ClickTrips will handle that complexity for you.
+      meetings:
+        title: Schedule your meetings with ease
+        text:  Let 1ClickTrips do the planning and choose from an optimized selection of trips. Soon also available for iPhone, iPad and your Apple iWatch.
+    favorites:
+      title: My favorites
+      empty: You have not yet added any favorites. Once you do so, they will be shown here.
+    bookings:
+      title: Upcoming trips
+      event: Event Name
+      date: Travel Date
+      starttime: Start Time
+      endtime: End Time
+      more: '+ View all information'
+      arrival: Arrival time
+      empty: You did not book any trips so far. Once you booked your first trip, it will be added here.
   settings:
     title: Settings
     profile:

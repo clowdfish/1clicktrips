@@ -50,7 +50,7 @@
               <i class="fa {[ destinationType | destinationTypeToIcon ]}"></i><span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu">
-              <li ng-repeat="item in destinationTypeArray" ng-click="setDestinationType(item)">{[item]}</li>
+              <li ng-repeat="item in destinationTypeArray" ng-click="setDestinationType(item)">{[ "search_form_destination_type_" + item | translate ]}</li>
               <!--<li class="divider"></li>-->
             </ul>
           </div>

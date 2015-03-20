@@ -1,18 +1,64 @@
 de:
   locale: de
-  language:
-    de: Deutsch
-    en: English
-    language: 'Switch language:'
   general:
     yes: Ja
     no: Nein
     or: oder
+    from: von
+    until: bis
+    destination: Ziel
+    pagination:
+      page: Seite
+      of: von
   toasts:
     notimplemented: Leider noch nicht verfügbar
   nav:
     signup: Registrieren
-    signin: Anmelden
+    signin: Login
+    greeting: Hi
+    logout: logout
+    mobile:
+      signup: Registrieren
+      language: Sprache
+      profile: Profil
+  signup:
+    form:
+      email: Geben Sie Ihre Email Adresse an
+      password: Geben Sie ein Passwort ein
+      submit: Registrieren
+      check: Ich stimme den <a href=''>Trip-To-Go Bedingungen</a> zu
+      signin: hier anmelden
+      error:
+        email: Diese Email Adresse ist bereits registriert.
+        agreement: Bitte stimmen Sie erst den Nutzungsbedingungen zu.
+        other: Registrierung ist fehlgeschlagen. Bitte probieren Sie es später nochmal.
+    header: Registrierung *
+    headersub: Erleben Sie die Welt der einfachen Reisebuchung. Noch heute.
+    annotation: '* 1ClickTrips ist noch in der Erprobungsphase. Die Funktionalität und Qualität des Service wird laufend verbessert. Falls Sie irgendwelche konkreten Fehler finden, freuen wir uns immer über Ihr Feedback.'
+    confirm: Sie haben sich erfolgreich angemeldet
+  login:
+    form:
+      username: Email Adresse
+      password: Passwort
+      submit: Einloggen
+      check: Eingeloggt bleiben
+      forgot: Passwort vergessen?
+      error: Ihre Email Adresse oder Ihr Passwort sind falsch.
+    header: Anmelden
+    annotation:
+      notyet: Noch kein Teil von 1ClickTrips?
+      signup: Jetzt registrieren
+      twitter: mit Twitter anmelden
+    success: Login war erfolgreich.
+  footer:
+    copyright: 1ClickTrips 2015. Alle Rechte vorbehalten.
+    links:
+      privacy: Datenschutz
+      legal: Rechtliches
+  newsletter:
+    title: Unser Newsletter
+    placeholder: Ihre Email Adresse
+    submit: Registrieren
   search:
     navigation:
       destination: Finde den Zielort
@@ -23,108 +69,92 @@ de:
       destination:
         label: Wo findet der Termin statt?
         placeholder: z.B. die Adresse angeben
+        type:
+          address: Adresse
+          event: Veranstaltung
+          meeting: Treffpunkt
       time: An welchem Tag findet der Termin statt?
       start: Wann beginnt der Termin?
       end: Wann endet der Termin?
       control:
-        next: Weiter
+        next: WEITER
         submit: Suche starten
-  signup:
-    form:
-      firstname:: Vorname
-      lastname: Nachname
-      username: Wählen Sie einen Nutzernamen
-      email: Geben Sie Ihre Email Adresse an
-      password: Geben Sie ein Passwort ein
-      submit: Registrieren
-      check: Ich stimme den <a href=''>Trip-To-Go Bedingungen</a> zu
-      submitsub : oder <a href='signin.html' class='ttg-link' id='signin'>hier anmelden</a>
-      signin: "hier anmelden"
-    header: Registrierung
-    headersub: Erleben Sie die Welt der einfachen Reisebuchung. Noch heute.
-    annotation: '* 1ClickTrips ist noch in der Erprobungsphase. Die Funktionalität und Qualität des Service wird laufend verbessert. Falls Sie irgendwelche konkreten Fehler finden, freuen wir uns immer über Ihr Feedback.'
-    confirm: Sie haben sich erfolgreich angemeldet
-  login:
-    form:
-      username: Nutzername oder Email
-      usernamealert: dieses Feld darf nicht leer sein
-      password: Passwort
-      passwordalert : dieses Feld darf nicht leer sein
-      submit: Einloggen
-      check: Eingeloggt bleiben
-      submitforgot: Passwort vergessen?
-      resulterror: "<span>Es gab ein Problem beim Login.</span> <br />Haben Sie sich schon bei Trip-To-Go <a href='./#/signup'>registriert</a>?"
-    header: Anmelden
-    annotation:
-      notyet: "Noch kein Teil von 1ClickTrips?"
-      signup: "Jetzt registrieren"
-      twitter: "mit Twitter anmelden"
-  footer:
-    links:
-      privacy: Datenschutz
-      legal: Rechtliches
-      contact: Kontakt
+  result:
+    budget:
+      title: Günstigste Verbindung
+      description: Text Beschreibung
+    time:
+      title: Schnellste Verbindung
+      description: Text Beschreibung
+    comfort:
+      title: Komfortable Verbindung
+      description: Text Beschreibung
+    favorite: '+ als Favorit speichern'
+    searching: Suchend, bitte warten...
+    destination:
+      label: Ihr Zielort
+      action: '+ Ort & Zeit ändern'
+    checkout: BUCHEN
+    summary:
+      duration: Gesamte Reisezeit
+      cost: Gesamte Kosten
+      starttime: Startzeit
+      endtime: Ankunftszeit
+      transport: Benutzte Verkehrsmittel
+    segments:
+      title: Reisedetails
+      day: Tag
+      alternatives: '+Alternativen anzeigen'
+  dashboard:
+    title: Warum 1ClickTrips?
+    info:
+      endtoend:
+        title: Tür-zu-Tür Reiseplanung
+        text1: Sie wissen wo. Sie wissen wann.
+        text2:  Wir wissen den Rest. Erhalten sie Ihren Reiseplan mit wenigen Mausklicks.
+      profile:
+        title: Erstellen Sie ein persönliches Reiseprofil
+        text: Sie bevorzugen das Flugzeug? Air Billigheimer ist nicht Ihre bevorzugte Fluggesellschaft? Kein Problem, 1ClickTrips achtet bei der Reiseplanung auf Ihre ganz persönlichen Präferenzen.
+      date:
+        title: Eine Reise abgestimmt auf Ihren Termin
+        text: Die Reiseplanung auf einen bestimmten Zeitpunkt hin kann äußerst komplex werden, wenn alle Optionen in Betracht gezogen werden sollen. 1ClickTrips übernimmt diese Komplexität für Sie.
+      meetings:
+        title: Planen Sie Ihre Termine mit Leichtigkeit
+        text:  Überlassen Sie 1ClickTrips die Planung und das Optimieren der Reise. Bald auch erhältlich für iPhone, iPad und Ihre Apple iWatch.
+    favorites:
+      title: Meine Favoriten
+      empty: Sie haben noch keine Favoriten gespeichert. Sobald Sie das getan haben, werden sie hier erscheinen.
+    bookings:
+      title: Anstehende Reisen
+      event: Event Name
+      date: Reisedatum
+      starttime: Startzeit
+      endtime: Endzeit
+      more: '+ alle Informationen anzeigen'
+      arrival: Ankunftszeit
+      empty: Sie haben noch keine Reise gebucht. Sobald Sie Ihre erste Reise gebucht haben, wird sie hier erscheinen.
   settings:
     title: Einstellungen
     profile:
       title: Profil
       firstname: Vorname
       lastname: Nachname
-      username: Nutzername
       email: Email
       twitter:
         twitter: Twitter
         connect: Konto verknüpfen
         unlink: Konto abmelden
       address: Adresse
-    payment:
+    history:
       title: Bezahldaten
     privacy:
       title: Privatsphäre
-      newsletter: Newsletter
-      newsletterreceive: Newsletter empfangen
     preferences:
       title: Einstellungen
-      favorite: Favorit
-      options:
-        title: Reisemöglichkeiten
-        instruction : Sortieren Sie entsprechend Ihrer Präferenz
-        plane: Flugzeug
-        public: Öffentliche Verkehrsmittel
-        taxi: Taxi
-        rental: Mietwagen
-      priority: Priorisierung
-      arrival:
-        title: Zeitpunkt der Ankunft
-        morning: Ankunft am selben Tag
-        overnight: Ankunft am Tag davor
-      hotel: Hotel
-      breakfast: mit Frühstück
-      buffer: Zeit vor Termin (Minuten)
-      transfer:
-        title: Umsteigezeiten
-        short: kurz
-        medium: normal
-        long: lang
-    action:
-      logout: Abmelden
-  contact:
-    form:
-      name: Ihr Name
-      email: Ihre Emailadresse
-      emailalert: dieses Feld darf nicht leer sein
-      subject: Betreff
-      subjectalert: dieses Feld darf nicht leer sein
-      message: Nachricht
-      messagealert: dieses Feld darf nicht leer sein
-      submit: Senden
-    title: Kontakt
-    text: Haben Sie Fragen oder Anregungen? Zögern Sie nicht uns anzuschreiben! Wir werden so schnell wie möglich auf Sie zurückkommen.
-    error: Beim Versenden des Kontaktformulars ist leider ein Fehler aufgetreten. <br />Bitte versuchen Sie es später nochmal.
   legal:
     title: Rechtliches
   privacy:
     title: Privatsphäre
   confirm:
-    sorry: Es tut und Leid!
+    sorry: Es tut uns Leid!
     thanks: Vielen Dank!

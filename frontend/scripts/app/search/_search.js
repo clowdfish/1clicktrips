@@ -8,9 +8,9 @@
       'app.search.timepicker'
     ])
     .constant('SUGGESTION_TYPES', {
-      address: 'Address',
-      events: 'Event',
-      meetingSpace: 'Meeting Space'
+      address: 'address',
+      events: 'event',
+      meetingSpace: 'meeting'
     })
     .config(decorateDatePicker)
     .config(decoratePopupDatePicker)
@@ -37,7 +37,4 @@
       return $delegate;
     });
   }
-
-
-
 })();
