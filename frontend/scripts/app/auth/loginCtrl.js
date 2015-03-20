@@ -51,7 +51,6 @@
       });
     };
 
-
     /**
      * Show message when login error
      * @param  {Object} data [Object contains error message and error status code]

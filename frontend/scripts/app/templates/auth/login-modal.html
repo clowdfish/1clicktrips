@@ -3,13 +3,13 @@
 
   <div class="modal-header">
     <h1 class="signin-modal-title">{[ i18n.login_header | translate ]}</h1>
-    <span class="signin-modal-error"
-          ng-show="loginForm.$error.unauthorized">
-      Email or password is wrong.
-    </span>
   </div>
 
   <div class="modal-body">
+    <span id="signin-error" class="input-alert" ng-show="loginForm.$error.unauthorized">
+      {[ i18n.login_form_error | translate ]}
+    </span>
+
     <fieldset>
       <input type="email"
             name="email"
@@ -34,7 +34,7 @@
 
   <div class="modal-footer">
     <input type="submit" class="button" value="{[ i18n.login_form_submit | translate ]}" />
-    <a class="modal-forgot-password">{[ i18n.login_form_submitforgot | translate ]}</a>
+    <a class="modal-forgot-password">{[ i18n.login_form_forgot | translate ]}</a>
 
     <span class="modal-annotation">
       {[ i18n.login_annotation_notyet | translate ]}
@@ -50,4 +50,3 @@
   </div>
 
 </form>
-

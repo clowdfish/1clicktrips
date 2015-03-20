@@ -10,22 +10,11 @@ en:
     signup: JOIN
     signin: Login
     greeting: Hi
-  search:
-    navigation:
-      destination: Specify Your Destination
-      timing: Specify Date & Time
-      origin: Specify Your Origin
-    form:
-      origin: Where do you want to start?
-      destination:
-        label: Where is your appointment?
-        placeholder: e.g. address of your location
-      time: When is your appointment?
-      start: At what time does your appointment start?
-      end: When does your appointment end?
-      control:
-        next: CONTINUE
-        submit: Start Search
+    logout: logout
+    mobile:
+      signup: Signup
+      language: Language
+      profile: Profile
   signup:
     form:
       email: Enter your email address
@@ -44,23 +33,44 @@ en:
   login:
     form:
       username: Email address
-      usernamealert: An email addess is required!
       password: Password
-      passwordalert : A password is required!
       submit: Sign in
       check: Remember me
-      submitforgot: Forgot your password?
-      resulterror: "<span>A problem occured during the log-in process. </span><br />Did you already <a data-ng-click='signin()'>sign up</a> for a user account?"
+      forgot: Forgot your password?
+      error: Sorry, your email or password is wrong.
     header: Sign In
     annotation:
-      notyet: "Not yet part of 1ClickTrips?"
-      signup: "Signup now"
-      twitter: "login with Twitter"
+      notyet: Not yet part of 1ClickTrips?
+      signup: Signup now
+      twitter: login with Twitter
+    success: Login successful.
   footer:
+    copyright: 1ClickTrips 2015. All Rights Reserved.
     links:
-      privacy: Privacy
-      legal: Legal
-      contact: Contact
+      privacy: Privacy Policy
+      legal: Terms of Use
+  newsletter:
+    title: Join our newsletter
+    placeholder: Your email address
+    submit: JOIN
+  search:
+      navigation:
+        destination: Specify Your Destination
+        timing: Specify Date & Time
+        origin: Specify Your Origin
+      form:
+        origin: Where do you want to start?
+        destination:
+          label: Where is your appointment?
+          placeholder: e.g. address of your location
+        time: When is your appointment?
+        start: At what time does your appointment start?
+        end: When does your appointment end?
+        control:
+          next: CONTINUE
+          submit: Start Search
+
+
   settings:
     title: Settings
     profile:
@@ -103,8 +113,6 @@ en:
         short: short
         medium: normal
         long: long
-    action:
-      logout: logout
   contact:
     form:
       name: Your name

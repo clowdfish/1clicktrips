@@ -1,13 +1,12 @@
 <section class="newsletter wrapper">
   <div class="newsletter-container">
     <i class="fa fa-envelope-o newsletter-icon"></i>
-    <span class="newsletter-slogan">Join our newsletter</span>
+    <span class="newsletter-slogan">{{ T.newsletter.title }}</span>
     <form class="newsletter-form">
-      <input type="text" placeholder="Your email address">
-      <input type="button" class="button" value="JOIN">
+      <input type="text" placeholder="{{ T.newsletter.placeholder }}">
+      <input type="button" class="button" value="{{ T.newsletter.submit }}">
     </form>
   </div>
-
   <div class="clearfix"></div>
 
   <div class="newsletter-socials">
