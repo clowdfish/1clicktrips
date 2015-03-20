@@ -16,14 +16,22 @@ module.exports = {
         if (err)
           reject(err);
 
-        if(rows.length)
+        if(rows.length) {
           resolve({
             'id': rows[0].id,
             'email': rows[0].email,
-            'licence' : rows[0].licence
+            'licence': rows[0].licence
           });
-        else
-          reject(new Error("User with ID=" + userId + " does not exist in database."));
+        }
+        else {
+          console.log("User with ID=" + userId + " does not exist in database.");
+
+          resolve({
+            'id': -1,
+            'email': undefined,
+            'licence': 0
+          });
+        }
       });
     });
   },

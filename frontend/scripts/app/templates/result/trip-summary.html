@@ -1,13 +1,13 @@
 <ul class="trip-summary-list">
   <li class="trip-summary-item time">
-    <div class="trip-summary-item-title">Total Travel Time</div>
+    <div class="trip-summary-item-title">{[ i18n.result_summary_duration | translate ]}</div>
     <div class="trip-summary-item-value">
       {[ itinerary.duration | durationToTime:"%h hrs %m mins" ]}
       <span class='duration-by-days'>({[ itinerary.duration | durationToDate:"%d days, %n night" ]})</span>
     </div>
   </li>
   <li class="trip-summary-item vehicle">
-    <div class="trip-summary-item-title">Means of travel used</div>
+    <div class="trip-summary-item-title">{[ i18n.result_summary_transport | translate ]}</div>
     <div class="trip-summary-item-value">
       <span ng-repeat='type in itinerary.vehicleTypeList'>
         <i class='fa {[ type | vehicleTypeToIcon ]}'></i>
@@ -15,15 +15,15 @@
     </div>
   </li>
   <li class="trip-summary-item start">
-    <div class="trip-summary-item-title">Start time</div>
+    <div class="trip-summary-item-title">Test {[ i18n.result_summary_starttime | translate ]}</div>
     <div class="trip-summary-item-value">{[ itinerary.startTime | date:"EEE hh:mm" ]}</div>
   </li>
   <li class="trip-summary-item end">
-    <div class="trip-summary-item-title">End time</div>
+    <div class="trip-summary-item-title">{[ i18n.result_summary_endtime | translate ]}</div>
     <div class="trip-summary-item-value">{[ itinerary.endTime | date:"EEE hh:mm" ]}</div>
   </li>
   <li class="trip-summary-item cost">
-    <div class="trip-summary-item-title">Total Cost</div>
+    <div class="trip-summary-item-title">{[ i18n.result_summary_cost | translate ]}</div>
     <div class="trip-summary-item-value">{[ itinerary.cost | currency: itinerary.currencySymbol: appConfig.currencyDecimalDigits ]}</div>
   </li>
 </ul>

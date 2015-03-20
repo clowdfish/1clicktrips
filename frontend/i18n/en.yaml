@@ -4,6 +4,8 @@ en:
     yes: yes
     no: no
     or: or
+    from: from
+    until: to
   toasts:
     notimplemented: Not yet implemented
   nav:
@@ -69,7 +71,28 @@ en:
         control:
           next: CONTINUE
           submit: Start Search
-
+  result:
+    budget:
+      title: Low Budget Trip
+      description: Text description
+    time:
+      title: Time Saving Trip
+      description: Text description
+    comfort:
+      title: Comfort Trip
+      description: Text description
+    favorite: '+ Add to favorites'
+    searching: Searching, please wait...
+    destination:
+      label: Your destination
+      action: '+ Change location & date'
+    checkout: PURCHASE TRIP
+    summary:
+      duration: Total Travel Time
+      cost: Total Cost
+      starttime: Start time
+      endtime: End time
+      transport: Means of travel used
 
   settings:
     title: Settings
@@ -77,55 +100,18 @@ en:
       title: Profile
       firstname: First name
       lastname: Last name
-      username: Username
       email: Email
       twitter:
         twitter: Twitter
         connect: connect account
         unlink: unlink account
       address: Address
-    payment:
+    history:
       title: Payment
     privacy:
       title: Privacy
-      newsletter: Newsletter
-      newsletterreceive: Receive newsletter
     preferences:
       title: Preferences
-      favorite: Favorite
-      options:
-        title: Travel options
-        instruction : Sort according to your preferences
-        plane: flights
-        public: public transport
-        taxi: taxi
-        rental: rental cars
-      priority: Travel priority
-      arrival:
-        title: Arrival times
-        morning: Arrival on the same day
-        overnight: Arrival on the day before
-      hotel: Hotel
-      breakfast: with breakfast
-      buffer: Time before meeting (minutes)
-      transfer:
-        title: Transfer times
-        short: short
-        medium: normal
-        long: long
-  contact:
-    form:
-      name: Your name
-      email: Your email
-      emailalert: email cannot be empty
-      subject: Subject
-      subjectalert: subject cannot be empty
-      message: Message
-      messagealert: message cannot be empty
-      submit: Send
-    title: Contact
-    text: Do you have questions or feedback for us? Don't hesitate to contact us! We will get back to you as soon as possible.
-    error: An error occurred while sending the contact formular. <br />Please try again later.
   legal:
     title: Legal
   privacy:
