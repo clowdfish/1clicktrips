@@ -6,42 +6,18 @@
 		.module('app.index')
 		.service('currencyService', currencyService);
 
-	function currencyService($http, $q, localStorageService) {
+	function currencyService($http, $q, localStorageService, appConfig) {
 		var _this = this;
 
+		this.currencyData = window["AppData"]["currencies"];
+
 		this.getAvailableCurrencies = getAvailableCurrencies;
-		this.callGetAvailableCurrenciesApi = callGetAvailableCurrenciesApi;
 		this.setActiveCurrency = setActiveCurrency;
 		this.getActiveCurrency = getActiveCurrency;
-		this.getCurrencySymbol = getCurrencySymbol;
+		this.getCurrencyDataByKey = getCurrencyDataByKey;
 
 		function getAvailableCurrencies() {
-			return $q(function(resolve, reject) {
-				_this
-					.callGetAvailableCurrenciesApi()
-					.then(function(response) {
-						var result = {};
-						for (var i = 0; i < response.length; i++) {
-							result[response[i].code.toLowerCase()] = response[i];
-						}
-						resolve(result);
-					}, function() {
-						reject();
-					});
-			});
-		}
-
-		function callGetAvailableCurrenciesApi() {
-			return $q(function(resolve, reject) {
-				$http
-					.get('/api/currencies')
-					.success(function(response) {
-						resolve(response);
-					})
-					.error(function() {
-						reject();
-					});
-			});
+			return _this.currencyData;
 		}
 
 		function setActiveCurrency(key) {
@@ -52,15 +28,13 @@
 			return localStorageService.get('activeCurrency');
 		}
 
-		function getCurrencySymbol(currencyKey) {
-      switch (currencyKey) {
-        case 'eur':
-          return '€';
-        case 'usd':
-        default:
-          return '$';
-      }
-    }
+		function getCurrencyDataByKey(code) {
+			if (!code) return null;
+
+			return _.find(_this.currencyData, function(item) {
+				return item.code.toLowerCase() === code.toLowerCase();
+			});
+		}
 
 		return this;
 	}

@@ -1,4 +1,7 @@
 (function() {
+
+  'use strict';
+
   angular
     .module('app.search')
     .factory('suggestionAdapter', suggestionAdapter);

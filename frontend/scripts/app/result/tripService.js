@@ -5,7 +5,7 @@
     .module('app.result')
     .service('tripService', tripService);
 
-  function tripService($http, $q, $timeout, currencySymbolFilter) {
+  function tripService($http, $q, $timeout, appConfig) {
     var service = this;
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;
@@ -50,7 +50,6 @@
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
 
-      itinerary['currencySymbol'] = currencySymbolFilter(itinerary['currency']);
       itinerary['startTime'] = getItineraryStartTime(itinerary);
       itinerary['endTime'] = getItineraryEndTime(itinerary);
       itinerary['vehicleTypeList'] = getVehicleTypeList(outboundSegments, inboundSegments);

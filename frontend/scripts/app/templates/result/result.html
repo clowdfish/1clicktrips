@@ -150,7 +150,7 @@
               </div>
               <div class="result-summary-button-details-cost">
                 <span>Total Cost</span>
-                <span>{[itinerary.cost | currency: itinerary.currencySymbol: appConfig.currencyDecimalDigits]}</span>
+                <span>{[itinerary.cost | price: itinerary.currency ]}</span>
               </div>
             </div>
             <div class="result-summary-button-list-link" ng-click="showListView()">
@@ -195,7 +195,7 @@
           <div class="result-footer-action">
             <span class="result-footer-price">
               <span>Total Cost</span>
-              <span>{[ itinerary.cost | currency: itinerary.currencySymbol: appConfig.currencyDecimalDigits ]}</span>
+              <span>{[ itinerary.cost | price: itinerary.currency ]}</span>
             </span>
             <a class="button"><i class="fa fa-check-circle-o"></i>PURCHASE</a>
           </div>

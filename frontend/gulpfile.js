@@ -22,7 +22,8 @@ var changed 	  = require('gulp-changed'),
     declare     = require('gulp-declare'),
     yaml        = require('gulp-yml'),
     yml         = require('js-yaml'),
-    compile     = require('gulp-compile-handlebars');
+    compile     = require('gulp-compile-handlebars'),
+    data        = require('gulp-data');
 
 /****************************************************************************************************/
 /* SETTING UP DEVELOPMENT ENVIRONMENT                                                               */
@@ -184,6 +185,19 @@ gulp.task('i18n', function() {
     .pipe(gulp.dest('scripts/locale/'));
 });
 
+gulp.task('app-data', function() {
+  gulp
+    .src('../config/currencies.json')
+    .pipe(data(function(){}))
+    .pipe(declare({
+      namespace: 'AppData',
+      noRedeclare: true,
+      root: 'window'
+    }))
+    .pipe(concat('data.js'))
+    .pipe(gulp.dest('scripts/data'));
+});
+
 gulp.task('test', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
@@ -200,4 +214,4 @@ gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'an
   gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
 });
 
-gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates'], function() {});
+gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates', 'app-data'], function() {});

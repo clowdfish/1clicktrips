@@ -18,14 +18,76 @@
                     authService,
                     session,
                     userService) {
-
+    /**
+     * Global service for app config data
+     * @type {[type]}
+     */
     $scope.appConfig = appConfig;
+
+    /**
+     * Change language function
+     * @type {Function}
+     */
     $scope.changeLanguage = changeLanguage;
+
+    /**
+     * CHange currency function
+     * @type {Function}
+     */
     $scope.changeCurrency = changeCurrency;
+
+    /**
+     * Is Mobile or not
+     * @type {Boolean}
+     */
     $scope.isMobile = browser.isMobileDevice();
+
+    /**
+     * Should show menu ?
+     * @type {Boolean}
+     */
     $scope.showMenu = false;
+
+    /**
+     * Show language dropdown
+     * @type {Boolean}
+     */
     $scope.showLanguages = false;
+
+    /**
+     * Show currencies dropdown
+     * @type {Boolean}
+     */
     $scope.showCurrencies = false;
+
+    /**
+     * Key/Value object contains currency data
+     * @type {Object}
+     */
+    $scope.currencies = {};
+
+    /**
+     * Key/Value object contains languages data
+     * @type {Object}
+     */
+    $scope.languages = {};
+
+    /**
+     * Active Language Key
+     * @type {String}
+     */
+    $scope.activeLanguageKey = null;
+
+    /**
+     * Active Currency key
+     * @type {String}
+     */
+    $scope.activeCurrency = null;
+
+    /**
+     * User profile data
+     */
+    $scope.userProfile = null;
 
     initLanguages();
 
@@ -87,16 +149,6 @@
 
     /* END OF MOBILE MENU FUNCTIONS */
 
-    function initCurrencies() {
-      $scope.currencies = {};
-      currencyService
-        .getAvailableCurrencies()
-        .then(function(data) {
-          $scope.currencies = data;
-          initActiveCurrency();
-        });
-    }
-
     function getUserProfile() {
       $scope.userProfile = session.getUserProfile();
       if ($scope.userProfile != null) {
@@ -113,17 +165,30 @@
         });
     }
 
-    function initActiveCurrency() {
+    /**
+     * Get currencies data
+     */
+    function initCurrencies() {
       appConfig.activeCurrency = currencyService.getActiveCurrency();
       if (appConfig.activeCurrency == null) {
-        appConfig.activeCurrency = 'usd';
+        appConfig.activeCurrency = 'usd'
       }
-      appConfig.currencySymbol = currencyService.getCurrencySymbol(appConfig.activeCurrency);
-      appConfig.currencyDecimalDigits = $scope.currencies[appConfig.activeCurrency].decimalDigits;
+      $scope.currencies = currencyService.getAvailableCurrencies();
     }
 
+    function changeCurrency(key) {
+      if (!$scope.currencies[key]) {
+        return;
+      }
+      currencyService.setActiveCurrency(key);
+      appConfig.activeCurrency = key;
+    }
+
+    /**
+     * Fetch language data and set active language
+     */
     function initLanguages() {
-      $scope.languages = {};
+      appConfig.activeLanguageKey = locale;
       languageService
         .getAvailableLanguages()
         .then(function(data) {
@@ -156,10 +221,5 @@
       location.href = newHref;
     }
 
-    function changeCurrency(key) {
-      currencyService.setActiveCurrency(key);
-      appConfig.currencySymbol = currencyService.getCurrencySymbol(key);
-      appConfig.activeCurrency = key;
-    }
   }
 })();
