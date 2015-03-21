@@ -187,14 +187,27 @@ gulp.task('i18n', function() {
 
 gulp.task('app-data', function() {
   gulp
-    .src('../config/currencies.json')
+    .src("../config/currencies.json")
+    .pipe(plumber(plumberErrorHandler))
     .pipe(data(function(){}))
     .pipe(declare({
       namespace: 'AppData',
-      noRedeclare: true,
+      noRedeclare: false,
       root: 'window'
     }))
-    .pipe(concat('data.js'))
+    .pipe(concat('currencies.js'))
+    .pipe(gulp.dest('scripts/data'));
+
+  gulp
+    .src("../config/languages.json")
+    .pipe(plumber(plumberErrorHandler))
+    .pipe(data(function(){}))
+    .pipe(declare({
+      namespace: 'AppData',
+      noRedeclare: false,
+      root: 'window'
+    }))
+    .pipe(concat('languages.js'))
     .pipe(gulp.dest('scripts/data'));
 });
 
@@ -206,12 +219,13 @@ gulp.task('test', function (done) {
 });
 
 // gulp task suite
-gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates'], function() {
+gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates', 'app-data'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
   gulp.watch(['scripts/app/**/*.js'], ['scripts']);
   gulp.watch(['scripts/app/**/*.html'], ['angular-templates']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n', 'scripts']);
   gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
+  gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
 });
 
 gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates', 'app-data'], function() {});

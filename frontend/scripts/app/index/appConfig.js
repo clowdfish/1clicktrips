@@ -12,7 +12,7 @@
   function appConfig() {
     this.activeCurrency = 'usd';
     this.currencySymbol = '$';
-    this.activeLanguage = 'en';
+    this.activeLanguageKey = 'en';
     this.currencyDecimalDigits = 2;
     return this;
   }

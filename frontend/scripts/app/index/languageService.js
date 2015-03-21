@@ -8,28 +8,14 @@
 
 	function languageService($http, $q, localStorageService) {
 		var _this = this;
+		var languageData = getAvailableLanguages();
 		this.getAvailableLanguages = getAvailableLanguages;
 		this.setActiveLanguageKey = setActiveLanguageKey;
 		this.getActiveLanguageKey = getActiveLanguageKey;
+		this.getLanguageDataByCode = getLanguageDataByCode;
 
 		function getAvailableLanguages() {
-			return $q(function(resolve, reject) {
-				$http
-					.get('/api/locales')
-					.success(function(response) {
-						var result = {};
-						for (var i = 0; i < response.length; i++) {
-							result[response[i].code] = response[i];
-						}
-						resolve(result);
-					})
-					.error(function(data, status) {
-						reject({
-							data: data,
-							status: status
-						});
-					});
-			});
+			return window["AppData"]["languages"];
 		}
 
 		function setActiveLanguageKey(key) {
@@ -38,6 +24,14 @@
 
 		function getActiveLanguageKey() {
 			return localStorageService.get('activeLanguageKey');
+		}
+
+		function getLanguageDataByCode(code) {
+			if (!code) return null;
+
+			return _.find(languageData, function(item) {
+				return item.code.toLowerCase() === code.toLowerCase();
+			});
 		}
 
 		return this;

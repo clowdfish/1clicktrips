@@ -58,7 +58,7 @@
 
       //Add currency symbol
       formattedNumber = symbolOnLeft ? symbol + space + formattedNumber :
-                        formattedNumber + ' ' + symbol;
+                                      formattedNumber + space + symbol;
 
       return formattedNumber;
     }

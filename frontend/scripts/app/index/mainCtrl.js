@@ -79,6 +79,11 @@
     $scope.activeLanguageKey = null;
 
     /**
+     * Active Language Name
+     */
+    $scope.activeLanguageName = null;
+
+    /**
      * Active Currency key
      * @type {String}
      */
@@ -188,20 +193,10 @@
      * Fetch language data and set active language
      */
     function initLanguages() {
-      appConfig.activeLanguageKey = locale;
-      languageService
-        .getAvailableLanguages()
-        .then(function(data) {
-          $scope.languages = data;
-          initActiveLanguage();
-        });
-    }
-
-    function initActiveLanguage() {
-      if (locale && $scope.languages[locale]) {
+      $scope.languages = languageService.getAvailableLanguages();
+      console.log($scope.languages)
+      if (locale) {
         appConfig.activeLanguageKey = locale;
-      } else {
-        appConfig.activeLanguageKey = languageService.getActiveLanguageKey();
       }
 
       if (appConfig.activeLanguageKey === null) {
@@ -209,11 +204,15 @@
       }
 
       $scope.activeLanguageKey = appConfig.activeLanguageKey;
+
+      var languageData = languageService.getLanguageDataByCode($scope.activeLanguageKey);
+      $scope.activeLanguageName = languageData.name;
       $translate.use($scope.activeLanguageKey);
     }
 
     function changeLanguage(key) {
-      if (!$scope.languages[key]) {
+      console.log(languageService.getLanguageDataByCode(key));
+      if (!languageService.getLanguageDataByCode(key)) {
         return;
       }
       var hrefArray = location.href.split('#');

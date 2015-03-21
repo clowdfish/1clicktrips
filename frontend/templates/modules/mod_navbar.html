@@ -27,8 +27,8 @@
           <li class="header-navigation-menu-item"><a ng-click='toggleCurrencies()'>Currency</a></li>
           <li ng-show="showCurrencies">
             <ul class='header-navigation-menu-currencies'>
-              <li class="header-navigation-menu-sub-item" ng-repeat='(key, currency) in currencies' ng-click='changeCurrency(key)' ng-class='{active: appConfig.activeCurrency === key}'>
-                {[ currency.code ]}
+              <li class="header-navigation-menu-sub-item" ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === key}'>
+                {[ language.name ]}
               </li>
             </ul>
           </li>
@@ -53,9 +53,9 @@
                 </li>
               </ul>
             </li>
-            <li class='language-switch-wrapper'>{[ languages[activeLanguageKey].name ]}
+            <li class='language-switch-wrapper'>{[ activeLanguageName ]}
               <ul class='language-switch'>
-                <li ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)' ng-class='{active: appConfig.activeLanguageKey === key}'>
+                <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === key}'>
                   {[ language.name ]}
                 </li>
               </ul>

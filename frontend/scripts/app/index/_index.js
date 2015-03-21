@@ -21,7 +21,9 @@
     var de = formatLanguageObject(Locales.de.de);
 
     var languageKeys = _.keys(en);
+
     i18n = {};
+
     for (var i = 0; i < languageKeys.length; i++) {
       i18n[languageKeys[i]] = languageKeys[i];
     }
@@ -73,7 +75,15 @@
     //Load search form with pre-populated data
     $stateProvider.state('refineSearch', {
 
-      url: '/search?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:origin,:destination',
+      url: '/search?' +
+          ':originLatitude,' +
+          ':originLongitude,' +
+          ':destinationLatitude,' +
+          ':destinationLongitude,' +
+          ':startDate,' +
+          ':endDate,' +
+          ':origin,' +
+          ':destination',
       views: {
         '': {
           templateUrl: 'scripts/app/templates/index/index.html',
