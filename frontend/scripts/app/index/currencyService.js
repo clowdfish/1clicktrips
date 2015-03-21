@@ -14,21 +14,21 @@
 		this.getAvailableCurrencies = getAvailableCurrencies;
 		this.setActiveCurrency = setActiveCurrency;
 		this.getActiveCurrency = getActiveCurrency;
-		this.getCurrencyDataByKey = getCurrencyDataByKey;
+		this.getCurrencyDataByCode = getCurrencyDataByCode;
 
 		function getAvailableCurrencies() {
 			return _this.currencyData;
 		}
 
-		function setActiveCurrency(key) {
-			localStorageService.set('activeCurrency', key);
+		function setActiveCurrency(code) {
+			localStorageService.set('activeCurrency', code);
 		}
 
 		function getActiveCurrency() {
 			return localStorageService.get('activeCurrency');
 		}
 
-		function getCurrencyDataByKey(code) {
+		function getCurrencyDataByCode(code) {
 			if (!code) return null;
 
 			return _.find(_this.currencyData, function(item) {

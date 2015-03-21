@@ -19,16 +19,16 @@
           <li class="header-navigation-menu-item"><a ng-click='toggleLanguages()'>{{ T.nav.mobile.language }}</a></li>
           <li ng-show="showLanguages">
             <ul class='header-navigation-menu-languages'>
-              <li class="header-navigation-menu-sub-item" ng-repeat='(key, language) in languages' ng-click='changeLanguage(key)' ng-class='{active: appConfig.activeLanguageKey === key}'>
+              <li class="header-navigation-menu-sub-item" ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
                 {[ language.name ]}
               </li>
             </ul>
           </li>
-          <li class="header-navigation-menu-item"><a ng-click='toggleCurrencies()'>Currency</a></li>
+          <li class="header-navigation-menu-item"><a ng-click='toggleCurrencies()'>{{ T.nav.mobile.currency }}</a></li>
           <li ng-show="showCurrencies">
             <ul class='header-navigation-menu-currencies'>
-              <li class="header-navigation-menu-sub-item" ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === key}'>
-                {[ language.name ]}
+              <li class="header-navigation-menu-sub-item" ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
+                {[ currency.code ]}
               </li>
             </ul>
           </li>
@@ -48,14 +48,14 @@
           <ul>
             <li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}
               <ul class='currency-switch'>
-                <li ng-repeat='(key, currency) in currencies' ng-click='changeCurrency(key)' ng-class='{active: appConfig.activeCurrency === key}'>
+                <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
                   {[ currency.code ]}
                 </li>
               </ul>
             </li>
             <li class='language-switch-wrapper'>{[ activeLanguageName ]}
               <ul class='language-switch'>
-                <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === key}'>
+                <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
                   {[ language.name ]}
                 </li>
               </ul>

@@ -21,6 +21,7 @@ en:
       signup: Signup
       language: Language
       profile: Profile
+      currency: Currency
   signup:
     form:
       email: Enter your email address

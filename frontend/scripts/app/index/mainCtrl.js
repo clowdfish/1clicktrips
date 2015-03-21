@@ -176,17 +176,21 @@
     function initCurrencies() {
       appConfig.activeCurrency = currencyService.getActiveCurrency();
       if (appConfig.activeCurrency == null) {
-        appConfig.activeCurrency = 'usd'
+        appConfig.activeCurrency = 'usd';
       }
+      appConfig.activeCurrency = 'usd';
       $scope.currencies = currencyService.getAvailableCurrencies();
     }
 
-    function changeCurrency(key) {
-      if (!$scope.currencies[key]) {
+    function changeCurrency(code) {
+      code = code.toLowerCase();
+
+      if (!currencyService.getCurrencyDataByCode(code)) {
         return;
       }
-      currencyService.setActiveCurrency(key);
-      appConfig.activeCurrency = key;
+
+      currencyService.setActiveCurrency(code);
+      appConfig.activeCurrency = code;
     }
 
     /**
@@ -194,7 +198,7 @@
      */
     function initLanguages() {
       $scope.languages = languageService.getAvailableLanguages();
-      console.log($scope.languages)
+      console.log($scope.languages);
       if (locale) {
         appConfig.activeLanguageKey = locale;
       }
@@ -219,6 +223,5 @@
       var newHref = '/' + key + '/#' + hrefArray[1];
       location.href = newHref;
     }
-
   }
 })();
