@@ -18,9 +18,7 @@
       var hours = Math.floor(duration / 60);
       var minutes = duration - hours * 60;
 
-      result = format.replace('%h', hours);
-      result = result.replace('%m', minutes);
-      return result;
+      return format.replace('%h', hours).replace('%m', minutes);
     }
   }
 })();

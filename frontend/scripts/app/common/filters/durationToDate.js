@@ -30,9 +30,7 @@
         hours -= 12;
       }
 
-      var result = format.replace('%d', days);
-      result = result.replace('%n', night);
-      return result;
+      return format.replace('%d', days).replace('%n', night);
     }
   }
 })();

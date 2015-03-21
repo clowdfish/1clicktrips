@@ -16,7 +16,7 @@
         return;
       }
 
-      var currencyData = currencyService.getCurrencyDataByKey(currencyCode);
+      var currencyData = currencyService.getCurrencyDataByCode(currencyCode);
 
       if (!currencyData) {
         //Use Angular currency filter if don't have currency data
@@ -31,7 +31,7 @@
                         currencyData.spaceBetweenAmountAndSymbol,
                         currencyData.decimalDigits);
 
-    }
+    };
 
     function formatMoney(number,
                         symbol,

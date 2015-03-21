@@ -54,6 +54,7 @@
     });
 
     function findAllItineraries() {
+
       tripService
         .findItinerary(searchObject)
         .then(function(itineraries) {

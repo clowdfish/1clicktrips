@@ -54,7 +54,7 @@
         destination: $scope.$parent.destination,
         startDate: startDate,
         endDate: endDate
-      }
+      };
       $state.go('search_result', requestParameters);
     }
 

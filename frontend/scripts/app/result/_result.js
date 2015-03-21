@@ -54,7 +54,7 @@
           end: $stateParams.endDate
         }
       ],
-      locale: appConfig.activeLanguage,
+      locale: appConfig.activeLanguageKey,
       roundTrip: false,
       currency: appConfig.activeCurrency
     };
