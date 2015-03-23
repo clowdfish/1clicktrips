@@ -3,7 +3,14 @@
     .module('app.dashboard')
     .controller('dashboardCtrl', dashboardCtrl);
 
-  function dashboardCtrl($scope, $rootScope, favoriteList, bookedTripList, browser) {
+  function dashboardCtrl($scope,
+                        $rootScope,
+                        favoriteList,
+                        bookedTripList,
+                        browser,
+                        AUTH_EVENTS,
+                        favoriteService,
+                        bookingService) {
     $scope.favoriteList = favoriteList;
     $scope.bookedTripList = bookedTripList;
 
@@ -14,6 +21,28 @@
     $scope.selectFavorite = function(favorite) {
       $rootScope.$broadcast('selectFavorite', favorite);
     };
+
+    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+      refreshDashboard();
+    });
+
+    $scope.$on(AUTH_EVENTS.signupSuccess, function() {
+      refreshDashboard();
+    });
+
+    function refreshDashboard() {
+      favoriteService
+        .getFavoriteList()
+        .then(function(response) {
+          $scope.favoriteList = response;
+        });
+
+      bookingService
+        .getBookedTrips()
+        .then(function(response) {
+          $scope.bookedTripList = response;
+        });
+    }
   }
 })();
 
