@@ -8,7 +8,7 @@
     </div>
     <nav class="header-navigation">
 
-      <div ng-if="isMobile" class="ng-cloak">
+      <div ng-if="isMobile" ng-cloak class="ng-cloak">
         <!-- MOBILE VIEW -->
         <a ng-click="toggleMenu()" class="header-navigation-menu-toggle"><i class="fa fa-bars" ng-class="{'fa-bars': !showMenu, 'fa-close': showMenu }"></i></a>
         <ul ng-show="showMenu" class="header-navigation-menu">
@@ -35,7 +35,7 @@
         </ul>
       </div>
 
-      <div ng-if="!isMobile">
+      <div ng-if="!isMobile" ng-cloak class="ng-cloak">
         <!-- NON MOBILE VIEW -->
         <div ng-if="!userProfile" class="header-navigation-login">
           <a href="#" ng-click='createLoginModal()'>{{ T.nav.signin }}</a>
