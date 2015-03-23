@@ -7,32 +7,24 @@
     .controller('searchCtrl', searchCtrl);
 
   function searchCtrl($scope,
-                      $state,
-                      $q,
                       $timeout,
-                      SUGGESTION_TYPES,
-                      suggestionAdapter,
-                      $document,
-                      $location,
-                      googleMap,
-                      searchFormData
-                      ) {
+                      searchFormData) {
 
     var favoriteOriginLocation = null;
     $scope.isLogin = true;
 
-    //indicate step data finish
+    // indicate step data finish
     $scope.isStep1Ready = false;
     $scope.isStep2Ready = false;
     $scope.isStep3Ready = false;
 
-    //Trip destination
+    // trip destination
     $scope.destination = null;
 
-    //Trip origin
+    // trip origin
     $scope.origin = null;
 
-    //Active step
+    // active step
     $scope.step = 1;
 
     //Select step functions
@@ -42,7 +34,7 @@
 
     //Search data
     $scope.destinationLocation = searchFormData.destinationLocation;
-    $scope.originLocation =  null;
+    $scope.originLocation = null;
     favoriteOriginLocation = searchFormData.originLocation != null ? searchFormData.originLocation : null;
     $scope.destination = searchFormData.destination;
     $scope.origin = searchFormData.origin;
@@ -56,18 +48,14 @@
     });
 
     $scope.$watch('originLocation', function() {
-      if ($scope.isStep1Ready &&
-        $scope.isStep2Ready &&
-        $scope.originLocation != null) {
+      if ($scope.originLocation != null || $scope.origin != null) {
         $scope.isStep3Ready = true;
       }
     });
 
     $scope.$watchGroup(['startDate', 'endDate'], function() {
-      if ($scope.isStep1Ready == true &&
-        $scope.startDate != null &&
-        $scope.endDate != null) {
-        $scope.isStep2Ready = true;
+      if ($scope.startDate != null && $scope.endDate != null) {
+        //$scope.isStep2Ready = true;
       }
     });
 
@@ -82,11 +70,15 @@
     * Assign origin value to favorite value
     */
     function selectFavorite(favorite) {
-      step1();
       $scope.destination = favorite.destination.description;
       $scope.destinationLocation = favorite.destination.location;
+      $scope.isStep1Ready = true;
+
       $scope.origin = favorite.origin.description;
       favoriteOriginLocation = favorite.origin.location;
+      $scope.isStep3Ready = true;
+
+      step2();
     }
 
     function step1() {
@@ -97,10 +89,9 @@
       if (!$scope.isStep1Ready || $scope.destinationLocation == null) {
         return;
       }
-      $scope.step = 2;
 
-      //Since default data for step2 is populated, so step 2 is already ready
-      $scope.$parent.isStep2Ready = true;
+      $scope.step = 2;
+      $scope.isStep2Ready = true;
     }
 
     function step3() {

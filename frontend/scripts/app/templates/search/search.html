@@ -154,9 +154,9 @@
           <span class="search-form-process-step"></span>
         </div>
         <a
-          ng-click="changeToStep3()"
+          ng-click="step3()"
           class="button--dark"
-          ng-class="{ 'is-disabled': ! $parent.isStep2Ready }">
+          ng-class="{ 'is-disabled': !isStep2Ready }">
           {[ "search_form_control_next" | translate ]}
         </a>
       </form>
