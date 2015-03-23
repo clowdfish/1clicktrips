@@ -8,7 +8,7 @@
     </div>
     <nav class="header-navigation">
 
-      <div ng-if="isMobile">
+      <div ng-if="isMobile" class="ng-cloak">
         <!-- MOBILE VIEW -->
         <a ng-click="toggleMenu()" class="header-navigation-menu-toggle"><i class="fa fa-bars" ng-class="{'fa-bars': !showMenu, 'fa-close': showMenu }"></i></a>
         <ul ng-show="showMenu" class="header-navigation-menu">
@@ -41,10 +41,10 @@
           <a href="#" ng-click='createLoginModal()'>{{ T.nav.signin }}</a>
           <a href="#" class="button" ng-click='createSignupModal()'>{{ T.nav.signup }}</a>
         </div>
-        <div ng-if="userProfile" class="header-navigation-profile">
+        <div ng-if="userProfile" class="header-navigation-profile ng-cloak">
           Hi, {[userProfile['first-name']]} {[userProfile['last-name']]} ( <a class="header-navigation-logout" ng-click="logout()">{{ T.nav.logout }}</a> )
         </div>
-        <div class="header-settings">
+        <div class="header-settings ng-cloak">
           <ul>
             <li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}
               <ul class='currency-switch'>
