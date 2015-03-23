@@ -10,7 +10,13 @@
   * This service get and set user profile data
   */
   function userService($http, $q, session) {
+
     var _this = this;
+
+    /**
+     * Fetch user profile
+     * @return {Object} Promise
+     */
     this.getUserProfile = function() {
       return $q(function(resolve, reject) {
 
@@ -26,6 +32,30 @@
           .error(function(data, status) {
             reject({
               message: data,
+              status: status
+            });
+          });
+      });
+    }
+
+    /**
+     * Update user profile
+     */
+    this.setUserProfile = function(userProfile) {
+      return $q(function(resolve, reject) {
+
+        if (session.getAuthToken() == null) {
+          reject("Token is not available");
+        }
+
+        $http
+          .post('/api/account/profile', userProfile)
+          .success(function(response) {
+            resolve(response);
+          })
+          .error(function(data, status) {
+            reject({
+              data: data,
               status: status
             });
           });

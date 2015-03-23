@@ -4,8 +4,12 @@
 
       <div class="settings-navigation">
         <ul>
-          <li class="active">{[ "settings_profile_title" | translate ]}</li>
-          <li>{[ "settings_preferences_title" | translate ]}</li>
+          <li class="active">
+            <a ui-sref="settings.profile">{[ "settings_profile_title" | translate ]}</a>
+          </li>
+          <li>
+            <a ui-sref="settings.preferences">{[ "settings_preferences_title" | translate ]}</a>
+          </li>
           <li>{[ "settings_privacy_title" | translate ]}</li>
           <li>{[ "settings_history_title" | translate ]}</li>
         </ul>
@@ -13,7 +17,7 @@
 
       <div class="settings-content">
 
-        SETTINGS
+        <div ui-view></div>
 
       </div>
     </div>

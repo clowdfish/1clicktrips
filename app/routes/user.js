@@ -70,8 +70,7 @@ module.exports = function (app, express, production) {
 
     if (req.body) {
       var userId = AuthController.getUserIdFromRequest(req, secret);
-
-      UserController.setProfile(userId, req.body['Profile'])
+      UserController.setProfile(userId, req.body)
         .then(function() {
           res.status(200).send();
         })
@@ -90,7 +89,7 @@ module.exports = function (app, express, production) {
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    SettingsController.get(userId)
+    SettingsController.get(userId,req.query.category)
       .then(function (settings) {
         if (settings)
           res.status(200).json(settings);

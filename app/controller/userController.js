@@ -59,9 +59,32 @@ module.exports = {
 
   setProfile: function(userId, profileObject) {
 
-   // TODO implement
-
     return new Promise(function(resolve, reject) {
+      var updateQuery = "UPDATE profile SET " +
+                        "  company_name = ?" +
+                        ", first_name = ?" +
+                        ", last_name = ?" +
+                        ", street = ?" +
+                        ", address_other = ?" +
+                        "  WHERE id = ?";
+      var queryParams = [
+        profileObject.company_name,
+        profileObject.first_name,
+        profileObject.last_name,
+        profileObject.street,
+        profileObject.address_other,
+        profileObject.zip_code,
+        userId
+      ];
+
+      connection.query(updateQuery, queryParams, function (err) {
+        if (err) {
+          console.log(err);
+          reject(err);
+        }
+        resolve();
+      });
+
       resolve();
     });
   },

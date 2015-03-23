@@ -31,7 +31,7 @@ var changed 	  = require('gulp-changed'),
 /****************************************************************************************************/
 
 // development/production flag
-var production = true;
+var production = false;
 
 // available locales
 var locales = ['en', 'de'];
@@ -64,7 +64,7 @@ gulp.task('styles', function() {
 
   gulp.src([
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    'bower_components/animate.css/animate.css'
+    'bower_components/animate.css/animate.min.css'
   ])
   .pipe(gulp.dest("build/styles"));
 
@@ -135,7 +135,7 @@ gulp.task('scripts', ['i18n'], function() {
     )
   )
   .pipe(concat('script.js'))
-  .pipe(ngAnnotate())
+  .pipe(gulpif(production, ngAnnotate()))
   .pipe(gulpif(production, stripDebug()))
   .pipe(gulpif(production, uglify()))
   .pipe(gulp.dest('build/scripts'));
