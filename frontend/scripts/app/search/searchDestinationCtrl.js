@@ -6,7 +6,11 @@
 		.module('app.search')
 		.controller('searchDestinationFormCtrl', searchDestinationFormCtrl);
 
-	function searchDestinationFormCtrl ($scope, $q, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
+	function searchDestinationFormCtrl ($scope,
+                                      $q,
+                                      SUGGESTION_TYPES,
+                                      suggestionAdapter,
+                                      googleMap) {
 
 		$scope.setDestinationType = setDestinationType;
 		$scope.getSuggestion = getSuggestion;

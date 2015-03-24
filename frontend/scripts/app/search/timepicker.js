@@ -376,7 +376,12 @@ function ($compile, $parse, $document, $position, dateFilter, syTimepickerPopupC
 
       var elementFocusBind = function() {
         scope.$apply(function() {
-          setOpen( true );
+          /**
+          * @namtran
+          * We change status of time picker from the search controller
+          * So I comment out the following line
+          */
+          //setOpen( true );
         });
       };
 

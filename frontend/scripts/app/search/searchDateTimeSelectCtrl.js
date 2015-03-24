@@ -6,7 +6,15 @@
 		.module('app.search')
 		.controller('searchDateTimeSelectCtrl', searchDateTimeSelectCtrl);
 
-	function searchDateTimeSelectCtrl ($scope) {
+	function searchDateTimeSelectCtrl ($scope, $document) {
+    /**
+    * Date time picker open status
+    */
+    $scope.isOpenStartDatePicker = false;
+    $scope.isOpenStartTimePicker = false;
+    $scope.isOpenEndDatePicker = false;
+    $scope.isOpenEndTimePicker = false;
+
 		// configure date picker
 		$scope.dateOptions = {
       formatYear: 'yyyy',
@@ -64,8 +72,10 @@
         $event.stopPropagation();
       }
 
-      closeAll();
-      $scope.isOpenStartTimePicker = true;
+      $scope.isOpenStartDatePicker = false;
+      $scope.isOpenEndDatePicker = false;
+      $scope.isOpenEndTimePicker = false;
+      $scope.isOpenStartTimePicker = $scope.isOpenStartTimePicker ? false : true;
     };
 
     $scope.closeStartTimePicker = function($event) {
@@ -73,13 +83,16 @@
     };
 
     $scope.openEndTimePicker = function($event) {
+      console.log($scope.isOpenEndTimePicker);
       if ($event) {
         $event.preventDefault();
         $event.stopPropagation();
       }
 
-      closeAll();
-      $scope.isOpenEndTimePicker = true;
+      $scope.isOpenStartDatePicker = false;
+      $scope.isOpenStartTimePicker = false;
+      $scope.isOpenEndDatePicker = false;
+      $scope.isOpenEndTimePicker = $scope.isOpenEndTimePicker ? false : true;
     };
 
     $scope.closeEndTimePicker = function($event) {
