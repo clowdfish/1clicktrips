@@ -116,10 +116,14 @@
         "description": "(De)Activate the taxi option.",
         "key": "taxi",
         "default": 1,
-        "options": [
-          { 0: "disable" },
-          { 1: "enable" }
-        ]
+        "options": {
+          0: {
+            "description": "disable"
+          },
+          1: {
+            "description": "enable"
+          }
+        }
       },
       {
         "category": "Preferences",

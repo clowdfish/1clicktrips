@@ -1,4 +1,10 @@
 <section class="settings wrapper">
+  <div ng-hide='isLogin'>
+  <div class="view-container">
+    Please login to see this page
+    </div>
+  </div>
+  <div ng-show='isLogin'>
     <div class="section-header"><i class="fa fa-cogs"></i>{[ "settings_title" | translate ]}</div>
     <div class="view-container">
 
@@ -21,4 +27,5 @@
 
       </div>
     </div>
+  </div>
 </section>

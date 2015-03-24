@@ -11,7 +11,8 @@
   function routerConfig($stateProvider) {
     $stateProvider.state('settings', {
       url:'/settings',
-      templateUrl: 'scripts/app/templates/settings/settings.html'
+      templateUrl: 'scripts/app/templates/settings/settings.html',
+      controller: 'settingsCtrl'
     });
 
     $stateProvider.state('settings.profile', {

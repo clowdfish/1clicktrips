@@ -105,7 +105,7 @@ gulp.task('webserver', function() {
 gulp.task('scripts', ['i18n'], function() {
   gulp.src([
     'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/angular/angular.min.js',
+    'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'bower_components/angular-mocks/angular-mocks.js',
     'bower_components/underscore/underscore-min.js',
@@ -186,7 +186,7 @@ gulp.task('i18n', function() {
     .pipe(yaml().on( "error", console.error ))
     .pipe(declare({
       namespace: 'Locales',
-      noRedeclare: true,
+      noRedeclare: false,
       root: 'window'
     }))
     .pipe(concat('locales.js'))
@@ -229,11 +229,11 @@ gulp.task('test', function (done) {
 // gulp task suite
 gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates', 'app-data'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
-  gulp.watch(['scripts/app/**/*.js'], ['scripts']);
   gulp.watch(['scripts/app/**/*.html'], ['angular-templates']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n', 'scripts']);
   gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
+  gulp.watch(['scripts/app/**/*.js'], ['scripts']);
 });
 
 gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates', 'app-data'], function() {});

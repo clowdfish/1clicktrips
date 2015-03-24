@@ -15,7 +15,7 @@ module.exports = function (app, express, production) {
   var BookingController = null;
 
   if(production) {
-    SettingsController = require('../mocking/settingsController');
+    SettingsController = require('../controller/settingsController');
     UserController = require('../controller/userController');
     AuthController = require('../controller/authController');
     BookingController = require('../mocking/bookingController');

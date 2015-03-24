@@ -1,0 +1,38 @@
+<h1>Preferences</h1>
+
+<div class="user-preferences-wrapper">
+  <form name="preferenceForm" ng-submit="submit()">
+    <div ng-repeat="preference in userPreferences">
+
+      <!-- Multi choice setting -->
+      <div ng-if="preference.options">
+
+          <label>{[preference.description]}</label>
+          <div ng-repeat="(key, option) in preference.options">
+            <fieldset>
+              <input type="radio"
+                      ng-model="preference.value"
+                      value="{[key]}"
+                      title="{[option.tooltip]}"
+                      id="{[preference.key]}_{[key]}"
+                      />
+              <label for="{[preference.key]}_{[key]}">{[option.description | capitalize]}</label>
+            </fieldset>
+          </div>
+
+      </div>
+
+      <!-- Text setting -->
+      <div ng-if="!preference.options">
+        <fieldset>
+          <label>{[preference.description]}</label>
+          <input type="text"
+                ng-model="preference.value"
+                value="{[preference.value]}"
+                title="{[preference.tooltip]}"/>
+        </fieldset>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
