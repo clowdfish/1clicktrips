@@ -117,7 +117,8 @@ gulp.task('scripts', ['i18n'], function() {
     'bower_components/lodash/lodash.min.js',
     'bower_components/use-angular-translate/src/**/*.js',
     'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-    'bower_components/angular-sanitize/angular-sanitize.min.js'
+    'bower_components/angular-sanitize/angular-sanitize.min.js',
+    'bower_components/ng-file-upload/angular-file-upload-all.min.js'
   ])
   .pipe(plumber(plumberErrorHandler))
   .pipe(concat('vendor.js'))
@@ -226,8 +227,11 @@ gulp.task('test', function (done) {
   }, done);
 });
 
+gulp.task('create-upload-folder', function() {
+  fs.mkdir('build/images/uploaded');
+});
 // gulp task suite
-gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates', 'app-data'], function() {
+gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates', 'app-data', 'create-upload-folder'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
   gulp.watch(['scripts/app/**/*.html'], ['angular-templates']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n', 'scripts']);
@@ -236,4 +240,4 @@ gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'an
   gulp.watch(['scripts/app/**/*.js'], ['scripts']);
 });
 
-gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates', 'app-data'], function() {});
+gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates', 'app-data', 'create-upload-folder'], function() {});

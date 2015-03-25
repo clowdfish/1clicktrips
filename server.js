@@ -6,13 +6,15 @@ var express       = require('express'),
     session       = require('express-session'),
     morgan        = require('morgan'),
     cookieParser  = require('cookie-parser'),
-    bodyParser    = require('body-parser');
+    bodyParser    = require('body-parser'),
+    multipart     = require('connect-multiparty');
 
 // initiate server instance
 var app = express();
 
 // configuration ===============================================================
 var configAuth = require('./config/auth');
+var generalConfig = require('./config/general');
 var port = process.env.PORT || 8080;
 
 // development/production flag
@@ -42,6 +44,10 @@ function setupServer() {
       resave: false,
       saveUninitialized: false // passport will take care
       /* store: e.g. Redis Store */ // redis store for session data
+    }));
+
+    app.use(multipart({
+      uploadDir: generalConfig.temporaryFolderDir
     }));
 
     app.set('jwtTokenSecret', configAuth.secret);

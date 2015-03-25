@@ -20,6 +20,8 @@
         .setUserSettings($scope.userPreferences)
         .then(function() {
           alert('Update preference successful');
+        }, function() {
+          alert('Can not update preference');
         });
     }
 

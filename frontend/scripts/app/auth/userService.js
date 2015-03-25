@@ -9,7 +9,7 @@
   /**
   * This service get and set user profile data
   */
-  function userService($http, $q, session) {
+  function userService($http, $q, $upload, session) {
 
     var _this = this;
 
@@ -59,6 +59,13 @@
               status: status
             });
           });
+      });
+    }
+
+    this.uploadProfilePicture = function(file) {
+      return $upload.upload({
+        url: '/api/account/upload',
+        file: file
       });
     }
 

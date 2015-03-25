@@ -13,7 +13,8 @@
       'LocalStorageModule',
       'ui.bootstrap',
       'ui.bootstrap.tpls',
-      'ngSanitize'
+      'ngSanitize',
+      'angularFileUpload'
     ]);
 })();
 

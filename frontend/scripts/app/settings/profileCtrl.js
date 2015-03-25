@@ -29,6 +29,20 @@
     function handleUpdateProfileError(reason) {
       alert('There was a problem updating the profile.');
     }
+
+    $scope.uploadImage = function() {
+      $scope.uploadPercentage = 0;
+      $scope.uploadSuccess = false;
+      userService
+        .uploadProfilePicture($scope.profilePicture)
+        .progress(function(evt) {
+          $scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total);
+        })
+        .success(function(data) {
+          $scope.uploadSuccess = true;
+          $scope.userProfile.image = data;
+        });
+    }
   }
 
 })();

@@ -5,6 +5,9 @@ var mysql = require('mysql');
 
 var dbConfig = require('../../config/database.js');
 var connection = mysql.createConnection(dbConfig.connection);
+var fs = require('fs');
+
+var generalConfig = require('../../config/general.js');
 
 module.exports = {
 
@@ -224,8 +227,95 @@ module.exports = {
         }
       });
     });
+  },
+
+  uploadProfilePicture: function(req, userId) {
+    return new Promise(function(resolve, reject) {
+      saveUploadImage(req,userId)
+        .then(function(path) {
+          return updateUserImage(userId, path)
+        }, function(err) {
+          reject(err);
+        })
+        .then(function(path){
+          resolve(path);
+        }, function(err) {
+          reject(err);
+        });
+    });
   }
 };
+
+function updateUserImage(userId, path) {
+  return new Promise(function(resolve, reject) {
+    connection.query('SELECT * FROM user WHERE id = ?', [userId], function(err, rows) {
+      if (err) {
+        return reject(err);
+      }
+
+      if (rows.length == 0) {
+        return reject('User is not exist');
+      }
+
+      var profileId = rows[0].profile_id;
+      connection.query('SELECT * FROM profile where id = ?', [profileId], function(err, profiles) {
+        if (err) {
+          return reject(err);
+        }
+
+        //Remove old profile image
+        if (profiles.length > 0) {
+          var image = profiles[0].image;
+          if (image) {
+            var systemPath = __dirname
+                          + '/../../frontend/build'
+                          + image;
+            fs.unlinkSync(systemPath);
+          }
+        }
+
+        //Update profile image
+        var updateQuery = 'UPDATE profile SET image = ? WHERE id = ?';
+        updateParams = [path, rows[0].profile_id];
+        connection.query(updateQuery, updateParams, function(err) {
+          if (err) {
+            return reject(err);
+          }
+          resolve(path);
+        });
+
+      });
+
+    });
+
+  });
+}
+
+function saveUploadImage(req, userId) {
+  var file = req.files.file;
+  return new Promise(function(resolve, reject) {
+    var shortPath = '/images/uploaded/'
+                  + new Date().getTime()
+                + file.originalFilename;
+
+    var systemPath = __dirname
+                + '/../../frontend/build'
+                + shortPath;
+    fs.readFile(file.path, function(err, data) {
+      if (err) {
+        return reject(err);
+      }
+      fs.writeFile(systemPath, data, function(err) {
+        if (err) {
+          reject(err);
+        } else {
+          fs.unlinkSync(file.path);
+          resolve(shortPath);
+        }
+      })
+    });
+  });
+}
 
 /**
  * Parses the location given as a string and transforms it into an

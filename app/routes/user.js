@@ -237,4 +237,21 @@ module.exports = function (app, express, production) {
         res.status(500).send(err.message);
       });
   });
+
+  // ==========================================================================
+  // UPLOAD IMAGE =============================================================
+  // ==========================================================================
+
+  accountApi.post('/upload', function(req, res) {
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+
+    UserController.uploadProfilePicture(req, userId)
+      .then(function(imagePath) {
+        console.log(imagePath);
+        res.status(200).send(imagePath);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
+  });
 };

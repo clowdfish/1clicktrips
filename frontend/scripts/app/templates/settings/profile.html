@@ -4,7 +4,12 @@
 
   <div class="form-group">
     <label>Image</label>
-    <input type="file" id="exampleInputFile">
+    <img ng-src="{[userProfile.image]}" width="150" height="150"/>
+    <input type="file"
+            id="profile-picture"
+            ng-file-select
+            ng-model="profilePicture">
+    <input type="button" value="Upload" ng-click="uploadImage()"/>
   </div>
 
   <div class="form-group">
