@@ -228,7 +228,12 @@ gulp.task('test', function (done) {
 });
 
 gulp.task('create-upload-folder', function() {
-  fs.mkdir('build/images/uploaded');
+  var path = 'build/images/uploaded';
+  fs.exists(path, function(exists) {
+    if (!exists) {
+      fs.mkdir(path);
+    }
+  });
 });
 // gulp task suite
 gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates', 'app-data', 'create-upload-folder'], function() {

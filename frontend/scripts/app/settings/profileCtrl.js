@@ -41,6 +41,9 @@
         .success(function(data) {
           $scope.uploadSuccess = true;
           $scope.userProfile.image = data;
+        })
+        .error(function(data) {
+          alert("Can not upload image");
         });
     }
   }

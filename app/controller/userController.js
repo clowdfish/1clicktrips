@@ -8,7 +8,7 @@ var connection = mysql.createConnection(dbConfig.connection);
 var fs = require('fs');
 
 var generalConfig = require('../../config/general.js');
-
+var async = require('async');
 module.exports = {
 
   getUser: function(userId) {
@@ -230,15 +230,17 @@ module.exports = {
   },
 
   uploadProfilePicture: function(req, userId) {
+    var profilePicture = null;
     return new Promise(function(resolve, reject) {
-      saveUploadImage(req,userId)
-        .then(function(path) {
-          return updateUserImage(userId, path)
+      saveUploadImage(req, userId)
+        .then(function(path){
+          profilePicture = path;
+          return updateUserImage(userId, path);
         }, function(err) {
           reject(err);
         })
-        .then(function(path){
-          resolve(path);
+        .then(function(){
+          resolve(profilePicture);
         }, function(err) {
           reject(err);
         });
@@ -258,42 +260,62 @@ function updateUserImage(userId, path) {
       }
 
       var profileId = rows[0].profile_id;
-      connection.query('SELECT * FROM profile where id = ?', [profileId], function(err, profiles) {
-        if (err) {
-          return reject(err);
-        }
 
-        //Remove old profile image
-        if (profiles.length > 0) {
-          var image = profiles[0].image;
-          if (image) {
-            var systemPath = __dirname
-                          + '/../../frontend/build'
-                          + image;
-            fs.unlinkSync(systemPath);
-          }
-        }
-
-        //Update profile image
+      removeOldProfileImage(profileId).then(function() {
         var updateQuery = 'UPDATE profile SET image = ? WHERE id = ?';
         updateParams = [path, rows[0].profile_id];
         connection.query(updateQuery, updateParams, function(err) {
           if (err) {
             return reject(err);
           }
-          resolve(path);
+          resolve(profileId);
         });
-
+      }, function(err) {
+        reject(err);
       });
-
     });
 
   });
 }
 
+function removeOldProfileImage(profileId) {
+  return new Promise(function(resolve, reject) {
+    connection.query('SELECT * FROM profile where id = ?', [profileId], function(err, profiles) {
+      if (err) {
+        reject(err);
+      }
+
+      //Remove old profile image
+      if (profiles.length > 0) {
+        var image = profiles[0].image;
+        if (image) {
+          var systemPath = __dirname
+                        + '/../../frontend/build'
+                        + image;
+          fs.exists(systemPath, function(exists) {
+            if (exists) {
+              fs.unlinkSync(systemPath);
+            }
+          });
+
+          resolve();
+        }
+      } else {
+        resolve();
+      }
+
+    });
+  });
+}
+
 function saveUploadImage(req, userId) {
   var file = req.files.file;
+
   return new Promise(function(resolve, reject) {
+    if (!file || file == undefined) {
+      reject('File is not available');
+    }
+
     var shortPath = '/images/uploaded/'
                   + new Date().getTime()
                 + file.originalFilename;
