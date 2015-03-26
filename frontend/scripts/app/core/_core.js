@@ -14,7 +14,8 @@
       'ui.bootstrap',
       'ui.bootstrap.tpls',
       'ngSanitize',
-      'angularFileUpload'
+      'angularFileUpload',
+      'ui.sortable'
     ]);
 })();
 

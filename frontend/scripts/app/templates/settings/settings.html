@@ -10,14 +10,16 @@
 
       <div class="settings-navigation">
         <ul>
-          <li class="active">
+          <li ui-sref-active="active">
             <a ui-sref="settings.profile">{[ "settings_profile_title" | translate ]}</a>
           </li>
-          <li>
+          <li ui-sref-active="active">
             <a ui-sref="settings.preferences">{[ "settings_preferences_title" | translate ]}</a>
           </li>
-          <li>{[ "settings_privacy_title" | translate ]}</li>
-          <li>{[ "settings_history_title" | translate ]}</li>
+          <!-- <li>{[ "settings_privacy_title" | translate ]}</li> -->
+          <li ui-sref-active="active">
+            <a ui-sref="settings.history">{[ "settings_history_title" | translate ]}</a>
+          </li>
         </ul>
       </div>
 

@@ -8,28 +8,15 @@
     var _this = this;
 
     this.getBookedTrips = getBookedTrips;
-    this.callBookingApi = callBookingApi;
     this.transformResponseData = transformResponseData;
 
     function getBookedTrips() {
       var deferred = $q.defer();
-      this
-        .callBookingApi()
-        .then(function(data) {
-          var transformedData = _this.transformResponseData(data);
-          deferred.resolve(transformedData);
-        }, function() {
-          deferred.reject();
-        });
-      return deferred.promise;
-    }
-
-    function callBookingApi() {
-      var deferred = $q.defer();
       $http
         .get('/api/account/bookings')
-        .success(function(response) {
-          deferred.resolve(response);
+        .success(function(data) {
+          var transformedData = _this.transformResponseData(data);
+          deferred.resolve(transformedData);
         })
         .error(function() {
           deferred.reject();

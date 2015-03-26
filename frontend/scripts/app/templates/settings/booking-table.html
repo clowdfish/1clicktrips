@@ -1,0 +1,22 @@
+<h3>Booking Table</h3>
+
+<div ng-show="bookingList.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Destination</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="booking in bookingList">
+        <td>{[booking.title]}</td>
+        <td>{[booking.destination]}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="bookings-empty-message" ng-show="!booking || bookingList.length == 0">
+  {[ "dashboard_bookings_empty" | translate ]}
+</div>

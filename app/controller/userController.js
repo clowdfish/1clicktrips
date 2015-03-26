@@ -96,7 +96,7 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
 
-      connection.query("SELECT * FROM favorite WHERE user_id=?;", [userId], function (err, rows) {
+      connection.query("SELECT * FROM favorite WHERE user_id=? ORDER BY position, id;", [userId], function (err, rows) {
         if (err)
           reject(err);
 
@@ -114,7 +114,8 @@ module.exports = {
                 "destination" : {
                 "description" : row['end'],
                 "location" : parseLocation(row['end_location'])
-              }
+              },
+              position: row['position']
             });
           });
 
@@ -245,7 +246,9 @@ module.exports = {
           reject(err);
         });
     });
-  }
+  },
+
+  updateFavoritePosition: updateFavoritePosition
 };
 
 function updateUserImage(userId, path) {
@@ -336,6 +339,36 @@ function saveUploadImage(req, userId) {
         }
       })
     });
+  });
+}
+
+function updateFavoritePosition(userId, positionData) {
+  return new Promise(function(resolve, reject) {
+    async.each(positionData, function(item, callback) {
+      item['userId'] = userId;
+      setFavoritePosition(item, function(err) {
+        if (err) {
+          callback(err);
+        } else {
+          callback();
+        }
+      })
+    }, function(err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+function setFavoritePosition(params, callback) {
+  connection.query('UPDATE favorite SET position = ? WHERE id = ? and user_id = ?', [params.position, params.id, params.userId], function(err) {
+    if (err) {
+      callback(err);
+    }
+    callback();
   });
 }
 

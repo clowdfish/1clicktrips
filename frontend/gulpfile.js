@@ -105,6 +105,7 @@ gulp.task('webserver', function() {
 gulp.task('scripts', ['i18n'], function() {
   gulp.src([
     'bower_components/jquery/dist/jquery.min.js',
+    'bower_components/jquery-ui/jquery-ui.min.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'bower_components/angular-mocks/angular-mocks.js',
@@ -118,7 +119,8 @@ gulp.task('scripts', ['i18n'], function() {
     'bower_components/use-angular-translate/src/**/*.js',
     'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
-    'bower_components/ng-file-upload/angular-file-upload-all.min.js'
+    'bower_components/ng-file-upload/angular-file-upload-all.min.js',
+    'bower_components/angular-ui-sortable/sortable.min.js'
   ])
   .pipe(plumber(plumberErrorHandler))
   .pipe(concat('vendor.js'))

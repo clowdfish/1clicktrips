@@ -31,16 +31,39 @@
       resolve: {
         userPreferences: getUserPreferences
       }
-    })
+    });
 
-    function getUserProfile(userService) {
-      return userService.getUserProfile();
+    $stateProvider.state('settings.history', {
+      url: '/history',
+      templateUrl: 'scripts/app/templates/settings/history.html',
+      controller: 'historyCtrl',
+      resolve: {
+        favorites: getFavorites,
+        bookingList: getBookingList
+      }
+    });
+  }
+
+  function getUserProfile(userService) {
+    return userService.getUserProfile();
+  }
+
+  function getUserPreferences(settingsService) {
+    return settingsService.getUserSettings('preferences');
+  }
+
+  function getFavorites(session, favoriteService) {
+    if (!session.isLogin()) {
+      return [];
     }
+    return favoriteService.getFavoriteList();
+  }
 
-    function getUserPreferences(settingsService) {
-      return settingsService.getUserSettings('preferences');
+  function getBookingList(session, bookingService) {
+    if (!session.isLogin()) {
+      return [];
     }
-
+    return bookingService.getBookedTrips();
   }
 
 })();

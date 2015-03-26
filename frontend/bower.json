@@ -33,7 +33,8 @@
     "jquery": "2.1.3",
     "angular-local-storage": "0.1.5",
     "angular-sanitize": "*",
-    "ng-file-upload": "~3.2.4"
+    "ng-file-upload": "~3.2.4",
+    "angular-ui-sortable": "0.13.3"
   },
   "devDependencies": {
     "velocity": "~1.1.0"

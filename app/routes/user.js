@@ -177,6 +177,17 @@ module.exports = function (app, express, production) {
       });
   });
 
+  accountApi.post('/favorites/updateposition', function(req, res) {
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+    UserController.updateFavoritePosition(userId, req.body)
+      .then(function() {
+        res.sendStatus(200);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      })
+  })
+
   // ==========================================================================
   // BOOKINGS =================================================================
   // ==========================================================================
