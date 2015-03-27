@@ -16,6 +16,7 @@
         .get('/api/account/bookings')
         .success(function(data) {
           var transformedData = _this.transformResponseData(data);
+          console.log(transformedData);
           deferred.resolve(transformedData);
         })
         .error(function() {

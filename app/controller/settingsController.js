@@ -37,31 +37,28 @@ module.exports = {
       function updateSetting(setting) {
         var updateQuery = 'UPDATE setting SET ' +
                           ' `value` = ? ' +
-                          ', `category` = ? ' +
                           ' WHERE `key` = ? and `user_id` = ?';
         var updateParams = [ setting.value,
-                            setting.category,
                             setting.key,
                             userId ];
         connection.query(updateQuery, updateParams);
       }
 
       function insertSetting(setting) {
-        var insertQuery = 'INSERT INTO setting(`user_id`, `key`, `value`, `category`) ' +
-                          ' VALUES(?, ?, ?, ?)';
+        var insertQuery = 'INSERT INTO setting(`user_id`, `key`, `value`) ' +
+                          ' VALUES(?, ?, ?)';
         var insertParams = [userId,
                             setting.key,
-                            setting.value,
-                            setting.category];
+                            setting.value];
         connection.query(insertQuery, insertParams);
       }
 
     });
   },
 
-  get: function(userId, category) {
+  get: function(userId) {
     return new Promise(function(resolve, reject) {
-      connection.query("SELECT * FROM setting where user_id = ? AND category = ?", [userId, category], function(err, rows) {
+      connection.query("SELECT * FROM setting where user_id = ?", [userId], function(err, rows) {
         if (err) {
           return reject(err);
         }

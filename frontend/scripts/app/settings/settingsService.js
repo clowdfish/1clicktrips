@@ -10,7 +10,7 @@
 
     var _this = this;
 
-    this.getUserSettings = function(category) {
+    this.getUserSettings = function() {
       return $q(function(resolve, reject) {
 
         if (session.getAuthToken() === null) {
@@ -18,11 +18,7 @@
         }
 
         $http
-          .get('/api/account/settings', {
-            params: {
-              category: category
-            }
-          })
+          .get('/api/account/settings')
           .success(function(response) {
             var settings = mergeWithDefaultSettings(response);
             resolve(settings);

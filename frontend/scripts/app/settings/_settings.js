@@ -49,7 +49,7 @@
   }
 
   function getUserPreferences(settingsService) {
-    return settingsService.getUserSettings('preferences');
+    return settingsService.getUserSettings();
   }
 
   function getFavorites(session, favoriteService) {

@@ -89,7 +89,7 @@ module.exports = function (app, express, production) {
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    SettingsController.get(userId,req.query.category)
+    SettingsController.get(userId)
       .then(function (settings) {
         if (settings)
           res.status(200).json(settings);

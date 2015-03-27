@@ -18,7 +18,7 @@ describe('settingsCtrl', function() {
 
   }));
 
-  it('go to setting page', function() {
+  it('routing', function() {
     $state.go('settings');
     $scope.$digest();
     expect($state.current.name).toEqual('settings');
