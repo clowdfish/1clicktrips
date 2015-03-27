@@ -51,6 +51,7 @@ describe('controller: signupCtrl', function() {
   }));
 
   it('signup success', function() {
+    $scope.agreement = true;
     expect($scope.isLogin).toEqual(false);
     $scope.signup();
     $scope.$digest();
@@ -60,7 +61,7 @@ describe('controller: signupCtrl', function() {
   });
 
   it('signup failed', function() {
-    $scope.errorMessage = null;
+    $scope.agreement = true;
     signupHandler.respond(401, 'status.user.error.signup.exists');
     expect($scope.isLogin).toEqual(false);
     $scope.signup();
@@ -68,7 +69,6 @@ describe('controller: signupCtrl', function() {
     $httpBackend.flush();
     expect($scope.isLogin).toEqual(false);
     expect(modalInstance.close).not.toHaveBeenCalled();
-    expect($scope.errorMessage).not.toEqual(null);
     expect($scope.signupForm.email.$error.exist).toEqual(true);
   });
 });

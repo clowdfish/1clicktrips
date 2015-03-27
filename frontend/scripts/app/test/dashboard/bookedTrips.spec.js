@@ -5,6 +5,7 @@
 
     var $q,
         $scope,
+        $httpBackend,
         bookingService,
         bookedTrips,
         bookedTripsScope,
@@ -18,17 +19,15 @@
                               _$rootScope_,
                               _bookingService_,
                               _mockBooking_,
-                              _$compile_) {
+                              _$compile_,
+                              _$httpBackend_) {
       $q = _$q_;
       $scope = _$rootScope_.$new();
       bookingService = _bookingService_;
       mockBooking = _mockBooking_;
 
-      spyOn(bookingService, 'callBookingApi').and.callFake(function() {
-        return $q(function(resolve) {
-          resolve(mockBooking);
-        });
-      });
+      $httpBackend = _$httpBackend_;
+      $httpBackend.whenGET(/\/api\/account\/bookings/).respond(_mockBooking_);
 
       var bookedTripList = null;
       bookingService
@@ -37,6 +36,7 @@
           bookedTripList = data;
         });
       $scope.$digest();
+      $httpBackend.flush();
       $scope.bookedTripList = bookedTripList;
       var element = angular.element("<booked-trips list-items='bookedTripList' item-per-page='2'></booked-trips>");
       bookedTrips = _$compile_(element)($scope);

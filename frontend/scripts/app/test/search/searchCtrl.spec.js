@@ -40,7 +40,8 @@ describe('searchCtrl', function() {
     searchCtrl = $controller('searchCtrl', {
       $scope: $scope,
       SUGGESTION_TYPES: SUGGESTION_TYPES,
-      suggestionAdapter: suggestionAdapter
+      suggestionAdapter: suggestionAdapter,
+      searchFormData: getDefaultSearchFormData()
     });
   }));
 
@@ -48,7 +49,7 @@ describe('searchCtrl', function() {
     $scope.step1();
     expect($scope.step).toEqual(1);
 
-    $scope.destinationAddress = {latitude: 1, longitude: 1};
+    $scope.destinationLocation = {latitude: 1, longitude: 1};
     $scope.$digest();
     expect($scope.isStep1Ready).toEqual(true);
 
@@ -63,7 +64,7 @@ describe('searchCtrl', function() {
 
     $scope.step3();
     expect($scope.step).toEqual(3);
-    $scope.originAddress = {latitude: 1, longitude: 1};
+    $scope.originLocation = {latitude: 1, longitude: 1};
     $scope.$digest();
     expect($scope.isStep3Ready).toEqual(true);
   });
@@ -74,8 +75,28 @@ describe('searchCtrl', function() {
     $scope.$digest();
     expect($scope.destination).toEqual(favorite.destination.description);
     expect($scope.origin).toEqual(favorite.origin.description);
-    expect($scope.destinationAddress).toEqual(favorite.destination.location);
-    expect($scope.step).toEqual(1);
+    expect($scope.destinationLocation).toEqual(favorite.destination.location);
+    expect($scope.step).toEqual(2);
   });
 
 });
+
+function getDefaultSearchFormData() {
+  var startDate = new Date();
+  startDate.setHours(14);
+  startDate.setMinutes(0);
+  startDate.setSeconds(0);
+  var endDate = new Date();
+  endDate.setHours(16);
+  endDate.setMinutes(0);
+  endDate.setSeconds(0);
+
+  return {
+    destinationLocation: null,
+    originLocation: null,
+    startDate: startDate,
+    endDate: endDate,
+    destination: null,
+    origin: null
+  }
+}

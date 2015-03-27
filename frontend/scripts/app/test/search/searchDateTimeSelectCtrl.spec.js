@@ -39,10 +39,10 @@ describe('searchDateTimeSelectCtrl', function() {
   });
 
   it('watch for isStep2Ready value correctly', function() {
+    $scope.$parent.isStep1Ready = true;
     $scope.$parent.startDate = new Date();
     $scope.$parent.endDate = new Date();
-    $scope.$parent.startTime = new Date();
-    $scope.$parent.endTime = new Date();
+
     $rootScope.$digest();
     expect($scope.$parent.isStep2Ready).toEqual(true);
   });

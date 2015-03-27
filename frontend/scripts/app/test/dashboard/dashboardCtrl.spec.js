@@ -9,6 +9,7 @@ describe('dashboardCtrl', function() {
       $q,
       mockFavorites;
 
+  beforeEach(module('app.auth'));
   beforeEach(module('app.common'));
   beforeEach(module('app.dashboard'));
   beforeEach(module('app-templates'));
@@ -19,7 +20,8 @@ describe('dashboardCtrl', function() {
                             _favoriteService_,
                             _$q_,
                             _mockBooking_,
-                            _mockFavorites_) {
+                            _mockFavorites_
+                            ) {
     $rootScope = _$rootScope_;
     $controller = _$controller_;
     bookingService = _bookingService_;

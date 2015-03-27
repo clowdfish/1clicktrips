@@ -8,7 +8,8 @@ describe('tripSummary', function() {
       isoScope,
       itinerary,
       tripService,
-      $q;
+      $q,
+      $httpBackend;
 
   beforeEach(module('app.common'));
   beforeEach(module('app.index'));
@@ -17,19 +18,21 @@ describe('tripSummary', function() {
   beforeEach(module('app-templates'));
 
 
-  beforeEach(inject(function(_$compile_, _$rootScope_, _$q_, mockItinerary, _tripService_) {
+  beforeEach(inject(function(_$compile_,
+                              _$rootScope_,
+                              _$q_,
+                              mockItinerary,
+                              _tripService_,
+                              _$httpBackend_) {
     itinerary = mockItinerary;
+    $httpBackend = _$httpBackend_;
     scope = _$rootScope_.$new();
     $compile = _$compile_;
 
     $q = _$q_;
     tripService = _tripService_;
 
-    spyOn(tripService, 'callSearchItineraryApi').and.callFake(function() {
-      return $q(function(resolve) {
-        resolve(itinerary);
-      });
-    })
+    $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
 
     var searchObject = {};
     tripService
@@ -39,7 +42,7 @@ describe('tripSummary', function() {
       });
 
     scope.$digest();
-
+    $httpBackend.flush();
     element = angular.element('<trip-summary itinerary="itinerary"></trip-summary>');
     compiledDirective = _$compile_(element)(scope);
     scope.$digest();
@@ -52,9 +55,9 @@ describe('tripSummary', function() {
   });
 
   it('has valid html', function() {
-    expect(compiledDirective.html()).toContain('<div class="trip-summary-item-title">Total Travel Time</div>');
-    expect(compiledDirective.html()).toContain('<div class="trip-summary-item-title">Total Cost</div>');
-    expect(compiledDirective.html()).toContain('<div class="trip-summary-item-value ng-binding">€360.00</div>');
+    expect(compiledDirective.html()).toContain('Total Travel Time');
+    expect(compiledDirective.html()).toContain('Total Cost');
+    expect(compiledDirective.html()).toContain('360');
   });
 
 });

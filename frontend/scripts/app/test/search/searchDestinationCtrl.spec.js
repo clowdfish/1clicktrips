@@ -99,13 +99,13 @@ describe('searchDestinationFormCtrl', function() {
       expect(meetingSpaces.length).toEqual(3);
     });
 
-    it('assign destinationAddress after select address from suggestion', function() {
+    it('assign destinationLocation after select address from suggestion', function() {
       var $item = {
         description: 'Stuttgart, Baden-Württemberg, Germany'
       }
       $scope.selectDestinationSuggestion($item);
       $scope.$digest();
-      expect($scope.$parent.destinationAddress).toEqual(mockLocation);
+      expect($scope.$parent.destinationLocation).toEqual(mockLocation);
       expect($scope.$parent.isStep1Ready).toEqual(true);
     });
   });

@@ -65,7 +65,7 @@
 
     /**
     * Select favorite:
-    * Back to step 1
+    * Back to step 2
     * Fill destination and show map
     * Assign origin value to favorite value
     */

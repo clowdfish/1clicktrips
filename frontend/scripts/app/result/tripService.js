@@ -5,16 +5,17 @@
     .module('app.result')
     .service('tripService', tripService);
 
-  function tripService($http, $q, $timeout, appConfig) {
+  function tripService($http, $q, $timeout) {
     var service = this;
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;
-    service.callSearchItineraryApi = callSearchItineraryApi;
 
     function findItinerary(searchObject) {
       var deferred = $q.defer();
-      this.callSearchItineraryApi(searchObject)
-        .then(function(response) {
+
+      $http
+        .post('/api/search/trips', searchObject)
+        .success(function(response) {
           var data = response[0];
           var result = [];
           for (var i = 0; i < data.length; i++) {
@@ -22,22 +23,10 @@
             result.push(itinerary);
           }
           deferred.resolve(result);
-        }, function(){
-          deferred.reject('error');
+        })
+        .error(function() {
+          deferred.reject();
         });
-      return deferred.promise;
-    }
-
-    function callSearchItineraryApi(searchObject) {
-      var deferred = $q.defer();
-
-      $http.post('/api/search/trips', searchObject)
-      .success(function(response) {
-        deferred.resolve(response);
-      })
-      .error(function() {
-        deferred.reject();
-      });
 
       return deferred.promise;
     }

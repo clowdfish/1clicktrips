@@ -21,7 +21,6 @@
             $rootScope.$broadcast(AUTH_EVENTS.signupSuccess);
           }, function(data) {
             $rootScope.$broadcast(AUTH_EVENTS.signupFailed);
-            console.log(data.message);
             handleSignupError(data);
           });
       else

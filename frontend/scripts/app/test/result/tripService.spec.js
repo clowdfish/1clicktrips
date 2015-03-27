@@ -6,28 +6,29 @@ describe('tripService', function() {
       itinerary,
       alternativeSegment,
       $rootScope,
-      $q;
+      $q,
+      $httpBackend;
 
   beforeEach(module('app.result'));
+  beforeEach(module('app.auth'));
   beforeEach(module('app.mockdata'));
+  beforeEach(module('app.index'));
   beforeEach(module('app-templates'));
 
   beforeEach(inject(function(_tripService_,
                             _$rootScope_,
                             mockItinerary,
                             mockAlternativeSegment,
-                            _$q_) {
+                            _$q_,
+                            _$httpBackend_) {
+    $httpBackend = _$httpBackend_;
     tripService = _tripService_;
     $rootScope = _$rootScope_;
     itinerary = mockItinerary;
     alternativeSegment = mockAlternativeSegment;
     $q = _$q_;
 
-    spyOn(tripService, 'callSearchItineraryApi').and.callFake(function(){
-      var deferred = $q.defer();
-      deferred.resolve(itinerary);
-      return deferred.promise;
-    })
+    $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
   }));
 
   it('it find and have valid data', function() {
@@ -39,12 +40,12 @@ describe('tripService', function() {
       });
 
     $rootScope.$digest();
+    $httpBackend.flush();
     itinerary = returnValue[0];
     expect(itinerary.hasOwnProperty('outbound')).toEqual(true);
     expect(itinerary.hasOwnProperty('inbound')).toEqual(false);
     expect(itinerary.hasOwnProperty('cost')).toEqual(true);
     expect(itinerary.hasOwnProperty('currency')).toEqual(true);
-    expect(itinerary.hasOwnProperty('currencySymbol')).toEqual(true);
     expect(itinerary.hasOwnProperty('startTime')).toEqual(true);
     expect(itinerary.hasOwnProperty('endTime')).toEqual(true);
     expect(itinerary.hasOwnProperty('duration')).toEqual(true);

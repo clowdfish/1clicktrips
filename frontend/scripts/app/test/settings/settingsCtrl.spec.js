@@ -3,6 +3,7 @@ describe('settingsCtrl', function() {
       $scope,
       $state;
 
+  beforeEach(module('app.auth'));
   beforeEach(module('app.settings'));
   beforeEach(module('app-templates'));
 

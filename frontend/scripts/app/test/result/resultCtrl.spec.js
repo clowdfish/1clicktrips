@@ -6,6 +6,7 @@ describe('resultCtrl', function() {
   beforeEach(module('app.index'));
   beforeEach(module('app.result'));
   beforeEach(module('app.auth'));
+  beforeEach(module('app.dashboard'));
   beforeEach(module('app-templates'));
 
   var $scope,
@@ -15,7 +16,8 @@ describe('resultCtrl', function() {
       itinerary,
       TRIP_TYPE,
       $state,
-      $stateParams;
+      $stateParams,
+      $httpBackend;
   beforeEach(inject(function(_$rootScope_,
                             _$controller_,
                             _tripService_,
@@ -24,7 +26,9 @@ describe('resultCtrl', function() {
                             _TRIP_TYPE_,
                             _browser_,
                             _$state_,
-                            _$stateParams_) {
+                            _$stateParams_,
+                            _$httpBackend_,
+                            _favoriteService_) {
     itinerary = mockItinerary;
     TRIP_TYPE = _TRIP_TYPE_;
     $controller = _$controller_;
@@ -33,17 +37,19 @@ describe('resultCtrl', function() {
     $scope = _$rootScope_.$new();
     $state = _$state_;
     $stateParams = _$stateParams_;
-    spyOn(tripService, 'callSearchItineraryApi').and.callFake(function(){
-      var deferred = $q.defer();
-      deferred.resolve(itinerary);
-      return deferred.promise;
-    });
+    $httpBackend = _$httpBackend_;
     $controller('resultCtrl', {
       $scope: $scope,
       tripService: tripService,
-      browser: _browser_
+      browser: _browser_,
+      favoriteService: _favoriteService_,
+      searchObject: {}
     });
+
+    $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
+
     $scope.$digest();
+    $httpBackend.flush();
   }));
 
 
@@ -89,5 +95,7 @@ describe('resultCtrl', function() {
     expect(parseInt($stateParams.startDate)).toEqual(5);
     expect(parseInt($stateParams.endDate)).toEqual(6);
   });
+
+
 
 });

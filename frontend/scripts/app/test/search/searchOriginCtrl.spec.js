@@ -78,7 +78,7 @@ describe('searchOriginCtrl', function() {
     }
     $scope.selectOriginSuggestion($item);
     $scope.$digest();
-    expect($scope.$parent.originAddress).not.toEqual(null);
+    expect($scope.$parent.originLocation).not.toEqual(null);
     expect($scope.$parent.isStep3Ready).toEqual(true);
   });
 
@@ -87,8 +87,8 @@ describe('searchOriginCtrl', function() {
     $scope.$parent.endDate = new Date();
     $scope.$parent.startTime = new Date();
     $scope.$parent.endTime = new Date();
-    $scope.$parent.destinationAddress = mockLocation;
-    $scope.$parent.originAddress = mockLocation;
+    $scope.$parent.destinationLocation = mockLocation;
+    $scope.$parent.originLocation = mockLocation;
     $scope.startSearch();
     $rootScope.$digest();
     expect($state.current.name).toBe('search_result');

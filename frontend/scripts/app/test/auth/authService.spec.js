@@ -60,7 +60,7 @@ describe('service: authService', function() {
     $scope.$digest();
     $httpBackend.flush();
     expect(success).toEqual(true);
-    expect(authService.isLogin()).toEqual(true);
+    expect(session.isLogin()).toEqual(true);
   });
 
   it('test login failed', function() {
@@ -76,7 +76,7 @@ describe('service: authService', function() {
     $scope.$digest();
     $httpBackend.flush();
     expect(success).toEqual(false);
-    expect(authService.isLogin()).toEqual(false);
+    expect(session.isLogin()).toEqual(false);
   });
 
   it('test signup success', function() {
@@ -94,7 +94,7 @@ describe('service: authService', function() {
     $scope.$digest();
     $httpBackend.flush();
     expect(success).toEqual(true);
-    expect(authService.isLogin()).toEqual(true);
+    expect(session.isLogin()).toEqual(true);
   });
 
   it('test signup failed', function() {
@@ -110,7 +110,7 @@ describe('service: authService', function() {
     $scope.$digest();
     $httpBackend.flush();
     expect(success).toEqual(false);
-    expect(authService.isLogin()).toEqual(false);
+    expect(session.isLogin()).toEqual(false);
   });
 
   it('test logout', function() {
@@ -127,8 +127,8 @@ describe('service: authService', function() {
       });
     $scope.$digest();
     $httpBackend.flush();
-    expect(authService.isLogin()).toEqual(true);
+    expect(session.isLogin()).toEqual(true);
     authService.logout();
-    expect(authService.isLogin()).toEqual(false);
+    expect(session.isLogin()).toEqual(false);
   });
 });
