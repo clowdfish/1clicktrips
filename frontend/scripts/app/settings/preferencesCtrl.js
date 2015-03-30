@@ -12,19 +12,6 @@
                           ) {
     $scope.userPreferences = userPreferences;
 
-    /**
-     * Submit form
-     */
-    $scope.submit = function() {
-      settingsService
-        .setUserSettings($scope.userPreferences)
-        .then(function() {
-          alert('Update preference successful');
-        }, function() {
-          alert('Can not update preference');
-        });
-    }
-
     $scope.saveSetting = function(key, value) {
       return settingsService
               .setUserSettings(key, value);

@@ -1,0 +1,17 @@
+<fieldset>
+  <label>{[label]}</label>
+  <div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
+    <span ng-if="value">{[value | capitalize]}</span>
+    <span ng-if="!value">Click to edit</span>
+    <span ng-show="success"><i class="fa fa-check"></i></span>
+  </div>
+  <div ng-show="isEditing">
+    <input type="text"
+          ng-model="value"
+          value="{[value]}"
+          ng-blur="save()"
+          ng-class="{error: error}"/>
+    <span ng-show="error"><i class="fa fa-exclamation"></i></span>
+
+  </div>
+</fieldset>

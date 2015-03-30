@@ -1,0 +1,24 @@
+<label>{[label]}</label>
+
+<div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
+  {[options[value].description | capitalize]}
+  <span ng-show="success"><i class="fa fa-check"></i></span>
+</div>
+
+<div ng-show="isEditing">
+  <div ng-repeat="(optionValue, option) in options">
+    <fieldset>
+      <input type="radio"
+              ng-model="value"
+              value="{[optionValue]}"
+              id="{[key]}_{[optionValue]}"
+              name="{[key]}"
+              ng-click="save()"
+              ng-class="{error: error}"
+              />
+      <label for="{[key]}_{[optionValue]}">{[option.description | capitalize]}</label>
+      <span ng-show="error"><i class="fa fa-exclamation"></i></span>
+    </fieldset>
+  </div>
+</div>
+

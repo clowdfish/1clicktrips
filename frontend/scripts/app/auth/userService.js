@@ -41,7 +41,7 @@
     /**
      * Update user profile
      */
-    this.setUserProfile = function(userProfile) {
+    this.setUserProfile = function(key, value) {
       return $q(function(resolve, reject) {
 
         if (session.getAuthToken() == null) {
@@ -49,7 +49,10 @@
         }
 
         $http
-          .post('/api/account/profile', userProfile)
+          .post('/api/account/profile', {
+            key: key,
+            value: value
+          })
           .success(function(response) {
             resolve(response);
           })

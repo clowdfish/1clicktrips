@@ -1,6 +1,6 @@
 <h1>Profile</h1>
 
-<form name="profileForm" ng-submit="submit()">
+<form name="profileForm">
 
   <div class="form-group">
     <label>Image</label>
@@ -14,61 +14,41 @@
     <span ng-show="isUploading">Uploading, please wait...</span>
   </div>
 
-  <div class="form-group">
-    <label>First Name</label>
-    <input type="text"
-          name="first_name"
-          class="form-control"
-          ng-model="userProfile.first_name"
-          ng-blur="change('first_name')"/>
-    <span ng-show="profileForm.first_name.$error.message">{{profileForm.first_name.$error.message}}</span>
-  </div>
 
-  <div class="form-group">
-    <label>Last Name</label>
-    <input type="text"
-          name="last_name"
-          class="form-control"
-          ng-model="userProfile.last_name"
-          ng-blur="change($event)"/>
-  </div>
+  <editable-text-field
+    key="'first_name'"
+    value="userProfile.first_name"
+    label="'First Name'"
+    save="saveProfile"></editable-text-field>
 
-  <div class="form-group">
-    <label>Company Name</label>
-    <input type="text"
-          name="company_name"
-          class="form-control"
-          ng-model="userProfile.company_name"
-          ng-blur="change($event)"/>
-  </div>
+  <editable-text-field
+    key="'last_name'"
+    value="userProfile.last_name"
+    label="'Last Name'"
+    save="saveProfile"></editable-text-field>
 
-  <div class="form-group">
-    <label>Street</label>
-    <input type="text"
-          name="street"
-          class="form-control"
-          ng-model="userProfile.street"
-          ng-blur="change($event)"/>
-  </div>
+  <editable-text-field
+    key="'company_name'"
+    value="userProfile.company_name"
+    label="'Company Name'"
+    save="saveProfile"></editable-text-field>
 
-  <div class="form-group">
-    <label>Other Address</label>
-    <input type="text"
-          name="address_other"
-          class="form-control"
-          ng-model="userProfile.address_other"
-          ng-blur="change($event)"/>
-  </div>
+  <editable-text-field
+    key="'street'"
+    value="userProfile.street"
+    label="'Street'"
+    save="saveProfile"></editable-text-field>
 
-  <div class="form-group">
-    <label>Zip Code</label>
-    <input type="number"
-          name="zip_code"
-          class="form-control"
-          ng-model="userProfile.zip_code"
-          ng-blur="change($event)"/>
-  </div>
+  <editable-text-field
+    key="'address_other'"
+    value="userProfile.address_other"
+    label="'Other Address'"
+    save="saveProfile"></editable-text-field>
 
-  <button type="submit" class="btn btn-default">Submit</button>
+  <editable-text-field
+    key="'zip_code'"
+    value="userProfile.zip_code"
+    label="'Zip Code'"
+    save="saveProfile"></editable-text-field>
 
 </form>

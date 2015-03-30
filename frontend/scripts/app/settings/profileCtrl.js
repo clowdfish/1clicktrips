@@ -11,44 +11,9 @@
                       userProfile) {
 
     $scope.userProfile = userProfile;
-
-    $scope.change = function($event) {
-      userService
-        .setUserProfile($scope.userProfile)
-        .then(function() {
-          setElementStatus($event.target, 'done');
-        }, function(reason) {
-          setElementStatus($event.target, 'error', reason.data);
-        });
-    }
-
-    function setElementStatus(element, status) {
-      var statusList = ['error', 'done'];
-      if (statusList.indexOf(status) === -1) {
-        return;
-      }
-      statusList.map(function(item) {
-        angular.element(element).removeClass(item);
-      });
-      angular.element(element).addClass(status);
-    }
-
-    /**
-     * Submit form
-     * @return null
-     */
-    $scope.submit = function() {
-      userService
-        .setUserProfile($scope.userProfile)
-        .then(function() {
-          alert('Update profile successful')
-        }, function(reason) {
-          handleUpdateProfileError(reason);
-        });
-    }
-
-    function handleUpdateProfileError(reason) {
-      alert('There was a problem updating the profile.');
+    $scope.isUploading = false;
+    $scope.saveProfile = function(key, value) {
+      return userService.setUserProfile(key, value);
     }
 
     $scope.uploadImage = function($event) {

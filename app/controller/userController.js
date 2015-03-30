@@ -62,31 +62,44 @@ module.exports = {
 
   setProfile: function(userId, profileObject) {
     return new Promise(function(resolve, reject) {
-      var updateFields = [
-        'company_name',
-        'first_name',
-        'last_name',
-        'street',
-        'address_other'
-      ];
-
-      if ( !profileObject['key']
-        || !profileObject['value']
-        || updateFields.indexOf(profileObject.key) === -1) {
-        reject('Invalid parameters');
-      }
-      var updateQuery = 'UPDATE profile SET ?? = ? where userId = ?';
-      var updateParams = [
-        profileObject['key'],
-        profileObject['value'],
-        userId
-      ];
-      connection.query(updateQuery, updateParams, function(err) {
+      connection.query("SELECT * FROM user WHERE id=?;", [userId], function (err, rows) {
         if (err) {
           return reject(err);
         }
-        resolve();
+
+        if (rows.length === 0) {
+          return reject(new Error("User with ID=" + userId + " does not exist in database."));
+        }
+
+        var profileId = rows[0]['profile_id'];
+        var updateFields = [
+          'company_name',
+          'first_name',
+          'last_name',
+          'street',
+          'address_other'
+        ];
+
+        if ( !profileObject['key']
+          || !profileObject['value']
+          || updateFields.indexOf(profileObject.key) === -1) {
+          reject(new Error('Invalid parameters'));
+        }
+        var updateQuery = 'UPDATE profile SET ?? = ? where id = ?';
+        var updateParams = [
+          profileObject['key'],
+          profileObject['value'],
+          profileId
+        ];
+
+        connection.query(updateQuery, updateParams, function(err) {
+          if (err) {
+            return reject(err);
+          }
+          resolve();
+        });
       });
+
     });
   },
 

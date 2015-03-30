@@ -1,7 +1,7 @@
 <h1>Preferences</h1>
 
 <div class="user-preferences-wrapper">
-  <form name="preferenceForm" ng-submit="submit()">
+  <form name="preferenceForm">
     <div ng-repeat="preference in userPreferences">
 
       <!-- Multi choice setting -->
@@ -11,7 +11,8 @@
           key="preference.key"
           value="preference.value"
           options="preference.options"
-          save="saveSetting" />
+          save="saveSetting">
+        </editable-dropdown>
 
       </div>
 
@@ -21,9 +22,9 @@
           label="preference.description"
           key="preference.key"
           value="preference.value"
-          save="saveSetting"/>
+          save="saveSetting">
+        </editable-text-field>
       </div>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>
