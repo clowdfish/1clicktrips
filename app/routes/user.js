@@ -262,6 +262,7 @@ module.exports = function (app, express, production) {
         res.status(200).send(imagePath);
       })
       .catch(function(err) {
+        console.log(err);
         res.status(500).send(err.message);
       });
   });

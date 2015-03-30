@@ -270,7 +270,7 @@ function updateUserImage(userId, path) {
       }
 
       if (rows.length == 0) {
-        return reject('User is not exist');
+        return reject(new Error('User is not exist'));
       }
 
       var profileId = rows[0].profile_id;
@@ -327,7 +327,7 @@ function saveUploadImage(req, userId) {
 
   return new Promise(function(resolve, reject) {
     if (!file || file == undefined) {
-      reject('File is not available');
+      reject(new Error('File is not available'));
     }
 
     var shortPath = '/images/uploaded/'

@@ -26,11 +26,9 @@
         })
         .success(function(data) {
           $scope.isUploading = false;
-          setElementStatus($event.target, 'done');
         })
         .error(function(data) {
           $scope.isUploading = false;
-          setElementStatus($event.target, 'error');
         });
     }
   }

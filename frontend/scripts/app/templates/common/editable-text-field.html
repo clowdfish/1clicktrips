@@ -1,7 +1,7 @@
 <fieldset>
   <label>{[label]}</label>
   <div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
-    <span ng-if="value">{[value | capitalize]}</span>
+    <span ng-if="value">{[value]}</span>
     <span ng-if="!value">Click to edit</span>
     <span ng-show="success"><i class="fa fa-check"></i></span>
   </div>
