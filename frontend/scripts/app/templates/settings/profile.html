@@ -10,7 +10,7 @@
             ng-file-select
             ng-model="profilePicture"
             name="profilePicture"
-            ng-change="uploadImage($event)">
+            ng-file-change="uploadImage($event)">
     <span ng-show="isUploading">Uploading, please wait...</span>
   </div>
 

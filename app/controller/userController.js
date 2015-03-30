@@ -264,6 +264,7 @@ module.exports = {
 
 function updateUserImage(userId, path) {
   return new Promise(function(resolve, reject) {
+    console.log(userId, path);
     connection.query('SELECT * FROM user WHERE id = ?', [userId], function(err, rows) {
       if (err) {
         return reject(err);
@@ -274,14 +275,16 @@ function updateUserImage(userId, path) {
       }
 
       var profileId = rows[0].profile_id;
-
+      console.log('profileId', profileId);
       removeOldProfileImage(profileId).then(function() {
         var updateQuery = 'UPDATE profile SET image = ? WHERE id = ?';
-        updateParams = [path, rows[0].profile_id];
-        connection.query(updateQuery, updateParams, function(err) {
+        updateParams = [path, profileId];
+        console.log('updateParams', updateParams);
+        connection.query(updateQuery, updateParams, function(err, data) {
           if (err) {
             return reject(err);
           }
+          console.log(data);
           resolve(profileId);
         });
       }, function(err) {
@@ -296,9 +299,8 @@ function removeOldProfileImage(profileId) {
   return new Promise(function(resolve, reject) {
     connection.query('SELECT * FROM profile where id = ?', [profileId], function(err, profiles) {
       if (err) {
-        reject(err);
+        return reject(err);
       }
-
       //Remove old profile image
       if (profiles.length > 0) {
         var image = profiles[0].image;
@@ -310,8 +312,9 @@ function removeOldProfileImage(profileId) {
             if (exists) {
               fs.unlinkSync(systemPath);
             }
+            resolve();
           });
-
+        } else {
           resolve();
         }
       } else {
