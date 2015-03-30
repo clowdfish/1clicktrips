@@ -12,6 +12,27 @@
 
     $scope.userProfile = userProfile;
 
+    $scope.change = function($event) {
+      userService
+        .setUserProfile($scope.userProfile)
+        .then(function() {
+          setElementStatus($event.target, 'done');
+        }, function(reason) {
+          setElementStatus($event.target, 'error', reason.data);
+        });
+    }
+
+    function setElementStatus(element, status) {
+      var statusList = ['error', 'done'];
+      if (statusList.indexOf(status) === -1) {
+        return;
+      }
+      statusList.map(function(item) {
+        angular.element(element).removeClass(item);
+      });
+      angular.element(element).addClass(status);
+    }
+
     /**
      * Submit form
      * @return null
@@ -30,20 +51,21 @@
       alert('There was a problem updating the profile.');
     }
 
-    $scope.uploadImage = function() {
+    $scope.uploadImage = function($event) {
       $scope.uploadPercentage = 0;
-      $scope.uploadSuccess = false;
+      $scope.isUploading = true;
       userService
         .uploadProfilePicture($scope.profilePicture)
         .progress(function(evt) {
           $scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total);
         })
         .success(function(data) {
-          $scope.uploadSuccess = true;
-          $scope.userProfile.image = data;
+          $scope.isUploading = false;
+          setElementStatus($event.target, 'done');
         })
         .error(function(data) {
-          alert("Can not upload image");
+          $scope.isUploading = false;
+          setElementStatus($event.target, 'error');
         });
     }
   }

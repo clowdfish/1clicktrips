@@ -29,14 +29,17 @@
       });
     }
 
-    this.setUserSettings = function(preferences) {
+    this.setUserSettings = function(key, value) {
       return $q(function(resolve, reject) {
         if (session.getAuthToken() == null) {
           reject("Token is not available");
         }
 
         $http
-          .post('/api/account/settings', preferences)
+          .post('/api/account/settings', {
+            key: key,
+            value: value
+          })
           .success(function(response) {
             resolve(response);
           })

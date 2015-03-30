@@ -9,6 +9,10 @@
   function settingsCtrl($scope,
                         AUTH_EVENTS,
                         $state) {
+
+    /**
+    * Go to homepage when user logout
+    */
     $scope.$on(AUTH_EVENTS.logout, function() {
       goToHomePage();
     });

@@ -25,6 +25,11 @@
         });
     }
 
+    $scope.saveSetting = function(key, value) {
+      return settingsService
+              .setUserSettings(key, value);
+    }
+
   }
 
 })();

@@ -61,34 +61,32 @@ module.exports = {
   },
 
   setProfile: function(userId, profileObject) {
-
     return new Promise(function(resolve, reject) {
-      var updateQuery = "UPDATE profile SET " +
-                        "  company_name = ?" +
-                        ", first_name = ?" +
-                        ", last_name = ?" +
-                        ", street = ?" +
-                        ", address_other = ?" +
-                        "  WHERE id = ?";
-      var queryParams = [
-        profileObject.company_name,
-        profileObject.first_name,
-        profileObject.last_name,
-        profileObject.street,
-        profileObject.address_other,
-        profileObject.zip_code,
-        userId
+      var updateFields = [
+        'company_name',
+        'first_name',
+        'last_name',
+        'street',
+        'address_other'
       ];
 
-      connection.query(updateQuery, queryParams, function (err) {
+      if ( !profileObject['key']
+        || !profileObject['value']
+        || updateFields.indexOf(profileObject.key) === -1) {
+        reject('Invalid parameters');
+      }
+      var updateQuery = 'UPDATE profile SET ?? = ? where userId = ?';
+      var updateParams = [
+        profileObject['key'],
+        profileObject['value'],
+        userId
+      ];
+      connection.query(updateQuery, updateParams, function(err) {
         if (err) {
-          console.log(err);
-          reject(err);
+          return reject(err);
         }
         resolve();
       });
-
-      resolve();
     });
   },
 

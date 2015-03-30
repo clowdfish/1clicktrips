@@ -1,6 +1,6 @@
 <h1>Profile</h1>
 
-<form name="userProfileForm" ng-submit="submit()">
+<form name="profileForm" ng-submit="submit()">
 
   <div class="form-group">
     <label>Image</label>
@@ -8,8 +8,10 @@
     <input type="file"
             id="profile-picture"
             ng-file-select
-            ng-model="profilePicture">
-    <input type="button" value="Upload" ng-click="uploadImage()"/>
+            ng-model="profilePicture"
+            name="profilePicture"
+            ng-change="uploadImage($event)">
+    <span ng-show="isUploading">Uploading, please wait...</span>
   </div>
 
   <div class="form-group">
@@ -17,7 +19,9 @@
     <input type="text"
           name="first_name"
           class="form-control"
-          ng-model="userProfile.first_name"/>
+          ng-model="userProfile.first_name"
+          ng-blur="change('first_name')"/>
+    <span ng-show="profileForm.first_name.$error.message">{{profileForm.first_name.$error.message}}</span>
   </div>
 
   <div class="form-group">
@@ -25,7 +29,8 @@
     <input type="text"
           name="last_name"
           class="form-control"
-          ng-model="userProfile.last_name"/>
+          ng-model="userProfile.last_name"
+          ng-blur="change($event)"/>
   </div>
 
   <div class="form-group">
@@ -33,7 +38,8 @@
     <input type="text"
           name="company_name"
           class="form-control"
-          ng-model="userProfile.company_name"/>
+          ng-model="userProfile.company_name"
+          ng-blur="change($event)"/>
   </div>
 
   <div class="form-group">
@@ -41,7 +47,8 @@
     <input type="text"
           name="street"
           class="form-control"
-          ng-model="userProfile.street"/>
+          ng-model="userProfile.street"
+          ng-blur="change($event)"/>
   </div>
 
   <div class="form-group">
@@ -49,7 +56,8 @@
     <input type="text"
           name="address_other"
           class="form-control"
-          ng-model="userProfile.address_other"/>
+          ng-model="userProfile.address_other"
+          ng-blur="change($event)"/>
   </div>
 
   <div class="form-group">
@@ -57,7 +65,8 @@
     <input type="number"
           name="zip_code"
           class="form-control"
-          ng-model="userProfile.zip_code"/>
+          ng-model="userProfile.zip_code"
+          ng-blur="change($event)"/>
   </div>
 
   <button type="submit" class="btn btn-default">Submit</button>
