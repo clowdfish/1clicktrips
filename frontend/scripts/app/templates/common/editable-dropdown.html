@@ -13,7 +13,7 @@
               value="{[optionValue]}"
               id="{[key]}_{[optionValue]}"
               name="{[key]}"
-              ng-click="save()"
+              ng-click="save(optionValue)"
               ng-class="{error: error}"
               />
       <label for="{[key]}_{[optionValue]}">{[option.description | capitalize]}</label>

@@ -75,7 +75,7 @@ module.exports = function (app, express, production) {
           res.status(200).send();
         })
         .catch(function(err) {
-          console.error('There was a problem updating the profile.');
+          console.error('There was a problem updating the profile.', err);
           res.status(500).send();
         });
     }
@@ -111,7 +111,7 @@ module.exports = function (app, express, production) {
           res.status(200).send();
         })
         .catch(function(err) {
-          console.error('There was a problem updating the settings.');
+          console.error('There was a problem updating the settings.', err);
           res.status(500).send(err.message);
         });
     }

@@ -13,14 +13,11 @@
     $scope.edit = function() {
       $scope.isEditing = true;
     }
-    $scope.save = function() {
-      if (!$scope.value) {
-        return saveError();
-      }
-
+    $scope.save = function(newValue) {
+      $scope.value = newValue;
       $scope.success = false;
       $scope.error = false;
-      $scope.saveFn($scope.key, $scope.value)
+      $scope.saveFn($scope.key, newValue)
         .then(saveSuccess, saveError)
     }
 

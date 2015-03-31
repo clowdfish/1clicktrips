@@ -80,9 +80,7 @@ module.exports = {
           'address_other'
         ];
 
-        if ( !profileObject['key']
-          || !profileObject['value']
-          || updateFields.indexOf(profileObject.key) === -1) {
+        if (updateFields.indexOf(profileObject.key) === -1) {
           reject(new Error('Invalid parameters'));
         }
         var updateQuery = 'UPDATE profile SET ?? = ? where id = ?';

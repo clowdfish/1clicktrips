@@ -3,15 +3,16 @@
   <div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
     <span ng-if="value">{[value]}</span>
     <span ng-if="!value">Click to edit</span>
-    <span ng-show="success"><i class="fa fa-check"></i></span>
+    <span ng-show="success && value"><i class="fa fa-check"></i></span>
   </div>
   <div ng-show="isEditing">
     <input type="text"
           ng-model="value"
           value="{[value]}"
           ng-class="{error: error}"/>
-    <input type="button" ng-click="save()" value="Save"/>
+    <input type="button" ng-click="save(value)" value="Save"/>
     <span ng-show="error"><i class="fa fa-exclamation"></i></span>
 
   </div>
 </fieldset>
+

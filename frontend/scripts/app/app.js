@@ -11,7 +11,8 @@
       'app.result',
       'app.search',
       'app.dashboard',
-      'app.settings'
+      'app.settings',
+      'app.templates'
     ])
     .config(config)
     .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY');
