@@ -6,7 +6,7 @@
     .module('app.result')
     .directive('map', map);
 
-  function map($q, browser) {
+  function map($q, browser, VEHICLE_TYPE) {
     return {
       require: '^itineraryMap',
       restrict: 'E',
@@ -36,10 +36,6 @@
           mapBounds;
 
       var scrollwheel = ! browser.isMobileDevice(); //Disable scrollwheel on mobile
-
-      var locationIcon = {
-        url: 'https://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_blue.png'
-      };
 
       scope.$watch('activeSegments', function() {
         if (!scope.activeSegments ||
@@ -154,7 +150,9 @@
         for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
           //Create marker for segment
           var marker = createSegmentMarker(segments[segmentIndex].start.location.latitude,
-                              segments[segmentIndex].start.location.longitude);
+                                          segments[segmentIndex].start.location.longitude,
+                                          segmentIndex + 1);
+
           markers.push(marker);
 
           var path = segments[segmentIndex].path;
@@ -184,11 +182,10 @@
         displayPath.setPath(latlngs);
       }
 
-      function createSegmentMarker(lat, lng) {
+      function createSegmentMarker(lat, lng, number) {
         var locationMarker = new google.maps.Marker();
-
         locationMarker.setOptions({
-          icon: locationIcon,
+          icon: getLocationIconByNumber(number),
           draggable: false,
           map: map,
           position: new google.maps.LatLng(lat, lng)
@@ -197,6 +194,12 @@
         return locationMarker;
       }
 
+      function getLocationIconByNumber(number) {
+        if (number > 9) {
+          return null;
+        }
+        return '../images/number_' + number + '.png';
+      }
     }
   }
 })();
