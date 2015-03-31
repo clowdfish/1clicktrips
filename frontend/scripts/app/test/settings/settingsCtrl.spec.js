@@ -5,7 +5,7 @@ describe('settingsCtrl', function() {
 
   beforeEach(module('app.auth'));
   beforeEach(module('app.settings'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_$controller_,
                             _$rootScope_,

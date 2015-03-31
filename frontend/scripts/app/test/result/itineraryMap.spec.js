@@ -20,7 +20,7 @@ xdescribe('itineraryMap directive', function() {
 
   beforeEach(module('app.result'));
   beforeEach(module('app.common'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_$compile_,
                             _$rootScope_,

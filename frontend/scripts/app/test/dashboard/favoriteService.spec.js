@@ -6,7 +6,7 @@ describe('favoriteService', function() {
       $rootScope;
 
   beforeEach(module('app.dashboard'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_$rootScope_,
                             _favoriteService_,

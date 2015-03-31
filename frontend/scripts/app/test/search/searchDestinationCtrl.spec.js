@@ -11,7 +11,7 @@ describe('searchDestinationFormCtrl', function() {
     mockLocation;
 
   beforeEach(module('app'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(
                               _$controller_,

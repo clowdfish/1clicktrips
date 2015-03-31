@@ -10,7 +10,7 @@ describe('controller: signupCtrl', function() {
 
   beforeEach(function() {
     module('app.auth');
-    module('app-templates');
+    module('app.templates');
   });
 
   beforeEach(inject(function(_$rootScope_,

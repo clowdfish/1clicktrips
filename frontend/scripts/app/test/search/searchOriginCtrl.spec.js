@@ -14,7 +14,7 @@ describe('searchOriginCtrl', function() {
   beforeEach(module('app.search'));
   beforeEach(module('app.result'));
   beforeEach(module('app.auth'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_$rootScope_,
                             _$q_,

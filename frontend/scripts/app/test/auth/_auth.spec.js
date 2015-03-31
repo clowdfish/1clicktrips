@@ -6,7 +6,7 @@ describe('module: auth', function() {
 
   beforeEach(module('app.auth'));
   beforeEach(module('LocalStorageModule'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_$rootScope_,
                             _AUTH_EVENTS_) {

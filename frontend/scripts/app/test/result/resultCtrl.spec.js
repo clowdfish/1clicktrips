@@ -7,7 +7,7 @@ describe('resultCtrl', function() {
   beforeEach(module('app.result'));
   beforeEach(module('app.auth'));
   beforeEach(module('app.dashboard'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   var $scope,
       $controller,

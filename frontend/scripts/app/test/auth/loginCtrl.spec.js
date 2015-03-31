@@ -11,7 +11,7 @@ describe('controller: loginCtrl', function() {
       modalInstance;
 
   beforeEach(module('app.auth'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_$rootScope_,
                             _$q_,

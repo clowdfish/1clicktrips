@@ -13,7 +13,7 @@ describe('tripService', function() {
   beforeEach(module('app.auth'));
   beforeEach(module('app.mockdata'));
   beforeEach(module('app.index'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_tripService_,
                             _$rootScope_,

@@ -12,7 +12,7 @@ describe('dashboardCtrl', function() {
   beforeEach(module('app.auth'));
   beforeEach(module('app.common'));
   beforeEach(module('app.dashboard'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
   beforeEach(inject(function(_$rootScope_,
                             _$controller_,

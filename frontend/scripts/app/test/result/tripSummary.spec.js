@@ -15,7 +15,7 @@ describe('tripSummary', function() {
   beforeEach(module('app.index'));
   beforeEach(module('app.result'));
   beforeEach(module('app.auth'));
-  beforeEach(module('app-templates'));
+  beforeEach(module('app.templates'));
 
 
   beforeEach(inject(function(_$compile_,
