@@ -6,7 +6,7 @@
     .module('app.result')
     .directive('map', map);
 
-  function map($q) {
+  function map($q, browser) {
     return {
       require: '^itineraryMap',
       restrict: 'E',
@@ -34,6 +34,8 @@
           displayPath,
           markers = [],
           mapBounds;
+
+      var scrollwheel = ! browser.isMobileDevice(); //Disable scrollwheel on mobile
 
       var locationIcon = {
         url: 'https://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_blue.png'
@@ -126,7 +128,8 @@
 
         map = new google.maps.Map(document.getElementById('itinerary-map'), {
           zoom: 19,
-          center: center
+          center: center,
+          scrollwheel: scrollwheel
         });
 
         displayPath = new google.maps.Polyline({
