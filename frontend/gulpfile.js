@@ -4,7 +4,7 @@ var karma = require('karma').server;
 // include core modules
 var path  = require("path");
 var fs    = require("fs");
-
+var mkdirp = require('mkdirp');
 // include gulp plug-ins
 var changed 	  = require('gulp-changed'),
     imagemin 	  = require('gulp-imagemin'),
@@ -24,7 +24,10 @@ var changed 	  = require('gulp-changed'),
     yml         = require('js-yaml'),
     compile     = require('gulp-compile-handlebars'),
     data        = require('gulp-data'),
-    ngAnnotate  = require('gulp-ng-annotate');
+    ngAnnotate  = require('gulp-ng-annotate'),
+    merge       = require('gulp-merge'),
+    angularTemplateCache = require('gulp-angular-templatecache');
+
 
 /****************************************************************************************************/
 /* SETTING UP DEVELOPMENT ENVIRONMENT                                                               */
@@ -126,10 +129,20 @@ gulp.task('scripts', ['i18n'], function() {
   .pipe(concat('vendor.js'))
   .pipe(gulp.dest('build/scripts'));
 
-  gulp.src([
-    'scripts/**/*.js',
-    '!scripts/**/*.spec.js'
-  ])
+  merge(
+    gulp.src([
+      'scripts/app/templates/**/*'
+    ])
+    .pipe(angularTemplateCache('templates.js',{
+      root: 'scripts/app/templates/',
+      module: 'app.templates',
+      standalone: true
+    })),
+    gulp.src([
+      'scripts/**/*.js',
+      '!scripts/**/*.spec.js'
+    ])
+  )
   .pipe(plumber(plumberErrorHandler))
   .pipe(
     gulpif(
@@ -152,7 +165,14 @@ gulp.task('angular-templates', function() {
       .src([
         'scripts/app/templates/**/*'
       ])
-      .pipe(gulp.dest(path.join('build/', locale, 'scripts/app/templates')));
+      .pipe(angularTemplateCache('templates.js',{
+        root: 'scripts/app/templates/',
+        module: 'app.templates',
+        standalone: true
+      }))
+      .pipe(gulpif(production, ngAnnotate()))
+      .pipe(gulpif(production, uglify()))
+      .pipe(gulp.dest('scripts/app/templates'));
   });
 });
 
@@ -230,21 +250,14 @@ gulp.task('test', function (done) {
 });
 
 gulp.task('create-upload-folder', function() {
-  var path = 'build/images/uploaded';
-  fs.exists(path, function(exists) {
-    if (!exists) {
-      fs.mkdir(path);
-    }
-  });
+  mkdirp('build/images/uploaded');
 });
 // gulp task suite
-gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'angular-templates', 'app-data', 'create-upload-folder'], function() {
+gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data', 'create-upload-folder'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
-  gulp.watch(['scripts/app/**/*.html'], ['angular-templates']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n', 'scripts']);
-  gulp.watch(['scripts/templates/**/*.html'], ['angular-templates']);
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
   gulp.watch(['scripts/app/**/*.js'], ['scripts']);
 });
 
-gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'angular-templates', 'app-data', 'create-upload-folder'], function() {});
+gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data', 'create-upload-folder'], function() {});
