@@ -30,7 +30,7 @@
 
       scope.$watch('listItems', function() {
         scope.itemPerPage = parseInt(scope.itemPerPage);
-        scope.totalPage = Math.round(scope.listItems.length / scope.itemPerPage);
+        scope.totalPage = Math.ceil(scope.listItems.length / scope.itemPerPage);
         scope.currentPage = 1;
         scope.disablePreviousPageButton = true;
         scope.disableNextPageButton = scope.totalPage == 1;
