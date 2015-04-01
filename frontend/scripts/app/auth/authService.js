@@ -47,6 +47,40 @@
       });
     };
 
+    this.forgotPassword = function(email) {
+      return $q(function(resolve, reject) {
+        if (!email) {
+          return reject(new Error("Invalid email"));
+        }
+        $http
+          .post('/api/auth/forgot', {
+            email: email
+          })
+          .success(function() {
+            resolve();
+          })
+          .error(function() {
+            reject();
+          });
+      });
+    }
+
+    this.resetPassword = function(resetPasswordToken, newPassword) {
+      return $q(function(resolve, reject) {
+        $http
+          .post('/api/auth/reset', {
+            resetPasswordToken: resetPasswordToken,
+            newPassword: newPassword
+          })
+          .success(function() {
+            resolve();
+          })
+          .error(function() {
+            reject();
+          })
+      });
+    }
+
     /**
      * Remove user data and logout
      */

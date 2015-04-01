@@ -7,6 +7,7 @@ describe('service: authService', function() {
       $httpBackend,
       signupHandler,
       loginHandler,
+      forgotHandler,
       loginData,
       signupData,
       session;
@@ -27,7 +28,7 @@ describe('service: authService', function() {
 
     signupHandler = $httpBackend.whenPOST(/\/api\/auth\/register/).respond(200, 'success');
     loginHandler = $httpBackend.whenPOST(/\/api\/auth\/local/).respond(200, 'success');
-
+    forgotHandler = $httpBackend.whenPOST(/\/api\/auth\/forgot/).respond(200, 'success');
     signupData = {
       email: 'david@gmail.com',
       password: '123'
@@ -131,4 +132,10 @@ describe('service: authService', function() {
     authService.logout();
     expect(session.isLogin()).toEqual(false);
   });
+
+  it('test forgot password', function() {
+    forgotHandler.respond(200, 'OK');
+    authService
+      .forgotPassword('example@gmail.com')
+  })
 });

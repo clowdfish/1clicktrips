@@ -1,6 +1,7 @@
 // auth.js
 
 module.exports = {
+  'hostname': 'http://localhost:8000/en/',
   'secret' : 'theanswertoallquestions42!',
 
   'twitterAuth' : {
@@ -11,5 +12,30 @@ module.exports = {
   },
 
   // on pre-production environment: http://dev.1clicktrips.com/en/after-auth.html
-  'loginCallbackUrl': 'http://localhost:8000/en/after-auth.html'
+  'loginCallbackUrl': 'http://localhost:8000/en/after-auth.html',
+  'nodeMailer': {
+    'sendGrid': {
+      'auth': {
+        'api_user': 'davidtranwd',
+        'api_key': '1clicktrips'
+      }
+    },
+    'gmail': {
+      'service': 'gmail',
+      'auth': {
+        'user': 'nam.trankhanh.vn@gmail.com',
+        'pass': 'make@600million'
+      }
+    },
+    'mandrill': {
+      'service': 'Mandrill',
+      'auth': {
+        'user': 'gros.sascha@gmail.com',
+        'pass': 'n44ciO-dZOsrZjtfcwLD-Q'
+      }
+    }
+  },
+  'mailOptions': {
+    'supportEmail': 'support@1clicktrips.com'
+  }
 };

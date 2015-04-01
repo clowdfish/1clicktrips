@@ -21,7 +21,7 @@
       return $q(function(resolve, reject) {
 
         if (session.getAuthToken() == null) {
-          reject("Token is not available");
+          reject(new Error("Token is not available"));
         }
 
         $http
@@ -45,7 +45,7 @@
       return $q(function(resolve, reject) {
 
         if (session.getAuthToken() == null) {
-          reject("Token is not available");
+          reject(new Error("Token is not available"));
         }
 
         $http

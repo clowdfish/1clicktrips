@@ -109,6 +109,28 @@ module.exports = function (app, express, passport, production) {
         });
     });
 
+  authApi.post('/forgot', function(req, res, next) {
+    AuthController
+      .forgotPassword(req, res, next)
+      .then(function() {
+        res.sendStatus(200);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
+  });
+
+  authApi.post('/reset', function(req, res, next) {
+    AuthController
+      .resetPassword(req, res)
+      .then(function() {
+        res.sendStatus(200);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      })
+  })
+
   // ==========================================================================
   // TWITTER AUTHENTICATION ===================================================
   // ==========================================================================

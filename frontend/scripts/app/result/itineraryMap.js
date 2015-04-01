@@ -46,6 +46,10 @@
         $scope.activeSegmentsOnMap = segments;
       }
 
+      function changeMapHeight() {
+
+      }
+
       function showAlternativesPanel(segment) {
         if (typeof(segment['alternatives']) != 'undefined' && segment.alternatives.length > 0) {
           $scope.activeSegmentOnAlternativePanel = segment;

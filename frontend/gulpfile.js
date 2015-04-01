@@ -255,6 +255,7 @@ gulp.task('create-upload-folder', function() {
 // gulp task suite
 gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data', 'create-upload-folder'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
+  gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
   gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n', 'scripts']);
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
   gulp.watch(['scripts/app/**/*.js'], ['scripts']);
