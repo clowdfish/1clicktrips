@@ -8,7 +8,7 @@
     .module('app.result')
     .directive('itineraryMap', itineraryMap);
 
-  function itineraryMap(browser) {
+  function itineraryMap(browser, $timeout) {
     return {
       restrict: 'E',
       scope: {
@@ -23,7 +23,17 @@
     };
 
     function link(scope, element, attrs) {
+      var $element = $(element);
+      var $tripSegments = $element.find('.trip-segments-alternatives');
+      var $map = $element.find('#itinerary-map');
+      scope.$watch('activeSegmentsOnMap', function() {
+        $timeout(function() {
+          var height = $tripSegments.height();
+          console.log('Trip segment height', height);
+          $map.height(height);
+        }, 50);
 
+      });
     }
 
     function controller($scope, shareMapData) {
@@ -44,10 +54,6 @@
       function changeActiveSegmentsOnMap(segments)
       {
         $scope.activeSegmentsOnMap = segments;
-      }
-
-      function changeMapHeight() {
-
       }
 
       function showAlternativesPanel(segment) {

@@ -138,7 +138,7 @@ module.exports = function (app, express, passport, production) {
         res.sendStatus(200);
       })
       .catch(function(err) {
-        res.status(500).send(err.message);
+        res.status(401).send(err.message);
       });
   })
 

@@ -50,8 +50,8 @@
     });
   }
 
-  function isValidToken(authService, $stateParams) {
-    return authService.validateResetPasswordToken($stateParams.resetPasswordToken);
+  function isValidToken(authService, resetPasswordToken) {
+    return authService.validateResetPasswordToken(resetPasswordToken);
   }
 
 
