@@ -131,6 +131,17 @@ module.exports = function (app, express, passport, production) {
       })
   })
 
+  authApi.get('/validate-password-reset-token/:reset_password_token', function(req, res, next) {
+    AuthController
+      .validatePasswordResetToken(req, req.params.reset_password_token)
+      .then(function() {
+        res.sendStatus(200);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
+  })
+
   // ==========================================================================
   // TWITTER AUTHENTICATION ===================================================
   // ==========================================================================

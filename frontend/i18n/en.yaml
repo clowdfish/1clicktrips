@@ -57,6 +57,8 @@ en:
       email: Enter your email address
       submit: Submit
       sent: A password reset link was sent to the given email.
+      error:
+        email_not_exists: This email is not exists
   resetpassword:
     form:
       title: Reset your password
@@ -64,6 +66,7 @@ en:
       passwordlabel: New password
       password: Your new password
       confirmpassword: Confirm your new password
+      invalid_token: Invalid reset password token
   footer:
     copyright: 1ClickTrips 2015. All Rights Reserved.
     links:

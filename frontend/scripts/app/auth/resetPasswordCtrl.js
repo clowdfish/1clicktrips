@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('resetPasswordCtrl', resetPasswordCtrl);
 
-  function resetPasswordCtrl($scope, $state, resetPasswordToken, authService) {
+  function resetPasswordCtrl($scope, $state, resetPasswordToken, isValidToken, authService) {
 
     $scope.submit = function() {
       authService

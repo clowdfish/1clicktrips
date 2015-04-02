@@ -15,8 +15,8 @@
         .forgotPassword($scope.email)
         .then(function() {
           $scope.sent = true;
-        }, function() {
-          $scope.error = true;
+        }, function(reason) {
+          $scope.error = reason.data;
         });
     }
   }

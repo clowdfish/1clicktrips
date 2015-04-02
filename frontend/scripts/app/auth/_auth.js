@@ -44,9 +44,14 @@
       resolve: {
         resetPasswordToken: function($stateParams) {
           return $stateParams.resetPasswordToken;
-        }
+        },
+        isValidToken: isValidToken
       }
     });
+  }
+
+  function isValidToken(authService, $stateParams) {
+    return authService.validateResetPasswordToken($stateParams.resetPasswordToken);
   }
 
 

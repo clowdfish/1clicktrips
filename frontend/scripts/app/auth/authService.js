@@ -59,8 +59,11 @@
           .success(function() {
             resolve();
           })
-          .error(function() {
-            reject();
+          .error(function(data, status) {
+            reject({
+              data: data,
+              status: status
+            });
           });
       });
     }
@@ -75,9 +78,25 @@
           .success(function() {
             resolve();
           })
-          .error(function() {
-            reject();
+          .error(function(data, status) {
+            reject({
+              data: data,
+              status: status
+            });
           })
+      });
+    }
+
+    this.validateResetPasswordToken = function(resetPasswordToken) {
+      return $q(function(resolve, reject) {
+        $http
+          .get('/api/auth/validate-password-reset-token/' + resetPasswordToken)
+          .success(function() {
+            resolve(true);
+          })
+          .error(function(data, status) {
+            resolve(false);
+          });
       });
     }
 
