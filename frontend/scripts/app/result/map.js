@@ -10,14 +10,18 @@
     return {
       require: '^itineraryMap',
       restrict: 'E',
+      template: '<div ng-transclude></div>',
       scope: {
+        itinerary: '=',
         activeSegments: '=',
         selectedSegment: '='
       },
-      link: link
+      link: link,
+      transclude: true
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, element, attrs, itineraryMapCtrl) {
+
       var $element = $(element);
 
       //Is this directive initialize
@@ -38,6 +42,7 @@
       var scrollwheel = ! browser.isMobileDevice(); //Disable scrollwheel on mobile
 
       scope.$watch('activeSegments', function() {
+        console.log(scope.activeSegments);
         if (!scope.activeSegments ||
           scope.activeSegments.length == 0) {
           return;
@@ -58,11 +63,11 @@
 
       });
 
-      scope.$watch('selectedSegment', function() {
+      scope.$watch('selectedSegment', function(value) {
+        console.log(value);
         if (!scope.isInitialize) {
           return;
         }
-
         var segment = scope.selectedSegment;
         if (scope.selectedSegment != null) {
           zoomSegment(scope.selectedSegment);
@@ -117,12 +122,14 @@
       }
 
       function initialize() {
-        $element.append('<div id="itinerary-map"></div>')
+        $element.html('<div id="itinerary-map"></div>')
         $map = $element.find('#itinerary-map');
+        console.log($map);
+        console.log('init');
         var center = new google.maps.LatLng(scope.activeSegments[0].start.location.latitude,
                                           scope.activeSegments[0].end.location.longitude);
 
-        map = new google.maps.Map(document.getElementById('itinerary-map'), {
+        map = new google.maps.Map($map[0], {
           zoom: 19,
           center: center,
           scrollwheel: scrollwheel

@@ -105,7 +105,34 @@
 
         <!-- RESULT MAP AND RESULT LIST -->
         <div class="result-overview ">
-          <itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>
+          <itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList">
+            <div class='trip-segments-container' ng-show='showList'>
+              <trip-segments
+                itinerary='itinerary'
+                active-segments='activeSegmentsOnMap'
+                selected-segment='selectedSegment'
+                show-alternatives-panel='showAlternativesPanel'
+                >
+              </trip-segments>
+
+              <!-- alternatives pane -->
+              <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
+                <segment-alternative-list
+                        select='selectAlternativeSegment'
+                        segment='activeSegmentOnAlternativePanel'
+                        alternatives='alternatives'
+                        is-showing='isShowAlternativesPanel' >
+                </segment-alternative-list>
+              </div>
+            </div>
+
+            <!-- map view -->
+            <div ng-show='showMap'>
+              <map itinerary='itinerary'
+                  active-segments='activeSegmentsOnMap'
+                  selected-segment='selectedSegment'></map>
+            </div>
+          </itinerary-map>
         </div>
 
         <!-- RESULT FOOTER -->
@@ -121,89 +148,109 @@
       <!-------------------->
 
       <!-- MAP VIEW -->
-      <div class="result-view view-container" ng-if="isMobile" ng-show="showMap == true">
+      <itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList" ng-if="isMobile">
 
-        <!-- NOTIFICATION AREA -->
-        <div class="result-notification" ng-if="notifications.length>0">
-          <i class="fa fa-exclamation-triangle"></i>
-          <span class="result-notification-message">{[ notifications[0].message ]}</span>
-          <span class="result-notification-action">
-            <i class="fa fa-check-circle-o" ng-click="acceptNotification()"></i>
-            <i class="fa fa-times-circle-o" ng-click="deleteNotification()"></i>
-          </span>
-        </div>
+        <!-- LIST VIEW -->
+        <div class="result-view view-container" ng-show="showList == true">
 
-        <!-- RESULT HEADER -->
-        <div class="result-header">
-          <span class="result-header-destination">{[ "result_destination_label" | translate ]}</span>
-          <span class="result-header-timing">
-            {[ "general_from" | translate ]} <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} {[ "general_until" | translate ]} {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
-          </span>
-          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
-        </div>
-
-        <div class="result-overview">
+          <!-- RESULT HEADER -->
+          <div class="result-header result-header-table">
+            <div class="result-header-col">
+               <span class="result-header-back-link" ng-click="showMapFn()">
+              <i class="fa fa-angle-left"></i>
+            </span>
+            </div>
+            <div class="result-header-col">
+              <span class="result-header-destination no-float">{[ "result_destination_label" | translate ]}</span>
+              <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
+            </div>
+          </div>
 
           <!-- RESULT SUMMARY -->
-          <div class="result-summary-button">
-            <div class="result-summary-button-details">
-              <div class="result-summary-button-details-time">
-                <span>{[ "result_summary_duration" | translate ]}</span>
-                <span>{[itinerary.duration | durationToTime:"%h hrs %m mins"]}</span>
-              </div>
-              <div class="result-summary-button-details-cost">
-                <span>{[ "result_summary_cost" | translate ]}</span>
-                <span>{[itinerary.cost | price: itinerary.currency ]}</span>
-              </div>
-            </div>
-            <div class="result-summary-button-list-link" ng-click="showListView()">
-              <i class="fa fa-angle-right"></i>
-            </div>
+          <div class="result-summary">
+            <trip-summary itinerary="itinerary"></trip-summary>
           </div>
 
           <!-- RESULT MAP AND RESULT LIST -->
-          <itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>
-        </div>
-      </div>
+          <div class='trip-segments-container' ng-show='showList'>
+            <trip-segments
+              itinerary='itinerary'
+              active-segments='activeSegmentsOnMap'
+              selected-segment='selectedSegment'
+              show-alternatives-panel='showAlternativesPanel'
+              >
+            </trip-segments>
 
-      <!-- LIST VIEW -->
-      <div class="result-view view-container" ng-if="isMobile" ng-show="showList == true">
-
-        <!-- RESULT HEADER -->
-        <div class="result-header result-header-table">
-          <div class="result-header-col">
-             <span class="result-header-back-link" ng-click="showMapView()">
-            <i class="fa fa-angle-left"></i>
-          </span>
+            <!-- alternatives pane -->
+            <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
+              <segment-alternative-list
+                      select='selectAlternativeSegment'
+                      segment='activeSegmentOnAlternativePanel'
+                      alternatives='alternatives'
+                      is-showing='isShowAlternativesPanel' >
+              </segment-alternative-list>
+            </div>
           </div>
-          <div class="result-header-col">
-            <span class="result-header-destination no-float">{[ "result_destination_label" | translate ]}</span>
+
+          <!-- RESULT FOOTER -->
+          <div class="result-footer">
+            <div class="result-footer-action">
+              <span class="result-footer-price">
+                <span>{[ "result_summary_cost" | translate ]}</span>
+                <span>{[ itinerary.cost | price: itinerary.currency ]}</span>
+              </span>
+              <a class="button"><i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-view view-container" ng-show="showMap == true">
+
+          <!-- NOTIFICATION AREA -->
+          <div class="result-notification" ng-if="notifications.length>0">
+            <i class="fa fa-exclamation-triangle"></i>
+            <span class="result-notification-message">{[ notifications[0].message ]}</span>
+            <span class="result-notification-action">
+              <i class="fa fa-check-circle-o" ng-click="acceptNotification()"></i>
+              <i class="fa fa-times-circle-o" ng-click="deleteNotification()"></i>
+            </span>
+          </div>
+
+          <!-- RESULT HEADER -->
+          <div class="result-header">
+            <span class="result-header-destination">{[ "result_destination_label" | translate ]}</span>
+            <span class="result-header-timing">
+              {[ "general_from" | translate ]} <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} {[ "general_until" | translate ]} {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
+            </span>
             <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
           </div>
-        </div>
 
-        <!-- RESULT SUMMARY -->
-        <div class="result-summary">
-          <trip-summary itinerary="itinerary"></trip-summary>
-        </div>
+          <div class="result-overview">
 
-        <!-- RESULT MAP AND RESULT LIST -->
-        <itinerary-map itinerary="itinerary"
-                        show-map="showMap"
-                        show-list="showList"
-                        close-segment-panel-fn='showMapView'></itinerary-map>
+            <!-- RESULT SUMMARY -->
+            <div class="result-summary-button">
+              <div class="result-summary-button-details">
+                <div class="result-summary-button-details-time">
+                  <span>{[ "result_summary_duration" | translate ]}</span>
+                  <span>{[itinerary.duration | durationToTime:"%h hrs %m mins"]}</span>
+                </div>
+                <div class="result-summary-button-details-cost">
+                  <span>{[ "result_summary_cost" | translate ]}</span>
+                  <span>{[itinerary.cost | price: itinerary.currency ]}</span>
+                </div>
+              </div>
+              <div class="result-summary-button-list-link" ng-click="showListFn()">
+                <i class="fa fa-angle-right"></i>
+              </div>
+            </div>
 
-        <!-- RESULT FOOTER -->
-        <div class="result-footer">
-          <div class="result-footer-action">
-            <span class="result-footer-price">
-              <span>{[ "result_summary_cost" | translate ]}</span>
-              <span>{[ itinerary.cost | price: itinerary.currency ]}</span>
-            </span>
-            <a class="button"><i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}</a>
+            <!-- RESULT MAP AND RESULT LIST -->
+            <map itinerary='itinerary'
+                  active-segments='activeSegmentsOnMap'
+                  selected-segment='selectedSegment'></map>
           </div>
         </div>
-      </div>
+      </itinerary-map>
     </div>
   </section>
 </div>

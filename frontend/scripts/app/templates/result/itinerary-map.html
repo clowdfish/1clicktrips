@@ -1,29 +1,4 @@
 <div class='itinerary-map-container'>
-  <div class='trip-segments-container' ng-show='showList'>
-    <trip-segments
-      itinerary='itinerary'
-      active-segments='activeSegmentsOnMap'
-      show-alternatives-panel='showAlternativesPanel'
-      select-segment='selectSegment'
-      >
-    </trip-segments>
-
-    <!-- alternatives pane -->
-    <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
-      <segment-alternative-list
-              select='selectAlternativeSegment'
-              segment='activeSegmentOnAlternativePanel'
-              alternatives='alternatives'
-              is-showing='isShowAlternativesPanel' >
-      </segment-alternative-list>
-    </div>
-  </div>
-
-  <!-- map view -->
-  <div ng-show='showMap'>
-    <map itinerary='itinerary'
-        active-segments='activeSegmentsOnMap'
-        selected-segment='selectedSegment'></map>
-  </div>
+  <div ng-transclude></div>
 </div>
 

@@ -32,20 +32,34 @@
 
     // check for device type and configure accordingly
     $scope.isMobile = browser.isMobileDevice();
+
+    /**
+    * Show map or not
+    */
     $scope.showMap = true;
+
+    /**
+    * Show segment list or not
+    */
     $scope.showList = $scope.isMobile ? false : true;
 
+    /**
+    * Functions: find trip by budget, time and confort
+    */
     $scope.findTripByBudget = findTripByBudget;
     $scope.findTripByTime = findTripByTime;
     $scope.findTripByComfort =  findTripByComfort;
 
+    /**
+    * Back to search form
+    */
     $scope.refineSearch = refineSearch;
 
     $scope.deleteNotification = deleteNotification;
     $scope.acceptNotification = acceptNotification;
 
-    $scope.showListView = showList;
-    $scope.showMapView = showMap;
+    $scope.showListFn = showList;
+    $scope.showMapFn = showMap;
 
     $scope.addToFavorites = addToFavorites;
 
@@ -162,6 +176,9 @@
       }
     }
 
+    /**
+    * Destroy controller and listeners
+    */
     function destroyController() {
       console.log('Destroy resultCtrl');
       destroyAuthenticationListener();

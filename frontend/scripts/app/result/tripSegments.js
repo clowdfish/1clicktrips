@@ -11,15 +11,23 @@
       scope: {
         itinerary: '=',
         showAlternativesPanel:'=',
-        selectSegment: '='
+        activeSegments: '=',
+        selectedSegment: '='
       },
       link: link
     }
 
     function link(scope, element, attrs, itineraryMapCtrl) {
       scope.activeSegmentNumber = 1;
-      scope.activeSegments = [];
       scope.showTab = showTab;
+
+      scope.selectSegment = function(segment) {
+        if (scope.selectedSegment == segment) {
+          scope.selectedSegment = null;
+        } else {
+          scope.selectedSegment = segment;
+        }
+      }
 
       scope.$watch('itinerary', function() {
         if (scope.itinerary == null) {
@@ -28,7 +36,6 @@
         scope.segments = groupSegmentByDate(scope.itinerary);
         scope.segmentsHeaders = _.keys(scope.segments);
         scope.activeSegments = scope.segments[1];
-        itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
       });
 
 
@@ -71,7 +78,6 @@
       function showTab(segmentNumber) {
         scope.activeSegmentNumber = segmentNumber;
         scope.activeSegments = scope.segments[segmentNumber];
-        itineraryMapCtrl.changeActiveSegmentsOnMap(scope.activeSegments);
       }
     }
   }

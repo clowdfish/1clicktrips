@@ -13,48 +13,21 @@
       restrict: 'E',
       scope: {
         itinerary: '=',
-        showList: '=',
-        showMap: '=',
         closeSegmentPanelFn: '='
       },
       templateUrl: 'scripts/app/templates/result/itinerary-map.html',
-      link: link,
-      controller: controller
+      controller: controller,
+      transclude: true
     };
 
-    function link(scope, element, attrs) {
-      var $element = $(element);
-      var $tripSegments = $element.find('.trip-segments-alternatives');
-      var $map = $element.find('#itinerary-map');
-      scope.$watch('activeSegmentsOnMap', function() {
-        $timeout(function() {
-          var height = $tripSegments.height();
-          console.log('Trip segment height', height);
-          $map.height(height);
-        }, 50);
 
-      });
-    }
-
-    function controller($scope, shareMapData) {
-      $scope.shareMapData = shareMapData;
-      $scope.activeSegmentsOnMap = [];
+    function controller($scope) {
+      var _this = this;
       $scope.activeSegmentOnAlternativePanel = null;
       $scope.isShowAlternativesPanel = false;
       $scope.selectedSegment = null;
       $scope.selectAlternativeSegment = selectAlternativeSegment;
       $scope.showAlternativesPanel = showAlternativesPanel;
-      $scope.selectSegment = selectSegment;
-      this.changeActiveSegmentsOnMap = changeActiveSegmentsOnMap;
-
-      $scope.$watch('shareMapData.selectedSegment', function() {
-        $scope.selectedSegment = shareMapData.selectedSegment;
-      });
-
-      function changeActiveSegmentsOnMap(segments)
-      {
-        $scope.activeSegmentsOnMap = segments;
-      }
 
       function showAlternativesPanel(segment) {
         if (typeof(segment['alternatives']) != 'undefined' && segment.alternatives.length > 0) {
@@ -71,17 +44,6 @@
         console.log('Selected segment ', alternative.name);
       }
 
-      function selectSegment(segment) {
-        if ($scope.selectedSegment == segment) {
-          $scope.selectedSegment = null;
-        } else {
-          $scope.selectedSegment = segment;
-          shareMapData.selectedSegment = segment;
-          if (browser.isMobileDevice() && $scope.closeSegmentPanelFn != null) {
-            $scope.closeSegmentPanelFn();
-          }
-        }
-      }
     }
 
   }
