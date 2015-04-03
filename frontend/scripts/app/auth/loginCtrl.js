@@ -51,6 +51,15 @@
       });
     };
 
+    $scope.showForgotPasswordModal = function() {
+      $modalInstance.close();
+      var modalInstance = $modal.open({
+        templateUrl: 'scripts/app/templates/auth/forgot-password.html',
+        controller: 'forgotPasswordCtrl',
+        size: 'lg'
+      });
+    }
+
     /**
      * Show message when login error
      * @param  {Object} data [Object contains error message and error status code]
