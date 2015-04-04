@@ -30,19 +30,10 @@
         "action" : null
       }];
 
-    // check for device type and configure accordingly
     $scope.isMobile = browser.isMobileDevice();
 
-    /**
-    * Show map or not
-    */
     $scope.showMap = true;
-
-    /**
-    * Show segment list or not
-    */
     $scope.showList = $scope.isMobile ? false : true;
-
     /**
     * Functions: find trip by budget, time and confort
     */
@@ -58,14 +49,21 @@
     $scope.deleteNotification = deleteNotification;
     $scope.acceptNotification = acceptNotification;
 
-    $scope.showListFn = showList;
-    $scope.showMapFn = showMap;
-
     $scope.addToFavorites = addToFavorites;
 
     $scope.$on('$destroy', function() {
       destroyController();
     });
+
+    /**
+    * Call this method to show map and hide list. For mobile only.
+    */
+    $scope.showMapFn = showMapFn;
+
+    /**
+    * Call this method to show list and hide map. For mobile only.
+    */
+    $scope.showListFn = showListFn;
 
     function findAllItineraries() {
 
@@ -117,16 +115,6 @@
         }
       }
       return null;
-    }
-
-    function showList() {
-      $scope.showMap = false;
-      $scope.showList = true;
-    }
-
-    function showMap() {
-      $scope.showMap = true;
-      $scope.showList = false;
     }
 
     /**
@@ -216,6 +204,16 @@
         });
 
       destroyAuthenticationListener();
+    }
+
+    function showMapFn() {
+      $scope.showMap = true;
+      $scope.showList = false;
+    }
+
+    function showListFn() {
+      $scope.showMap = false;
+      $scope.showList = true;
     }
 
   }

@@ -42,7 +42,7 @@
       var scrollwheel = ! browser.isMobileDevice(); //Disable scrollwheel on mobile
 
       scope.$watch('activeSegments', function() {
-        console.log(scope.activeSegments);
+
         if (!scope.activeSegments ||
           scope.activeSegments.length == 0) {
           return;
@@ -64,7 +64,6 @@
       });
 
       scope.$watch('selectedSegment', function(value) {
-        console.log(value);
         if (!scope.isInitialize) {
           return;
         }
@@ -122,10 +121,9 @@
       }
 
       function initialize() {
-        $element.html('<div id="itinerary-map"></div>')
+        $element.html('<div id="itinerary-map"></div>');
         $map = $element.find('#itinerary-map');
-        console.log($map);
-        console.log('init');
+
         var center = new google.maps.LatLng(scope.activeSegments[0].start.location.latitude,
                                           scope.activeSegments[0].end.location.longitude);
 

@@ -12,7 +12,10 @@
         itinerary: '=',
         showAlternativesPanel:'=',
         activeSegments: '=',
-        selectedSegment: '='
+        selectedSegment: '=',
+        isShowingMap: '=',
+        isShowingList: '=',
+        showMapFn: '&'
       },
       link: link
     }
@@ -26,6 +29,9 @@
           scope.selectedSegment = null;
         } else {
           scope.selectedSegment = segment;
+          if (scope.showMapFn) {
+            scope.showMapFn();
+          }
         }
       }
 
