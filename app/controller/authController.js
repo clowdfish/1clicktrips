@@ -15,9 +15,7 @@ var authConfig = require('../../config/auth');
 var async = require('async');
 var Promise = require('es6-promise').Promise;
 
-var nodemailer = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
-var sendGridTransport = require('nodemailer-sendgrid-transport');
+var nodeMailer = require('nodemailer');
 
 var UserController = require('./userController');
 
@@ -60,15 +58,14 @@ module.exports = {
         },
 
         function(token, user, done) {
-          var transporter = nodemailer.createTransport(authConfig.nodeMailer.mandrill);
+          var transporter = nodeMailer.createTransport(authConfig.nodeMailer.mandrill);
           var mailOptions = {
             to: user['email'],
             from: authConfig.mailOptions.supportEmail,
-            subject: '1ClickTrips Password Reset',
-            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-              'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+            subject: authConfig.email.reset.subject,
+            text: authConfig.email.reset.body[0] +
               req.headers.origin + '/en/#/reset-password/' + token + '\n\n' +
-              'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+              authConfig.email.reset.body[1]
           };
 
           transporter.sendMail(mailOptions, function(err) {
@@ -103,14 +100,14 @@ module.exports = {
             });
         },
         function(user, done) {
-          var transporter = nodemailer.createTransport(authConfig.nodeMailer.mandrill);
+          var transporter = nodeMailer.createTransport(authConfig.nodeMailer.mandrill);
           var mailOptions = {
             to: user['email'],
             from: authConfig.mailOptions.supportEmail,
-            subject: 'Your password has been changed',
-            text: 'Hello,\n\n' +
-              'This is a confirmation that the password for your account ' + user['email'] + ' has just been changed.\n'
+            subject: authConfig.email.confirmation.subject,
+            text: authConfig.email.reset.body[0] + user['email'] + authConfig.email.reset.body[1]
           };
+
           transporter.sendMail(mailOptions, function(err) {
             done(err);
           });
@@ -125,12 +122,13 @@ module.exports = {
   },
 
   validatePasswordResetToken: function(req, passwordResetToken) {
+
     return new Promise(function(resolve, reject) {
       getUserFromPasswordResetToken(passwordResetToken, function(err, user) {
         if (err) {
           return reject(err);
         }
-        resolve(user);
+        resolve();
       })
     });
   },
@@ -165,7 +163,6 @@ module.exports = {
     }
     else {
       console.warn('No token available.');
-      // if they aren't redirect them to the home page
       res.status(401).send('status.user.error.authorization.failure');
     }
   },
@@ -209,8 +206,6 @@ module.exports = {
     }
     return null;
   }
-
-
 };
 
 function getUserFromPasswordResetToken(passwordResetToken, done) {

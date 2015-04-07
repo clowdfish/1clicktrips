@@ -5,6 +5,27 @@ var jwt = require('jwt-simple');
 
 module.exports = {
 
+  forgotPassword: function(req, res, next) {
+
+    return new Promise(function (resolve, reject) {
+      resolve();
+    });
+  },
+
+  resetPassword: function(req, res, next) {
+
+    return new Promise(function (resolve, reject) {
+      resolve();
+    });
+  },
+
+  validatePasswordResetToken: function(req, passwordResetToken) {
+
+    return new Promise(function(resolve, reject) {
+      resolve();
+    });
+  },
+
   isLoggedIn: function(req, res, next) {
 
     req.user = {

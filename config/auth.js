@@ -13,20 +13,25 @@ module.exports = {
 
   // on pre-production environment: http://dev.1clicktrips.com/en/after-auth.html
   'loginCallbackUrl': 'http://localhost:8000/en/after-auth.html',
+
+  'email' : {
+    'reset' : {
+      'subject' : '1ClickTrips Password Reset',
+      'body' : [
+        'You are receiving this email because you (or someone else) requested a password reset for your account.\n\nPlease click on the following link or paste it into your browser to complete the process:\n\n',
+        'If you did not request this password reset, please ignore this email and your password will remain unchanged.\n'
+      ]
+    },
+    'confirmation' : {
+      'subject' : 'Your password has been changed',
+      'body' : [
+        'Hello,\n\nThis is a confirmation that the password for your account ',
+        ' has just been changed.\n'
+      ]
+    }
+  },
+
   'nodeMailer': {
-    'sendGrid': {
-      'auth': {
-        'api_user': 'davidtranwd',
-        'api_key': '1clicktrips'
-      }
-    },
-    'gmail': {
-      'service': 'gmail',
-      'auth': {
-        'user': 'nam.trankhanh.vn@gmail.com',
-        'pass': 'make@600million'
-      }
-    },
     'mandrill': {
       'service': 'Mandrill',
       'auth': {

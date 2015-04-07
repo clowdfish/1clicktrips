@@ -109,6 +109,10 @@ module.exports = function (app, express, passport, production) {
         });
     });
 
+  // ==========================================================================
+  // PASSWORD RESET ===========================================================
+  // ==========================================================================
+
   authApi.post('/forgot', function(req, res, next) {
     AuthController
       .forgotPassword(req, res, next)
@@ -129,18 +133,18 @@ module.exports = function (app, express, passport, production) {
       .catch(function(err) {
         res.status(500).send(err.message);
       })
-  })
+  });
 
   authApi.get('/validate-password-reset-token/:reset_password_token', function(req, res, next) {
     AuthController
-      .validatePasswordResetToken(req, req.params.reset_password_token)
+      .validatePasswordResetToken(req, req.params['reset_password_token'])
       .then(function() {
         res.sendStatus(200);
       })
       .catch(function(err) {
         res.status(401).send(err.message);
       });
-  })
+  });
 
   // ==========================================================================
   // TWITTER AUTHENTICATION ===================================================

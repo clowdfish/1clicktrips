@@ -2,9 +2,11 @@
 var mysql = require('mysql');
 var dbConfig = require('../../config/database.js');
 var Promise = require('es6-promise').Promise;
+
 var connection = mysql.createConnection(dbConfig.connection);
-var _ = require('underscore');
+
 module.exports = {
+
   set: function(userId, setting) {
     return new Promise(function(resolve, reject) {
 
@@ -56,17 +58,21 @@ function updateSetting(setting, callback) {
   var updateQuery = 'UPDATE setting SET ' +
                     ' `value` = ? ' +
                     ' WHERE `key` = ? and `user_id` = ?';
+
   var updateParams = [ setting.value,
                       setting.key,
                       setting.userId ];
+
   connection.query(updateQuery, updateParams, callback);
 }
 
 function insertSetting(setting, callback) {
   var insertQuery = 'INSERT INTO setting(`user_id`, `key`, `value`) ' +
                     ' VALUES(?, ?, ?)';
+
   var insertParams = [setting.userId,
                       setting.key,
                       setting.value];
+
   connection.query(insertQuery, insertParams, callback);
 }
