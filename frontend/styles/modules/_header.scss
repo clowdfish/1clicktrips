@@ -51,7 +51,7 @@ $header-padding: .7em;
     border: 1px solid #c6c6c6;
     list-style: none;
     z-index: 1000;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
   }
 
   .header-navigation-menu-item {
@@ -135,6 +135,64 @@ $header-padding: .7em;
 
     .header-navigation-profile {
       display: inline-block;
+      position: relative;
+
+      &:after {
+        font-family: FontAwesome;
+        font-size: $fs-small;
+        content: "\00a0\f0d7";
+        cursor: pointer;
+      }
+
+      &:hover {
+        .header-navigation-profile-menu {
+          display: block;
+        }
+      }
+    }
+
+    .header-navigation-profile-image {
+      $profile-image-size: 2em;
+
+      display: inline-block;
+      width: $profile-image-size;
+      height: $profile-image-size;
+      border-radius: $profile-image-size/2;
+      overflow: hidden;
+      vertical-align: middle;
+      margin-right: 0.3em;
+      margin-top: -0.2em;
+      background-color: #fff;
+      cursor: pointer;
+
+      img {
+        width: $profile-image-size;
+        height: $profile-image-size;
+      }
+    }
+
+    .header-navigation-profile-title {
+      cursor: pointer;
+    }
+
+    .header-navigation-profile-menu {
+      display: none;
+      position: absolute;
+      z-index: 1000;
+      background-color: #3f3b4a;
+      top: 1.8em;
+      right: 0;
+      list-style: none;
+
+      li {
+        display: block;
+        cursor: pointer;
+        padding: 0.4em 0.8em;
+      }
+
+      a, a:visited, a:hover {
+        color: $c-text-dark-bg;
+      }
     }
 
     .header-navigation-logout {

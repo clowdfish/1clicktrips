@@ -15,8 +15,8 @@ de:
   nav:
     signup: Registrieren
     signin: Login
-    greeting: Hi
-    logout: logout
+    profile: Profil
+    logout: Abmelden
     mobile:
       signup: Registrieren
       language: Sprache

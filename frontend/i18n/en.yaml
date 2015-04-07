@@ -15,8 +15,8 @@ en:
   nav:
     signup: JOIN
     signin: Login
-    greeting: Hi
-    logout: logout
+    profile: Profile
+    logout: Logout
     mobile:
       signup: Signup
       language: Language

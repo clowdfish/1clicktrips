@@ -12,10 +12,10 @@
         <!-- MOBILE VIEW -->
         <a ng-click="toggleMenu()" class="header-navigation-menu-toggle"><i class="fa fa-bars" ng-class="{'fa-bars': !showMenu, 'fa-close': showMenu }"></i></a>
         <ul ng-show="showMenu" class="header-navigation-menu">
-          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createLoginModal()'>{{ T.nav.signin }}</a></li>
-          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createSignupModal()'>{{ T.nav.mobile.signup }}</a></li>
-          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click=''>{{ T.nav.mobile.profile }}</a></li>
-          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='logout()'>{{ T.nav.logout }}</a></li>
+          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createLoginModal(); toggleMenu()'>{{ T.nav.signin }}</a></li>
+          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createSignupModal(); toggleMenu()'>{{ T.nav.mobile.signup }}</a></li>
+          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='openProfile(); toggleMenu()'>{{ T.nav.mobile.profile }}</a></li>
+          <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='logout(); toggleMenu()'>{{ T.nav.logout }}</a></li>
           <li class="header-navigation-menu-item"><a ng-click='toggleLanguages()'>{{ T.nav.mobile.language }}</a></li>
           <li ng-show="showLanguages">
             <ul class='header-navigation-menu-languages'>
@@ -42,10 +42,15 @@
           <a href="#" class="button" ng-click='createSignupModal()'>{{ T.nav.signup }}</a>
         </div>
         <div ng-if="userProfile" class="header-navigation-profile ng-cloak">
-          <span ng-if="userProfile['first_name']">{[userProfile['first_name']]} {[userProfile['last_name']]}</span>
-          <span ng-if="!userProfile['first_name'] && userProfile['email']">{[userProfile['email']]}</span>
+          <span ng-if="userProfile['image']" class="header-navigation-profile-image"><img src="..{[ userProfile['image'] ]}" alt="user image" /></span>
+          <span ng-if="!userProfile['image']" class="header-navigation-profile-image"><img src="../images/avatar.svg" alt="user avatar" /></span>
 
-          ( <a class="header-navigation-logout" ng-click="logout()">{{ T.nav.logout }}</a> )
+          <span ng-if="userProfile['first_name']" class="header-navigation-profile-title">{[userProfile['first_name']]} {[userProfile['last_name']]}</span>
+          <span ng-if="!userProfile['first_name'] && userProfile['email']" class="header-navigation-profile-title">{[userProfile['email']]}</span>
+          <ul class="header-navigation-profile-menu">
+            <li><a ng-click="openProfile()">{{ T.nav.profile }}</a></li>
+            <li><a ng-click="logout()">{{ T.nav.logout }}</a></li>
+          </ul>
         </div>
         <div class="header-settings ng-cloak">
           <ul>

@@ -16,7 +16,8 @@
                     AUTH_EVENTS,
                     authService,
                     session,
-                    userService) {
+                    userService,
+                    $state) {
 
     /**
      * Global service for app config data
@@ -136,6 +137,10 @@
       authService.logout();
       $scope.userProfile = null;
       //alert('Logout successful');
+    };
+
+    $scope.openProfile = function() {
+      $state.go('settings.profile');
     };
 
     /* MOBILE MENU FUNCTIONS */
