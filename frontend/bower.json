@@ -34,7 +34,8 @@
     "angular-local-storage": "0.1.5",
     "angular-sanitize": "*",
     "ng-file-upload": "~3.2.4",
-    "angular-ui-sortable": "0.13.3"
+    "angular-ui-sortable": "0.13.3",
+    "ngstorage": "~0.3.0"
   },
   "devDependencies": {
     "velocity": "~1.1.0"

@@ -9,7 +9,7 @@
   /**
   * Store, update, get and delete user data
   */
-  function session(localStorageService) {
+  function session($localStorage, $sessionStorage) {
 
     var _this = this;
     var tokenLocalStorageKey = 'session_token';
@@ -18,8 +18,11 @@
     * Auth success, store token to localstorage
     * @param {string} token
     */
-    this.authSuccess = function(token) {
-      localStorageService.set(tokenLocalStorageKey, token);
+    this.authSuccess = function(token, rememberToken) {
+      $sessionStorage.token = token;
+      if (rememberToken) {
+        $localStorage.token = token;
+      }
     };
 
     /**
@@ -33,29 +36,34 @@
      * Get authentication token
      */
     this.getAuthToken = function() {
-      return localStorageService.get(tokenLocalStorageKey);
+      var token = $sessionStorage.token;
+      if (!token) {
+        token = $localStorage.token;
+      }
+      return token;
     };
 
     /**
      * Remove authentication token from localstorage
      */
     this.removeAuthToken = function() {
-      localStorageService.remove(tokenLocalStorageKey);
+      delete $sessionStorage.token;
+      delete $localStorage.token;
     };
 
     //Save user profile to localStorage
     this.setUserProfile = function(userProfile) {
-      localStorageService.set(userProfileKey, userProfile);
+      $sessionStorage.userProfile = userProfile;
     };
 
     //Remove user profile data
     this.removeUserProfile = function() {
-      localStorageService.remove(userProfileKey);
+      delete $sessionStorage.userProfile;
     };
 
     //Get user profile
     this.getUserProfile = function() {
-      return localStorageService.get(userProfileKey);
+      $sessionStorage.userProfile;
     };
 
     this.isLogin = function() {

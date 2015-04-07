@@ -10,7 +10,7 @@
       'ui.router',
       'ngAnimate',
       'pascalprecht.translate',
-      'LocalStorageModule',
+      'ngStorage',
       'ui.bootstrap',
       'ui.bootstrap.tpls',
       'ngSanitize',

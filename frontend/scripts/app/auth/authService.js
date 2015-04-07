@@ -26,16 +26,17 @@
       });
     };
 
-    this.login = function(loginData) {
+    this.login = function(loginData, remember) {
       return $q(function(resolve, reject) {
 
         if (!validateLoginData(loginData)) {
           reject('invalid.login.data');
         }
+
         $http
           .post('/api/auth/local', loginData)
           .success(function(data) {
-            session.authSuccess(data.token);
+            session.authSuccess(data.token, remember);
             resolve(data);
           })
           .error(function(data, status) {

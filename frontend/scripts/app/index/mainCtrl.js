@@ -12,7 +12,6 @@
                     currencyService,
                     appConfig,
                     browser,
-                    localStorageService,
                     languageService,
                     AUTH_EVENTS,
                     authService,
@@ -178,7 +177,6 @@
       if (appConfig.activeCurrency == null) {
         appConfig.activeCurrency = 'usd';
       }
-      appConfig.activeCurrency = 'usd';
       $scope.currencies = currencyService.getAvailableCurrencies();
     }
 

@@ -24,8 +24,9 @@
         email: $scope.email,
         password: $scope.password
       };
+      var remember = $scope.rememberMe ? true : false;
       authService
-        .login(loginData)
+        .login(loginData, remember)
         .then(function(data) {
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         }, function(data) {

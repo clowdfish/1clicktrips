@@ -6,7 +6,7 @@
 		.module('app.index')
 		.service('languageService', languageService);
 
-	function languageService($http, $q, localStorageService) {
+	function languageService($http, $q, $localStorage) {
 		var _this = this;
 		var languageData = getAvailableLanguages();
 		this.getAvailableLanguages = getAvailableLanguages;
@@ -19,11 +19,11 @@
 		}
 
 		function setActiveLanguageKey(key) {
-			localStorageService.set('activeLanguageKey', key);
+			$localStorage.activeLanguageKey = key;
 		}
 
 		function getActiveLanguageKey() {
-			return localStorageService.get('activeLanguageKey');
+			return $localStorage.activeLanguageKey;
 		}
 
 		function getLanguageDataByCode(code) {

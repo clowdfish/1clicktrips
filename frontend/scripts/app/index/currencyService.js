@@ -6,7 +6,7 @@
 		.module('app.index')
 		.service('currencyService', currencyService);
 
-	function currencyService($http, $q, localStorageService, appConfig) {
+	function currencyService($http, $q, $localStorage, appConfig) {
 		var _this = this;
 
 		this.currencyData = window["AppData"]["currencies"];
@@ -21,11 +21,11 @@
 		}
 
 		function setActiveCurrency(code) {
-			localStorageService.set('activeCurrency', code);
+			$localStorage.activeCurrency = code;
 		}
 
 		function getActiveCurrency() {
-			return localStorageService.get('activeCurrency');
+			return $localStorage.activeCurrency;
 		}
 
 		function getCurrencyDataByCode(code) {
