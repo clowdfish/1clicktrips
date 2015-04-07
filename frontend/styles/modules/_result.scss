@@ -2,7 +2,7 @@
   @include animation(fadeInUp 5s);
 }
 .result-loaded.ng-leave {
-  
+
 }
 
 %result {
@@ -304,6 +304,16 @@
     height: 20em;
     border-top: 1px solid #e8e8e8;
     border-bottom: 1px solid #e8e8e8;
+
+    .map-marker-container {
+      display: block;
+      background-color: $c-red;
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 0.75em;
+      color: #fff;
+      font-weight: 600;
+    }
   }
 
   .itinerary-map-container {
@@ -717,3 +727,5 @@
 .result {
   @extend %result;
 }
+
+

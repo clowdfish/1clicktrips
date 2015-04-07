@@ -203,12 +203,18 @@
       }
 
       function createSegmentMarker(lat, lng, number) {
-        var locationMarker = new google.maps.Marker();
-        locationMarker.setOptions({
-          icon: getLocationIconByNumber(number),
-          draggable: false,
-          map: map,
-          position: new google.maps.LatLng(lat, lng)
+        // var locationMarker = new google.maps.Marker();
+        // locationMarker.setOptions({
+        //   icon: getLocationIconByNumber(number),
+        //   draggable: false,
+        //   map: map,
+        //   position: new google.maps.LatLng(lat, lng)
+        // });
+        var position = new google.maps.LatLng(lat, lng);
+        var htmlContent = '<span class="map-marker-container">' + number + '</span>'
+        var locationMarker = new CustomMarker(map, position, {
+          makerId: number,
+          htmlContent: htmlContent
         });
 
         return locationMarker;
