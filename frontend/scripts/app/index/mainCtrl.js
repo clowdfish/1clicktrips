@@ -17,6 +17,7 @@
                     authService,
                     session,
                     userService) {
+
     /**
      * Global service for app config data
      * @type {[type]}

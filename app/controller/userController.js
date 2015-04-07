@@ -46,13 +46,32 @@ module.exports = {
         if (err)
           reject(err);
 
-        if(rows.length)
+        if(rows.length) {
+          //
+          var userData = {};
+          userData.email = rows[0]['email'];
+          userData.twitter = rows[0]['twitter_username'];
+
           connection.query("SELECT * FROM profile WHERE id=?;", [rows[0]['profile_id']], function (err, rows) {
             if (err)
               reject(err);
 
-            resolve(rows[0]);
+            if(rows.length) {
+
+              var profile = rows[0];
+
+              // copy all profile attributes to user data object
+              Object.keys(profile).forEach(function(key) {
+                userData[key] = this[key];
+              }, profile);
+
+              resolve(userData);
+            }
+            else {
+              reject(new Error("Profile for user with ID=" + userId + " could not be retrieved from database."));
+            }
           });
+        }
         else
           reject(new Error("User with ID=" + userId + " does not exist in database."));
       });

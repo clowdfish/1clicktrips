@@ -12,7 +12,7 @@
     $scope.success = false;
     $scope.edit = function() {
       $scope.isEditing = true;
-    }
+    };
 
     $scope.save = function(newValue) {
       $scope.value = newValue;
@@ -20,7 +20,7 @@
       $scope.error = false;
       $scope.saveFn($scope.key, newValue)
         .then(saveSuccess, saveError);
-    }
+    };
 
     function saveSuccess() {
       $scope.isEditing = false;

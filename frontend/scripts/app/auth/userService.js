@@ -11,8 +11,6 @@
   */
   function userService($http, $q, $upload, session) {
 
-    var _this = this;
-
     /**
      * Fetch user profile
      * @return {Object} Promise
@@ -36,7 +34,7 @@
             });
           });
       });
-    }
+    };
 
     /**
      * Update user profile
@@ -63,7 +61,7 @@
             });
           });
       });
-    }
+    };
 
     this.uploadProfilePicture = function(file) {
       return $upload.upload({

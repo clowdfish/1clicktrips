@@ -12,9 +12,10 @@
 
     $scope.userProfile = userProfile;
     $scope.isUploading = false;
+
     $scope.saveProfile = function(key, value) {
       return userService.setUserProfile(key, value);
-    }
+    };
 
     $scope.uploadImage = function($event) {
       $scope.uploadPercentage = 0;

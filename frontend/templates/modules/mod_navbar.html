@@ -42,7 +42,10 @@
           <a href="#" class="button" ng-click='createSignupModal()'>{{ T.nav.signup }}</a>
         </div>
         <div ng-if="userProfile" class="header-navigation-profile ng-cloak">
-          Hi, {[userProfile['first-name']]} {[userProfile['last-name']]} ( <a class="header-navigation-logout" ng-click="logout()">{{ T.nav.logout }}</a> )
+          <span ng-if="userProfile['first_name']">{[userProfile['first_name']]} {[userProfile['last_name']]}</span>
+          <span ng-if="!userProfile['first_name'] && userProfile['email']">{[userProfile['email']]}</span>
+
+          ( <a class="header-navigation-logout" ng-click="logout()">{{ T.nav.logout }}</a> )
         </div>
         <div class="header-settings ng-cloak">
           <ul>
