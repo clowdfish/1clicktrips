@@ -3,3 +3,38 @@
   color: #111;
   font-weight: 400;
 }
+
+
+.reset-password {
+  margin-top: 1em;
+
+  h1 {
+    margin-bottom: 1em;
+  }
+
+  input[type="text"] {
+    margin-bottom: 0.3em;
+    height: $input-mobile-height;
+  }
+
+  input[type="submit"] {
+    float: right;
+    margin-top: 1em;
+    height: $input-mobile-height;
+    padding-top: .55em;
+    padding-bottom: .55em;
+  }
+
+  @include respond-above("medium") {
+    margin-top: 5em;
+
+    input[type="text"] {
+      height: $input-height;
+    }
+
+    input[type="submit"] {
+      height: $input-height;
+      padding: 0.3em 1em;
+    }
+  }
+}

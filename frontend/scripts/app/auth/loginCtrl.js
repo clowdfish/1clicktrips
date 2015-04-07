@@ -58,7 +58,7 @@
         controller: 'forgotPasswordCtrl',
         size: 'lg'
       });
-    }
+    };
 
     /**
      * Show message when login error

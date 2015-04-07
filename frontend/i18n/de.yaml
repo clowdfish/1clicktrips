@@ -53,9 +53,20 @@ de:
     success: Login war erfolgreich.
   forgot:
     form:
-      email: Enter your email address
-      submit: Submit
-      sent: A password reset link was sent to the given email.
+      title: Passwort zurücksetzen
+      email: Ihre Email Adresse
+      submit: Zurücksetzen
+      sent: Der Link zum Zurücksetzen Ihres Passworts wurde an die angegebene Email Adresse gesendet.
+      error:
+        email: Diese Email Adresse ist noch nicht registriert.
+  resetpassword:
+    form:
+      title: Passwort zurücksetzen
+      submit: Zurücksetzen
+      password: Neues Passwort
+      confirmpassword: Neues Passwort bestätigen
+      invalid: Der Bestätigungslink ist nicht gültig. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support.
+      success: Ihr Passwort wurde geändert.
   footer:
     copyright: 1ClickTrips 2015. Alle Rechte vorbehalten.
     links:

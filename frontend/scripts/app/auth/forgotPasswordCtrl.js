@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('forgotPasswordCtrl', forgotPasswordCtrl);
 
-  function forgotPasswordCtrl($scope, $state, $modalInstance, authService, session) {
+  function forgotPasswordCtrl($scope, $modalInstance, authService) {
     $scope.sent = false;
     $scope.submit = function() {
       $scope.sent = false;
@@ -18,7 +18,7 @@
         }, function(reason) {
           $scope.error = reason.data;
         });
-    }
+    };
 
     $scope.cancel = function() {
       $scope.cancel = function () {

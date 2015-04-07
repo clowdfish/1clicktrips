@@ -50,8 +50,9 @@
     this.forgotPassword = function(email) {
       return $q(function(resolve, reject) {
         if (!email) {
-          return reject(new Error("Invalid email"));
+          return reject(new Error("Email address empty"));
         }
+
         $http
           .post('/api/auth/forgot', {
             email: email
@@ -66,7 +67,7 @@
             });
           });
       });
-    }
+    };
 
     this.resetPassword = function(resetPasswordToken, newPassword) {
       return $q(function(resolve, reject) {
@@ -85,7 +86,7 @@
             });
           })
       });
-    }
+    };
 
     this.validateResetPasswordToken = function(resetPasswordToken) {
       return $q(function(resolve, reject) {
@@ -98,7 +99,7 @@
             resolve(false);
           });
       });
-    }
+    };
 
     /**
      * Remove user data and logout

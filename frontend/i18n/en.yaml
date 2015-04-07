@@ -58,15 +58,15 @@ en:
       submit: Submit
       sent: A password reset link was sent to the given email.
       error:
-        email_not_exists: This email is not exists
+        email: This email address is not yet registered.
   resetpassword:
     form:
       title: Reset your password
       submit: Submit
-      passwordlabel: New password
       password: Your new password
       confirmpassword: Confirm your new password
-      invalid_token: Invalid reset password token
+      invalid: The confirmation link is not valid. Please try again or contact our support.
+      success: Your password has been changed.
   footer:
     copyright: 1ClickTrips 2015. All Rights Reserved.
     links:

@@ -25,7 +25,9 @@ var moment = require('moment');
 module.exports = {
 
   forgotPassword: function(req, res, next) {
+
     return new Promise(function(resolve, reject) {
+
       async.waterfall([
         function(done) {
           connection.query('SELECT * FROM user where email = ?', [req.body.email], function(err, users) {
@@ -33,19 +35,22 @@ module.exports = {
               return done(err);
             }
             if (!users || users.length == 0) {
-              return done(new Error('error.email.address.not.exists'));
+              return done(new Error('error.email'));
             }
             done(null, users[0]);
           });
         },
+
         function(user, done) {
           crypto.randomBytes(20, function(err, buf) {
             var token = buf.toString('hex');
             done(err, token, user)
           })
         },
+
         function(token, user, done) {
-          var expireTime = Date.now() + 24 * 3600000 //1 day
+          var expireTime = Date.now() + 24 * 3600000; // 1 day
+
           var expireDate = moment(expireTime).format('YYYY-MM-DD HH:mm:ss');
 
           connection.query('UPDATE user SET reset_password_token = ?, reset_password_expire = ? WHERE id = ?',
@@ -53,6 +58,7 @@ module.exports = {
                             done(err, token, user);
                           });
         },
+
         function(token, user, done) {
           var transporter = nodemailer.createTransport(authConfig.nodeMailer.mandrill);
           var mailOptions = {
@@ -81,6 +87,7 @@ module.exports = {
   },
 
   resetPassword: function(req, res, next) {
+
     return new Promise(function(resolve, reject) {
       async.waterfall([
         function(done) {
@@ -88,7 +95,8 @@ module.exports = {
         },
         function(user, done) {
           var salt = bcrypt.genSaltSync(10);
-          var password = bcrypt.hashSync(req.body.newPassword, salt)
+          var password = bcrypt.hashSync(req.body.newPassword, salt);
+
           connection.query('UPDATE user set password = ?, reset_password_expire = null, reset_password_token = null WHERE id = ?',
             [password, user['id']], function(err) {
               done(err, user);
