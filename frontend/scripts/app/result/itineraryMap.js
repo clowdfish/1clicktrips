@@ -20,12 +20,30 @@
       },
       templateUrl: 'scripts/app/templates/result/itinerary-map.html',
       controller: controller,
-      transclude: true
+      transclude: true,
+      link: link
     };
 
+    function link(scope, element, attrs) {
+      var $element = $(element);
+      var $tripSegments = $element.find('.trip-segments');
+
+      /**
+      * Height of the tripSegments
+      */
+      // scope.tripSegmentsHeight = 999;
+
+      // scope.$watch('activeSegmentsOnMap', function() {
+      //   scope.tripSegmentsHeight = $tripSegments.height();
+      // });
+    }
 
     function controller($scope) {
       var _this = this;
+
+      // $scope.$watch('tripSegmentsHeight', function(value) {
+      //   _this.tripSegmentsHeight = $scope.tripSegmentsHeight;
+      // })
 
       $scope.hideMap = $scope.hideMap || false;
 
@@ -66,6 +84,11 @@
       * Function - show alternatives panel
       */
       $scope.showAlternativesPanel = showAlternativesPanel;
+
+      /**
+      * Active segments
+      */
+      $scope.activeSegmentsOnMap = {};
 
       function showAlternativesPanel(segment) {
         if (typeof(segment['alternatives']) != 'undefined' && segment.alternatives.length > 0) {

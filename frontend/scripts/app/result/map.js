@@ -21,7 +21,6 @@
     };
 
     function link(scope, element, attrs, itineraryMapCtrl) {
-
       var $element = $(element);
 
       //Is this directive initialize
@@ -41,12 +40,31 @@
 
       var scrollwheel = ! browser.isMobileDevice(); //Disable scrollwheel on mobile
 
+      scope.itineraryMapCtrl = itineraryMapCtrl;
+      scope.tripSegmentsHeight = itineraryMapCtrl.tripSegmentsHeight;
+
+      $element.html('<div id="itinerary-map"></div>');
+      $map = $element.find('#itinerary-map');
+
+      // scope.$watch('itineraryMapCtrl.tripSegmentsHeight', function(value) {
+      //   console.log('height', value);
+      //   scope.tripSegmentsHeight = itineraryMapCtrl.tripSegmentsHeight;
+      //   if (scope.tripSegmentsHeight > 0) {
+      //     $map.height(scope.tripSegmentsHeight);
+      //     if (map) {
+      //       google.maps.event.trigger(map, 'resize');
+      //     }
+
+      //   }
+      // });
+
       scope.$watch('activeSegments', function() {
 
         if (!scope.activeSegments ||
           scope.activeSegments.length == 0) {
           return;
         }
+
 
         if (!scope.isInitialize) {
           initialize();
@@ -121,9 +139,6 @@
       }
 
       function initialize() {
-        $element.html('<div id="itinerary-map"></div>');
-        $map = $element.find('#itinerary-map');
-
         var center = new google.maps.LatLng(scope.activeSegments[0].start.location.latitude,
                                           scope.activeSegments[0].end.location.longitude);
 

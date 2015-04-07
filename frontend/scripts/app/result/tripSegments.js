@@ -21,6 +21,8 @@
     }
 
     function link(scope, element, attrs, itineraryMapCtrl) {
+      var $element = $(element);
+      var $tripSegments = $element.find('.trip-segments');
       scope.activeSegmentNumber = 1;
       scope.showTab = showTab;
 
@@ -42,6 +44,10 @@
         scope.segments = groupSegmentByDate(scope.itinerary);
         scope.segmentsHeaders = _.keys(scope.segments);
         scope.activeSegments = scope.segments[1];
+
+        scope.segmentsHeight = $tripSegments.height();
+
+
       });
 
 
