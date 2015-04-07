@@ -2,13 +2,12 @@
 
 var Promise = require('es6-promise').Promise;
 var mysql = require('mysql');
+var fs = require('fs');
+var async = require('async');
 
 var dbConfig = require('../../config/database.js');
 var connection = mysql.createConnection(dbConfig.connection);
-var fs = require('fs');
 
-var generalConfig = require('../../config/general.js');
-var async = require('async');
 module.exports = {
 
   getUser: function(userId) {
@@ -240,16 +239,16 @@ module.exports = {
   },
 
   uploadProfilePicture: function(req, userId) {
-    var profilePicture = null;
+
     return new Promise(function(resolve, reject) {
+
       saveUploadImage(req, userId)
         .then(function(path){
-          profilePicture = path;
           return updateUserImage(userId, path);
         }, function(err) {
           reject(err);
         })
-        .then(function(){
+        .then(function(profilePicture){
           resolve(profilePicture);
         }, function(err) {
           reject(err);
@@ -257,33 +256,60 @@ module.exports = {
     });
   },
 
-  updateFavoritePosition: updateFavoritePosition
+  updateFavoritePosition: function(userId, positionData) {
+
+    return new Promise(function(resolve, reject) {
+
+      async.each(positionData, function(item, callback) {
+        item['userId'] = userId;
+
+        setFavoritePosition(item, function(err) {
+          if (err) {
+            callback(err);
+          } else {
+            callback();
+          }
+        })
+      }, function(err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
 };
 
 function updateUserImage(userId, path) {
+
   return new Promise(function(resolve, reject) {
     console.log(userId, path);
+
     connection.query('SELECT * FROM user WHERE id = ?', [userId], function(err, rows) {
       if (err) {
         return reject(err);
       }
 
       if (rows.length == 0) {
-        return reject(new Error('User is not exist'));
+        return reject(new Error('User does not exist'));
       }
 
       var profileId = rows[0].profile_id;
       console.log('profileId', profileId);
+
       removeOldProfileImage(profileId).then(function() {
+
         var updateQuery = 'UPDATE profile SET image = ? WHERE id = ?';
-        updateParams = [path, profileId];
+        var updateParams = [path, profileId];
+
         console.log('updateParams', updateParams);
         connection.query(updateQuery, updateParams, function(err, data) {
           if (err) {
             return reject(err);
           }
-          console.log(data);
-          resolve(profileId);
+
+          resolve(path);
         });
       }, function(err) {
         reject(err);
@@ -350,27 +376,6 @@ function saveUploadImage(req, userId) {
           resolve(shortPath);
         }
       })
-    });
-  });
-}
-
-function updateFavoritePosition(userId, positionData) {
-  return new Promise(function(resolve, reject) {
-    async.each(positionData, function(item, callback) {
-      item['userId'] = userId;
-      setFavoritePosition(item, function(err) {
-        if (err) {
-          callback(err);
-        } else {
-          callback();
-        }
-      })
-    }, function(err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
     });
   });
 }

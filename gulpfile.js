@@ -48,9 +48,6 @@ gulp.task('dev-test', function (done) {
 // ----------------------- Development Tasks ----------------------- //
 gulp.task('live', [], function() {
 
-    // watch for CSS changes
-    gulp.watch('./app/**/*.ts', ['typescript']);
-
     //reload when files change
     gulp.watch('./app/**/*.js', function(event) {
         onModification(event);

@@ -186,7 +186,7 @@ module.exports = function (app, express, production) {
       .catch(function(err) {
         res.status(500).send(err.message);
       })
-  })
+  });
 
   // ==========================================================================
   // BOOKINGS =================================================================

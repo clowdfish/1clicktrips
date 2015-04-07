@@ -6,7 +6,7 @@ var express       = require('express'),
     session       = require('express-session'),
     morgan        = require('morgan'),
     cookieParser  = require('cookie-parser'),
-    bodyParser    = require('body-parser'),
+    bodyParser    = require('body-parser');
     multipart     = require('connect-multiparty');
 
 // initiate server instance
@@ -45,6 +45,7 @@ function setupServer() {
       saveUninitialized: false // passport will take care
       /* store: e.g. Redis Store */ // redis store for session data
     }));
+
 
     app.use(multipart({
       uploadDir: generalConfig.temporaryFolderDir
