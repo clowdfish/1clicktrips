@@ -14,7 +14,6 @@ var app = express();
 
 // configuration ===============================================================
 var configAuth = require('./config/auth');
-var generalConfig = require('./config/general');
 var port = process.env.PORT || 8080;
 
 // development/production flag

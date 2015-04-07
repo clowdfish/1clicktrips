@@ -306,13 +306,18 @@
     border-bottom: 1px solid #e8e8e8;
 
     .map-marker-container {
+      $map-marker-size: 1.6em;
+
       display: block;
       background-color: $c-red;
-      width: 1.5em;
-      height: 1.5em;
-      border-radius: 0.75em;
+      width: $map-marker-size;
+      height: $map-marker-size;
+      border-radius: $map-marker-size/2;
+      text-align: center;
       color: #fff;
+      font-size: 1.5em;
       font-weight: 600;
+      padding-top: 0.1em;
     }
   }
 
