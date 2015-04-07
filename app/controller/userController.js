@@ -284,7 +284,6 @@ module.exports = {
 function updateUserImage(userId, path) {
 
   return new Promise(function(resolve, reject) {
-    console.log(userId, path);
 
     connection.query('SELECT * FROM user WHERE id = ?', [userId], function(err, rows) {
       if (err) {
@@ -294,21 +293,14 @@ function updateUserImage(userId, path) {
       if (rows.length == 0) {
         return reject(new Error('User does not exist'));
       }
-
       var profileId = rows[0].profile_id;
-      console.log('profileId', profileId);
-
       removeOldProfileImage(profileId).then(function() {
-
         var updateQuery = 'UPDATE profile SET image = ? WHERE id = ?';
         var updateParams = [path, profileId];
-
-        console.log('updateParams', updateParams);
         connection.query(updateQuery, updateParams, function(err, data) {
           if (err) {
             return reject(err);
           }
-
           resolve(path);
         });
       }, function(err) {
@@ -354,7 +346,7 @@ function saveUploadImage(req, userId) {
 
   return new Promise(function(resolve, reject) {
     if (!file || file == undefined) {
-      reject(new Error('File is not available'));
+      return reject(new Error('File is not available'));
     }
 
     var shortPath = '/images/uploaded/'
@@ -366,13 +358,14 @@ function saveUploadImage(req, userId) {
                 + shortPath;
     fs.readFile(file.path, function(err, data) {
       if (err) {
+        fs.unlinkSync(file.path);
         return reject(err);
       }
       fs.writeFile(systemPath, data, function(err) {
+        fs.unlinkSync(file.path);
         if (err) {
           reject(err);
         } else {
-          fs.unlinkSync(file.path);
           resolve(shortPath);
         }
       })

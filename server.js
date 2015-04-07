@@ -7,7 +7,7 @@ var express       = require('express'),
     morgan        = require('morgan'),
     cookieParser  = require('cookie-parser'),
     bodyParser    = require('body-parser');
-    multipart     = require('connect-multiparty');
+
 
 // initiate server instance
 var app = express();
@@ -44,11 +44,6 @@ function setupServer() {
       resave: false,
       saveUninitialized: false // passport will take care
       /* store: e.g. Redis Store */ // redis store for session data
-    }));
-
-
-    app.use(multipart({
-      uploadDir: generalConfig.temporaryFolderDir
     }));
 
     app.set('jwtTokenSecret', configAuth.secret);

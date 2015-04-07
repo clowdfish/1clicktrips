@@ -2,6 +2,8 @@
 
 var jwt     = require('jwt-simple');
 var Promise = require('es6-promise').Promise;
+var multipart     = require('connect-multiparty');
+var generalConfig = require('../../config/general.js');
 
 module.exports = function (app, express, production) {
 
@@ -35,6 +37,13 @@ module.exports = function (app, express, production) {
 
   // get an instance of router
   var accountApi = express.Router();
+
+  /**
+  * Middleware to get upload content
+  */
+  var multipartMiddleware = multipart({
+    uploadDir: generalConfig.temporaryFolderDir
+  });
 
   // account root
   accountApi.get('/', function (req, res) {
@@ -253,7 +262,7 @@ module.exports = function (app, express, production) {
   // UPLOAD IMAGE =============================================================
   // ==========================================================================
 
-  accountApi.post('/upload', function(req, res) {
+  accountApi.post('/upload', multipartMiddleware, function(req, res) {
     var userId = AuthController.getUserIdFromRequest(req, secret);
 
     UserController.uploadProfilePicture(req, userId)
