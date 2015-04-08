@@ -95,7 +95,10 @@ module.exports = {
           'first_name',
           'last_name',
           'street',
-          'address_other'
+          'address_other',
+          'zip_code',
+          'city',
+          'country'
         ];
 
         if (updateFields.indexOf(profileObject.key) === -1) {
