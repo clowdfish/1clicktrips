@@ -20,7 +20,7 @@ body {
 
 .section-header {
   @include span(6);
-  margin-top: 3em;
+  margin-top: 0.5em;
   padding: 1em;
   background: $c-red url("../images/bg_pattern.jpg") repeat;
 
@@ -60,5 +60,9 @@ body {
   .view-container {
     background-color: $c-content-bg;
     box-shadow: 0 55px 40px -50px rgba(0,0,0,0.3);
+  }
+
+  .section-header {
+    margin-top: 3em;
   }
 }

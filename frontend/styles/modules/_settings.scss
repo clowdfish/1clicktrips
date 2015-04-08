@@ -1,24 +1,122 @@
 %settings {
 
   .settings-navigation {
-    @include span(6 of 24);
+    @include span(6);
+
+    padding-bottom: 1em;
+    text-align: center;
+    border-bottom: 1px solid #cccccc;
 
     ul {
       list-style: none;
     }
 
-    li.active {
-      color: $c-text-dark-bg-highlight;
+    li {
+      display: inline-block;
+
+      &.active > a {
+        text-decoration: underline;
+      }
+
+      &:not(:last-child):after {
+        content:'\00B7';
+        padding: 0 0.2em;
+      }
     }
   }
 
   .settings-content {
-    @include span(18 of 24);
+    @include span(6);
 
+    padding: 1em 0;
+  }
+
+  .profile-attribute, .preferences-attribute {
+
+    .fa-check {
+      color: $c-green;
+    }
+
+    .fa-exclamation {
+      color: $c-red;
+    }
+
+    .fa-pencil {
+      color: #c3c1ca;
+      margin-left: 0.3em;
+      font-size: 0.7em;
+    }
+
+    label {
+      display: block;
+      margin: 0.6em 0 0 0;
+    }
+
+    img {
+      margin: 0.3em 0;
+    }
+  }
+
+  .settings-sub-title {
+    margin-top: 0.8em;
+    margin-bottom: 0.5em;
+  }
+
+  .settings-bookings-item, .settings-favorites-item {
+
+    td {
+      padding-bottom: 0.8em;
+    }
+  }
+
+  .button {
+    font-size: $fs-normal;
+    height: $input-mobile-height;
   }
 
   @include respond-above("medium") {
 
+    .settings-navigation {
+      @include span(6 of 24);
+
+      padding-bottom: 1em;
+      text-align: left;
+      border-bottom: none;
+
+      ul {
+        list-style: none;
+      }
+
+      li {
+        display: block;
+        margin-bottom: 0.3em;
+
+        &.active > a {
+          text-decoration: underline;
+        }
+
+        &:not(:last-child):after {
+          content: none;
+        }
+      }
+    }
+
+    .settings-content {
+      @include span(18 of 24);
+
+    }
+
+    .settings-bookings-item, .settings-favorites-item {
+
+      td {
+        padding-bottom: 0.3em;
+        padding-right: 0.5em;
+      }
+    }
+
+    .button {
+      height: $input-height;
+    }
   }
 
   @include respond-above("large") {
@@ -26,21 +124,6 @@
   }
 }
 
-
 .settings {
   @extend %settings;
 }
-
-/*
-
-EXAMPLE:
-
-[js-collapsible-trigger]::after {
-    @include fa-icon();
-    content: $fa-var-chevron-down;
-  }
-  &.is-collapsed [js-collapsible-trigger]::after {
-    content: $fa-var-chevron-up;
-  }
-
-*/

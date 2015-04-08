@@ -52,3 +52,12 @@ $button-height: 2.3em;
     background-color: #444;
   }
 }
+
+.button--mobile {
+  @extend %button;
+  font-size: $fs-normal;
+  font-weight: 400;
+
+  height: $input-mobile-height;
+  padding: 0.4em 1em;
+}

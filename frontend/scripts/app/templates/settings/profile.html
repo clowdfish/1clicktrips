@@ -1,54 +1,66 @@
-<h1>Profile</h1>
+<h1>{[ "settings_profile_title" | translate ]}</h1>
 
 <form name="profileForm">
 
-  <div class="form-group">
+  <div class="form-group profile-attribute">
     <label>Image</label>
-    <img ng-src="{[userProfile.image]}" width="150" height="150"/>
+    <img ng-src="{[userProfile.image]}" width="150" height="150" />
     <input type="file"
             id="profile-picture"
             ng-file-select
             ng-model="profilePicture"
             name="profilePicture"
             ng-file-change="uploadImage($event)">
-    <span ng-show="isUploading">Uploading, please wait...</span>
+    <span ng-show="isUploading">{[ "settings_profile_upload" | translate ]}</span>
   </div>
 
 
   <editable-text-field
+    class="profile-attribute"
     key="'first_name'"
     value="userProfile.first_name"
-    label="'First Name'"
+    label="'settings_profile_firstname'"
     save="saveProfile"></editable-text-field>
 
   <editable-text-field
+    class="profile-attribute"
     key="'last_name'"
     value="userProfile.last_name"
-    label="'Last Name'"
+    label="'settings_profile_lastname'"
     save="saveProfile"></editable-text-field>
 
   <editable-text-field
+    class="profile-attribute"
     key="'company_name'"
     value="userProfile.company_name"
-    label="'Company Name'"
+    label="'settings_profile_company'"
     save="saveProfile"></editable-text-field>
 
   <editable-text-field
+    class="profile-attribute"
     key="'street'"
     value="userProfile.street"
-    label="'Street'"
+    label="'settings_profile_address_street'"
     save="saveProfile"></editable-text-field>
 
   <editable-text-field
-    key="'address_other'"
-    value="userProfile.address_other"
-    label="'Other Address'"
-    save="saveProfile"></editable-text-field>
-
-  <editable-text-field
+    class="profile-attribute"
     key="'zip_code'"
     value="userProfile.zip_code"
-    label="'Zip Code'"
+    label="'settings_profile_address_zip'"
     save="saveProfile"></editable-text-field>
 
+  <editable-text-field
+    class="profile-attribute"
+    key="'city'"
+    value="userProfile.city"
+    label="'settings_profile_address_city'"
+    save="saveProfile"></editable-text-field>
+
+  <editable-text-field
+    class="profile-attribute"
+    key="'country'"
+    value="userProfile.country"
+    label="'settings_profile_address_country'"
+    save="saveProfile"></editable-text-field>
 </form>

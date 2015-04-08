@@ -1,4 +1,5 @@
-<h3>Favorites</h3>
+<h3 class="settings-sub-title">{[ "dashboard_favorites_title" | translate ]}</h3>
+
 <table ng-show="favorites.length > 0">
   <tr>
     <th>Start</th>
@@ -6,10 +7,10 @@
     <th>Action</th>
   </tr>
   <tbody ui-sortable="sortableOptions" ng-model="favorites">
-    <tr ng-repeat="favorite in favorites">
+    <tr class="settings-favorites-item" ng-repeat="favorite in favorites">
       <td>{[favorite.origin.description]}</td>
       <td>{[favorite.destination.description]}</td>
-      <td><input type="button" ng-click="deleteFavorite(favorite)" value="Delete"></button></td>
+      <td><input type="button" class="button" ng-click="deleteFavorite(favorite)" value="Delete"></button></td>
     </tr>
   </tbody>
 </table>

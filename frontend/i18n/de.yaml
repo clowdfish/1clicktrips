@@ -7,6 +7,7 @@ de:
     from: von
     until: bis
     destination: Ziel
+    title: Bezeichnung
     pagination:
       page: Seite
       of: von
@@ -142,6 +143,7 @@ de:
       title: Meine Favoriten
       empty: Sie haben noch keine Favoriten gespeichert. Sobald Sie das getan haben, werden sie hier erscheinen.
     bookings:
+      label: Meine Buchungen
       title: Anstehende Reisen
       event: Event Name
       date: Reisedatum
@@ -157,11 +159,18 @@ de:
       firstname: Vorname
       lastname: Nachname
       email: Email
+      company: Firma
       twitter:
         twitter: Twitter
         connect: Konto verknüpfen
         unlink: Konto abmelden
-      address: Adresse
+      address:
+        street: Straße und Hausnummer
+        other: Andere
+        zip: Postleitzahl
+        city: Stadt
+        country: Land
+      upload: Verarbeite Datei, bitte warten...
     history:
       title: Bezahldaten
     privacy:

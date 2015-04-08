@@ -1,4 +1,4 @@
-<h1>Preferences</h1>
+<h1>{[ "settings_preferences_title" | translate ]}</h1>
 
 <div class="user-preferences-wrapper">
   <form name="preferenceForm">
@@ -7,6 +7,7 @@
       <!-- Multi choice setting -->
       <div ng-if="preference.options">
         <editable-dropdown
+          class="preferences-attribute"
           label="preference.description"
           key="preference.key"
           value="preference.value"
@@ -19,6 +20,7 @@
       <!-- Text setting -->
       <div ng-if="!preference.options">
         <editable-text-field
+          class="preferences-attribute"
           label="preference.description"
           key="preference.key"
           value="preference.value"
