@@ -171,9 +171,16 @@
           //Create marker for segment
           var marker = createSegmentMarker(segments[segmentIndex].start.location.latitude,
                                           segments[segmentIndex].start.location.longitude,
-                                          segmentIndex + 1);
-
+                                          segmentIndex);
           markers.push(marker);
+
+          if (segmentIndex == segments.length - 1) {
+            var marker = createSegmentMarker(segments[segmentIndex].end.location.latitude,
+                                          segments[segmentIndex].end.location.longitude,
+                                          segmentIndex + 1);
+            markers.push(marker);
+          }
+
 
           var path = segments[segmentIndex].path;
 
@@ -203,13 +210,6 @@
       }
 
       function createSegmentMarker(lat, lng, number) {
-        // var locationMarker = new google.maps.Marker();
-        // locationMarker.setOptions({
-        //   icon: getLocationIconByNumber(number),
-        //   draggable: false,
-        //   map: map,
-        //   position: new google.maps.LatLng(lat, lng)
-        // });
         var position = new google.maps.LatLng(lat, lng);
         var htmlContent = '<span class="map-marker-container">' + number + '</span>'
         var locationMarker = new CustomMarker(map, position, {
