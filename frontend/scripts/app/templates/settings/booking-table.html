@@ -1,15 +1,15 @@
-<h3>Booking Table</h3>
+<h3 class="settings-sub-title">{[ "dashboard_bookings_label" | translate ]}</h3>
 
 <div ng-show="bookingList.length > 0">
   <table>
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Destination</th>
+        <th>{[ "general_title" | translate ]}</th>
+        <th>{[ "general_destination" | translate ]}</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="booking in bookingList">
+      <tr class="settings-bookings-item" ng-repeat="booking in bookingList">
         <td>{[booking.title]}</td>
         <td>{[booking.destination]}</td>
       </tr>
@@ -17,6 +17,6 @@
   </table>
 </div>
 
-<div class="bookings-empty-message" ng-show="!booking || bookingList.length == 0">
+<div class="bookings-empty-message" ng-show="!bookingList || bookingList.length == 0">
   {[ "dashboard_bookings_empty" | translate ]}
 </div>

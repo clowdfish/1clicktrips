@@ -7,6 +7,7 @@ en:
     from: from
     until: to
     destination: Destination
+    title: Title
     pagination:
       page: Page
       of: of
@@ -142,6 +143,7 @@ en:
       title: My favorites
       empty: You have not yet added any favorites. Once you do so, they will be shown here.
     bookings:
+      label: My bookings
       title: Upcoming trips
       event: Event Name
       date: Travel Date
@@ -157,11 +159,18 @@ en:
       firstname: First name
       lastname: Last name
       email: Email
+      company: Company
       twitter:
         twitter: Twitter
         connect: connect account
         unlink: unlink account
-      address: Address
+      address:
+        street: Street and No.
+        other: Other
+        zip: Postal code
+        city: City
+        country: Country
+      upload: Uploading, please wait...
     history:
       title: Payment
     privacy:
