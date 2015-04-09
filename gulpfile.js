@@ -52,6 +52,7 @@ gulp.task('migrate', function(done) {
     var spawnOpts = {
        stdio: 'inherit'
     };
+
     var args = [path.resolve(process.cwd() + '/node_modules/db-migrate/bin/db-migrate')];
 
     if (argv['env']) {
@@ -74,7 +75,7 @@ gulp.task('migrate', function(done) {
     } else if (argv['down']) {
         args.push('down');
     }
-    console.log(args)
+
     child = spawn('node', args, spawnOpts);
 });
 
