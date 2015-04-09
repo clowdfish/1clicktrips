@@ -26,16 +26,12 @@
       url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:destination,:origin',
       templateUrl: 'scripts/app/templates/result/result.html',
       controller: 'resultCtrl',
+      parent: 'root',
       resolve: {
         searchObject: getSearchObject
       }
     });
 
-    $stateProvider.state('temp_result', {
-      url: '/result',
-      templateUrl: 'scripts/app/templates/result/result.html',
-      controller: 'resultCtrl'
-    });
   }
 
   function getSearchObject($stateParams, appConfig) {

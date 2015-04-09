@@ -202,7 +202,7 @@
      */
     function initLanguages() {
       $scope.languages = languageService.getAvailableLanguages();
-      console.log($scope.languages);
+
       if (locale) {
         appConfig.activeLanguageKey = locale;
       }
@@ -219,13 +219,17 @@
     }
 
     function changeLanguage(key) {
-      console.log(languageService.getLanguageDataByCode(key));
       if (!languageService.getLanguageDataByCode(key)) {
         return;
       }
-      var hrefArray = location.href.split('#');
-      var newHref = '/' + key + '/#' + hrefArray[1];
-      location.href = newHref;
+
+      languageService
+        .setActiveLanguageKey(key)
+        .then(function() {
+          var hrefArray = location.href.split('#');
+          var newHref = '/' + key + '/#' + hrefArray[1];
+          location.href = newHref;
+        });
     }
   }
 })();

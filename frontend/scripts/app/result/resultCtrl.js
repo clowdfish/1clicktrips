@@ -18,7 +18,8 @@
                       session,
                       AUTH_EVENTS,
                       favoriteService,
-                      searchObject) {
+                      searchObject,
+                      globalConfig) {
     $scope.appConfig = appConfig;
     $scope.showAddToFavorite = true;
     findAllItineraries();

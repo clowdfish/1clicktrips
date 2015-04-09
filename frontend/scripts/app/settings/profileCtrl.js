@@ -8,8 +8,9 @@
 
   function profileCtrl($scope,
                       userService,
-                      userProfile) {
-
+                      userProfile,
+                      globalConfig) {
+    console.log('globalConfig', globalConfig)
     $scope.userProfile = userProfile;
     $scope.isUploading = false;
 
