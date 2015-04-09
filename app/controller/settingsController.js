@@ -1,6 +1,6 @@
 // controller/settingsController.js
 var mysql = require('mysql');
-var dbConfig = require('../../config/database.js');
+var dbConfig = require('../../config/database.json');
 var Promise = require('es6-promise').Promise;
 
 var connection = mysql.createConnection(dbConfig.connection);

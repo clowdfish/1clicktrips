@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt');
 var crypto = require('crypto');
 var configAuth = require('../../config/auth');
 
-var dbConfig = require('../../config/database.js');
+var dbConfig = require('../../config/database.json');
 var mysql = require('mysql');
 var connection = mysql.createConnection(dbConfig.connection);
 

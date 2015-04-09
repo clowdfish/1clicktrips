@@ -20,7 +20,6 @@
       url: '/profile',
       templateUrl: 'scripts/app/templates/settings/profile.html',
       controller: 'profileCtrl',
-      parent:'root',
       resolve: {
         userProfile: getUserProfile
       }
@@ -30,7 +29,6 @@
       url: '/preferences',
       templateUrl: 'scripts/app/templates/settings/preferences.html',
       controller: 'preferencesCtrl',
-      parent:'root',
       resolve: {
         userPreferences: getUserPreferences
       }
@@ -40,7 +38,6 @@
       url: '/history',
       templateUrl: 'scripts/app/templates/settings/history.html',
       controller: 'historyCtrl',
-      parent:'root',
       resolve: {
         favorites: getFavorites,
         bookingList: getBookingList

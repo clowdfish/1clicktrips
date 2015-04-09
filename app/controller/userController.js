@@ -5,7 +5,7 @@ var mysql = require('mysql');
 var fs = require('fs');
 var async = require('async');
 
-var dbConfig = require('../../config/database.js');
+var dbConfig = require('../../config/database.json');
 var connection = mysql.createConnection(dbConfig.connection);
 
 module.exports = {
