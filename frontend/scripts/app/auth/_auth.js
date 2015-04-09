@@ -24,7 +24,7 @@
 
   function httpConfig($httpProvider) {
     //Inject x-auth-token header into request if token available;
-    $httpProvider.interceptors.push('tokenInjector');
+    $httpProvider.interceptors.push('httpInterceptor');
 
     //Stop certains request if user is not authenticated
     $httpProvider.interceptors.push('requestChecker');

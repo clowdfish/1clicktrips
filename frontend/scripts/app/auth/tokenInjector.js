@@ -1,19 +1,17 @@
 (function() {
   angular
     .module('app.auth')
-    .factory('tokenInjector', tokenInjector);
+    .factory('httpInterceptor', httpInterceptor);
 
   /**
-  * Inject token to http request header
+  * Inject token and language to http request header
   */
-  function tokenInjector($rootScope, $q, AUTH_EVENTS, session) {
+  function httpInterceptor($rootScope, $q, AUTH_EVENTS, session, appConfig) {
     return {
 
       request: function(config) {
-        var token = session.getAuthToken();
-        if (token) {
-          config.headers['x-access-token'] = token;
-        }
+        config = injectToken(config);
+        config = injectLanguage(config);
         return config;
       },
 
@@ -23,7 +21,21 @@
         }
         return $q.reject(rejection);
       }
-
     };
+
+    function injectToken(config) {
+      var token = session.getAuthToken();
+      if (token) {
+        config.headers['x-access-token'] = token;
+      }
+      return config;
+    }
+
+    function injectLanguage(config) {
+      config.headers['x-language'] = appConfig.activeLanguageKey;
+      return config;
+    }
+
+
   }
 })();

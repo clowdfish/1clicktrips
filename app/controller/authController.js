@@ -20,10 +20,12 @@ var nodeMailer = require('nodemailer');
 var UserController = require('./userController');
 
 var moment = require('moment');
+
+var translate = require('../i18n/i18n').translate;
 module.exports = {
 
   forgotPassword: function(req, res, next) {
-
+    var language = req.headers['x-language'];
     return new Promise(function(resolve, reject) {
 
       async.waterfall([
@@ -62,10 +64,10 @@ module.exports = {
           var mailOptions = {
             to: user['email'],
             from: authConfig.mailOptions.supportEmail,
-            subject: authConfig.email.reset.subject,
-            text: authConfig.email.reset.body[0] +
-              req.headers.origin + '/en/#/reset-password/' + token + '\n\n' +
-              authConfig.email.reset.body[1]
+            subject: translate('email.reset.subject', req.languageKey),
+            text: translate('email.reset.body', req.languageKey, [
+              req.headers.origin + '/en/#/reset-password/' + token
+            ])
           };
 
           transporter.sendMail(mailOptions, function(err) {
@@ -104,8 +106,8 @@ module.exports = {
           var mailOptions = {
             to: user['email'],
             from: authConfig.mailOptions.supportEmail,
-            subject: authConfig.email.confirmation.subject,
-            text: authConfig.email.reset.body[0] + user['email'] + authConfig.email.reset.body[1]
+            subject: translate('email.confirmation.subject', req.languageKey),
+            text: translate('email.confirmation.body', req.languageKey)
           };
 
           transporter.sendMail(mailOptions, function(err) {

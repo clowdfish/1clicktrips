@@ -98,7 +98,8 @@ module.exports = {
           'address_other',
           'zip_code',
           'city',
-          'country'
+          'country',
+          'language'
         ];
 
         if (updateFields.indexOf(profileObject.key) === -1) {

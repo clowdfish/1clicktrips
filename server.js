@@ -7,7 +7,7 @@ var express       = require('express'),
     morgan        = require('morgan'),
     cookieParser  = require('cookie-parser'),
     bodyParser    = require('body-parser');
-
+    languageKeyParser = require('./app/i18n/i18n').languageKeyParser;
 
 // initiate server instance
 var app = express();
@@ -44,6 +44,7 @@ function setupServer() {
       saveUninitialized: false // passport will take care
       /* store: e.g. Redis Store */ // redis store for session data
     }));
+    app.use(languageKeyParser);
 
     app.set('jwtTokenSecret', configAuth.secret);
     app.set('loginCallbackUrl', configAuth.loginCallbackUrl);
@@ -79,3 +80,5 @@ function start () {
 
 // start the server ============================================================
 start();
+
+
