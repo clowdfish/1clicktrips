@@ -57,10 +57,13 @@
     label="'settings_profile_address_city'"
     save="saveProfile"></editable-text-field>
 
-  <editable-text-field
+  <editable-dropdown
     class="profile-attribute"
     key="'country'"
     value="userProfile.country"
     label="'settings_profile_address_country'"
-    save="saveProfile"></editable-text-field>
+    options="countryList"
+    save="saveProfile">
+  </editable-dropdown>
+
 </form>

@@ -10,6 +10,15 @@
     $scope.isEditing = false;
     $scope.error = false;
     $scope.success = false;
+    $scope.optionDescription = '';
+    $scope.$watch('value', function() {
+      var option = _.find($scope.options, function(item) {
+        return item.value === $scope.value;
+      });
+      if (option) {
+        $scope.optionDescription = option.description;
+      }
+    });
     $scope.edit = function() {
       $scope.isEditing = true;
     };
@@ -32,6 +41,8 @@
       $scope.success = false;
       $scope.error = true;
     }
+
+
   }
 
 })();

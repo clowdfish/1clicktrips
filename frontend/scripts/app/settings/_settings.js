@@ -21,7 +21,8 @@
       templateUrl: 'scripts/app/templates/settings/profile.html',
       controller: 'profileCtrl',
       resolve: {
-        userProfile: getUserProfile
+        userProfile: getUserProfile,
+        countryList: getCountryList
       }
     });
 
@@ -51,6 +52,10 @@
 
   function getUserPreferences(settingsService) {
     return settingsService.getUserSettings();
+  }
+
+  function getCountryList(userService) {
+    return userService.getCountryList();
   }
 
   function getFavorites(session, favoriteService) {

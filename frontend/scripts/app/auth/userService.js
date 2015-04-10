@@ -63,6 +63,19 @@
       });
     };
 
+    this.getCountryList = function() {
+      return $q(function(resolve, reject) {
+        $http
+          .get('/api/countrylist')
+          .success(function(countryList){
+            resolve(countryList);
+          })
+          .error(function() {
+            reject();
+          });
+      });
+    }
+
     this.uploadProfilePicture = function(file) {
       return $upload.upload({
         url: '/api/account/upload',

@@ -7,17 +7,19 @@
 </div>
 
 <div ng-show="isEditing">
-
+  <div ng-repeat="option in options">
     <fieldset>
-      <select ng-model="value"
-              id="{[key]}"
+      <input type="radio"
+              ng-model="value"
+              value="{[option.value]}"
+              id="{[key]}_{[option.value]}"
               name="{[key]}"
-              ng-change="save(value)"
+              ng-click="save(option.value)"
               ng-class="{error: error}"
-              ng-options="item.value as item.description for item in options">
-      </select>
+              />
+      <label for="{[key]}_{[option.value]}">{[option.description | capitalize]}</label>
       <span ng-show="error"><i class="fa fa-exclamation"></i></span>
     </fieldset>
-
+  </div>
 </div>
 

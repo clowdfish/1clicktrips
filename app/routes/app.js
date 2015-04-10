@@ -9,7 +9,7 @@ module.exports = function (app, production) {
   var AppController = null;
 
   if(production) {
-    AppController = require('../mocking/appController');
+    AppController = require('../controller/appController');
   }
   else {
     AppController = require('../mocking/appController');
@@ -51,6 +51,16 @@ module.exports = function (app, production) {
     AppController.getAvailableCurrencies()
       .then(function(currencies) {
         res.status(200).json(currencies);
+      })
+      .catch(function(err) {
+        res.status(500).json(err.message);
+      });
+  });
+
+  app.get('/countrylist', function (req, res) {
+    AppController.getCountryArray()
+      .then(function(countryList) {
+        res.status(200).json(countryList);
       })
       .catch(function(err) {
         res.status(500).json(err.message);

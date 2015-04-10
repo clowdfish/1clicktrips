@@ -2,14 +2,14 @@ var dbm = global.dbm || require('db-migrate');
 var type = dbm.dataType;
 var async = require('async');
 exports.up = function(db, callback) {
-  //db.runSql('INSERT INTO country(`code`, `name`) VALUES ?', getCountryData(), callback);
   var countryArray = getCountryData();
-  async.each(countryArray, function(item, done) {
-    db.insert('country', ['code', 'name'], item, done);
-  }, function(err) {
-    callback(err);
-  });
-
+  async.each(countryArray,
+            function(item, done) {
+              db.insert('country', ['code', 'name'], item, done);
+            },
+            function(err) {
+              callback(err);
+            });
 };
 
 exports.down = function(db, callback) {

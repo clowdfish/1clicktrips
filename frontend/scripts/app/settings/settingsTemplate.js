@@ -10,23 +10,26 @@
         "description": "Set your personal travel profile.",
         "key": "travel_profile",
         "default": 1,
-        "options": {
-          0: {
+        "options": [
+          {
             "description": "time saver",
+            "value": 0,
             "tooltip": "Choose this travel profile, when you want to spend as little time as possible on the road.",
             "parameters": []
           },
-          1: {
+          {
             "description": "explorer",
+            "value": 1,
             "tooltip": "Choose this travel profile, when you want to also explore your destination and spend some time there.",
             "parameters": []
           },
-          2: {
+          {
             "description": "socializer",
+            "value": 2,
             "tooltip": "Choose this travel profile, when you plan to spend some time with your customer after the appointment.",
             "parameters": []
           }
-        }
+        ]
       },
       {
         "category": "Preferences",
@@ -36,14 +39,17 @@
         "options": {
           0: {
             "description": "fast",
+            "value": 0,
             "tooltip": "Your name is Usain Bolt? Go for that option."
           },
           1: {
             "description": "medium",
+            "value": 1,
             "tooltip": "For most people this option is the way to go."
           },
           2: {
             "description": "slow",
+            "value": 2,
             "tooltip": "If you miss your connections too often, go for that option. It will give you some additional buffer time."
           }
         }
@@ -67,13 +73,16 @@
         "default": 1,
         "options": {
           0: {
-            "description": "low-budget"
+            "description": "low-budget",
+            "value": 0
           },
           1: {
-            "description": "comfort"
+            "description": "comfort",
+            "value": 1
           },
           2: {
-            "description": "luxurious"
+            "description": "luxurious",
+            "value": 2
           }
         }
       },
@@ -84,13 +93,16 @@
         "default": 0,
         "options": {
           0: {
-            "description": "close to appointment location"
+            "description": "close to appointment location",
+            "value": 0
           },
           1: {
-            "description": "close to traffic junctions"
+            "description": "close to traffic junctions",
+            "value": 1
           },
           2: {
-            "description": "close to city center"
+            "description": "close to city center",
+            "value": 2
           }
         }
       },
@@ -101,13 +113,16 @@
         "default": 0,
         "options": {
           0: {
-            "description": "only hotels"
+            "description": "only hotels",
+            "value": 0
           },
           1: {
-            "description": "hotels and private accommodations"
+            "description": "hotels and private accommodations",
+            "value": 1
           },
           2: {
-            "description": "only private accommodations"
+            "description": "only private accommodations",
+            "value": 2
           }
         }
       },
@@ -118,10 +133,12 @@
         "default": 1,
         "options": {
           0: {
-            "description": "disable"
+            "description": "disable",
+            "value": 0
           },
           1: {
-            "description": "enable"
+            "description": "enable",
+            "value": 1
           }
         }
       },
@@ -132,10 +149,12 @@
         "default": 1,
         "options": {
           0: {
-            "description": "disable"
+            "description": "disable",
+            "value": 0
           },
           1: {
-            "description": "enable"
+            "description": "enable",
+            "value": 1
           }
         }
       },
@@ -146,10 +165,12 @@
         "default": 1,
         "options": {
           0: {
-            "description": "disable"
+            "description": "disable",
+            "value": 0
           },
           1: {
-            "description": "enable"
+            "description": "enable",
+            "value": 1
           }
         }
       },
@@ -160,10 +181,12 @@
         "default": 0,
         "options": {
           0: {
-            "description": "disable"
+            "description": "disable",
+            "value": 0
           },
           1: {
-            "description": "enable"
+            "description": "enable",
+            "value": 1
           }
         }
       },
@@ -174,10 +197,12 @@
         "default": 1,
         "options": {
           0: {
-            "description": "disable"
+            "description": "disable",
+            "value": 0
           },
           1: {
-            "description": "enable"
+            "description": "enable",
+            "value": 1
           }
         }
       }
