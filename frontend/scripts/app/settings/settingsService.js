@@ -20,7 +20,7 @@
         $http
           .get('/api/account/settings')
           .success(function(response) {
-            var settings = mergeWithDefaultSettings(response);
+            var settings = mergeUserSettingWithTemplate(response);
             resolve(settings);
           })
           .error(function() {
@@ -49,7 +49,7 @@
       });
     }
 
-    function mergeWithDefaultSettings(userSettings) {
+    function mergeUserSettingWithTemplate(userSettings) {
       var mergedSettings = [];
       for (var settingIndex = 0; settingIndex < settingsTemplate.length; settingIndex++) {
         var setting = settingsTemplate[settingIndex];

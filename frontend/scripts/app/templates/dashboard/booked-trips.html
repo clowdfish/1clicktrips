@@ -39,7 +39,7 @@
 
       <div class='booking-participants'>
         <div class='booking-participant-item' ng-repeat='participant in item.participants'>
-          <img src='{[participant.image]}' class='booking-participant-image'/>
+          <img ng-src='{[participant.image]}' class='booking-participant-image'/>
           <div class='booking-participant-details'>
             <span class='booking-participant-name'>{[participant.firstName]} {[participant.lastName]}</span>
             <span class='booking-participant-arrival-time' ng-if='participant.booked'>{[ "dashboard_bookings_arrival" | translate ]} {[participant.arrivalTime | date: "hh:mm a"]}</span>

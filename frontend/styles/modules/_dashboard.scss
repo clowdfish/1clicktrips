@@ -168,7 +168,16 @@ $size-dashboard-icons: 5em;
   }
 
   .favorite-list-box-separator {
-   margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .favorite-list-box-verticle-separator {
+    border-left: 1px dotted black;
+    height: 40px;
+  }
+
+  .favorite-list .overview-map {
+    height: 300px;
   }
 
   .slide-left.ng-enter, .slide-left.ng-move {
@@ -192,7 +201,7 @@ $size-dashboard-icons: 5em;
 
   .list-paging {
     width: 100%;
-    text-align: center;
+    text-align: right;
     margin-bottom: 0.8em;
 
     .fa {
