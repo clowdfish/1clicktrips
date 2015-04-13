@@ -7,6 +7,7 @@ describe('service: session', function() {
 
   beforeEach(function() {
     module('app.auth');
+    module('app.index');
   });
 
   beforeEach(inject(function(_session_) {
@@ -25,11 +26,11 @@ describe('service: session', function() {
   });
 
   it('get, set and remove token', function() {
-    session.authSuccess(token);
+    session.authSuccess(token, true);
     expect(session.getAuthToken()).toEqual(token);
 
     session.removeAuthToken();
-    expect(session.getAuthToken()).toEqual(null);
+    expect(session.getAuthToken()).toEqual(undefined);
   });
 
   it('set, get and remove user profile', function() {
@@ -37,7 +38,7 @@ describe('service: session', function() {
     expect(session.getUserProfile()).toEqual(userProfile);
 
     session.removeUserProfile();
-    expect(session.getUserProfile()).toEqual(null);
+    expect(session.getUserProfile()).toEqual(undefined);
   });
 
 

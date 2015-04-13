@@ -4,9 +4,11 @@ describe('module: auth', function() {
   var $rootScope,
       AUTH_EVENTS;
 
-  beforeEach(module('app.auth'));
-  beforeEach(module('LocalStorageModule'));
-  beforeEach(module('app.templates'));
+  beforeEach(function() {
+    module('app.auth');
+    module('app.index');
+    module('app.templates');
+  });
 
   beforeEach(inject(function(_$rootScope_,
                             _AUTH_EVENTS_) {

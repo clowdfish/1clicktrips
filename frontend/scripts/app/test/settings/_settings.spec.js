@@ -12,6 +12,7 @@ describe('module: settings', function() {
     module('app.auth');
     module('app.settings');
     module('app.dashboard');
+    module('app.index');
     module('app.templates');
   });
 
@@ -21,7 +22,8 @@ describe('module: settings', function() {
                       _$httpBackend_,
                       _session_,
                       _mockBooking_,
-                      _mockFavorites_) {
+                      _mockFavorites_,
+                      _mockCountryList_) {
     $state = _$state_;
     $scope = _$rootScope_;
     $location = _$location_;
@@ -31,6 +33,7 @@ describe('module: settings', function() {
 
     $httpBackend.whenGET(/\/api\/account\/profile/).respond({});
     $httpBackend.whenGET(/\/api\/account\/settings/).respond([]);
+    $httpBackend.whenGET(/\/api\/countrylist/).respond(_mockCountryList_);
     $httpBackend.whenGET(/\/api\/account\/bookings/).respond(_mockBooking_);
     $httpBackend.whenGET(/\/api\/account\/favorites/).respond(_mockFavorites_);
   }));

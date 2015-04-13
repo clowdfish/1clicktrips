@@ -44,8 +44,22 @@
     $interpolateProvider.endSymbol(']}');
   }
 
+
   function routerConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
+
+    /**
+    * Resolve global application-wide data at here
+    */
+    $stateProvider.state('root', {
+      abstract: true,
+      template: '<div ui-view></div>',
+      resolve: {
+        globalConfig: function() {
+          return {};
+        }
+      }
+    });
 
     $stateProvider.state('index', {
       url: '/',

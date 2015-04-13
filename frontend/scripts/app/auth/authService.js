@@ -110,7 +110,7 @@
       session.removeUserProfile();
       $rootScope.$broadcast(AUTH_EVENTS.logout);
       $http
-        .get('/api/auth/logout');
+        .post('/api/auth/logout');
     };
 
     function validateLoginData(loginData) {

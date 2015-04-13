@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY',
       'bower_components/jquery/dist/jquery.min.js',
       'bower_components/jquery-ui/jquery-ui.min.js',
       'bower_components/angular/angular.js',
@@ -32,10 +33,10 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.min.js',
       'bower_components/ng-file-upload/angular-file-upload-all.min.js',
       'bower_components/angular-ui-sortable/sortable.min.js',
+      'bower_components/ngstorage/ngStorage.min.js',
       'scripts/**/*.js',
       'scripts/**/*.spec.js',
-      'scripts/**/*.html',
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY'
+      'scripts/**/*.html'
     ],
 
 

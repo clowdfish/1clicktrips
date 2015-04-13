@@ -63,7 +63,7 @@
 
     //Get user profile
     this.getUserProfile = function() {
-      $sessionStorage.userProfile;
+      return $sessionStorage.userProfile;
     };
 
     this.isLogin = function() {

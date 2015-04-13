@@ -5,11 +5,13 @@ describe('controller: forgotPasswordCtrl', function() {
       $httpBackend,
       authService,
       $q,
-      forgotHandler;
+      forgotHandler,
+      modalInstance;
 
   beforeEach(function() {
     module('app.auth');
     module('app.templates');
+    module('app.index');
   });
 
   beforeEach(inject(function(_$rootScope_,
@@ -21,10 +23,14 @@ describe('controller: forgotPasswordCtrl', function() {
     $q = _$q_;
     $httpBackend = _$httpBackend_;
     authService = _authService_;
-
+    //Mock object for $modalInstance
+    modalInstance = {
+      close: jasmine.createSpy('modalInstance.close')
+    }
     _$controller_('forgotPasswordCtrl', {
       $scope: $scope,
-      authService: authService
+      authService: authService,
+      $modalInstance: modalInstance
     });
 
     $scope.error = false;
@@ -51,7 +57,7 @@ describe('controller: forgotPasswordCtrl', function() {
     $scope.$digest();
     $httpBackend.flush();
     expect($scope.sent).toEqual(false);
-    expect($scope.error).toEqual(true);
+    expect($scope.error).toEqual('error');
   });
 
 });

@@ -33,7 +33,7 @@ module.exports = function (app, express, passport, production) {
   // LOG OUT ==================================================================
   // ==========================================================================
 
-  authApi.get('/logout', function (req, res) {
+  authApi.post('/logout', function (req, res) {
     req.logout();
     res.status(200).send();
   });

@@ -9,6 +9,7 @@ describe('dashboardCtrl', function() {
       $q,
       mockFavorites;
 
+  beforeEach(module('app.index'));
   beforeEach(module('app.auth'));
   beforeEach(module('app.common'));
   beforeEach(module('app.dashboard'));

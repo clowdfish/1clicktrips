@@ -6,11 +6,13 @@ describe('controller: signupCtrl', function() {
       modalInstance,
       $httpBackend,
       authService,
-      signupHandler;
+      signupHandler,
+      logoutHandler;
 
   beforeEach(function() {
     module('app.auth');
     module('app.templates');
+    module('app.index');
   });
 
   beforeEach(inject(function(_$rootScope_,
@@ -39,7 +41,7 @@ describe('controller: signupCtrl', function() {
     });
 
     signupHandler = $httpBackend.whenPOST(/\/api\/auth\/register/).respond(200, 'success');
-
+    logoutHandler = $httpBackend.whenPOST(/\/api\/auth\/logout/).respond(200, 'success');
     //$scope.loginForm is not available in unit test so we create it at here
     $scope.signupForm = {};
     $scope.signupForm.email = {};

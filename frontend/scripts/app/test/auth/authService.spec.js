@@ -8,12 +8,15 @@ describe('service: authService', function() {
       signupHandler,
       loginHandler,
       forgotHandler,
+      logoutHandler,
       loginData,
       signupData,
       session;
 
   beforeEach(function() {
     module('app.auth');
+    module('app.index');
+    module('app.templates');
   });
 
   beforeEach(inject(function(_$rootScope_,
@@ -29,6 +32,7 @@ describe('service: authService', function() {
     signupHandler = $httpBackend.whenPOST(/\/api\/auth\/register/).respond(200, 'success');
     loginHandler = $httpBackend.whenPOST(/\/api\/auth\/local/).respond(200, 'success');
     forgotHandler = $httpBackend.whenPOST(/\/api\/auth\/forgot/).respond(200, 'success');
+    logoutHandler = $httpBackend.whenPOST(/\/api\/auth\/logout/).respond(200, 'success');
     signupData = {
       email: 'david@gmail.com',
       password: '123'
@@ -130,6 +134,8 @@ describe('service: authService', function() {
     $httpBackend.flush();
     expect(session.isLogin()).toEqual(true);
     authService.logout();
+    $scope.$digest();
+    $httpBackend.flush();
     expect(session.isLogin()).toEqual(false);
   });
 

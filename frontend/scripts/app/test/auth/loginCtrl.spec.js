@@ -8,10 +8,14 @@ describe('controller: loginCtrl', function() {
       AUTH_EVENTS,
       signupHandler,
       loginHandler,
+      logoutHandler,
       modalInstance;
 
-  beforeEach(module('app.auth'));
-  beforeEach(module('app.templates'));
+  beforeEach(function() {
+    module('app.index');
+    module('app.auth');
+    module('app.templates');
+  });
 
   beforeEach(inject(function(_$rootScope_,
                             _$q_,
@@ -38,6 +42,7 @@ describe('controller: loginCtrl', function() {
     })
     signupHandler = $httpBackend.whenPOST(/\/api\/auth\/register/).respond(200, 'success');
     loginHandler = $httpBackend.whenPOST(/\/api\/auth\/local/).respond(200, 'success');
+    logoutHandler = $httpBackend.whenPOST(/\/api\/auth\/logout/).respond(200, 'success');
     authService = _authService_;
 
     //$scope.loginForm is not available in unit test so we create it at here
