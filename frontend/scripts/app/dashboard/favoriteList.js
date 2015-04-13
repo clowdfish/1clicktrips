@@ -49,9 +49,27 @@
       });
 
       /**
+      * Define view port boundary
       * @type google.maps.LatLngBounds - Map boundaries
       */
       this.mapBounds = new google.maps.LatLngBounds();
+
+      /**
+      * Array of google.maps.LatLng, use to display path
+      * @type Array<google.maps.LatLng>
+      */
+      _this.latLngs = new google.maps.MVCArray();
+
+      /**
+      * Path between origin and destination markers
+      */
+      this.displayPath = new google.maps.Polyline({
+        map: _this.map,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        path: _this.latLngs
+      });
 
       /**
       * @type Array<google.maps.LatLng>
@@ -157,12 +175,19 @@
       */
       function addLocation(location) {
         var latLng = new google.maps.LatLng(location.latitude, location.longitude);
+        this.latLngs.push(latLng);
+
         var marker = new google.maps.Marker({
           map: _this.map,
           position: latLng
         });
+
         this.markers.push(marker);
+
         this.mapBounds.extend(latLng);
+
+        this.displayPath.setPath(this.latLngs);
+
         $timeout(function() {
           google.maps.event.trigger(_this.map, 'resize');
           _this.map.fitBounds(mapBounds);
@@ -185,6 +210,7 @@
       */
       function destroy() {
         clearMarkers();
+        this.latLngs.clear();
         this.markers = [];
         this.mapBounds = null;
         this.map = null;
