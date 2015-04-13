@@ -46,18 +46,6 @@
       $element.html('<div id="itinerary-map"></div>');
       $map = $element.find('#itinerary-map');
 
-      // scope.$watch('itineraryMapCtrl.tripSegmentsHeight', function(value) {
-      //   console.log('height', value);
-      //   scope.tripSegmentsHeight = itineraryMapCtrl.tripSegmentsHeight;
-      //   if (scope.tripSegmentsHeight > 0) {
-      //     $map.height(scope.tripSegmentsHeight);
-      //     if (map) {
-      //       google.maps.event.trigger(map, 'resize');
-      //     }
-
-      //   }
-      // });
-
       scope.$watch('activeSegments', function() {
 
         if (!scope.activeSegments ||
