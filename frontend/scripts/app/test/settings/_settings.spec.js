@@ -33,7 +33,7 @@ describe('module: settings', function() {
 
     $httpBackend.whenGET(/\/api\/account\/profile/).respond({});
     $httpBackend.whenGET(/\/api\/account\/settings/).respond([]);
-    $httpBackend.whenGET(/\/api\/countrylist/).respond(_mockCountryList_);
+    $httpBackend.whenGET(/\/api\/countries/).respond(_mockCountryList_);
     $httpBackend.whenGET(/\/api\/account\/bookings/).respond(_mockBooking_);
     $httpBackend.whenGET(/\/api\/account\/favorites/).respond(_mockFavorites_);
   }));

@@ -21,6 +21,11 @@
       }
 
       /**
+      * Keep a context for this directive
+      */
+      var _this = this;
+
+      /**
       * jQuery element
       */
       var $element = $(element);
@@ -39,19 +44,20 @@
       * @type google.maps.Map
       * Map
       */
-      var map = new google.maps.Map($overviewMap[0], {
+      this.map = new google.maps.Map($overviewMap[0], {
         zoom: 15
       });
+
       /**
       * @type google.maps.LatLngBounds - Map boundaries
       */
-      var mapBounds;
+      this.mapBounds = new google.maps.LatLngBounds();
 
       /**
       * @type Array<google.maps.LatLng>
       * Array of map markers
       */
-      var markers = [];
+      this.markers = [];
 
       /**
       * Favorite list animation class
@@ -140,7 +146,7 @@
 
       function showOverviewMap(originLocation, destinationLocation) {
         clearMarkers();
-        mapBounds = new google.maps.LatLngBounds();
+        this.mapBounds = new google.maps.LatLngBounds();
         addLocation(originLocation);
         addLocation(destinationLocation);
         map.fitBounds(mapBounds);
@@ -152,14 +158,14 @@
       function addLocation(location) {
         var latLng = new google.maps.LatLng(location.latitude, location.longitude);
         var marker = new google.maps.Marker({
-          map: map,
+          map: _this.map,
           position: latLng
         });
-        markers.push(marker);
-        mapBounds.extend(latLng);
+        this.markers.push(marker);
+        this.mapBounds.extend(latLng);
         $timeout(function() {
-          google.maps.event.trigger(map, 'resize');
-          map.fitBounds(mapBounds);
+          google.maps.event.trigger(_this.map, 'resize');
+          _this.map.fitBounds(mapBounds);
         }, 50);
 
       }
@@ -169,9 +175,9 @@
       */
       function clearMarkers() {
         for (var i = 0; i < markers.length > 0; i++) {
-          markers[i].setMap(null);
+          this.markers[i].setMap(null);
         }
-        markers = [];
+        this.markers = [];
       }
 
       /**
@@ -179,9 +185,9 @@
       */
       function destroy() {
         clearMarkers();
-        markers = [];
-        mapBounds = null;
-        map.remove();
+        this.markers = [];
+        this.mapBounds = null;
+        this.map.remove();
       }
     }
   }

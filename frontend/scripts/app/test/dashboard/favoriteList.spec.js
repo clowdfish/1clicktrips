@@ -72,4 +72,11 @@ describe('favoriteList', function() {
     expect(html).toContain('Double Tree by Hilton Metropolitan, New York, USA');
   });
 
+  it('switch to detail view', function() {
+    var favorite = mockFavorites[0];
+    directiveScope.detailView(favorite);
+    expect(directiveScope.isShowingFavoriteDetail).toEqual(true);
+    expect(directiveScope.favorite).toEqual(favorite);
+  });
+
 });
