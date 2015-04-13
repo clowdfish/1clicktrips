@@ -17,7 +17,11 @@
         value: '=',
         label: '='
       },
-      controller: 'editableCtrl'
+      controller: 'editableCtrl',
+      link: function(scope) {
+        console.log(scope.value);
+        console.log(scope.options);
+      }
     };
   }
 

@@ -10,7 +10,11 @@
 
     var _this = this;
 
-    this.getUserSettings = function() {
+    this.getUserSettings = getUserSettings;
+    this.setUserSettings = setUserSettings;
+    this.mergeUserSettingWithTemplate = mergeUserSettingWithTemplate;
+
+    function getUserSettings() {
       return $q(function(resolve, reject) {
 
         if (session.getAuthToken() === null) {
@@ -29,7 +33,7 @@
       });
     }
 
-    this.setUserSettings = function(key, value) {
+    function setUserSettings(key, value) {
       return $q(function(resolve, reject) {
         if (session.getAuthToken() == null) {
           reject("Token is not available");
@@ -56,13 +60,14 @@
         var userSetting = _.find(userSettings, function(item) {
           return item.key === settingsTemplate[settingIndex].key;
         });
-        setting['value'] = userSetting !== undefined ? userSetting['value'] : setting['default'];
+        setting.value = userSetting !== undefined ? userSetting.value : setting.defaultValue;
+        setting.value = parseInt(setting.value);
         if (setting.options) {
-          for (var optionKey in setting.options) {
-            if (parseInt(optionKey) === setting['value']) {
-              setting.options[optionKey]['selected'] = true;
-            } else {
-              setting.options[optionKey]['selected'] = false;
+
+          for (var optionIndex = 0; optionIndex < setting.options.length; optionIndex++) {
+            setting.options[optionIndex]['selected'] = false;
+            if (setting.options[optionIndex].value == setting.value) {
+              setting.options[optionIndex]['selected'] = true;
             }
           }
         }

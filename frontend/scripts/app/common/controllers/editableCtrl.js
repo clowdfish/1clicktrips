@@ -11,14 +11,22 @@
     $scope.error = false;
     $scope.success = false;
     $scope.optionDescription = '';
+
+    getOptionDescription();
     $scope.$watch('value', function() {
+      getOptionDescription();
+    });
+
+    function getOptionDescription() {
       var option = _.find($scope.options, function(item) {
         return item.value === $scope.value;
       });
+
       if (option) {
         $scope.optionDescription = option.description;
       }
-    });
+    }
+
     $scope.edit = function() {
       $scope.isEditing = true;
     };

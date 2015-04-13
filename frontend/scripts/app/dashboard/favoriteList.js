@@ -187,7 +187,7 @@
         clearMarkers();
         this.markers = [];
         this.mapBounds = null;
-        this.map.remove();
+        this.map = null;
       }
     }
   }
