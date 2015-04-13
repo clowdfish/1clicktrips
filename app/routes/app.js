@@ -57,8 +57,9 @@ module.exports = function (app, production) {
       });
   });
 
-  app.get('/countrylist', function (req, res) {
-    AppController.getCountryArray()
+  app.get('/countries', function (req, res) {
+
+    AppController.getCountries()
       .then(function(countryList) {
         res.status(200).json(countryList);
       })

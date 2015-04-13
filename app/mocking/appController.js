@@ -29,6 +29,14 @@ module.exports = {
       else
         reject(new Error('Could not retrieve language for given language code.'));
     });
+  },
+
+  getCountries: function() {
+
+    return new Promise(function(resolve, reject) {
+
+      resolve(createCountryMock());
+    });
   }
 };
 
@@ -80,4 +88,21 @@ function createTranslationMock() {
     'bla': 'bla',
     'name': 'name'
   }
+}
+
+function createCountryMock() {
+  return [
+    {
+      'description': 'Germany',
+      'value': 'DE'
+    },
+    {
+      'description': 'Spain',
+      'value': 'ES'
+    },
+    {
+      'description': 'Vietnam',
+      'value': 'VN'
+    }
+  ];
 }

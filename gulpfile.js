@@ -11,10 +11,10 @@ var path        = require("path");
 var notify		= require('gulp-notify'),
     plumber 	= require('gulp-plumber');
 
-//Command arguments parser
+// command arguments parser
 var argv = require('yargs').argv,
-    path = require('path'),
     spawn = require('child_process').spawn;
+
 /****************************************************************************************************/
 /* SETTING UP DEVELOPMENT ENVIRONMENT                                                               */
 /****************************************************************************************************/

@@ -28,6 +28,7 @@
     "yargs": "^3.7.0"
   },
   "devDependencies": {
+    "db-migrate": "^0.9.13",
     "gulp": "^3.8.8",
     "gulp-concat": "^2.4.1",
     "gulp-notify": "^1.8.0",

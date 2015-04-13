@@ -18,7 +18,8 @@ module.exports = {
     // TODO retrieve and parse language file and deliver to client
   },
 
-  getCountryArray: function() {
+  getCountries: function() {
+
     return new Promise(function(resolve, reject) {
       connection.query('SELECT * FROM country', function(err, rows) {
         if (err) {

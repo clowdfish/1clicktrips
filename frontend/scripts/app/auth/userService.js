@@ -66,15 +66,24 @@
     this.getCountryList = function() {
       return $q(function(resolve, reject) {
         $http
-          .get('/api/countrylist')
+          .get('/api/countries')
           .success(function(countryList){
+
+            countryList.sort(function compare(a,b) {
+              if (a.description < b.description)
+                return -1;
+              if (a.description > b.description)
+                return 1;
+              return 0;
+            });
+
             resolve(countryList);
           })
           .error(function() {
             reject();
           });
       });
-    }
+    };
 
     this.uploadProfilePicture = function(file) {
       return $upload.upload({

@@ -10,8 +10,8 @@
                       userService,
                       userProfile,
                       countryList) {
+
     $scope.countryList = countryList;
-    console.log(countryList);
     $scope.userProfile = userProfile;
     $scope.isUploading = false;
 

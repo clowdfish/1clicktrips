@@ -66,7 +66,7 @@ module.exports = function (app, express, production) {
     UserController.getProfile(userId)
       .then(function (profile) {
         if (profile) {
-          console.log(JSON.stringify(profile, null, 2));
+          //console.log(JSON.stringify(profile, null, 2));
           res.status(200).json(profile);
         }
         else

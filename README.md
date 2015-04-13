@@ -54,6 +54,21 @@ $ ./deploy.sh dev -install
 This command might take quite some time to finish (~3 minutes).
 
 
+## Database migrations
+For database migrations https://github.com/db-migrate/node-db-migrate is used. There is a Gulp command to load database configurations for the db-migrate command.
+
+Here are some example commands to run a db migration:
+
+Create new migration:
+gulp migrate --create [migration-name]
+
+Run new migrations:
+gulp migrate --up
+
+Revert last migrations:
+gulp migrate --down
+
+
 ## Server requirements
 ### Directory structure
 The application is deployed to `~/1clicktrips` (add "dev" as parameter) so make sure this folder exists. 
