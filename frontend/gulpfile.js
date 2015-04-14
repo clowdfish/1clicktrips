@@ -141,7 +141,8 @@ gulp.task('scripts', ['i18n'], function() {
     })),
     gulp.src([
       'scripts/**/*.js',
-      '!scripts/**/*.spec.js'
+      '!scripts/**/*.spec.js',
+      '!scripts/mockdata/**/*.js'
     ])
   )
   .pipe(plumber(plumberErrorHandler))
