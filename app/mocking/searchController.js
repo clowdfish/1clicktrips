@@ -7,7 +7,7 @@ var SearchApi = SearchEngine.SearchApi;
 
 // handle different timezones?
 var disableTimezones = true;
-var searchApi = new SearchApi(disableTimezones, Config.logLocation);
+//var searchApi = new SearchApi(disableTimezones, Config.logLocation);
 
 module.exports = {
 
@@ -41,7 +41,7 @@ module.exports = {
     });
   },
 
-  getTripAlternatives: function(tripId, segmentId, limit) {
+  getAlternatives: function(tripId, segmentId, limit) {
 
     console.log("Retrieving trip alternatives.");
 
@@ -49,8 +49,8 @@ module.exports = {
 
       var alternativesArray = [];
 
-      alternativesArray.push(createMockAlternative(1));
-      alternativesArray.push(createMockAlternative(2));
+      alternativesArray.push(createMockAlternative(segmentId));
+      alternativesArray.push(createMockAlternative(segmentId));
 
       resolve(alternativesArray);
     });
@@ -124,10 +124,41 @@ function createMockMeetingSpace(id) {
 
 function createMockAlternative(id) {
 
-  // TODO implement
+  var idToReplace = parseInt(id) + 2;
 
   return {
-    "id" : id
+    "replace": [
+      id, idToReplace.toString()
+    ],
+    "segments" : [
+      {
+        "id": "r" + id + ".0",
+        "start": {
+          "description": "Origin",
+          "location": {
+            "latitude": 32.71574,
+            "longitude": -117.1611
+          }
+        },
+        "end": {
+          "description": "Broadway & 4th Ave",
+          "location": {
+            "latitude": 32.71579,
+            "longitude": -117.1609
+          }
+        },
+        "departureTime": 0,
+        "arrivalTime": 0,
+        "duration": 0,
+        "distance": 0.02,
+        "path": "kxtfEv_bjUIc@",
+        "type": 1,
+        "price": {
+          "amount": 0,
+          "currency": "EUR"
+        }
+      }
+    ]
   }
 }
 
@@ -135,6 +166,10 @@ function createMockTripResult() {
   return [
     [
       {
+        "id": "ttg-12453421",
+        "price": 724,
+        "currency": "EUR",
+        "type": 0,
         "outbound": {
           "origin": {
             "description": "Origin",
@@ -156,6 +191,7 @@ function createMockTripResult() {
           "duration": 918,
           "segments": [
             {
+              "id": "1",
               "start": {
                 "description": "Origin",
                 "location": {
@@ -182,6 +218,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "2",
               "start": {
                 "description": "Broadway & 4th Ave",
                 "location": {
@@ -208,6 +245,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "3",
               "start": {
                 "description": "San Diego",
                 "location": {
@@ -234,6 +272,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "4",
               "start": {
                 "description": "Stuttgart",
                 "location": {
@@ -260,6 +299,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "5",
               "start": {
                 "description": "Stuttgart Hbf",
                 "location": {
@@ -286,6 +326,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "6",
               "start": {
                 "description": "Reichenbach(Fils)",
                 "location": {
@@ -312,12 +353,13 @@ function createMockTripResult() {
               }
             }
           ]
-        },
-        "price": 724,
-        "currency": "EUR",
-        "type": 0
+        }
       },
       {
+        "id": "ttg-12456424",
+        "price": 1263,
+        "currency": "EUR",
+        "type": 1,
         "outbound": {
           "origin": {
             "description": "Origin",
@@ -339,6 +381,7 @@ function createMockTripResult() {
           "duration": 900,
           "segments": [
             {
+              "id": "1",
               "start": {
                 "description": "Origin",
                 "location": {
@@ -365,6 +408,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "2",
               "start": {
                 "description": "Broadway & 4th Ave",
                 "location": {
@@ -391,6 +435,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "3",
               "start": {
                 "description": "San Diego",
                 "location": {
@@ -417,6 +462,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "4",
               "start": {
                 "description": "Frankfurt",
                 "location": {
@@ -443,6 +489,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "5",
               "start": {
                 "description": "Stuttgart Hbf",
                 "location": {
@@ -469,6 +516,7 @@ function createMockTripResult() {
               }
             },
             {
+              "id": "6",
               "start": {
                 "description": "Reichenbach(Fils)",
                 "location": {
@@ -495,10 +543,7 @@ function createMockTripResult() {
               }
             }
           ]
-        },
-        "price": 1263,
-        "currency": "EUR",
-        "type": 1
+        }
       }
     ]
   ];

@@ -9,7 +9,7 @@ module.exports = function (app, production) {
   var AppController = null;
 
   if(production) {
-    AppController = require('../controller/appController');
+    AppController = require('../mocking/appController');
   }
   else {
     AppController = require('../mocking/appController');

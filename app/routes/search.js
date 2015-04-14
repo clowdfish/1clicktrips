@@ -94,14 +94,12 @@ module.exports = function (app, express, production) {
     // other query params: limit
 
     if(segmentId && tripId) {
-      console.log('Query for segment received. Segment ID=' + segmentId
+      console.log('Query for alternative segment received. Segment ID=' + segmentId
         + '; Trip ID=' + tripId);
 
-      // TODO return only alternatives matching the given ID
-
-      SearchController.getTripAlternatives(1, 1, null)
-        .then(function(tripAlternatives) {
-          res.status(200).json(tripAlternatives);
+      SearchController.getAlternatives(tripId, segmentId, null)
+        .then(function(alternatives) {
+          res.status(200).json(alternatives);
         })
         .catch(function(err) {
           res.status(500).json(err.message);
