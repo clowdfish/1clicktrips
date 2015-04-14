@@ -135,15 +135,13 @@ function createMockMeetingSpace(id) {
 
 function createMockAlternative(id) {
 
-  var idToReplace = parseInt(id) + 2;
-
   return {
     "replace": [
-      id, idToReplace.toString()
+      id, "fewgt25ew3"
     ],
     "segments" : [
       {
-        "id": "r" + id + ".0",
+        "id": "ttg-r0-" + id,
         "start": {
           "description": "Origin",
           "location": {
@@ -177,11 +175,11 @@ function createMockTripResult() {
   return [
     [
       {
-        "id": "ttg-12453421",
         "price": 724,
         "currency": "EUR",
         "type": 0,
         "outbound": {
+          "id": "feg6754ehfwe",
           "origin": {
             "description": "Origin",
             "location": {
@@ -202,7 +200,7 @@ function createMockTripResult() {
           "duration": 918,
           "segments": [
             {
-              "id": "1",
+              "id": "fawe324",
               "start": {
                 "description": "Origin",
                 "location": {
@@ -229,7 +227,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "2",
+              "id": "fwer2fweg",
               "start": {
                 "description": "Broadway & 4th Ave",
                 "location": {
@@ -256,7 +254,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "3",
+              "id": "rwerwq3",
               "start": {
                 "description": "San Diego",
                 "location": {
@@ -283,7 +281,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "4",
+              "id": "fgergh74gr",
               "start": {
                 "description": "Stuttgart",
                 "location": {
@@ -310,7 +308,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "5",
+              "id": "g534gtrg",
               "start": {
                 "description": "Stuttgart Hbf",
                 "location": {
@@ -337,7 +335,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "6",
+              "id": "5346zhewh",
               "start": {
                 "description": "Reichenbach(Fils)",
                 "location": {
@@ -367,11 +365,11 @@ function createMockTripResult() {
         }
       },
       {
-        "id": "ttg-12456424",
         "price": 1263,
         "currency": "EUR",
         "type": 1,
         "outbound": {
+          "id": "ourte453fjz",
           "origin": {
             "description": "Origin",
             "location": {
@@ -392,7 +390,7 @@ function createMockTripResult() {
           "duration": 900,
           "segments": [
             {
-              "id": "1",
+              "id": "fwe1few",
               "start": {
                 "description": "Origin",
                 "location": {
@@ -419,7 +417,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "2",
+              "id": "jztk2drg",
               "start": {
                 "description": "Broadway & 4th Ave",
                 "location": {
@@ -446,7 +444,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "3",
+              "id": "aewr3jzt",
               "start": {
                 "description": "San Diego",
                 "location": {
@@ -473,7 +471,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "4",
+              "id": "zeth4jku",
               "start": {
                 "description": "Frankfurt",
                 "location": {
@@ -500,7 +498,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "5",
+              "id": "atwe5kukol",
               "start": {
                 "description": "Stuttgart Hbf",
                 "location": {
@@ -527,7 +525,7 @@ function createMockTripResult() {
               }
             },
             {
-              "id": "6",
+              "id": "agt6jhztwe",
               "start": {
                 "description": "Reichenbach(Fils)",
                 "location": {
