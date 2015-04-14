@@ -1,18 +1,27 @@
 // controller/appController.js
 var dbConfig = require('../../config/database.json');
-var mysql = require('mysql');
-var connection = mysql.createConnection(dbConfig.connection);
 var Promise = require('es6-promise').Promise;
+var mysql = require('mysql');
+
+var connection = mysql.createConnection(dbConfig.connection);
+
 var currencies = require('../../config/currencies.json');
 var languages = require('../../config/languages.json');
+
 module.exports = {
 
   getAvailableCurrencies: function() {
-    return currencies;
+
+    return new Promise(function(resolve) {
+      resolve(currencies);
+    });
   },
 
   getAvailableLanguages: function() {
-    return languages;
+
+    return new Promise(function(resolve) {
+      resolve(languages);
+    });
   },
 
   getTranslations: function(languageCode) {

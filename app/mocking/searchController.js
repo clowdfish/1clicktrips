@@ -7,7 +7,7 @@ var SearchApi = SearchEngine.SearchApi;
 
 // handle different timezones?
 var disableTimezones = true;
-//var searchApi = new SearchApi(disableTimezones, Config.logLocation);
+var searchApi = new SearchApi(disableTimezones, Config.logLocation);
 
 module.exports = {
 
@@ -46,6 +46,17 @@ module.exports = {
     console.log("Retrieving trip alternatives.");
 
     return new Promise(function(resolve) {
+
+      /*
+      // API request
+      searchApi.getSegmentAlternatives(tripId, segmentId)
+      .then(function(alternatives) {
+        resolve(alternatives);
+      })
+      .catch(function(error) {
+        reject(error);
+      });
+      */
 
       var alternativesArray = [];
 
