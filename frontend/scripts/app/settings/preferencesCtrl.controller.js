@@ -7,13 +7,13 @@
     .controller('preferencesCtrl', preferencesCtrl);
 
   function preferencesCtrl($scope,
-                          settingsService,
+                          settings,
                           userPreferences
                           ) {
     $scope.userPreferences = userPreferences;
 
     $scope.saveSetting = function(key, value) {
-      return settingsService
+      return settings
               .setUserSettings(key, value);
     }
 

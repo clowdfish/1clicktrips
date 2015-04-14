@@ -4,9 +4,9 @@
 
   angular
     .module('app.settings')
-    .service('settingsService', settingsService);
+    .service('settings', settings);
 
-  function settingsService($q, $http, session, settingsTemplate) {
+  function settings($q, $http, session, settingsTemplate) {
 
     var _this = this;
 

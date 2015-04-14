@@ -21,12 +21,12 @@ describe('service: settingsService', function() {
   beforeEach(inject(function(_$rootScope_,
                             _$httpBackend_,
                             _$q_,
-                            _settingsService_,
+                            _settings_,
                             _settingsTemplate_,
                             _session_
                             ) {
     $scope = _$rootScope_.$new();
-    settingsService = _settingsService_,
+    settingsService = _settings_,
     $httpBackend = _$httpBackend_,
     $q = _$q_,
     settingsTemplate = _settingsTemplate_,

@@ -50,8 +50,8 @@
     return userService.getUserProfile();
   }
 
-  function getUserPreferences(settingsService) {
-    return settingsService.getUserSettings();
+  function getUserPreferences(settings) {
+    return settings.getUserSettings();
   }
 
   function getCountryList(userService) {
