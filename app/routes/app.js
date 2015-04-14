@@ -9,7 +9,7 @@ module.exports = function (app, production) {
   var AppController = null;
 
   if(production) {
-    AppController = require('../mocking/appController');
+    AppController = require('../controller/appController');
   }
   else {
     AppController = require('../mocking/appController');
@@ -20,13 +20,8 @@ module.exports = function (app, production) {
   // =============================================================================
   app.get('/locales', function (req, res) {
 
-    AppController.getAvailableLanguages()
-      .then(function(languages) {
-        res.status(200).json(languages);
-      })
-      .catch(function(err) {
-        res.status(500).json(err.message);
-      });
+    var languages = AppController.getAvailableLanguages();
+    res.status(200).json(languages);
   });
 
   app.get('/locales/:code', function (req, res) {
@@ -48,13 +43,8 @@ module.exports = function (app, production) {
   // =============================================================================
   app.get('/currencies', function (req, res) {
 
-    AppController.getAvailableCurrencies()
-      .then(function(currencies) {
-        res.status(200).json(currencies);
-      })
-      .catch(function(err) {
-        res.status(500).json(err.message);
-      });
+    var currencies = AppController.getAvailableCurrencies()
+    res.status(200).json(currencies);
   });
 
   app.get('/countries', function (req, res) {

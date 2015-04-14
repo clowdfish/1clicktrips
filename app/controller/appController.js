@@ -3,15 +3,16 @@ var dbConfig = require('../../config/database.json');
 var mysql = require('mysql');
 var connection = mysql.createConnection(dbConfig.connection);
 var Promise = require('es6-promise').Promise;
-
+var currencies = require('../../config/currencies.json');
+var languages = require('../../config/languages.json');
 module.exports = {
 
   getAvailableCurrencies: function() {
-    // TODO retrieve currencies from database and deliver to client
+    return currencies;
   },
 
   getAvailableLanguages: function() {
-    // TODO retrieve languages from database and deliver to client
+    return languages;
   },
 
   getTranslations: function(languageCode) {
