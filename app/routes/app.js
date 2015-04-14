@@ -43,7 +43,7 @@ module.exports = function (app, production) {
   // =============================================================================
   app.get('/currencies', function (req, res) {
 
-    var currencies = AppController.getAvailableCurrencies()
+    var currencies = AppController.getAvailableCurrencies();
     res.status(200).json(currencies);
   });
 

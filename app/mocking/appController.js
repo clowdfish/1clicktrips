@@ -6,16 +6,12 @@ module.exports = {
 
   getAvailableCurrencies: function() {
 
-    return new Promise(function(resolve) {
-      resolve(createCurrenciesMock());
-    });
+    return createCurrenciesMock();
   },
 
   getAvailableLanguages: function() {
 
-    return new Promise(function(resolve) {
-      resolve(createLanguagesMock());
-    });
+    return createLanguagesMock();
   },
 
   getTranslations: function(languageCode) {

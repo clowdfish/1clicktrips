@@ -11,17 +11,11 @@ var languages = require('../../config/languages.json');
 module.exports = {
 
   getAvailableCurrencies: function() {
-
-    return new Promise(function(resolve) {
-      resolve(currencies);
-    });
+    return currencies;
   },
 
   getAvailableLanguages: function() {
-
-    return new Promise(function(resolve) {
-      resolve(languages);
-    });
+    return languages;
   },
 
   getTranslations: function(languageCode) {
