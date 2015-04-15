@@ -5,7 +5,7 @@
 
   function tripSegments() {
     return {
-      require: '^itineraryMap',
+      require: '^tripResultWrapper',
       restrict: 'E',
       templateUrl: 'scripts/app/templates/result/trip-segments.html',
       scope: {

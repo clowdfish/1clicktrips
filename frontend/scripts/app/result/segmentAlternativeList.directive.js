@@ -5,7 +5,7 @@
 
   function segmentAlternativeList() {
     return {
-      require: '^itineraryMap',
+      require: '^tripResultWrapper',
       restrict: 'EA',
       templateUrl: 'scripts/app/templates/result/segment-alternative-list.html',
       scope: {

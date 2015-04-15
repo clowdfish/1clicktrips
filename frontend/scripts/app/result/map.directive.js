@@ -8,7 +8,7 @@
 
   function map($q, browser, VEHICLE_TYPE) {
     return {
-      require: '^itineraryMap',
+      require: '^tripResultWrapper',
       restrict: 'E',
       template: '<div ng-transclude></div>',
       scope: {
