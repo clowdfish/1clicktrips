@@ -1,6 +1,6 @@
 'use strict';
 
-describe('service: settingsService', function() {
+describe('service: settings', function() {
   var settingsService,
       settingsTemplate,
       userSettings,
