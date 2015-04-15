@@ -1,6 +1,6 @@
 'use strict';
 
-describe('tripApi', function() {
+describe('service: tripApi', function() {
   var tripApi,
       $httpBackend,
       itinerary,

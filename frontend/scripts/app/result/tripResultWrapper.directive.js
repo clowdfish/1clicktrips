@@ -6,9 +6,9 @@
 
   angular
     .module('app.result')
-    .directive('itineraryMap', itineraryMap);
+    .directive('tripResultWrapper', tripResultWrapper);
 
-  function itineraryMap(browser, $timeout) {
+  function tripResultWrapper(browser, $timeout) {
     return {
       restrict: 'E',
       scope: {
@@ -18,7 +18,7 @@
         showMap: '=',
         showList: '='
       },
-      templateUrl: 'scripts/app/templates/result/itinerary-map.html',
+      templateUrl: 'scripts/app/templates/result/trip-result-wrapper.html',
       controller: controller,
       transclude: true,
       link: link

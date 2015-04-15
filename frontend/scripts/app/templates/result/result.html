@@ -105,7 +105,7 @@
 
         <!-- RESULT MAP AND RESULT LIST -->
         <div class="result-overview ">
-          <itinerary-map itinerary="itinerary" show-map="true" show-list="true">
+          <trip-result-wrapper itinerary="itinerary" show-map="true" show-list="true">
             <div class='trip-segments-container' ng-show='showList'>
               <trip-segments
                 itinerary='itinerary'
@@ -132,7 +132,7 @@
                   active-segments='activeSegmentsOnMap'
                   selected-segment='selectedSegment'></map>
             </div>
-          </itinerary-map>
+          </trip-result-wrapper>
         </div>
 
         <!-- RESULT FOOTER -->
@@ -148,7 +148,7 @@
       <!-------------------->
 
       <!-- MAP VIEW -->
-      <itinerary-map itinerary="itinerary" ng-if="isMobile" show-map="showMap" show-list="showList">
+      <trip-result-wrapper itinerary="itinerary" ng-if="isMobile" show-map="showMap" show-list="showList">
 
         <!-- LIST VIEW -->
         <div class="result-view view-container" ng-show="showList == true">
@@ -252,7 +252,7 @@
                   selected-segment='selectedSegment'></map>
           </div>
         </div>
-      </itinerary-map>
+      </trip-result-wrapper>
     </div>
   </section>
 </div>

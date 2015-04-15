@@ -4,7 +4,7 @@
 */
 'use strict';
 
-xdescribe('itineraryMap directive', function() {
+xdescribe('tripResultWrapper directive', function() {
   var element,
       compiledDirective,
       scope,
@@ -57,7 +57,7 @@ xdescribe('itineraryMap directive', function() {
     scope.showMap = false; //show map will cause error
     scope.showList = false;
 
-    element = angular.element('<itinerary-map itinerary="itinerary" show-map="showMap" show-list="showList"></itinerary-map>');
+    element = angular.element('<trip-result-wrapper itinerary="itinerary" show-map="showMap" show-list="showList"></trip-result-wrapper>');
     compiledDirective = $compile(element)(scope);
     scope.$digest();
     directiveScope = element.isolateScope();
