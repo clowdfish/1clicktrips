@@ -10,14 +10,14 @@
                       $stateParams,
                       $state,
                       $modal,
-                      tripService,
+                      tripApi,
                       TRIP_TYPE,
                       browser,
                       appConfig,
                       date,
                       session,
                       AUTH_EVENTS,
-                      favoriteService,
+                      favoriteApi,
                       searchObject) {
     $scope.appConfig = appConfig;
     $scope.showAddToFavorite = true;
@@ -67,7 +67,7 @@
 
     function findAllItineraries() {
 
-      tripService
+      tripApi
         .findItinerary(searchObject)
         .then(function(itineraries) {
           $scope.itineraries = itineraries;
@@ -194,7 +194,7 @@
           }
         }
       };
-      favoriteService
+      favoriteApi
         .addFavorite(favorite)
         .then(function() {
           $scope.showAddToFavorite = false;

@@ -50,12 +50,12 @@
     });
   }
 
-  function isValidToken(authService, resetPasswordToken) {
-    return authService.validateResetPasswordToken(resetPasswordToken);
+  function isValidToken(authApi, resetPasswordToken) {
+    return authApi.validateResetPasswordToken(resetPasswordToken);
   }
 
 
-  function run($rootScope, session, authService, AUTH_EVENTS) {
+  function run($rootScope, session, authApi, AUTH_EVENTS) {
     //set isLogin when app start
     $rootScope.isLogin = session.isLogin();
 
@@ -73,7 +73,7 @@
     });
 
     $rootScope.$on(AUTH_EVENTS.invalidToken, function() {
-      authService.logout();
+      authApi.logout();
     });
   }
 

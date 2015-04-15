@@ -7,7 +7,7 @@
     .controller('profileCtrl', profileCtrl);
 
   function profileCtrl($scope,
-                      userService,
+                      userApi,
                       userProfile,
                       countryList) {
 
@@ -16,13 +16,13 @@
     $scope.isUploading = false;
 
     $scope.saveProfile = function(key, value) {
-      return userService.setUserProfile(key, value);
+      return userApi.setUserProfile(key, value);
     };
 
     $scope.uploadImage = function($event) {
       $scope.uploadPercentage = 0;
       $scope.isUploading = true;
-      userService
+      userApi
         .uploadProfilePicture($scope.profilePicture)
         .progress(function(evt) {
           $scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total);

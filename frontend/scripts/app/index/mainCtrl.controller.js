@@ -9,14 +9,14 @@
   function mainCtrl($scope,
                     $modal,
                     $translate,
-                    currencyService,
+                    currencyApi,
                     appConfig,
                     browser,
-                    languageService,
+                    languageApi,
                     AUTH_EVENTS,
-                    authService,
+                    authApi,
                     session,
-                    userService,
+                    userApi,
                     $state) {
 
     /**
@@ -134,7 +134,7 @@
     };
 
     $scope.logout = function() {
-      authService.logout();
+      authApi.logout();
       $scope.userProfile = null;
       //alert('Logout successful');
     };
@@ -164,7 +164,7 @@
       if ($scope.userProfile != null) {
         return false;
       }
-      userService
+      userApi
         .getUserProfile()
         .then(function(userProfile) {
           $scope.userProfile = userProfile;
@@ -179,21 +179,21 @@
      * Get currencies data
      */
     function initCurrencies() {
-      appConfig.activeCurrency = currencyService.getActiveCurrency();
+      appConfig.activeCurrency = currencyApi.getActiveCurrency();
       if (appConfig.activeCurrency == null) {
         appConfig.activeCurrency = 'usd';
       }
-      $scope.currencies = currencyService.getAvailableCurrencies();
+      $scope.currencies = currencyApi.getAvailableCurrencies();
     }
 
     function changeCurrency(code) {
       code = code.toLowerCase();
 
-      if (!currencyService.getCurrencyDataByCode(code)) {
+      if (!currencyApi.getCurrencyDataByCode(code)) {
         return;
       }
 
-      currencyService.setActiveCurrency(code);
+      currencyApi.setActiveCurrency(code);
       appConfig.activeCurrency = code;
     }
 
@@ -201,7 +201,7 @@
      * Fetch language data and set active language
      */
     function initLanguages() {
-      $scope.languages = languageService.getAvailableLanguages();
+      $scope.languages = languageApi.getAvailableLanguages();
 
       if (locale) {
         appConfig.activeLanguageKey = locale;
@@ -213,17 +213,17 @@
 
       $scope.activeLanguageKey = appConfig.activeLanguageKey;
 
-      var languageData = languageService.getLanguageDataByCode($scope.activeLanguageKey);
+      var languageData = languageApi.getLanguageDataByCode($scope.activeLanguageKey);
       $scope.activeLanguageName = languageData.name;
       $translate.use($scope.activeLanguageKey);
     }
 
     function changeLanguage(key) {
-      if (!languageService.getLanguageDataByCode(key)) {
+      if (!languageApi.getLanguageDataByCode(key)) {
         return;
       }
 
-      languageService
+      languageApi
         .setActiveLanguageKey(key)
         .then(function() {
           var hrefArray = location.href.split('#');

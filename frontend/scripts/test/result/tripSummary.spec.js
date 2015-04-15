@@ -7,7 +7,7 @@ describe('tripSummary', function() {
       $compile,
       isoScope,
       itinerary,
-      tripService,
+      tripApi,
       $q,
       $httpBackend;
 
@@ -25,7 +25,7 @@ describe('tripSummary', function() {
                               _$rootScope_,
                               _$q_,
                               mockItinerary,
-                              _tripService_,
+                              _tripApi_,
                               _$httpBackend_) {
     itinerary = mockItinerary;
     $httpBackend = _$httpBackend_;
@@ -33,12 +33,12 @@ describe('tripSummary', function() {
     $compile = _$compile_;
 
     $q = _$q_;
-    tripService = _tripService_;
+    tripApi = _tripApi_;
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
 
     var searchObject = {};
-    tripService
+    tripApi
       .findItinerary(searchObject)
       .then(function(itinerary) {
         scope.itinerary = itinerary[0];

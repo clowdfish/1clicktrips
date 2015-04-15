@@ -5,7 +5,7 @@ describe('controller: signupCtrl', function() {
   var $scope,
       modalInstance,
       $httpBackend,
-      authService,
+      authApi,
       signupHandler,
       logoutHandler;
 
@@ -20,11 +20,11 @@ describe('controller: signupCtrl', function() {
                             _$httpBackend_,
                             _$controller_,
                             _$modal_,
-                            _authService_,
+                            _authApi_,
                             _AUTH_EVENTS_) {
     $scope = _$rootScope_.$new();
     $httpBackend = _$httpBackend_;
-    authService = _authService_;
+    authApi = _authApi_;
 
     //Mock object for $modalInstance
     modalInstance = {
@@ -37,7 +37,7 @@ describe('controller: signupCtrl', function() {
       $rootScope: _$rootScope_,
       $modalInstance: modalInstance,
       AUTH_EVENTS: _AUTH_EVENTS_,
-      authService: authService
+      authApi: authApi
     });
 
     signupHandler = $httpBackend.whenPOST(/\/api\/auth\/register/).respond(200, 'success');

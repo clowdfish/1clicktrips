@@ -1,9 +1,9 @@
 (function() {
   angular
     .module('app.dashboard')
-    .service('bookingService', bookingService);
+    .service('bookingApi', bookingApi);
 
-  function bookingService($http, $q, date) {
+  function bookingApi($http, $q, date) {
 
     var _this = this;
 

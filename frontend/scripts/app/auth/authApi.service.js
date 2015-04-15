@@ -4,9 +4,9 @@
 
   angular
     .module('app.auth')
-    .service('authService', authService);
+    .service('authApi', authApi);
 
-  function authService($http, $q, $rootScope, AUTH_EVENTS, session) {
+  function authApi($http, $q, $rootScope, AUTH_EVENTS, session) {
 
     this.signup = function(signupData) {
       return $q(function(resolve, reject) {

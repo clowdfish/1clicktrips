@@ -4,7 +4,7 @@ describe('controller: loginCtrl', function() {
   var $scope,
       $q,
       $httpBackend,
-      authService,
+      authApi,
       AUTH_EVENTS,
       signupHandler,
       loginHandler,
@@ -21,7 +21,7 @@ describe('controller: loginCtrl', function() {
                             _$q_,
                             _$httpBackend_,
                             _$controller_,
-                            _authService_,
+                            _authApi_,
                             _AUTH_EVENTS_,
                             _oAuthDialog_) {
     $scope = _$rootScope_.$new();
@@ -38,12 +38,12 @@ describe('controller: loginCtrl', function() {
       $modalInstance: modalInstance,
       AUTH_EVENTS: _AUTH_EVENTS_,
       oAuthDialog: _oAuthDialog_,
-      authService: _authService_
+      authApi: _authApi_
     })
     signupHandler = $httpBackend.whenPOST(/\/api\/auth\/register/).respond(200, 'success');
     loginHandler = $httpBackend.whenPOST(/\/api\/auth\/local/).respond(200, 'success');
     logoutHandler = $httpBackend.whenPOST(/\/api\/auth\/logout/).respond(200, 'success');
-    authService = _authService_;
+    authApi = _authApi_;
 
     //$scope.loginForm is not available in unit test so we create it at here
     $scope.loginForm = {};

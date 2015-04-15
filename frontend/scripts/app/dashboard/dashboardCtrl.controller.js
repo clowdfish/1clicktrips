@@ -9,8 +9,8 @@
                         bookedTripList,
                         browser,
                         AUTH_EVENTS,
-                        favoriteService,
-                        bookingService) {
+                        favoriteApi,
+                        bookingApi) {
     $scope.favoriteList = favoriteList;
     $scope.bookedTripList = bookedTripList;
 
@@ -31,13 +31,13 @@
     });
 
     function refreshDashboard() {
-      favoriteService
+      favoriteApi
         .getFavoriteList()
         .then(function(response) {
           $scope.favoriteList = response;
         });
 
-      bookingService
+      bookingApi
         .getBookedTrips()
         .then(function(response) {
           $scope.bookedTripList = response;

@@ -6,7 +6,7 @@
     .module('app.index')
     .controller('indexCtrl', indexCtrl);
 
-  function indexCtrl($scope, $modal, $translate, currencyService, appConfig, languageService) {
+  function indexCtrl($scope, $modal, $translate, currencyApi, appConfig, languageApi) {
 
   }
 

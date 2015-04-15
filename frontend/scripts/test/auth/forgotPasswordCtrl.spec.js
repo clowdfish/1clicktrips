@@ -3,7 +3,7 @@
 describe('controller: forgotPasswordCtrl', function() {
   var $scope,
       $httpBackend,
-      authService,
+      authApi,
       $q,
       forgotHandler,
       modalInstance;
@@ -18,18 +18,18 @@ describe('controller: forgotPasswordCtrl', function() {
                             _$q_,
                             _$httpBackend_,
                             _$controller_,
-                            _authService_) {
+                            _authApi_) {
     $scope = _$rootScope_.$new();
     $q = _$q_;
     $httpBackend = _$httpBackend_;
-    authService = _authService_;
+    authApi = _authApi_;
     //Mock object for $modalInstance
     modalInstance = {
       close: jasmine.createSpy('modalInstance.close')
     }
     _$controller_('forgotPasswordCtrl', {
       $scope: $scope,
-      authService: authService,
+      authApi: authApi,
       $modalInstance: modalInstance
     });
 

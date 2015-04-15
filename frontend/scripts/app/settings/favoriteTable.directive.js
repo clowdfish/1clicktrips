@@ -21,14 +21,14 @@
 
     }
 
-    function controller($scope, favoriteService) {
+    function controller($scope, favoriteApi) {
       $scope.sortableOptions = {
         axis: 'y',
         update: updatePosition
       }
 
       $scope.deleteFavorite = function(favorite) {
-        favoriteService
+        favoriteApi
           .deleteFavorite(favorite.id)
           .then(function() {
             $scope.favorites = _.reject($scope.favorites, function(item) {
@@ -51,7 +51,7 @@
           });
         }
 
-        favoriteService
+        favoriteApi
           .updateFavoritePosition(positionData)
           .then(function() {
             //Upate position successful

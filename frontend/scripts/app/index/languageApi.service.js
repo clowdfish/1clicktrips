@@ -4,9 +4,9 @@
 
 	angular
 		.module('app.index')
-		.service('languageService', languageService);
+		.service('languageApi', languageApi);
 
-	function languageService($http, $q, $sessionStorage, session, userService) {
+	function languageApi($http, $q, $sessionStorage, session, userApi) {
 		var _this = this;
 		var languageData = getAvailableLanguages();
 		this.getAvailableLanguages = getAvailableLanguages;
@@ -23,7 +23,7 @@
 				$sessionStorage.activeLanguageKey = key;
 				if (session.isLogin()) {
 					//Store active language key on server
-					userService
+					userApi
 						.setUserProfile('language', key)
 						.then(function() {
 							resolve();

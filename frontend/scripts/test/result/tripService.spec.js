@@ -1,7 +1,7 @@
 'use strict';
 
-describe('tripService', function() {
-  var tripService,
+describe('tripApi', function() {
+  var tripApi,
       $httpBackend,
       itinerary,
       alternativeSegment,
@@ -15,14 +15,14 @@ describe('tripService', function() {
   beforeEach(module('app.index'));
   beforeEach(module('app.templates'));
 
-  beforeEach(inject(function(_tripService_,
+  beforeEach(inject(function(_tripApi_,
                             _$rootScope_,
                             mockItinerary,
                             mockAlternativeSegment,
                             _$q_,
                             _$httpBackend_) {
     $httpBackend = _$httpBackend_;
-    tripService = _tripService_;
+    tripApi = _tripApi_;
     $rootScope = _$rootScope_;
     itinerary = mockItinerary;
     alternativeSegment = mockAlternativeSegment;
@@ -33,7 +33,7 @@ describe('tripService', function() {
 
   it('it find and have valid data', function() {
     var returnValue, itinerary;
-    tripService
+    tripApi
       .findItinerary()
       .then(function(itinerary) {
         returnValue = itinerary;

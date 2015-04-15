@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('loginCtrl', loginCtrl);
 
-  function loginCtrl($scope, $rootScope, $modal, $modalInstance, AUTH_EVENTS, oAuthDialog, authService) {
+  function loginCtrl($scope, $rootScope, $modal, $modalInstance, AUTH_EVENTS, oAuthDialog, authApi) {
 
     /**
      * Login by Twitter
@@ -25,7 +25,7 @@
         password: $scope.password
       };
       var remember = $scope.rememberMe ? true : false;
-      authService
+      authApi
         .login(loginData, remember)
         .then(function(data) {
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);

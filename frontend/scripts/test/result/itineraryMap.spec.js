@@ -15,7 +15,7 @@ xdescribe('itineraryMap directive', function() {
       controller,
       mockItinerary,
       $q,
-      tripService,
+      tripApi,
       $httpBackend;
 
   beforeEach(function() {
@@ -28,7 +28,7 @@ xdescribe('itineraryMap directive', function() {
   beforeEach(inject(function(_$compile_,
                             _$rootScope_,
                             _mockItinerary_,
-                            _tripService_,
+                            _tripApi_,
                             _$q_,
                             _$httpBackend_) {
     scope = _$rootScope_.$new();
@@ -38,13 +38,13 @@ xdescribe('itineraryMap directive', function() {
     $httpBackend = _$httpBackend_;
 
     $q = _$q_;
-    tripService = _tripService_;
+    tripApi = _tripApi_;
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
     console.log(mockItinerary.toString());
     var searchObject = {};
     var itinerary = null;
-    tripService
+    tripApi
       .findItinerary(searchObject)
       .then(function(data) {
         itinerary = data;

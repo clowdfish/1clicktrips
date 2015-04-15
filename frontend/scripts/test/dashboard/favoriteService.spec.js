@@ -1,7 +1,7 @@
 'use strict';
 
-describe('favoriteService', function() {
-  var favoriteService,
+describe('favoriteApi', function() {
+  var favoriteApi,
       $q,
       $rootScope;
 
@@ -12,14 +12,14 @@ describe('favoriteService', function() {
   })
 
   beforeEach(inject(function(_$rootScope_,
-                            _favoriteService_,
+                            _favoriteApi_,
                             _$q_,
                             _mockFavorites_) {
     $rootScope = _$rootScope_;
-    favoriteService = _favoriteService_;
+    favoriteApi = _favoriteApi_;
     $q = _$q_;
 
-    spyOn(favoriteService, 'getFavoriteList').and.callFake(function() {
+    spyOn(favoriteApi, 'getFavoriteList').and.callFake(function() {
       var deferred = $q.defer();
       deferred.resolve(_mockFavorites_);
       return deferred.promise;
@@ -29,7 +29,7 @@ describe('favoriteService', function() {
 
   it('get favorite list', function() {
     var favorites = [];
-    favoriteService
+    favoriteApi
       .getFavoriteList()
       .then(function(data){
         favorites = data;

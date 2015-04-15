@@ -6,12 +6,12 @@
     .module('app.auth')
     .controller('resetPasswordCtrl', resetPasswordCtrl);
 
-  function resetPasswordCtrl($scope, $state, resetPasswordToken, isValidToken, authService) {
+  function resetPasswordCtrl($scope, $state, resetPasswordToken, isValidToken, auth) {
     $scope.success = false;
     $scope.error = null;
     $scope.isValidToken = isValidToken;
     $scope.submit = function() {
-      authService
+      auth
         .resetPassword(resetPasswordToken, $scope.password)
         .then(function() {
           $scope.success = true;

@@ -46,30 +46,30 @@
     });
   }
 
-  function getUserProfile(userService) {
-    return userService.getUserProfile();
+  function getUserProfile(userApi) {
+    return userApi.getUserProfile();
   }
 
   function getUserPreferences(settings) {
     return settings.getUserSettings();
   }
 
-  function getCountryList(userService) {
-    return userService.getCountryList();
+  function getCountryList(userApi) {
+    return userApi.getCountryList();
   }
 
-  function getFavorites(session, favoriteService) {
+  function getFavorites(session, favoriteApi) {
     if (!session.isLogin()) {
       return [];
     }
-    return favoriteService.getFavoriteList();
+    return favoriteApi.getFavoriteList();
   }
 
-  function getBookingList(session, bookingService) {
+  function getBookingList(session, bookingApi) {
     if (!session.isLogin()) {
       return [];
     }
-    return bookingService.getBookedTrips();
+    return bookingApi.getBookedTrips();
   }
 
 })();

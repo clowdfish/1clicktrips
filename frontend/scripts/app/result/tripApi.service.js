@@ -3,9 +3,9 @@
 
   angular
     .module('app.result')
-    .service('tripService', tripService);
+    .service('tripApi', tripApi);
 
-  function tripService($http, $q, $timeout) {
+  function tripApi($http, $q, $timeout) {
     var service = this;
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;

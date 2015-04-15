@@ -1,8 +1,8 @@
 (function() {
   'use strict';
 
-  xdescribe('bookingService', function() {
-    var bookingService,
+  xdescribe('bookingApi', function() {
+    var bookingApi,
         $rootScope,
         $q,
         bookedTripList,
@@ -15,21 +15,21 @@
       module('mockdata');
     });
 
-    beforeEach(inject(function(_bookingService_,
+    beforeEach(inject(function(_bookingApi_,
                               _$rootScope_,
                               _$q_,
                               _mockBooking_) {
       $rootScope = _$rootScope_;
-      bookingService = _bookingService_;
+      bookingApi = _bookingApi_;
       mockBooking = _mockBooking_.slice(0);
       $q = _$q_;
-      spyOn(bookingService, 'callBookingApi').and.callFake(function() {
+      spyOn(bookingApi, 'callBookingApi').and.callFake(function() {
         return $q(function(resolve) {
           resolve(mockBooking);
         });
       });
 
-      bookingService
+      bookingApi
         .getBookedTrips()
         .then(function(data) {
           bookedTripList = data;

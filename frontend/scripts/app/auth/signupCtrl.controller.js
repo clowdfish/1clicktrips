@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('signupCtrl', signupCtrl);
 
-  function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authService) {
+  function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authApi) {
 
     $scope.agreement = false;
 
@@ -15,7 +15,7 @@
      */
     $scope.signup = function() {
       if($scope.agreement)
-        authService
+        authApi
           .signup($scope.signupData)
           .then(function() {
             $rootScope.$broadcast(AUTH_EVENTS.signupSuccess);

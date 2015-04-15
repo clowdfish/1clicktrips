@@ -1,9 +1,9 @@
 'use strict';
 
-describe('service: authService', function() {
+describe('service: authApi', function() {
   var $scope,
       $rootScope,
-      authService,
+      authApi,
       $httpBackend,
       signupHandler,
       loginHandler,
@@ -21,12 +21,12 @@ describe('service: authService', function() {
 
   beforeEach(inject(function(_$rootScope_,
                             _$httpBackend_,
-                            _authService_,
+                            _authApi_,
                             _session_) {
     $scope = _$rootScope_.$new();
     $rootScope = _$rootScope_;
     $httpBackend = _$httpBackend_;
-    authService = _authService_;
+    authApi = _authApi_;
     session = _session_;
 
     signupHandler = $httpBackend.whenPOST(/\/api\/auth\/register/).respond(200, 'success');
@@ -55,7 +55,7 @@ describe('service: authService', function() {
     loginHandler.respond(200, {
       token: 'test_token'
     });
-    authService
+    authApi
       .login(loginData)
       .then(function() {
         success = true;
@@ -71,7 +71,7 @@ describe('service: authService', function() {
   it('test login failed', function() {
     var success;
     loginHandler.respond(401, 'failed');
-    authService
+    authApi
       .login(loginData)
       .then(function() {
         success = true;
@@ -89,7 +89,7 @@ describe('service: authService', function() {
       token: 'test_token'
     });
     var success;
-    authService
+    authApi
       .signup(signupData)
       .then(function() {
         success = true;
@@ -105,7 +105,7 @@ describe('service: authService', function() {
   it('test signup failed', function() {
     var success;
     signupHandler.respond(401, 'failed');
-    authService
+    authApi
       .signup(signupData)
       .then(function() {
         success = true;
@@ -123,7 +123,7 @@ describe('service: authService', function() {
       token: 'test_token'
     });
     var success;
-    authService
+    authApi
       .login(loginData)
       .then(function() {
         success = true;
@@ -133,7 +133,7 @@ describe('service: authService', function() {
     $scope.$digest();
     $httpBackend.flush();
     expect(session.isLogin()).toEqual(true);
-    authService.logout();
+    authApi.logout();
     $scope.$digest();
     $httpBackend.flush();
     expect(session.isLogin()).toEqual(false);
@@ -141,7 +141,7 @@ describe('service: authService', function() {
 
   it('test forgot password', function() {
     forgotHandler.respond(200, 'OK');
-    authService
+    authApi
       .forgotPassword('example@gmail.com')
   })
 });

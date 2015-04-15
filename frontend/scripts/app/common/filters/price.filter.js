@@ -9,14 +9,14 @@
     .module('app.common')
     .filter('price', price);
 
-  function price(currencyService, currencyFilter) {
+  function price(currencyApi, currencyFilter) {
     return function(price, currencyCode) {
 
       if (!price || !currencyCode) {
         return;
       }
 
-      var currencyData = currencyService.getCurrencyDataByCode(currencyCode);
+      var currencyData = currencyApi.getCurrencyDataByCode(currencyCode);
 
       if (!currencyData) {
         //Use Angular currency filter if don't have currency data

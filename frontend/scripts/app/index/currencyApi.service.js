@@ -4,9 +4,9 @@
 
 	angular
 		.module('app.index')
-		.service('currencyService', currencyService);
+		.service('currencyApi', currencyApi);
 
-	function currencyService($http, $q, $localStorage, appConfig) {
+	function currencyApi($http, $q, $localStorage, appConfig) {
 		var _this = this;
 
 		this.currencyData = window["AppData"]["currencies"];

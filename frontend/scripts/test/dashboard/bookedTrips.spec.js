@@ -6,7 +6,7 @@
     var $q,
         $scope,
         $httpBackend,
-        bookingService,
+        bookingApi,
         bookedTrips,
         bookedTripsScope,
         mockBooking;
@@ -20,20 +20,20 @@
 
     beforeEach(inject(function(_$q_,
                               _$rootScope_,
-                              _bookingService_,
+                              _bookingApi_,
                               _mockBooking_,
                               _$compile_,
                               _$httpBackend_) {
       $q = _$q_;
       $scope = _$rootScope_.$new();
-      bookingService = _bookingService_;
+      bookingApi = _bookingApi_;
       mockBooking = _mockBooking_;
 
       $httpBackend = _$httpBackend_;
       $httpBackend.whenGET(/\/api\/account\/bookings/).respond(_mockBooking_);
 
       var bookedTripList = null;
-      bookingService
+      bookingApi
         .getBookedTrips()
         .then(function(data) {
           bookedTripList = data;

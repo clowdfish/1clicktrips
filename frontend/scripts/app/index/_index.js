@@ -123,18 +123,18 @@
     });
   }
 
-  function getFavoriteList(session, favoriteService) {
+  function getFavoriteList(session, favoriteApi) {
     if (!session.isLogin()) {
       return [];
     }
-    return favoriteService.getFavoriteList();
+    return favoriteApi.getFavoriteList();
   }
 
-  function getBookedTrips(session, bookingService) {
+  function getBookedTrips(session, bookingApi) {
     if (!session.isLogin()) {
       return [];
     }
-    return bookingService.getBookedTrips();
+    return bookingApi.getBookedTrips();
   }
 
   function getSearchFormData($stateParams) {
@@ -189,12 +189,12 @@
     }
   }
 
-  function getLanguages(languageService) {
-    return languageService.getAvailableLanguages();
+  function getLanguages(languageApi) {
+    return languageApi.getAvailableLanguages();
   }
 
-  function getCurrencies(currencyService) {
-    return currencyService.getAvailableCurrencies();
+  function getCurrencies(currencyApi) {
+    return currencyApi.getAvailableCurrencies();
   }
 
   function formatLanguageObject(object, prefix) {

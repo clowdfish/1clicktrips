@@ -4,8 +4,8 @@ describe('dashboardCtrl', function() {
   var $rootScope,
       $scope,
       $controller,
-      bookingService,
-      favoriteService,
+      bookingApi,
+      favoriteApi,
       $q,
       mockFavorites;
 
@@ -20,28 +20,28 @@ describe('dashboardCtrl', function() {
 
   beforeEach(inject(function(_$rootScope_,
                             _$controller_,
-                            _bookingService_,
-                            _favoriteService_,
+                            _bookingApi_,
+                            _favoriteApi_,
                             _$q_,
                             _mockBooking_,
                             _mockFavorites_
                             ) {
     $rootScope = _$rootScope_;
     $controller = _$controller_;
-    bookingService = _bookingService_;
-    favoriteService = _favoriteService_;
+    bookingApi = _bookingApi_;
+    favoriteApi = _favoriteApi_;
     mockFavorites = _mockFavorites_;
     $q = _$q_;
 
     $scope = $rootScope.$new();
 
-    spyOn(bookingService, 'getBookedTrips').and.callFake(function() {
+    spyOn(bookingApi, 'getBookedTrips').and.callFake(function() {
       var deferred = $q.defer();
       deferred.resolve(_mockBooking_);
       return deferred.promise;
     });
 
-    spyOn(favoriteService, 'getFavoriteList').and.callFake(function() {
+    spyOn(favoriteApi, 'getFavoriteList').and.callFake(function() {
       var deferred = $q.defer();
       deferred.resolve(_mockFavorites_);
       return deferred.promise;

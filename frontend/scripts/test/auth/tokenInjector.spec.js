@@ -6,7 +6,7 @@ describe('factory: tokenInjector', function() {
       $http,
       httpHandler,
       session,
-      authService;
+      auth;
 
   beforeEach(module('app.auth'));
 
@@ -14,12 +14,12 @@ describe('factory: tokenInjector', function() {
                               _$rootScope_,
                               _$http_,
                               _session_,
-                              _authService_) {
+                              _auth_) {
     $http = _$http_;
     $httpBackend = _$httpBackend_;
     session = _session_;
     $rootScope = _$rootScope_;
-    authService = _authService_;
+    auth = _auth_;
     httpHandler = $httpBackend.whenGET('/api/sample_request').respond(200, 'success');
   }));
 

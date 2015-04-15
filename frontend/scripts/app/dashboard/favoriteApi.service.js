@@ -1,9 +1,9 @@
 (function() {
   angular
     .module('app.dashboard')
-    .service('favoriteService', favoriteService);
+    .service('favoriteApi', favoriteApi);
 
-  function favoriteService($http, $q) {
+  function favoriteApi($http, $q) {
     var _this = this;
 
     _this.getFavoriteList = getFavoriteList;

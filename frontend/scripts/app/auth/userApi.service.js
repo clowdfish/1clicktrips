@@ -4,12 +4,12 @@
 
   angular
     .module('app.auth')
-    .service('userService', userService);
+    .service('userApi', userApi);
 
   /**
   * This service get and set user profile data
   */
-  function userService($http, $q, $upload, session) {
+  function userApi($http, $q, $upload, session) {
 
     /**
      * Fetch user profile

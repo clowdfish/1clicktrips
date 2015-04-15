@@ -14,7 +14,7 @@ describe('resultCtrl', function() {
 
   var $scope,
       $controller,
-      tripService,
+      tripApi,
       $q,
       itinerary,
       TRIP_TYPE,
@@ -23,7 +23,7 @@ describe('resultCtrl', function() {
       $httpBackend;
   beforeEach(inject(function(_$rootScope_,
                             _$controller_,
-                            _tripService_,
+                            _tripApi_,
                             _$q_,
                             mockItinerary,
                             _TRIP_TYPE_,
@@ -31,11 +31,11 @@ describe('resultCtrl', function() {
                             _$state_,
                             _$stateParams_,
                             _$httpBackend_,
-                            _favoriteService_) {
+                            _favoriteApi_) {
     itinerary = mockItinerary;
     TRIP_TYPE = _TRIP_TYPE_;
     $controller = _$controller_;
-    tripService = _tripService_;
+    tripApi = _tripApi_;
     $q = _$q_;
     $scope = _$rootScope_.$new();
     $state = _$state_;
@@ -43,9 +43,9 @@ describe('resultCtrl', function() {
     $httpBackend = _$httpBackend_;
     $controller('resultCtrl', {
       $scope: $scope,
-      tripService: tripService,
+      tripApi: tripApi,
       browser: _browser_,
-      favoriteService: _favoriteService_,
+      favoriteApi: _favoriteApi_,
       searchObject: {}
     });
 

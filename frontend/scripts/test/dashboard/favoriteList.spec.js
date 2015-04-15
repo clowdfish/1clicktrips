@@ -1,6 +1,6 @@
 describe('favoriteList', function() {
   var $rootScope,
-      favoriteService,
+      favoriteApi,
       _$q_,
       $scope,
       directive,
@@ -16,21 +16,21 @@ describe('favoriteList', function() {
 
   beforeEach(inject(function(_$rootScope_,
                             _$q_,
-                            _favoriteService_,
+                            _favoriteApi_,
                             _$compile_,
                             _mockFavorites_) {
     $rootScope = _$rootScope_;
     $scope = $rootScope.$new();
-    favoriteService = _favoriteService_;
+    favoriteApi = _favoriteApi_;
     $q = _$q_;
     mockFavorites = _mockFavorites_;
-    spyOn(favoriteService, 'getFavoriteList').and.callFake(function() {
+    spyOn(favoriteApi, 'getFavoriteList').and.callFake(function() {
       return $q(function(resolve) {
         resolve(mockFavorites);
       });
     });
     var favoriteList = null;
-    favoriteService
+    favoriteApi
       .getFavoriteList()
       .then(function(data) {
         favoriteList = data;
