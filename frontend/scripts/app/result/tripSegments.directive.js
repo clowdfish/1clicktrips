@@ -10,23 +10,24 @@
       templateUrl: 'scripts/app/templates/result/trip-segments.html',
       scope: {
         itinerary: '=',
-        showAlternativesPanel:'=',
         activeSegments: '=',
         selectedSegment: '=',
         isShowingMap: '=',
         isShowingList: '=',
-        showMapFn: '&'
+        showMapFn: '&',
+        alternatives: '='
       },
       link: link
     }
 
-    function link(scope, element, attrs, itineraryMapCtrl) {
+    function link(scope, element, attrs, ctrl) {
       var $element = $(element);
       var $tripSegments = $element.find('.trip-segments');
       scope.activeSegmentNumber = 1;
       scope.showTab = showTab;
 
       scope.selectSegment = function(segment) {
+        ctrl.closAlternativesPanel();
         if (scope.selectedSegment == segment) {
           scope.selectedSegment = null;
         } else {
@@ -41,16 +42,14 @@
         if (scope.itinerary == null) {
           return;
         }
+        console.log('itinerary', scope.itinerary);
         scope.segments = groupSegmentByDate(scope.itinerary);
         scope.segmentsHeaders = _.keys(scope.segments);
         scope.activeSegments = scope.segments[1];
-
         scope.segmentsHeight = $tripSegments.height();
-
-
       });
 
-
+      scope.showAlternativesFn = ctrl.showAlternatives;
 
       function groupSegmentByDate(itinerary) {
         var i = 0;

@@ -31,8 +31,29 @@
       return deferred.promise;
     }
 
-    function findAlternativeSegment() {
-      return $http.get('/api/search/alternatives');
+    function findAlternativeSegment(tripId, segmentId) {
+      return $q(function(resolve, reject) {
+        $http
+          .get('/api/search/alternatives', {
+            params: {
+              tripId: tripId,
+              segmentId: segmentId
+            }
+          })
+          .success(function(response) {
+            resolve(response);
+          })
+          .error(function(data, status) {
+            reject({
+              data: data,
+              status: status
+            });
+          });
+      });
+    }
+
+    function transformAlternativeSegmentsResponse(response) {
+      return response;
     }
 
     function transformItinerary(itinerary) {

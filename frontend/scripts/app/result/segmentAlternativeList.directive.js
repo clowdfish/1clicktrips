@@ -18,10 +18,13 @@
     }
 
     function link(scope, element, attrs, itineraryMapCtrl) {
+
       scope.closePanel = closePanel;
+
       function closePanel() {
-        scope.isShowing = false;
+        itineraryMapCtrl.closAlternativesPanel();
       }
+
     }
   }
 })();

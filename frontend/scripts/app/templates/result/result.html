@@ -105,31 +105,36 @@
 
         <!-- RESULT MAP AND RESULT LIST -->
         <div class="result-overview ">
-          <trip-result-wrapper itinerary="itinerary" show-map="true" show-list="true">
+          <trip-result-wrapper
+              itinerary="itinerary"
+              show-map="true"
+              show-list="true"
+              is-show-alternatives-panel="isShowAlternativesPanel"
+              alternatives='alternatives'
+              active-segments='activeSegments'
+              >
             <div class='trip-segments-container' ng-show='showList'>
               <trip-segments
                 itinerary='itinerary'
-                active-segments='activeSegmentsOnMap'
+                active-segments='activeSegments'
                 selected-segment='selectedSegment'
-                show-alternatives-panel='showAlternativesPanel'
                 >
               </trip-segments>
 
               <!-- alternatives pane -->
               <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
-                <segment-alternative-list
-                        select='selectAlternativeSegment'
-                        segment='activeSegmentOnAlternativePanel'
-                        alternatives='alternatives'
-                        is-showing='isShowAlternativesPanel' >
-                </segment-alternative-list>
+                <alternative-mean-of-travel
+                  alternatives="alternatives"
+                  active-segments="activeSegments"
+                  >
+                </alternative-mean-of-travel>
               </div>
             </div>
 
             <!-- map view -->
             <div ng-show='showMap'>
               <map itinerary='itinerary'
-                  active-segments='activeSegmentsOnMap'
+                  active-segments='activeSegments'
                   selected-segment='selectedSegment'></map>
             </div>
           </trip-result-wrapper>

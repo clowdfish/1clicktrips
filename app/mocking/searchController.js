@@ -102,35 +102,63 @@ function createMockMeetingSpace(id) {
 function createMockAlternative(id) {
 
   return {
+    "description": "Go by taxi",
     "replace": [
-      id, "fewgt25ew3"
+      "fwer2fweg", "rwerwq3"
     ],
     "segments" : [
       {
-        "id": "ttg-r0-" + id,
+        "id": "ttg-id-2",
         "start": {
-          "description": "Origin",
-          "location": {
-            "latitude": 32.71574,
-            "longitude": -117.1611
-          }
-        },
-        "end": {
-          "description": "Broadway & 4th Ave",
+          "description": "Alternative 1",
           "location": {
             "latitude": 32.71579,
             "longitude": -117.1609
           }
         },
+        "end": {
+          "description": "Alternative 1",
+          "location": {
+            "latitude": 32.73198,
+            "longitude": -117.1974
+          }
+        },
         "departureTime": 0,
         "arrivalTime": 0,
-        "duration": 0,
-        "distance": 0.02,
-        "path": "kxtfEv_bjUIc@",
-        "type": 1,
+        "duration": 18,
+        "distance": 5.8,
+        "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
+        "type": 4,
         "price": {
-          "amount": 0,
-          "currency": "EUR"
+          "amount": 2,
+          "currency": "USD"
+        }
+      },
+      {
+        "id": "ttg-id-2",
+        "start": {
+          "description": "Alternative 2",
+          "location": {
+            "latitude": 32.73198,
+            "longitude": -117.1974
+          }
+        },
+        "end": {
+          "description": "Alternative 2",
+          "location": {
+            "latitude": 48.69036,
+            "longitude": 9.19219
+          }
+        },
+        "departureTime": 0,
+        "arrivalTime": 0,
+        "duration": 850,
+        "distance": 9517.9,
+        "path": "",
+        "type": 16,
+        "price": {
+          "amount": 700,
+          "currency": "USD"
         }
       }
     ]

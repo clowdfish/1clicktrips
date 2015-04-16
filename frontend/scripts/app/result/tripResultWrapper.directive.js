@@ -16,7 +16,9 @@
         closeSegmentPanelFn: '=',
         hideMap: '@',
         showMap: '=',
-        showList: '='
+        showList: '=',
+        isShowAlternativesPanel: '=',
+        alternatives: '='
       },
       templateUrl: 'scripts/app/templates/result/trip-result-wrapper.html',
       controller: controller,
@@ -25,25 +27,11 @@
     };
 
     function link(scope, element, attrs) {
-      var $element = $(element);
-      var $tripSegments = $element.find('.trip-segments');
 
-      /**
-      * Height of the tripSegments
-      */
-      // scope.tripSegmentsHeight = 999;
-
-      // scope.$watch('activeSegmentsOnMap', function() {
-      //   scope.tripSegmentsHeight = $tripSegments.height();
-      // });
     }
 
-    function controller($scope) {
+    function controller($scope, tripApi) {
       var _this = this;
-
-      // $scope.$watch('tripSegmentsHeight', function(value) {
-      //   _this.tripSegmentsHeight = $scope.tripSegmentsHeight;
-      // })
 
       $scope.hideMap = $scope.hideMap || false;
 
@@ -83,26 +71,33 @@
       /**
       * Function - show alternatives panel
       */
-      $scope.showAlternativesPanel = showAlternativesPanel;
+      this.showAlternatives = showAlternatives;
+      this.closAlternativesPanel = closAlternativesPanel;
 
-      /**
-      * Active segments
-      */
-      $scope.activeSegmentsOnMap = {};
-
-      function showAlternativesPanel(segment) {
-        if (typeof(segment['alternatives']) != 'undefined' && segment.alternatives.length > 0) {
-          $scope.activeSegmentOnAlternativePanel = segment;
-          $scope.alternatives = segment.alternatives;
-          $scope.isShowAlternativesPanel = true;
-        } else {
-          $scope.alternatives = [];
-          $scope.isShowAlternativesPanel = false;
-        }
-      }
 
       function selectAlternativeSegment(segment, alternative) {
         console.log('Selected segment ', alternative.name);
+      }
+
+      function showAlternatives(segment, $event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        tripApi
+          .findAlternativeSegment(1, 1)
+          .then(function(alternatives) {
+            $scope.alternatives = alternatives;
+            $scope.isShowAlternativesPanel = true;
+          });
+
+      }
+
+      function closAlternativesPanel() {
+        $scope.isShowAlternativesPanel = false;
+      }
+
+      function selectAlternative(alternative) {
+        //find index of the
+
       }
 
     }

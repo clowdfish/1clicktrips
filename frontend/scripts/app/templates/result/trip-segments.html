@@ -22,7 +22,7 @@
     <!-- the trip segments list for the selected day -->
     <ul ng-repeat='header in segmentsHeaders' class='trip-segments-list' ng-show='activeSegmentNumber == header'>
 
-      <li class='trip-segments-day-item' ng-repeat='segment in segments[header]' ng-click='selectSegment(segment)'>
+      <li class='trip-segments-day-item' ng-repeat='segment in activeSegments' ng-click="selectSegment(segment)">
 
         <span class='trip-segments-day-item-col trip-segments-day-item-number'>
           <span>
@@ -40,7 +40,7 @@
           <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"'>
             {[segment.start.description]} - {[segment.end.description]}
           </span>
-          <a ng-click='showAlternativesPanel(segment)'>{[ "result_segments_alternatives" | translate ]}</a>
+          <a ng-click='showAlternativesFn(segment, $event)'>{[ "result_segments_alternatives" | translate ]}</a>
         </span>
         <span class='trip-segments-day-item-col trip-segments-day-item-timing'>
           <span class="trip-segments-day-item-timing-time">
