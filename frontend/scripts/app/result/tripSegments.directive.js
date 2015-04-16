@@ -15,7 +15,9 @@
         isShowingMap: '=',
         isShowingList: '=',
         showMapFn: '&',
-        alternatives: '='
+        alternatives: '=',
+        alternativeTop: '=',
+        alternativeLeft: '='
       },
       link: link
     }
@@ -26,8 +28,8 @@
       scope.activeSegmentNumber = 1;
       scope.showTab = showTab;
 
-      scope.selectSegment = function(segment) {
-        ctrl.closAlternativesPanel();
+      scope.selectSegment = function(segment, segmentIndex) {
+        ctrl.closeAlternativesPanel();
         if (scope.selectedSegment == segment) {
           scope.selectedSegment = null;
         } else {
@@ -42,7 +44,6 @@
         if (scope.itinerary == null) {
           return;
         }
-        console.log('itinerary', scope.itinerary);
         scope.segments = groupSegmentByDate(scope.itinerary);
         scope.segmentsHeaders = _.keys(scope.segments);
         scope.activeSegments = scope.segments[1];
@@ -60,6 +61,7 @@
         if (itinerary.outbound && itinerary.outbound.hasOwnProperty('segments')) {
           for (i = 0; i < itinerary.outbound.segments.length; i++) {
             var segment = itinerary.outbound.segments[i];
+            segment['tripId'] = itinerary.outbound.id;
             if (result[day] == null) {
               result[day] = [];
             }
@@ -73,6 +75,7 @@
         if (itinerary.inbound && itinerary.inbound.hasOwnProperty('segments')) {
           for (i = 0; i < itinerary.inbound.segments.length; i++) {
             var segment = itinerary.inbound.segments[i];
+            segment['tripId'] = itinerary.inbound.id;
             if (result[day] == null) {
               result[day] = [];
             }

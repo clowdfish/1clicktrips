@@ -8,7 +8,7 @@
     .module('app.result')
     .directive('tripResultWrapper', tripResultWrapper);
 
-  function tripResultWrapper(browser, $timeout) {
+  function tripResultWrapper(browser, $timeout, appConfig) {
     return {
       restrict: 'E',
       scope: {
@@ -18,7 +18,9 @@
         showMap: '=',
         showList: '=',
         isShowAlternativesPanel: '=',
-        alternatives: '='
+        alternatives: '=',
+        alternativeTop: '=',
+        alternativeLeft: '='
       },
       templateUrl: 'scripts/app/templates/result/trip-result-wrapper.html',
       controller: controller,
@@ -27,7 +29,24 @@
     };
 
     function link(scope, element, attrs) {
+      var $element = $(element);
+      var $tripSegmentsContainer = $element.find('.trip-segments-container:eq(0)');
 
+      scope.updateAlternativePosition = updateAlternativePosition;
+
+      /**
+      * Update position of alternative panel to match selected segment
+      */
+      function updateAlternativePosition(segmentIndex) {
+        var $segmentSelector = $element.find('.trip-segments-day-item').eq(segmentIndex);
+
+        if (null == $segmentSelector) {
+          return;
+        }
+
+        scope.alternativeTop = $segmentSelector.position().top;
+        scope.alternativeLeft = $tripSegmentsContainer.position().left + $tripSegmentsContainer.outerWidth() + 27;
+      }
     }
 
     function controller($scope, tripApi) {
@@ -64,40 +83,27 @@
       $scope.selectedSegment = null;
 
       /**
-      * Selected alternative segment
-      */
-      $scope.selectAlternativeSegment = selectAlternativeSegment;
-
-      /**
       * Function - show alternatives panel
       */
       this.showAlternatives = showAlternatives;
-      this.closAlternativesPanel = closAlternativesPanel;
+      this.closeAlternativesPanel = closeAlternativesPanel;
 
-
-      function selectAlternativeSegment(segment, alternative) {
-        console.log('Selected segment ', alternative.name);
-      }
-
-      function showAlternatives(segment, $event) {
+      function showAlternatives(segment, $event, segmentIndex) {
         $event.preventDefault();
         $event.stopPropagation();
+
         tripApi
-          .findAlternativeSegment(1, 1)
+          .findAlternativeSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
           .then(function(alternatives) {
             $scope.alternatives = alternatives;
             $scope.isShowAlternativesPanel = true;
           });
 
+        $scope.updateAlternativePosition(segmentIndex);
       }
 
-      function closAlternativesPanel() {
+      function closeAlternativesPanel() {
         $scope.isShowAlternativesPanel = false;
-      }
-
-      function selectAlternative(alternative) {
-        //find index of the
-
       }
 
     }

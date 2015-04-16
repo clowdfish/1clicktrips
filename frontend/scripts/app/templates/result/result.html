@@ -112,17 +112,23 @@
               is-show-alternatives-panel="isShowAlternativesPanel"
               alternatives='alternatives'
               active-segments='activeSegments'
+              alternative-left="alternativeLeft"
+              alternative-top="alternativeTop"
               >
             <div class='trip-segments-container' ng-show='showList'>
               <trip-segments
                 itinerary='itinerary'
                 active-segments='activeSegments'
                 selected-segment='selectedSegment'
+
                 >
               </trip-segments>
 
               <!-- alternatives pane -->
-              <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
+              <div class='trip-segments-alternatives'
+                  ng-show='isShowAlternativesPanel'
+                  ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}"
+                  >
                 <alternative-mean-of-travel
                   alternatives="alternatives"
                   active-segments="activeSegments"

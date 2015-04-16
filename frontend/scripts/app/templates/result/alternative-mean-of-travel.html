@@ -1,0 +1,15 @@
+<div class='alternatives-container'>
+  <span class="alternatives-container-title">Alternatives</span>
+  <a class="alternatives-container-close" ng-click='closeAlternativePanel()'><i class="fa fa-times-circle-o"></i></a>
+
+  <div class="row">
+    <div ng-repeat="alternative in alternatives">
+      <div class="col-md-9">
+        Go by {{ getAlternativeVehicleType(alternative) | translate }}
+      </div>
+      <div class="col-md-3">
+        <a ng-click="selectAlternative(alternative)" class="button">Select</a>
+      </div>
+    </div>
+  </div>
+</div>

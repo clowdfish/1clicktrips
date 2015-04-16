@@ -22,7 +22,7 @@
       scope.closePanel = closePanel;
 
       function closePanel() {
-        itineraryMapCtrl.closAlternativesPanel();
+        itineraryMapCtrl.closeAlternativesPanel();
       }
 
     }

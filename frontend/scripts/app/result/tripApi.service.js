@@ -31,14 +31,18 @@
       return deferred.promise;
     }
 
-    function findAlternativeSegment(tripId, segmentId) {
+    function findAlternativeSegment(segmentId, tripId, language, currency) {
+      var searchParams = {
+        tripId: tripId,
+        segmentId: segmentId,
+        language: language,
+        currency: currency
+      };
+
       return $q(function(resolve, reject) {
         $http
           .get('/api/search/alternatives', {
-            params: {
-              tripId: tripId,
-              segmentId: segmentId
-            }
+            params: searchParams
           })
           .success(function(response) {
             resolve(response);
@@ -52,8 +56,11 @@
       });
     }
 
-    function transformAlternativeSegmentsResponse(response) {
-      return response;
+    function updateItinerarySummary(itinerary) {
+      var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
+      var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
+      itinerary['duration'] = getItineraryDuration(outboundSegments, inboundSegments);
+      itinerary['cost'] = getItineraryCost(outboundSegments, inboundSegments);
     }
 
     function transformItinerary(itinerary) {
@@ -82,6 +89,7 @@
         item.arrivalTime = new Date(item.arrivalTime);
       });
     }
+
     function getVehicleTypeList(outboundSegments, inboundSegments) {
       var vehicleTypeList = [];
 
