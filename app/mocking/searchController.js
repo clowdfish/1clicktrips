@@ -45,7 +45,7 @@ module.exports = {
 
     console.log("Retrieving trip alternatives.");
 
-    return new Promise(function(resolve) {
+    return new Promise(function(resolve, reject) {
 
       // API request
       searchApi.getSegmentAlternatives(tripId, segmentId, language, currency)
