@@ -12,7 +12,7 @@ module.exports = {
     // TODO implement
   },
 
-  getAlternatives: function(tripId, segmentId, limit) {
+  getAlternatives: function(tripId, segmentId, language, currency) {
     // TODO implement
   },
 

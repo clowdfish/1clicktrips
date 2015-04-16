@@ -47,7 +47,6 @@ module.exports = {
           reject(err);
 
         if(rows.length) {
-          //
           var userData = {};
           userData.email = rows[0]['email'];
           userData.twitter = rows[0]['twitter_username'];

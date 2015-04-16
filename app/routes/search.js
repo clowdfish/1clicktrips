@@ -91,13 +91,14 @@ module.exports = function (app, express, production) {
 
     var segmentId = req.query.segmentId;
     var tripId = req.query.tripId;
-    // other query params: limit
+    var language = req.query.language;
+    var currency = req.query.currency;
 
     if(segmentId && tripId) {
       console.log('Query for alternative segment received. Segment ID=' + segmentId
         + '; Trip ID=' + tripId);
 
-      SearchController.getAlternatives(tripId, segmentId, null)
+      SearchController.getAlternatives(tripId, segmentId, language, currency)
         .then(function(alternatives) {
           res.status(200).json(alternatives);
         })

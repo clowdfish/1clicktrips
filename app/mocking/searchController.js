@@ -41,29 +41,29 @@ module.exports = {
     });
   },
 
-  getAlternatives: function(tripId, segmentId, limit) {
+  getAlternatives: function(tripId, segmentId, language, currency) {
 
     console.log("Retrieving trip alternatives.");
 
     return new Promise(function(resolve) {
 
-      /*
       // API request
-      searchApi.getSegmentAlternatives(tripId, segmentId)
+      searchApi.getSegmentAlternatives(tripId, segmentId, language, currency)
       .then(function(alternatives) {
         resolve(alternatives);
       })
-      .catch(function(error) {
-        reject(error);
+      .catch(function(err) {
+        reject(err);
       });
-      */
 
+      /*
       var alternativesArray = [];
 
       alternativesArray.push(createMockAlternative(segmentId));
       alternativesArray.push(createMockAlternative(segmentId));
 
       resolve(alternativesArray);
+      */
     });
   },
 
@@ -73,7 +73,6 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
 
-      /*
       // Rome2Rio API request
       searchApi.search(searchObject, 0, userLicence)
         .then(function(itineraries) {
@@ -84,9 +83,8 @@ module.exports = {
 
           reject(error);
         });
-      */
 
-      resolve(createMockTripResult());
+      //resolve(createMockTripResult());
     });
   }
 };

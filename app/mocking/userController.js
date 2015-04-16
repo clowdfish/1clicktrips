@@ -122,7 +122,8 @@ function createProfileMock() {
       "zip": "123456"
     },
     "image": "http://placehold.it/150x150",
-    "licence": "1"
+    "licence": "1",
+    "language": "de"
   }
 }
 
