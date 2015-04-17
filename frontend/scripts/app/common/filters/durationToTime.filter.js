@@ -16,7 +16,7 @@
         throw new Error('Invalid format, it should have %h and %m');
       }
       var hours = Math.floor(duration / 60);
-      var minutes = duration - hours * 60;
+      var minutes = Math.floor(duration - hours * 60);
 
       return format.replace('%h', hours).replace('%m', minutes);
     }
