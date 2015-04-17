@@ -118,12 +118,16 @@
         }
         mapBounds = null;
         latlngs.clear();
+        clearMarkers();
+        displayPath.setMap(null);
+        $map.remove();
+      }
+
+      function clearMarkers() {
         for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
         }
         markers = [];
-        displayPath.setMap(null);
-        $map.remove();
       }
 
       function initialize() {
@@ -151,6 +155,7 @@
         }
         //Clear old path
         latlngs.clear();
+        clearMarkers();
         displayPath.setPath(latlngs);
 
         mapBounds = new google.maps.LatLngBounds();
