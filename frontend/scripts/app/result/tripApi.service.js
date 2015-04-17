@@ -46,8 +46,14 @@
           .get('/api/search/alternatives', {
             params: searchParams
           })
-          .success(function(response) {
-            resolve(response);
+          .success(function(alternatives) {
+            for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
+              var alternative = alternatives[alternativeIndex];
+              for (var segmentIndex = 0; segmentIndex < alternative.segments.length; segmentIndex++) {
+                alternative.segments[segmentIndex]['tripId'] = tripId;
+              }
+            }
+            resolve(alternatives);
           })
           .error(function(data, status) {
             reject({

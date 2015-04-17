@@ -90,10 +90,12 @@
       this.updateAlternativePosition = $scope.updateAlternativePosition;
       this.closeAlternativesPanel = closeAlternativesPanel;
 
-
+      var lastSegmentIndex = null;
       function showAlternatives(segment, $event, segmentIndex) {
-        $event.preventDefault();
-        $event.stopPropagation();
+        if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation();
+        }
 
         tripApi
           .findAlternativeSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
@@ -102,8 +104,9 @@
             $scope.isShowAlternativesPanel = true;
           });
 
-        console.log(segmentIndex);
-        $scope.updateAlternativePosition(segmentIndex);
+        if (segmentIndex >= 0) {
+          $scope.updateAlternativePosition(segmentIndex);
+        }
       }
 
       function closeAlternativesPanel() {

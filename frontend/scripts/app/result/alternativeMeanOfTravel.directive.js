@@ -27,6 +27,7 @@
       }
 
       scope.selectAlternative = function(alternative) {
+
         var lastIndex = _.findIndex(scope.activeSegments, function(item) {
           return item.id == alternative.replace[0];
         });
@@ -40,6 +41,7 @@
         });
         activeSegments = insertAt(activeSegments, alternative.segments, lastIndex);
         scope.activeSegments = activeSegments;
+        ctrl.closeAlternativesPanel();
       }
 
       function insertAt(array1, array2, index) {
