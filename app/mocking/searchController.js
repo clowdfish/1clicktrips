@@ -187,6 +187,7 @@ function createMockTripResult() {
               "distance": 0.02,
               "path": "kxtfEv_bjUIc@",
               "type": 1,
+							"isMajor": 0,
               "price": {
                 "amount": 0,
                 "currency": "EUR"
@@ -214,6 +215,7 @@ function createMockTripResult() {
               "distance": 5.8,
               "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
               "type": 4,
+							"isMajor": 0,
               "price": {
                 "amount": 2,
                 "currency": "USD"
@@ -241,6 +243,7 @@ function createMockTripResult() {
               "distance": 9517.9,
               "path": "",
               "type": 16,
+							"isMajor": 1,
               "price": {
                 "amount": 700,
                 "currency": "USD"
@@ -268,6 +271,7 @@ function createMockTripResult() {
               "distance": 18.22,
               "path": "cydhHsgbw@yJhlCwYbcDwu@j`BmnAvuBks@s]afAcUej@~`A}FjD_c@sGgj@suB_Oo}AoOqi@}[qG{Jan@wNy{@eUih@qo@wu@",
               "type": 8,
+							"isMajor": 0,
               "price": {
                 "amount": 6,
                 "currency": "USD"
@@ -295,6 +299,7 @@ function createMockTripResult() {
               "distance": 26.27,
               "path": "}fwhHub`w@iiB}fFfCfA~M{~@lj@qkAlYy]rYuRpe@gg@|TyZruBoxAjt@{SnVwc@xNijBxDiDfiA_bFt@}m@|LezBnCelAbd@w[yFqi@y@_{@le@cu@wAub@x`@{cI",
               "type": 8,
+							"isMajor": 0,
               "price": {
                 "amount": 16,
                 "currency": "USD"
@@ -322,6 +327,7 @@ function createMockTripResult() {
               "distance": 0.13,
               "path": "ohhhHmkwx@EZQUAaCLW@uAXK",
               "type": 1,
+							"isMajor": 0,
               "price": {
                 "amount": 0,
                 "currency": "EUR"
@@ -377,6 +383,7 @@ function createMockTripResult() {
               "distance": 0.02,
               "path": "kxtfEv_bjUIc@",
               "type": 1,
+							"isMajor": 0,
               "price": {
                 "amount": 0,
                 "currency": "EUR"
@@ -404,6 +411,7 @@ function createMockTripResult() {
               "distance": 5.8,
               "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
               "type": 4,
+							"isMajor": 0,
               "price": {
                 "amount": 2,
                 "currency": "USD"
@@ -431,6 +439,7 @@ function createMockTripResult() {
               "distance": 9376.61,
               "path": "",
               "type": 16,
+							"isMajor": 1,
               "price": {
                 "amount": 1200,
                 "currency": "USD"
@@ -458,6 +467,7 @@ function createMockTripResult() {
               "distance": 177.12,
               "path": "i_opHuzhs@sBg|CrQm{@fc@oWt\\rEncLxcHfyGv{Ife@Yfn@p`AhfMzJ|j@fRnoDpxBx]vAluCgc@huB{pAr~BcZ~fBlz@xjDfkDxz@`hAbm@oJf~NarEfx@aInuI_Bds@_C|a@~`@pxA`uBzx@rZt_@aAhu@qyA`uCoaD|u@sr@`[{Cfg@g_Bha@{WfO}l@tbBymBvkCtQpeE}b@hiAsArY{R|v@lbAnrAjd@raDpl@tYlMllEn}CllBrj@ls@J`fBsQ`aBwcAr`BytBjy@u_Cdr@ytEvz@gyCbe@}UbPo}@`jCy{Dn`@cx@pjD_dL|bAgeC~h@}|@daBotB~e@a~@lpDqgJt_HimKvlAyoCxa@_R`Hoj@drG}eMbpAqgD|[}uAjo@eqExNup@`hAgmDx`@c|B|s@qkBhg@e_@huAMd\\tSt`A__@`cArHhb@sd@`gBjMph@wm@",
               "type": 8,
+							"isMajor": 0,
               "price": {
                 "amount": 45,
                 "currency": "USD"
@@ -485,6 +495,7 @@ function createMockTripResult() {
               "distance": 26.27,
               "path": "}fwhHub`w@iiB}fFfCfA~M{~@lj@qkAlYy]rYuRpe@gg@|TyZruBoxAjt@{SnVwc@xNijBxDiDfiA_bFt@}m@|LezBnCelAbd@w[yFqi@y@_{@le@cu@wAub@x`@{cI",
               "type": 8,
+							"isMajor": 0,
               "price": {
                 "amount": 16,
                 "currency": "USD"
@@ -512,6 +523,7 @@ function createMockTripResult() {
               "distance": 0.13,
               "path": "ohhhHmkwx@EZQUAaCLW@uAXK",
               "type": 1,
+							"isMajor": 0,
               "price": {
                 "amount": 0,
                 "currency": "EUR"
