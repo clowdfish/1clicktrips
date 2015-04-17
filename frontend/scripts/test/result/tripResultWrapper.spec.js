@@ -23,7 +23,7 @@ xdescribe('tripResultWrapper directive', function() {
     module('app.common');
     module('app.templates');
     module('mockdata');
-  })
+  });
 
   beforeEach(inject(function(_$compile_,
                             _$rootScope_,
@@ -74,7 +74,7 @@ xdescribe('tripResultWrapper directive', function() {
        * Hotel list is not showing, it is showed after we call showAlternativesPanel() function
        */
       expect(compiledDirective.html()).not.toContain('<img class="hotels-list-item-image" ng-src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg" src="http://www.radissonblu.com/images/hotel-ghaziabad/1369345068525.jpg">');
-      expect(directiveScope.isShowAlternativesPanel).toEqual(false);
+      expect(directiveScope.showAlternativesPanel).toEqual(false);
       //simulate click on "View alternatives"
       directiveScope.showAlternativesPanel(scope.itinerary.outbound.segments[3]);
       scope.$digest();
@@ -86,6 +86,7 @@ xdescribe('tripResultWrapper directive', function() {
 
   describe('tripSegments', function() {
     var tripSegmentElement, tripSegmentScope, tripSegmentIsolateScope;
+
     beforeEach(function() {
       tripSegmentElement = element.find('trip-segments');
       tripSegmentIsolateScope = tripSegmentElement.isolateScope();

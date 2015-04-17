@@ -17,7 +17,7 @@
         hideMap: '@',
         showMap: '=',
         showList: '=',
-        isShowAlternativesPanel: '=',
+        showAlternativesPanel: '=',
         alternatives: '=',
         alternativeTop: '=',
         alternativeLeft: '='
@@ -76,7 +76,7 @@
       /**
       * Is showing alternative panel or not
       */
-      $scope.isShowAlternativesPanel = false;
+      $scope.showAlternativesPanel = false;
 
       /**
       * Selected segment on trip segments directive
@@ -90,18 +90,19 @@
       this.updateAlternativePosition = $scope.updateAlternativePosition;
       this.closeAlternativesPanel = closeAlternativesPanel;
 
-      var lastSegmentIndex = null;
       function showAlternatives(segment, $event, segmentIndex) {
         if ($event) {
           $event.preventDefault();
           $event.stopPropagation();
         }
 
+        // show panel at once with the spinner
+        $scope.showAlternativesPanel = true;
+
         tripApi
           .findAlternativeSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
           .then(function(alternatives) {
             $scope.alternatives = alternatives;
-            $scope.isShowAlternativesPanel = true;
           });
 
         if (segmentIndex >= 0) {
@@ -110,10 +111,8 @@
       }
 
       function closeAlternativesPanel() {
-        $scope.isShowAlternativesPanel = false;
+        $scope.showAlternativesPanel = false;
       }
-
     }
-
   }
 })();

@@ -24,7 +24,7 @@
 
       scope.closeAlternativePanel = function() {
         ctrl.closeAlternativesPanel();
-      }
+      };
 
       scope.selectAlternative = function(alternative) {
 
@@ -41,8 +41,9 @@
         });
         activeSegments = insertAt(activeSegments, alternative.segments, lastIndex);
         scope.activeSegments = activeSegments;
-        ctrl.showAlternatives(alternative.segments[0]);
-      }
+
+        ctrl.closeAlternativesPanel();
+      };
 
       function insertAt(array1, array2, index) {
         var origin = _.clone(array1);
@@ -51,8 +52,7 @@
       }
 
       function getAlternativeVehicleType(alternative) {
-        var text = "result_vehicle_" + alternative.segments[0].type;
-        return text;
+        return "result_vehicle_" + alternative.segments[0].type;
       }
     }
   }

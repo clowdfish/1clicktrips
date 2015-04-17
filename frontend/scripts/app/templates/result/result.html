@@ -109,9 +109,8 @@
               itinerary="itinerary"
               show-map="true"
               show-list="true"
-              is-show-alternatives-panel="isShowAlternativesPanel"
+              show-alternatives-panel="showAlternativesPanel"
               alternatives='alternatives'
-              active-segments='activeSegments'
               alternative-left="alternativeLeft"
               alternative-top="alternativeTop"
               >
@@ -126,7 +125,7 @@
 
               <!-- alternatives pane -->
               <div class='trip-segments-alternatives'
-                  ng-show='isShowAlternativesPanel'
+                  ng-show='showAlternativesPanel'
                   ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}"
                   >
                 <alternative-mean-of-travel
@@ -140,8 +139,8 @@
             <!-- map view -->
             <div ng-show='showMap'>
               <map itinerary='itinerary'
-                  active-segments='activeSegments'
-                  selected-segment='selectedSegment'></map>
+                   active-segments='activeSegments'
+                   selected-segment='selectedSegment'></map>
             </div>
           </trip-result-wrapper>
         </div>
@@ -194,12 +193,12 @@
             </trip-segments>
 
             <!-- alternatives pane -->
-            <div class='trip-segments-alternatives' ng-show='isShowAlternativesPanel'>
+            <div class='trip-segments-alternatives' ng-show='showAlternativesPanel'>
               <segment-alternative-list
                       select='selectAlternativeSegment'
                       segment='activeSegmentOnAlternativePanel'
                       alternatives='alternatives'
-                      is-showing='isShowAlternativesPanel'
+                      is-showing='showAlternativesPanel'
                       >
               </segment-alternative-list>
             </div>
@@ -259,8 +258,8 @@
 
             <!-- RESULT MAP AND RESULT LIST -->
             <map itinerary='itinerary'
-                  active-segments='activeSegmentsOnMap'
-                  selected-segment='selectedSegment'></map>
+                 active-segments='activeSegmentsOnMap'
+                 selected-segment='selectedSegment'></map>
           </div>
         </div>
       </trip-result-wrapper>

@@ -2,12 +2,22 @@
   <span class="alternatives-container-title">Alternatives</span>
   <a class="alternatives-container-close" ng-click='closeAlternativePanel()'><i class="fa fa-times-circle-o"></i></a>
 
-  <div class="row">
+  <div ng-if="!alternatives.length" class="row">
+    <img src="../images/spinner.gif" alt="PLEASE WAIT" width="50px" height="50px" />
+  </div>
+
+  <div ng-if="alternatives.length" class="alternatives-row">
     <div ng-repeat="alternative in alternatives">
-      <div class="col-md-9">
+      <div class="alternatives-row-description">
         Go by {{ getAlternativeVehicleType(alternative) | translate }}
       </div>
-      <div class="col-md-3">
+      <div class="alternatives-row-price">
+        Price difference
+      </div>
+      <div class="alternatives-row-time">
+        Time difference
+      </div>
+      <div class="alternatives-row-button">
         <a ng-click="selectAlternative(alternative)" class="button">Select</a>
       </div>
     </div>

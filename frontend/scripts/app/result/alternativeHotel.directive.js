@@ -1,13 +1,13 @@
 (function() {
   angular
     .module('app.result')
-    .directive('segmentAlternativeList', segmentAlternativeList);
+    .directive('alternativeHotel', alternativeHotel);
 
-  function segmentAlternativeList() {
+  function alternativeHotel() {
     return {
       require: '^tripResultWrapper',
       restrict: 'EA',
-      templateUrl: 'scripts/app/templates/result/segment-alternative-list.html',
+      templateUrl: 'scripts/app/templates/result/alternative-hotel.html',
       scope: {
         select: '=',
         segment: '=',
@@ -15,7 +15,7 @@
         isShowing: '='
       },
       link: link
-    }
+    };
 
     function link(scope, element, attrs, itineraryMapCtrl) {
 
@@ -24,7 +24,6 @@
       function closePanel() {
         itineraryMapCtrl.closeAlternativesPanel();
       }
-
     }
   }
 })();

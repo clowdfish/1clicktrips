@@ -6,8 +6,7 @@ describe('service: tripApi', function() {
       itinerary,
       alternativeSegment,
       $rootScope,
-      $q,
-      $httpBackend;
+      $q;
 
   beforeEach(module('app.result'));
   beforeEach(module('app.auth'));

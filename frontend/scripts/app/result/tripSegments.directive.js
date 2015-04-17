@@ -20,7 +20,7 @@
         alternativeLeft: '='
       },
       link: link
-    }
+    };
 
     function link(scope, element, attrs, ctrl) {
       var $element = $(element);
@@ -44,7 +44,7 @@
             scope.showMapFn();
           }
         }
-      }
+      };
 
       scope.$watch('itinerary', function() {
         if (scope.itinerary == null) {
