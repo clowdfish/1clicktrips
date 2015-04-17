@@ -21,8 +21,8 @@ $button-height: 2.3em;
   }
 
   &:hover {
-    //color: #111;
     background: darken($c-primary, 3%);
+    text-decoration: none;
   }
 }
 

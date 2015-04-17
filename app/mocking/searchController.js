@@ -40,8 +40,10 @@ module.exports = {
 
       var alternativesArray = [];
 
-      alternativesArray.push(createMockAlternative(segmentId));
-      alternativesArray.push(createMockAlternative(segmentId));
+			if("feg6754ehfwe" === tripId && "fwer2fweg" === segmentId) {
+		    alternativesArray.push(createMockAlternative(segmentId));
+		    alternativesArray.push(createMockAlternative(segmentId));
+			}
 
       resolve(alternativesArray);
     });
@@ -104,20 +106,20 @@ function createMockAlternative(id) {
   return {
     "description": "Go by taxi",
     "replace": [
-      "fwer2fweg", "rwerwq3"
+      "fawe324", "fwer2fweg"
     ],
     "segments" : [
       {
-        "id": "ttg-id-2",
+        "id": "ttg-r0-fwer2fweg",
         "start": {
-          "description": "Alternative 1",
+          "description": "Origin",
           "location": {
             "latitude": 32.71579,
             "longitude": -117.1609
           }
         },
         "end": {
-          "description": "Alternative 1",
+          "description": "San Diego",
           "location": {
             "latitude": 32.73198,
             "longitude": -117.1974
@@ -129,35 +131,9 @@ function createMockAlternative(id) {
         "distance": 5.8,
         "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
         "type": 4,
+				"isMajor": 0,
         "price": {
           "amount": 2,
-          "currency": "USD"
-        }
-      },
-      {
-        "id": "ttg-id-2",
-        "start": {
-          "description": "Alternative 2",
-          "location": {
-            "latitude": 32.73198,
-            "longitude": -117.1974
-          }
-        },
-        "end": {
-          "description": "Alternative 2",
-          "location": {
-            "latitude": 48.69036,
-            "longitude": 9.19219
-          }
-        },
-        "departureTime": 0,
-        "arrivalTime": 0,
-        "duration": 850,
-        "distance": 9517.9,
-        "path": "",
-        "type": 16,
-        "price": {
-          "amount": 700,
           "currency": "USD"
         }
       }

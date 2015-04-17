@@ -102,7 +102,8 @@ $size-dashboard-icons: 5em;
 
     h3 {
       text-align: center;
-      margin-bottom: 0.8em;
+      margin-top: 1.8em;
+      margin-bottom: 1.2em;
     }
   }
 
@@ -176,8 +177,8 @@ $size-dashboard-icons: 5em;
     height: 40px;
   }
 
-  .favorite-list .overview-map {
-    height: 300px;
+  .favorite-list-detail {
+    display: none;
   }
 
   .slide-left.ng-enter, .slide-left.ng-move {
@@ -201,7 +202,7 @@ $size-dashboard-icons: 5em;
 
   .list-paging {
     width: 100%;
-    text-align: right;
+    text-align: center;
     margin-bottom: 0.8em;
 
     .fa {
@@ -220,6 +221,42 @@ $size-dashboard-icons: 5em;
     .favorite-list-box {
       @include span(3);
     }
+
+    .favorite-list-detail {
+      display: block;
+      float: left;
+      width: 90%;
+      background-color: #fff;
+      padding: 0 1em 0 0;
+      margin-bottom: 0.6em;
+      box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
+    }
+
+    .favorite-list-detail-back {
+      float: left;
+      width: 2em;
+      height: 2em;
+      margin-left: 1em;
+      background: $c-red;
+      color: white;
+      text-align: center;
+      font-size: 1.2em;
+      padding-top: 0.3em;
+      cursor: pointer;
+    }
+
+    .favorite-list-detail-map {
+      width: 40%;
+      height: 13em;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .favorite-list-detail-data {
+      width: 55%;
+      display: inline-block;
+      padding: 1em;
+    }
   }
 
   /*******************************************************/
@@ -232,7 +269,8 @@ $size-dashboard-icons: 5em;
 
     h3 {
       text-align: center;
-      margin-bottom: 0.8em;
+      margin-top: 1.8em;
+      margin-bottom: 1.2em;
     }
   }
 

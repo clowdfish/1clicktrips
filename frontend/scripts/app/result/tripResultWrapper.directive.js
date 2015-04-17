@@ -45,13 +45,16 @@
         }
 
         scope.alternativeTop = $segmentSelector.position().top;
+
+        if(browser.isMobileDevice())
+          scope.alternativeTop += $segmentSelector.innerHeight();
+
         scope.alternativeLeft = $tripSegmentsContainer.position().left + $tripSegmentsContainer.outerWidth() + 27;
         lastSegmentIndex = segmentIndex;
       }
     }
 
     function controller($scope, tripApi) {
-      var _this = this;
 
       $scope.hideMap = $scope.hideMap || false;
 

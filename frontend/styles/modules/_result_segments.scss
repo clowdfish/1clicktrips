@@ -246,6 +246,7 @@
   /*******************************************************/
   .trip-segments-alternatives {
     display: inline-block;
+    width: 100%;
     vertical-align: top;
     background-color: $c-dark;
     color: white;
@@ -261,12 +262,25 @@
     display: inline-block;
     margin-right: 0.6em;
     margin-bottom: 0.6em;
+    font-weight: 600;
   }
 
   .alternatives-container-close {
     cursor: pointer;
     float: right;
     color: #fff;
+  }
+
+  .alternatives-row {
+    @include clearfix;
+  }
+
+  .alternatives-row-price {
+    float: right;
+  }
+
+  .alternatives-row-button {
+    float: right;
   }
 
   .hotels-list {
@@ -327,8 +341,33 @@
   @include respond-above("medium") {
 
     .trip-segments-alternatives {
+      width: auto;
+      min-width: 20em;
+    }
 
+    .alternatives-container-title {
+      display: inline-block;
+      margin-right: 0.6em;
+      margin-bottom: 0.6em;
+      font-weight: 600;
+    }
 
+    .alternatives-container-close {
+      cursor: pointer;
+      float: right;
+      color: #fff;
+    }
+
+    .alternatives-row {
+      @include clearfix;
+    }
+
+    .alternatives-row-price {
+      float: right;
+    }
+
+    .alternatives-row-button {
+      float: right;
     }
 
     .hotels-list-item-image {

@@ -3,7 +3,7 @@
     .module('app.dashboard')
     .directive('favoriteList', favoriteList);
 
-  function favoriteList($timeout) {
+  function favoriteList($timeout, browser) {
     return {
       restrict: 'EA',
       templateUrl: 'scripts/app/templates/dashboard/favorite-list.html',
@@ -136,8 +136,14 @@
 
       function detailView(favorite) {
         scope.favorite = favorite;
-        scope.isShowingFavoriteDetail = true;
-        showOverviewMap(favorite.origin.location, favorite.destination.location);
+
+        if(browser.isMobileDevice()) {
+          callSelectFavoriteFunction(favorite)
+        }
+        else {
+          scope.isShowingFavoriteDetail = true;
+          showOverviewMap(favorite.origin.location, favorite.destination.location);
+        }
       }
 
       function nextPage() {

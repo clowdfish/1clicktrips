@@ -6,9 +6,9 @@
     <img src="../images/spinner.gif" alt="PLEASE WAIT" width="50px" height="50px" />
   </div>
 
-  <div ng-if="alternatives" class="alternatives-row">
+  <div ng-if="alternatives">
     <div ng-if="!alternatives.length">No alternatives available!</div>
-    <div ng-repeat="alternative in alternatives">
+    <div ng-repeat="alternative in alternatives" class="alternatives-row">
       <div class="alternatives-row-description">
         Go by {{ getAlternativeVehicleType(alternative) | translate }}
       </div>

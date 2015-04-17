@@ -190,6 +190,7 @@
 
   .result-summary-button-details-time,
   .result-summary-button-details-cost {
+    width: 50%;
 
     span {
       display: block;
@@ -203,14 +204,6 @@
       font-size: $fs-larger;
       font-weight: 600;
     }
-  }
-
-  .result-summary-button-details-time {
-    width: 65%;
-  }
-
-  .result-summary-button-details-cost {
-    width: 35%;
   }
 
   .result-summary-button-list-link {

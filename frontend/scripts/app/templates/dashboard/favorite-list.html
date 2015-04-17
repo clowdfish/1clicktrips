@@ -1,17 +1,17 @@
 <div class="favorite-list">
   <div ng-show="isShowingFavoriteDetail">
-    <div class="col-md-6">
-      <a ng-click="listView()" class="btn"><i class="fa fa-arrow-circle-o-left fa-3x"></i></a>
-      <div class="overview-map"></div>
-    </div>
-    <div class="col-md-6">
-      <div class="favorite-list-box-label">{[ "general_from" | translate | capitalize ]}</div>
-      <div class="favorite-list-box-location">{[favorite.origin.description]}</div>
-      <div class="favorite-list-box-verticle-separator"></div>
-      <div class="favorite-list-box-label">{[ "general_destination" | translate ]}</div>
-      <div class="favorite-list-box-location">{[favorite.destination.description]}</div>
-      <div class="favorite-list-box-separator"></div>
-      <a ng-click="callSelectFavoriteFunction(favorite)" class="button--dark">Start a New Search</a>
+    <a class="favorite-list-detail-back" ng-click="listView()"><i class="fa fa-arrow-circle-o-left"></i></a>
+    <div class="favorite-list-detail">
+      <div class="favorite-list-detail-map overview-map"></div>
+      <div class="favorite-list-detail-data">
+        <div class="favorite-list-box-label">{[ "general_from" | translate | capitalize ]}</div>
+        <div class="favorite-list-box-location">{[favorite.origin.description]}</div>
+        <div class="favorite-list-box-verticle-separator"></div>
+        <div class="favorite-list-box-label">{[ "general_destination" | translate ]}</div>
+        <div class="favorite-list-box-location">{[favorite.destination.description]}</div>
+        <div class="favorite-list-box-separator"></div>
+        <a ng-click="callSelectFavoriteFunction(favorite)" class="button--dark">{[ "dashboard_favorites_start" | translate ]}</a>
+      </div>
     </div>
   </div>
 

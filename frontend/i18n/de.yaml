@@ -142,6 +142,7 @@ de:
     favorites:
       title: Meine Favoriten
       empty: Sie haben noch keine Favoriten gespeichert. Sobald Sie das getan haben, werden sie hier erscheinen.
+      start: Neue Suche starten
     bookings:
       label: Meine Buchungen
       title: Anstehende Reisen
