@@ -67,15 +67,17 @@
     function transformItinerary(itinerary) {
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
-
-
-
-
       var groupSegment = groupSegmentByDate(itinerary);
       itinerary = updateItineraryByGroupSegment(itinerary, groupSegment);
       return itinerary;
     }
 
+    /**
+    * Collect data from group segments and update to itinerary
+    * @params {Object} itinerary - Itinerary object
+    * @params {Object} groupSegment
+    * @return {Object} itinerary - Itinerary is updated by data from groupSegment
+    */
     function updateItineraryByGroupSegment(itinerary, groupSegment) {
       itinerary['groupSegment'] = groupSegment;
       itinerary['duration'] = getItineraryDuration(groupSegment);
@@ -86,6 +88,11 @@
       return itinerary;
     }
 
+    /**
+    * Get vehicle number array from group segments
+    * @params {Object} groupSegment
+    * @returns {Array} array of vehicle number
+    */
     function getVehicleTypeList(groupSegment) {
       var vehicleTypeList = [];
 
@@ -98,6 +105,9 @@
       return vehicleTypeList;
     }
 
+    /**
+    * Get departure time of the first segment in group segments
+    */
     function getItineraryStartTime(groupSegment) {
       if (_.isUndefined(groupSegment[1])) {
         return;
@@ -105,6 +115,9 @@
       return _.first(groupSegment[1]).departureTime;
     }
 
+    /**
+    * Get arrival time of last segment in group segments
+    */
     function getItineraryEndTime(groupSegment) {
       var keys = _.keys(groupSegment);
       var lastIndex = keys.length;
@@ -113,6 +126,9 @@
       }
     }
 
+    /**
+    * Sum of duration in group segments
+    */
     function getItineraryDuration(groupSegment) {
       var duration = 0;
       loopThroughGroupSegment(groupSegment, function(segment) {
@@ -123,6 +139,9 @@
       return duration;
     }
 
+    /**
+    * Sum of price in group segments
+    */
     function getItineraryCost(groupSegment) {
       var cost = 0;
       loopThroughGroupSegment(groupSegment, function(segment) {
@@ -151,6 +170,9 @@
       });
     }
 
+    /**
+    * Group segment by day
+    */
     function groupSegmentByDate(itinerary) {
       var i = 0;
       var result = {};

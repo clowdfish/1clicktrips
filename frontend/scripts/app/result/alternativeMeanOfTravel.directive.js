@@ -41,7 +41,7 @@
         });
         activeSegments = insertAt(activeSegments, alternative.segments, lastIndex);
         scope.activeSegments = activeSegments;
-        ctrl.closeAlternativesPanel();
+        ctrl.showAlternatives(alternative.segments[0]);
       }
 
       function insertAt(array1, array2, index) {
