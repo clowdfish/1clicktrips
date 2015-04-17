@@ -3,7 +3,7 @@
     .module('app.result')
     .directive('tripSegments', tripSegments);
 
-  function tripSegments() {
+  function tripSegments(tripApi) {
     return {
       require: '^tripResultWrapper',
       restrict: 'E',
@@ -25,8 +25,14 @@
     function link(scope, element, attrs, ctrl) {
       var $element = $(element);
       var $tripSegments = $element.find('.trip-segments');
+
       scope.activeSegmentNumber = 1;
       scope.showTab = showTab;
+      scope.showAlternativesFn = ctrl.showAlternatives;
+      scope.groupSegment = null;
+      scope.$watch('activeSegments', function() {
+        console.log('change in activeSegments');
+      });
 
       scope.selectSegment = function(segment, segmentIndex) {
         ctrl.closeAlternativesPanel();
@@ -44,50 +50,20 @@
         if (scope.itinerary == null) {
           return;
         }
-        scope.segments = groupSegmentByDate(scope.itinerary);
-        scope.segmentsHeaders = _.keys(scope.segments);
-        scope.activeSegments = scope.segments[1];
+        console.log(scope.itinerary);
+        scope.segmentsHeaders = _.keys(scope.itinerary.groupSegment);
+        scope.groupSegment = scope.itinerary.groupSegment;
+        scope.activeSegments = scope.groupSegment[scope.activeSegmentNumber];
         scope.segmentsHeight = $tripSegments.height();
       });
 
-      scope.showAlternativesFn = ctrl.showAlternatives;
-
-      function groupSegmentByDate(itinerary) {
-        var i = 0;
-        var result = {};
-        var day = 1;
-        result[day] = [];
-
-        if (itinerary.outbound && itinerary.outbound.hasOwnProperty('segments')) {
-          for (i = 0; i < itinerary.outbound.segments.length; i++) {
-            var segment = itinerary.outbound.segments[i];
-            segment['tripId'] = itinerary.outbound.id;
-            if (result[day] == null) {
-              result[day] = [];
-            }
-            result[day].push(segment);
-            if (segment.type == 0) {
-              day++
-            }
-          }
+      scope.$watch('activeSegments', function(activeSegments) {
+        if (scope.itinerary == null || activeSegments == null) {
+          return;
         }
-
-        if (itinerary.inbound && itinerary.inbound.hasOwnProperty('segments')) {
-          for (i = 0; i < itinerary.inbound.segments.length; i++) {
-            var segment = itinerary.inbound.segments[i];
-            segment['tripId'] = itinerary.inbound.id;
-            if (result[day] == null) {
-              result[day] = [];
-            }
-            result[day].push(segment);
-            if (segment.type == 0) {
-              day++
-            }
-          }
-        }
-
-        return result;
-      }
+        scope.groupSegment[scope.activeSegmentNumber] = activeSegments;
+        scope.itinerary = tripApi.updateItineraryByGroupSegment(scope.itinerary, scope.groupSegment);
+      });
 
       function showTab(segmentNumber) {
         scope.activeSegmentNumber = segmentNumber;

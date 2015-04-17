@@ -7,8 +7,10 @@
 
   function tripApi($http, $q, $timeout) {
     var service = this;
+
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;
+    service.updateItineraryByGroupSegment = updateItineraryByGroupSegment;
 
     function findItinerary(searchObject) {
       var deferred = $q.defer();
@@ -56,89 +58,72 @@
       });
     }
 
-    function updateItinerarySummary(itinerary) {
-      var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
-      var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
-      itinerary['duration'] = getItineraryDuration(outboundSegments, inboundSegments);
-      itinerary['cost'] = getItineraryCost(outboundSegments, inboundSegments);
-    }
-
     function transformItinerary(itinerary) {
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
 
-      itinerary['startTime'] = getItineraryStartTime(itinerary);
-      itinerary['endTime'] = getItineraryEndTime(itinerary);
-      itinerary['vehicleTypeList'] = getVehicleTypeList(outboundSegments, inboundSegments);
-      itinerary['duration'] = getItineraryDuration(outboundSegments, inboundSegments);
-      itinerary['cost'] = getItineraryCost(outboundSegments, inboundSegments);
 
+
+
+      var groupSegment = groupSegmentByDate(itinerary);
+      itinerary = updateItineraryByGroupSegment(itinerary, groupSegment);
       return itinerary;
     }
 
-    function convertDateStringToDateType(itinerary, outboundSegments, inboundSegments) {
-      itinerary.outbound.departureTime = new Date(itinerary.outbound.departureTime);
-      itinerary.outbound.arrivalTime = new Date(itinerary.outbound.arrivalTime);
-
-      angular.forEach(outboundSegments, function(item) {
-        item.departureTime = new Date(item.departureTime);
-        item.arrivalTime = new Date(item.arrivalTime);
-      });
-      angular.forEach(inboundSegments, function(item) {
-        item.departureTime = new Date(item.departureTime);
-        item.arrivalTime = new Date(item.arrivalTime);
-      });
+    function updateItineraryByGroupSegment(itinerary, groupSegment) {
+      itinerary['groupSegment'] = groupSegment;
+      itinerary['duration'] = getItineraryDuration(groupSegment);
+      itinerary['cost'] = getItineraryCost(groupSegment);
+      itinerary['vehicleTypeList'] = getVehicleTypeList(groupSegment);
+      itinerary['startTime'] = getItineraryStartTime(groupSegment);
+      itinerary['endTime'] = getItineraryEndTime(groupSegment);
+      return itinerary;
     }
 
-    function getVehicleTypeList(outboundSegments, inboundSegments) {
+    function getVehicleTypeList(groupSegment) {
       var vehicleTypeList = [];
 
-      angular.forEach(outboundSegments, function(item) {
-        if (vehicleTypeList.indexOf(item.type) == -1) {
-          vehicleTypeList.push(item.type);
-        }
-      });
-
-      angular.forEach(inboundSegments, function(item) {
-        if (vehicleTypeList.indexOf(item.type) == -1) {
-          vehicleTypeList.push(item.type);
+      loopThroughGroupSegment(groupSegment, function(segment) {
+        if (segment['type'] && vehicleTypeList.indexOf(segment['type']) === -1) {
+          vehicleTypeList.push(segment['type']);
         }
       });
 
       return vehicleTypeList;
     }
 
-    function getItineraryStartTime(itinerary) {
-      return getObjectValue(itinerary.outbound, 'departureTime', 0);
+    function getItineraryStartTime(groupSegment) {
+      if (_.isUndefined(groupSegment[1])) {
+        return;
+      }
+      return _.first(groupSegment[1]).departureTime;
     }
 
-    function getItineraryEndTime(itinerary) {
-      var arrivalTime = getObjectValue(itinerary.inbound, 'arrivalTime', null);
-      if (arrivalTime == null) {
-        arrivalTime = getObjectValue(itinerary.outbound, 'arrivalTime', 0);
+    function getItineraryEndTime(groupSegment) {
+      var keys = _.keys(groupSegment);
+      var lastIndex = keys.length;
+      if (!_.isUndefined(groupSegment[lastIndex])) {
+        return _.last(groupSegment[lastIndex]).arrivalTime;
       }
-      return arrivalTime;
     }
 
-    function getItineraryDuration(outboundSegments, inboundSegments) {
-      var totalDuration = 0;
-      for (var i = 0; i < outboundSegments.length; i++) {
-        totalDuration += outboundSegments[i].duration;
-      }
-      for (var i = 0; i < inboundSegments.length; i++) {
-        totalDuration += inboundSegments[i].duration;
-      }
-      return totalDuration;
+    function getItineraryDuration(groupSegment) {
+      var duration = 0;
+      loopThroughGroupSegment(groupSegment, function(segment) {
+        if (segment['duration']) {
+          duration += segment.duration;
+        }
+      });
+      return duration;
     }
 
-    function getItineraryCost(outboundSegments, inboundSegments) {
+    function getItineraryCost(groupSegment) {
       var cost = 0;
-      for (var i = 0; i < outboundSegments.length; i++) {
-        cost += outboundSegments[i].price.amount;
-      }
-      for (var i = 0; i < inboundSegments.length; i++) {
-        cost += inboundSegments[i].price.amount;
-      }
+      loopThroughGroupSegment(groupSegment, function(segment) {
+        if (segment['price'] && segment['price']['amount']) {
+          cost += segment.price.amount;
+        }
+      });
       return cost;
     }
 
@@ -147,6 +132,53 @@
         return defaultValue;
       }
       return object[key];
+    }
+
+    /**
+    * Handy function to loop through every segment in group segments
+    */
+    function loopThroughGroupSegment(groupSegment, action) {
+      _.each(groupSegment, function(segments) {
+        _.each(segments, function(segment) {
+          action(segment);
+        });
+      });
+    }
+
+    function groupSegmentByDate(itinerary) {
+      var i = 0;
+      var result = {};
+      var day = 1;
+      result[day] = [];
+
+      if (itinerary.outbound && itinerary.outbound.hasOwnProperty('segments')) {
+        for (i = 0; i < itinerary.outbound.segments.length; i++) {
+          var segment = itinerary.outbound.segments[i];
+          segment['tripId'] = itinerary.outbound.id;
+          if (result[day] == null) {
+            result[day] = [];
+          }
+          result[day].push(segment);
+          if (segment.type == 0) {
+            day++
+          }
+        }
+      }
+
+      if (itinerary.inbound && itinerary.inbound.hasOwnProperty('segments')) {
+        for (i = 0; i < itinerary.inbound.segments.length; i++) {
+          var segment = itinerary.inbound.segments[i];
+          segment['tripId'] = itinerary.inbound.id;
+          if (result[day] == null) {
+            result[day] = [];
+          }
+          result[day].push(segment);
+          if (segment.type == 0) {
+            day++
+          }
+        }
+      }
+      return result;
     }
 
   }

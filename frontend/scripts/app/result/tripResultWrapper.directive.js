@@ -31,7 +31,7 @@
     function link(scope, element, attrs) {
       var $element = $(element);
       var $tripSegmentsContainer = $element.find('.trip-segments-container:eq(0)');
-
+      var lastSegmentIndex = null;
       scope.updateAlternativePosition = updateAlternativePosition;
 
       /**
@@ -46,6 +46,7 @@
 
         scope.alternativeTop = $segmentSelector.position().top;
         scope.alternativeLeft = $tripSegmentsContainer.position().left + $tripSegmentsContainer.outerWidth() + 27;
+        lastSegmentIndex = segmentIndex;
       }
     }
 
@@ -86,7 +87,9 @@
       * Function - show alternatives panel
       */
       this.showAlternatives = showAlternatives;
+      this.updateAlternativePosition = $scope.updateAlternativePosition;
       this.closeAlternativesPanel = closeAlternativesPanel;
+
 
       function showAlternatives(segment, $event, segmentIndex) {
         $event.preventDefault();
@@ -99,6 +102,7 @@
             $scope.isShowAlternativesPanel = true;
           });
 
+        console.log(segmentIndex);
         $scope.updateAlternativePosition(segmentIndex);
       }
 
