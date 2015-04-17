@@ -1,0 +1,43 @@
+%result {
+  /*******************************************************/
+  /* Trip Result Map                                     */
+  /*******************************************************/
+  #itinerary-map {
+    height: 20em;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+
+    .map-marker-container {
+      $map-marker-size: 1.6em;
+
+      display: block;
+      background-color: $c-red;
+      width: $map-marker-size;
+      height: $map-marker-size;
+      border-radius: $map-marker-size/2;
+      text-align: center;
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: 600;
+      padding-top: 0.1em;
+    }
+  }
+
+  .itinerary-map-container {
+    position: relative;
+    z-index: 0;
+  }
+
+  @include respond-above("medium") {
+
+    #itinerary-map {
+      height: 35em;
+    }
+  }
+}
+
+.result {
+  @extend %result;
+}
+
+

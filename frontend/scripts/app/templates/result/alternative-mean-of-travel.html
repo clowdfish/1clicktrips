@@ -2,11 +2,12 @@
   <span class="alternatives-container-title">Alternatives</span>
   <a class="alternatives-container-close" ng-click='closeAlternativePanel()'><i class="fa fa-times-circle-o"></i></a>
 
-  <div ng-if="!alternatives.length" class="row">
+  <div ng-if="!alternatives" class="row">
     <img src="../images/spinner.gif" alt="PLEASE WAIT" width="50px" height="50px" />
   </div>
 
-  <div ng-if="alternatives.length" class="alternatives-row">
+  <div ng-if="alternatives" class="alternatives-row">
+    <div ng-if="!alternatives.length">No alternatives available!</div>
     <div ng-repeat="alternative in alternatives">
       <div class="alternatives-row-description">
         Go by {{ getAlternativeVehicleType(alternative) | translate }}
