@@ -2,9 +2,9 @@
 
 <table ng-show="favorites.length > 0">
   <tr>
-    <th>Start</th>
-    <th>End</th>
-    <th>Action</th>
+    <th>{[ "general_origin" | translate ]}</th>
+    <th>{[ "general_destination" | translate ]}</th>
+    <th></th>
   </tr>
   <tbody ui-sortable="sortableOptions" ng-model="favorites">
     <tr class="settings-favorites-item" ng-repeat="favorite in favorites">

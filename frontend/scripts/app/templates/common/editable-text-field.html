@@ -2,7 +2,7 @@
   <label>{[ label | translate ]}</label>
   <div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
     <span ng-if="value">{[value]}</span>
-    <span ng-if="!value">Click to edit</span>
+    <span ng-if="!value">{[ "settings_other_edit" | translate]}</span>
     <span ng-show="!(success && value)"><i class="fa fa-pencil"></i></span>
     <span ng-show="success && value"><i class="fa fa-check"></i></span>
   </div>

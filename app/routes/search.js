@@ -130,8 +130,6 @@ module.exports = function (app, express, production) {
 
       UserController.getUser(userId)
         .then(function (user) {
-          console.log(user);
-
           userLicence = user.licence;
 
           SearchController.getTripResults(req.body, user.licence)

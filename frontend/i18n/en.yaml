@@ -6,6 +6,7 @@ en:
     or: or
     from: from
     until: to
+    origin: Start
     destination: Destination
     title: Title
     pagination:
@@ -166,6 +167,7 @@ en:
     title: Settings
     profile:
       title: Profile
+      image: Image
       firstname: First name
       lastname: Last name
       email: Email
@@ -182,11 +184,13 @@ en:
         country: Country
       upload: Uploading, please wait...
     history:
-      title: Payment
+      title: History
     privacy:
       title: Privacy
     preferences:
       title: Preferences
+    other:
+      edit: Click to edit
   legal:
     title: Legal
   privacy:

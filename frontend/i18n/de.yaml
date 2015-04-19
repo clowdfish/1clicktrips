@@ -6,6 +6,7 @@ de:
     or: oder
     from: von
     until: bis
+    origin: Start
     destination: Ziel
     title: Bezeichnung
     pagination:
@@ -123,6 +124,15 @@ de:
       title: Reisedetails
       day: Tag
       alternatives: '+Alternativen anzeigen'
+    vehicle:
+      1: laufen
+      2: Auto
+      4: Bus
+      6: Ubahn
+      8: Zug
+      16: Flugzeug
+      32: Taxi
+      64: Schiff
   dashboard:
     title: Warum 1ClickTrips?
     info:
@@ -157,6 +167,7 @@ de:
     title: Einstellungen
     profile:
       title: Profil
+      image: Profilbild
       firstname: Vorname
       lastname: Nachname
       email: Email
@@ -173,11 +184,13 @@ de:
         country: Land
       upload: Verarbeite Datei, bitte warten...
     history:
-      title: Bezahldaten
+      title: Verlauf
     privacy:
       title: Privatsphäre
     preferences:
-      title: Einstellungen
+      title: Präferenzen
+    other:
+      edit: Editieren
   legal:
     title: Rechtliches
   privacy:
