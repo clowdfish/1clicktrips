@@ -17,7 +17,8 @@
         showMapFn: '&',
         alternatives: '=',
         alternativeTop: '=',
-        alternativeLeft: '='
+        alternativeLeft: '=',
+        activeSegmentsNumber: '='
       },
       link: link
     };
@@ -26,7 +27,6 @@
       var $element = $(element);
       var $tripSegments = $element.find('.trip-segments');
 
-      scope.activeSegmentNumber = 1;
       scope.showTab = showTab;
       scope.showAlternativesFn = ctrl.showAlternatives;
       scope.groupSegment = null;
@@ -46,14 +46,21 @@
         }
       };
 
+      /**
+      * Get groupSegment and
+      */
       scope.$watch('itinerary', function() {
         if (scope.itinerary == null) {
           return;
         }
-        console.log(scope.itinerary);
+        console.log('detect change in itinerary');
+        scope.activeSegmentsNumber = 1;
+
         scope.segmentsHeaders = _.keys(scope.itinerary.groupSegment);
         scope.groupSegment = scope.itinerary.groupSegment;
-        scope.activeSegments = scope.groupSegment[scope.activeSegmentNumber];
+
+        scope.activeSegments = scope.groupSegment[scope.activeSegmentsNumber];
+        console.log(scope.activeSegments, scope.activeSegmentsNumber);
         scope.segmentsHeight = $tripSegments.height();
       });
 
@@ -61,12 +68,12 @@
         if (scope.itinerary == null || activeSegments == null) {
           return;
         }
-        scope.groupSegment[scope.activeSegmentNumber] = activeSegments;
-        scope.itinerary = tripApi.updateItineraryByGroupSegment(scope.itinerary, scope.groupSegment);
+        //scope.groupSegment[scope.activeSegmentsNumber] = activeSegments;
+        //scope.itinerary = tripApi.updateItineraryByGroupSegment(scope.itinerary, scope.groupSegment);
       });
 
       function showTab(segmentNumber) {
-        scope.activeSegmentNumber = segmentNumber;
+        scope.activeSegmentsNumber = segmentNumber;
         scope.activeSegments = scope.segments[segmentNumber];
       }
     }

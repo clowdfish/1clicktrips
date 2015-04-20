@@ -11,7 +11,7 @@
     service.findItinerary = findItinerary;
     service.findAlternativeSegment = findAlternativeSegment;
     service.updateItineraryByGroupSegment = updateItineraryByGroupSegment;
-
+    service.replaceSegmentWithAlternatives = replaceSegmentWithAlternatives;
     function findItinerary(searchObject) {
       var deferred = $q.defer();
 
@@ -64,10 +64,41 @@
       });
     }
 
+    function replaceSegmentWithAlternatives(itinerary, groupNumber, alternative) {
+      var activeSegments = itinerary.groupSegment[groupNumber];
+      var lastIndex = _.findIndex(activeSegments, function(item) {
+        return item.id == alternative.replace[0];
+      });
+      if (lastIndex === -1) {
+        return itinerary;
+      }
+      var newActiveSegments = insertAt(activeSegments, alternative.segments, lastIndex);
+      newActiveSegments = _.reject(newActiveSegments, function(item) {
+        return alternative.replace.indexOf(item.id) !== -1;
+      });
+      itinerary.groupSegment[groupNumber] = newActiveSegments;
+      itinerary = updateItineraryByGroupSegment(itinerary);
+      return itinerary;
+    }
+
+    /**
+    * Insert array2 into array1 at index position
+    * @params {Array} array1 - Array which will contain the insertment array
+    * @params {Array} array2 - Array which will be inserted into array1
+    * @params {int} index - Position to insert array2 into array1
+    * @return {Array} new array
+    */
+    function insertAt(array1, array2, index) {
+      var origin = _.clone(array1);
+      var end = origin.splice(index);
+      return origin.concat(array2, end);
+    }
+
     function transformItinerary(itinerary) {
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
       var groupSegment = groupSegmentByDate(itinerary);
+      itinerary['groupSegment'] = groupSegment;
       itinerary = updateItineraryByGroupSegment(itinerary, groupSegment);
       return itinerary;
     }
@@ -78,7 +109,8 @@
     * @params {Object} groupSegment
     * @return {Object} itinerary - Itinerary is updated by data from groupSegment
     */
-    function updateItineraryByGroupSegment(itinerary, groupSegment) {
+    function updateItineraryByGroupSegment(itinerary) {
+      var groupSegment = itinerary.groupSegment;
       itinerary['groupSegment'] = groupSegment;
       itinerary['duration'] = getItineraryDuration(groupSegment);
       itinerary['cost'] = getItineraryCost(groupSegment);

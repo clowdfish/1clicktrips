@@ -117,7 +117,9 @@
               <trip-segments
                 itinerary='itinerary'
                 active-segments='activeSegments'
-                selected-segment='selectedSegment'>
+                selected-segment='selectedSegment'
+                active-segments-number="activeSegmentsNumber">
+
               </trip-segments>
 
               <!-- alternatives pane -->
@@ -125,8 +127,10 @@
                   ng-show='showAlternativesPanel'
                   ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
                 <alternative-mean-of-travel
+                  itinerary='itinerary'
                   alternatives="alternatives"
-                  active-segments="activeSegments">
+                  active-segments="activeSegments"
+                  active-segments-number="activeSegmentsNumber">
                 </alternative-mean-of-travel>
               </div>
             </div>

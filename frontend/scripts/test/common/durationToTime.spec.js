@@ -22,9 +22,9 @@ describe('durationToTime directive', function() {
   });
 
   it('should return expected value when give a minutes number', function() {
-    expect(durationToTime(60)).toEqual('1 hrs 0 mins');
+    expect(durationToTime(60)).toEqual('1 hrs 00 mins');
     expect(durationToTime(90)).toEqual('1 hrs 30 mins');
     expect(durationToTime(45)).toEqual('0 hrs 45 mins');
-    expect(durationToTime(1440)).toEqual('24 hrs 0 mins');
+    expect(durationToTime(1440)).toEqual('24 hrs 00 mins');
   });
 });

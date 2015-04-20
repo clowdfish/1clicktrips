@@ -6,20 +6,21 @@
     .module('app.result')
     .directive('alternativeMeanOfTravel', alternativeMeanOfTravel);
 
-  function alternativeMeanOfTravel($translate) {
+  function alternativeMeanOfTravel(tripApi) {
     return {
       require: '^tripResultWrapper',
       restrict: 'E',
       scope: {
+        itinerary: '=',
         alternatives: '=',
-        activeSegments: '='
+        activeSegments: '=',
+        activeSegmentsNumber: '='
       },
       link: link,
       templateUrl: 'scripts/app/templates/result/alternative-mean-of-travel.html'
     };
 
     function link(scope, element, attrs, ctrl) {
-
       scope.getAlternativeVehicleType = getAlternativeVehicleType;
 
       scope.closeAlternativePanel = function() {
@@ -27,28 +28,10 @@
       };
 
       scope.selectAlternative = function(alternative) {
-
-        var lastIndex = _.findIndex(scope.activeSegments, function(item) {
-          return item.id == alternative.replace[0];
-        });
-
-        if (lastIndex === -1) {
-          return;
-        }
-
-        var activeSegments = _.reject(scope.activeSegments, function(item) {
-          return alternative.replace.indexOf(item.id) !== -1;
-        });
-        activeSegments = insertAt(activeSegments, alternative.segments, lastIndex);
-        scope.activeSegments = activeSegments;
-
-        ctrl.closeAlternativesPanel();
-      };
-
-      function insertAt(array1, array2, index) {
-        var origin = _.clone(array1);
-        var end = origin.splice(index);
-        return origin.concat(array2, end);
+        var newItinerary = tripApi.replaceSegmentWithAlternatives(scope.itinerary, scope.activeSegmentsNumber, alternative);
+        scope.itinerary = newItinerary;
+        scope.activeSegments = newItinerary.groupSegment[scope.activeSegmentsNumber];
+        ctrl.showAlternatives(alternative.segments[0]);
       }
 
       function getAlternativeVehicleType(alternative) {

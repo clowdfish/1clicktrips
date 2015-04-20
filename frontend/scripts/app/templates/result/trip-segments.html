@@ -12,7 +12,7 @@
 
     <!-- tab control for the trip segments list -->
     <ul class='trip-segments-day-tab'>
-      <li class='trip-segments-day-tab-item' ng-class="{active: activeSegmentNumber == header}" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
+      <li class='trip-segments-day-tab-item' ng-class="{active: activeSegmentsNumber == header}" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
           {[ "result_segments_day" | translate ]} {[header]}
       </li>
     </ul>
@@ -20,7 +20,7 @@
 
   <div class="trip-segments-body">
     <!-- the trip segments list for the selected day -->
-    <ul ng-repeat='header in segmentsHeaders' class='trip-segments-list' ng-show='activeSegmentNumber == header'>
+    <ul ng-repeat='header in segmentsHeaders' class='trip-segments-list' ng-show='activeSegmentsNumber == header'>
 
       <li class='trip-segments-day-item' ng-repeat='segment in activeSegments' ng-click="selectSegment(segment)">
 
