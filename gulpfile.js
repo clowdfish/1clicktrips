@@ -54,7 +54,7 @@ gulp.task('migrate', function(done) {
     };
 
     var args = [path.resolve(process.cwd() + '/node_modules/db-migrate/bin/db-migrate')];
-
+    console.log(argv);
     if (argv['env']) {
         args.push('--env=' + argv['env']);
     } else {
@@ -75,6 +75,7 @@ gulp.task('migrate', function(done) {
     } else if (argv['down']) {
         args.push('down');
     }
+    args.push('--dry-run');
 
     child = spawn('node', args, spawnOpts);
 });
