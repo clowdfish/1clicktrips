@@ -16,7 +16,9 @@
       var deferred = $q.defer();
 
       $http
-        .post('/api/search/trips', searchObject)
+        .post('/api/search/trips', searchObject, {
+          waitingMessage: 'Loading search result'
+        })
         .success(function(response) {
           var data = response[0];
           var result = [];

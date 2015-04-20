@@ -6,7 +6,7 @@
     .module('app.settings')
     .service('settings', settings);
 
-  function settings($q, $http, session, settingsTemplate) {
+  function settings($timeout, $q, $http, session, settingsTemplate) {
 
     var _this = this;
 
@@ -22,7 +22,9 @@
         }
 
         $http
-          .get('/api/account/settings')
+          .get('/api/account/settings', {
+            waitingMessage: 'Loading user settings'
+          })
           .success(function(response) {
             var settings = mergeUserSettingWithTemplate(response);
             resolve(settings);

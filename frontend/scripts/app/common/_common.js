@@ -6,6 +6,11 @@
   'use strict';
 
   angular
-    .module('app.common', []);
+    .module('app.common', [])
+    .config(httpConfig);
+
+  function httpConfig($httpProvider) {
+    $httpProvider.interceptors.push('spinnerInterceptor');
+  }
 
 })();
