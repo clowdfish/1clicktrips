@@ -1,6 +1,6 @@
 'use strict';
 
-describe('suggestionAdapter', function() {
+describe('service:suggestionAdapter', function() {
   var SUGGESTION_TYPES,
       suggestionAdapter,
       $q,
