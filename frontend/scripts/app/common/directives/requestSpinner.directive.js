@@ -15,13 +15,22 @@
     };
 
     function link(scope, element, attrs) {
-      var $element = $(element);
+      /**
+      * @type boolean - directive visiblity
+      */
       scope.isShowing = false;
+
+      /**
+      * Receive show spinner event
+      */
       scope.$on(requestSpinnerEvents.show, function(e, data) {
         scope.title = data.title;
         scope.isShowing = true;
       });
 
+      /**
+      * Receive hide spinner event
+      */
       scope.$on(requestSpinnerEvents.hide, function(e, data) {
         scope.isShowing = false;
       });

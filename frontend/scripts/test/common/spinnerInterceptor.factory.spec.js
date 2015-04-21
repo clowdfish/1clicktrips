@@ -30,22 +30,27 @@ describe('interceptors: spinnerInterceptor', function() {
 
     hasReceiveShowSpinnerEvent = false;
     hasReceiveHideSpinnerEvents = false;
+    spyOn($rootScope, '$broadcast');
   }));
 
-  xit('should send requestSpinnerEvents.show event', function() {
+  it('should send requestSpinnerEvents.show event', function() {
     $http.get('/sampleapi', {
       waitingMessage: 'waiting.message'
     });
     $scope.$digest();
-    $httpBackend.flush();
-    $rootScope.$on(requestSpinnerEvents.true, function(e, data) {
-      hasReceiveShowSpinnerEvent = true;
-      eventTitle = data.title;
+    expect($rootScope.$broadcast).toHaveBeenCalledWith(requestSpinnerEvents.show, {
+      title: 'waiting.message'
     });
+    $httpBackend.flush();
+    expect($rootScope.$broadcast).toHaveBeenCalledWith(requestSpinnerEvents.hide);
+  });
+
+  it('when waitingMessage is not provided it shoud NOT send requestSpinnerEvents.show event', function() {
+    $http.get('/sampleapi');
     $scope.$digest();
-    httpHandler.respond(200, 'OK');
-    expect(hasReceiveShowSpinnerEvent).toEqual(true);
-    expect(eventTitle).toEqual('waiting.message');
+    expect($rootScope.$broadcast).not.toHaveBeenCalledWith(requestSpinnerEvents.show, {
+      title: 'waiting.message'
+    });
   });
 
 });

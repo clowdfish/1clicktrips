@@ -9,6 +9,7 @@
   */
   function spinnerInterceptor($timeout, $rootScope, requestSpinnerEvents) {
     var lastSpinnerObject = null;
+
     return {
 
       request: function(config) {
