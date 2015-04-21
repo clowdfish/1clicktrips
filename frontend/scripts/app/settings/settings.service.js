@@ -22,9 +22,7 @@
         }
 
         $http
-          .get('/api/account/settings', {
-            waitingMessage: 'Loading user settings'
-          })
+          .get('/api/account/settings')
           .success(function(response) {
             var settings = mergeUserSettingWithTemplate(response);
             resolve(settings);

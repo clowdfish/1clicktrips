@@ -17,7 +17,20 @@
 
       $http
         .post('/api/search/trips', searchObject, {
-          waitingMessage: 'Loading search result'
+          activeMessages: [
+            {
+              title: 'Create routes',
+              time: 1000
+            },
+            {
+              title: 'Retrieve pricing',
+              time: 2000
+            },
+            {
+              title: 'Optimize routes',
+              time: 1000
+            }
+          ]
         })
         .success(function(response) {
           var data = response[0];

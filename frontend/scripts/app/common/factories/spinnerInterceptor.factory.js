@@ -16,8 +16,15 @@
       */
       request: function(config) {
         if (_.has(config, 'waitingMessage')) {
-          broadcastShowSpinnerEevent(config, config.waitingMessage);
+          broadcastShowSpinnerEevent(config, {
+            title: config.waitingMessage
+          });
+        } else if (_.has(config, 'activeMessages')) {
+          broadcastShowSpinnerEevent(config, {
+            activeMessages: config.activeMessages
+          });
         }
+
         return config;
       },
 
@@ -66,14 +73,12 @@
       return false;
     }
 
-    function broadcastShowSpinnerEevent(httpConfig, title) {
+    function broadcastShowSpinnerEevent(httpConfig, data) {
       lastSpinnerObject = {
         method: httpConfig.method,
         url: httpConfig.url
       }
-      $rootScope.$broadcast(requestSpinnerEvents.show, {
-        title: title
-      });
+      $rootScope.$broadcast(requestSpinnerEvents.show, data);
     }
 
     function broadcastHideSpinnerEvent() {
