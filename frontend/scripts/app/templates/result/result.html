@@ -190,8 +190,9 @@
           <div class='trip-segments-container' ng-show='showList'>
             <trip-segments
               itinerary='itinerary'
-              active-segments='activeSegmentsOnMap'
+              active-segments='activeSegments'
               selected-segment='selectedSegment'
+              active-segments-number="activeSegmentsNumber"
               show-map-fn='showMapFn()'>
             </trip-segments>
 
@@ -200,8 +201,10 @@
                  ng-show='showAlternativesPanel'
                  ng-style="{left: 0, top: alternativeTop, position: 'absolute'}">
               <alternative-mean-of-travel
-                alternatives='alternatives'
-                active-segments='activeSegmentsOnMap'>
+                itinerary='itinerary'
+                alternatives="alternatives"
+                active-segments="activeSegments"
+                active-segments-number="activeSegmentsNumber">
               </alternative-mean-of-travel>
             </div>
           </div>
@@ -260,7 +263,7 @@
 
             <!-- RESULT MAP AND RESULT LIST -->
             <map itinerary='itinerary'
-                 active-segments='activeSegmentsOnMap'
+                 active-segments='activeSegments'
                  selected-segment='selectedSegment'></map>
           </div>
         </div>

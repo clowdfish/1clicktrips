@@ -6,7 +6,7 @@
     .module('app.result')
     .directive('map', map);
 
-  function map($q, browser, VEHICLE_TYPE) {
+  function map($timeout, $q, browser, VEHICLE_TYPE) {
     return {
       require: '^tripResultWrapper',
       restrict: 'E',
@@ -62,10 +62,10 @@
         drawPolylineOnMap(scope.activeSegments);
 
 
-        setTimeout(function() {
+        $timeout(function() {
           google.maps.event.trigger(map, 'resize');
           map.fitBounds(mapBounds);
-        }, 100);
+        }, 80);
 
       });
 
@@ -75,7 +75,9 @@
         }
         var segment = scope.selectedSegment;
         if (scope.selectedSegment != null) {
-          zoomSegment(scope.selectedSegment);
+          $timeout(function() {
+            zoomSegment(scope.selectedSegment);
+          }, 80);
         } else {
           map.fitBounds(mapBounds);
           drawPolylineOnMap(scope.activeSegments);
@@ -107,6 +109,7 @@
                                               segment.end.location.longitude));
         }
         map.fitBounds(bounds);
+        google.maps.event.trigger(map, 'resize');
       }
 
       /**

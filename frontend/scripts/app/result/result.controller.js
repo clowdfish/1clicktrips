@@ -10,6 +10,7 @@
                       $stateParams,
                       $state,
                       $modal,
+                      $timeout,
                       tripApi,
                       TRIP_TYPE,
                       browser,

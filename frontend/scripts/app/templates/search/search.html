@@ -33,7 +33,7 @@
     <!-- DESTINATION FORM ------ -->
     <!--------------------- -->
     <div ng-controller='searchDestinationFormCtrl'>
-      <form name='searchForm' class="search-form" ng-show='step == 1'>
+      <form name='searchForm' class="search-form" ng-if='step == 1'>
         <h2>{[ "search_form_destination_label" | translate ]}</h2>
 
         <div class="search-form-location-field">
@@ -70,7 +70,7 @@
     <!-- SCHEDULE FORM ---- -->
     <!--------------------- -->
     <div ng-controller='searchDateTimeSelectCtrl'>
-      <form name='scheduleForm' class='search-form' ng-show='step == 2'>
+      <form name='scheduleForm' class='search-form' ng-if='step == 2'>
         <h2>{[ "search_form_time" | translate ]}</h2>
 
         <div class='search-form-timing-container start'>
@@ -166,7 +166,7 @@
     <!-- ORIGIN FORM ------ -->
     <!--------------------- -->
     <div ng-controller='searchOriginCtrl'>
-      <form name='searchForm' class="search-form" ng-show='step == 3'>
+      <form name='searchForm' class="search-form" ng-if='step == 3'>
         <h2>{[ "search_form_origin" | translate ]}</h2>
 
         <div class="search-form-location-field">

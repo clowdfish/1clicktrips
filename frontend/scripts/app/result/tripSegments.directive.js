@@ -3,7 +3,7 @@
     .module('app.result')
     .directive('tripSegments', tripSegments);
 
-  function tripSegments(tripApi) {
+  function tripSegments(tripApi, browser) {
     return {
       require: '^tripResultWrapper',
       restrict: 'E',
@@ -35,15 +35,19 @@
       });
 
       scope.selectSegment = function(segment, segmentIndex) {
-        ctrl.closeAlternativesPanel();
-        if (scope.selectedSegment == segment) {
-          scope.selectedSegment = null;
-        } else {
+        if (browser.isMobileDevice()) {
           scope.selectedSegment = segment;
           if (scope.showMapFn) {
             scope.showMapFn();
           }
+        } else{
+          if (scope.selectedSegment == segment) {
+            scope.selectedSegment = null;
+          } else {
+            scope.selectedSegment = segment;
+          }
         }
+        ctrl.closeAlternativesPanel();
       };
 
       /**
