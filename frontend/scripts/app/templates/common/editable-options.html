@@ -1,7 +1,7 @@
 <label>{[label | translate]}</label>
 
 <div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
-  {[optionDescription | capitalize]}
+  {[optionDescription | translate | capitalize]}
   <span ng-show="!success"><i class="fa fa-pencil"></i></span>
   <span ng-show="success"><i class="fa fa-check"></i></span>
 </div>
@@ -17,7 +17,7 @@
               ng-click="save(option.value)"
               ng-class="{error: error}"
               />
-      <label for="{[key]}_{[option.value]}">{[option.description | capitalize]}</label>
+      <label for="{[key]}_{[option.value]}">{[option.description | translate | capitalize]}</label>
       <span ng-show="error"><i class="fa fa-exclamation"></i></span>
     </fieldset>
   </div>

@@ -7,50 +7,50 @@
     .value('settingsTemplate', [
       {
         "category": "Preferences",
-        "description": "Set your personal travel profile.",
+        "description": "settings_preferences_travelprofile_description",
         "key": "travel_profile",
         "defaultValue": 1,
         "options": [
           {
-            "description": "time saver",
+            "description": "settings_preferences_travelprofile_timesaver_description",
             "value": 0,
-            "tooltip": "Choose this travel profile, when you want to spend as little time as possible on the road.",
+            "tooltip": "settings_preferences_travelprofile_timesaver_tooltip",
             "parameters": []
           },
           {
-            "description": "explorer",
+            "description": "settings_preferences_travelprofile_explorer_description",
             "value": 1,
-            "tooltip": "Choose this travel profile, when you want to also explore your destination and spend some time there.",
+            "tooltip": "settings_preferences_travelprofile_explorer_tooltip",
             "parameters": []
           },
           {
-            "description": "socializer",
+            "description": "settings_preferences_travelprofile_socializer_description",
             "value": 2,
-            "tooltip": "Choose this travel profile, when you plan to spend some time with your customer after the appointment.",
+            "tooltip": "settings_preferences_travelprofile_socializer_tooltip",
             "parameters": []
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "Set a transfer time.",
+        "description": "settings_preferences_transfertime_description",
         "key": "transfer_time",
         "defaultValue": 1,
         "options": [
           {
-            "description": "fast",
+            "description": "settings_preferences_transfertime_fast_description",
             "value": 0,
-            "tooltip": "Your name is Usain Bolt? Go for that option."
+            "tooltip": "settings_preferences_transfertime_fast_tooltip"
           },
           {
-            "description": "medium",
+            "description": "settings_preferences_transfertime_medium_description",
             "value": 1,
-            "tooltip": "For most people this option is the way to go."
+            "tooltip": "settings_preferences_transfertime_medium_tooltip"
           },
           {
-            "description": "slow",
+            "description": "settings_preferences_transfertime_slow_description",
             "value": 2,
-            "tooltip": "If you miss your connections too often, go for that option. It will give you some additional buffer time."
+            "tooltip": "settings_preferences_transfertime_slow_tooltip"
           }
         ]
       },

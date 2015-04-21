@@ -189,6 +189,28 @@ en:
       title: Privacy
     preferences:
       title: Preferences
+      travelprofile:
+        description: Set your personal travel profile.
+        timesaver:
+          description: time saver
+          tooltip: Choose this travel profile, when you want to spend as little time as possible on the road.
+        explorer:
+          description: explorer
+          tooltip: Choose this travel profile, when you want to also explore your destination and spend some time there.
+        socializer:
+          description: socializer
+          tooltip: Choose this travel profile, when you plan to spend some time with your customer after the appointment.
+      transfertime:
+        description: Set a transfer time.
+        fast:
+          description: fast
+          tooltip: Your name is Usain Bolt? Go for that option.
+        medium:
+          description: medium
+          tooltip: For most people this option is the way to go.
+        slow:
+          description: slow
+          tooltip: If you miss your connections too often, go for that option. It will give you some additional buffer time.
     other:
       edit: Click to edit
   legal:
