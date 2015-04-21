@@ -12,6 +12,8 @@ en:
     pagination:
       page: Page
       of: of
+    enable: enable
+    disable: disable
   toasts:
     notimplemented: Not yet implemented
   nav:
@@ -189,9 +191,9 @@ en:
       title: Privacy
     preferences:
       title: Preferences
-      travelprofile:
+      travelProfile:
         description: Set your personal travel profile.
-        timesaver:
+        timeSaver:
           description: time saver
           tooltip: Choose this travel profile, when you want to spend as little time as possible on the road.
         explorer:
@@ -200,7 +202,7 @@ en:
         socializer:
           description: socializer
           tooltip: Choose this travel profile, when you plan to spend some time with your customer after the appointment.
-      transfertime:
+      transferTime:
         description: Set a transfer time.
         fast:
           description: fast
@@ -211,6 +213,37 @@ en:
         slow:
           description: slow
           tooltip: If you miss your connections too often, go for that option. It will give you some additional buffer time.
+      tripDurationFactor: How much slower may the low-budget trip be in comparison to the fastest trip?
+      homeLocation: Set your default home location.
+      hotelType:
+        description: Set your hotel preference.
+        lowBudget:
+          description: low-budget
+        comfort:
+          description: comfort
+        luxurious:
+          description: luxurious
+      hotelLocation:
+        description: Set your hotel location preference.
+        appointment:
+          description: close to appointment location
+        trafficJuntions:
+          description: close to traffic junctions
+        cityCenter:
+          description: close to city center
+      accommodationType:
+        description: Do you also want to use private accommodations like Airbnb?
+        onlyHotels:
+          description: only hotels
+        hotelsAndPrivate:
+          description: hotels and private accommodations
+        onlyPrivate:
+          description: only private accommodations
+      taxi: (De)Activate the taxi option.
+      flight: (De)Activate the flight option.
+      publicTransport: (De)Activate the public transport option.
+      rentalCar: (De)Activate the rental car option.
+      ferry: (De)Activate the ferry option.
     other:
       edit: Click to edit
   legal:

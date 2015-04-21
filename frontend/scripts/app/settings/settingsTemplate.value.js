@@ -7,201 +7,201 @@
     .value('settingsTemplate', [
       {
         "category": "Preferences",
-        "description": "settings_preferences_travelprofile_description",
+        "description": "settings_preferences_travelProfile_description",
         "key": "travel_profile",
         "defaultValue": 1,
         "options": [
           {
-            "description": "settings_preferences_travelprofile_timesaver_description",
+            "description": "settings_preferences_travelProfile_timeSaver_description",
             "value": 0,
-            "tooltip": "settings_preferences_travelprofile_timesaver_tooltip",
+            "tooltip": "settings_preferences_travelProfile_timesaver_tooltip",
             "parameters": []
           },
           {
-            "description": "settings_preferences_travelprofile_explorer_description",
+            "description": "settings_preferences_travelProfile_explorer_description",
             "value": 1,
-            "tooltip": "settings_preferences_travelprofile_explorer_tooltip",
+            "tooltip": "settings_preferences_travelProfile_explorer_tooltip",
             "parameters": []
           },
           {
-            "description": "settings_preferences_travelprofile_socializer_description",
+            "description": "settings_preferences_travelProfile_socializer_description",
             "value": 2,
-            "tooltip": "settings_preferences_travelprofile_socializer_tooltip",
+            "tooltip": "settings_preferences_travelProfile_socializer_tooltip",
             "parameters": []
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "settings_preferences_transfertime_description",
+        "description": "settings_preferences_transferTime_description",
         "key": "transfer_time",
         "defaultValue": 1,
         "options": [
           {
-            "description": "settings_preferences_transfertime_fast_description",
+            "description": "settings_preferences_transferTime_fast_description",
             "value": 0,
-            "tooltip": "settings_preferences_transfertime_fast_tooltip"
+            "tooltip": "settings_preferences_transferTime_fast_tooltip"
           },
           {
-            "description": "settings_preferences_transfertime_medium_description",
+            "description": "settings_preferences_transferTime_medium_description",
             "value": 1,
-            "tooltip": "settings_preferences_transfertime_medium_tooltip"
+            "tooltip": "settings_preferences_transferTime_medium_tooltip"
           },
           {
-            "description": "settings_preferences_transfertime_slow_description",
+            "description": "settings_preferences_transferTime_slow_description",
             "value": 2,
-            "tooltip": "settings_preferences_transfertime_slow_tooltip"
+            "tooltip": "settings_preferences_transferTime_slow_tooltip"
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "How much slower may the low-budget trip be in comparison to the fastest trip?",
+        "description": "settings_preferences_tripDurationFactor",
         "key": "trip_duration_factor",
         "defaultValue": 1.2
       },
       {
         "category": "Preferences",
-        "description": "Set your default home location.",
+        "description": "settings_preferences_tripDurationFactor",
         "key": "home_location",
         "defaultValue": ""
       },
       {
         "category": "Preferences",
-        "description": "Set your hotel preference.",
+        "description": "settings_preferences_hotelType_description",
         "key": "hotel_type",
         "defaultValue": 1,
         "options": [
           {
-            "description": "low-budget",
+            "description": "settings_preferences_hotelType_lowBudget_description",
             "value": 0
           },
           {
-            "description": "comfort",
+            "description": "settings_preferences_hotelType_comfort_description",
             "value": 1
           },
           {
-            "description": "luxurious",
+            "description": "settings_preferences_hotelType_luxurious_description",
             "value": 2
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "Set your hotel location preference.",
+        "description": "settings_preferences_hotelLocation_description",
         "key": "hotel_location",
         "defaultValue": 0,
         "options": [
           {
-            "description": "close to appointment location",
+            "description": "settings_preferences_hotelLocation_appointment_description",
             "value": 0
           },
           {
-            "description": "close to traffic junctions",
+            "description": "settings_preferences_hotelLocation_trafficJuntions_description",
             "value": 1
           },
           {
-            "description": "close to city center",
+            "description": "settings_preferences_hotelLocation_cityCenter_description",
             "value": 2
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "Do you also want to use private accommodations like Airbnb?",
+        "description": "settings_preferences_accommodationType_description",
         "key": "accommodation_type",
         "defaultValue": 0,
         "options": [
           {
-            "description": "only hotels",
+            "description": "settings_preferences_accommodationType_onlyHotels_description",
             "value": 0
           },
           {
-            "description": "hotels and private accommodations",
+            "description": "settings_preferences_accommodationType_hotelsAndPrivate_description",
             "value": 1
           },
           {
-            "description": "only private accommodations",
+            "description": "settings_preferences_accommodationType_onlyPrivate_description",
             "value": 2
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "(De)Activate the taxi option.",
+        "description": "settings_preferences_taxi",
         "key": "taxi",
         "defaultValue": 1,
         "options": [
           {
-            "description": "disable",
+            "description": "general_disable",
             "value": 0
           },
           {
-            "description": "enable",
+            "description": "general_enable",
             "value": 1
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "(De)Activate the flight option.",
+        "description": "settings_preferences_flight",
         "key": "flight",
         "defaultValue": 1,
         "options": [
           {
-            "description": "disable",
+            "description": "general_disable",
             "value": 0
           },
           {
-            "description": "enable",
+            "description": "general_enable",
             "value": 1
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "(De)Activate the public transport option.",
+        "description": "settings_preferences_publicTransport",
         "key": "public_transport",
         "defaultValue": 1,
         "options": [
           {
-            "description": "disable",
+            "description": "general_disable",
             "value": 0
           },
           {
-            "description": "enable",
+            "description": "general_enable",
             "value": 1
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "(De)Activate the rental car option.",
+        "description": "settings_preferences_rentalCar",
         "key": "rental_car",
         "defaultValue": 0,
         "options": [
           {
-            "description": "disable",
+            "description": "general_disable",
             "value": 0
           },
           {
-            "description": "enable",
+            "description": "general_enable",
             "value": 1
           }
         ]
       },
       {
         "category": "Preferences",
-        "description": "(De)Activate the ferry option.",
+        "description": "settings_preferences_ferry",
         "key": "ferry",
         "defaultValue": 1,
         "options": [
           {
-            "description": "disable",
+            "description": "general_disable",
             "value": 0
           },
           {
-            "description": "enable",
+            "description": "general_enable",
             "value": 1
           }
         ]
