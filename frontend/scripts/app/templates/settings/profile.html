@@ -5,13 +5,10 @@
   <div class="form-group profile-attribute">
     <label>{[ "settings_profile_image" | translate ]}</label>
     <img ng-src="{[userProfile.image]}" width="150" height="150" />
-    <input type="file"
-            id="profile-picture"
-            ng-file-select
-            ng-model="profilePicture"
-            name="profilePicture"
-            ng-file-change="uploadImage($event)">
-    <span ng-show="isUploading">{[ "settings_profile_upload" | translate ]}</span>
+    <div class="button"
+        ng-file-select
+        ng-file-change="uploadImage($files)">{[ "settings_profile_upload" | translate ]}</div>
+    <span ng-show="isUploading">{[ "settings_profile_uploading" | translate ]}</span>
   </div>
 
 

@@ -184,7 +184,8 @@ en:
         zip: Postal code
         city: City
         country: Country
-      upload: Uploading, please wait...
+      upload: Upload
+      uploading: Uploading, please wait...
     history:
       title: History
     privacy:
