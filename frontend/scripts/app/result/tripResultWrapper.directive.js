@@ -100,7 +100,7 @@
           $event.preventDefault();
           $event.stopPropagation();
         }
-        if (segment.type === 0) {
+        if (segment.type === 1) {
           showAlternativeHotels(segment);
         } else {
           showAlternativeVehicles(segment);
@@ -115,6 +115,7 @@
       function showAlternativeVehicles(segment) {
         // show panel at once with the spinner
         $scope.showAlternativeVehiclesPanel = true;
+        $scope.showAlternativeHotelsPanel = false;
 
         tripApi
           .findAlternativeVehiclesSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
@@ -125,7 +126,8 @@
 
       function showAlternativeHotels(segment) {
         // show panel at once with the spinner
-        $scope.showAlternativeVehiclesPanel = true;
+        $scope.showAlternativeHotelsPanel = true;
+        $scope.showAlternativeVehiclesPanel = false;
 
         tripApi
           .findAlternativeHotelsSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)

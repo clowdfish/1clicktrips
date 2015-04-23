@@ -4,7 +4,7 @@
 
   <ul class="hotels-list">
 
-    <li class='hotels-list-item' ng-repeat='hotel in alternatives'>
+    <li class='hotels-list-item' ng-repeat='hotel in alternatives' ng-class="{selected: selectedHotelId == hotel.id}">
       <img class="hotels-list-item-image" ng-src='{[ hotel.imageUrl ]}' />
 
       <div class="hotels-list-item-info">
@@ -23,7 +23,12 @@
         + {[ hotel.price | currency: currencySymbol ]}
       </span>
 
-      <button class="button hotels-list-item-select" ng-click='select(segment, hotel)'>Select Hotel</button>
+      <button class="button hotels-list-item-select"
+              ng-click='selectHotel(hotel)'
+              ng-hide="selectedHotelId == hotel.id">Select Hotel</button>
+      <button class="button hotels-list-item-select"
+              ng-click='unselectHotel()'
+              ng-show="selectedHotelId == hotel.id">Unselect Hotel</button>
     </li>
 
   </ul>

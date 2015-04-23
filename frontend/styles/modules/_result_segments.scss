@@ -295,6 +295,10 @@
     }
   }
 
+  .hotels-list-item.selected {
+    background-color: gray;
+  }
+
   .hotels-list-item-info {
     display: inline-block;
     width: 50%;

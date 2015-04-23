@@ -28,11 +28,16 @@
       var $tripSegments = $element.find('.trip-segments');
 
       scope.showTab = showTab;
-      scope.showAlternativesFn = ctrl.showAlternatives;
+      scope.showAlternativesFn = showAlternatives;
       scope.groupSegment = null;
       scope.$watch('activeSegments', function() {
         console.log('change in activeSegments');
       });
+
+      function showAlternatives(segment, $event, $index) {
+        scope.selectedSegment = segment;
+        ctrl.showAlternatives(segment, $event, $index);
+      }
 
       scope.selectSegment = function(segment, segmentIndex) {
         if (browser.isMobileDevice()) {

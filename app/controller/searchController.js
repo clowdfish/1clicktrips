@@ -76,7 +76,7 @@ module.exports = {
       }];
       resolve(mockData);
     });
-  }
+  },
 
   getTripResults: function(searchObject, userLicence) {
     console.log("Retrieving trip results.");

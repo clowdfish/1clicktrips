@@ -13,6 +13,8 @@
     service.findAlternativeHotelsSegment = findAlternativeHotelsSegment;
     service.updateItineraryByGroupSegment = updateItineraryByGroupSegment;
     service.replaceSegmentWithAlternatives = replaceSegmentWithAlternatives;
+    service.setSegmentHotel = setSegmentHotel;
+    service.unsetSegmentHotel = unsetSegmentHotel;
 
     function findItinerary(searchObject) {
       var deferred = $q.defer();
@@ -141,6 +143,37 @@
       return itinerary;
     }
 
+    function setSegmentHotel(itinerary, segment, hotel) {
+      for (var key in itinerary.groupSegment) {
+        var groupSegment = itinerary.groupSegment[key];
+        for (var i = 0; i < itinerary.groupSegment[key].length; i++) {
+          var item = itinerary.groupSegment[key][i];
+          if (item.id === segment.id) {
+            item['hotel'] = hotel;
+            itinerary.groupSegment[key][i] = item;
+          }
+        }
+      }
+
+      itinerary['cost'] = getItineraryCost(itinerary.groupSegment);
+      return itinerary;
+    }
+
+    function unsetSegmentHotel(itinerary, segment) {
+      for (var key in itinerary.groupSegment) {
+        var groupSegment = itinerary.groupSegment[key];
+        for (var i = 0; i < itinerary.groupSegment[key].length; i++) {
+          var item = itinerary.groupSegment[key][i];
+          if (item.id === segment.id) {
+            delete item['hotel'];
+            itinerary.groupSegment[key][i] = item;
+          }
+        }
+      }
+      itinerary['cost'] = getItineraryCost(itinerary.groupSegment);
+      return itinerary;
+    }
+
     /**
     * Insert array2 into array1 at index position
     * @params {Array} array1 - Array which will contain the insertment array
@@ -239,6 +272,10 @@
       loopThroughGroupSegment(groupSegment, function(segment) {
         if (segment['price'] && segment['price']['amount']) {
           cost += segment.price.amount;
+        }
+
+        if (segment['hotel']) {
+          cost += segment.hotel.price;
         }
       });
       return cost;
