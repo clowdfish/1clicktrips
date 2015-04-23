@@ -215,6 +215,7 @@
     function showListFn() {
       $scope.showMap = false;
       $scope.showList = true;
+      $scope.$broadcast('resizeMapOnMobile');
     }
 
   }

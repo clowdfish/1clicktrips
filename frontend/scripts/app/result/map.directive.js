@@ -14,7 +14,8 @@
       scope: {
         itinerary: '=',
         activeSegments: '=',
-        selectedSegment: '='
+        selectedSegment: '=',
+        tripSegmentsHeight: '='
       },
       link: link,
       transclude: true
@@ -47,7 +48,7 @@
       $map = $element.find('#itinerary-map');
 
       scope.$watch('activeSegments', function() {
-
+        console.log('map: change activeSegments', scope.activeSegments);
         if (!scope.activeSegments ||
           scope.activeSegments.length == 0) {
           return;
@@ -61,7 +62,6 @@
 
         drawPolylineOnMap(scope.activeSegments);
 
-
         $timeout(function() {
           google.maps.event.trigger(map, 'resize');
           map.fitBounds(mapBounds);
@@ -74,6 +74,7 @@
           return;
         }
         var segment = scope.selectedSegment;
+
         if (scope.selectedSegment != null) {
           $timeout(function() {
             zoomSegment(scope.selectedSegment);
@@ -86,6 +87,12 @@
 
       scope.$watch('$destroy', function() {
         cleanupMap();
+      });
+
+      scope.$on('resizeMapOnMobile', function() {
+        $timeout(function() {
+          resizeMapOnMobileDevice();
+        }, 100);
       });
 
       /**
@@ -108,8 +115,9 @@
           bounds.extend(new google.maps.LatLng(segment.end.location.latitude,
                                               segment.end.location.longitude));
         }
-        map.fitBounds(bounds);
+
         google.maps.event.trigger(map, 'resize');
+        map.fitBounds(bounds);
       }
 
       /**
@@ -160,9 +168,8 @@
         latlngs.clear();
         clearMarkers();
         displayPath.setPath(latlngs);
-
         mapBounds = new google.maps.LatLngBounds();
-
+        map.fitBounds(mapBounds);
         for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
           //Create marker for segment
           var marker = createSegmentMarker(segments[segmentIndex].start.location.latitude,
@@ -221,6 +228,17 @@
           return null;
         }
         return '../images/number_' + number + '.png';
+      }
+
+      function resizeMapOnMobileDevice() {
+        if (!browser.isMobileDevice()) {
+          return;
+        }
+
+        var height = $('.trip-segments').height();
+        if ($map.height() < height) {
+          $map.height(height);
+        }
       }
     }
   }

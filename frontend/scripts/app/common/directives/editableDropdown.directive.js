@@ -17,8 +17,17 @@
         value: '=',
         label: '='
       },
-      controller: 'editableCtrl'
+      controller: 'editableCtrl',
+      link: link
     };
+
+    function link(scope, element, attrs) {
+      var $element = $(element);
+      var $select = $element.find('select');
+      $select.change(function() {
+        $select.blur();
+      });
+    }
   }
 
 })();
