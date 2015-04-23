@@ -109,8 +109,10 @@
               itinerary="itinerary"
               show-map="true"
               show-list="true"
-              show-alternatives-panel="showAlternativesPanel"
-              alternatives='alternatives'
+              show-alternative-vehicles-panel="showAlternativeVehiclesPanel"
+              show-alternative-hotels-panel="showAlternativeHotelsPanel"
+              alternative-vehicles='alternativeVehicles'
+              alternative-hotels="alternativeHotels"
               alternative-left="alternativeLeft"
               alternative-top="alternativeTop" >
             <div class='trip-segments-container' ng-show='showList'>
@@ -123,16 +125,28 @@
               </trip-segments>
 
               <!-- alternatives pane -->
-              <div class='trip-segments-alternatives'
-                  ng-show='showAlternativesPanel'
-                  ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
-                <alternative-mean-of-travel
-                  itinerary='itinerary'
-                  alternatives="alternatives"
-                  active-segments="activeSegments"
-                  active-segments-number="activeSegmentsNumber">
-                </alternative-mean-of-travel>
-              </div>
+
+                <div ng-show="showAlternativeVehiclesPanel"
+                      class='trip-segments-alternatives'
+                      ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+                  <alternative-mean-of-travel
+                    itinerary='itinerary'
+                    alternatives="alternativeVehicles"
+                    active-segments="activeSegments"
+                    active-segments-number="activeSegmentsNumber">
+                  </alternative-mean-of-travel>
+                </div>
+
+                <div ng-show="showAlternativeHotelsPanel"
+                      class='trip-segments-alternatives'
+                      ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+                  <alternative-hotels
+                    itinerary='itinerary'
+                    alternatives="alternativeVehicles">
+                  </alternative-hotels>
+                </div>
+
+
             </div>
 
             <!-- map view -->
@@ -160,8 +174,10 @@
               itinerary="itinerary"
               show-map="showMap"
               show-list="showList"
-              show-alternatives-panel="showAlternativesPanel"
-              alternatives='alternatives'
+              show-alternative-vehicles-panel="showAlternativeVehiclesPanel"
+              show-alternative-hotels-panel="showAlternativeHotelsPanel"
+              alternative-vehicles='alternativeVehicles'
+              alternative-hotels="alternativeHotels"
               alternative-left="alternativeLeft"
               alternative-top="alternativeTop">
 
@@ -198,14 +214,15 @@
 
             <!-- alternatives pane -->
             <div class='trip-segments-alternatives'
-                 ng-show='showAlternativesPanel'
                  ng-style="{left: 0, top: alternativeTop, position: 'absolute'}">
-              <alternative-mean-of-travel
-                itinerary='itinerary'
-                alternatives="alternatives"
-                active-segments="activeSegments"
-                active-segments-number="activeSegmentsNumber">
-              </alternative-mean-of-travel>
+              <div ng-show="showAlternativeVehiclesPanel">
+                <alternative-mean-of-travel
+                  itinerary='itinerary'
+                  alternatives="alternativeVehicles"
+                  active-segments="activeSegments"
+                  active-segments-number="activeSegmentsNumber">
+                </alternative-mean-of-travel>
+              </div>
             </div>
           </div>
 

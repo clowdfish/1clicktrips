@@ -17,8 +17,10 @@
         hideMap: '@',
         showMap: '=',
         showList: '=',
-        showAlternativesPanel: '=',
-        alternatives: '=',
+        showAlternativeVehiclesPanel: '=',
+        showAlternativeHotelsPanel: '=',
+        alternativeVehicles: '=',
+        alternativeHotels: '=',
         alternativeTop: '=',
         alternativeLeft: '='
       },
@@ -98,19 +100,38 @@
           $event.preventDefault();
           $event.stopPropagation();
         }
+        if (segment.type === 0) {
+          showAlternativeHotels(segment);
+        } else {
+          showAlternativeVehicles(segment);
+        }
 
-        // show panel at once with the spinner
-        $scope.showAlternativesPanel = true;
-
-        tripApi
-          .findAlternativeSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
-          .then(function(alternatives) {
-            $scope.alternatives = alternatives;
-          });
 
         if (segmentIndex >= 0) {
           $scope.updateAlternativePosition(segmentIndex);
         }
+      }
+
+      function showAlternativeVehicles(segment) {
+        // show panel at once with the spinner
+        $scope.showAlternativeVehiclesPanel = true;
+
+        tripApi
+          .findAlternativeVehiclesSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
+          .then(function(alternatives) {
+            $scope.alternativeVehicles = alternatives;
+          });
+      }
+
+      function showAlternativeHotels(segment) {
+        // show panel at once with the spinner
+        $scope.showAlternativeVehiclesPanel = true;
+
+        tripApi
+          .findAlternativeHotelsSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
+          .then(function(alternatives) {
+            $scope.alternativeHotels = alternatives;
+          });
       }
 
       function closeAlternativesPanel() {

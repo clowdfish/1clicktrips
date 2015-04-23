@@ -111,6 +111,29 @@ module.exports = function (app, express, production) {
     }
   });
 
+  searchApi.get('/alternative-hotels', function(req, res) {
+    var segmentId = req.query.segmentId;
+    var tripId = req.query.tripId;
+    var language = req.query.language;
+    var currency = req.query.currency;
+
+    if(segmentId && tripId && language && currency) {
+      console.log('Query for alternative segment received. Segment ID=' + segmentId
+        + '; Trip ID=' + tripId);
+
+      SearchController.getAlternativeHotels(tripId, segmentId, language, currency)
+        .then(function(alternatives) {
+          res.status(200).json(alternatives);
+        })
+        .catch(function(err) {
+          res.status(500).json(err.message);
+        });
+    }
+    else {
+      res.status(400).send("status.user.error.request.malformed");
+    }
+  });
+
   // ==========================================================================
   // SEARCH API ===============================================================
   // ==========================================================================

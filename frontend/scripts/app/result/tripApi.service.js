@@ -9,9 +9,11 @@
     var service = this;
 
     service.findItinerary = findItinerary;
-    service.findAlternativeSegment = findAlternativeSegment;
+    service.findAlternativeVehiclesSegment = findAlternativeVehiclesSegment;
+    service.findAlternativeHotelsSegment = findAlternativeHotelsSegment;
     service.updateItineraryByGroupSegment = updateItineraryByGroupSegment;
     service.replaceSegmentWithAlternatives = replaceSegmentWithAlternatives;
+
     function findItinerary(searchObject) {
       var deferred = $q.defer();
 
@@ -48,7 +50,10 @@
       return deferred.promise;
     }
 
-    function findAlternativeSegment(segmentId, tripId, language, currency) {
+    /**
+    * Find alternatives vehicle
+    */
+    function findAlternativeVehiclesSegment(segmentId, tripId, language, currency) {
       var searchParams = {
         tripId: tripId,
         segmentId: segmentId,
@@ -62,12 +67,52 @@
             params: searchParams
           })
           .success(function(alternatives) {
-            for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
-              var alternative = alternatives[alternativeIndex];
-              for (var segmentIndex = 0; segmentIndex < alternative.segments.length; segmentIndex++) {
-                alternative.segments[segmentIndex]['tripId'] = tripId;
-              }
-            }
+            alternatives = appendTripIdToAlternativeVehicles(alternatives, tripId);
+            resolve(alternatives);
+          })
+          .error(function(data, status) {
+            reject({
+              data: data,
+              status: status
+            });
+          });
+      });
+    }
+
+    /**
+    * Because alternatives data from server doesn't have tripId,
+    * we have to append tripId to alternatives segments so we can search for another alternatives later
+    * @params Array - alternatives data
+    * @params string - Trip Id
+    * @returns Array - alternatives with tripId in each segments
+    */
+    function appendTripIdToAlternativeVehicles(alternatives, tripId) {
+      for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
+        var alternative = alternatives[alternativeIndex];
+        for (var segmentIndex = 0; segmentIndex < alternative.segments.length; segmentIndex++) {
+          alternative.segments[segmentIndex]['tripId'] = tripId;
+        }
+      }
+      return alternatives;
+    }
+
+    /**
+    * Find alternative hotels
+    */
+    function findAlternativeHotelsSegment(segmentId, tripId, language, currency) {
+      var searchParams = {
+        tripId: tripId,
+        segmentId: segmentId,
+        language: language,
+        currency: currency
+      };
+
+      return $q(function(resolve, reject) {
+        $http
+          .get('/api/search/alternative-hotels', {
+            params: searchParams
+          })
+          .success(function(alternatives) {
             resolve(alternatives);
           })
           .error(function(data, status) {
