@@ -8,12 +8,39 @@
   function tripApi($http, $q, $timeout) {
     var service = this;
 
+    /**
+    * Find trip api
+    */
     service.findItinerary = findItinerary;
+
+    /**
+    * Find alternative vehicles
+    */
     service.findAlternativeVehiclesSegment = findAlternativeVehiclesSegment;
+
+    /**
+    * Find alternative hotels
+    */
     service.findAlternativeHotelsSegment = findAlternativeHotelsSegment;
+
+    /**
+    * Use group segment to update trip data
+    */
     service.updateItineraryByGroupSegment = updateItineraryByGroupSegment;
+
+    /**
+    * Replace segment with alternative
+    */
     service.replaceSegmentWithAlternatives = replaceSegmentWithAlternatives;
+
+    /**
+    * Set hotel
+    */
     service.setSegmentHotel = setSegmentHotel;
+
+    /**
+    * Remove hotel
+    */
     service.unsetSegmentHotel = unsetSegmentHotel;
 
     function findItinerary(searchObject) {

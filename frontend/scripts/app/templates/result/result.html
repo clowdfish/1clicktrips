@@ -126,27 +126,27 @@
 
               <!-- alternatives pane -->
 
-                <div ng-show="showAlternativeVehiclesPanel"
-                      class='trip-segments-alternatives'
-                      ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
-                  <alternative-mean-of-travel
-                    itinerary='itinerary'
-                    alternatives="alternativeVehicles"
-                    active-segments="activeSegments"
-                    active-segments-number="activeSegmentsNumber">
-                  </alternative-mean-of-travel>
-                </div>
+              <div ng-show="showAlternativeVehiclesPanel"
+                    class='trip-segments-alternatives'
+                    ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+                <alternative-mean-of-travel
+                  itinerary='itinerary'
+                  alternatives="alternativeVehicles"
+                  active-segments="activeSegments"
+                  active-segments-number="activeSegmentsNumber">
+                </alternative-mean-of-travel>
+              </div>
 
-                <div ng-show="showAlternativeHotelsPanel"
-                      class='trip-segments-alternatives'
-                      ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
-                  <alternative-hotels
-                    itinerary='itinerary'
-                    alternatives="alternativeHotels"
-                    selected-segment="selectedSegment"
-                    >
-                  </alternative-hotels>
-                </div>
+              <div ng-show="showAlternativeHotelsPanel"
+                    class='trip-segments-alternatives'
+                    ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+                <alternative-hotels
+                  itinerary='itinerary'
+                  alternatives="alternativeHotels"
+                  selected-segment="selectedSegment"
+                  >
+                </alternative-hotels>
+              </div>
 
 
             </div>
@@ -215,16 +215,26 @@
             </trip-segments>
 
             <!-- alternatives pane -->
-            <div class='trip-segments-alternatives'
-                 ng-style="{left: 0, top: alternativeTop, position: 'absolute'}">
-              <div ng-show="showAlternativeVehiclesPanel">
-                <alternative-mean-of-travel
-                  itinerary='itinerary'
-                  alternatives="alternativeVehicles"
-                  active-segments="activeSegments"
-                  active-segments-number="activeSegmentsNumber">
-                </alternative-mean-of-travel>
-              </div>
+            <div ng-show="showAlternativeVehiclesPanel"
+                  class='trip-segments-alternatives'
+                  ng-style="{left: 0, top: alternativeTop, position: 'absolute'}">
+              <alternative-mean-of-travel
+                itinerary='itinerary'
+                alternatives="alternativeVehicles"
+                active-segments="activeSegments"
+                active-segments-number="activeSegmentsNumber">
+              </alternative-mean-of-travel>
+            </div>
+
+            <div ng-show="showAlternativeHotelsPanel"
+                  class='trip-segments-alternatives'
+                  ng-style="{left: 0, top: alternativeTop, position: 'absolute'}">
+              <alternative-hotels
+                itinerary='itinerary'
+                alternatives="alternativeHotels"
+                selected-segment="selectedSegment"
+                >
+              </alternative-hotels>
             </div>
           </div>
 
