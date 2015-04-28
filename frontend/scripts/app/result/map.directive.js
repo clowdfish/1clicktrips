@@ -48,7 +48,6 @@
       $map = $element.find('#itinerary-map');
 
       scope.$watch('activeSegments', function() {
-        console.log('map: change activeSegments', scope.activeSegments);
         if (!scope.activeSegments ||
           scope.activeSegments.length == 0) {
           return;

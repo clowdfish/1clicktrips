@@ -56,19 +56,19 @@ xdescribe('tripResultWrapper directive', function() {
     scope.itinerary = itinerary[0];
     scope.showMap = false; //show map will cause error
     scope.showList = false;
-
+    var html = [];
     element = angular.element('<trip-result-wrapper itinerary="itinerary" show-map="showMap" show-list="showList"></trip-result-wrapper>');
     compiledDirective = $compile(element)(scope);
     scope.$digest();
     directiveScope = element.isolateScope();
   }));
 
-  it('isolated scope has valid data', function() {
+  xit('isolated scope has valid data', function() {
     expect(directiveScope.itinerary.currency).toEqual('EUR');
     expect(directiveScope.itinerary.cost).toEqual(360);
   });
 
-  describe('segmentAlternativeList directive', function() {
+  xdescribe('segmentAlternativeList directive', function() {
     it('has valid alternative list', function() {
       /**
        * Hotel list is not showing, it is showed after we call showAlternativesPanel() function
@@ -84,7 +84,7 @@ xdescribe('tripResultWrapper directive', function() {
   });
 
 
-  describe('tripSegments', function() {
+  xdescribe('tripSegments', function() {
     var tripSegmentElement, tripSegmentScope, tripSegmentIsolateScope;
 
     beforeEach(function() {

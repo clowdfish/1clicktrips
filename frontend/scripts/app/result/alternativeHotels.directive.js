@@ -16,10 +16,10 @@
       link: link
     };
 
-    function link(scope, element, attrs, itineraryMapCtrl) {
+    function link(scope, element, attrs, ctrl) {
       scope.selectedHotelId = null;
 
-      scope.closeAlternativePanel = function() {
+      scope.close = function() {
         ctrl.closeAlternativesPanel();
       };
 

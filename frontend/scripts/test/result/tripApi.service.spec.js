@@ -6,6 +6,7 @@ describe('service: tripApi', function() {
       itinerary,
       mockAlternativeSegment,
       mockItinerary,
+      mockHotels,
       $rootScope,
       $q;
 
@@ -19,6 +20,7 @@ describe('service: tripApi', function() {
                             _$rootScope_,
                             _mockItinerary_,
                             _mockAlternativeSegment_,
+                            _mockHotels_,
                             _$q_,
                             _$httpBackend_) {
     $httpBackend = _$httpBackend_;
@@ -26,60 +28,52 @@ describe('service: tripApi', function() {
     $rootScope = _$rootScope_;
     mockItinerary = _mockItinerary_;
     mockAlternativeSegment = _mockAlternativeSegment_;
+    mockHotels = _mockHotels_;
     $q = _$q_;
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
 
-    var returnValue;
     tripApi
       .findItinerary()
-      .then(function(itinerary) {
-        returnValue = itinerary;
+      .then(function(data) {
+        itinerary = data;
       });
 
     $rootScope.$digest();
     $httpBackend.flush();
-    itinerary = returnValue[0];
   }));
 
   it('it find and have valid data', function() {
-    var returnValue, itinerary;
-    tripApi
-      .findItinerary()
-      .then(function(itinerary) {
-        returnValue = itinerary;
-      });
+    var trip = itinerary[0];
+    expect(trip.hasOwnProperty('outbound')).toEqual(true);
+    expect(trip.hasOwnProperty('inbound')).toEqual(false);
+    expect(trip.hasOwnProperty('cost')).toEqual(true);
+    expect(trip.hasOwnProperty('currency')).toEqual(true);
+    expect(trip.hasOwnProperty('startTime')).toEqual(true);
+    expect(trip.hasOwnProperty('endTime')).toEqual(true);
+    expect(trip.hasOwnProperty('duration')).toEqual(true);
+    expect(trip.hasOwnProperty('groupSegment')).toEqual(true);
 
-    $rootScope.$digest();
-    $httpBackend.flush();
-    itinerary = returnValue[0];
-    expect(itinerary.hasOwnProperty('outbound')).toEqual(true);
-    expect(itinerary.hasOwnProperty('inbound')).toEqual(false);
-    expect(itinerary.hasOwnProperty('cost')).toEqual(true);
-    expect(itinerary.hasOwnProperty('currency')).toEqual(true);
-    expect(itinerary.hasOwnProperty('startTime')).toEqual(true);
-    expect(itinerary.hasOwnProperty('endTime')).toEqual(true);
-    expect(itinerary.hasOwnProperty('duration')).toEqual(true);
-    expect(itinerary.hasOwnProperty('groupSegment')).toEqual(true);
-
-    expect(itinerary.duration).toEqual(250);
-    expect(itinerary.cost).toEqual(360);
-    expect(1 in itinerary.groupSegment).toEqual(true);
-    expect(2 in itinerary.groupSegment).toEqual(true);
-    expect(3 in itinerary.groupSegment).toEqual(false);
+    expect(trip.duration).toEqual(250);
+    expect(trip.cost).toEqual(360);
+    expect(1 in trip.groupSegment).toEqual(true);
+    expect(2 in trip.groupSegment).toEqual(true);
+    expect(3 in trip.groupSegment).toEqual(false);
   });
 
   it('change cost and duration after change alternative segment', function() {
-    var returnValue, itinerary;
-    tripApi
-      .findItinerary()
-      .then(function(itinerary) {
-        returnValue = itinerary;
-      });
-    $rootScope.$digest();
-    $httpBackend.flush();
-    itinerary = returnValue[0];
-    tripApi.replaceSegmentWithAlternatives(itinerary, 1, mockAlternativeSegment[0]);
+    var trip = itinerary[0];
+    expect(trip.cost).toEqual(360);
+    trip = tripApi.replaceSegmentWithAlternatives(trip, 1, mockAlternativeSegment[0]);
+    expect(trip.cost).toEqual(370);
+  });
+
+  it('increase cost after select hotel', function() {
+    var trip = itinerary[0];
+    expect(trip.cost).toEqual(360);
+    trip = tripApi.setSegmentHotel(trip, trip.groupSegment[1][0], mockHotels[0]);
+    console.log(mockHotels[0]);
+    expect(trip.cost).toEqual(360 + mockHotels[0].price);
   });
 
 

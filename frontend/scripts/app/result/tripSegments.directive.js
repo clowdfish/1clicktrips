@@ -30,9 +30,6 @@
       scope.showTab = showTab;
       scope.showAlternativesFn = showAlternatives;
       scope.groupSegment = null;
-      scope.$watch('activeSegments', function() {
-        console.log('change in activeSegments');
-      });
 
       function showAlternatives(segment, $event, $index) {
         scope.selectedSegment = segment;
@@ -62,14 +59,13 @@
         if (scope.itinerary == null) {
           return;
         }
-        console.log('detect change in itinerary');
         scope.activeSegmentsNumber = 1;
 
         scope.segmentsHeaders = _.keys(scope.itinerary.groupSegment);
         scope.groupSegment = scope.itinerary.groupSegment;
 
         scope.activeSegments = scope.groupSegment[scope.activeSegmentsNumber];
-        console.log(scope.activeSegments, scope.activeSegmentsNumber);
+
         scope.segmentsHeight = $tripSegments.height();
       });
 

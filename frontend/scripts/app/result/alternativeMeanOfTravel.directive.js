@@ -23,7 +23,7 @@
     function link(scope, element, attrs, ctrl) {
       scope.getAlternativeVehicleType = getAlternativeVehicleType;
 
-      scope.closeAlternativePanel = function() {
+      scope.close = function() {
         ctrl.closeAlternativesPanel();
       };
 

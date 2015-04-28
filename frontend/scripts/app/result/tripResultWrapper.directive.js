@@ -14,9 +14,6 @@
       scope: {
         itinerary: '=',
         closeSegmentPanelFn: '=',
-        hideMap: '@',
-        showMap: '=',
-        showList: '=',
         showAlternativeVehiclesPanel: '=',
         showAlternativeHotelsPanel: '=',
         alternativeVehicles: '=',
@@ -62,16 +59,6 @@
 
       // check for device type and configure accordingly
       $scope.isMobile = browser.isMobileDevice();
-
-      /**
-      * Show map or not
-      */
-      $scope.showMap = $scope.hideMap ? false : true;
-
-      /**
-      * Show segment list or not
-      */
-      $scope.showList = $scope.isMobile ? false : true;
 
       /**
       * List of hotels, alternative segments...
