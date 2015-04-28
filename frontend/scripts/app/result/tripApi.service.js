@@ -43,7 +43,7 @@
     */
     service.unsetSegmentHotel = unsetSegmentHotel;
 
-    function findItinerary(searchObject) {
+    function findItinerary(searchObject, additionData) {
       var deferred = $q.defer();
 
       $http
@@ -67,7 +67,7 @@
           var data = response[0];
           var result = [];
           for (var i = 0; i < data.length; i++) {
-            var itinerary = transformItinerary(data[i]);
+            var itinerary = transformItinerary(data[i], additionData);
             result.push(itinerary);
           }
           deferred.resolve(result);
@@ -214,12 +214,17 @@
       return origin.concat(array2, end);
     }
 
-    function transformItinerary(itinerary) {
+    function transformItinerary(itinerary, searchObject) {
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
       var groupSegment = groupSegmentByDate(itinerary);
       itinerary['groupSegment'] = groupSegment;
       itinerary = updateItineraryByGroupSegment(itinerary, groupSegment);
+      itinerary['startDate'] = searchObject.startDate;
+      itinerary['endDate'] = searchObject.endDate;
+      itinerary['origin'] = searchObject.origin;
+      itinerary['destination'] = searchObject.destination;
+
       return itinerary;
     }
 
@@ -339,6 +344,7 @@
         for (i = 0; i < itinerary.outbound.segments.length; i++) {
           var segment = itinerary.outbound.segments[i];
           segment['tripId'] = itinerary.outbound.id;
+          segment['bookable'] = true;
           if (result[day] == null) {
             result[day] = [];
           }
@@ -353,6 +359,7 @@
         for (i = 0; i < itinerary.inbound.segments.length; i++) {
           var segment = itinerary.inbound.segments[i];
           segment['tripId'] = itinerary.inbound.id;
+          segment['bookable'] = true;
           if (result[day] == null) {
             result[day] = [];
           }

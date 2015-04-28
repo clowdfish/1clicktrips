@@ -1,0 +1,47 @@
+<div class="booking-select-segment-wrapper">
+  <div class="group-segment-list" ng-repeat="(dayNumber, groupSegment) in trip.groupSegment">
+    <h3>{[ "result_segments_day" | translate ]} {[dayNumber]}</h3>
+
+    <div class="segment-list" ng-repeat="segment in groupSegment">
+      <div class="row">
+        <div class="col-md-1">
+          <i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i>
+        </div>
+        <div class="col-md-6">
+          <span ng-if='segment.start.description == "Origin"'>
+            {[segment.end.description]}
+          </span>
+          <span ng-if='segment.end.description == "Destination"'>
+            {[segment.start.description]}
+          </span>
+          <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"'>
+            {[segment.start.description]} - {[segment.end.description]}
+          </span>
+        </div>
+        <div class="col-md-2">
+          {{ segment.price.amount | currency: segment.price.currency }}
+        </div>
+        <div class="col-md-3">
+          <!-- Bookable -->
+          <div class="enable-booking" ng-if="segment.bookable">
+            <fieldset>
+              <input type="checkbox"/>
+              <label>Include in Booking</label>
+            </fieldset>
+          </div>
+
+          <!-- Non bookable -->
+          <div class="disable-booking" ng-if=" ! segment.bookable">
+            <fieldset>
+              <input type="checkbox" disabled/>
+              <label>Include in Booking</label>
+            </fieldset>
+            <a ng-href="segment.providerUrl" ng-show="!segment.bookable" target="_blank">Go to provider</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <input type="button" class="button" value="Continue" ng-click="continue()"/>
+</div>

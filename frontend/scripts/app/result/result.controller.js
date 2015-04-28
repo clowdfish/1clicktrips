@@ -19,7 +19,8 @@
                       session,
                       AUTH_EVENTS,
                       favoriteApi,
-                      searchObject) {
+                      searchObject,
+                      bookingApi) {
     $scope.appConfig = appConfig;
     $scope.showAddToFavorite = true;
     findAllItineraries();
@@ -66,10 +67,21 @@
     */
     $scope.showListFn = showListFn;
 
+    /**
+    * Store itinerary data and go to booking page
+    */
+    $scope.bookTrip = bookTrip;
+
     function findAllItineraries() {
+      var additionData = {
+        startDate: $stateParams.startDate,
+        endDate: $stateParams.endDate,
+        origin: $stateParams.origin,
+        destination: $stateParams.destination
+      };
 
       tripApi
-        .findItinerary(searchObject)
+        .findItinerary(searchObject, additionData)
         .then(function(itineraries) {
           $scope.itineraries = itineraries;
           if ($scope.itinerary == null) {
@@ -216,6 +228,11 @@
       $scope.showMap = false;
       $scope.showList = true;
       $scope.$broadcast('resizeMapOnMobile');
+    }
+
+    function bookTrip() {
+      bookingApi.setShareTripData($scope.itinerary);
+      $state.go('booking');
     }
 
   }

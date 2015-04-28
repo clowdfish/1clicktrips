@@ -111,15 +111,15 @@
               show-list="true"
               show-alternative-vehicles-panel="showAlternativeVehiclesPanel"
               show-alternative-hotels-panel="showAlternativeHotelsPanel"
-              alternative-vehicles='alternativeVehicles'
+              alternative-vehicles="alternativeVehicles"
               alternative-hotels="alternativeHotels"
               alternative-left="alternativeLeft"
               alternative-top="alternativeTop" >
-            <div class='trip-segments-container' ng-show='showList'>
+            <div class="trip-segments-container" ng-show="showList">
               <trip-segments
-                itinerary='itinerary'
-                active-segments='activeSegments'
-                selected-segment='selectedSegment'
+                itinerary="itinerary"
+                active-segments="activeSegments"
+                selected-segment="selectedSegment"
                 active-segments-number="activeSegmentsNumber">
 
               </trip-segments>
@@ -127,10 +127,10 @@
               <!-- alternatives pane -->
 
               <div ng-show="showAlternativeVehiclesPanel"
-                    class='trip-segments-alternatives'
+                    class="trip-segments-alternatives"
                     ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
                 <alternative-mean-of-travel
-                  itinerary='itinerary'
+                  itinerary="itinerary"
                   alternatives="alternativeVehicles"
                   active-segments="activeSegments"
                   active-segments-number="activeSegmentsNumber">
@@ -138,10 +138,10 @@
               </div>
 
               <div ng-show="showAlternativeHotelsPanel"
-                    class='trip-segments-alternatives'
+                    class="trip-segments-alternatives"
                     ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
                 <alternative-hotels
-                  itinerary='itinerary'
+                  itinerary="itinerary"
                   alternatives="alternativeHotels"
                   selected-segment="selectedSegment"
                   >
@@ -152,10 +152,10 @@
             </div>
 
             <!-- map view -->
-            <div ng-show='showMap'>
-              <map itinerary='itinerary'
-                   active-segments='activeSegments'
-                   selected-segment='selectedSegment'></map>
+            <div ng-show="showMap">
+              <map itinerary="itinerary"
+                   active-segments="activeSegments"
+                   selected-segment="selectedSegment"></map>
             </div>
           </trip-result-wrapper>
         </div>
@@ -163,7 +163,7 @@
         <!-- RESULT FOOTER -->
         <div class="result-footer">
           <div class="result-footer-action">
-            <a href="#" class="button"><i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}</a>
+            <a href="#" class="button" ng-click="bookTrip()"><i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}</a>
           </div>
         </div>
       </div>
@@ -245,7 +245,9 @@
                 <span>{[ "result_summary_cost" | translate ]}</span>
                 <span>{[ itinerary.cost | price: itinerary.currency ]}</span>
               </span>
-              <a class="button"><i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}</a>
+              <a class="button" ng-click="bookTrip()">
+                <i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}
+              </a>
             </div>
           </div>
         </div>

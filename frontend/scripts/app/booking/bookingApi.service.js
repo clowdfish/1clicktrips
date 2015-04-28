@@ -1,15 +1,46 @@
 (function() {
+
+  'use strict';
+
   angular
-    .module('app.dashboard')
+    .module('app.booking')
     .service('bookingApi', bookingApi);
 
-  function bookingApi($http, $q, date) {
+  function bookingApi($http, $q, $sessionStorage, date) {
 
     var _this = this;
 
+    /**
+    * Get booked trips
+    */
     this.getBookedTrips = getBookedTrips;
+
+    /**
+    * Format data from getBookedTrips
+    */
     this.transformResponseData = transformResponseData;
 
+    /**
+    * Store trip data
+    */
+    this.setShareTripData = setShareTripData;
+
+    /**
+    * Get trip data from session storage
+    */
+    this.getShareTripData = getShareTripData;
+
+    function setShareTripData(trip) {
+      $sessionStorage.shareTripData = trip;
+    }
+
+    function getShareTripData() {
+      return $sessionStorage.shareTripData;
+    }
+
+    /**
+    * Get booked trips
+    */
     function getBookedTrips() {
       var deferred = $q.defer();
       $http
@@ -46,4 +77,5 @@
 
     return this;
   }
+
 })();

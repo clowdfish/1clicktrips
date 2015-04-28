@@ -6,6 +6,7 @@
     .module('app', [
       'app.common',
       'app.core',
+      'app.booking',
       'app.index',
       'app.auth',
       'app.result',

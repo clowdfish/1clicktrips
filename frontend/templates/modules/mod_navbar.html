@@ -38,8 +38,8 @@
       <div ng-if="!isMobile" ng-cloak class="ng-cloak">
         <!-- NON MOBILE VIEW -->
         <div ng-if="!userProfile" class="header-navigation-login">
-          <a href="#" ng-click='createLoginModal()'>{{ T.nav.signin }}</a>
-          <a href="#" class="button" ng-click='createSignupModal()'>{{ T.nav.signup }}</a>
+          <a ng-click='createLoginModal()'>{{ T.nav.signin }}</a>
+          <a class="button" ng-click='createSignupModal()'>{{ T.nav.signup }}</a>
         </div>
         <div ng-if="userProfile" class="header-navigation-profile ng-cloak">
           <span ng-if="userProfile['image']" class="header-navigation-profile-image"><img ng-src="..{[ userProfile['image'] ]}" alt="user image" /></span>
