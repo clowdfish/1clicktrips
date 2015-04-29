@@ -15,6 +15,8 @@ module.exports = function (app, production) {
     AppController = require('../mocking/appController');
   }
 
+  BookingController = require('../mocking/bookingController');
+
   // =============================================================================
   // LANGUAGE ====================================================================
   // =============================================================================
@@ -56,6 +58,23 @@ module.exports = function (app, production) {
       .catch(function(err) {
         res.status(500).json(err.message);
       });
+  });
+
+  app.get('/mobile-bookings', function(req, res) {
+    BookingController
+      .getMobileBookings()
+      .then(function(bookings) {
+        if (bookings) {
+          res.status(200).json(bookings)
+        } else {
+          console.log(bookings);
+          res.sendStatus(500);
+        }
+      })
+      .catch(function(err) {
+
+        res.status(500).send(err.message);
+      })
   });
 
   // =============================================================================

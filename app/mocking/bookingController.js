@@ -23,6 +23,12 @@ module.exports = {
     });
   },
 
+  getMobileBookings: function() {
+    return new Promise(function(resolve, reject) {
+      resolve(createMobileBookingMock());
+    });
+  },
+
   setBooking: function(userId, bookingObject) {
 
     console.log('Booking Details: '); // DEBUG
@@ -100,4 +106,35 @@ function createBookingMock(number) {
       }
     ]
   }
+}
+
+function createMobileBookingMock() {
+  return [
+    {
+      "tripId": 1,
+      "tripName": "Test Trip To Vietnam",
+      "origin" : {
+        "latitude": 48.709050,
+        "longitude": 9.456744
+      },
+      "destination": {
+        "latitude": 10.641693,
+        "longitude": 106.731742
+      },
+      "travelDocument" : "http://www.1clicktrips.com/documents/example.pdf"
+    },
+    {
+      "tripId": 2,
+      "tripName": "Apple WWDC 2015 in Las Vegas",
+      "origin" : {
+        "latitude": 48.709050,
+        "longitude": 9.456744
+      },
+      "destination": {
+        "latitude": 10.641693,
+        "longitude": 106.731742
+      },
+      "travelDocument" : "http://www.1clicktrips.com/documents/example.pdf"
+    }
+  ]
 }
