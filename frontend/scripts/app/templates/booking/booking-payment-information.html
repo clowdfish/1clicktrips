@@ -3,27 +3,30 @@
   <form name="paymentForm">
     <fieldset>
       <label for="nameOnCard">Name On Card</label>
-      <input type="text" ng-model="bookingData.payment.nameOnCard" name="nameOnCard"/>
+      <input type="text" ng-model="bookingData.payment.nameOnCard" name="nameOnCard" required/>
     </fieldset>
 
     <fieldset>
       <label for="cardNumber">Credit Card Number</label>
-      <input type="text" ng-model="bookingData.payment.cardNumber" name="cardNumber"/>
+      <input type="text" ng-model="bookingData.payment.cardNumber" name="cardNumber" required/>
+      <span class=
     </fieldset>
 
     <fieldset>
       <label>Expiration date</label>
       <select ng-model="bookingData.payment.expirationMonth"
               name="expirationMonth"
-              ng-options="item.value as item.label for item in months"/>
+              ng-options="item.value as item.label for item in months"
+              required />
       <select ng-model="bookingData.payment.expirationYear"
               name="expirationYear"
-              ng-options="item for item in years"/>
+              ng-options="item for item in years"
+              required />
     </fieldset>
 
     <fieldset>
       <label for="secret">Secret</label>
-      <input type="text" ng-model="bookingData.payment.secret" name="secret"/>
+      <input type="text" ng-model="bookingData.payment.secret" name="secret" required/>
     </fieldset>
   </form>
 
@@ -31,17 +34,17 @@
   <form>
     <fieldset>
       <label for="firstName">First Name</label>
-      <input type="text" ng-model="bookingData.userProfile.first_name" name="firstName"/>
+      <input type="text" ng-model="bookingData.userProfile.first_name" name="firstName" required/>
     </fieldset>
 
     <fieldset>
       <label for="lastName">Last Name</label>
-      <input type="text" ng-model="bookingData.userProfile.last_name" name="lastName"/>
+      <input type="text" ng-model="bookingData.userProfile.last_name" name="lastName" required/>
     </fieldset>
 
     <fieldset>
       <label for="email">Email</label>
-      <input type="email" ng-model="bookingData.userProfile.email" name="email"/>
+      <input type="email" ng-model="bookingData.userProfile.email" name="email" required/>
     </fieldset>
   </form>
 

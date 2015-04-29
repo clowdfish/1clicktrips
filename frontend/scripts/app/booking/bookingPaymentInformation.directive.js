@@ -19,6 +19,11 @@
 
     function link(scope, element, attrs) {
       scope.errors = [];
+      scope.account = {
+        email: null,
+        password: null
+      }
+
       scope.submit = function() {
 
         if (session.isLogin() === false) {
@@ -66,8 +71,18 @@
       * Validate form
       */
       function validateForm() {
+        scope.error = {};
         var isValid = true;
+        //isValid = scope.error['cardNumber'] = validateCreditCardNumber(scope.bookingData.payment.cardNumber);
         return isValid;
+      }
+
+      function validatePaymentForm() {
+
+      }
+
+      function validateUserForm() {
+
       }
 
       function validateCreditCardNumber(number) {
@@ -94,6 +109,7 @@
       }
 
       function createUserAccount() {
+
         if (session.isLogin() === false
           && scope.account.email != null
           && scope.account.password != null) {

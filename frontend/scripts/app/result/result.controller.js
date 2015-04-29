@@ -77,7 +77,8 @@
         startDate: $stateParams.startDate,
         endDate: $stateParams.endDate,
         origin: $stateParams.origin,
-        destination: $stateParams.destination
+        destination: $stateParams.destination,
+
       };
 
       tripApi
@@ -231,8 +232,25 @@
     }
 
     function bookTrip() {
-      bookingApi.setShareTripData($scope.itinerary);
+      bookingApi.setShareTripData($scope.itinerary, createSearchParameters());
+      console.log($scope.itinerary);
       $state.go('booking');
+    }
+
+    /**
+    * Create map view data from $state parameters
+    */
+    function createSearchParameters() {
+      return {
+        originLatitude: $stateParams.originLatitude,
+        originLongitude: $stateParams.originLongitude,
+        origin: $stateParams.origin,
+        destinationLatitude: $stateParams.destinationLatitude,
+        destinationLongitude: $stateParams.destinationLongitude,
+        destination: $stateParams.destination,
+        startDate: $stateParams.startDate,
+        endDate: $stateParams.endDate
+      };
     }
 
   }

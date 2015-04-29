@@ -6,9 +6,9 @@
     .module('app.booking')
     .controller('bookingCtrl', bookingCtrl);
 
-  function bookingCtrl($scope, $state, trip, userProfile, AUTH_EVENTS) {
+  function bookingCtrl($scope, $state, bookingData, userProfile, AUTH_EVENTS) {
 
-    console.log(trip);
+    console.log(bookingData);
     /**
     * Booking step ( total 3 steps )
     */
@@ -17,14 +17,18 @@
     /**
     * Initialize bookingData
     */
-    $scope.bookingData = {
-      trip: trip,
-      payment: {},
-      userProfile: {},
-      isConfirm: false
+
+    if (bookingData !== null) {
+      $scope.bookingData = {
+        trip: bookingData['trip'],
+        payment: {},
+        userProfile: {},
+        isConfirm: false
+      }
+
+      populateProfileData();
     }
 
-    populateProfileData();
 
     /**
     * User profile data for payment form
@@ -35,6 +39,13 @@
     * Change step number
     */
     $scope.setStep = setStep;
+
+    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $state.reload();
+      populateProfileData();
+    });
+
+    $scope.mapView = mapView;
 
     $scope.paymentStep = function() {
       setStep(2);
@@ -48,17 +59,16 @@
       $scope.step = stepNumber;
     }
 
-    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $state.reload();
-      populateProfileData();
-    });
-
     function populateProfileData() {
       if ( userProfile != null
         && _.isObject(userProfile)
         && _.has(userProfile, 'email')) {
         $scope.bookingData.userProfile = userProfile;
       }
+    }
+
+    function mapView() {
+      $state.go('search_result', bookingData['search'])
     }
 
   }

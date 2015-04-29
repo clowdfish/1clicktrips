@@ -27,6 +27,7 @@
       */
       scope.$on(requestSpinnerEvents.show, function(e, data) {
         scope.isShowing = true;
+        activeMessageIndex = 0;
         if (_.has(data, 'title')) {
           scope.title = data.title;
         } else if (_.has(data, 'activeMessages')) {

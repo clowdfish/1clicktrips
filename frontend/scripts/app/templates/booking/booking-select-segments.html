@@ -25,8 +25,8 @@
           <!-- Bookable -->
           <div class="enable-booking" ng-if="segment.bookable">
             <fieldset>
-              <input type="checkbox"/>
-              <label>Include in Booking</label>
+              <input type="checkbox" ng-model="segment.isBooked" name="isBooked[]"/>
+              <label for="isBooked[]">Include in Booking</label>
             </fieldset>
           </div>
 

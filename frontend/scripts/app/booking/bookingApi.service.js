@@ -30,12 +30,23 @@
     */
     this.getShareTripData = getShareTripData;
 
-    function setShareTripData(trip) {
-      $sessionStorage.shareTripData = trip;
+    function setShareTripData(trip, searchData) {
+      var key = makeStorageKey(trip.id);
+      $sessionStorage[key] = {};
+      $sessionStorage[key]['trip'] = trip;
+      $sessionStorage[key]['search'] = searchData;
     }
 
     function getShareTripData() {
-      return $sessionStorage.shareTripData;
+      var key = makeStorageKey();
+      if (typeof($sessionStorage[key]) !== 'undefined') {
+        return $sessionStorage[key];
+      }
+      return null;
+    }
+
+    function makeStorageKey() {
+      return 'shareTripData';
     }
 
     /**

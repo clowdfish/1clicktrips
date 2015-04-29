@@ -12,13 +12,13 @@
       controller: 'bookingCtrl',
       templateUrl: 'scripts/app/templates/booking/booking.html',
       resolve: {
-        trip: getTrip,
+        bookingData: getTrip,
         userProfile: getUserProfile
       }
     });
   }
 
-  function getTrip(bookingApi) {
+  function getTrip($stateParams, bookingApi) {
     return bookingApi.getShareTripData();
   }
 

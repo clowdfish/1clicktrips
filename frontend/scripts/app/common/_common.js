@@ -7,10 +7,14 @@
 
   angular
     .module('app.common', [])
-    .config(httpConfig);
+    .config(httpConfig)
+    .run(run);
 
   function httpConfig($httpProvider) {
     $httpProvider.interceptors.push('spinnerInterceptor');
+  }
+
+  function run($rootScope, requestSpinnerEvents) {
   }
 
 })();
