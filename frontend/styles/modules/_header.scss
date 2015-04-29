@@ -1,25 +1,39 @@
 $header-height: 3.5em;
-$header-padding: .7em;
+$header-padding: .9em;
+$slider-height: 3em;
 
 %header {
-  .wrapper {
-    height: 100%;
+  position: relative;
+  height: $header-height;
+  background: #fff;
+  color: $c-text;
+
+  .header-slider {
+    display: none;
   }
 
-  height: $header-height;
-  background: linear-gradient(#252330, #423e4c);
-  padding-top: $header-padding;
-  color: $c-text-dark-bg;
+  .header-toggle {
+    display: none;
+  }
+
+  .header-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+  }
 
   .header-logo {
     height: 100%;
     float: left;
     font-size: 1.5em;
-    padding-left: 0.3em;
+    padding-left: 0.5em;
+    padding-top: 0.4em;
 
     a {
       text-decoration: none;
-      color: #fff;
+      color: #222;
     }
 
     img {
@@ -27,7 +41,7 @@ $header-padding: .7em;
     }
 
     span.light {
-      color: $c-text-dark-bg;
+      color: #888;
     }
   }
 
@@ -50,7 +64,7 @@ $header-padding: .7em;
     background-color: white;
     border: 1px solid #c6c6c6;
     list-style: none;
-    z-index: 1000;
+    z-index: 999;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
   }
 
@@ -106,9 +120,103 @@ $header-padding: .7em;
   }
 
   @include respond-above("medium") {
+    $toogle-size: 2em;
+    $settings-width: 7em;
+
+    .header-slider {
+      display: block;
+      position: absolute;
+      top: -$slider-height;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: $slider-height;
+      background-color: $c-primary;
+
+      &:hover {
+        top: 0;
+      }
+    }
+
+    .header-toggle {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      width: $toogle-size;
+      height: $toogle-size;
+      color: #fff;
+      text-align: right;
+      font-weight: 800;
+      padding-right: 0.3em;
+      cursor: pointer;
+
+      /* diagonal radiant */
+      background: rgb(255,156,0);
+      background: -moz-linear-gradient(225deg, rgba(255,156,0,1) 0%, rgba(255,156,0,1) 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0) 100%);
+      background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,rgba(255,156,0,1)), color-stop(50%,rgba(255,156,0,1)), color-stop(51%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0)));
+      background: -webkit-linear-gradient(225deg, rgba(255,156,0,1) 0%,rgba(255,156,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+      background: -o-linear-gradient(225deg, rgba(255,156,0,1) 0%,rgba(255,156,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+      background: -ms-linear-gradient(225deg, rgba(255,156,0,1) 0%,rgba(255,156,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+      background: linear-gradient(225deg, rgba(255,156,0,1) 0%,rgba(255,156,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff',GradientType=1 );
+
+      &:hover + #header-slider {
+        top: 0;
+      }
+    }
+
+    .header-slider-settings {
+      display: inline-block;
+      float: right;
+      margin-top: 0.4em;
+      margin-right: $toogle-size;
+
+      .currency-switch, .language-switch {
+        display: none;
+        list-style: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        text-align: right;
+        background-color: #fff;
+
+        li {
+          float: none;
+          padding: 0.3em 0.5em;
+          min-width: $settings-width;
+
+          &.active {
+            font-weight: 800;
+          }
+        }
+      }
+    }
+
+    .header-slider-settings-item {
+      position: relative;
+      display: inline-block;
+      z-index: 999;
+      min-width: $settings-width;
+      text-align: right;
+      padding: 0.4em 0.8em;
+      background-color: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:after {
+        font-family: FontAwesome;
+        font-size: $fs-small;
+        content: "\00a0\00a0\f0d7";
+      }
+
+      &:hover ul {
+        display: block;
+      }
+    }
 
     .header-logo {
-
       img {
         display: inline-block;
         height: 70%;
@@ -119,34 +227,32 @@ $header-padding: .7em;
 
     .header-navigation {
       display: block;
-      float: right;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
     }
 
-    .header-navigation-login {
+    .header-navigation-menu {
+      position: absolute;
       display: inline-block;
+      right: $toogle-size + 1em;
+      top: $header-padding;
+      list-style: none;
+      border: none;
+      box-shadow: none;
+
+      li {
+        display: inline-block;
+        margin-right: 1.5em;
+      }
 
       a, a:hover {
-        display: inline-block;
-        margin-right: 0.6em;
-        color: #fff;
+        color: $c-text;
         text-decoration: none;
-      }
-    }
 
-    .header-navigation-profile {
-      display: inline-block;
-      position: relative;
-
-      &:after {
-        font-family: FontAwesome;
-        font-size: $fs-small;
-        content: "\00a0\f0d7";
-        cursor: pointer;
-      }
-
-      &:hover {
-        .header-navigation-profile-menu {
-          display: block;
+        &:hover {
+          color: $c-primary;
         }
       }
     }
@@ -162,107 +268,21 @@ $header-padding: .7em;
       vertical-align: middle;
       margin-right: 0.3em;
       margin-top: -0.2em;
-      background-color: #fff;
+      padding-left: 0.1em;
+      padding-top: 0.1em;
+      background-color: darken(#fff, 15%);
       cursor: pointer;
 
       img {
-        width: $profile-image-size;
-        height: $profile-image-size;
+        width: $profile-image-size - 0.2em;
+        height: $profile-image-size - 0.2em;
       }
     }
 
     .header-navigation-profile-title {
       cursor: pointer;
+      font-weight: 800;
     }
-
-    .header-navigation-profile-menu {
-      display: none;
-      position: absolute;
-      z-index: 1000;
-      background-color: #3f3b4a;
-      top: 1.8em;
-      right: 0;
-      list-style: none;
-
-      li {
-        display: block;
-        cursor: pointer;
-        padding: 0.4em 0.8em;
-      }
-
-      a, a:visited, a:hover {
-        color: $c-text-dark-bg;
-      }
-    }
-
-    .header-navigation-logout {
-      text-decoration: underline;
-      color: #fff;
-      font-style: italic;
-      cursor: pointer;
-    }
-
-    .header-settings {
-      display: inline-block;
-
-      ul {
-        list-style: none;
-        margin-left: 1em;
-      }
-
-      li {
-        position: relative;
-        display: inline-block;
-        padding: 0.4em 0.8em;
-        background-color: darken($c-dark, 7%);
-        border-radius: 3px;
-        cursor: pointer;
-      }
-
-      li:after {
-        font-family: FontAwesome;
-        font-size: $fs-small;
-        content: "\00a0\00a0\f0d7";
-      }
-
-      li:hover {
-
-        .currency-switch, .language-switch {
-          display: block;
-        }
-      }
-
-      .currency-switch, .language-switch {
-        display: none;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        text-align: right;
-        background-color: darken($c-dark, 7%);
-
-        li {
-          float: none;
-          line-height: 120%;
-          padding-left: 1em;
-
-          &:after {
-            content: none;
-          }
-
-          &.active {
-            font-weight: 800;
-          }
-        }
-      }
-
-      .currency-switch-wrapper, .language-switch-wrapper{
-        z-index: 1000;
-      }
-    }
-  }
-
-  @include respond-above("large") {
-
   }
 }
 

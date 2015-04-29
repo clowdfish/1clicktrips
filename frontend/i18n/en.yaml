@@ -17,6 +17,8 @@ en:
   toasts:
     notimplemented: Not yet implemented
   nav:
+    about: About Us
+    home: Home
     signup: JOIN
     signin: Login
     profile: Profile
