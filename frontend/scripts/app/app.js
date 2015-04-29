@@ -16,11 +16,18 @@
       'app.templates'
     ])
     .config(config)
-    .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY');
+    .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY')
+    .run(run);
 
   function config($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
+  }
+
+  function run(browser) {
+    if (browser.isMobileDevice()) {
+      FastClick.attach(document.body);
+    }
   }
 
 })();

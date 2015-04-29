@@ -124,7 +124,8 @@ gulp.task('scripts', ['i18n'], function() {
     'bower_components/angular-sanitize/angular-sanitize.min.js',
     'bower_components/ng-file-upload/angular-file-upload-all.min.js',
     'bower_components/angular-ui-sortable/sortable.min.js',
-    'bower_components/ngstorage/ngStorage.min.js'
+    'bower_components/ngstorage/ngStorage.min.js',
+    'bower_components/fastclick/lib/fastclick.js'
   ])
   .pipe(plumber(plumberErrorHandler))
   .pipe(concat('vendor.js'))
