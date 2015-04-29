@@ -1,28 +1,41 @@
 // base colors
 $c-orange: #ff9c00;
-
-
-$c-red: #cf1c22;
-$c-dark: #312e43;
-$c-creme: #ebe0c0; // alternative: #e3d6aa;
-$c-green: #8ec840;
-$c-blue: #4978ac;
-$c-grey: #f6f6f6;
+$c-white: #fff;
+$c-grey: #eeeeee;
+$c-grey-light: #fafafa;
+$c-grey-dark: #464646;
+$c-green: #48ba1c;
+$c-red: #d92929;
 $c-yellow: #ffefc8;
-
-// background colors
-$c-background: $c-creme;
-$c-content-bg: #fcf9f2;
-$c-mobile-content-bg: #fbf9f2;
-$c-table-row-dark: #f9f8f6;
-$c-status-okay: $c-green;
-$c-status-error: $c-red;
-$c-status-message-bg: #fbf2d5;
-
-// font colors
-$c-text-dark-bg: #9795a2;
-$c-text-dark-bg-highlight: #eaeaea;
-$c-text: #363636;
+$c-blue: #4978ac;
 
 // standard colors
 $c-primary: $c-orange;
+$c-border: $c-grey;
+
+// background colors
+$c-background: $c-grey-light;
+$c-background-dark: $c-grey-dark;
+$c-background-light: $c-grey;
+
+// font colors
+$c-text: #2e2e2e;
+$c-text-light: #6e6e6e;
+$c-text-dark-bg: #9795a2;
+
+// status colors
+$c-status-okay: $c-green;
+$c-status-error: $c-red;
+
+
+
+
+
+// old colors
+$c-content-bg: #fcf9f2;
+$c-text-dark-bg-highlight: #eaeaea;
+
+
+
+
+

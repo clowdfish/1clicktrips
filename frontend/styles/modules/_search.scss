@@ -95,11 +95,11 @@
   }
 
   .search-step.active {
-    color: $c-dark;
+    color: $c-grey-dark;
 
     .search-step-circle {
-      background-color: $c-dark;
-      border: 1px solid $c-dark;
+      background-color: $c-grey-dark;
+      border: 1px solid $c-grey-dark;
       cursor: default;
       color: $c-text-dark-bg-highlight;
     }
@@ -203,8 +203,8 @@
       font-size: $fs-normal;
 
       border-radius: 0 3px 3px 0;
-      border: 1px $c-dark solid;
-      background-color: $c-dark;
+      border: 1px $c-grey-dark solid;
+      background-color: $c-grey-dark;
       color: $c-text-dark-bg-highlight;
     }
 
@@ -312,7 +312,7 @@
     }
 
     table {
-      background-color: $c-dark;
+      background-color: $c-grey-dark;
 
       .fa {
         font-size: 1.5em;
@@ -328,13 +328,13 @@
       }
 
       input {
-        background-color: $c-dark;
+        background-color: $c-grey-dark;
         color: $c-text-dark-bg-highlight;
         border: none;
       }
 
       .btn {
-        background-color: $c-dark;
+        background-color: $c-grey-dark;
         color: $c-text-dark-bg-highlight;
         font-size: 1em;
         border: none;
@@ -356,7 +356,7 @@
     }
 
     .btn-success {
-      background-color: $c-dark;
+      background-color: $c-grey-dark;
       border: none;
     }
   }

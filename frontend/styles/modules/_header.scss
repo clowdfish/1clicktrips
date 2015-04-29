@@ -5,7 +5,7 @@ $slider-height: 3em;
 %header {
   position: relative;
   height: $header-height;
-  background: #fff;
+  background: $c-white;
   color: $c-text;
 
   .header-slider {
@@ -22,6 +22,7 @@ $slider-height: 3em;
     left: 0;
     right: 0;
     height: 100%;
+    border-bottom: 1px solid $c-border;
   }
 
   .header-logo {
@@ -33,7 +34,7 @@ $slider-height: 3em;
 
     a {
       text-decoration: none;
-      color: #222;
+      color: $c-text;
     }
 
     img {
@@ -41,28 +42,30 @@ $slider-height: 3em;
     }
 
     span.light {
-      color: #888;
+      color: $c-text-light;
     }
   }
 
   .header-navigation {
-    display: block;
-    float: right;
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 0;
 
     .fa {
       font-size: 1.9em;
-      color: white;
+      color: $c-text;
       margin-right: 0.55em;
+      margin-top: .4em;
     }
   }
 
   .header-navigation-menu {
     position: absolute;
-    top: $header-height - $header-padding;
+    top: $header-height;
     right: 0;
     background-color: white;
-    border: 1px solid #c6c6c6;
+    border: 1px solid $c-border;
+  ;
     list-style: none;
     z-index: 999;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
@@ -70,7 +73,7 @@ $slider-height: 3em;
 
   .header-navigation-menu-item {
     color: black;
-    border-bottom: 1px solid #c6c6c6;
+    border-bottom: 1px solid $c-border;
     padding-right: 0.5em;
     padding-left: 1.5em;
     margin: 0 0.2em;
@@ -84,19 +87,14 @@ $slider-height: 3em;
     }
   }
 
-  .header-navigation-menu-languages {
+  .header-navigation-menu-languages, .header-navigation-menu-currencies {
     list-style: none;
-    background-color: #e8e8e8;
-  }
-
-  .header-navigation-menu-currencies {
-    list-style: none;
-    background-color: #e8e8e8;
+    background-color: darken($c-grey, 5%);
   }
 
   .header-navigation-menu-sub-item {
     color: black;
-    border-bottom: 1px solid #c6c6c6;
+    border-bottom: 1px solid $c-border;
     padding-right: 0.5em;
     padding-left: 1.5em;
     margin: 0 0.2em;
@@ -121,7 +119,7 @@ $slider-height: 3em;
 
   @include respond-above("medium") {
     $toogle-size: 2em;
-    $settings-width: 7em;
+    $settings-width: 6em;
 
     .header-slider {
       display: block;
@@ -132,6 +130,8 @@ $slider-height: 3em;
       z-index: 1000;
       height: $slider-height;
       background-color: $c-primary;
+
+      transition: top 0.5s linear 0s;
 
       &:hover {
         top: 0;
@@ -146,7 +146,7 @@ $slider-height: 3em;
       z-index: 1000;
       width: $toogle-size;
       height: $toogle-size;
-      color: #fff;
+      color: $c-white;
       text-align: right;
       font-weight: 800;
       padding-right: 0.3em;
@@ -160,7 +160,7 @@ $slider-height: 3em;
       background: -o-linear-gradient(225deg, rgba(255,156,0,1) 0%,rgba(255,156,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
       background: -ms-linear-gradient(225deg, rgba(255,156,0,1) 0%,rgba(255,156,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
       background: linear-gradient(225deg, rgba(255,156,0,1) 0%,rgba(255,156,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff',GradientType=1 );
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000', endColorstr='#fff', GradientType=1);
 
       &:hover + #header-slider {
         top: 0;
@@ -180,7 +180,7 @@ $slider-height: 3em;
         top: 100%;
         right: 0;
         text-align: right;
-        background-color: #fff;
+        background-color: $c-white;
 
         li {
           float: none;
@@ -189,6 +189,10 @@ $slider-height: 3em;
 
           &.active {
             font-weight: 800;
+          }
+
+          &:hover {
+            text-decoration: underline;
           }
         }
       }
@@ -201,9 +205,9 @@ $slider-height: 3em;
       min-width: $settings-width;
       text-align: right;
       padding: 0.4em 0.8em;
-      background-color: #fff;
       border-radius: 3px;
       cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.75);
 
       &:after {
         font-family: FontAwesome;
@@ -222,6 +226,7 @@ $slider-height: 3em;
         height: 70%;
         margin-right: 0.3em;
         vertical-align: middle;
+        margin-bottom: 0.2em;
       }
     }
 
@@ -231,30 +236,50 @@ $slider-height: 3em;
       right: 0;
       top: 0;
       width: 100%;
+      height: 100%;
     }
 
     .header-navigation-menu {
       position: absolute;
       display: inline-block;
       right: $toogle-size + 1em;
-      top: $header-padding;
+      top: 0;
       list-style: none;
       border: none;
       box-shadow: none;
+      height: 100%;
 
       li {
         display: inline-block;
-        margin-right: 1.5em;
+        margin-right: 0.9em;
+        padding: $header-padding 0.3em 0 0.3em;
+        height: 100%;
+
+        &.active {
+          margin-top: 1px;
+          border-bottom: 2px solid $c-primary;
+
+          a:hover {
+            color: $c-text;
+            cursor: default;
+          }
+        }
       }
 
-      a, a:hover {
+      a {
         color: $c-text;
         text-decoration: none;
 
         &:hover {
           color: $c-primary;
+          text-decoration: none;
         }
       }
+    }
+
+    .header-navigation-menu-login {
+      font-weight: 800;
+      cursor: pointer;
     }
 
     .header-navigation-profile-image {
@@ -270,7 +295,7 @@ $slider-height: 3em;
       margin-top: -0.2em;
       padding-left: 0.1em;
       padding-top: 0.1em;
-      background-color: darken(#fff, 15%);
+      background-color: darken($c-white, 15%);
       cursor: pointer;
 
       img {
@@ -288,20 +313,4 @@ $slider-height: 3em;
 
 .header {
   @extend %header;
-}
-
-.request-spinner-wrapper {
-
-  z-index: 99999;
-  position: fixed;
-  left: 50%;
-  top: 40%;
-
-  .request-spinner-container {
-    background-color: white;
-    position: relative;
-    left: -50%;
-    top: -50%;
-  }
-
 }
