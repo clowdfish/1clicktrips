@@ -76,8 +76,13 @@ en:
   footer:
     copyright: 1ClickTrips 2015. All Rights Reserved.
     links:
+      about: About Us
+      blog: Blog
+      jobs: Jobs
       privacy: Privacy Policy
       legal: Terms of Use
+      contact: Contact
+      feedback: Feedback
   newsletter:
     title: Join our newsletter
     placeholder: Your email address
@@ -103,21 +108,23 @@ en:
           next: CONTINUE
           submit: Start Search
   result:
+    refine: Refine search
+    select: Choose your result type
     budget:
-      title: Low Budget Trip
+      title: Budget
       description: Text description
     time:
-      title: Time Saving Trip
+      title: Time
       description: Text description
     comfort:
-      title: Comfort Trip
+      title: Comfort
       description: Text description
-    favorite: '+ Add to favorites'
+    favorite: 'Add to Favorites'
     searching: Searching, please wait...
     destination:
       label: Your destination
       action: '+ Change location & date'
-    checkout: PURCHASE TRIP
+    checkout: Purchase Trip
     summary:
       duration: Total Travel Time
       cost: Total Cost

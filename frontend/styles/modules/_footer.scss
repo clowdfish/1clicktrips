@@ -1,40 +1,42 @@
 %footer {
-  margin-top: 2.5em;
-  margin-bottom: 2.5em;
-
-
-  .footer-container {
-    @include span(6);
-
-    text-align: center;
-    font-size: $fs-small;
-    color: rgba(83, 71, 65, 0.55);
-  }
-
+  position: relative;
+  height: $footer-height;
+  margin-top: -$footer-height;
+  background-color: $c-white;
+  padding: 0.5em;
+  border-top: 1px solid $c-border;
+  z-index: 10;
 
   .footer-copyright {
-    display: block;
-    text-align: center;
-    margin-bottom: 1em;
+    display: inline-block;
   }
 
   .footer-links {
-    a, a:visited {
-      display: inline-block;
-      margin: 0 0.8em;
-      color: rgba(83, 71, 65, 0.55);
-      text-decoration: none;
-    }
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .footer-contact {
+    position: absolute;
+    right: 0;
+    text-align: right;
+  }
+
+  a, a:visited {
+    display: inline-block;
+    margin: 0 0.6em;
+    text-decoration: none;
+    color: $c-text;
+  }
+
+  a:hover {
+    color: $c-primary;
   }
 
   @include respond-above("medium") {
-    .footer-copyright {
-      display: inline-block;
-      padding-right: 2em;
-      margin-right: 2em;
-      border-right: 1px solid rgba(83, 71, 65, 0.55);
-      text-align: left;
-    }
+
   }
 }
 

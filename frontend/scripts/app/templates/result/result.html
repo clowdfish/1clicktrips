@@ -1,304 +1,127 @@
-<div>
-  <section class="result-type wrapper">
+<section class="result" ng-show='itinerary == null'>
+  <!-- WAITING ANIMATION -->
+  <div class='result-waiting' >
+    <span class="result-waiting-progress">
+      {[ "result_searching" | translate ]}
+    </span>
+    <img class="result-waiting-animation" src='../images/spinner.gif'/>
+  </div>
+</section>
 
-    <!-- RESULT TYPE -->
-    <div class="result-type-selection" ng-show='itinerary != null'>
+<section class="result" ng-show='itinerary != null'>
+  <trip-result-wrapper
+          itinerary="itinerary"
+          show-map="true"
+          show-list="true"
+          show-alternative-vehicles-panel="showAlternativeVehiclesPanel"
+          show-alternative-hotels-panel="showAlternativeHotelsPanel"
+          alternative-vehicles="alternativeVehicles"
+          alternative-hotels="alternativeHotels"
+          alternative-left="alternativeLeft"
+          alternative-top="alternativeTop" >
 
-      <ul class="result-type-list">
-        <li class="result-type-item" ng-class="{active: activeTrip == 0}" ng-click="findTripByBudget()">
-          <div class="result-type-item-circle budget">
+    <!-- RESULT SELECTION PANEL -->
+    <div class="result-selection">
+      <div class="result-selection-toggle"><i class="fa fa-close"></i></div>
+      <!-- REFINE SEARCH CONTROL -->
+      <div class="result-selection-refine">
+        <span class="fa fa-chevron-left result-selection-refine-button" ng-click="refineSearch()"></span>
+        <span class="result-selection-refine-text">{[ "result_refine" | translate ]}</span>
+      </div>
+      <!-- SELECT RESULT TYPE CONTROL -->
+      <div class="result-selection-type">
+        <span class="result-selection-type-text">{[ "result_select" | translate ]}</span>
+        <ul class="result-selection-type-list">
+          <li class="result-selection-type-list-item" ng-class="{active: activeTrip == 0}" ng-click="findTripByBudget()">
             <i class="fa fa-dollar"></i>
-            <span class="result-type-item-active-indicator"></span>
-          </div>
-          {[ "result_budget_title" | translate ]}
-        </li>
-        <li class="result-type-item" ng-class="{active: activeTrip == 1}" ng-click="findTripByTime()" ng-hide="itineraries.length<2">
-          <div class="result-type-item-circle time">
+            {[ "result_budget_title" | translate ]}
+          </li>
+          <li class="result-selection-type-list-item" ng-class="{active: activeTrip == 1, missing: itineraries.length<2 }" ng-click="findTripByTime()">
             <i class="fa fa-clock-o"></i>
-            <span class="result-type-item-active-indicator"></span>
-          </div>
-          {[ "result_time_title" | translate ]}
-        </li>
-        <li class="result-type-item" ng-class="{active: activeTrip == 2}" ng-click="findTripByComfort()" ng-hide="itineraries.length<3">
-          <div class="result-type-item-circle comfort">
+            {[ "result_time_title" | translate ]}
+          </li>
+          <li class="result-selection-type-list-item" ng-class="{active: activeTrip == 2, missing: itineraries.length<3 }" ng-click="findTripByComfort()">
             <i class="fa fa-diamond"></i>
-            <span class="result-type-item-active-indicator"></span>
+            {[ "result_comfort_title" | translate ]}
+          </li>
+        </ul>
+      </div>
+      <!-- RESULT LIST CONTROL -->
+      <div class="result-selection-list">
+        <div class="trip-segments-container" ng-show="showList">
+          <trip-segments
+                  itinerary="itinerary"
+                  active-segments="activeSegments"
+                  selected-segment="selectedSegment"
+                  active-segments-number="activeSegmentsNumber">
+          </trip-segments>
+
+          <!-- ALTERNATIVES PANELS -->
+          <div ng-show="showAlternativeVehiclesPanel"
+               class="trip-segments-alternatives"
+               ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+            <alternative-mean-of-travel
+                    itinerary="itinerary"
+                    alternatives="alternativeVehicles"
+                    active-segments="activeSegments"
+                    active-segments-number="activeSegmentsNumber">
+            </alternative-mean-of-travel>
           </div>
-          {[ "result_comfort_title" | translate ]}
-        </li>
-      </ul>
-      <span class="result-type-back-button" ng-click="refineSearch()"><i class="fa fa-chevron-left"></i></span>
-    </div>
 
-    <!-- RESULT TYPE DESCRIPTION -->
-    <div class="result-description" ng-class="{ folded: showList && isMobile }">
-      <span class="result-description-favorite" ng-click="addToFavorites()" ng-show="showAddToFavorite">
-        <i class="fa fa-heart"></i>
-        <span>{[ "result_favorite" | translate ]}</span>
-      </span>
-      <div ng-if="activeTrip == 0">
-        <h1>{[ "result_budget_title" | translate ]}</h1>
-        <p>{[ "result_budget_description" | translate ]}</p>
-      </div>
-      <div ng-if="activeTrip == 1">
-        <h1>{[ "result_time_title" | translate ]}</h1>
-        <p>{[ "result_time_description" | translate ]}</p>
-      </div>
-      <div ng-if="activeTrip == 2">
-        <h1>{[ "result_comfort_title" | translate ]}</h1>
-        <p>{[ "result_comfort_description" | translate ]}</p>
-      </div>
-    </div>
-
-  </section>
-
-  <section class="result wrapper">
-
-    <!----------- -->
-    <!-- SPINNER -->
-    <!----------- -->
-
-    <div class='result-waiting' ng-hide='itinerary != null'>
-      <div class="result-view view-container">
-        <div class="result-view-search-container">
-          <span class="result-view-search-progress">
-            {[ "result_searching" | translate ]}
-          </span>
-
-          <img class="result-view-search-animation" src='../images/spinner.gif'/>
-        </div>
-      </div>
-    </div>
-
-    <div class='result-loaded' ng-show='itinerary != null'>
-
-      <!------------------------>
-      <!-- NON-MOBILE VERSION -->
-      <!------------------------>
-
-      <div class="result-view view-container" ng-if="!isMobile">
-
-        <!-- NOTIFICATION AREA -->
-        <div class="result-notification" ng-if="notifications.length>0">
-          <i class="fa fa-exclamation-triangle"></i>
-          <span class="result-notification-message">{[ notifications[0].message ]}</span>
-          <span class="result-notification-action">
-            <i class="fa fa-check-circle-o" ng-click="acceptNotification()"></i>
-            <i class="fa fa-times-circle-o" ng-click="deleteNotification()"></i>
-          </span>
-        </div>
-
-        <!-- RESULT HEADER -->
-        <div class="result-header">
-          <span class="result-header-destination">{[ "result_destination_label" | translate ]}</span>
-          <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
-          <a class='change-location-link' ng-click="refineSearch()">{[ "result_destination_action" | translate ]}</a>
-          <div class='result-header-timing'>
-            {[ "general_from" | translate ]} <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]}</span> {[ "general_until" | translate ]} <span class="trip-date">{[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
+          <div ng-show="showAlternativeHotelsPanel"
+               class="trip-segments-alternatives"
+               ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+            <alternative-hotels
+                    itinerary="itinerary"
+                    alternatives="alternativeHotels"
+                    selected-segment="selectedSegment">
+            </alternative-hotels>
           </div>
         </div>
+      </div>
+    </div>
 
+    <!-- RESULT INFORMATION PANEL -->
+    <div class="result-panel">
+      <div class="result-panel-summary">
+        <!-- RESULT  HEADER -->
+        <div class="result-panel-summary-header">
+          <span class="result-panel-summary-header-destination">{[ "result_destination_label" | translate ]}</span>
+          <h2 class="result-panel-summary-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
+          <div class='result-panel-summary-header-timing'>
+            {[ "general_from" | translate ]} <span class="result-panel-summary-header-timing-date">{[itinerary.startTime | date: "dd.MM.yyyy"]}</span> {[ "general_until" | translate ]} <span class="result-panel-summary-header-timing-date">{[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
+          </div>
+        </div>
         <!-- RESULT SUMMARY -->
-        <div class="result-summary">
+        <div class="result-panel-summary-details">
           <trip-summary itinerary="itinerary"></trip-summary>
         </div>
-
-        <!-- RESULT MAP AND RESULT LIST -->
-        <div class="result-overview ">
-          <trip-result-wrapper
-              itinerary="itinerary"
-              show-map="true"
-              show-list="true"
-              show-alternative-vehicles-panel="showAlternativeVehiclesPanel"
-              show-alternative-hotels-panel="showAlternativeHotelsPanel"
-              alternative-vehicles="alternativeVehicles"
-              alternative-hotels="alternativeHotels"
-              alternative-left="alternativeLeft"
-              alternative-top="alternativeTop" >
-            <div class="trip-segments-container" ng-show="showList">
-              <trip-segments
-                itinerary="itinerary"
-                active-segments="activeSegments"
-                selected-segment="selectedSegment"
-                active-segments-number="activeSegmentsNumber">
-
-              </trip-segments>
-
-              <!-- alternatives pane -->
-
-              <div ng-show="showAlternativeVehiclesPanel"
-                    class="trip-segments-alternatives"
-                    ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
-                <alternative-mean-of-travel
-                  itinerary="itinerary"
-                  alternatives="alternativeVehicles"
-                  active-segments="activeSegments"
-                  active-segments-number="activeSegmentsNumber">
-                </alternative-mean-of-travel>
-              </div>
-
-              <div ng-show="showAlternativeHotelsPanel"
-                    class="trip-segments-alternatives"
-                    ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
-                <alternative-hotels
-                  itinerary="itinerary"
-                  alternatives="alternativeHotels"
-                  selected-segment="selectedSegment"
-                  >
-                </alternative-hotels>
-              </div>
-
-
-            </div>
-
-            <!-- map view -->
-            <div ng-show="showMap">
-              <map itinerary="itinerary"
-                   active-segments="activeSegments"
-                   selected-segment="selectedSegment"></map>
-            </div>
-          </trip-result-wrapper>
-        </div>
-
-        <!-- RESULT FOOTER -->
-        <div class="result-footer">
-          <div class="result-footer-action">
-            <a href="#" class="button" ng-click="bookTrip()"><i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}</a>
-          </div>
-        </div>
       </div>
 
-      <!-------------------->
-      <!-- MOBILE VERSION -->
-      <!-------------------->
-      <trip-result-wrapper
-              ng-if="isMobile"
-              itinerary="itinerary"
-              show-map="showMap"
-              show-list="showList"
-              show-alternative-vehicles-panel="showAlternativeVehiclesPanel"
-              show-alternative-hotels-panel="showAlternativeHotelsPanel"
-              alternative-vehicles='alternativeVehicles'
-              alternative-hotels="alternativeHotels"
-              alternative-left="alternativeLeft"
-              alternative-top="alternativeTop">
+      <div class="result-panel-controls">
+        <span class="result-panel-controls-price">
+          {[ itinerary.cost | price: itinerary.currency ]}
+        </span>
+        <span class="result-panel-controls-time">
+          {[ itinerary.duration | durationToTime:"%h hrs %m mins" ]}
+        </span>
 
-        <!-- LIST VIEW -->
-        <div class="result-view view-container" ng-show="showList == true">
-
-          <!-- RESULT HEADER -->
-          <div class="result-header result-header-table">
-            <div class="result-header-col">
-               <span class="result-header-back-link" ng-click="showMapFn()">
-              <i class="fa fa-angle-left"></i>
-            </span>
-            </div>
-            <div class="result-header-col">
-              <span class="result-header-destination no-float">{[ "result_destination_label" | translate ]}</span>
-              <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
-            </div>
-          </div>
-
-          <!-- RESULT SUMMARY -->
-          <div class="result-summary">
-            <trip-summary itinerary="itinerary"></trip-summary>
-          </div>
-
-          <!-- RESULT MAP AND RESULT LIST -->
-          <div class='trip-segments-container' ng-show='showList'>
-            <trip-segments
-              itinerary='itinerary'
-              active-segments='activeSegments'
-              selected-segment='selectedSegment'
-              active-segments-number="activeSegmentsNumber"
-              show-map-fn='showMapFn()'>
-            </trip-segments>
-
-            <!-- alternatives pane -->
-            <div ng-show="showAlternativeVehiclesPanel"
-                  class='trip-segments-alternatives'
-                  ng-style="{left: 0, top: alternativeTop, position: 'absolute'}">
-              <alternative-mean-of-travel
-                itinerary='itinerary'
-                alternatives="alternativeVehicles"
-                active-segments="activeSegments"
-                active-segments-number="activeSegmentsNumber">
-              </alternative-mean-of-travel>
-            </div>
-
-            <div ng-show="showAlternativeHotelsPanel"
-                  class='trip-segments-alternatives'
-                  ng-style="{left: 0, top: alternativeTop, position: 'absolute'}">
-              <alternative-hotels
-                itinerary='itinerary'
-                alternatives="alternativeHotels"
-                selected-segment="selectedSegment"
-                >
-              </alternative-hotels>
-            </div>
-          </div>
-
-          <!-- RESULT FOOTER -->
-          <div class="result-footer">
-            <div class="result-footer-action">
-              <span class="result-footer-price">
-                <span>{[ "result_summary_cost" | translate ]}</span>
-                <span>{[ itinerary.cost | price: itinerary.currency ]}</span>
-              </span>
-              <a class="button" ng-click="bookTrip()">
-                <i class="fa fa-check-circle-o"></i>{[ "result_checkout" | translate ]}
-              </a>
-            </div>
-          </div>
+        <div class="result-panel-controls-buttons">
+          <a href="#" class="button--light" ng-click="addToFavorites()">
+            <i class="fa fa-heart"></i>{[ "result_favorite" | translate ]}
+          </a>
+          <a href="#" class="button" ng-click="bookTrip()">
+            <i class="fa fa-shopping-cart"></i>{[ "result_checkout" | translate ]}
+          </a>
         </div>
-
-        <div class="result-view view-container" ng-show="showMap == true">
-
-          <!-- NOTIFICATION AREA -->
-          <div class="result-notification" ng-if="notifications.length>0">
-            <i class="fa fa-exclamation-triangle"></i>
-            <span class="result-notification-message">{[ notifications[0].message ]}</span>
-            <span class="result-notification-action">
-              <i class="fa fa-check-circle-o" ng-click="acceptNotification()"></i>
-              <i class="fa fa-times-circle-o" ng-click="deleteNotification()"></i>
-            </span>
-          </div>
-
-          <!-- RESULT HEADER -->
-          <div class="result-header">
-            <span class="result-header-destination">{[ "result_destination_label" | translate ]}</span>
-            <span class="result-header-timing">
-              {[ "general_from" | translate ]} <span class="trip-date">{[itinerary.startTime | date: "dd.MM.yyyy"]} {[ "general_until" | translate ]} {[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
-            </span>
-            <h2 class="result-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
-          </div>
-
-          <div class="result-overview">
-
-            <!-- RESULT SUMMARY -->
-            <div class="result-summary-button">
-              <div class="result-summary-button-details">
-                <div class="result-summary-button-details-time">
-                  <span>{[ "result_summary_duration" | translate ]}</span>
-                  <span>{[itinerary.duration | durationToTime:"%h:%m hrs"]}</span>
-                </div>
-                <div class="result-summary-button-details-cost">
-                  <span>{[ "result_summary_cost" | translate ]}</span>
-                  <span>{[itinerary.cost | price: itinerary.currency ]}</span>
-                </div>
-              </div>
-              <div class="result-summary-button-list-link" ng-click="showListFn()">
-                <i class="fa fa-angle-right"></i>
-              </div>
-            </div>
-
-            <!-- RESULT MAP AND RESULT LIST -->
-            <map itinerary='itinerary'
-                 active-segments='activeSegments'
-                 selected-segment='selectedSegment'></map>
-          </div>
-        </div>
-      </trip-result-wrapper>
+      </div>
     </div>
-  </section>
-</div>
+
+    <!-- RESULT MAP CONTROL -->
+    <div class="result-map" ng-show="showMap">
+      <map itinerary="itinerary"
+           active-segments="activeSegments"
+           selected-segment="selectedSegment"></map>
+    </div>
+  </trip-result-wrapper>
+</section>

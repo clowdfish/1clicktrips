@@ -2,24 +2,15 @@
   /*******************************************************/
   /* Trip Segments                                       */
   /*******************************************************/
-  .trip-segments-container {
-
-  }
 
   .trip-segments-title {
     padding: 0.5em;
     font-size: $fs-normal;
   }
 
-  .trip-segments-print {
-    display: none;
-  }
-
   @include respond-above("medium") {
 
     .trip-segments-container {
-      z-index: 999;
-      position: absolute;
       top: 1.5em;
       left: -1.5em;
     }
@@ -27,31 +18,24 @@
     .trip-segments {
       display: inline-block;
       vertical-align: top;
-      background-color: white;
-      box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
     }
 
     .trip-segments-header {
       padding: 1em 1em 0 1em;
-      border-bottom: 1px solid #e8e8e8;
+      border-bottom: 1px solid $c-border;
     }
 
     .trip-segments-body {
-      padding:  0 1em;
+      padding: 0 1em;
     }
 
     .trip-segments-title {
-      margin-bottom: 1.5em;
-      font-weight: 200;
+      margin-bottom: 1em;
+      font-size: $fs-normal;
+      font-weight: 400;
 
       .fa {
         margin-right: 0.2em;
-      }
-
-      .trip-segments-print {
-        display: inline;
-        float: right;
-        color: $c-text;
       }
     }
   }
@@ -67,17 +51,17 @@
   .trip-segments-day-tab-item {
     display: inline-block;
     padding: 0.35em 1.4em;
-    border: 1px solid #e8e8e8;
+    border: 1px solid $c-border;
     font-weight: 600;
-    background-color: #fff; // mobile // normal: #f7f7f7;
+    background-color: $c-white;
     cursor: pointer;
   }
 
   .trip-segments-day-tab-item.active {
-    border-top: 2px solid $c-red;
+    border-top: 2px solid $c-primary;
     border-bottom: 1px solid white;
     background-color: white;
-    color: $c-red;
+    color: $c-primary;
     cursor: default;
   }
 
@@ -105,31 +89,12 @@
     }
 
     &:not(:first-child) {
-      border-bottom: 1px solid #e8e8e8;
-    }
-  }
-
-  .trip-segments-day-item-number {
-
-    span {
-      display: block;
-      color: white;
-      background-color: $c-red;
-      height: 1.8em;
-      width: 1.8em;
-      border-radius: 0.9em;
-
-      /* text properties */
-      text-align: center;
-      vertical-align: middle;
-      line-height: 1.8em;
-      font-weight: 800;
-      font-size: $fs-small;
+      border-bottom: 1px solid $c-border;
     }
   }
 
   .trip-segments-day-item-type {
-    color: $c-red;
+    color: $c-primary;
 
     .fa {
       font-size: $fs-large;
@@ -161,7 +126,7 @@
 
     .trip-segments-day-item-timing-time {
       display: block;
-      color: $c-red;
+      color: $c-primary;
     }
 
     .trip-segments-day-item-timing-distance {
@@ -193,7 +158,7 @@
     }
 
     .trip-segments-day-tab-item {
-      background-color:#f7f7f7;
+      background-color: $c-grey;
     }
 
     .trip-segments-day-item-col {
@@ -204,13 +169,7 @@
       }
 
       &:not(:first-child) {
-        border-bottom: 1px solid #e8e8e8;
-      }
-    }
-
-    .trip-segments-day-item-number {
-      span {
-        font-size: $fs-smallest;
+        border-bottom: 1px solid $c-border;
       }
     }
 
@@ -230,15 +189,6 @@
     .trip-segments-day-item-timing-distance {
       font-size: $fs-smaller;
     }
-
-    .trip-segments-day-item-close {
-      display: table-cell;
-
-      a {
-        color: $c-text-dark-bg;
-        cursor: pointer;
-      }
-    }
   }
 
   /*******************************************************/
@@ -252,10 +202,7 @@
     color: white;
     padding: 0.6em;
     font-size: $fs-small;
-  }
-
-  .alternatives-container {
-
+    z-index: 10;
   }
 
   .alternatives-container-title {

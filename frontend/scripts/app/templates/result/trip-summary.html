@@ -22,8 +22,4 @@
     <div class="trip-summary-item-title">{[ "result_summary_endtime" | translate ]}</div>
     <div class="trip-summary-item-value">{[ itinerary.endTime | date:"EEE hh:mm" ]}</div>
   </li>
-  <li class="trip-summary-item cost">
-    <div class="trip-summary-item-title">{[ "result_summary_cost" | translate ]}</div>
-    <div class="trip-summary-item-value">{[ itinerary.cost | price: itinerary.currency ]}</div>
-  </li>
 </ul>

@@ -1,5 +1,3 @@
-$button-height: 2.3em;
-
 %button {
   /* Reset */
   cursor: pointer;
@@ -7,12 +5,12 @@ $button-height: 2.3em;
   outline: 0;
   /* Layout */
   display: inline-block;
-  padding: .3em 1em;
+  padding: .6em 1.2em;
   /* Looks */
-  background: linear-gradient(lighten($c-primary, 5%), darken($c-primary, 5%));
+  background: $c-primary;
   color: #fff;
   text-decoration: none;
-  border-radius: 3px;
+  border-radius: 2px;
   font-weight: 600;
 
   &.is-disabled {
@@ -21,35 +19,33 @@ $button-height: 2.3em;
   }
 
   &:hover {
-    background: darken($c-primary, 3%);
+    background: darken($c-primary, 5%);
     text-decoration: none;
   }
-}
 
-.button, /*input[type="button"], input[type="submit"], button*/ {
-  @extend %button;
-  font-size: $fs-normal;
-}
-
-.button--dark {
-  @extend %button;
-
-  background: linear-gradient(lighten($c-grey-dark, 5%), darken($c-grey-dark, 5%));
-  font-size: $fs-normal;
-  padding: .5em 1.3em;
-
-  &:hover {
-    color: #fff;
-    background: darken($c-grey-dark, 2%);
+  & > .fa {
+    margin-right: 0.8em;
   }
 }
 
-.button--secondary {
+.button, input[type="button"], input[type="submit"], button {
   @extend %button;
-  background: linear-gradient(lighten(#444, 5%), darken(#444, 5%));
-  font-size: $fs-normal;
+
+  font-size: $fs-small;
+}
+
+
+.button--light {
+  @extend %button;
+
+  background: none;
+  font-size: $fs-small;
+  color: $c-primary;
+  border: 1px solid $c-primary;
+
   &:hover {
-    background-color: #444;
+    background-color: $c-primary;
+    color: $c-white;
   }
 }
 

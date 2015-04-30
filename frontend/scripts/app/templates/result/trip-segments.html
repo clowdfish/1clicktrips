@@ -5,9 +5,6 @@
     <h3 class="trip-segments-title">
       <i class="fa fa-info-circle"></i>
       {[ "result_segments_title" | translate ]}
-      <a href="#" class="trip-segments-print">
-        <i class="fa fa-print right"></i>
-      </a>
     </h3>
 
     <!-- tab control for the trip segments list -->
@@ -21,15 +18,8 @@
   <div class="trip-segments-body">
     <!-- the trip segments list for the selected day -->
     <ul ng-repeat='header in segmentsHeaders' class='trip-segments-list' ng-show='activeSegmentsNumber == header'>
-
       <li class='trip-segments-day-item' ng-repeat='segment in activeSegments' ng-click="selectSegment(segment)">
-
-        <span class='trip-segments-day-item-col trip-segments-day-item-number'>
-          <span>
-            {[ $index + 1 ]}
-          </span>
-        </span>
-          <span class='trip-segments-day-item-col trip-segments-day-item-type'><i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i></span>
+        <span class='trip-segments-day-item-col trip-segments-day-item-type'><i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i></span>
         <span class='trip-segments-day-item-col trip-segments-day-item-description'>
           <span ng-if='segment.start.description == "Origin"'>
             {[segment.end.description]}

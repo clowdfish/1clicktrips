@@ -74,8 +74,13 @@ de:
   footer:
     copyright: 1ClickTrips 2015. Alle Rechte vorbehalten.
     links:
+      about: Über uns
+      blog: Blog
+      jobs: Jobs
       privacy: Datenschutz
       legal: Rechtliches
+      contact: Kontakt
+      feedback: Feedback
   newsletter:
     title: Unser Newsletter
     placeholder: Ihre Email Adresse
@@ -101,14 +106,16 @@ de:
         next: WEITER
         submit: Suche starten
   result:
+    refine: Suche ändern
+    select: Wähle deinen Ergebnistyp
     budget:
-      title: Günstigste Verbindung
+      title: Günstig
       description: Text Beschreibung
     time:
-      title: Schnellste Verbindung
+      title: Schnell
       description: Text Beschreibung
     comfort:
-      title: Komfortable Verbindung
+      title: Komfortabel
       description: Text Beschreibung
     favorite: '+ als Favorit speichern'
     searching: Suchend, bitte warten...

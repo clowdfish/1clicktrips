@@ -1,12 +1,9 @@
-$header-height: 3.5em;
-$header-padding: .9em;
-$slider-height: 3em;
-
 %header {
   position: relative;
   height: $header-height;
   background: $c-white;
   color: $c-text;
+  z-index: 10;
 
   .header-slider {
     display: none;

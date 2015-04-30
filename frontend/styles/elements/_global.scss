@@ -3,66 +3,40 @@
   display: none !important;
 }
 
-body {
+html, body {
+  height: 100%;
   background-color: $c-background;
 }
 
-.view-container {
-  @include span(6);
-
-  position: relative;
-  min-height: 10em; // to enforce the box-shadow
-  background-color: #fff;
-  box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.3);
-  z-index: 10;
-  padding: 1em;
+.wrapper {
+  height: 100%;
+  padding-bottom: $footer-height;
 }
 
-.section-header {
-  @include span(6);
-  margin-top: 0.5em;
-  padding: 1em;
-  background: $c-red url("../images/bg_pattern.jpg") repeat;
+.content-placeholder {
+  margin-top: -$header-height;
+  padding-top: $header-height;
+  height: 100%;
 
-  font-weight: bold;
-  color: #fff;
-
-  .fa {
-    margin-right: 0.5em;
+  &>div {
+    height: 100%;
   }
 }
 
-.btn-info {
-  background-color: $c-grey-dark;
-  border: none;
-}
+.request-spinner-wrapper {
+  z-index: 99999;
+  position: fixed;
+  left: 50%;
+  top: 40%;
 
-.btn-danger {
-  background-color: $c-red;
-  border: none;
+  .request-spinner-container {
+    background-color: white;
+    position: relative;
+    left: -50%;
+    top: -50%;
+  }
 }
-
-.btn-success {
-  background-color: $c-green;
-  border: none;
-}
-
 
 @include respond-above("medium") {
 
-  body {
-    background-image: url("../images/bg.jpg");
-		background-color: #e3d6ab;
-    background-size: 100% auto;
-		background-repeat: no-repeat;
-  }
-
-  .view-container {
-    background-color: $c-content-bg;
-    box-shadow: 0 55px 40px -50px rgba(0,0,0,0.3);
-  }
-
-  .section-header {
-    margin-top: 3em;
-  }
 }

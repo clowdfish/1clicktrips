@@ -1,92 +1,189 @@
 %result {
-
-  .result-view {
-    padding: 0;
-  }
-
-  .result-loaded.ng-enter {
-    @include animation(fadeInUp 5s);
-  }
-  .result-loaded.ng-leave {
-
-  }
+  position: relative;
+  height: 100%;
 
   /*******************************************************/
   /* Result Search Progress                              */
   /*******************************************************/
-  .result-view-search-container {
+  .result-waiting {
     margin: 3em auto;
     text-align: center;
   }
 
-  .result-view-search-progress {
+  .result-waiting-progress {
     display: block;
     font-style: italic;
   }
 
-  .result-view-search-animation {
+  .result-waiting-animation {
     display: block;
     margin: 4em auto;
   }
 
   /*******************************************************/
-  /* Result Notification                                 */
+  /* Result Frame Layout                                 */
   /*******************************************************/
-  .result-notification {
-    width: 97%;
-    margin: 1em auto 0;
-    padding: .5em 1em;
-    background-color: $c-yellow;
-    border-radius: 3px;
-    border: 1px solid darken($c-grey, 5%);
+  .result-selection {
+    width: 100%;
+  }
 
-    .fa {
-      opacity: 0.4;
+  .result-map {
+    width: 100%;
+  }
+
+  .result-panel {
+    display: none;
+  }
+
+  @include respond-above("medium") {
+
+    .result-selection {
+      display: inline-block;
+      position: relative;
+      width: $selection-width;
+      height: 100%;
+      vertical-align: top;
+      z-index: 1;
+
+      background-color: white;
     }
-  }
 
-  .result-notification-message {
-    margin: 0 1em;
-    opacity: 0.5;
-    font-size: $fs-small;
-  }
+    .result-selection-toggle {
+      $toggle-size: 1.8em;
 
-  .result-notification-action {
-    float: right;
-
-    .fa {
+      display: block;
+      width: $toggle-size + 0.2em;
+      background-color: $c-white;
+      position: absolute;
+      right: -$toggle-size;
+      top: 49%;
+      text-align: center;
+      padding: 0.6em 0;
       cursor: pointer;
+      border-radius: 0.3em;
+    }
+
+    .result-map {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding-left: $selection-width;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .result-panel {
+      display: block;
+      position: absolute;
+      top: 1em;
+      left:  $selection-width + 1em;
+      right: 1em;
+      background-color: $c-white;
+      z-index: 1;
+      padding: 1em;
+      box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
     }
   }
 
   /*******************************************************/
-  /* Result Header                                       */
+  /* Result Selection                                    */
   /*******************************************************/
-  .result-header {
-    display: table;
-    padding: 0.8em;
+  $refine-control-height: 2em;
+
+  .result-selection-refine {
+    width: 100%;
+    background-color: $c-grey;
+    height: $refine-control-height;
   }
 
-  .result-header-col {
+  .result-selection-refine-button {
+    display: inline-block;
+    width: $refine-control-height;
+    height: $refine-control-height;
+    background-color: $c-primary;
+    text-align: center;
+    vertical-align: top;
+    padding: 0.5em;
+    color: $c-white;
+    cursor: pointer;
+  }
+
+  .result-selection-refine-text {
+    display: inline-block;
+    padding: 0.3em;
+  }
+
+  .result-selection-type {
+    padding: 1em;
+  }
+
+  .result-selection-type-text {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  .result-selection-type-list {
+    display: inline-block;
+    list-style: none;
+    border: 1px solid $c-primary;
+    border-radius: 2px;
+  }
+
+  .result-selection-type-list-item {
+    display: inline-block;
+    padding: 0.6em 1.1em;
+    color: $c-primary;
+    cursor: pointer;
+    font-size: $fs-small;
+    font-weight: 600;
+
+    .fa {
+      margin-right: 0.3em;
+    }
+
+    &.active {
+      background-color: $c-primary;
+      color: $c-white;
+      cursor: default;
+    }
+
+    &.missing {
+      display: none;
+    }
+  }
+
+  .trip-result, .trip-result-wrapper {
+    height: 100%;
+  }
+
+  /*******************************************************/
+  /* Result Panel                                        */
+  /*******************************************************/
+  .result-panel-summary-header {
+    display: table;
+  }
+
+  .result-panel-summary-header-col {
     display: table-cell;
   }
 
-  .result-header-col:first-child {
+  .result-panel-summary-header-col:first-child {
     vertical-align: middle;
   }
 
-  .result-header-destination {
+  .result-panel-summary-header-destination {
     display: block;
     float: left;
     font-size: $fs-smallest;
     color: $c-text-dark-bg;
   }
 
-  .result-header-destination.no-float {
+  .result-panel-summary-header-destination.no-float {
     float:none;
   }
 
-  .result-header-timing {
+  .result-panel-summary-header-timing {
     display: block;
     float: right;
     font-size: $fs-smallest;
@@ -94,27 +191,16 @@
     margin-bottom: 0.6em;
   }
 
-  .fa {
-    margin-right: 0.3em;
+  .result-panel-summary-header-timing-date {
+    color: $c-primary;
   }
 
-  .change-location-link {
-    display: inline;
-    font-size: $fs-smallest;
-    color: $c-red;
-    cursor: pointer;
-  }
-
-  .trip-date {
-    color: $c-red;
-  }
-
-  .result-header-title {
+  .result-panel-summary-header-title {
     display: inline-block;
     margin: 0.3em 0 0 0;
   }
 
-  .result-header-back-link {
+  .result-panel-summary-header-back-link {
     $button-size: 3.4em;
 
     display: block;
@@ -138,26 +224,56 @@
 
   @include respond-above("medium") {
 
-    .result-header {
-      padding: 1em;
+    /* RESULT PANEL SUMMARY */
+    .result-panel-summary {
+      float: left;
     }
 
-    .result-header-destination {
+    .result-panel-summary-header-destination {
       float: none;
     }
 
-    .result-header-title {
+    .result-panel-summary-header-title {
       margin: 0.2em 1em 0.2em 0;
       float: none;
+
+      .fa {
+        margin-right: 0.5em;
+      }
     }
 
-    .result-header-timing {
+    .result-panel-summary-header-timing {
       float: none;
+    }
+
+    /* RESULT PANEL CONTROLS */
+    .result-panel-controls {
+      float: right;
+      text-align: right;
+    }
+
+    .result-panel-controls-price {
+      display: block;
+      font-size: $fs-largest;
+      margin-bottom: 0.3em;
+    }
+
+    .result-panel-controls-time {
+      display: block;
+      font-size: $fs-small;
+      margin-bottom: 2em;
+    }
+
+    .result-panel-controls-buttons {
+
+      a {
+        margin-left: 0.6em;
+      }
     }
   }
 
   /*******************************************************/
-  /* Result Summary                                      */
+  /* Result Summary (for mobile view)                    */
   /*******************************************************/
   $trip-summary-height: 4em;
 
@@ -231,14 +347,8 @@
   }
 
   /*******************************************************/
-  /* Result Summary (Details)                            */
+  /* Trip Summary Directive                              */
   /*******************************************************/
-  .result-summary {
-    padding: 0.5em 0.8em;
-    background-color: $c-grey;
-
-    @include clearfix;
-  }
 
   // trip summary directive
   .trip-summary-list {
@@ -256,7 +366,7 @@
   }
 
   .trip-summary-item-value {
-    color: $c-red;
+    color: $c-primary;
     font-weight: 800;
   }
 
@@ -264,19 +374,21 @@
     display: none;
   }
 
-  .trip-summary-item.cost {
-    display: none;
-  }
-
   @include respond-above("medium") {
-    .result-summary {
-      padding: 0 1em;
-      background-color: $c-content-bg;
+
+    .trip-summary-list {
+      display: inline-block;
+      margin-top: 0.5em;
     }
 
     .trip-summary-item {
-      width: 20%;
-      margin-bottom: 1em;
+      width: auto;
+      padding: 0 1.5em 0 0;
+      margin-bottom: 0;
+    }
+
+    .trip-summary-item-value {
+      margin-top: 0.2em;
     }
 
     .duration-by-days {
@@ -284,59 +396,35 @@
       font-size: $fs-smallest;
       font-weight: 400;
     }
-
-    .trip-summary-item.cost {
-      display: block;
-    }
   }
 
   /*******************************************************/
-  /* Result Footer                                       */
+  /* Result Notification                                 */
   /*******************************************************/
-  .result-footer {
-    background-color: #fff;
-  }
+  .result-notification {
+    width: 97%;
+    margin: 1em auto 0;
+    padding: .5em 1em;
+    background-color: $c-yellow;
+    border-radius: 3px;
+    border: 1px solid darken($c-grey, 5%);
 
-  .result-footer-price {
-    float: left;
-    margin: 1em 1.2em;
-
-    span:first-child {
-      display: block;
-      font-size: $fs-smallest;
-    }
-
-    span:last-child {
-      display: block;
-      font-size: $fs-largest;
-      font-weight: 600;
-      color: $c-red;
+    .fa {
+      opacity: 0.4;
     }
   }
 
-  .result-footer-action {
-    background-color: #fff;
-
-    a {
-      float: right;
-      height: $input-mobile-height;
-      padding: 0.6em 1em;
-      margin: 1.2em 0.8em;
-    }
-
-    a, a:visited, a:hover {
-      color: #fff;
-      text-decoration: none;
-    }
+  .result-notification-message {
+    margin: 0 1em;
+    opacity: 0.5;
+    font-size: $fs-small;
   }
 
-  @include respond-above("medium") {
+  .result-notification-action {
+    float: right;
 
-    .result-footer-action {
-
-      a {
-        margin: 1.5em;
-      }
+    .fa {
+      cursor: pointer;
     }
   }
 }

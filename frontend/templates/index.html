@@ -1,9 +1,9 @@
 {{> partials/_header }}
-  {{> modules/mod_navbar }}
+  <div class="wrapper">
+    {{> modules/mod_navbar }}
 
-  <div ui-view>
-    {{> modules/mod_dashboard }}
+    <div class="content-placeholder" ui-view>
+      {{> modules/mod_dashboard }}
+    </div>
   </div>
-
-  {{> modules/mod_newsletter }}
 {{> partials/_footer }}

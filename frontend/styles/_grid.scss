@@ -12,43 +12,10 @@ $susy: (
   global-box-sizing: border-box
 );
 
-.wrapper {
+.container {
   @include container;
 }
 
 .clearfix {
   @include clearfix;
-}
-
-%clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
-.request-spinner-wrapper {
-  z-index: 99999;
-  position: fixed;
-  left: 50%;
-  top: 40%;
-
-  .request-spinner-container {
-    background-color: white;
-    position: relative;
-    left: -50%;
-    top: -50%;
-  }
-}
-
-%layout {
-
-  @include respond-above("medium") {
-    
-  }
-
-  @include respond-above("large") {
-
-  }
 }
