@@ -115,12 +115,15 @@ function createMobileBookingMock() {
       "tripName": "Test Trip To Vietnam",
       "origin" : {
         "latitude": 48.709050,
-        "longitude": 9.456744
+        "longitude": 9.456744,
+        "description": "Reichenbach, Germany"
       },
       "destination": {
         "latitude": 10.641693,
-        "longitude": 106.731742
+        "longitude": 106.731742,
+        "description": "Ho Chi Minh, Vietnam"
       },
+      
       "travelDocument" : "http://www.1clicktrips.com/documents/example.pdf"
     },
     {
@@ -128,11 +131,13 @@ function createMobileBookingMock() {
       "tripName": "Apple WWDC 2015 in Las Vegas",
       "origin" : {
         "latitude": 48.709050,
-        "longitude": 9.456744
+        "longitude": 9.456744,
+        "description": "Reichenbach, Germany"
       },
       "destination": {
         "latitude": 10.641693,
-        "longitude": 106.731742
+        "longitude": 106.731742,
+        "description": "Ho Chi Minh, Vietnam"
       },
       "travelDocument" : "http://www.1clicktrips.com/documents/example.pdf"
     }
