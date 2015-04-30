@@ -34,13 +34,13 @@ $button-height: 2.3em;
 .button--dark {
   @extend %button;
 
-  background: linear-gradient(lighten($c-dark, 5%), darken($c-dark, 5%));
+  background: linear-gradient(lighten($c-grey-dark, 5%), darken($c-grey-dark, 5%));
   font-size: $fs-normal;
   padding: .5em 1.3em;
 
   &:hover {
     color: #fff;
-    background: darken($c-dark, 2%);
+    background: darken($c-grey-dark, 2%);
   }
 }
 

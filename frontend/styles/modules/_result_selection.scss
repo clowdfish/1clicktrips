@@ -92,7 +92,7 @@
     display: block;
     width: 1em;
     height: 1em;
-    background-color: $c-dark;
+    background-color: $c-grey-dark;
 
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
@@ -103,7 +103,7 @@
   }
 
   .result-type-item.active {
-    color: $c-dark;
+    color: $c-grey-dark;
 
     .fa {
       color: #fff;
@@ -137,7 +137,7 @@
       display: inline-block;
       width: $nav-circle-diameter/1.9;
       height: $nav-circle-diameter/1.9;
-      background-color: $c-dark;
+      background-color: $c-grey-dark;
       border-radius: $nav-circle-diameter/3.8;
       border: 2px solid #fff;
       cursor: pointer;
@@ -197,7 +197,7 @@
   .result-description {
     @include span(6);
     padding: 1em;
-    background-color: $c-dark;
+    background-color: $c-grey-dark;
     color: #fff;
 
     h1 {
@@ -224,10 +224,10 @@
     width:  $size-favorite-button;
     height:  $size-favorite-button;
     float: right;
-    background-color: darken($c-dark, 7%);
+    background-color: darken($c-grey-dark, 7%);
     padding-top: $size-favorite-button/2 - ($size-favorite-icon/2);
     border-radius:  $size-favorite-button/2;
-    border: 1px solid lighten($c-dark, 20%);
+    border: 1px solid lighten($c-grey-dark, 20%);
     cursor: pointer;
     text-align: center;
 

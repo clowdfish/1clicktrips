@@ -28,6 +28,20 @@ $susy: (
   }
 }
 
+.request-spinner-wrapper {
+  z-index: 99999;
+  position: fixed;
+  left: 50%;
+  top: 40%;
+
+  .request-spinner-container {
+    background-color: white;
+    position: relative;
+    left: -50%;
+    top: -50%;
+  }
+}
+
 %layout {
 
   @include respond-above("medium") {

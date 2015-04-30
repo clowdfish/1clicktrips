@@ -1,19 +1,41 @@
 <header class="header">
-  <div class="wrapper">
+  <!-- SLIDING PANE TOGGLE -->
+  <span class="header-toggle">+</span>
+
+  <!-- SLIDING PANE -->
+  <div class="header-slider ng-cloak" id="header-slider" ng-if="!isMobile" ng-cloak>
+    <div class="header-slider-settings ng-cloak">
+      <span class='header-slider-settings-item'>{[ activeCurrency.toUpperCase() ]}
+        <ul class='currency-switch'>
+          <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
+            {[ currency.code ]}
+          </li>
+        </ul>
+      </span>
+      <span class='header-slider-settings-item'>{[ activeLanguageName ]}
+         <ul class='language-switch'>
+           <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
+             {[ language.name ]}
+           </li>
+         </ul>
+      </span>
+    </div>
+  </div>
+
+  <div class="header-bar">
     <div class="header-logo">
       <a ui-sref="index">
         <img src="../images/logo.png" alt="1ClickTrips logo">
         <span class="bold">1Click</span><span class="light">Trips</span>
       </a>
     </div>
-    <nav class="header-navigation">
 
+    <nav class="header-navigation">
+      <!-- MOBILE VIEW -->
       <div ng-if="isMobile" ng-cloak class="ng-cloak">
-        <!-- MOBILE VIEW -->
         <a ng-click="toggleMenu()" class="header-navigation-menu-toggle"><i class="fa fa-bars" ng-class="{'fa-bars': !showMenu, 'fa-close': showMenu }"></i></a>
         <ul ng-show="showMenu" class="header-navigation-menu">
           <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createLoginModal(); toggleMenu()'>{{ T.nav.signin }}</a></li>
-          <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createSignupModal(); toggleMenu()'>{{ T.nav.mobile.signup }}</a></li>
           <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='openProfile(); toggleMenu()'>{{ T.nav.mobile.profile }}</a></li>
           <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='logout(); toggleMenu()'>{{ T.nav.logout }}</a></li>
           <li class="header-navigation-menu-item"><a ng-click='toggleLanguages()'>{{ T.nav.mobile.language }}</a></li>
@@ -35,42 +57,21 @@
         </ul>
       </div>
 
-      <div ng-if="!isMobile" ng-cloak class="ng-cloak">
-        <!-- NON MOBILE VIEW -->
-        <div ng-if="!userProfile" class="header-navigation-login">
-          <a ng-click='createLoginModal()'>{{ T.nav.signin }}</a>
-          <a class="button" ng-click='createSignupModal()'>{{ T.nav.signup }}</a>
-        </div>
-        <div ng-if="userProfile" class="header-navigation-profile ng-cloak">
+      <!-- NON MOBILE VIEW -->
+      <ul class="header-navigation-menu ng-cloak" ng-if="!isMobile" ng-cloak>
+        <li class="active"><a href="home">{{ T.nav.home }}</a></li>
+        <li><a href="about">{{ T.nav.about }}</a></li>
+        <!-- LOGIN LINK -->
+        <li ng-if="!userProfile"><a ng-click='createLoginModal()' class="header-navigation-menu-login">{{ T.nav.signin }}</a></li>
+        <!-- PROFILE LINK -->
+        <li ng-if="userProfile" ng-click="openProfile()">
           <span ng-if="userProfile['image']" class="header-navigation-profile-image"><img ng-src="..{[ userProfile['image'] ]}" alt="user image" /></span>
           <span ng-if="!userProfile['image']" class="header-navigation-profile-image"><img ng-src="../images/avatar.svg" alt="user avatar" /></span>
 
           <span ng-if="userProfile['first_name']" class="header-navigation-profile-title">{[userProfile['first_name']]} {[userProfile['last_name']]}</span>
           <span ng-if="!userProfile['first_name'] && userProfile['email']" class="header-navigation-profile-title">{[userProfile['email']]}</span>
-          <ul class="header-navigation-profile-menu">
-            <li><a ng-click="openProfile()">{{ T.nav.profile }}</a></li>
-            <li><a ng-click="logout()">{{ T.nav.logout }}</a></li>
-          </ul>
-        </div>
-        <div class="header-settings ng-cloak">
-          <ul>
-            <li class='currency-switch-wrapper'>{[ activeCurrency.toUpperCase() ]}
-              <ul class='currency-switch'>
-                <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
-                  {[ currency.code ]}
-                </li>
-              </ul>
-            </li>
-            <li class='language-switch-wrapper'>{[ activeLanguageName ]}
-              <ul class='language-switch'>
-                <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
-                  {[ language.name ]}
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
+        </li>
+      </ul>
     </nav>
   </div>
 </header>

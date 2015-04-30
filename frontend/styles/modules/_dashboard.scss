@@ -7,7 +7,6 @@ $size-dashboard-icons: 5em;
   .view-container {
     @include span(6);
     padding: 1.2em 0 2em 0;
-    background-color: $c-mobile-content-bg;
 
     h1 {
       display: block;
@@ -362,7 +361,7 @@ $size-dashboard-icons: 5em;
 
   .booking-participant-name {
     display: block;
-    color: $c-blue;
+    color: $c-primary;
   }
 
   .booking-participant-arrival-time {
