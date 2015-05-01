@@ -5,27 +5,25 @@
     .controller('resultCtrl', resultCtrl);
 
   function resultCtrl($scope,
-                      $rootScope,
-                      $q,
                       $stateParams,
                       $state,
                       $modal,
-                      $timeout,
                       tripApi,
                       TRIP_TYPE,
                       browser,
                       appConfig,
-                      date,
                       session,
                       AUTH_EVENTS,
                       favoriteApi,
                       searchObject,
                       bookingApi) {
+
     $scope.appConfig = appConfig;
     $scope.showAddToFavorite = true;
+    $scope.itinerary = null;
+
     findAllItineraries();
 
-    $scope.itinerary = null;
     $scope.notifications = [
       {
         "message" : "test",
@@ -34,8 +32,8 @@
 
     $scope.isMobile = browser.isMobileDevice();
 
-    $scope.showMap = true;
-    $scope.showList = $scope.isMobile ? false : true;
+    $scope.showSelectionPanel = true;
+
     /**
     * Functions: find trip by budget, time and confort
     */
@@ -48,6 +46,8 @@
     */
     $scope.refineSearch = refineSearch;
 
+    $scope.toggleSelectionPanel = toggleSelectionPanel;
+
     $scope.deleteNotification = deleteNotification;
     $scope.acceptNotification = acceptNotification;
 
@@ -56,16 +56,6 @@
     $scope.$on('$destroy', function() {
       destroyController();
     });
-
-    /**
-    * Call this method to show map and hide list. For mobile only.
-    */
-    $scope.showMapFn = showMapFn;
-
-    /**
-    * Call this method to show list and hide map. For mobile only.
-    */
-    $scope.showListFn = showListFn;
 
     /**
     * Store itinerary data and go to booking page
@@ -220,17 +210,6 @@
       destroyAuthenticationListener();
     }
 
-    function showMapFn() {
-      $scope.showMap = true;
-      $scope.showList = false;
-    }
-
-    function showListFn() {
-      $scope.showMap = false;
-      $scope.showList = true;
-      $scope.$broadcast('resizeMapOnMobile');
-    }
-
     function bookTrip() {
       bookingApi.setShareTripData($scope.itinerary, createSearchParameters());
       console.log($scope.itinerary);
@@ -253,5 +232,14 @@
       };
     }
 
+    /**
+     * Show/Hide the selection panel.
+     */
+    function toggleSelectionPanel() {
+      $scope.showSelectionPanel = !$scope.showSelectionPanel;
+
+      // TODO: When to activate that line?
+      //  $scope.$broadcast('resizeMapOnMobile');
+    }
   }
 })();

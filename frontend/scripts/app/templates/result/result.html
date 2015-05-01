@@ -11,8 +11,6 @@
 <section class="result" ng-show='itinerary != null'>
   <trip-result-wrapper
           itinerary="itinerary"
-          show-map="true"
-          show-list="true"
           show-alternative-vehicles-panel="showAlternativeVehiclesPanel"
           show-alternative-hotels-panel="showAlternativeHotelsPanel"
           alternative-vehicles="alternativeVehicles"
@@ -21,8 +19,8 @@
           alternative-top="alternativeTop" >
 
     <!-- RESULT SELECTION PANEL -->
-    <div class="result-selection">
-      <div class="result-selection-toggle"><i class="fa fa-close"></i></div>
+    <div class="result-selection" ng-class="{ 'show': showSelectionPanel }">
+      <div class="result-selection-toggle" ng-click="toggleSelectionPanel()"></div>
       <!-- REFINE SEARCH CONTROL -->
       <div class="result-selection-refine">
         <span class="fa fa-chevron-left result-selection-refine-button" ng-click="refineSearch()"></span>
@@ -48,12 +46,13 @@
       </div>
       <!-- RESULT LIST CONTROL -->
       <div class="result-selection-list">
-        <div class="trip-segments-container" ng-show="showList">
+        <div class="trip-segments-container">
           <trip-segments
                   itinerary="itinerary"
                   active-segments="activeSegments"
                   selected-segment="selectedSegment"
-                  active-segments-number="activeSegmentsNumber">
+                  active-segments-number="activeSegmentsNumber"
+                  show-map-fn="toggleSelectionPanel()">
           </trip-segments>
 
           <!-- ALTERNATIVES PANELS -->
@@ -118,7 +117,8 @@
     </div>
 
     <!-- RESULT MAP CONTROL -->
-    <div class="result-map" ng-show="showMap">
+    <div class="result-selection-toggle" ng-click="toggleSelectionPanel()" ng-if="isMobile && !showSelectionPanel"></div>
+    <div class="result-map" ng-class="{ 'full-width': !showSelectionPanel }">
       <map itinerary="itinerary"
            active-segments="activeSegments"
            selected-segment="selectedSegment"></map>

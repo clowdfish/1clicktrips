@@ -24,11 +24,52 @@
   /* Result Frame Layout                                 */
   /*******************************************************/
   .result-selection {
+    overflow: scroll;
+    position: absolute;
+    top: 0;
+    left: -100%;
     width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: white;
+    transition: left 1s ease-out 0s;
+
+    &.show {
+      left: 0;
+      right: 0;
+
+      .result-selection-toggle {
+        display: none;
+      }
+    }
+  }
+
+  .result-selection-toggle {
+    $toggle-size: 1.8em;
+
+    display: block;
+    width: $toggle-size + 0.2em;
+    background-color: $c-white;
+
+    position: absolute;
+    left: 0;
+    top: 45%;
+    text-align: center;
+    padding: 0.6em 0;
+    cursor: pointer;
+    border-radius: 0.3em;
+    z-index: 10;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+
+    &:before {
+      font-family: FontAwesome;
+      content: "\f0c9";
+    }
   }
 
   .result-map {
-    width: 100%;
+    height: 100%;
+    z-index: 0;
   }
 
   .result-panel {
@@ -41,11 +82,22 @@
       display: inline-block;
       position: relative;
       width: $selection-width;
+      margin-left: -$selection-width;
       height: 100%;
       vertical-align: top;
       z-index: 1;
-
       background-color: white;
+      transition: margin 1s ease-out 0s;
+
+
+      &.show {
+        margin-left: 0;
+
+        .result-selection-toggle:before {
+          font-family: FontAwesome;
+          content: "\f00d";
+        }
+      }
     }
 
     .result-selection-toggle {
@@ -61,6 +113,11 @@
       padding: 0.6em 0;
       cursor: pointer;
       border-radius: 0.3em;
+
+      &:before {
+        font-family: FontAwesome;
+        content: "\f0c9";
+      }
     }
 
     .result-map {
@@ -71,6 +128,11 @@
       padding-left: $selection-width;
       height: 100%;
       z-index: 0;
+      transition: padding 1s ease-out 0s;
+
+      &.full-width {
+        padding-left: 0;
+      }
     }
 
     .result-panel {
@@ -269,80 +331,6 @@
       a {
         margin-left: 0.6em;
       }
-    }
-  }
-
-  /*******************************************************/
-  /* Result Summary (for mobile view)                    */
-  /*******************************************************/
-  $trip-summary-height: 4em;
-
-  .result-overview {
-    position: relative;
-  }
-
-  .result-summary-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    height: $trip-summary-height;
-    background-color: $c-grey-dark;
-    color: #fff;
-    margin: 0.4em;
-  }
-
-  .result-summary-button-details {
-    display: inline-block;
-    width: 80%;
-
-    div {
-      display: inline-block;
-      float: left;
-      padding: 0.6em 0.5em;
-    }
-  }
-
-  .result-summary-button-details-time,
-  .result-summary-button-details-cost {
-    width: 50%;
-
-    span {
-      display: block;
-    }
-
-    span:first-child {
-      font-size: $fs-smallest;
-    }
-
-    span:last-child {
-      font-size: $fs-larger;
-      font-weight: 600;
-    }
-  }
-
-  .result-summary-button-list-link {
-    display: block;
-    float: right;
-    width: 20%;
-    height: 100%;
-    background-color: $c-red;
-    color: #fff;
-    text-align: center;
-    padding-top: $trip-summary-height/2;
-    cursor: pointer;
-
-    .fa {
-      margin-top: -1.3em;
-      font-size: 2.6em;
-    }
-  }
-
-  @include respond-above("medium") {
-
-    .result-summary-button {
-      display: none;
     }
   }
 

@@ -4,8 +4,7 @@
   /*******************************************************/
 
   .trip-segments-title {
-    padding: 0.5em;
-    font-size: $fs-normal;
+    display: none;
   }
 
   @include respond-above("medium") {
@@ -30,6 +29,7 @@
     }
 
     .trip-segments-title {
+      display: block;
       margin-bottom: 1em;
       font-size: $fs-normal;
       font-weight: 400;

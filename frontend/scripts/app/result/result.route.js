@@ -6,7 +6,7 @@
     .module('app.result')
     .config(routerConfig);
 
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider) {
 
     $stateProvider.state('search_result', {
       url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:destination,:origin',
