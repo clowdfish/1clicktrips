@@ -20,7 +20,6 @@
 
     <!-- RESULT SELECTION PANEL -->
     <div class="result-selection" ng-class="{ 'show': showSelectionPanel }">
-      <div class="result-selection-toggle" ng-click="toggleSelectionPanel()"></div>
       <!-- REFINE SEARCH CONTROL -->
       <div class="result-selection-refine">
         <span class="fa fa-chevron-left result-selection-refine-button" ng-click="refineSearch()"></span>
@@ -44,8 +43,41 @@
           </li>
         </ul>
       </div>
+      <!-- RESULT DETAILS (MOBILE ONLY) -->
+      <div class="result-selection-details">
+        <div class="result-selection-details-header">
+          <span class="result-selection-details-header-label">{[ "result_destination_label" | translate ]}</span>
+          <h2 class="result-selection-details-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
+        </div>
+
+        <div class="result-selection-details-item">
+          <div class="result-selection-details-item-title">{[ "result_summary_duration" | translate ]}</div>
+          <div class="result-selection-details-item-value">{[ itinerary.duration | durationToTime:"%h hrs %m mins" ]}</div>
+        </div>
+        <div class="result-selection-details-item">
+          <div class="result-selection-details-item-title">{[ "result_summary_cost" | translate ]}</div>
+          <div class="result-selection-details-item-value">{[ itinerary.cost | price: itinerary.currency ]}</div>
+        </div>
+
+        <div class="result-selection-details-more">
+          <a class="link" ng-click="toggleSegmentList()">{[ "result_summary_details" | translate ]}</a>
+        </div>
+
+        <div class="result-selection-details-action">
+          <a class="button--light" ng-click="addToFavorites()">
+            <i class="fa fa-heart"></i>{[ "result_favorite" | translate ]}
+          </a>
+          <a class="button" ng-click="bookTrip()">
+            <i class="fa fa-shopping-cart"></i>{[ "result_checkout" | translate ]}
+          </a>
+        </div>
+      </div>
       <!-- RESULT LIST CONTROL -->
-      <div class="result-selection-list">
+      <div class="result-selection-list" ng-class="{ visible: isMobile && showList }">
+        <!-- BACK TO DETAILS CONTROL (MOBILE ONLY) -->
+        <div class="result-selection-list-close" ng-if="isMobile" ng-click="toggleSegmentList()">
+          <i class="fa fa-close"></i>{[ "result_summary_back" | translate ]}
+        </div>
         <div class="trip-segments-container">
           <trip-segments
                   itinerary="itinerary"
@@ -79,7 +111,6 @@
         </div>
       </div>
     </div>
-
     <!-- RESULT INFORMATION PANEL -->
     <div class="result-panel">
       <div class="result-panel-summary">
@@ -106,18 +137,17 @@
         </span>
 
         <div class="result-panel-controls-buttons">
-          <a href="#" class="button--light" ng-click="addToFavorites()">
+          <a class="button--light" ng-click="addToFavorites()">
             <i class="fa fa-heart"></i>{[ "result_favorite" | translate ]}
           </a>
-          <a href="#" class="button" ng-click="bookTrip()">
+          <a class="button" ng-click="bookTrip()">
             <i class="fa fa-shopping-cart"></i>{[ "result_checkout" | translate ]}
           </a>
         </div>
       </div>
     </div>
-
     <!-- RESULT MAP CONTROL -->
-    <div class="result-selection-toggle" ng-click="toggleSelectionPanel()" ng-if="isMobile && !showSelectionPanel"></div>
+    <div class="result-selection-toggle" ng-class="{ close: showSelectionPanel }" ng-click="toggleSelectionPanel()" ng-if="!isMobile || isMobile && !showSelectionPanel"></div>
     <div class="result-map" ng-class="{ 'full-width': !showSelectionPanel }">
       <map itinerary="itinerary"
            active-segments="activeSegments"

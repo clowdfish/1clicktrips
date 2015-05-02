@@ -33,6 +33,7 @@
     $scope.isMobile = browser.isMobileDevice();
 
     $scope.showSelectionPanel = true;
+    $scope.showList = false;
 
     /**
     * Functions: find trip by budget, time and confort
@@ -47,6 +48,7 @@
     $scope.refineSearch = refineSearch;
 
     $scope.toggleSelectionPanel = toggleSelectionPanel;
+    $scope.toggleSegmentList = toggleSegmentList;
 
     $scope.deleteNotification = deleteNotification;
     $scope.acceptNotification = acceptNotification;
@@ -240,6 +242,10 @@
 
       // TODO: When to activate that line?
       //  $scope.$broadcast('resizeMapOnMobile');
+    }
+
+    function toggleSegmentList() {
+      $scope.showList = !$scope.showList;
     }
   }
 })();

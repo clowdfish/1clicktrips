@@ -332,41 +332,52 @@
     }
 
     /**
-    * Group segment by day
-    */
+     * Group segment by day.
+     * REMARK: For now, it won't group it by day but by inbound and outbound.
+     * See the commented part for further information
+     */
     function groupSegmentByDate(itinerary) {
       var i = 0;
       var result = {};
       var day = 1;
       result[day] = [];
 
+      var segment;
+
       if (itinerary.outbound && itinerary.outbound.hasOwnProperty('segments')) {
         for (i = 0; i < itinerary.outbound.segments.length; i++) {
-          var segment = itinerary.outbound.segments[i];
+          segment = itinerary.outbound.segments[i];
           segment['tripId'] = itinerary.outbound.id;
           segment['bookable'] = true;
+
           if (result[day] == null) {
             result[day] = [];
           }
+
           result[day].push(segment);
-          if (segment.type == 0) {
-            day++
-          }
+
+          // This part will put the segments into different groups based on days
+          //if (segment.type == 0) day++;
         }
       }
 
       if (itinerary.inbound && itinerary.inbound.hasOwnProperty('segments')) {
+        // increase day variable to create different groups in result screen
+        day++;
+
         for (i = 0; i < itinerary.inbound.segments.length; i++) {
-          var segment = itinerary.inbound.segments[i];
+          segment = itinerary.inbound.segments[i];
           segment['tripId'] = itinerary.inbound.id;
           segment['bookable'] = true;
+
           if (result[day] == null) {
             result[day] = [];
           }
+
           result[day].push(segment);
-          if (segment.type == 0) {
-            day++
-          }
+
+          // This part will put the segments into different groups based on days
+          //if (segment.type == 0) day++;
         }
       }
       return result;

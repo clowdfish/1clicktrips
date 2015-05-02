@@ -1,32 +1,31 @@
 %result {
   /*******************************************************/
-  /* Trip Segments                                       */
+  /* Trip Segments Structure                             */
   /*******************************************************/
-
   .trip-segments-title {
     display: none;
   }
 
+  .trip-segments-container {
+    top: 1.5em;
+    left: -1.5em;
+  }
+
+  .trip-segments {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .trip-segments-header {
+    padding: 1em 1em 0 1em;
+    border-bottom: 1px solid $c-border;
+  }
+
+  .trip-segments-body {
+    padding: 0 0.3em;
+  }
+
   @include respond-above("medium") {
-
-    .trip-segments-container {
-      top: 1.5em;
-      left: -1.5em;
-    }
-
-    .trip-segments {
-      display: inline-block;
-      vertical-align: top;
-    }
-
-    .trip-segments-header {
-      padding: 1em 1em 0 1em;
-      border-bottom: 1px solid $c-border;
-    }
-
-    .trip-segments-body {
-      padding: 0 1em;
-    }
 
     .trip-segments-title {
       display: block;
@@ -38,11 +37,20 @@
         margin-right: 0.2em;
       }
     }
+
+    .trip-segments-header {
+      padding: .5em .5em 0 .5em;
+    }
+
+    .trip-segments-body {
+      padding: 0 1em;
+    }
   }
 
-  // Trip Segments Tab Control
+  /*******************************************************/
+  /* Trip Segments Tab Control                           */
+  /*******************************************************/
   .trip-segments-day-tab {
-    margin-left: 1em;
     list-style: none;
 
     @include clearfix;
@@ -53,7 +61,7 @@
     padding: 0.35em 1.4em;
     border: 1px solid $c-border;
     font-weight: 600;
-    background-color: $c-white;
+    background-color: $c-grey;
     cursor: pointer;
   }
 
@@ -65,7 +73,18 @@
     cursor: default;
   }
 
-  // Trip Segments List
+  @include respond-above("medium") {
+
+
+    .trip-segments-day-tab-item {
+      margin-bottom: -1px;
+      background-color: $c-grey;
+    }
+  }
+
+  /*******************************************************/
+  /* Trip Segments List                                  */
+  /*******************************************************/
   .trip-segments-list {
     display: table;
     list-style: none;
@@ -103,7 +122,7 @@
   }
 
   .trip-segments-day-item-description {
-    max-width: 11em;
+    width: 60%;
     font-size: $fs-small;
 
     a {
@@ -121,6 +140,7 @@
   }
 
   .trip-segments-day-item-timing {
+    width: 25%;
     text-align: right;
     font-size: $fs-small;
 
@@ -135,31 +155,16 @@
     }
   }
 
-  .trip-segments-day-item-close {
-    display: none;
+  .trip-segments-day-item-zoom {
+    padding: 0 0.8em;
+
+    &:after {
+      font-family: FontAwesome;
+      content: "\f105";
+    }
   }
 
   @include respond-above("medium") {
-
-    .trip-segments-header {
-      padding: .5em .5em 0 .5em;
-    }
-
-    .trip-segments-title {
-      margin-bottom: 0.5em;
-    }
-
-    .trip-segments-day-tab {
-      margin-left: 0;
-    }
-
-    .trip-segments-day-tab-item {
-      margin-bottom: -1px;
-    }
-
-    .trip-segments-day-tab-item {
-      background-color: $c-grey;
-    }
 
     .trip-segments-day-item-col {
       padding-left: 0;
@@ -188,6 +193,10 @@
 
     .trip-segments-day-item-timing-distance {
       font-size: $fs-smaller;
+    }
+
+    .trip-segments-day-item-zoom {
+      display: none;
     }
   }
 

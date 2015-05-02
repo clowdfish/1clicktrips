@@ -129,8 +129,12 @@ de:
       starttime: Startzeit
       endtime: Ankunftszeit
       transport: Benutzte Verkehrsmittel
+      details: Zeige Einzelheiten
+      back: Details schließen
     segments:
       title: Reisedetails
+      outbound: Hinreise
+      inbound: Rückreise
       day: Tag
       alternatives: '+Alternativen anzeigen'
     vehicle:

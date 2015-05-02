@@ -23,20 +23,24 @@
   /*******************************************************/
   /* Result Frame Layout                                 */
   /*******************************************************/
+  .trip-result, .trip-result-wrapper {
+    height: 100%;
+  }
+
   .result-selection {
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 3;
     background-color: white;
     transition: left 1s ease-out 0s;
 
     &.show {
       left: 0;
-      right: 0;
 
       .result-selection-toggle {
         display: none;
@@ -45,20 +49,16 @@
   }
 
   .result-selection-toggle {
-    $toggle-size: 1.8em;
-
     display: block;
-    width: $toggle-size + 0.2em;
+    width: $selection-toggle-size + 0.2em;
     background-color: $c-white;
-
     position: absolute;
-    left: 0;
+    z-index: 1;
+    left: -0.2em;
     top: 45%;
     text-align: center;
     padding: 0.6em 0;
-    cursor: pointer;
     border-radius: 0.3em;
-    z-index: 10;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
 
     &:before {
@@ -79,44 +79,30 @@
   @include respond-above("medium") {
 
     .result-selection {
-      display: inline-block;
+      overflow: visible;
       position: relative;
       width: $selection-width;
       margin-left: -$selection-width;
-      height: 100%;
       vertical-align: top;
-      z-index: 1;
-      background-color: white;
       transition: margin 1s ease-out 0s;
-
 
       &.show {
         margin-left: 0;
-
-        .result-selection-toggle:before {
-          font-family: FontAwesome;
-          content: "\f00d";
-        }
       }
     }
 
     .result-selection-toggle {
-      $toggle-size: 1.8em;
-
-      display: block;
-      width: $toggle-size + 0.2em;
-      background-color: $c-white;
-      position: absolute;
-      right: -$toggle-size;
-      top: 49%;
-      text-align: center;
-      padding: 0.6em 0;
+      left: -0.2em;
       cursor: pointer;
-      border-radius: 0.3em;
+      transition: left 1s ease-out 0s;
 
-      &:before {
-        font-family: FontAwesome;
-        content: "\f0c9";
+      &.close {
+        left: $selection-width - 0.2em;
+
+        &:before {
+          font-family: FontAwesome;
+          content: "\f00d";
+        }
       }
     }
 
@@ -126,8 +112,6 @@
       left: 0;
       right: 0;
       padding-left: $selection-width;
-      height: 100%;
-      z-index: 0;
       transition: padding 1s ease-out 0s;
 
       &.full-width {
@@ -151,8 +135,6 @@
   /*******************************************************/
   /* Result Selection                                    */
   /*******************************************************/
-  $refine-control-height: 2em;
-
   .result-selection-refine {
     width: 100%;
     background-color: $c-grey;
@@ -166,18 +148,18 @@
     background-color: $c-primary;
     text-align: center;
     vertical-align: top;
-    padding: 0.5em;
+    padding: 0.7em;
     color: $c-white;
     cursor: pointer;
   }
 
   .result-selection-refine-text {
     display: inline-block;
-    padding: 0.3em;
+    padding: 0.5em;
   }
 
   .result-selection-type {
-    padding: 1em;
+    padding: 0.5em;
   }
 
   .result-selection-type-text {
@@ -215,8 +197,112 @@
     }
   }
 
-  .trip-result, .trip-result-wrapper {
-    height: 100%;
+  .result-selection-details {
+    display: block;
+    margin-top: 0.5em;
+  }
+
+  .result-selection-details-header {
+    margin: 0 0 1em 0.5em;
+  }
+
+  .result-selection-details-header-label {
+    font-size: $fs-small;
+    color: $c-text-light;
+  }
+
+  .result-selection-details-header-title {
+
+    .fa {
+      margin-right: 0.3em;
+    }
+  }
+
+  .result-selection-details-item {
+    display: inline-block;
+    width: 48%;
+    margin-right: 1%;
+  }
+
+  .result-selection-details-item-title {
+    font-size: $fs-small;
+    color: $c-text-light;
+    margin-left: 0.5em;
+  }
+
+  .result-selection-details-item-value {
+    font-size: $fs-large;
+    font-weight: 800;
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+  }
+
+  .result-selection-details-more {
+    color: $c-primary;
+    margin: 0.5em;
+
+    &:after {
+      display: inline-block;
+      width: 1em;
+      text-align: right;
+      font-family: FontAwesome;
+      content: "\f105";
+    }
+  }
+
+  .result-selection-details-action {
+
+    a {
+      width: 48%;
+      padding: 0.8em 0.5em;
+      margin-left: 1%;
+      margin-top: 1em;
+      text-align: center;
+
+
+      .fa {
+        margin-right: 0.3em;
+      }
+    }
+  }
+
+  .result-selection-list {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    background-color: $c-white;
+    transition: left 1s ease-out 0s;
+
+    &.visible {
+      left: 0;
+    }
+  }
+
+  .result-selection-list-close {
+    padding: 0.5em;
+
+    .fa {
+      margin-right: 0.5em;
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .result-selection-type {
+      padding: 1em;
+    }
+
+    .result-selection-details {
+      display: none;
+    }
+
+    .result-selection-list {
+      position: relative;
+      top: auto;
+      left: auto;
+    }
   }
 
   /*******************************************************/
@@ -286,7 +372,6 @@
 
   @include respond-above("medium") {
 
-    /* RESULT PANEL SUMMARY */
     .result-panel-summary {
       float: left;
     }
@@ -308,7 +393,6 @@
       float: none;
     }
 
-    /* RESULT PANEL CONTROLS */
     .result-panel-controls {
       float: right;
       text-align: right;
@@ -337,31 +421,6 @@
   /*******************************************************/
   /* Trip Summary Directive                              */
   /*******************************************************/
-
-  // trip summary directive
-  .trip-summary-list {
-    list-style: none;
-  }
-
-  .trip-summary-item {
-    float: left;
-    width: 50%;
-    margin-bottom: 0.5em;
-  }
-
-  .trip-summary-item-title {
-    font-size: $fs-smallest;
-  }
-
-  .trip-summary-item-value {
-    color: $c-primary;
-    font-weight: 800;
-  }
-
-  .duration-by-days {
-    display: none;
-  }
-
   @include respond-above("medium") {
 
     .trip-summary-list {
@@ -415,10 +474,12 @@
       cursor: pointer;
     }
   }
+
+  @include respond-above("medium") {
+
+  }
 }
 
 .result {
   @extend %result;
 }
-
-

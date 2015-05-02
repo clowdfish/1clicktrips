@@ -131,9 +131,13 @@ en:
       starttime: Start time
       endtime: End time
       transport: Means of travel used
+      details: Show Details
+      back: Close details
     segments:
       title: Trip Details
       day: Day
+      outbound: Your Trip
+      inbound: Return Trip
       alternatives: '+View alternatives'
     vehicle:
       1: walk
