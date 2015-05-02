@@ -421,6 +421,25 @@
   /*******************************************************/
   /* Trip Summary Directive                              */
   /*******************************************************/
+  .trip-summary-list {
+    list-style: none;
+  }
+
+  .trip-summary-item {
+    float: left;
+    width: 50%;
+    margin-bottom: 0.5em;
+  }
+
+  .trip-summary-item-title {
+    font-size: $fs-smallest;
+  }
+
+  .trip-summary-item-value {
+    color: $c-primary;
+    font-weight: 800;
+  }
+
   @include respond-above("medium") {
 
     .trip-summary-list {
