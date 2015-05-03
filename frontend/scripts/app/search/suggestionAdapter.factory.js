@@ -7,7 +7,6 @@
     .factory('suggestionAdapter', suggestionAdapter);
 
   function suggestionAdapter($http, $q, SUGGESTION_TYPES) {
-    var _this = this;
     this.getSuggestionType = getSuggestionType;
     this.getSuggestion = getSuggestion;
     this.getAddressSuggestion = getAddressSuggestion;
@@ -27,7 +26,7 @@
 
     /**
     * Get suggestion
-    * @param {string} address - The address to get suggestion
+    * @param {string} text - The address to get suggestion
     * @param {number} type - Suggestion type: address, event, meeting space, company, hotel
     * @return {Object[]} - array of object contains latitude and longitude of locations
     */
@@ -98,6 +97,5 @@
     }
 
     return this;
-
   }
 })();

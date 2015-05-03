@@ -5,15 +5,35 @@ $input-height: 2.3em; // non-mobile
 $input-mobile-height: 2.8em; // mobile
 
 /*
+ * Text Input
+ */
+input[type='text'] {
+  @extend %input;
+
+  font-size: $fs-normal;
+  height: $input-mobile-height;
+  padding: .4em .6em;
+}
+
+@include respond-above("medium") {
+
+  input[type='text'] {
+    height: $input-height;
+    padding: .3em .6em;
+  }
+}
+
+/*
  * Checkboxes
  */
 input[type="checkbox"] {
   display: none;
+
   & + label::before {
     @include fa-icon();
     content: $fa-var-square-o;
     width: 1em;
-    color: $c-text;
+    color: $c-primary;
     vertical-align: middle;
     margin-right: .5em;
   }
@@ -57,30 +77,13 @@ input[type=radio] {
 %input {
   font-family: $ff-body;
   display: block;
-  border: 1px #ccc solid;
+  border: 1px solid $c-border;
   border-radius: 3px;
   width: 100%;
-  padding: .4em .6em;
   background: white;
   position: relative;
+
   &:focus {
     border-color: $c-primary;
-  }
-}
-
-#{$inputs-text} {
-  @extend %input;
-  font-size: $fs-normal;
-  line-height: 1.4em;
-}
-
-fieldset.is-invalid {
-  #{$inputs-text} {
-    border-color: $c-status-error;
-  }
-  #{$inputs-check} {
-    & + label::before {
-      color: $c-status-error;
-    }
   }
 }

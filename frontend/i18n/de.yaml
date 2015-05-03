@@ -91,7 +91,10 @@ de:
       timing: Meetingzeiten angeben
       origin: Finde den Startort
     form:
-      origin: Wo möchten Sie starten?
+      origin:
+        label: Wo möchten Sie starten?
+        placeholder: Ihre Startort
+        default: als Startort speichern
       destination:
         label: Wo findet der Termin statt?
         placeholder: z.B. die Adresse angeben
@@ -99,12 +102,11 @@ de:
           address: Adresse
           event: Veranstaltung
           meeting: Treffpunkt
-      time: An welchem Tag findet der Termin statt?
-      start: Wann beginnt der Termin?
-      end: Wann endet der Termin?
-      control:
-        next: WEITER
-        submit: Suche starten
+      appointment:
+        start: Wann beginnt der Termin?
+        end: Wann endet der Termin?
+        warning: Das Zeitformat muss hh:mm entsprechen!
+      submit: Suche starten
   result:
     refine: Suche ändern
     select: Wähle deinen Ergebnistyp

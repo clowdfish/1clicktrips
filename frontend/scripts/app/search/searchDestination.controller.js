@@ -20,8 +20,13 @@
     $scope.destinationType = SUGGESTION_TYPES.address;
     $scope.destinationTypeArray = suggestionAdapter.getSuggestionType();
 
+    $scope.toggleLocationDropdown = function() {
+      $scope.isOpen = !$scope.isOpen;
+    };
+
 		function setDestinationType(item) {
-        $scope.destinationType = item;
+      $scope.destinationType = item;
+      $scope.isOpen = false;
     }
 
     /**

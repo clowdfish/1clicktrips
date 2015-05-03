@@ -93,20 +93,22 @@ en:
         timing: Specify Date & Time
         origin: Specify Your Origin
       form:
-        origin: Where do you want to start?
+        origin:
+          label: Where do you want to start?
+          placeholder: Enter your origin
+          default: make this my default origin
         destination:
           label: Where is your appointment?
-          placeholder: e.g. address of your location
+          placeholder: Enter your destination
           type:
             address: Address
             event: Event
             meeting: Meeting Space
-        time: When is your appointment?
-        start: At what time does your appointment start?
-        end: When does your appointment end?
-        control:
-          next: CONTINUE
-          submit: Start Search
+        appointment:
+          start: When does your appointment start?
+          end: When does your appointment end?
+          warning: The time format must be hh:mm
+        submit: Start Search
   result:
     refine: Refine search
     select: Choose your result type

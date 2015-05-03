@@ -4,8 +4,7 @@
 
   angular
     .module('app.search', [
-      'app.core',
-      'app.search.timepicker'
+      'app.core'
     ])
     .constant('SUGGESTION_TYPES', {
       address: 'address',
@@ -25,7 +24,7 @@
   function decorateDatePicker($provide) {
     $provide.decorator('daypickerDirective', function($delegate) {
       var directive = $delegate[0];
-      directive.templateUrl = 'scripts/app/templates/search/datepicker/day.html'
+      directive.templateUrl = 'scripts/app/templates/search/datepicker/day.html';
       return $delegate;
     });
   }

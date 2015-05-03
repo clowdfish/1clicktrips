@@ -38,8 +38,12 @@
     favoriteOriginLocation = searchFormData.originLocation != null ? searchFormData.originLocation : null;
     $scope.destination = searchFormData.destination;
     $scope.origin = searchFormData.origin;
+
     $scope.startDate = searchFormData.startDate;
     $scope.endDate = searchFormData.endDate;
+
+    $scope.startTimeString = "10:00";
+    $scope.endTimeString = "14:00";
 
     $scope.$watch('destinationLocation', function() {
       if ($scope.destinationLocation != null) {

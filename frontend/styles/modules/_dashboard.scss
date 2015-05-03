@@ -29,7 +29,7 @@ $size-dashboard-icons: 5em;
 
     h3 {
       display: block;
-      color: $c-red;
+      color: $c-primary;
       font-weight: 200;
       text-align: center;
     }
@@ -164,7 +164,7 @@ $size-dashboard-icons: 5em;
 
   .favorite-list-box-location {
     font-size: $fs-large;
-    color: $c-red;
+    color: $c-primary;
   }
 
   .favorite-list-box-separator {
@@ -236,7 +236,7 @@ $size-dashboard-icons: 5em;
       width: 2em;
       height: 2em;
       margin-left: 1em;
-      background: $c-red;
+      background: $c-primary;
       color: white;
       text-align: center;
       font-size: 1.2em;
@@ -285,7 +285,7 @@ $size-dashboard-icons: 5em;
 
   .booking-item-container {
     padding: 0.6em 0.6em 0 0.6em;
-    background-color: #fff;
+    background-color: $c-white;
     box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
 
     &:last-of-type {
@@ -314,7 +314,6 @@ $size-dashboard-icons: 5em;
 
   .booking-item-location {
     font-size: $fs-large;
-    color: $c-red;
   }
 
   .booking-item-date {
@@ -350,7 +349,7 @@ $size-dashboard-icons: 5em;
   }
 
   .booking-participant-status-indicator {
-    background-color: #dddddd;
+    background-color: $c-grey;
     border-radius: 3px;
     padding: 0.2em 0.4em;
 
@@ -369,8 +368,6 @@ $size-dashboard-icons: 5em;
     color: grey;
     font-size: $fs-small;
   }
-
-
 
   @include respond-above("medium") {
 

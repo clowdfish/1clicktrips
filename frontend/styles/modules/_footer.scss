@@ -1,7 +1,9 @@
 %footer {
   height: $footer-height;
-  margin-top: -$footer-height;
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: $c-white;
   border-top: 1px solid $c-border;
 

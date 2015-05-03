@@ -15,6 +15,9 @@
     $scope.isOpenEndDatePicker = false;
     $scope.isOpenEndTimePicker = false;
 
+    $scope.startTimeInvalid = false;
+    $scope.endTimeInvalid = false;
+
 		// configure date picker
 		$scope.dateOptions = {
       formatYear: 'yyyy',
@@ -42,8 +45,18 @@
       if (canChangeStep) {
         $scope.$parent.step3();
       }
+    };
 
-    }
+
+    $scope.checkTimeFormat = function() {
+      var startTime = $scope.$parent.startTimeString;
+      var endTime = $scope.$parent.endTimeString;
+
+      var regEx = new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
+
+      $scope.startTimeInvalid = !regEx.test(startTime);
+      $scope.endTimeInvalid = !regEx.test(endTime);
+    };
 
 
     $scope.openStartDatePicker = function($event) {
@@ -66,40 +79,6 @@
       $scope.isOpenEndDatePicker = true;
     };
 
-    $scope.openStartTimePicker = function($event) {
-      if ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-      }
-
-      $scope.isOpenStartDatePicker = false;
-      $scope.isOpenEndDatePicker = false;
-      $scope.isOpenEndTimePicker = false;
-      $scope.isOpenStartTimePicker = $scope.isOpenStartTimePicker ? false : true;
-    };
-
-    $scope.closeStartTimePicker = function($event) {
-      $scope.isOpenStartTimePicker = false;
-    };
-
-    $scope.openEndTimePicker = function($event) {
-      console.log($scope.isOpenEndTimePicker);
-      if ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-      }
-
-      $scope.isOpenStartDatePicker = false;
-      $scope.isOpenStartTimePicker = false;
-      $scope.isOpenEndDatePicker = false;
-      $scope.isOpenEndTimePicker = $scope.isOpenEndTimePicker ? false : true;
-    };
-
-    $scope.closeEndTimePicker = function($event) {
-      $scope.isOpenEndTimePicker = false;
-    };
-
-
     /**
      * Close all open date or time pickers
      */
@@ -120,6 +99,5 @@
 
       $scope.$parent.isStep2Ready = true;
     });
-
 	}
 })();
