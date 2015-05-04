@@ -36,26 +36,6 @@ $size-dashboard-icons: 5em;
     }
   }
 
-  .dashboard-info-icon.trip {
-    background-image: url("../images/trolley.png");
-    background-size: auto 50%;
-  }
-
-  .dashboard-info-icon.plane {
-    background-image: url("../images/airplane.png");
-    background-size: 40% auto;
-  }
-
-  .dashboard-info-icon.calendar {
-    background-image: url("../images/calendar.png");
-    background-size: 40% auto;
-  }
-
-  .dashboard-info-icon.suitcase {
-    background-image: url("../images/suitcase.png");
-    background-size: 40% auto;
-  }
-
   .dashboard-info-icon {
     position: absolute;
     width: $size-dashboard-icons;

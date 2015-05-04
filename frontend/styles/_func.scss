@@ -22,9 +22,10 @@
   }
 }
 
-@mixin animation($value) {
-  -webkit-animation: $value;
-    -moz-animation: $value;
-      -ms-animation: $value;
-        animation: $value;
+@mixin opacity($opacity) {
+  opacity: $opacity;
+
+  // IE8 filter
+  $opacity-ie: ($opacity * 100);
+  filter: alpha(opacity=$opacity-ie);
 }

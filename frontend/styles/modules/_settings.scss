@@ -129,6 +129,11 @@
       color: $c-text;
       text-decoration: none;
       padding-right: 0.5em;
+      cursor: pointer;
+
+      &:hover {
+        color: $c-primary;
+      }
     }
 
     .fa {
@@ -142,7 +147,7 @@
       display: inline-block;
       width: auto;
       vertical-align: top;
-      margin-right: 2em;
+      margin-right: 4em;
       padding: 1em 2em;
     }
 

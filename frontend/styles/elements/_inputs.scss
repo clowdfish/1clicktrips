@@ -7,7 +7,7 @@ $input-mobile-height: 2.8rem; // mobile
 /*
  * Text Input
  */
-input[type='text'] {
+#{$inputs-text} {
   @extend %input;
 
   font-size: $fs-normal;
