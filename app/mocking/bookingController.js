@@ -124,7 +124,7 @@ function createMobileBookingMock() {
         "description": "Ho Chi Minh, Vietnam"
       },
       
-      "travelDocument" : "http://www.1clicktrips.com/documents/example.pdf"
+      "travelDocument" : "/documents/example.pdf"
     },
     {
       "tripId": 2,
@@ -139,7 +139,7 @@ function createMobileBookingMock() {
         "longitude": 106.731742,
         "description": "Ho Chi Minh, Vietnam"
       },
-      "travelDocument" : "http://www.1clicktrips.com/documents/example.pdf"
+      "travelDocument" : "/documents/example.pdf"
     }
   ]
 }

@@ -33,13 +33,21 @@
       }
     });
 
-    $stateProvider.state('settings.history', {
-      url: '/history',
-      templateUrl: 'scripts/app/templates/settings/history.html',
-      controller: 'historyCtrl',
+    $stateProvider.state('settings.booking', {
+      url: '/booking',
+      templateUrl: 'scripts/app/templates/settings/booking.html',
+      controller: 'bookingCtrl',
       resolve: {
-        favorites: getFavorites,
         bookingList: getBookingList
+      }
+    });
+    
+    $stateProvider.state('settings.favorite', {
+      url: '/favorite',
+      templateUrl: 'scripts/app/templates/settings/favorite.html',
+      controller: 'favoriteCtrl',
+      resolve: {
+        favorites: getFavorites
       }
     });
   }
