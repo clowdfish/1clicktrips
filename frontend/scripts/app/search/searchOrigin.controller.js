@@ -6,13 +6,11 @@
 		.module('app.search')
 		.controller('searchOriginCtrl', searchOriginCtrl);
 
-	function searchOriginCtrl ($scope, $state, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
+	function searchOriginCtrl ($scope, SUGGESTION_TYPES, suggestionAdapter, googleMap) {
 
 		$scope.getAddressSuggestion = getAddressSuggestion;
 
     $scope.selectOriginSuggestion = selectOriginSuggestion;
-
-    $scope.startSearch = startSearch;
 
 		/**
     * Get suggestion for address only
@@ -35,32 +33,5 @@
 					$scope.$parent.isStep3Ready = false;
       	});
     }
-
-    /**
-     * Send search parameter to result page
-     */
-    function startSearch() {
-      if (false == $scope.$parent.isStep3Ready) {
-        return;
-      }
-      var startDate = formatDate($scope.$parent.startDate);
-      var endDate = formatDate($scope.$parent.endDate);
-      var requestParameters = {
-        originLatitude: $scope.$parent.originLocation.latitude,
-        originLongitude: $scope.$parent.originLocation.longitude,
-        origin: $scope.$parent.origin,
-        destinationLatitude: $scope.$parent.destinationLocation.latitude,
-        destinationLongitude: $scope.$parent.destinationLocation.longitude,
-        destination: $scope.$parent.destination,
-        startDate: startDate,
-        endDate: endDate
-      };
-      $state.go('search_result', requestParameters);
-    }
-
-    function formatDate(date) {
-      return moment(date).format('YYYY-MM-DDTHH:mm:ss');
-    }
-
 	}
 })();

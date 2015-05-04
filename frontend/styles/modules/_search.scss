@@ -62,36 +62,31 @@
     background-color: transparent;
     padding: 0 0.3em;
 
+    &:active {
+      box-shadow: none;
+      outline: none;
+      border: none;
+    }
+
     .fa {
       margin: 0 0.3em;
     }
   }
 
-  .search-form-input-item-location-field-dropdown-menu {
+  .dropdown-menu.right{
     display: none;
     width: 10em;
-    position: absolute;
-    top: $input-mobile-height;
     right: 0;
-    background-color: $c-white;
-    list-style: none;
     text-align: right;
     padding-right: 0.5em;
     padding-left: 0.5em;
-    border: 1px solid $c-border;
 
     &.active {
       display: block;
     }
 
     li {
-      line-height: $input-mobile-height;
-      font-size: $fs-normal;
       padding-left: 2em;
-
-      &:not(:last-child) {
-        border-bottom: 1px solid $c-border;
-      }
     }
   }
 
@@ -232,17 +227,10 @@
 
     .search-form-input-item-location-field-dropdown-toggle {
       height: $input-height;
+      cursor: pointer;
 
       .fa {
         margin: 0 0.3em;
-      }
-    }
-
-    .search-form-input-item-location-field-dropdown-menu {
-      top: $input-height;
-
-      li {
-        line-height: $input-height;
       }
     }
 

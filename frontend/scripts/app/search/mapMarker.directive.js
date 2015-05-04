@@ -61,7 +61,6 @@
           && scope.address.hasOwnProperty('latitude')
           && scope.address.hasOwnProperty('longitude')) {
           scope.displayMarkerByLatLon(scope.address);
-          return;
         }
       }
 

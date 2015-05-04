@@ -8,15 +8,13 @@
 
   function searchCtrl($scope,
                       $timeout,
-                      searchFormData) {
+                      $state,
+                      searchFormData,
+                      SEARCH_STEPS) {
 
     var favoriteOriginLocation = null;
     $scope.isLogin = true;
-
-    // indicate step data finish
-    $scope.isStep1Ready = false;
-    $scope.isStep2Ready = false;
-    $scope.isStep3Ready = false;
+    $scope.searchDataComplete = false;
 
     // trip destination
     $scope.destination = null;
@@ -25,96 +23,122 @@
     $scope.origin = null;
 
     // active step
-    $scope.step = 1;
+    $scope.step = SEARCH_STEPS.origin;
 
-    //Select step functions
-    $scope.step1 = step1;
-    $scope.step2 = step2;
-    $scope.step3 = step3;
+    // select step functions
+    $scope.stepOrigin = stepOrigin;
+    $scope.stepDestination = stepDestination;
+    $scope.stepAppointment = stepAppointment;
 
-    //Search data
+    $scope.startSearch = startSearch;
+
+    // search data
     $scope.destinationLocation = searchFormData.destinationLocation;
-    $scope.originLocation = null;
-    favoriteOriginLocation = searchFormData.originLocation != null ? searchFormData.originLocation : null;
+    $scope.originLocation = searchFormData.originLocation;
+
+    favoriteOriginLocation = searchFormData.originLocation ? searchFormData.originLocation : null;
     $scope.destination = searchFormData.destination;
     $scope.origin = searchFormData.origin;
 
     $scope.startDate = searchFormData.startDate;
+    $scope.startDate.setHours(10);
+    $scope.startDate.setMinutes(0);
+
     $scope.endDate = searchFormData.endDate;
+    $scope.endDate.setHours(14);
+    $scope.endDate.setMinutes(0);
 
     $scope.startTimeString = "10:00";
     $scope.endTimeString = "14:00";
-
-    $scope.$watch('destinationLocation', function() {
-      if ($scope.destinationLocation != null) {
-        $scope.isStep1Ready = true;
-      }
-    });
-
-    $scope.$watch('originLocation', function() {
-      if ($scope.originLocation != null || $scope.origin != null) {
-        $scope.isStep3Ready = true;
-      }
-    });
-
-    $scope.$watchGroup(['startDate', 'endDate'], function() {
-      if ($scope.startDate != null && $scope.endDate != null) {
-        //$scope.isStep2Ready = true;
-      }
-    });
 
     $scope.$on('selectFavorite', function(e, data) {
       selectFavorite(data);
     });
 
     /**
-    * Select favorite:
-    * Back to step 2
-    * Fill destination and show map
-    * Assign origin value to favorite value
+    * Select favorite
     */
     function selectFavorite(favorite) {
-      $scope.destination = favorite.destination.description;
-      $scope.destinationLocation = favorite.destination.location;
-      $scope.isStep1Ready = true;
-
       $scope.origin = favorite.origin.description;
       favoriteOriginLocation = favorite.origin.location;
-      $scope.isStep3Ready = true;
+      $scope.isStepOriginReady = true;
 
-      step2();
+      $scope.destination = favorite.destination.description;
+      $scope.destinationLocation = favorite.destination.location;
+      $scope.isStepDestinationReady = true;
+
+      stepAppointment();
     }
 
-    function step1() {
-      $scope.step = 1;
-    }
-
-    function step2() {
-      if (!$scope.isStep1Ready || $scope.destinationLocation == null) {
-        return;
-      }
-
-      $scope.step = 2;
-      $scope.isStep2Ready = true;
-    }
-
-    function step3() {
-      if (!$scope.isStep1Ready || !$scope.isStep2Ready) {
-        return;
-      }
-
-      if ($scope.startDate == null ||
-        $scope.endDate == null) {
-        return;
-      }
-
-      $scope.step = 3;
+    function stepOrigin() {
+      $scope.step = SEARCH_STEPS.origin;
 
       $timeout(function() {
         if ($scope.origin && favoriteOriginLocation) {
           $scope.originLocation = favoriteOriginLocation;
         }
       }, 50);
+    }
+
+    function stepDestination() {
+      $scope.step = SEARCH_STEPS.destination;
+    }
+
+    function stepAppointment() {
+      $scope.step = SEARCH_STEPS.appointment;
+    }
+
+    $scope.$watchGroup(['origin', 'destination', 'startDate', 'endDate'], function() {
+
+      if ($scope.origin != null && $scope.destination != null &&
+          $scope.startDate != null && $scope.endDate != null) {
+
+        $scope.searchDataComplete = true;
+      }
+    });
+
+    /**
+     * Send search parameter to result page
+     */
+    function startSearch() {
+      var now = new Date();
+
+      if ($scope.origin == null || $scope.destination == null) {
+        alert('All fields must be set.');
+        $scope.searchDataComplete = false;
+      }
+
+      if ($scope.startDate > $scope.endDate) {
+        alert('End Date must larger than Start Date.');
+        $scope.searchDataComplete = false;
+      }
+
+      if ($scope.startDate < now || $scope.endDate < now) {
+        alert('Can not choose date and time in the past.');
+        $scope.searchDataComplete = false;
+      }
+
+      if($scope.searchDataComplete) {
+        var startDate = formatDate($scope.startDate);
+        var endDate = formatDate($scope.endDate);
+
+        var requestParameters = {
+          originLatitude: $scope.originLocation.latitude,
+          originLongitude: $scope.originLocation.longitude,
+          origin: $scope.origin,
+          destinationLatitude: $scope.destinationLocation.latitude,
+          destinationLongitude: $scope.destinationLocation.longitude,
+          destination: $scope.destination,
+          startDate: startDate,
+          endDate: endDate
+        };
+
+        $state.go('search_result', requestParameters);
+      }
+    }
+
+    function formatDate(date) {
+      return moment(date).format('YYYY-MM-DDTHH:mm:ss');
     }
   }
 })();

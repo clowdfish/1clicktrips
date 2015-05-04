@@ -7,7 +7,7 @@
     <ul class="search-form-input">
 
       <!-- ORIGIN FORM -->
-      <li class="search-form-input-item" ng-class="{ active: step == 1, done: isStep1Ready }" ng-controller='searchOriginCtrl'>
+      <li class="search-form-input-item" ng-class="{ active: step == 1, done: isStepOriginReady }" ng-controller='searchOriginCtrl'>
 
         <span class="fa fa-map-marker search-form-input-item-icon"></span>
         <label for="origin" class="search-form-input-item-label">{[ "search_form_origin_label" | translate ]}</label>
@@ -44,7 +44,7 @@
             <button type="button" class="search-form-input-item-location-field-dropdown-toggle" ng-click="toggleLocationDropdown()">
               <i class="fa {[ destinationType | destinationTypeToIcon ]}"></i><span class="fa fa-caret-down"></span>
             </button>
-            <ul class="search-form-input-item-location-field-dropdown-menu" ng-class="{ active: isOpen }">
+            <ul class="dropdown-menu right" ng-class="{ active: isOpen }">
               <li ng-repeat="item in destinationTypeArray" ng-click="setDestinationType(item)">{[ "search_form_destination_type_" + item | translate ]}</li>
             </ul>
           </div>
@@ -131,13 +131,13 @@
       </li>
     </ul>
 
-    <a ng-click="startSearch()" class="button search-form-input-item-button" ng-class="{ 'is-disabled': ! $parent.isStep3Ready }">
+    <a ng-click="startSearch()" class="button search-form-input-item-button" ng-class="{ 'is-disabled': !searchDataComplete }">
       {[ "search_form_submit" | translate ]}
     </a>
   </form>
 
   <!-- SEARCH FORM ACTION PANEL -->
   <div class="search-form-action">
-    <map-marker address="$parent.destinationLocation" class="search-destination-map"></map-marker>
+    <map-marker address="destinationLocation" class="search-destination-map"></map-marker>
   </div>
 </section>

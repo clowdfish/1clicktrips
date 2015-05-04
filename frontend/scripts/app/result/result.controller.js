@@ -99,9 +99,10 @@
     }
 
     /**
-     * @todo implement
+     *
      */
     function refineSearch() {
+
       $state.go('refineSearch', {
         originLatitude: $stateParams.originLatitude,
         originLongitude: $stateParams.originLongitude,

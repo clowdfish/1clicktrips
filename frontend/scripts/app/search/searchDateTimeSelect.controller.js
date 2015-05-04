@@ -23,30 +23,10 @@
       formatYear: 'yyyy',
       startingDay: 0
     };
+
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
     $scope.showWeeks = false;
-    $scope.now = new Date();
-
-    $scope.changeToStep3 = function() {
-      var canChangeStep = true;
-      var now = new Date();
-
-      if ($scope.$parent.startDate > $scope.$parent.endDate) {
-        alert('End Date must larger than Start Date');
-        canChangeStep = false;
-      }
-
-      if ($scope.$parent.startDate < now || $scope.$parent.endDate < now) {
-        alert('Can not choose date and time in the past');
-        canChangeStep = false;
-      }
-
-      if (canChangeStep) {
-        $scope.$parent.step3();
-      }
-    };
-
 
     $scope.checkTimeFormat = function() {
       var startTime = $scope.$parent.startTimeString;
@@ -56,8 +36,20 @@
 
       $scope.startTimeInvalid = !regEx.test(startTime);
       $scope.endTimeInvalid = !regEx.test(endTime);
-    };
 
+      // set date object in result controller
+      if(!$scope.startTimeInvalid) {
+        $scope.$parent.startDate.setHours(parseInt(startTime.substr(0, 2)));
+        $scope.$parent.startDate.setMinutes(parseInt(startTime.substr(3, 2)));
+        $scope.$parent.startDate.setSeconds(0);
+      }
+
+      if(!$scope.endTimeInvalid) {
+        $scope.$parent.endDate.setHours(parseInt(endTime.substr(0, 2)));
+        $scope.$parent.endDate.setMinutes(parseInt(endTime.substr(3, 2)));
+        $scope.$parent.endDate.setSeconds(0);
+      }
+    };
 
     $scope.openStartDatePicker = function($event) {
       if ($event) {
@@ -90,14 +82,10 @@
     }
 
     $scope.$watchGroup(['$parent.startDate', '$parent.endDate'], function() {
-      if (
-        !$scope.$parent.isStep1Ready ||
-        $scope.$parent.startDate == null ||
-        $scope.$parent.endDate == null) {
-        return;
-      }
 
-      $scope.$parent.isStep2Ready = true;
+      if ($scope.$parent.startDate != null && $scope.$parent.endDate != null) {
+        $scope.$parent.isStepAppointmentReady = true;
+      }
     });
 	}
 })();

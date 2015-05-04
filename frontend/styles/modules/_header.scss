@@ -1,4 +1,6 @@
 %header {
+  @include clearfix;
+
   position: relative;
   height: $header-height;
   background: $c-white;
@@ -116,8 +118,8 @@
   }
 
   @include respond-above("medium") {
-    $toogle-size: 2em;
-    $settings-width: 6em;
+    $toogle-size: 2rem;
+    $settings-width: 6rem;
 
     .header-slider {
       display: block;
@@ -243,7 +245,7 @@
     .header-navigation-menu {
       position: absolute;
       display: inline-block;
-      right: $toogle-size + 1em;
+      right: $toogle-size + 1rem;
       top: 0;
       list-style: none;
       border: none;
@@ -298,8 +300,8 @@
       cursor: pointer;
 
       img {
-        width: $profile-image-size - 0.2em;
-        height: $profile-image-size - 0.2em;
+        width: $profile-image-size - 0.2rem;
+        height: $profile-image-size - 0.2rem;
       }
     }
 

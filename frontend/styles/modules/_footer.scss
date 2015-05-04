@@ -1,11 +1,10 @@
 %footer {
   height: $footer-height;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   background-color: $c-white;
   border-top: 1px solid $c-border;
+  z-index: 10;
 
   .footer-copyright {
     display: inline-block;
@@ -23,7 +22,6 @@
 
   @include respond-above("medium") {
     padding: 0.4em;
-    z-index: 10;
 
     .footer-copyright {
       font-size: $fs-normal;

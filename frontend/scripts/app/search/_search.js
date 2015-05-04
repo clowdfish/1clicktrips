@@ -11,6 +11,11 @@
       events: 'event',
       meetingSpace: 'meeting'
     })
+    .constant('SEARCH_STEPS', {
+      origin: 1,
+      destination: 2,
+      appointment: 3
+    })
     .config(decorateDatePicker)
     .config(decoratePopupDatePicker)
     .config(interpolateConfig);

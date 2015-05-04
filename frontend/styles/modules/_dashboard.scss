@@ -1,11 +1,12 @@
 $size-dashboard-icons: 5em;
 
 %dashboard {
+  @include container;
+
   /*******************************************************/
   /* Dashboard Container                                 */
   /*******************************************************/
   .view-container {
-    @include span(6);
     padding: 1.2em 0 2em 0;
 
     h1 {
@@ -21,7 +22,7 @@ $size-dashboard-icons: 5em;
   .dashboard-info-box {
     position: relative;
     width: 95%;
-    background-color: #fff;
+    background-color: $c-white;
     margin: ($size-dashboard-icons/2 + 1em) auto 1em auto;
     padding: ($size-dashboard-icons/2 + 0.5em) 1em 1.2em 1em;
     box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
@@ -77,7 +78,7 @@ $size-dashboard-icons: 5em;
     margin-top: 1em;
     text-align: center;
     font-weight: 200;
-    color: #000;
+    color: $c-text;
 
     span {
       display: block;
@@ -115,7 +116,7 @@ $size-dashboard-icons: 5em;
   .favorite-list-box {
     @include span(6);
     position: relative;
-    background-color: #fff;
+    background-color: $c-white;
     padding: 1em 1em 1em 2em;
     margin-bottom: 0.6em;
     box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
@@ -130,7 +131,7 @@ $size-dashboard-icons: 5em;
       font-size: $fs-small;
       top: 0.4em;
       left: 0.4em;
-      color: $c-red;
+      color: darken($c-primary, 20%);
     }
 
     span {
@@ -148,23 +149,23 @@ $size-dashboard-icons: 5em;
 
     /* diagonal radiant */
     background: rgb(0,0,0);
-    background: -moz-linear-gradient(-45deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0) 100%);
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(50%,rgba(0,0,0,1)), color-stop(51%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0)));
-    background: -webkit-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
-    background: -o-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
-    background: linear-gradient(135deg, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff',GradientType=1 );
+    background: -moz-linear-gradient(-45deg, $c-orange 0%, $c-orange 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0) 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,$c-orange), color-stop(50%,$c-orange), color-stop(51%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(-45deg, $c-orange 0%,$c-orange 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(-45deg, $c-orange 0%,$c-orange 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(-45deg, $c-orange 0%,$c-orange 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    background: linear-gradient(135deg, $c-orange 0%,$c-orange 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$c-orange, endColorstr='#ffffff',GradientType=1 );
   }
 
   .favorite-list-box-label {
     font-size: $fs-small;
-    color: grey;
+    color: $c-text-light;
   }
 
   .favorite-list-box-location {
     font-size: $fs-large;
-    color: $c-primary;
+    color: $c-text;
   }
 
   .favorite-list-box-separator {
@@ -172,8 +173,12 @@ $size-dashboard-icons: 5em;
   }
 
   .favorite-list-box-verticle-separator {
-    border-left: 1px dotted black;
+    border-left: 1px dotted $c-text;
     height: 40px;
+  }
+
+  .favorite-list-box-button {
+    margin-top: 1.5em;
   }
 
   .favorite-list-detail {
@@ -208,7 +213,7 @@ $size-dashboard-icons: 5em;
       display: inline-block;
       background-color: #fff;
       font-size: $fs-large;
-      color: black;
+      color: $c-text;
       padding: 0.3em 0.6em;
       margin: 0 1em;
       border: 1px solid rgb(219, 219, 219);
@@ -237,7 +242,7 @@ $size-dashboard-icons: 5em;
       height: 2em;
       margin-left: 1em;
       background: $c-primary;
-      color: white;
+      color: $c-white;
       text-align: center;
       font-size: 1.2em;
       padding-top: 0.3em;
@@ -305,7 +310,7 @@ $size-dashboard-icons: 5em;
   .booking-item-label {
     display: block;
     font-size: $fs-small;
-    color: grey;
+    color: $c-text-light;
   }
 
   .booking-item-event {
@@ -322,6 +327,8 @@ $size-dashboard-icons: 5em;
 
   .booking-participants {
     display: table;
+    padding-top: 1em;
+    border-top: 1px solid $c-border;
   }
 
   .booking-participant-item {
@@ -360,12 +367,12 @@ $size-dashboard-icons: 5em;
 
   .booking-participant-name {
     display: block;
-    color: $c-primary;
+    color: $c-text;
   }
 
   .booking-participant-arrival-time {
     display: block;
-    color: grey;
+    color: $c-text-light;
     font-size: $fs-small;
   }
 
