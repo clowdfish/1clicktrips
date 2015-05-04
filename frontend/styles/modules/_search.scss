@@ -17,7 +17,7 @@
 
     padding: 2em 0.5em;
     margin: 2em 0.3em;
-    background-color: rgba(224,224,224,0.85);
+    background-color: rgba(234,234,234,0.85);
   }
 
   .search-form-title {
@@ -136,7 +136,7 @@
 
     .search-form-input-item-button {
       width: 100%;
-      height: $input-height + 0.8em;
+      height: $input-height + 0.5rem;
       padding-top: 1em;
     }
 
@@ -154,7 +154,7 @@
 
         /* text properties */
         text-align: center;
-        font-size: 2em;
+        font-size: 1.9em;
       }
 
       &>span {
@@ -207,7 +207,7 @@
     &>.fa {
       position: absolute;
       right: 0.8em;
-      top: $input-mobile-height/2 - 0.5em;
+      top: $input-mobile-height/2 - 0.7rem;
       color: lighten($c-text, 50%);
       cursor: pointer;
     }
@@ -322,7 +322,7 @@
       }
 
       &>.fa {
-        top: $input-height/2 - 0.5em;
+        top: $input-height/2 - 0.5rem;
       }
 
       table {

@@ -1,101 +1,61 @@
-
 %newsletter {
+  text-align: center;
+  padding: 2em 0.3em;
+  border-bottom: 3px solid $c-primary;
 
-  .newsletter-container {
-    @include span(6);
-    position: relative;
-    z-index: 5;
-    background-size: 80%;
-    background: $c-background-light url("../images/newsletter_world.png") no-repeat 50% 25%;
+  background-image: url('../images/newsletter_bg.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
 
-    padding: 2em 0;
-    box-shadow: 0 2px 2px 0 rgba(120, 120, 120, 0.3);
-  }
-
-  .newsletter-icon {
+  .newsletter-title {
     display: block;
-    text-align: center;
-    font-size: 2.1em;
+    margin-bottom: 1.5em;
   }
 
-  .newsletter-slogan {
-    display: block;
-    text-align: center;
-    font-size: 1.2em;
-    margin: 0.4em 0 1em 0;
+  .newsletter-input {
+    width: 100%;
   }
 
-  .newsletter-form {
-    display: block;
-    width: 95%;
-    margin: 0 auto;
-
-    input[type="text"] {
-      display: inline-block;
-      height: $input-mobile-height;
-      width: 70%;
-    }
-
-    .button {
-      height: $input-mobile-height;
-      padding-top: .55em;
-      padding-bottom: .55em;
-    }
+  .newsletter-input-text {
+    margin-bottom: 0.3em;
+    height: $input-mobile-height;
   }
 
-  .newsletter-socials {
-    text-align: center;
-    margin: 1.5em 0;
-
-    ul {
-      list-style: none;
-    }
-
-    li {
-      display: inline-block;
-      padding: 0 0.6em;
-      font-size: 1.7em;
-    }
-
-    a, a:visited {
-      color: $c-grey-dark;
-    }
+  .newsletter-input-button {
+    width: 100%;
+    height: $input-mobile-height;
+    margin-bottom: 1em;
   }
 
   @include respond-above("medium") {
+    padding: 3em 1em;
 
-    .newsletter-container {
-      @include span(22 of 24);
-      @include push(1 of 24);
-
-      background: url("../images/newsletter_world.png"), linear-gradient(#f5f0dd, #fff) 3% 30%;
-      background-repeat: no-repeat;
-      background-size: auto;
+    .newsletter-title {
+      margin: 0;
     }
 
-    .newsletter-icon {
-      display: inline-block;
-      font-size: 1.2em;
-      margin: 0 1em 0 2em;
+    .newsletter-input {
+      width: 50%;
+      margin: 3em auto;
     }
 
-    .newsletter-slogan {
+    .newsletter-input-text {
       display: inline-block;
+      width: 70%;
+      height: $input-height;
     }
 
-    .newsletter-form {
+    .newsletter-input-button {
       display: inline-block;
-      margin-left: 2em;
-      width: 60%;
-
-      input[type='text'] {
-        height: $input-height;
-      }
-
-      input[type='button'] {
-        height: $input-height;
-        padding: 0.3em 1em;
-      }
+      width: 25%;
+      height: $input-height;
+      vertical-align: top;
     }
   }
 }
