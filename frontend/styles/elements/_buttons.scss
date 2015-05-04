@@ -16,6 +16,10 @@
   &.is-disabled {
     opacity: 0.4;
     cursor: default;
+
+    &:hover {
+      background: $c-primary;
+    }
   }
 
   &:hover {

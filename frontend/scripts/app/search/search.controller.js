@@ -101,11 +101,9 @@
      * Send search parameter to result page
      */
     function startSearch() {
-      var now = new Date();
 
       if ($scope.origin == null || $scope.destination == null) {
-        alert('All fields must be set.');
-        $scope.searchDataComplete = false;
+        return;
       }
 
       if ($scope.startDate > $scope.endDate) {
@@ -113,6 +111,7 @@
         $scope.searchDataComplete = false;
       }
 
+      var now = new Date();
       if ($scope.startDate < now || $scope.endDate < now) {
         alert('Can not choose date and time in the past.');
         $scope.searchDataComplete = false;

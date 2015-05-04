@@ -1,11 +1,23 @@
 %search {
   @include clearfix;
 
+  background-image: url('../images/intro.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+
   .search-form {
     @include span(6);
     @include clearfix;
 
-    padding: 1em 0.5em;
+    padding: 2em 0.5em;
+    margin: 2em 0.3em;
+    background-color: rgba(224,224,224,0.85);
   }
 
   .search-form-title {
@@ -18,7 +30,12 @@
   }
 
   .search-form-input-item {
+    width: 100%;
     margin-bottom: 2em;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   .search-form-input-item-label {
@@ -90,11 +107,95 @@
     }
   }
 
+  .search-form-input-item-button {
+    width: 100%;
+    height: $input-mobile-height;
+    text-align: center;
+    padding-top: 0.8em;
+  }
+
+
+  @include respond-above("medium") {
+    $input-icon-size: 1.9em;
+
+    .search-form {
+      display: block;
+      width: 40%;
+      min-width: 20em;
+      padding: 1em 2em;
+      margin: 2em;
+    }
+
+    .search-form-input {
+      display: table;
+    }
+
+    .search-form-input-item {
+      margin-bottom: 1em;
+    }
+
+    .search-form-input-item-button {
+      width: 100%;
+      height: $input-height + 0.8em;
+      padding-top: 1em;
+    }
+
+    .search-form-input-item-icon {
+      display: table-cell;
+      vertical-align: middle;
+
+      &>.fa {
+        display: block;
+        width: $input-icon-size;
+        height: $input-icon-size;
+        padding-top: 0.5em;
+        background-color: $c-white;
+        border-radius: $input-icon-size/2;
+
+        /* text properties */
+        text-align: center;
+        font-size: 2em;
+      }
+
+      &>span {
+        // placeholder to keep table formatting
+        display: block;
+        width: $input-icon-size;
+        height: $input-icon-size;
+        font-size: 2em;
+      }
+    }
+
+    .search-form-input-item-container {
+      display: table-cell;
+      vertical-align: top;
+      padding-left: 2em;
+      width: 100%;
+    }
+
+    .search-form-input-item-location-field-input {
+      display: block;
+    }
+
+    .search-form-input-item-location-field-dropdown {
+      margin-top: -$input-height;
+    }
+
+    .search-form-input-item-location-field-dropdown-toggle {
+      height: $input-height;
+      cursor: pointer;
+
+      .fa {
+        margin: 0 0.3em;
+      }
+    }
+  }
+
   /*******************************************************/
   /* Timing Section                                      */
   /*******************************************************/
 
-  .search-form-input-item-container {
+  .search-form-timing-container {
     margin-bottom: 1em;
   }
 
@@ -198,43 +299,19 @@
     }
   }
 
-  .search-form-input-item-button {
-    width: 100%;
-    height: $input-mobile-height;
-    text-align: center;
-    padding-top: 0.8em;
-  }
-
   @include respond-above("medium") {
 
-    .search-form {
-      display: block;
-      width: 40%;
-      min-width: 20em;
+    .search-form-timing-container {
+      margin-bottom: 0.2em;
     }
 
-    .search-form-input-item-location-field-input {
-      display: block;
-    }
-
-    .search-form-input-item-icon {
-      display: block;
-    }
-
-    .search-form-input-item-location-field-dropdown {
-      margin-top: -$input-height;
-    }
-
-    .search-form-input-item-location-field-dropdown-toggle {
-      height: $input-height;
-      cursor: pointer;
-
-      .fa {
-        margin: 0 0.3em;
-      }
+    .search-form-input-item-date, .search-form-input-item-time {
+      display: inline-block;
+      width: 48%;
     }
 
     .search-form-input-item-date {
+      margin-right: 2%;
 
       input {
         cursor: pointer;
@@ -253,12 +330,6 @@
           line-height: $input-height;
         }
       }
-    }
-
-    .search-form-input-item-button {
-      width: auto;
-      height: $input-height;
-      padding-top: 0.6em;
     }
   }
 }

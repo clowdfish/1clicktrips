@@ -93,6 +93,7 @@ en:
         timing: Specify Date & Time
         origin: Specify Your Origin
       form:
+        title: Travel to your next appointment. Now.
         origin:
           label: Where do you want to start?
           placeholder: Enter your origin
@@ -104,6 +105,7 @@ en:
             address: Address
             event: Event
             meeting: Meeting Space
+          roundtrip: this is a round-trip
         appointment:
           start: When does your appointment start?
           end: When does your appointment end?

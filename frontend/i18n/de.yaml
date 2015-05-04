@@ -86,6 +86,7 @@ de:
     placeholder: Ihre Email Adresse
     submit: Registrieren
   search:
+    title: Reise zu deinem nächstem Termin. Jetzt.
     navigation:
       destination: Finde den Zielort
       timing: Meetingzeiten angeben
@@ -102,6 +103,7 @@ de:
           address: Adresse
           event: Veranstaltung
           meeting: Treffpunkt
+        roundtrip: hin und zurück
       appointment:
         start: Wann beginnt der Termin?
         end: Wann endet der Termin?
