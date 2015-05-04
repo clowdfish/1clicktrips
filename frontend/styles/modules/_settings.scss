@@ -1,126 +1,166 @@
 %settings {
+  @include container;
 
-  .settings-navigation {
-    @include span(6);
+  /*************************************************/
+  /* TOP NAVIGATION                                */
+  /*************************************************/
+  .settings-top {
 
-    padding-bottom: 1em;
-    text-align: center;
-    border-bottom: 1px solid #cccccc;
+  }
 
-    ul {
-      list-style: none;
-    }
+  .settings-top-menu {
+    list-style: none;
+  }
 
-    li {
-      display: inline-block;
+  .settings-top-menu-item {
+    display: inline-block;
+    margin: 2em 2em 2em 0;
 
-      &.active > a {
-        text-decoration: underline;
+    &.active {
+      border-bottom: 2px solid $c-primary;
+
+      a {
+        color: $c-text;
       }
-
-      &:not(:last-child):after {
-        content:'\00B7';
-        padding: 0 0.2em;
-      }
-    }
-  }
-
-  .settings-content {
-    @include span(6);
-
-    padding: 1em 0;
-  }
-
-  .profile-attribute, .preferences-attribute {
-
-    .fa-check {
-      color: $c-green;
     }
 
-    .fa-exclamation {
-      color: $c-red;
+    a {
+      font-size: $fs-larger;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: $c-text-light;
+      text-decoration: none;
     }
-
-    .fa-pencil {
-      color: #c3c1ca;
-      margin-left: 0.3em;
-      font-size: 0.7em;
-    }
-
-    label {
-      display: block;
-      margin: 0.6em 0 0 0;
-    }
-
-    img {
-      margin: 0.3em 0;
-    }
-  }
-
-  .settings-sub-title {
-    margin-top: 0.8em;
-    margin-bottom: 0.5em;
-  }
-
-  .settings-bookings-item, .settings-favorites-item {
-
-    td {
-      padding-bottom: 0.8em;
-    }
-  }
-
-  .button {
-    font-size: $fs-normal;
-    height: $input-mobile-height;
   }
 
   @include respond-above("medium") {
 
-    .settings-navigation {
-      @include span(6 of 24);
-
+    .settings-top-menu-item {
       padding-bottom: 1em;
-      text-align: left;
-      border-bottom: none;
-
-      ul {
-        list-style: none;
-      }
-
-      li {
-        display: block;
-        margin-bottom: 0.3em;
-
-        &.active > a {
-          text-decoration: underline;
-        }
-
-        &:not(:last-child):after {
-          content: none;
-        }
-      }
-    }
-
-    .settings-content {
-      @include span(18 of 24);
-
-    }
-
-    .settings-bookings-item, .settings-favorites-item {
-
-      td {
-        padding-bottom: 0.3em;
-        padding-right: 0.5em;
-      }
-    }
-
-    .button {
-      height: $input-height;
     }
   }
 
-  @include respond-above("large") {
+  /*************************************************/
+  /* SIDE BAR                                      */
+  /*************************************************/
+  .settings-side {
+    width: 100%;
+    margin-right: 2em;
+    padding: 1em;
+    background-color: $c-grey;
+  }
 
+  .settings-side-profile {
+    margin-bottom: 2em;
+    text-align: center;
+  }
+
+  .settings-side-profile-image {
+    $profile-image-size: 6em;
+
+    position: relative;
+    margin-bottom: 0.5em;
+
+    img {
+      position: relative;
+      width: $profile-image-size;
+      height: $profile-image-size;
+      border-radius: $profile-image-size/2;
+      cursor: pointer;
+      border: 2px solid darken($c-grey, 10%);
+      outline: none;
+      z-index: 1;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      &:hover + .settings-side-profile-image-label {
+        display: block;
+        position: absolute;
+        z-index: 5;
+        top: $profile-image-size/2;
+        width: 100%;
+        color: $c-white;
+        font-size: $fs-small;
+        font-weight: 800;
+
+        .fa {
+          margin-right: 0.3em;
+        }
+      }
+    }
+  }
+
+  .settings-side-profile-image-label {
+    display: none;
+  }
+
+  .settings-side-profile-name {
+    display: block;
+    font-size: $fs-large;
+    font-weight: 800;
+  }
+
+  .settings-side-profile-date {
+    display: block;
+    font-size: $fs-small;
+    color: $c-text-light;
+  }
+
+  .settings-side-navigation {
+    list-style: none;
+  }
+
+  .settings-side-navigation-item {
+    display: block;
+    margin-bottom: 1em;
+
+    &.active {
+      font-weight: 800;
+
+      &:after {
+        font-family: FontAwesome;
+        content: "\f105";
+      }
+    }
+
+    a {
+      color: $c-text;
+      text-decoration: none;
+      padding-right: 0.5em;
+    }
+
+    .fa {
+      margin-right: 0.3em;
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .settings-side {
+      display: inline-block;
+      width: auto;
+      vertical-align: top;
+      margin-right: 2em;
+      padding: 1em 2em;
+    }
+
+  }
+
+  /*************************************************/
+  /* CONTENT AREA                                  */
+  /*************************************************/
+  .settings-content {
+
+  }
+
+  @include respond-above("medium") {
+
+    .settings-content {
+      display: inline-block;
+      vertical-align: top;
+    }
   }
 }
 

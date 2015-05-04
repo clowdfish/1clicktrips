@@ -1,0 +1,11 @@
+%booking {
+  padding: 2em 0.3em;
+
+  @include respond-above("medium") {
+
+  }
+}
+
+.booking {
+  @extend %booking;
+}

@@ -19,7 +19,6 @@ en:
   nav:
     about: About Us
     home: Home
-    signup: JOIN
     signin: Login
     profile: Profile
     logout: Logout
@@ -184,6 +183,15 @@ en:
       empty: You did not book any trips so far. Once you booked your first trip, it will be added here.
   settings:
     title: Settings
+    nav:
+      profile: Profile
+      bookings: My bookings
+      favorites: My favorites
+      overview: Overview
+      preferences: Preferences
+      payment: Payment
+      privacy: Privacy
+      logout: Logout
     profile:
       title: Profile
       image: Image

@@ -1,16 +1,4 @@
-<h1>{[ "settings_profile_title" | translate ]}</h1>
-
 <form name="profileForm">
-
-  <div class="form-group profile-attribute">
-    <label>{[ "settings_profile_image" | translate ]}</label>
-    <img ng-src="{[userProfile.image]}" width="150" height="150" />
-    <div class="button"
-        ng-file-select
-        ng-file-change="uploadImage($files)">{[ "settings_profile_upload" | translate ]}</div>
-    <span ng-show="isUploading">{[ "settings_profile_uploading" | translate ]}</span>
-  </div>
-
 
   <editable-text-field
     class="profile-attribute"

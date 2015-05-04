@@ -12,12 +12,13 @@ de:
     pagination:
       page: Seite
       of: von
+    enable: aktivieren
+    disable: deaktivieren
   toasts:
     notimplemented: Leider noch nicht verfügbar
   nav:
     about: Über Uns
     home: Startseite
-    signup: Registrieren
     signin: Login
     profile: Profil
     logout: Abmelden
@@ -182,6 +183,15 @@ de:
       empty: Sie haben noch keine Reise gebucht. Sobald Sie Ihre erste Reise gebucht haben, wird sie hier erscheinen.
   settings:
     title: Einstellungen
+    nav:
+      profile: Profil
+      bookings: Meine Buchungen
+      favorites: Meine Favoriten
+      overview: Übersicht
+      preferences: Einstellungen
+      payment: Zahlmittel
+      privacy: Prvatsphäre
+      logout: Abmelden
     profile:
       title: Profil
       image: Profilbild
@@ -199,13 +209,67 @@ de:
         zip: Postleitzahl
         city: Stadt
         country: Land
-      upload: Verarbeite Datei, bitte warten...
+      upload: Hochladen
+      uploading: Verarbeite Datei, bitte warten...
     history:
       title: Verlauf
     privacy:
       title: Privatsphäre
     preferences:
       title: Präferenzen
+      travelProfile:
+        description: Set your personal travel profile.
+        timeSaver:
+          description: time saver
+          tooltip: Choose this travel profile, when you want to spend as little time as possible on the road.
+        explorer:
+          description: explorer
+          tooltip: Choose this travel profile, when you want to also explore your destination and spend some time there.
+        socializer:
+          description: socializer
+          tooltip: Choose this travel profile, when you plan to spend some time with your customer after the appointment.
+      transferTime:
+        description: Set a transfer time.
+        fast:
+          description: fast
+          tooltip: Your name is Usain Bolt? Go for that option.
+        medium:
+          description: medium
+          tooltip: For most people this option is the way to go.
+        slow:
+          description: slow
+          tooltip: If you miss your connections too often, go for that option. It will give you some additional buffer time.
+      tripDurationFactor: How much slower may the low-budget trip be in comparison to the fastest trip?
+      homeLocation: Set your default home location.
+      hotelType:
+        description: Set your hotel preference.
+        lowBudget:
+          description: low-budget
+        comfort:
+          description: comfort
+        luxurious:
+          description: luxurious
+      hotelLocation:
+        description: Set your hotel location preference.
+        appointment:
+          description: close to appointment location
+        trafficJuntions:
+          description: close to traffic junctions
+        cityCenter:
+          description: close to city center
+      accommodationType:
+        description: Do you also want to use private accommodations like Airbnb?
+        onlyHotels:
+          description: only hotels
+        hotelsAndPrivate:
+          description: hotels and private accommodations
+        onlyPrivate:
+          description: only private accommodations
+      taxi: (De)Activate the taxi option.
+      flight: (De)Activate the flight option.
+      publicTransport: (De)Activate the public transport option.
+      rentalCar: (De)Activate the rental car option.
+      ferry: (De)Activate the ferry option.
     other:
       edit: Editieren
   legal:
