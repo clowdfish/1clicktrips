@@ -206,6 +206,19 @@
     }
   }
 
+  .settings-profile-attribute {
+    display: block;
+    margin-bottom: 0.5em;
+    min-width: 15em;
+
+    label {
+      display: block;
+      font-size: $fs-small;
+      font-weight: 800;
+      margin-bottom: 0.3em;
+    }
+  }
+
   @include respond-above("medium") {
 
   }

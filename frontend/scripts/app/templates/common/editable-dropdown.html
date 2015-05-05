@@ -1,23 +1,14 @@
-<label>{[label | translate]}</label>
-
-<div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
-  {[optionDescription | translate | capitalize]}
-  <span ng-show="!success"><i class="fa fa-pencil"></i></span>
-  <span ng-show="success"><i class="fa fa-check"></i></span>
-</div>
-
-<div ng-show="isEditing">
-
-    <fieldset>
-      <select ng-model="value"
-              id="{[key]}"
-              name="{[key]}"
-              ng-change="save(value)"
-              ng-class="{error: error}"
-              ng-options="item.value as item.description for item in options">
-      </select>
-      <span ng-show="error"><i class="fa fa-exclamation"></i></span>
-    </fieldset>
-
-</div>
-
+<fieldset>
+  <label>{[label | translate]}</label>
+  <select ng-model="value"
+          id="{[key]}"
+          name="{[key]}"
+          ng-change="save(value)"
+          ng-class="{ error: error, success: success }"
+          ng-options="item.value as item.description for item in options">
+  </select>
+  <span class="input-status">
+    <i class="fa fa-check"></i>
+    <i class="fa fa-exclamation"></i>
+  </span>
+</fieldset>

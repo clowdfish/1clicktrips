@@ -7,10 +7,10 @@
     .controller('editableCtrl', editableCtrl);
 
   function editableCtrl($scope) {
-    $scope.isEditing = false;
     $scope.error = false;
     $scope.success = false;
     $scope.optionDescription = '';
+    $scope.oldValue = $scope.value;
 
     getOptionDescription();
     $scope.$watch('value', function() {
@@ -27,20 +27,22 @@
       }
     }
 
-    $scope.edit = function() {
-      $scope.isEditing = true;
+    $scope.blurElement = function($event) {
+      $event.target.blur();
     };
 
     $scope.save = function(newValue) {
-      $scope.value = newValue;
-      $scope.success = false;
-      $scope.error = false;
-      $scope.saveFn($scope.key, newValue)
-        .then(saveSuccess, saveError);
+
+      if($scope.oldValue != newValue) {
+        $scope.value = newValue;
+        $scope.success = false;
+        $scope.error = false;
+        $scope.saveFn($scope.key, newValue)
+          .then(saveSuccess, saveError);
+      }
     };
 
     function saveSuccess() {
-      $scope.isEditing = false;
       $scope.success = true;
       $scope.error = false;
     }
@@ -49,8 +51,6 @@
       $scope.success = false;
       $scope.error = true;
     }
-
-
   }
 
 })();

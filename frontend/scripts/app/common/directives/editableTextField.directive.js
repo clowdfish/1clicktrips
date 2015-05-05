@@ -11,6 +11,7 @@
       restrict: 'E',
       templateUrl: 'scripts/app/templates/common/editable-text-field.html',
       scope: {
+        blurElementFn: '=blurElement',
         saveFn: '=save',
         key: '=',
         label: '=',

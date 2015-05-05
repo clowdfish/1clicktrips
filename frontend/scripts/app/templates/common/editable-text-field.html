@@ -1,19 +1,15 @@
 <fieldset>
   <label>{[ label | translate ]}</label>
-  <div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
-    <span ng-if="value">{[value]}</span>
-    <span ng-if="!value">{[ "settings_other_edit" | translate]}</span>
-    <span ng-show="!(success && value)"><i class="fa fa-pencil"></i></span>
-    <span ng-show="success && value"><i class="fa fa-check"></i></span>
-  </div>
-  <div ng-show="isEditing">
-    <input type="text"
-          ng-model="value"
-          value="{[value]}"
-          ng-class="{error: error}"/>
-    <input type="button" ng-click="save(value)" value="Save"/>
-    <span ng-show="error"><i class="fa fa-exclamation"></i></span>
-
-  </div>
+  <input
+    type="text"
+    ng-model="value"
+    value="{[ value ]}"
+    ng-class="{ error: error, success: success }"
+    ng-blur="save(value)"
+    ng-keypress="($event.which === 13) ? blurElement($event) : 0"
+    placeholder="{[ 'settings_other_edit' | translate]}" />
+  <span class="input-status">
+    <i class="fa fa-check"></i>
+    <i class="fa fa-exclamation"></i>
+  </span>
 </fieldset>
-

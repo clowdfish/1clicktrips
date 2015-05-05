@@ -4,6 +4,21 @@ $inputs-check: 'input[type="checkbox"], input[type="radio"]';
 $input-height: 2.3rem; // non-mobile
 $input-mobile-height: 2.8rem; // mobile
 
+
+%input {
+  font-family: $ff-body;
+  display: block;
+  border: 1px solid $c-border;
+  border-radius: 3px;
+  width: 100%;
+  background: white;
+  position: relative;
+
+  &:focus {
+    border-color: $c-primary;
+  }
+}
+
 /*
  * Text Input
  */
@@ -72,18 +87,53 @@ input[type=radio] {
 }
 
 /*
- * Text Inputs
+ * Select Inputs
  */
-%input {
-  font-family: $ff-body;
-  display: block;
-  border: 1px solid $c-border;
-  border-radius: 3px;
-  width: 100%;
-  background: white;
-  position: relative;
+select {
+  @extend %input;
+  height: $input-mobile-height;
+  font-size: $fs-normal;
 
-  &:focus {
-    border-color: $c-primary;
+  @include respond-above("medium") {
+    height: $input-height;
+  }
+}
+
+
+/* Custom input directive */
+input + span.input-status, select + span.input-status {
+  display: none;
+  margin-top: -($input-height/2 + 0.65rem);
+  padding-right: 0.5em;
+  padding-bottom: 0.55rem;
+  text-align: right;
+}
+
+select + span.input-status {
+  padding-right: 1.2em;
+}
+
+input.error, select.error {
+  border: 1px solid $c-status-error;
+
+  & + span.input-status {
+    display: block;
+    color: $c-status-error;
+
+    .fa-check {
+      display: none;
+    }
+  }
+}
+
+input.success, select.success {
+
+  & + span.input-status {
+    display: block;
+    color: $c-status-okay;
+
+    .fa-exclamation {
+      display: none;
+    }
   }
 }
