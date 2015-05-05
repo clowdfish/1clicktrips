@@ -86,6 +86,24 @@ en:
     title: Join our newsletter
     placeholder: Your email address
     submit: Subscribe
+  about:
+    intro:
+      title: Business travel at its best
+      text: Finding a trip to make it to your next appointment can become a big hassle. How can you get there? Does your trip in time? Is there enough transfer times between each trip segment? Do you need to arrive the day before? Is there any cheaper option?
+      promise: We will answer those questions, in a matter of seconds instead of hours of research!
+      button: Try it!
+    story:
+      title: Our story
+      text: Why did we start working on the idea of 1ClickTrips?
+      more: Read more...
+    team:
+      title: Our team
+      ruediger: CEO and Motivator
+      sascha: Architect and Mediator
+      nam: Lead Developer
+    mission:
+      title: Our mission
+      text: Making business travel booking easy
   search:
       navigation:
         destination: Specify Your Destination
@@ -209,7 +227,8 @@ en:
         zip: Postal code
         city: City
         country: Country
-      upload: Upload
+      member: Member since
+      upload: Open...
       uploading: Uploading, please wait...
     history:
       title: History

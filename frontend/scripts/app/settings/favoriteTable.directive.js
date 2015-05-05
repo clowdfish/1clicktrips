@@ -25,7 +25,7 @@
       $scope.sortableOptions = {
         axis: 'y',
         update: updatePosition
-      }
+      };
 
       $scope.deleteFavorite = function(favorite) {
         favoriteApi
@@ -37,7 +37,7 @@
           }, function(reason) {
             alert('Error while delete favorite');
           });
-      }
+      };
 
       function updatePosition(e, ui) {
         var position = 0;

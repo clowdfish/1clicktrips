@@ -16,10 +16,15 @@
     display: inline-block;
     margin: 2em 2em 2em 0;
 
+    &:hover a {
+      color: $c-primary;
+    }
+
     &.active {
       border-bottom: 2px solid $c-primary;
 
       a {
+        cursor: default;
         color: $c-text;
       }
     }
@@ -59,36 +64,42 @@
     $profile-image-size: 6em;
 
     position: relative;
+    width: $profile-image-size;
+    height: $profile-image-size;
+    border-radius: 50%;
+    border: 2px solid darken($c-grey, 10%);
+    cursor: pointer;
     margin-bottom: 0.5em;
+    overflow: hidden;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+
+      img {
+        z-index: 0;
+      }
+    }
+
+    &:hover .settings-side-profile-image-label {
+      display: block;
+      position: absolute;
+      z-index: 5;
+      top: $profile-image-size/2;
+      width: 100%;
+      color: $c-white;
+      font-size: $fs-small;
+      font-weight: 800;
+
+      .fa {
+        margin-right: 0.3em;
+      }
+    }
 
     img {
       position: relative;
       width: $profile-image-size;
       height: $profile-image-size;
-      border-radius: $profile-image-size/2;
-      cursor: pointer;
-      border: 2px solid darken($c-grey, 10%);
-      outline: none;
       z-index: 1;
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.3);
-      }
-
-      &:hover + .settings-side-profile-image-label {
-        display: block;
-        position: absolute;
-        z-index: 5;
-        top: $profile-image-size/2;
-        width: 100%;
-        color: $c-white;
-        font-size: $fs-small;
-        font-weight: 800;
-
-        .fa {
-          margin-right: 0.3em;
-        }
-      }
     }
   }
 
@@ -118,6 +129,15 @@
 
     &.active {
       font-weight: 800;
+
+
+      a {
+        cursor: default;
+
+        &:hover {
+          color: $c-text;
+        }
+      }
 
       &:after {
         font-family: FontAwesome;
@@ -166,6 +186,28 @@
       display: inline-block;
       vertical-align: top;
     }
+  }
+
+  /*************************************************/
+  /* PROFILE SECTION                               */
+  /*************************************************/
+  .settings-profile-group {
+    margin-bottom: 1em;
+  }
+
+  .settings-profile-group-title {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 0.8em;
+
+    .fa {
+      color: $c-primary;
+      margin-right: 1em;
+    }
+  }
+
+  @include respond-above("medium") {
+
   }
 }
 

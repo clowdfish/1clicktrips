@@ -167,21 +167,21 @@ $size-dashboard-icons: 5em;
 
   .slide-left.ng-enter, .slide-left.ng-move {
     -webkit-animation-delay: 1s;
-    @include animation(bounceInLeft 1s);
+    @include animation(slideInRight 1s);
   }
 
   .slide-left.ng-leave {
-    @include animation(bounceOutRight 0s);
+    @include animation(slideOutLeft 0s);
   }
 
   .slide-right.ng-enter,
   .slide-right.ng-move {
     -webkit-animation-delay: 1s;
-    @include animation(bounceInRight 1s);
+    @include animation(slideInLeft 1s);
   }
 
   .slide-right.ng-leave {
-    @include animation(bounceOutLeft 0s);
+    @include animation(slideOutRight 0s);
   }
 
   .list-paging {
@@ -308,6 +308,7 @@ $size-dashboard-icons: 5em;
   .booking-participants {
     display: table;
     padding-top: 1em;
+    padding-bottom: 1em;
     border-top: 1px solid $c-border;
   }
 

@@ -1,8 +1,4 @@
 <section class="settings">
-  <div ng-hide='isLogin'>
-    Please login to see this page.
-  </div>
-
   <div ng-show='isLogin'>
     <!-- TOP NAVIGATION -->
     <div class="settings-top">
@@ -23,15 +19,17 @@
     <div class="settings-side">
       <div class="settings-side-profile">
         <div class="settings-side-profile-image">
-          <img ng-src="{[userProfile.image]}"
+          <img ng-src="{[ userProfile['image'] ? userProfile['image'] : '/images/avatar.svg' ]}"
+               alt="user image"
                ng-file-select
                ng-file-change="uploadImage($files)" />
-          <span class="settings-side-profile-image-label"><i class="fa fa-folder-open"></i>Open...</span>
+          <span class="settings-side-profile-image-label"><i class="fa fa-folder-open"></i>{[ "settings_profile_upload" | translate ]}</span>
           <span ng-show="isUploading">{[ "settings_profile_uploading" | translate ]}</span>
         </div>
 
-        <span class="settings-side-profile-name">John Doe</span>
-        <span class="settings-side-profile-date">Member since 2014</span>
+        <span class="settings-side-profile-name" ng-if="userProfile['first_name']">{[ userProfile['first_name'] ]} {[ userProfile['last_name'] ]}</span>
+        <span class="settings-side-profile-name" ng-if="!userProfile['first_name']">Mr. No Name</span>
+        <span class="settings-side-profile-date">{[ "settings_profile_member" | translate ]} {[ userProfile['registration_date'] ? userProfile['registration_date'] : 2015 ]}</span>
       </div>
 
       <ul class="settings-side-navigation">

@@ -65,11 +65,11 @@ gulp.task('styles', function() {
   ])
   .pipe(gulp.dest("build/fonts"));
 
-  gulp.src([
+  /*gulp.src([
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'bower_components/animate.css/animate.min.css'
   ])
-  .pipe(gulp.dest("build/styles"));
+  .pipe(gulp.dest("build/styles"));*/
 
   return gulp.src([
     'styles/*.scss'

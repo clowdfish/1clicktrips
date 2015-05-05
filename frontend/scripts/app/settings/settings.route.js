@@ -38,7 +38,7 @@
 
     $stateProvider.state('settings.booking', {
       url: '/booking',
-      templateUrl: 'scripts/app/templates/settings/booking.html',
+      templateUrl: 'scripts/app/templates/settings/booking-table.html',
       controller: 'bookingCtrl',
       resolve: {
         bookingList: getBookingList
@@ -47,7 +47,7 @@
     
     $stateProvider.state('settings.favorite', {
       url: '/favorite',
-      templateUrl: 'scripts/app/templates/settings/favorite.html',
+      templateUrl: 'scripts/app/templates/settings/favorite-table.html',
       controller: 'favoriteCtrl',
       resolve: {
         favorites: getFavorites

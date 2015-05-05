@@ -6,35 +6,29 @@
     <div class="about-intro-container">
       <img class="about-intro-image" src="/images/logo.svg" alt="1ClickTrips logo" />
       <div class="about-intro-info">
-        <h1 class="about-intro-info-title">BUSINESS TRAVEL AT ITS BEST</h1>
-        <p class="about-intro-info-text">
-          Finding a trip to make it to your next appointment can become a big hassle.
-          How can you get there?
-          Does your trip in time? Is there enough transfer times between each trip segment?
-          Do you need to arrive the day before? Is there any cheaper option?
-        </p>
+        <h1 class="about-intro-info-title">{{ T.about.intro.title }}</h1>
+        <p class="about-intro-info-text">{{ T.about.intro.text }}</p>
       </div>
-      <p class="about-intro-text">We will answer those questions, in a matter of seconds instead of hours of research!</p>
+      <p class="about-intro-text">{{ T.about.intro.promise }}</p>
       <div class="about-intro-button">
-        <a class="button">Try it!</a>
+        <a class="button">{{ T.about.intro.button }}</a>
       </div>
     </div>
   </section>
 
   <section class="about-story">
-    <h2 class="about-story-title">Our story</h2>
-    <p class="about-story-abstract">Why did we start working on the idea of 1ClickTrips?</p>
-    <a href="" class="about-story-more">Read more...</a>
+    <h2 class="about-story-title">{{ T.about.story.title }}</h2>
+    <p class="about-story-abstract">{{ T.about.story.text }}</p>
+    <a href="" class="about-story-more">{{ T.about.story.more }}</a>
   </section>
 
   <section class="about-team">
-    <h2 class="about-team-title">Our team</h2>
-
+    <h2 class="about-team-title">{{ T.about.team.title }}</h2>
     <ul class="about-team-list">
       <li class="about-team-list-item">
         <img class="about-team-list-item-image" src="http://placehold.it/180x180"/>
         <div class="about-team-list-item-name">Rudiger Gros</div>
-        <div class="about-team-list-item-role">CEO and Motivator</div>
+        <div class="about-team-list-item-role">{{ T.about.team.ruediger }}</div>
 
         <ul class="about-team-list-item-social">
           <li class="about-team-list-item-social-item">
@@ -44,15 +38,14 @@
             <a href="https://ch.linkedin.com/in/ruedigergros" title="LinkedIn" target="_blank"><i class="fa fa-linkedin"></i></a>
           </li>
           <li class="about-team-list-item-social-item">
-            <a href="https://www.xing.com/profile/Ruediger_Gros" title="Twitter" target="_blank"><i class="fa fa-xing"></i></a>
+            <a href="https://www.xing.com/profile/Ruediger_Gros" title="Xing" target="_blank"><i class="fa fa-xing"></i></a>
           </li>
         </ul>
       </li>
-
       <li class="about-team-list-item">
         <img class="about-team-list-item-image" src="http://placehold.it/180x180"/>
         <div class="about-team-list-item-name">Sascha Gros</div>
-        <div class="about-team-list-item-role">Architect and Mediator</div>
+        <div class="about-team-list-item-role">{{ T.about.team.sascha }}</div>
 
         <ul class="about-team-list-item-social">
           <li class="about-team-list-item-social-item">
@@ -62,25 +55,24 @@
             <a href="https://de.linkedin.com/in/saschagros" title="LinkedIn" target="_blank"><i class="fa fa-linkedin"></i></a>
           </li>
           <li class="about-team-list-item-social-item">
-            <a href="https://github.com/swapzone" title="Twitter" target="_blank"><i class="fa fa-github"></i></a>
+            <a href="https://github.com/swapzone" title="Github" target="_blank"><i class="fa fa-github"></i></a>
           </li>
         </ul>
       </li>
-
       <li class="about-team-list-item">
         <img class="about-team-list-item-image" src="http://placehold.it/180x180"/>
         <div class="about-team-list-item-name">Nam Tran</div>
-        <div class="about-team-list-item-role">Lead Developer</div>
+        <div class="about-team-list-item-role">{{ T.about.team.nam }}</div>
 
         <ul class="about-team-list-item-social">
           <li class="about-team-list-item-social-item">
             <a href="ttps://twitter.com/namtran_wd" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
           </li>
           <li class="about-team-list-item-social-item">
-            <a href="#" title="LinkedIn" target="_blank"><i class="fa fa-linkedin"></i></a>
+            <a href="http://www.quora.com/Nam-Khanh-Tran" title="Quora" target="_blank"><i class="fa fa-external-link"></i></a>
           </li>
           <li class="about-team-list-item-social-item">
-            <a href="https://github.com/davidtran" title="Twitter" target="_blank"><i class="fa fa-github"></i></a>
+            <a href="https://github.com/davidtran" title="Github" target="_blank"><i class="fa fa-github"></i></a>
           </li>
         </ul>
       </li>
@@ -88,23 +80,21 @@
   </section>
 
   <section class="about-mission">
-    <h2 class="about-mission-title">Our mission</h2>
-
+    <h2 class="about-mission-title">{{ T.about.mission.title }}</h2>
     <p class="about-mission-quote">
       <i class="fa fa-quote-left"></i>
       <i class="fa fa-quote-right"></i>
-      <span class="about-mission-quote-text">Making business travel booking easy.</span>
+      <span class="about-mission-quote-text">{{ T.about.mission.text }}</span>
     </p>
   </section>
 </div>
 
 <section class="newsletter">
-  <h2 class="newsletter-title">{[ "newsletter_title" | translate ]}</h2>
-
+  <h2 class="newsletter-title">{{ T.newsletter.title }}</h2>
   <div class="newsletter-input">
     <form>
-      <input type="text" class="newsletter-input-text" placeholder="{[ 'newsletter_placeholder' | translate ]}" />
-      <input type="button" class="button newsletter-input-button" value="{[ 'newsletter_submit' | translate ]}" />
+      <input type="text" class="newsletter-input-text" placeholder="{{ T.newsletter.placeholder }}" />
+      <input type="button" class="button newsletter-input-button" value="{{ T.newsletter.submit }}" />
     </form>
   </div>
 </section>

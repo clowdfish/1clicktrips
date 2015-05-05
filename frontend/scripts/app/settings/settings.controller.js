@@ -17,6 +17,7 @@
     $scope.$on(AUTH_EVENTS.signupSuccess, function() {
       $state.reload();
     });
+
     /**
     * Go to homepage when user logout
     */

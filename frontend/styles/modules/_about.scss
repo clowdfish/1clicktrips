@@ -29,6 +29,7 @@
 
   .about-intro-info-title {
     line-height: $fs-large;
+    text-transform: uppercase;
     margin-bottom: 1em;
   }
 
@@ -184,6 +185,7 @@
   @include respond-above("medium") {
 
     .about-team {
+      @include clearfix;
       padding: 3em 0;
     }
 
@@ -193,13 +195,7 @@
     }
 
     .about-team-list-item {
-      display: inline-block;
-      width: 33%;
-      margin-right: 0.2%;
-
-      &:last-of-type  {
-        margin-right: 0;
-      }
+      @include span(2);
     }
 
     .about-team-list-item-social-item {
