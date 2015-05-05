@@ -54,6 +54,11 @@ p {
 
 a, a:visited {
   color: $c-primary;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 // font classes

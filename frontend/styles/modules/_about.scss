@@ -1,169 +1,292 @@
 %about {
-  .introduction-container {
-    height: 600px;
-    padding: 8em 0;
+  /*********************************************************/
+  /* INTRO                                                 '/
+  /*********************************************************/
+  .about-intro {
     background: url("../images/intro_about.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+  }
 
-    .introduction {
-      width: 700px;
-      margin: 0em auto;
+  .about-intro-container {
+    width: 100%;
+    padding: 2em 0;
+  }
+
+  .about-intro-image {
+    display: block;
+    width: 7em;
+    padding-right: 2em;
+    margin: 0 auto 1em auto;
+  }
+
+  .about-intro-info {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .about-intro-info-title {
+    line-height: $fs-large;
+    margin-bottom: 1em;
+  }
+
+  .about-intro-info-text {
+    text-align: justify;
+    margin-bottom: 1em;
+  }
+
+  .about-intro-text {
+    width: 90%;
+    text-align: justify;
+    margin: 0 auto 2em auto;
+    font-weight: bold;
+  }
+
+  .about-intro-button {
+    text-align: center;
+
+    .button {
+      padding: 0.6em 3em;
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .about-intro-container {
+      width: 65%;
+      margin: 0 auto;
+      padding: 4em 0;
     }
 
-    .introduction-image {
-      float: left;
-      padding-right: 15px;
-      width: 30%;
-      box-sizing: border-box;
+    .about-intro-image {
+      display: inline-block;
+      width: 25%;
+      max-width: 8em;
+      padding: 0;
+      margin-top: 0.5em;
+      margin-right: 2em;
+      margin-left: 1em;
     }
-    .introduction-text {
+
+    .about-intro-info {
+      display: inline-block;
       width: 70%;
-      float: left;
-      box-sizing: border-box;
-      h1 {
-        margin-bottom: 20px;
-      }
-      p {
-        font-size: 0.9em;
-      }
+      vertical-align: top;
+      margin: 0 0 2em 0;
     }
 
-    .ask-question {
+    .about-intro-info-text {
+      margin-bottom: 0;
+    }
+
+    .about-intro-text {
+      width: auto;
+      margin: 0 0 2em 0;
       text-align: center;
-      p {
-        margin: 35px 0;
-        font-weight: bold;
-      }
     }
   }
 
-  .parters-container {
-    background-color: rgb(236, 236, 236);
+  /*********************************************************/
+  /* STORY                                                 */
+  /*********************************************************/
+  .about-story {
     padding: 2em 0;
-    height: 290px;
+    background-color: $c-grey;
+    text-align: center;
 
-    .parters {
-      text-align: center;
-      width: 700px;
-      margin: 0 auto;
-      .partner-title {
-        margin-bottom: 20px;
-        font-weight: bold;
-      }
+  }
 
-      .parter-list {
-        list-style: none;
+  .about-story-title {
+    font-size: $fs-large;
+    margin-bottom: 1.5em;
+  }
 
-        .parter-item {
-          float: left;
-          width: 25%;
-          box-sizing: border-box;
-        }
-      }
+  .about-story-abstract {
+    margin-bottom: 1em;
+  }
+
+  @include respond-above("medium") {
+
+    .about-story {
+      padding: 3em 0;
     }
   }
 
-  .team-container {
-    height: 480px;
+  /*********************************************************/
+  /* TEAM                                                  */
+  /*********************************************************/
+  .about-team {
     padding: 2em 0;
-    background-color: white;
-    .team {
-      width: 700px;
-      margin: 0 auto;
-      .team-title {
-        text-align: center;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
+    background-color: $c-white;
+  }
 
-      .member-list {
-        .member {
-          box-sizing: border-box;
-          width: 33.3%;
-          float: left;
-          padding: 10px;
-          text-align: center;
-          .member-picture {
-            margin-bottom: 10px;
-            border-radius: 50%;
-          }
-          .member-name {
-            font-weight: bold;
-          }
-          .role {
-            font-size: 0.8em;
-            color: $c-orange;
-          }
-          .separator {
-            border-top: 1px solid rgb(236, 236, 236);
-            margin: 20px 0 10px 0;
-          }
-          .social-links-wrapper {
-            float: right;
-            left: -50%;
-            position: relative;
-            .social-links {
-              position: relative;
-              left: 50%;
-              list-style: none;
-              li {
-                position: relative;
-                margin-right: 8px;
-                float: left;
+  .about-team-title {
+    text-align: center;
+    font-size: $fs-large;
+    margin-bottom: 1.5em;
+  }
 
-                .fa {
-                  border-radius: 50%;
-                  font-size: 0.8em;
-                  color: $c-text;
-                }
-              }
-              li:last-child {
-                margin-right: 0;
-              }
-            }
-          }
+  .about-team-list {
+    display: block;
+    list-style: none;
+  }
 
-        }
-      }
+  .about-team-list-item {
+    display: block;
+    text-align: center;
+    margin-bottom: 2em;
+  }
+
+  .about-team-list-item-image {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    margin-bottom: 0.3em;
+  }
+
+  .about-team-list-item-name {
+    font-weight: bold;
+  }
+
+  .about-team-list-item-role {
+    font-size: $fs-small;
+    color: $c-primary;
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $c-border;
+  }
+
+  .about-team-list-item-social {
+    list-style: none;
+    margin-top: 0.5em;
+  }
+
+  .about-team-list-item-social-item {
+    display: inline-block;
+    margin-right: 0.5em;
+    border: 1px solid darken($c-border, 10%);
+    border-radius: 50%;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .fa {
+      font-size: $fs-normal;
+      color: $c-text;
+      padding: 0.8em;
     }
   }
 
-  .mission-container {
-    height: 225px;
-    padding: 2em;
-    background-color: $c-grey-dark;
+  @include respond-above("medium") {
 
-    .mission {
-      width: 700px;
+    .about-team {
+      padding: 3em 0;
+    }
+
+    .about-team-list {
+      width: 90%;
       margin: 0 auto;
-      text-align: center;
-      .mission-title {
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: $c-white;
+    }
+
+    .about-team-list-item {
+      display: inline-block;
+      width: 33%;
+      margin-right: 0.2%;
+
+      &:last-of-type  {
+        margin-right: 0;
       }
-      .mission-quote {
-        font-size: 1.2em;
-        font-weight: bold;
-        color: $c-white;
-        position: relative;
+    }
+
+    .about-team-list-item-social-item {
+      margin-right: 0.5em;
+
+      &:hover {
+        background-color: $c-primary;
+        border-color: $c-primary;
+
         .fa {
-          color: black;
-        }
-        .fa-quote-left {
-          position: relative;
-          top: -0.2em;
-          margin-right: 8px;
-        }
-        .fa-quote-right {
-          position: relative;
-          top: 0.7em;
-          margin-left: 8px;
+          color: $c-white;
         }
       }
 
+      .fa {
+        padding: 0.3em;
+      }
+    }
+  }
+
+  /*********************************************************/
+  /* MISSION                                               */
+  /*********************************************************/
+  .about-mission {
+    padding: 2em;
+    text-align: center;
+    background-color: $c-grey-dark;
+  }
+
+  .about-mission-title {
+    font-size: $fs-large;
+    margin-bottom: 1.5em;
+    color: $c-white;
+  }
+
+  .about-mission-quote {
+    position: relative;
+    color: $c-white;
+
+    .fa {
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      font-size: $fs-larger;
+      color: black;
+    }
+
+    .fa-quote-left {
+      left: -0.6em;
+    }
+
+    .fa-quote-right {
+      right: -0.6em;
+    }
+  }
+
+  .about-mission-quote-text {
+    position: relative;
+    z-index: 3;
+    font-style: italic;
+  }
+
+  @include respond-above("medium") {
+
+    .about-mission {
+      padding: 4em;
+    }
+
+    .about-mission-quote {
+      display: inline-block;
+
+      .fa {
+        font-size: $fs-largest;
+      }
+
+      .fa-quote-left {
+        left: -0.8em;
+      }
+
+      .fa-quote-right {
+        right: -0.8em;
+      }
+    }
+
+    .about-mission-quote-text {
+      font-size: $fs-largest;
+      font-weight: 800;
     }
   }
 }
