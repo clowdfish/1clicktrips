@@ -17,6 +17,7 @@
                     authApi,
                     session,
                     userApi,
+                    authHelper,
                     $state) {
 
     /**
@@ -118,11 +119,7 @@
     });
 
     $scope.createLoginModal = function(size) {
-      var modalInstance = $modal.open({
-        templateUrl: 'scripts/app/templates/auth/login-modal.html',
-        controller: 'loginCtrl',
-        size: size ? size : 'lg'
-      });
+      authHelper.openLoginDialog();
     };
 
     $scope.createSignupModal = function(size) {

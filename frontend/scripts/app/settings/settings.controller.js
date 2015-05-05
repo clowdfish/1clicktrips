@@ -9,7 +9,14 @@
   function settingsCtrl($scope,
                         AUTH_EVENTS,
                         $state) {
-
+  	
+    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+       $state.reload();
+    });
+    
+    $scope.$on(AUTH_EVENTS.signupSuccess, function() {
+      $state.reload();
+    });
     /**
     * Go to homepage when user logout
     */

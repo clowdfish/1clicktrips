@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('signupCtrl', signupCtrl);
 
-  function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authApi) {
+  function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authApi, authHelper) {
 
     $scope.agreement = false;
 
@@ -35,11 +35,7 @@
     // show login modal
     $scope.showLoginModal = function() {
       $modalInstance.close();
-      var modalInstance = $modal.open({
-        templateUrl: 'scripts/app/templates/auth/login-modal.html',
-        controller: 'loginCtrl',
-        size: 'lg'
-      });
+      authHelper.openLoginDialog();
     };
 
     // show error message when sign up failed

@@ -5,13 +5,16 @@
   angular
     .module('app.settings')
     .config(routerConfig);
-
+    
   function routerConfig($stateProvider) {
     $stateProvider.state('settings', {
       url:'/settings',
       templateUrl: 'scripts/app/templates/settings/settings.html',
       controller: 'settingsCtrl',
-      parent:'root'
+      parent:'root',
+      resolve: {
+        checkAuthenticaton: checkAuthenticaton
+      }
     });
 
     $stateProvider.state('settings.profile', {
@@ -50,6 +53,16 @@
         favorites: getFavorites
       }
     });
+  }
+  
+  function checkAuthenticaton($state, session, authHelper, $q) {    
+    var deferred = $q.defer();
+    if (!session.isLogin()) {      
+      authHelper.openLoginDialog('settings.profile');
+      deferred.reject();      
+    }    
+    deferred.resolve();
+    return deferred.promise;
   }
 
   function getUserProfile(userApi) {

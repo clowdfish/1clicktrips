@@ -6,7 +6,14 @@
     .module('app.auth')
     .controller('loginCtrl', loginCtrl);
 
-  function loginCtrl($scope, $rootScope, $modal, $modalInstance, AUTH_EVENTS, oAuthDialog, authApi) {
+  function loginCtrl($scope, 
+                    $rootScope, 
+                    $modal, 
+                    $modalInstance, 
+                    AUTH_EVENTS, 
+                    oAuthDialog, 
+                    authApi, 
+                    authHelper) {
 
     /**
      * Login by Twitter
@@ -45,11 +52,7 @@
     // show signup modal
     $scope.showSignupModal = function() {
       $modalInstance.close();
-      var modalInstance = $modal.open({
-        templateUrl: 'scripts/app/templates/auth/signup-modal.html',
-        controller: 'signupCtrl',
-        size: 'lg'
-      });
+      authHelper.openSignupDialog();
     };
 
     $scope.showForgotPasswordModal = function() {
