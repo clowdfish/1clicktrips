@@ -43,7 +43,7 @@
 	.parters-container {
 		background-color: rgb(236, 236, 236);
 		padding: 2em 0;
-		height: 290px;
+		height: 204px;
 		
 		.parters {
 			text-align: center;
@@ -67,11 +67,11 @@
 	}
 	
 	.team-container {
-		height: 480px;
+		height: 430px;
 		padding: 2em 0;
 		background-color:white;
 		.team {
-			width: 700px;
+			width: 800px;
 			margin: 0 auto;
 			.team-title {
 				text-align: center;
@@ -79,12 +79,12 @@
 				margin-bottom: 20px;
 			}
 			
-			.member-list {				
+			.member-list {				 
 				.member {
 					box-sizing: border-box;
 					width: 33.3%;
 					float: left;
-					padding: 10px;
+					padding: 0 20px;
 					text-align: center;
 					.member-picture {
 						margin-bottom: 10px;
@@ -126,7 +126,7 @@
 						}
 					}
 					
-				}
+				}								
 			}
 		}
 	}
