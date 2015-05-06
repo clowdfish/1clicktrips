@@ -7,7 +7,7 @@ var fs    = require("fs");
 var mkdirp = require('mkdirp');
 // include gulp plug-ins
 var changed 	  = require('gulp-changed'),
-    imagemin 	  = require('gulp-imagemin'),
+    //imagemin 	  = require('gulp-imagemin'),
     concat 		  = require('gulp-concat'),
     coffee      = require('gulp-coffee'),
     stripDebug 	= require('gulp-strip-debug'),
@@ -88,7 +88,7 @@ gulp.task('images', function() {
 
   gulp.src(imgSrc)
     .pipe(changed(imgDst))
-    .pipe(imagemin())
+    //.pipe(imagemin()) // this one messes around with SVGs
     .pipe(gulp.dest(imgDst));
 });
 
