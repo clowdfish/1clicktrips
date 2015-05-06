@@ -14,6 +14,8 @@ de:
       of: von
     enable: aktivieren
     disable: deaktivieren
+    date: Datum
+    delete: löschen
   toasts:
     notimplemented: Leider noch nicht verfügbar
   nav:

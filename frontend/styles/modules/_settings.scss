@@ -10,11 +10,16 @@
 
   .settings-top-menu {
     list-style: none;
+    margin: 0.5em 0;
   }
 
   .settings-top-menu-item {
     display: inline-block;
-    margin: 2em 2em 2em 0;
+    margin-left: 0.8em;
+
+    &.no-mobile {
+      display: none;
+    }
 
     &:hover a {
       color: $c-primary;
@@ -23,14 +28,14 @@
     &.active {
       border-bottom: 2px solid $c-primary;
 
-      a {
+      a, a:visited {
         cursor: default;
         color: $c-text;
       }
     }
 
-    a {
-      font-size: $fs-larger;
+    a, a:visited {
+      font-size: $fs-normal;
       font-weight: 800;
       text-transform: uppercase;
       color: $c-text-light;
@@ -40,8 +45,21 @@
 
   @include respond-above("medium") {
 
+    .settings-top-menu {
+      margin: 0;
+    }
+
     .settings-top-menu-item {
+      margin: 2em 2em 2em 0;
       padding-bottom: 1em;
+
+      &.no-mobile {
+        display: inline-block;
+      }
+
+      a {
+        font-size: $fs-larger;
+      }
     }
   }
 
@@ -49,8 +67,8 @@
   /* SIDE BAR                                      */
   /*************************************************/
   .settings-side {
-    width: 100%;
-    margin-right: 2em;
+    width: 80%;
+    margin: 1em auto;
     padding: 1em;
     background-color: $c-grey;
   }
@@ -69,7 +87,7 @@
     border-radius: 50%;
     border: 2px solid darken($c-grey, 10%);
     cursor: pointer;
-    margin-bottom: 0.5em;
+    margin: 0 auto 0.5em auto;
     overflow: hidden;
 
     &:hover {
@@ -121,43 +139,33 @@
 
   .settings-side-navigation {
     list-style: none;
+    text-align: center;
   }
 
   .settings-side-navigation-item {
-    display: block;
-    margin-bottom: 1em;
+    display: inline;
+
+    &:not(:last-child):after {
+      content: "\2022";
+      color: $c-text-light;
+    }
 
     &.active {
-      font-weight: 800;
-
-
       a {
-        cursor: default;
-
-        &:hover {
-          color: $c-text;
-        }
-      }
-
-      &:after {
-        font-family: FontAwesome;
-        content: "\f105";
+        display: inline-block;
+        font-weight: 800;
+        border-bottom: 1px solid $c-primary;
       }
     }
 
     a {
       color: $c-text;
       text-decoration: none;
-      padding-right: 0.5em;
-      cursor: pointer;
-
-      &:hover {
-        color: $c-primary;
-      }
+      padding: 0 0.3em;
     }
 
     .fa {
-      margin-right: 0.3em;
+      display: none;
     }
   }
 
@@ -167,8 +175,57 @@
       display: inline-block;
       width: auto;
       vertical-align: top;
-      margin-right: 4em;
+      margin: 0 4em 0 0;
       padding: 1em 2em;
+    }
+
+    .settings-side-navigation {
+      text-align: left;
+    }
+
+    .settings-side-navigation-item {
+      display: block;
+      margin-bottom: 1em;
+
+      &:not(:last-child):after {
+        content: "";
+        color: $c-text;
+      }
+
+      &.active {
+        font-weight: 800;
+
+        a {
+          display: inline;
+          border-bottom: none;
+          cursor: default;
+
+          &:hover {
+            color: $c-text;
+          }
+        }
+
+        &:after {
+          font-family: FontAwesome;
+          content: "\f105";
+        }
+      }
+
+      a {
+        color: $c-text;
+        text-decoration: none;
+        padding-right: 0.5em;
+        cursor: pointer;
+
+        &:hover {
+          color: $c-primary;
+        }
+      }
+
+      .fa {
+        display: inline;
+        margin-right: 0.3em;
+      }
     }
 
   }
@@ -177,13 +234,18 @@
   /* CONTENT AREA                                  */
   /*************************************************/
   .settings-content {
-
+    display: block;
+    width: 95%;
+    padding: 0.5em;
   }
 
   @include respond-above("medium") {
 
     .settings-content {
       display: inline-block;
+      width: auto;
+      max-width: 60%;
+      padding: 0;
       vertical-align: top;
     }
   }
@@ -192,7 +254,7 @@
   /* PROFILE SECTION                               */
   /*************************************************/
   .settings-profile-group {
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
   }
 
   .settings-profile-group-title {
@@ -210,17 +272,57 @@
     display: block;
     margin-bottom: 0.5em;
     min-width: 15em;
-
-    label {
-      display: block;
-      font-size: $fs-small;
-      font-weight: 800;
-      margin-bottom: 0.3em;
-    }
   }
 
   @include respond-above("medium") {
 
+    .settings-profile-attribute {
+      display: inline-block;
+      margin-right: 2em;
+    }
+  }
+
+  /*************************************************/
+  /* PREFERENCES SECTION                           */
+  /*************************************************/
+  .settings-preferences {
+
+  }
+
+  .settings-preferences-attribute {
+    display: block;
+    margin-bottom: 1em;
+    min-width: 15em;
+  }
+
+  @include respond-above("medium") {
+
+    .settings-preferences-attribute {
+      margin-bottom: 1em;
+
+      label {
+        font-size: $fs-normal;
+      }
+    }
+  }
+
+  /*************************************************/
+  /* BOOKINGS AND FAVORITES SECTION                */
+  /*************************************************/
+  .settings-sub-title {
+    margin-bottom: 1em;
+  }
+
+  .settings-bookings-table, .settings-favorites-table {
+
+    th {
+      text-align: left;
+      padding: 0 0.5em 0.3em 0;
+    }
+
+    td {
+      padding: 0 0.5em 0.3em 0;
+    }
   }
 }
 

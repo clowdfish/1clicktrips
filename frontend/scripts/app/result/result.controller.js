@@ -4,7 +4,8 @@
   angular.module('app.result')
     .controller('resultCtrl', resultCtrl);
 
-  function resultCtrl($scope,
+  function resultCtrl($rootScope,
+                      $scope,
                       $stateParams,
                       $state,
                       $modal,
@@ -17,6 +18,8 @@
                       favoriteApi,
                       searchObject,
                       bookingApi) {
+
+    $rootScope.fullHeight = true;
 
     $scope.appConfig = appConfig;
     $scope.showAddToFavorite = true;
@@ -175,7 +178,7 @@
     * Destroy controller and listeners
     */
     function destroyController() {
-      console.log('Destroy resultCtrl');
+     $rootScope.fullHeight = false;
       destroyAuthenticationListener();
     }
 

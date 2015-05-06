@@ -2,7 +2,7 @@
   <div id="wrapper">
     {{> modules/mod_navbar }}
 
-    <div class="content-placeholder" ui-view>
+    <div class="content-placeholder" ng-class="{ 'full-height': fullHeight }" ui-view>
       {{> modules/mod_dashboard }}
     </div>
   </div>

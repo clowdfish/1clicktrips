@@ -1,25 +1,15 @@
-<label>{[label | translate]}</label>
+<fieldset>
+  <label class="editable-options-label">{[label | translate]}</label>
+  <span ng-repeat="option in options">
+    <input type="radio"
+           ng-model="value"
+           value="{[ option.value ]}"
+           id="{[ key ]}_{[ option.value ]}"
+           name="{[ key ]}"
+           ng-click="save(option.value)"
+           ng-class="{ error: error, success: success }" />
+    <label for="{[ key ]}_{[ option.value ]}">{[option.description | translate | capitalize]}</label>
+  </span>
+</fieldset>
 
-<div ng-show="!isEditing" ng-click="edit()" ng-class="{success: success}">
-  {[optionDescription | translate | capitalize]}
-  <span ng-show="!success"><i class="fa fa-pencil"></i></span>
-  <span ng-show="success"><i class="fa fa-check"></i></span>
-</div>
-
-<div ng-show="isEditing">
-  <div ng-repeat="option in options">
-    <fieldset>
-      <input type="radio"
-              ng-model="value"
-              value="{[option.value]}"
-              id="{[key]}_{[option.value]}"
-              name="{[key]}"
-              ng-click="save(option.value)"
-              ng-class="{error: error}"
-              />
-      <label for="{[key]}_{[option.value]}">{[option.description | translate | capitalize]}</label>
-      <span ng-show="error"><i class="fa fa-exclamation"></i></span>
-    </fieldset>
-  </div>
-</div>
 

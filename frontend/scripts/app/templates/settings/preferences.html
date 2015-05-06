@@ -1,26 +1,25 @@
-<h1>{[ "settings_preferences_title" | translate ]}</h1>
+<h3 class="settings-sub-title">{[ "settings_preferences_title" | translate ]}</h3>
 
-<div class="user-preferences-wrapper">
+<div class="settings-preferences">
   <form name="preferenceForm">
     <div ng-repeat="preference in userPreferences">
 
       <!-- Multi choice setting -->
       <div ng-if="preference.options">
         <editable-options
-          class="preferences-attribute"
+          class="settings-preferences-attribute"
           label="preference.description"
           key="preference.key"
           value="preference.value"
           options="preference.options"
           save="saveSetting">
         </editable-options>
-
       </div>
 
       <!-- Text setting -->
       <div ng-if="!preference.options">
         <editable-text-field
-          class="preferences-attribute"
+          class="settings-preferences-attribute"
           label="preference.description"
           key="preference.key"
           value="preference.value"

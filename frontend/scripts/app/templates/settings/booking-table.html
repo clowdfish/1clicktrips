@@ -1,16 +1,16 @@
 <h3 class="settings-sub-title">{[ "dashboard_bookings_label" | translate ]}</h3>
 
 <div ng-show="bookingList.length > 0">
-  <table>
+  <table class="settings-bookings-table">
     <thead>
       <tr>
-        <th>{[ "general_title" | translate ]}</th>
+        <th>{[ "general_date" | translate ]}</th>
         <th>{[ "general_destination" | translate ]}</th>
       </tr>
     </thead>
     <tbody>
       <tr class="settings-bookings-item" ng-repeat="booking in bookingList">
-        <td>{[booking.title]}</td>
+        <td>{[booking.date]}</td>
         <td>{[booking.destination]}</td>
       </tr>
     </tbody>

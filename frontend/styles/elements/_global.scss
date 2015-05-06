@@ -52,6 +52,10 @@ html, body {
   }
 }
 
+.no-mobile {
+  display: none;
+}
+
 @include respond-above("medium") {
 
   .dropdown-menu {
@@ -61,6 +65,10 @@ html, body {
       line-height: $input-height;
       cursor: pointer;
     }
+  }
+
+  .no-mobile {
+    display: inherit;
   }
 }
 
@@ -74,9 +82,12 @@ html, body {
 
   margin-top: -($header-height - $footer-height);
   padding-top: $header-height - $footer-height;
-  height: 100%;
 
-  &>div {
+  &.full-height {
     height: 100%;
+
+    &>div{
+      height: 100%;
+    }
   }
 }
