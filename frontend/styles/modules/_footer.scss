@@ -16,10 +16,6 @@
     display: none;
   }
 
-  .footer-contact {
-    display: none;
-  }
-
   @include respond-above("medium") {
     padding: 0.4em;
 
@@ -35,14 +31,6 @@
       left: 0;
       right: 0;
       text-align: center;
-    }
-
-    .footer-contact {
-      display: block;
-      position: absolute;
-      right: 0;
-      top: 0.4em;
-      text-align: right;
     }
 
     a, a:visited {

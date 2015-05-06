@@ -1,67 +1,73 @@
-<section class="dashboard">
-  <div class="view-container" ng-if='isLogin'>
-    <div class='dashboard-favorites-container'>
-      <h3>{[ "dashboard_favorites_title" | translate ]}</h3>
-      <favorite-list
-              list-items='favoriteList'
-              item-per-page="{[numberOfFavorites]}"
-              select-favorite='selectFavorite'></favorite-list>
-    </div>
-    <div class='dashboard-bookings-container'>
-      <h3>{[ "dashboard_bookings_title" | translate ]}</h3>
-      <booked-trips list-items='bookedTripList' item-per-page="{[numberOfTrips]}"></booked-trips>
-    </div>
+<!-- DASHBOARD VIEW (AUTHENTICATED) -->
+<section class="dashboard" ng-if='isLogin'>
+  <div class='dashboard-favorites-container'>
+    <h3>{[ "dashboard_favorites_title" | translate ]}</h3>
+    <favorite-list
+            list-items='favoriteList'
+            item-per-page="{[numberOfFavorites]}"
+            select-favorite='selectFavorite'></favorite-list>
+  </div>
+  <div class='dashboard-bookings-container'>
+    <h3>{[ "dashboard_bookings_title" | translate ]}</h3>
+    <booked-trips list-items='bookedTripList' item-per-page="{[numberOfTrips]}"></booked-trips>
+  </div>
+</section>
+
+<!-- DASHBOARD VIEW (EVERYBODY) -->
+<section class="dashboard" ng-if='!isLogin'>
+  <div class="dashboard-message">
+    <span class="dashboard-message-text">
+      <i class="fa fa-quote-left"></i>
+      <span>{[ "dashboard_message" | translate ]}</span>
+      <i class="fa fa-quote-right"></i>
+    </span>
   </div>
 
-  <div class="view-container" ng-if='!isLogin'>
-    <h1>{[ "dashboard_title" | translate ]}</h1>
+  <div class="dashboard-info">
+    <h2 class="dashboard-info-title">{[ "dashboard_title" | translate ]}</h2>
 
-    <div class="dashboard-info-box">
-      <div class="dashboard-info-icon trip"></div>
+    <div class="dashboard-info-box left">
+      <img src="/images/dashboard_door.jpg" alt="" class="dashboard-info-box-image" />
 
-      <h3>{[ "dashboard_info_endtoend_title" | translate ]}</h3>
-      <div class="dashboard-info-text">
-        <span>
-          {[ "dashboard_info_endtoend_text1" | translate ]}
-        </span>
-        <span>
-          {[ "dashboard_info_endtoend_text2" | translate ]}
-        </span>
+      <div class="dashboard-info-box-text">
+        <h3 class="dashboard-info-box-title">{[ "dashboard_info_endtoend_title" | translate ]}</h3>
+        <span>{[ "dashboard_info_endtoend_text1" | translate ]}</span>
+        <span>{[ "dashboard_info_endtoend_text2" | translate ]}</span>
       </div>
     </div>
 
-    <div class="dashboard-info-box">
-      <div class="dashboard-info-icon plane"></div>
+    <div class="dashboard-info-box right">
+      <img src="/images/dashboard_profile.jpg" alt="" class="dashboard-info-box-image" />
 
-      <h3>{[ "dashboard_info_profile_title" | translate ]}</h3>
-      <div class="dashboard-info-text">
+      <div class="dashboard-info-box-text">
+        <h3 class="dashboard-info-box-title">{[ "dashboard_info_profile_title" | translate ]}</h3>
         {[ "dashboard_info_profile_text" | translate ]}
       </div>
     </div>
 
-    <div class="dashboard-info-box">
-      <div class="dashboard-info-icon calendar"></div>
+    <div class="dashboard-info-box left">
+      <img src="/images/dashboard_schedule.jpg" alt="" class="dashboard-info-box-image" />
 
-      <h3>{[ "dashboard_info_date_title" | translate ]}</h3>
-      <div class="dashboard-info-text">
+      <div class="dashboard-info-box-text">
+        <h3 class="dashboard-info-box-title">{[ "dashboard_info_date_title" | translate ]}</h3>
         {[ "dashboard_info_date_text" | translate ]}
       </div>
     </div>
 
-    <div class="dashboard-info-box">
-      <div class="dashboard-info-icon suitcase"></div>
+    <div class="dashboard-info-box right">
+      <img src="/images/dashboard_meeting.jpg" alt="" class="dashboard-info-box-image" />
 
-      <h3>{[ "dashboard_info_meetings_title" | translate ]}</h3>
-      <div class="dashboard-info-text">
+      <div class="dashboard-info-box-text">
+        <h3 class="dashboard-info-box-title">{[ "dashboard_info_meetings_title" | translate ]}</h3>
         {[ "dashboard_info_meetings_text" | translate ]}
       </div>
     </div>
   </div>
 </section>
 
+<!-- NEWSLETTER SECTION -->
 <section class="newsletter">
   <h2 class="newsletter-title">{[ "newsletter_title" | translate ]}</h2>
-
   <div class="newsletter-input">
     <form>
       <input type="text" class="newsletter-input-text" placeholder="{[ 'newsletter_placeholder' | translate ]}" />

@@ -1,76 +1,175 @@
 $size-dashboard-icons: 5em;
 
 %dashboard {
-  @include container;
-
+  @include clearfix;
+  
   /*******************************************************/
   /* Dashboard Container                                 */
   /*******************************************************/
-  .view-container {
-    padding: 1.2em 0 2em 0;
+  .dashboard-info-title {
+    display: block;
+    text-align: center;
+    font-size: $fs-large;
+    margin-bottom: 1.2em;
+  }
 
-    h1 {
-      display: block;
-      text-align: center;
-      margin-bottom: 1.2em;
-    }
+  @include respond-above("medium") {
+    padding-bottom: 3em;
   }
 
   /*******************************************************/
-  /* Dashboard Info Boxes                                */
+  /* Dashboard Messages Section                          */
   /*******************************************************/
-  .dashboard-info-box {
+  .dashboard-message {
     position: relative;
-    width: 95%;
-    background-color: $c-white;
-    margin: ($size-dashboard-icons/2 + 1em) auto 1em auto;
-    padding: ($size-dashboard-icons/2 + 0.5em) 1em 1.2em 1em;
-    box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
-    min-height: 13em;
-
-    h3 {
-      display: block;
-      color: $c-primary;
-      font-weight: 200;
-      text-align: center;
-    }
+    background-color: $c-grey;
+    text-align: center;
+    padding: 3em 2em;
   }
 
-  .dashboard-info-icon {
-    position: absolute;
-    width: $size-dashboard-icons;
-    height: $size-dashboard-icons;
+  .dashboard-message-text {
+    display: inline-block;
+    position: relative;
+    font-weight: 800;
+    z-index: 0;
+    margin-left: -0.8em;
+    margin-top: 0.5em;
     vertical-align: top;
 
-    top: -($size-dashboard-icons/2);
-    left: 50%;
-    margin-left: -($size-dashboard-icons/2);
+    &>span {
+      position: relative;
+      z-index: 3;
+    }
 
-    border-radius: $size-dashboard-icons/2;
-    border: 1px solid #eee;
+    .fa {
+      position: absolute;
+      z-index: 0;
+      color: lighten($c-text-light, 15%);
+      font-size: 3em;
+    }
 
-    background: white no-repeat center;
-    background-size: auto 50%;
-  }
+    .fa-quote-left {
+      top: -0.2em;
+      left: 0;
+    }
 
-  .dashboard-info-text {
-    display: block;
-    margin-top: 1em;
-    text-align: center;
-    font-weight: 200;
-    color: $c-text;
-
-    span {
-      display: block;
-      margin-bottom: 1em;
+    .fa-quote-right {
+      top: 0.2em;
+      right: 0;
     }
   }
 
   @include respond-above("medium") {
 
+    .dashboard-message {
+      padding: 2.5em 1em 3.5em 1em;
+    }
+
+    .dashboard-message-text {
+
+      .fa-quote-right {
+        top: 0;
+      }
+    }
+  }
+  
+  /*******************************************************/
+  /* Dashboard Info Section                              */
+  /*******************************************************/
+  .dashboard-info {
+    @include container;
+    padding: 2em 1em;
+  }
+
+  .dashboard-info-box {
+    position: relative;
+    background-color: $c-white;
+    margin: 1em auto;
+    padding: 1em;
+    box-shadow: 0 2px 1px 0 rgba(120, 120, 120, 0.3);
+  }
+
+  .dashboard-info-box-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .dashboard-info-box-title {
+    display: block;
+    font-size: $fs-normal;
+    color: $c-text;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+  }
+
+  .dashboard-info-box-text {
+    display: block;
+    color: $c-text-light;
+
+    span {
+      display: block;
+      margin-bottom: 0.6em;
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .dashboard-info {
+      padding: 2em 1em;
+    }
+
     .dashboard-info-box {
-      @include span(2 of 4);
+      @include span(4 of 8);
+
+      padding: 1em;
       margin-bottom: 2em;
+    }
+
+    .dashboard-info-box-image {
+      margin-bottom: 1em;
+    }
+  }
+
+  @include respond-above("large") {
+
+    .dashboard-info-box {
+      @include span(4 of 8);
+      padding: 0;
+      margin-bottom: 2em;
+
+      &.left {
+        .dashboard-info-box-image {
+          float: left;
+        }
+      }
+
+      &.right {
+        margin-top: 5em;
+
+        .dashboard-info-box-image {
+          float: right;
+        }
+      }
+    }
+
+    .dashboard-info-box-image {
+      width: 40%;
+      padding: 0;
+      margin-bottom: 1em;
+    }
+
+    .dashboard-info-box-title {
+      display: block;
+    }
+
+    .dashboard-info-box-text {
+      width: 55%;
+      float: left;
+      padding: 1% 3%;
+
+      span {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -78,6 +177,7 @@ $size-dashboard-icons: 5em;
   /* Dashboard Favorites                                 */
   /*******************************************************/
   .dashboard-favorites-container {
+    @include container;
     overflow: hidden;
 
     h3 {
@@ -248,8 +348,8 @@ $size-dashboard-icons: 5em;
   /*******************************************************/
 
   .dashboard-bookings-container {
+    @include container;
     padding: 0.6em 0.2em;
-    width: 100%;
 
     h3 {
       text-align: center;

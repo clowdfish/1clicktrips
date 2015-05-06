@@ -117,7 +117,7 @@
     }
   }
 
-  @include respond-above("medium") {
+  @include respond-above("small") {
     $toogle-size: 2rem;
     $settings-width: 6rem;
 

@@ -172,12 +172,13 @@ de:
       32: Taxi
       64: Schiff
   dashboard:
-    title: Warum 1ClickTrips?
+    title: Was kann 1ClickTrips für Sie tun?
+    message: 1ClickTrips integriert den Buchungsprozess in die tägliche Arbeit.
     info:
       endtoend:
         title: Tür-zu-Tür Reiseplanung
         text1: Sie wissen wo. Sie wissen wann.
-        text2:  Wir wissen den Rest. Erhalten sie Ihren Reiseplan mit wenigen Mausklicks.
+        text2:  Wir wissen den Rest. Erhalten Sie Ihren Reiseplan mit wenigen Mausklicks.
       profile:
         title: Erstellen Sie ein persönliches Reiseprofil
         text: Sie bevorzugen das Flugzeug? Air Billigheimer ist nicht Ihre bevorzugte Fluggesellschaft? Kein Problem, 1ClickTrips achtet bei der Reiseplanung auf Ihre ganz persönlichen Präferenzen.
