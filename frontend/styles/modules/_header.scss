@@ -245,7 +245,7 @@
     .header-navigation-menu {
       position: absolute;
       display: inline-block;
-      right: $toogle-size + 1rem;
+      right: $toogle-size + 1.7rem;
       top: 0;
       list-style: none;
       border: none;
@@ -254,8 +254,7 @@
 
       li {
         display: inline-block;
-        margin-right: 0.9em;
-        padding: $header-padding 0.3em 0 0.3em;
+        padding: ($header-padding - 0.25rem) 0.3em 0 0.3em;
         height: 100%;
 
         &.active {
@@ -277,11 +276,17 @@
           color: $c-primary;
           text-decoration: none;
         }
+
+        &.button {
+          color: $c-white;
+          text-transform: uppercase;
+        }
       }
     }
 
     .header-navigation-menu-login {
-      font-weight: 800;
+      font-size: $fs-small;
+      //font-weight: 800;
       cursor: pointer;
     }
 

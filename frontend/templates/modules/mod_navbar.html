@@ -59,10 +59,10 @@
 
       <!-- NON MOBILE VIEW -->
       <ul class="header-navigation-menu ng-cloak" ng-if="!isMobile" ng-cloak>
-        <li class="active"><a href="/">{{ T.nav.home }}</a></li>
-        <li><a href="about.html">{{ T.nav.about }}</a></li>
         <!-- LOGIN LINK -->
         <li ng-if="!userProfile"><a ng-click='createLoginModal()' class="header-navigation-menu-login">{{ T.nav.signin }}</a></li>
+        <li ng-if="!userProfile"><a ng-click='createSignupModal()' class="header-navigation-menu-signup button">{{ T.nav.signup }}</a></li>
+
         <!-- PROFILE LINK -->
         <li ng-if="userProfile" ng-click="openProfile()">
           <span ng-if="userProfile['image']" class="header-navigation-profile-image"><img ng-src="..{[ userProfile['image'] ]}" alt="user image" /></span>

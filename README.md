@@ -70,6 +70,9 @@ gulp migrate --down
 
 
 ## Server requirements
+### MySQL
+To make the migrations work, we need MySQL in the version 5.6 or above. 
+
 ### Directory structure
 The application is deployed to `~/1clicktrips` (add "dev" as parameter) so make sure this folder exists. 
 

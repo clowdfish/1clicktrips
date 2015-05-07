@@ -22,6 +22,7 @@ en:
     about: About Us
     home: Home
     signin: Login
+    signup: Join
     profile: Profile
     logout: Logout
     mobile:
