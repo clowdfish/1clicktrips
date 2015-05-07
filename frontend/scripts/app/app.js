@@ -19,9 +19,10 @@
     .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY')
     .run(run);
 
-  function config($interpolateProvider) {
+  function config($interpolateProvider, $locationProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
+    //$locationProvider.html5Mode(true);
   }
 
   function run(browser) {
