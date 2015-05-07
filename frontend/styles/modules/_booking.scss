@@ -73,6 +73,47 @@
 
   @include respond-above("medium") {
 
+    .booking-progress {
+      width: 70%;
+      margin-bottom: 5em;
+    }
+
+    .booking-progress-step {
+      position: relative;
+      padding: 0 10%;
+      cursor: pointer;
+
+      &:last-of-type {
+        padding-right: 10%;
+      }
+
+      &.active {
+        cursor: default;
+
+        .booking-progress-step-label {
+          width: 100%;
+          top: $booking-process-step-size + 1em;
+          left: 0;
+          color: $c-text;
+
+          &:before {
+            content: "";
+          }
+        }
+      }
+    }
+
+    .booking-progress-step-label {
+      display: block;
+      position: absolute;
+      font-style: normal;
+      font-size: $fs-small;
+      width: 100%;
+      top: $booking-process-step-size + 1em;
+      left: 0;
+      text-align: center;
+      color: $c-text-light;
+    }
   }
 
   /************************************************/
@@ -111,7 +152,7 @@
   @include respond-above("medium") {
 
     .booking-content {
-      @include span(4);
+      @include span(3);
 
     }
   }
@@ -119,7 +160,7 @@
   @include respond-above("large") {
 
     .booking-content {
-      @include span(5);
+      @include span(4);
 
     }
   }
@@ -179,6 +220,11 @@
     }
   }
 
+  @include respond-above("medium") {
+
+
+  }
+
   /************************************************/
   /* Booking Sidebar                              */
   /************************************************/
@@ -188,6 +234,37 @@
 
   @include respond-above("medium") {
 
+    .booking-sidebar {
+      display: block;
+      @include span(3);
+    }
+
+    .booking-sidebar-box {
+      background-color: $c-grey;
+    }
+
+    .booking-sidebar-box-title {
+      display: block;
+      padding: 0.5em 1.2em;
+      background-color: darken($c-grey, 10%);
+
+      .fa {
+        margin-right: 0.5em;
+      }
+    }
+
+    .booking-sidebar-box-text {
+      display: block;
+      padding: 0.5em 1.2em;
+    }
+  }
+
+  @include respond-above("large") {
+
+    .booking-sidebar {
+      @include span(2);
+      background-color: $c-grey;
+    }
   }
 }
 
