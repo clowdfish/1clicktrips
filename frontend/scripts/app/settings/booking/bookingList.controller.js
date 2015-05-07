@@ -4,10 +4,9 @@
 
   angular
     .module('app.settings.booking')
-    .controller('bookingCtrl', bookingCtrl);
+    .controller('bookingListCtrl', bookingListCtrl);
 
-  function bookingCtrl($scope, bookingList) {
+  function bookingListCtrl($scope, bookingList) {
     $scope.bookingList = bookingList;
   }
-
 })();

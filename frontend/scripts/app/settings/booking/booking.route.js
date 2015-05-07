@@ -9,21 +9,27 @@
   function routeConfig($stateProvider) {
     $stateProvider.state('settings.booking', {
       url: '/booking',
-      templateUrl: 'scripts/app/templates/settings/booking/booking-table.html',
-      controller: 'bookingCtrl',
+      abstract: true,
+      templateUrl: 'scripts/app/templates/settings/booking/booking.html'
+    });
+
+    $stateProvider.state('settings.booking.list', {
+      url: '/list',
+      templateUrl: 'scripts/app/templates/settings/booking/booking-list.html',
+      controller: 'bookingListCtrl',
       resolve: {
         bookingList: getBookingList
       }
     });
 
-    $stateProvider.state('settings.bookingDetail', {
-      url: '/booking/:id',
+    $stateProvider.state('settings.booking.detail', {
+      url: '/:id',
       templateUrl: 'scripts/app/templates/settings/booking/booking-detail.html',
       controller: 'bookingDetailCtrl',
       resolve: {
         booking: getBookingById
       }
-    })
+    });
   };
 
   function getBookingList(session, bookingApi) {
