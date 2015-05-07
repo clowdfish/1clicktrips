@@ -63,7 +63,7 @@
     position: absolute;
     top: $header-height;
     right: 0;
-    background-color: white;
+    background-color: $c-white;
     border: 1px solid $c-border;
   ;
     list-style: none;
@@ -72,7 +72,7 @@
   }
 
   .header-navigation-menu-item {
-    color: black;
+    color: $c-text;
     border-bottom: 1px solid $c-border;
     padding-right: 0.5em;
     padding-left: 1.5em;
@@ -82,7 +82,7 @@
     text-align: right;
 
     a, a:visited, a:active {
-      color: black;
+      color: $c-text;
       text-decoration: none;
     }
   }
@@ -120,6 +120,18 @@
   @include respond-above("small") {
     $toogle-size: 2rem;
     $settings-width: 6rem;
+
+    .header-logo {
+      z-index: 10;
+
+      img {
+        display: inline-block;
+        height: 70%;
+        margin-right: 0.3em;
+        vertical-align: middle;
+        margin-bottom: 0.2em;
+      }
+    }
 
     .header-slider {
       display: block;
@@ -167,69 +179,13 @@
       }
     }
 
-    .header-slider-settings {
-      display: inline-block;
-      float: right;
-      margin-top: 0.4em;
-      margin-right: $toogle-size;
-
-      .currency-switch, .language-switch {
-        display: none;
-        list-style: none;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        text-align: right;
-        background-color: $c-white;
-
-        li {
-          float: none;
-          padding: 0.3em 0.5em;
-          min-width: $settings-width;
-
-          &.active {
-            font-weight: 800;
-          }
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-
-    .header-slider-settings-item {
-      position: relative;
-      display: inline-block;
-      z-index: 999;
-      min-width: $settings-width;
+    .header-slider-message {
+      display: block;
       text-align: right;
-      padding: 0.4em 0.8em;
-      border-radius: 3px;
-      cursor: pointer;
-      background-color: rgba(255, 255, 255, 0.75);
-
-      &:after {
-        font-family: FontAwesome;
-        font-size: $fs-small;
-        content: "\00a0\00a0\f0d7";
-      }
-
-      &:hover ul {
-        display: block;
-      }
-    }
-
-    .header-logo {
-      z-index: 10;
-
-      img {
-        display: inline-block;
-        height: 70%;
-        margin-right: 0.3em;
-        vertical-align: middle;
-        margin-bottom: 0.2em;
-      }
+      margin-top: 0.5em;
+      margin-right: $toogle-size;
+      color: $c-white;
+      font-weight: 800;
     }
 
     .header-navigation {
@@ -245,28 +201,12 @@
     .header-navigation-menu {
       position: absolute;
       display: inline-block;
-      right: $toogle-size + 1.7rem;
+      right: $toogle-size + 1.3rem;
       top: 0;
       list-style: none;
       border: none;
       box-shadow: none;
       height: 100%;
-
-      li {
-        display: inline-block;
-        padding: ($header-padding - 0.25rem) 0.3em 0 0.3em;
-        height: 100%;
-
-        &.active {
-          margin-top: 1px;
-          border-bottom: 2px solid $c-primary;
-
-          a:hover {
-            color: $c-text;
-            cursor: default;
-          }
-        }
-      }
 
       a {
         color: $c-text;
@@ -280,13 +220,78 @@
         &.button {
           color: $c-white;
           text-transform: uppercase;
+          margin-right: 1em;
+        }
+      }
+    }
+
+    .header-navigation-menu-item {
+      font-size: $fs-normal;
+      color: $c-text;
+      line-height: normal;
+      text-align: left;
+      border: none;
+      display: inline-block;
+      padding: $header-padding 0.3em 0 0.3em;
+      margin: 0;
+      height: 100%;
+
+      &.active {
+        margin-top: 1px;
+        border-bottom: 2px solid $c-primary;
+
+        a:hover {
+          color: $c-text;
+          cursor: default;
+        }
+      }
+    }
+
+    .header-navigation-menu-item-settings {
+      position: relative;
+      display: inline-block;
+      z-index: 999;
+      text-align: right;
+      padding: 0.4em 0;
+      cursor: pointer;
+
+      &:after {
+        font-family: FontAwesome;
+        content: "\00a0\f0d7";
+        font-size: $fs-normal;
+      }
+
+      &:hover ul {
+        display: block;
+      }
+
+      & .currency-switch, & .language-switch {
+        display: none;
+
+        list-style: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        text-align: right;
+        background-color: $c-white;
+
+        li {
+          float: none;
+          padding: 0.3em 0.5em;
+
+          &.active {
+            font-weight: 800;
+          }
+
+          &:hover {
+            color: $c-primary;
+          }
         }
       }
     }
 
     .header-navigation-menu-login {
-      font-size: $fs-small;
-      //font-weight: 800;
+      font-size: $fs-normal;
       cursor: pointer;
     }
 
@@ -313,6 +318,7 @@
     .header-navigation-profile-title {
       cursor: pointer;
       font-weight: 800;
+      margin-right: 1em;
 
       &:hover {
         color: $c-primary;

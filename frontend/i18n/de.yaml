@@ -25,6 +25,7 @@ de:
     signup: Registrieren
     profile: Profil
     logout: Abmelden
+    message: Wir sind bald soweit!
     mobile:
       signup: Registrieren
       language: Sprache
@@ -35,7 +36,7 @@ de:
       email: Geben Sie Ihre Email Adresse an
       password: Geben Sie ein Passwort ein
       submit: Registrieren
-      check: Ich stimme den <a href=''>Trip-To-Go Bedingungen</a> zu
+      check: Ich stimme den <a href='http://www.1clicktrips.com/de/bedingungen'>1ClickTrips Bedingungen</a> zu
       signin: hier anmelden
       error:
         email: Diese Email Adresse ist bereits registriert.

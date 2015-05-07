@@ -25,6 +25,7 @@ en:
     signup: Join
     profile: Profile
     logout: Logout
+    message: We are going live soon!
     mobile:
       signup: Signup
       language: Language
@@ -35,7 +36,7 @@ en:
       email: Enter your email address
       password: Forge a crazy password
       submit: Sign Up
-      check: I agree to the 1ClickTrips <a href=''>conditions</a>
+      check: I agree to the 1ClickTrips <a href='http://www.1clicktrips.com/en/conditions'>conditions</a>
       signin: sign in
       error:
         email: This email is already registered.

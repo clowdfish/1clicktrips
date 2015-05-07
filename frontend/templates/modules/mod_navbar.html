@@ -4,22 +4,7 @@
 
   <!-- SLIDING PANE -->
   <div class="header-slider ng-cloak" id="header-slider" ng-if="!isMobile" ng-cloak>
-    <div class="header-slider-settings ng-cloak">
-      <span class='header-slider-settings-item'>{[ activeCurrency.toUpperCase() ]}
-        <ul class='currency-switch'>
-          <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
-            {[ currency.code ]}
-          </li>
-        </ul>
-      </span>
-      <span class='header-slider-settings-item'>{[ activeLanguageName ]}
-         <ul class='language-switch'>
-           <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
-             {[ language.name ]}
-           </li>
-         </ul>
-      </span>
-    </div>
+    <span class="header-slider-message">{{ T.nav.message }}</span>
   </div>
 
   <div class="header-bar">
@@ -60,16 +45,35 @@
       <!-- NON MOBILE VIEW -->
       <ul class="header-navigation-menu ng-cloak" ng-if="!isMobile" ng-cloak>
         <!-- LOGIN LINK -->
-        <li ng-if="!userProfile"><a ng-click='createLoginModal()' class="header-navigation-menu-login">{{ T.nav.signin }}</a></li>
-        <li ng-if="!userProfile"><a ng-click='createSignupModal()' class="header-navigation-menu-signup button">{{ T.nav.signup }}</a></li>
+        <li ng-if="!userProfile" class="header-navigation-menu-item"><a ng-click='createLoginModal()' class="header-navigation-menu-login">{{ T.nav.signin }}</a></li>
+        <li ng-if="!userProfile" class="header-navigation-menu-item"><a ng-click='createSignupModal()' class="header-navigation-menu-signup button">{{ T.nav.signup }}</a></li>
 
         <!-- PROFILE LINK -->
-        <li ng-if="userProfile" ng-click="openProfile()">
+        <li ng-if="userProfile" ng-click="openProfile()" class="header-navigation-menu-item">
           <span ng-if="userProfile['image']" class="header-navigation-profile-image"><img ng-src="..{[ userProfile['image'] ]}" alt="user image" /></span>
           <span ng-if="!userProfile['image']" class="header-navigation-profile-image"><img ng-src="../images/avatar.svg" alt="user avatar" /></span>
 
           <span ng-if="userProfile['first_name']" class="header-navigation-profile-title">{[userProfile['first_name']]} {[userProfile['last_name']]}</span>
           <span ng-if="!userProfile['first_name'] && userProfile['email']" class="header-navigation-profile-title">{[userProfile['email']]}</span>
+        </li>
+
+        <li class="header-navigation-menu-item">
+          <span class='header-navigation-menu-item-settings'>{[ activeCurrency.toUpperCase() ]}
+            <ul class='currency-switch'>
+              <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
+                {[ currency.code ]}
+              </li>
+            </ul>
+          </span>
+        </li>
+        <li class="header-navigation-menu-item">
+          <span class='header-navigation-menu-item-settings'>{[ activeLanguageName ]}
+            <ul class='language-switch'>
+              <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
+                {[ language.name ]}
+              </li>
+            </ul>
+          </span>
         </li>
       </ul>
     </nav>
