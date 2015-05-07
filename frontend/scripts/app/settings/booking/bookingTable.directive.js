@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('app.settings')
+    .module('app.settings.booking')
     .directive('bookingTable', bookingTable);
 
   function bookingTable() {

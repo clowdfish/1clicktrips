@@ -54,7 +54,7 @@ gulp.task('migrate', function(done) {
     };
 
     var args = [path.resolve(process.cwd() + '/node_modules/db-migrate/bin/db-migrate')];
-    console.log(argv);
+
     if (argv['env']) {
         args.push('--env=' + argv['env']);
     } else {

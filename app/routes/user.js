@@ -221,6 +221,20 @@ module.exports = function (app, express, production) {
       });
   });
 
+  accountApi.get('/bookings/:id', function(req, res) {
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+    var bookingId = req.param('id');
+
+    console.log('Booking id retrieved: ', bookingId);
+    BookingController.getById(bookingId)
+      .then(function(bookingItem) {
+        res.status(200).json(bookingItem);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
+  });
+
   accountApi.post('/bookings', function (req, res) {
 
     if (req.body) {

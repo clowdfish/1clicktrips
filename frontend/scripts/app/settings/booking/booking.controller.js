@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('app.settings')
+    .module('app.settings.booking')
     .controller('bookingCtrl', bookingCtrl);
 
   function bookingCtrl($scope, bookingList) {

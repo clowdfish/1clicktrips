@@ -48,7 +48,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       if(bookingId > 0)
-        resolve(createBookingMock());
+        resolve(createBookingMock(1));
       else
         resolve(null);
     });
@@ -123,7 +123,7 @@ function createMobileBookingMock() {
         "longitude": 106.731742,
         "description": "Ho Chi Minh, Vietnam"
       },
-      
+
       "travelDocument" : "/documents/example.pdf"
     },
     {

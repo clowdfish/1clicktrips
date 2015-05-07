@@ -6,12 +6,14 @@
       <tr>
         <th>{[ "general_date" | translate ]}</th>
         <th>{[ "general_destination" | translate ]}</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr class="settings-bookings-item" ng-repeat="booking in bookingList">
         <td>{[booking.date]}</td>
         <td>{[booking.destination]}</td>
+        <td><a ui-sref="settings.bookingDetail({id: booking.id})"><i class="fa fa-eye"></i></td>
       </tr>
     </tbody>
   </table>

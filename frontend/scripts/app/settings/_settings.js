@@ -4,7 +4,7 @@
 
   angular
     .module('app.settings', [
-      'app.core'
+      'app.settings.booking'
     ]);
 
 })();

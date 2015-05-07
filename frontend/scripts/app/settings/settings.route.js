@@ -5,7 +5,7 @@
   angular
     .module('app.settings')
     .config(routerConfig);
-    
+
   function routerConfig($stateProvider) {
     $stateProvider.state('settings', {
       url:'/settings',
@@ -36,15 +36,6 @@
       }
     });
 
-    $stateProvider.state('settings.booking', {
-      url: '/booking',
-      templateUrl: 'scripts/app/templates/settings/booking-table.html',
-      controller: 'bookingCtrl',
-      resolve: {
-        bookingList: getBookingList
-      }
-    });
-    
     $stateProvider.state('settings.favorite', {
       url: '/favorite',
       templateUrl: 'scripts/app/templates/settings/favorite-table.html',
@@ -54,13 +45,13 @@
       }
     });
   }
-  
-  function checkAuthenticaton($state, session, authHelper, $q) {    
+
+  function checkAuthenticaton($state, session, authHelper, $q) {
     var deferred = $q.defer();
-    if (!session.isLogin()) {      
+    if (!session.isLogin()) {
       authHelper.openLoginDialog('settings.profile');
-      deferred.reject();      
-    }    
+      deferred.reject();
+    }
     deferred.resolve();
     return deferred.promise;
   }
@@ -82,13 +73,6 @@
       return [];
     }
     return favoriteApi.getFavoriteList();
-  }
-
-  function getBookingList(session, bookingApi) {
-    if (!session.isLogin()) {
-      return [];
-    }
-    return bookingApi.getBookedTrips();
   }
 
 })();

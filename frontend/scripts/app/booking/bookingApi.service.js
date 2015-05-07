@@ -18,7 +18,7 @@
     /**
     * Format data from getBookedTrips
     */
-    this.transformResponseData = transformResponseData;
+    this.formatBookingItem = formatBookingItem;
 
     /**
     * Store trip data
@@ -29,6 +29,11 @@
     * Get trip data from session storage
     */
     this.getShareTripData = getShareTripData;
+
+    /**
+    * Get booking detail by id
+    */
+    this.getBookingById = getBookingById;
 
     function setShareTripData(trip, searchData) {
       var key = makeStorageKey(trip.id);
@@ -57,8 +62,12 @@
       $http
         .get('/api/account/bookings')
         .success(function(data) {
-          var transformedData = _this.transformResponseData(data);
-          deferred.resolve(transformedData);
+          var result = [];
+          for (var i = 0; i < data.length; i++) {
+            var item = _this.formatBookingItem(data[i]);
+            result.push(item);
+          }
+          deferred.resolve(result);
         })
         .error(function() {
           deferred.reject();
@@ -71,19 +80,34 @@
     * @params {Object} response - Raw response data
     * @return {Object}
     */
-    function transformResponseData(response) {
-      for (var bookingId = 0; bookingId < response.length; bookingId++ ) {
-        response[bookingId].startDate = date.stringToDate(response[bookingId].startDate);
-        response[bookingId].endDate = date.stringToDate(response[bookingId].endDate);
+    function formatBookingItem(bookingItem) {
+      bookingItem.startDate = date.stringToDate(bookingItem.startDate);
+      bookingItem.endDate = date.stringToDate(bookingItem.endDate);
 
-        for (var participantId = 0;
-              participantId < response[bookingId].participants.length;
-              participantId++) {
-          var arrivalTime = response[bookingId].participants[participantId].arrivalTime;
-          response[bookingId].participants[participantId].arrivalTime = date.stringToDate(arrivalTime);
-        }
+      for (var participantId = 0;
+            participantId < bookingItem.participants.length;
+            participantId++) {
+        var arrivalTime = bookingItem.participants[participantId].arrivalTime;
+        bookingItem.participants[participantId].arrivalTime = date.stringToDate(arrivalTime);
       }
-      return response;
+
+      return bookingItem;
+    }
+
+    function getBookingById(bookingId) {
+      return $q(function(resolve, reject) {
+        $http
+          .get('/api/account/bookings/' + bookingId)
+          .success(function(data) {
+            resolve(_this.formatBookingItem(data));
+          })
+          .error(function(data, status){
+            reject({
+              data: data,
+              status: status
+            });
+          });
+      });
     }
 
     return this;
