@@ -29,12 +29,6 @@
       $state.go('index');
     }
 
-    $scope.isProfileLinkActive = $state.includes('settings.profile')
-                              || $state.includes('settings.preferences');
-
-    $scope.isBookingLinkActive = $state.includes('settings.booking.list')
-                              || $state.includes('settings.booking.detail');
-    console.log($scope.isProfileLinkActive, $scope.isBookingLinkActive);
   }
 
 })();

@@ -31,7 +31,8 @@
 
         <span class="settings-side-profile-name" ng-if="userProfile['first_name']">{[ userProfile['first_name'] ]} {[ userProfile['last_name'] ]}</span>
         <span class="settings-side-profile-name" ng-if="!userProfile['first_name']">Mr. No Name</span>
-        <span class="settings-side-profile-date">{[ "settings_profile_member" | translate ]} {[ userProfile['registration_date'] ? userProfile['registration_date'] : 2015 ]}</span>
+        <span class="settings-side-profile-date">{[ "settings_profile_member" | translate ]}
+        {[ userProfile['registration_date'] | dateFormatter: "yyyy" ]}</span>
       </div>
 
       <ul class="settings-side-navigation">

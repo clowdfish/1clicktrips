@@ -75,7 +75,7 @@ gulp.task('migrate', function(done) {
     } else if (argv['down']) {
         args.push('down');
     }
-    args.push('--dry-run');
+    //args.push('--dry-run');
 
     child = spawn('node', args, spawnOpts);
 });
