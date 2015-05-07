@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <tr class="settings-bookings-item" ng-repeat="booking in bookingList">
-        <td>{[booking.date]}</td>
+        <td>{[booking.startDate | date: "dd MMM yyyy"]}</td>
         <td>{[booking.destination]}</td>
         <td><a ui-sref="settings.booking.detail({id: booking.id})"><i class="fa fa-eye"></i></td>
       </tr>
