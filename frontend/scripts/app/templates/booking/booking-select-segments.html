@@ -1,13 +1,24 @@
-<div class="booking-select-segment-wrapper">
-  <div class="group-segment-list" ng-repeat="(dayNumber, groupSegment) in trip.groupSegment">
-    <h3>{[ "result_segments_day" | translate ]} {[dayNumber]}</h3>
+<div class="booking-content-summary">
+  <div class="booking-content-summary-label">Your trip to</div>
+  <div class="booking-content-summary-info">
+    <span class="booking-content-summary-info-location">{[ trip.outbound.destination.description ]}</span>
+    <span class="booking-content-summary-info-date">
+      From {[ trip.startTime | date: "dd.MM.yyyy" ]} to
+      {[ trip.endTime | date: "dd.MM.yyyy" ]}
+    </span>
+  </div>
+  <div class="booking-content-summary-label">Contains the following travel segments</div>
+</div>
 
-    <div class="segment-list" ng-repeat="segment in groupSegment">
-      <div class="row">
-        <div class="col-md-1">
+<div ng-repeat="(dayNumber, groupSegment) in trip.groupSegment">
+  <h3 class="booking-content-title">{[ "result_segments_day" | translate ]} {[dayNumber]}</h3>
+
+  <ul class="booking-content-list">
+    <li class="booking-content-list-item" ng-repeat="segment in groupSegment">
+        <span class="booking-content-list-item-col icon">
           <i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i>
-        </div>
-        <div class="col-md-6">
+        </span>
+        <span class="booking-content-list-item-col location">
           <span ng-if='segment.start.description == "Origin"'>
             {[segment.end.description]}
           </span>
@@ -17,20 +28,21 @@
           <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"'>
             {[segment.start.description]} - {[segment.end.description]}
           </span>
-        </div>
-        <div class="col-md-2">
+        </span>
+        <span class="booking-content-list-item-col price">
           {{ segment.price.amount | currency: segment.price.currency }}
-        </div>
-        <div class="col-md-3">
-          <!-- Bookable -->
+        </span>
+
+        <span class="booking-content-list-item-col include">
+          <!-- BOOKABLE ITEM -->
           <div class="enable-booking" ng-if="segment.bookable">
             <fieldset>
-              <input type="checkbox" ng-model="segment.isBooked" name="isBooked[]"/>
-              <label for="isBooked[]">Include in Booking</label>
+              <input type="checkbox" ng-model="segment.isBooked" name="isBooked[]" id="isBooked" />
+              <label for="isBooked">Include in Booking</label>
             </fieldset>
           </div>
 
-          <!-- Non bookable -->
+          <!-- NON-BOOKABLE ITEM -->
           <div class="disable-booking" ng-if=" ! segment.bookable">
             <fieldset>
               <input type="checkbox" disabled/>
@@ -38,10 +50,14 @@
             </fieldset>
             <a ng-href="segment.providerUrl" ng-show="!segment.bookable" target="_blank">Go to provider</a>
           </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <input type="button" class="button" value="Continue" ng-click="continue()"/>
+        </span>
+    </li>
+  </ul>
 </div>
+
+<div class="booking-content-buttons">
+  <a class="button--light back" ng-click="mapView()">Map View</a>
+  <input type="button" class="button next" value="Continue" ng-click="continue()"/>
+</div>
+
+

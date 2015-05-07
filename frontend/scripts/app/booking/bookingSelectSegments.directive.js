@@ -11,7 +11,8 @@
       restrict: 'E',
       scope: {
         trip: '=',
-        nextStep: '='
+        nextStep: '=',
+        goBack: '='
       },
       templateUrl: 'scripts/app/templates/booking/booking-select-segments.html',
       link: link
@@ -21,10 +22,12 @@
 
       scope.continue = function() {
         scope.nextStep();
+      };
+
+      scope.mapView = function() {
+        scope.mapView();
       }
-
     }
-
   }
 
 })();

@@ -150,7 +150,7 @@ de:
     destination:
       label: Ihr Zielort
       action: '+ Ort & Zeit ändern'
-    checkout: BUCHEN
+    checkout: Zur Buchung
     summary:
       duration: Gesamte Reisezeit
       cost: Gesamte Kosten

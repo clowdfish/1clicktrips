@@ -22,7 +22,7 @@
       scope.account = {
         email: null,
         password: null
-      }
+      };
 
       scope.submit = function() {
 
@@ -34,7 +34,7 @@
           return;
         }
         scope.nextStep();
-      }
+      };
 
       scope.isLogin = session.isLogin();
 

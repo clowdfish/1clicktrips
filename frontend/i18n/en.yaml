@@ -150,7 +150,7 @@ en:
     destination:
       label: Your destination
       action: '+ Change location & date'
-    checkout: Purchase Trip
+    checkout: Go To Booking
     summary:
       duration: Total Travel Time
       cost: Total Cost

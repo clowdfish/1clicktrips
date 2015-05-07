@@ -1,63 +1,39 @@
-<section class="booking wrapper">
-  <div class="view-container">
+<section class="booking">
+  <div ng-if="bookingData == null" class="container">
+    Please <a ui-sref="index">search</a> for trip before go to booking page
+  </div>
 
-    <div ng-if="bookingData == null">
-      Please <a ui-sref="index">search</a> for trip before go to booking page
+  <div ng-if="bookingData != null" class="container">
+    <!-- BOOKING PROGRESS CONTROL -->
+    <ul class="booking-progress">
+      <div class="booking-process-line"></div>
+      <li ng-click="setStep(1)" ng-class="{active: step == 1}" class="booking-progress-step">
+        <span class="booking-progress-step-number">1</span>
+        <span class="booking-progress-step-label">Select Trip Segments</span>
+      </li>
+      <li ng-click="setStep(2)" ng-class="{active: step == 2}" class="booking-progress-step">
+        <span class="booking-progress-step-number">2</span>
+        <span class="booking-progress-step-label">Booking and Payment Details</span>
+      </li>
+      <li ng-click="setStep(3)" ng-class="{active: step == 3}" class="booking-progress-step">
+        <span class="booking-progress-step-number">3</span>
+        <span class="booking-progress-step-label">Booking Confirmation</span>
+      </li>
+    </ul>
+
+    <!-- BOOKING CONTAINER -->
+    <div class="booking-content">
+      <booking-select-segments trip="bookingData.trip" next-step="paymentStep" go-back="mapView" ng-show="step == 1"></booking-select-segments>
+      <booking-payment-information booking-data="bookingData" next-step="confirmStep" ng-show="step == 2"></booking-payment-information>
+      <booking-confirmation is-confirm="bookingData.isConfirm" ng-show="step == 3"></booking-confirmation>
     </div>
 
-    <div ng-if="bookingData != null">
-      <div id="booking-step-navigation">
-        <ul>
-          <li ng-click="setStep(1)" ng-class="{active: step == 1}">Step 1 - Select Trip Segments</li>
-          <li ng-click="setStep(2)" ng-class="{active: step == 2}">Step 2 - Booking and Payment Details</li>
-          <li ng-click="setStep(3)" ng-class="{active: step == 3}">Step 3 - Booking Confirmation</li>
-        </ul>
-      </div>
-
-      <div class="row">
-        <div class="col-md-8">
-          <div class="booking-summary">
-            <div class="row">
-              <div class="col-md-4">
-                Your trip to
-              </div>
-              <div class="col-md-8">
-                <div class="booking-trip-destination">{[bookingData.trip.destination]}</div>
-                <div class="booking-trip-time">
-                  From {[ bookingData.trip.startTime | date: "dd.MM.yyyy" ]} to
-                  {[ bookingData.trip.endTime | date: "dd.MM.yyyy" ]}
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <div clas="booking-step-container">
-            <div id="booking-step-1" ng-show="step == 1">
-              Contains the following travel segments
-              <booking-select-segments trip="bookingData.trip" next-step="paymentStep"></booking-select-segments>
-            </div>
-
-            <div id="booking-step-2" ng-show="step == 2">
-              <booking-payment-information booking-data="bookingData" next-step="confirmStep"></booking-payment-information>
-            </div>
-
-            <div id="booking-step-3" ng-show="step == 3">
-              <booking-confirmation is-confirm="bookingData.isConfirm"></booking-confirmation>
-
-              <input type="button" class="button" value="Book" ng-click="book(bookingData)"/>
-            </div>
-          </div>
-
-          <input type="button" class="button" value="Map View" ng-click="mapView()"/>
-
-        </div>
-        <div class="col-md-4">
-          <h3>Budget</h3>
-        </div>
-      </div>
+    <!-- BOOKING SIDEBAR -->
+    <div class="booking-sidebar">
+      <h3 class="booking-sidebar-title">Budget</h3>
     </div>
   </div>
+
 </section>
 
 

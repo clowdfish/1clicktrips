@@ -1,5 +1,190 @@
 %booking {
-  padding: 2em 0.3em;
+  /************************************************/
+  /* Booking Progress Control                     */
+  /************************************************/
+  $booking-process-step-size: 2.5em;
+
+  .booking-progress {
+    display: block;
+    width: 95%;
+    position: relative;
+    z-index: 0;
+    margin: 1em auto 2.5em auto;
+    text-align: center;
+  }
+
+  .booking-process-line {
+    position: absolute;
+    width: 90%;
+    z-index: 1;
+    top: $booking-process-step-size/2;
+    left: 5%;
+    border-bottom: 2px solid $c-border;
+  }
+
+  .booking-progress-step {
+    display: inline-block;
+    padding-right: 2em;
+
+    &:last-of-type {
+      padding-right: 0;
+    }
+
+    &.active {
+
+      .booking-progress-step-number {
+        border-color: $c-primary;
+        color: $c-text;
+      }
+
+      .booking-progress-step-label {
+        display: block;
+        position: absolute;
+        top: $booking-process-step-size + 0.3em;
+        left: 8%;
+
+        &:before {
+          @include fa-icon();
+          content: $fa-var-angle-right + "\00a0";
+          color: $c-primary;
+        }
+      }
+    }
+  }
+
+  .booking-progress-step-number {
+    display: block;
+    position: relative;
+    z-index: 3;
+    width: $booking-process-step-size;
+    height: $booking-process-step-size;
+    background-color: $c-white;
+    border: 2px solid $c-border;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 0.5em;
+    color: $c-text-light;
+  }
+
+  .booking-progress-step-label {
+    display: none;
+    font-style: italic;
+  }
+
+  @include respond-above("medium") {
+
+  }
+
+  /************************************************/
+  /* Booking Content                              */
+  /************************************************/
+  .booking-content {
+    @include span(6);
+
+    padding-bottom: 2em;
+  }
+
+  .booking-content-summary {
+    margin-bottom: 1em;
+  }
+
+  .booking-content-summary-label {
+    color: $c-text-light;
+    font-size: $fs-small;
+    margin-bottom: 0.6em;
+  }
+
+  .booking-content-summary-info {
+    margin-bottom: 1em;
+  }
+
+  .booking-content-summary-info-location {
+    display: block;
+    font-size: $fs-large;
+    font-weight: 600;
+  }
+
+  .booking-content-summary-info-date {
+    color: $c-text-light;
+  }
+
+  @include respond-above("medium") {
+
+    .booking-content {
+      @include span(4);
+
+    }
+  }
+
+  @include respond-above("large") {
+
+    .booking-content {
+      @include span(5);
+
+    }
+  }
+
+  /************************************************/
+  /* Booking Selection                            */
+  /************************************************/
+  .booking-content-title {
+    font-size: $fs-large;
+    margin-bottom: 0.5em;
+  }
+
+  .booking-content-list-item {
+    list-style: none;
+  }
+
+  .booking-content-list-item {
+    padding-bottom: 1em;
+  }
+
+  .booking-content-list-item-col {
+
+    &.icon {
+      margin-right: 0.3em;
+    }
+
+    &.price {
+      display: block;
+      text-align: right;
+      font-weight: 600;
+      margin-top: 0.3em;
+    }
+
+    &.include {
+      display: block;
+      margin-top: -1.2em;
+    }
+  }
+
+  .booking-content-buttons {
+    @include clearfix;
+    margin-top: 1em;
+
+    &>.back {
+      float: left;
+      font-weight: 400;
+      padding-left: 0.6em;
+
+      &:before {
+        @include fa-icon();
+        content: $fa-var-angle-left + "\00a0\00a0\00a0";
+      }
+    }
+
+    &>.next {
+      float: right;
+    }
+  }
+
+  /************************************************/
+  /* Booking Sidebar                              */
+  /************************************************/
+  .booking-sidebar {
+    display: none;
+  }
 
   @include respond-above("medium") {
 
