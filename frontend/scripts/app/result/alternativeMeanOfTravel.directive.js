@@ -31,8 +31,9 @@
         var newItinerary = tripApi.replaceSegmentWithAlternatives(scope.itinerary, scope.activeSegmentsNumber, alternative);
         scope.itinerary = newItinerary;
         scope.activeSegments = newItinerary.groupSegment[scope.activeSegmentsNumber];
-        ctrl.showAlternatives(alternative.segments[0]);
-      }
+
+        ctrl.closeAlternativesPanel();
+      };
 
       function getAlternativeVehicleType(alternative) {
         return "result_vehicle_" + alternative.segments[0].type;

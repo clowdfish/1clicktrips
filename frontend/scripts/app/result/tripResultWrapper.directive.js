@@ -48,7 +48,11 @@
         if(browser.isMobileDevice())
           scope.alternativeTop += $segmentSelector.innerHeight();
 
-        scope.alternativeLeft = $tripSegmentsContainer.position().left + $tripSegmentsContainer.outerWidth() + 27;
+        if(browser.isMobileDevice())
+          scope.alternativeLeft = 0;
+        else
+          scope.alternativeLeft = $tripSegmentsContainer.position().left + $tripSegmentsContainer.outerWidth();// + 27;
+
         lastSegmentIndex = segmentIndex;
       }
     }
@@ -124,7 +128,8 @@
       }
 
       function closeAlternativesPanel() {
-        $scope.showAlternativesPanel = false;
+        $scope.showAlternativeHotelsPanel = false;
+        $scope.showAlternativeVehiclesPanel = false;
       }
     }
   }

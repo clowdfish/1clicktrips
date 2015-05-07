@@ -26,12 +26,16 @@
       scope.selectHotel = function(hotel) {
         tripApi.setSegmentHotel(scope.itinerary, scope.selectedSegment, hotel);
         scope.selectedHotelId = hotel.id;
-      }
+
+        ctrl.closeAlternativesPanel();
+      };
 
       scope.unselectHotel = function(hotel) {
         tripApi.unsetSegmentHotel(scope.itinerary, scope.selectedSegment);
         scope.selectedHotelId = null;
-      }
+
+        ctrl.closeAlternativesPanel();
+      };
 
       scope.$watch('selectedSegment', function() {
         if (_.has(scope.selectedSegment, 'hotel')) {

@@ -16,6 +16,7 @@ en:
     disable: disable
     date: Date
     delete: delete
+    close: close
   toasts:
     notimplemented: Not yet implemented
   nav:
@@ -173,6 +174,10 @@ en:
       16: plane
       32: cab
       64: ship
+    alternatives:
+      title: Please choose an alternative
+      hotel:
+        title: Please choose your preferred hotel
   dashboard:
     title: What can 1ClickTrips do for you?
     message: 1ClickTrips integrates the booking process into your daily work routine.

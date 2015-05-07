@@ -16,6 +16,7 @@ de:
     disable: deaktivieren
     date: Datum
     delete: löschen
+    close: schließen
   toasts:
     notimplemented: Leider noch nicht verfügbar
   nav:
@@ -173,6 +174,10 @@ de:
       16: Flugzeug
       32: Taxi
       64: Schiff
+    alternatives:
+      title: Bitte wähle eine Alternative
+      hotel:
+        title: Bitte wähle ein Hotel
   dashboard:
     title: Was kann 1ClickTrips für Sie tun?
     message: 1ClickTrips integriert den Buchungsprozess in die tägliche Arbeit.

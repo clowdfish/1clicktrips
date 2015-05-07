@@ -208,7 +208,7 @@
     width: 100%;
     vertical-align: top;
     background-color: $c-grey-dark;
-    color: white;
+    color: $c-white;
     padding: 0.6em;
     font-size: $fs-small;
     z-index: 10;
@@ -224,7 +224,12 @@
   .alternatives-container-close {
     cursor: pointer;
     float: right;
-    color: #fff;
+    color: $c-primary;
+  }
+
+  .alternatives-container-spinner {
+    text-align: center;
+    padding: 1em 0;
   }
 
   .alternatives-row {
@@ -303,31 +308,6 @@
     .trip-segments-alternatives {
       width: auto;
       min-width: 20em;
-    }
-
-    .alternatives-container-title {
-      display: inline-block;
-      margin-right: 0.6em;
-      margin-bottom: 0.6em;
-      font-weight: 600;
-    }
-
-    .alternatives-container-close {
-      cursor: pointer;
-      float: right;
-      color: #fff;
-    }
-
-    .alternatives-row {
-      @include clearfix;
-    }
-
-    .alternatives-row-price {
-      float: right;
-    }
-
-    .alternatives-row-button {
-      float: right;
     }
 
     .hotels-list-item-image {
