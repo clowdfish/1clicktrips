@@ -24,9 +24,6 @@
         scope.nextStep();
       };
 
-      scope.mapView = function() {
-        scope.mapView();
-      }
     }
   }
 
