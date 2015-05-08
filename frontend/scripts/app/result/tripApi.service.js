@@ -116,6 +116,9 @@
         var alternativePrice = _.sum(alternative.segments, function(item) {
           if (_.has(item, 'price')) {
             return item.price.amount;
+          } else {
+            //mock data
+            return 5;
           }
         });
         var alternativeDuration = _.sum(alternative.segments, function(item) {
@@ -136,9 +139,14 @@
           return item.duration;
         });
 
-        alternative['different'] = {
-          price: originalPrice - alternativePrice,
-          duration: originalDuration - alternativeDuration
+        alternative['differentPrice'] = {
+          amount : originalPrice - alternativePrice,
+          freezing: originalPrice - alternativePrice < 0
+        }
+
+        alternative['differentDuration'] = {
+          amount: originalDuration - alternativeDuration,
+          freezing: originalDuration - alternativeDuration < 0
         };
       }
       return alternatives;

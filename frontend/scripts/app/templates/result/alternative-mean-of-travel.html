@@ -13,10 +13,12 @@
         Go by {{ getAlternativeVehicleType(alternative) | translate }}
       </div>
       <div class="alternatives-row-price">
-        {[ alternative.different.price | price: itinerary.currency ]}
+
+        {[ alternative.differentPrice.amount | price: itinerary.currency ]}
       </div>
       <div class="alternatives-row-time">
-        {[ alternative.different.duration | durationToTime : "%hh %m min" ]}
+        <span class="amount-freezing" ng-if="alternative.differentDuration.freezing"> decrease </span>
+        {[ alternative.differentDuration.amount | durationToTime : "%hh %m min" ]}
       </div>
       <div class="alternatives-row-button">
         <a ng-click="selectAlternative(alternative)" class="button">Select</a>
