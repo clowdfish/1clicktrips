@@ -47,11 +47,15 @@
 
     $scope.mapView = mapView;
 
+    $scope.selectionStep = function() {
+      setStep(1);
+    };
+
     $scope.paymentStep = function() {
       setStep(2);
     };
 
-    $scope.confirmStep = function() {
+    $scope.confirmationStep = function() {
       setStep(3);
     };
 

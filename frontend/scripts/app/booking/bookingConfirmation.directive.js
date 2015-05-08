@@ -9,8 +9,18 @@
   function bookingConfirmation() {
     return {
       restrict: 'E',
-      scope: {},
-      templateUrl: 'scripts/app/templates/booking/booking-confirmation.html'
+      scope: {
+        previousStep: '='
+      },
+      templateUrl: 'scripts/app/templates/booking/booking-confirmation.html',
+      link: link
+    };
+
+    function link(scope, element, attrs) {
+
+      scope.back = function () {
+        scope.previousStep();
+      };
     }
   }
 })();

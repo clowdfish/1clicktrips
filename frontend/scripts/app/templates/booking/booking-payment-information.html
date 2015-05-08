@@ -1,75 +1,76 @@
-<div class="booking-payment-information">
-  <h3>Payment Information</h3>
+<!-- ASK FOR CUSTOMER DETAILS -->
+<h3 class="booking-content-title">Customer information</h3>
+<form class="booking-content-form">
+  <fieldset>
+    <label for="firstName">First Name</label>
+    <input type="text" ng-model="bookingData.userProfile.first_name" name="firstName" id="firstName" required/>
+  </fieldset>
 
-  <!-- ASK FOR CUSTOMER DETAILS -->
+  <fieldset>
+    <label for="lastName">Last Name</label>
+    <input type="text" ng-model="bookingData.userProfile.last_name" name="lastName" id="lastName" required/>
+  </fieldset>
 
-  <!-- OFFER PAYMENT TYPES: PAYPAL OR CREDIT CARD -->
+  <fieldset>
+    <label for="email">Email</label>
+    <input type="email" ng-model="bookingData.userProfile.email" name="email" id="email" required/>
+  </fieldset>
+</form>
 
-  <!-- ASK FOR PAYMENT DETAILS -->
+<!-- OFFER PAYMENT TYPES: PAYPAL OR CREDIT CARD -->
+<div class="booking-content-payment-option">
 
-  <!-- GO TO CONFIRMATION SCREEN -->
+</div>
 
-  <form name="paymentForm">
+<!-- ASK FOR PAYMENT DETAILS -->
+<h3 class="booking-content-title">Payment Information</h3>
+<form class="booking-content-form" name="paymentForm">
+  <fieldset>
+    <label for="nameOnCard">Name On Card</label>
+    <input type="text" ng-model="bookingData.payment.nameOnCard" name="nameOnCard" id="nameOnCard" required/>
+  </fieldset>
+
+  <fieldset>
+    <label for="cardNumber">Credit Card Number</label>
+    <input type="text" ng-model="bookingData.payment.cardNumber" name="cardNumber" id="cardNumber" required/>
+  </fieldset>
+
+  <label>Expiration date</label>
+  <fieldset class="booking-content-form-expiration">
+    <select ng-model="bookingData.payment.expirationMonth"
+            name="expirationMonth"
+            ng-options="item.value as item.label for item in months"
+            required></select>
+    <select ng-model="bookingData.payment.expirationYear"
+            name="expirationYear"
+            ng-options="item for item in years"
+            required></select>
+  </fieldset>
+
+  <fieldset>
+    <label for="secret">Secret</label>
+    <input type="text" ng-model="bookingData.payment.secret" name="secret" id="secret" required/>
+  </fieldset>
+</form>
+
+<!-- OFFER THE CREATION OF AN ACCOUNT -->
+<div ng-show="false === isLogin" class="booking-content-create-account">
+  <h3 class="booking-content-title">Book faster next time. Create an account</h3>
+  <form class="booking-content-form" name="createAccountForm">
     <fieldset>
-      <label for="nameOnCard">Name On Card</label>
-      <input type="text" ng-model="bookingData.payment.nameOnCard" name="nameOnCard" id="nameOnCard" required/>
+      <label>Email</label>
+      <input type="email" ng-model="account.email" name="email"/>
     </fieldset>
-
     <fieldset>
-      <label for="cardNumber">Credit Card Number</label>
-      <input type="text" ng-model="bookingData.payment.cardNumber" name="cardNumber" id="cardNumber" required/>
-      <span class=
-    </fieldset>
-
-    <fieldset>
-      <label>Expiration date</label>
-      <select ng-model="bookingData.payment.expirationMonth"
-              name="expirationMonth"
-              ng-options="item.value as item.label for item in months"
-              required />
-      <select ng-model="bookingData.payment.expirationYear"
-              name="expirationYear"
-              ng-options="item for item in years"
-              required />
-    </fieldset>
-
-    <fieldset>
-      <label for="secret">Secret</label>
-      <input type="text" ng-model="bookingData.payment.secret" name="secret" id="secret" required/>
+      <label>Password</label>
+      <input type="password" ng-model="account.password" name="password"/>
     </fieldset>
   </form>
+</div>
 
-  <h3>User information</h3>
-  <form>
-    <fieldset>
-      <label for="firstName">First Name</label>
-      <input type="text" ng-model="bookingData.userProfile.first_name" name="firstName" id="firstName" required/>
-    </fieldset>
+<!-- ACTION BUTTONS -->
+<div class="booking-content-buttons">
+  <a class="button--light back" ng-click="back()">Back</a>
 
-    <fieldset>
-      <label for="lastName">Last Name</label>
-      <input type="text" ng-model="bookingData.userProfile.last_name" name="lastName" id="lastName" required/>
-    </fieldset>
-
-    <fieldset>
-      <label for="email">Email</label>
-      <input type="email" ng-model="bookingData.userProfile.email" name="email" id="email" required/>
-    </fieldset>
-  </form>
-
-  <div ng-show="false === isLogin" class="create-user-wrapper">
-    <h3>Book faster next time. Create an account</h3>
-    <form name="createAcountForm">
-      <fieldset>
-        <label>Email</label>
-        <input type="email" ng-model="account.email" name="email"/>
-      </fieldset>
-      <fieldset>
-        <label>Password</label>
-        <input type="password" ng-model="account.password" name="password"/>
-      </fieldset>
-    </form>
-  </div>
-
-  <input type="button" class="button" ng-click="submit()" value="Continue"/>
+  <a class="button next" ng-click="continue()">Continue</a>
 </div>

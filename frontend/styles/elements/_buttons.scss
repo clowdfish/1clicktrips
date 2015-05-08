@@ -1,7 +1,6 @@
 %button {
   /* Reset */
   cursor: pointer;
-  border: 0;
   outline: 0;
   /* Layout */
   display: inline-block;
@@ -10,6 +9,7 @@
   background: $c-primary;
   color: #fff;
   text-decoration: none;
+  border: 1px solid $c-primary;
   border-radius: 2px;
   font-weight: 600;
 

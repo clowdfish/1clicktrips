@@ -7,15 +7,15 @@
     <!-- BOOKING PROGRESS CONTROL -->
     <ul class="booking-progress">
       <div class="booking-process-line"></div>
-      <li ng-click="setStep(1)" ng-class="{active: step == 1}" class="booking-progress-step">
+      <li ng-class="{active: step == 1}" class="booking-progress-step">
         <span class="booking-progress-step-number">1</span>
         <span class="booking-progress-step-label">Select Trip Segments</span>
       </li>
-      <li ng-click="setStep(2)" ng-class="{active: step == 2}" class="booking-progress-step">
+      <li ng-class="{active: step == 2}" class="booking-progress-step">
         <span class="booking-progress-step-number">2</span>
         <span class="booking-progress-step-label">Booking and Payment Details</span>
       </li>
-      <li ng-click="setStep(3)" ng-class="{active: step == 3}" class="booking-progress-step">
+      <li ng-class="{active: step == 3}" class="booking-progress-step">
         <span class="booking-progress-step-number">3</span>
         <span class="booking-progress-step-label">Booking Confirmation</span>
       </li>
@@ -23,24 +23,34 @@
 
     <!-- BOOKING CONTAINER -->
     <div class="booking-content">
-      <booking-select-segments trip="bookingData.trip" next-step="paymentStep" go-back="mapView" ng-show="step == 1"></booking-select-segments>
-      <booking-payment-information booking-data="bookingData" next-step="confirmStep" ng-show="step == 2"></booking-payment-information>
-      <booking-confirmation is-confirm="bookingData.isConfirm" ng-show="step == 3"></booking-confirmation>
+      <booking-select-segments trip="bookingData.trip" next-step="paymentStep" previous-step="mapView" ng-show="step == 1"></booking-select-segments>
+      <booking-payment-information booking-data="bookingData" previous-step="selectionStep" next-step="confirmationStep" ng-show="step == 2"></booking-payment-information>
+      <booking-confirmation is-confirm="bookingData.isConfirm" previous-step="paymentStep" ng-show="step == 3"></booking-confirmation>
     </div>
 
     <!-- BOOKING SIDEBAR -->
     <div class="booking-sidebar">
       <div class="booking-sidebar-box">
         <h3 class="booking-sidebar-box-title"><i class="fa fa-suitcase"></i>Budget</h3>
-        <span class="booking-sidebar-box-text">Estimated travel cost</span>
+        <span class="booking-sidebar-box-text">Not yet available.</span>
       </div>
       <div class="booking-sidebar-box">
         <h3 class="booking-sidebar-box-title"><i class="fa fa-shopping-cart"></i>Overview</h3>
-        <span class="booking-sidebar-box-text">Estimated travel cost</span>
+        <span class="booking-sidebar-box-text">
+          <span class="booking-sidebar-box-text-row">
+            <span class="left">Booking total</span><span class="right">0.00 EUR</span>
+          </span>
+          <span class="booking-sidebar-box-text-row">
+            <span class="left">Booking rate</span><span class="right">0.00  EUR</span>
+          </span>
+          <div class="separator"></div>
+          <span class="booking-sidebar-box-text-row">
+            <span class="left">Total</span><span class="right bold">0.00  EUR</span>
+          </span>
+        </span>
       </div>
     </div>
   </div>
-
 </section>
 
 

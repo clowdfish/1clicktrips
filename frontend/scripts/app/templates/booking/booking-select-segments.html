@@ -11,8 +11,6 @@
 </div>
 
 <div ng-repeat="(dayNumber, groupSegment) in trip.groupSegment">
-  <!--<h3 class="booking-content-title">{[ "result_segments_day" | translate ]} {[dayNumber]}</h3>-->
-
   <ul class="booking-content-list">
     <li class="booking-content-list-item" ng-repeat="(key, segment) in groupSegment">
         <span class="booking-content-list-item-col icon">
@@ -59,8 +57,10 @@
 </div>
 
 <div class="booking-content-buttons">
-  <a class="button--light back" ng-click="mapView()">Map View</a>
-  <input type="button" class="button next" value="Continue" ng-click="continue()"/>
+  <a class="button--light back" ng-click="back()">Back</a>
+
+  <a class="button next" ng-click="continue()">Continue</a>
+  <a class="button--light next" ng-click="">Save</a>
 </div>
 
 
