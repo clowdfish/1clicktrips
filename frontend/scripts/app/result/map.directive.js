@@ -96,6 +96,13 @@
       });
 
       /**
+      * Redraw the map when close the result panel
+      */
+      scope.$on('redrawMap', function() {
+        google.maps.event.trigger(map, 'resize');
+      });
+
+      /**
        * Zoom the whole path of a segment
        * @param  {Object} segment - Segment data
        * @return null

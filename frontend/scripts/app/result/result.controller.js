@@ -9,6 +9,7 @@
                       $stateParams,
                       $state,
                       $modal,
+                      $timeout,
                       tripApi,
                       TRIP_TYPE,
                       browser,
@@ -243,9 +244,9 @@
      */
     function toggleSelectionPanel() {
       $scope.showSelectionPanel = !$scope.showSelectionPanel;
-
-      // TODO: When to activate that line?
-      //  $scope.$broadcast('resizeMapOnMobile');
+      $timeout(function() {
+        $scope.$broadcast('redrawMap');
+      }, 1000);
     }
 
     function toggleSegmentList() {
