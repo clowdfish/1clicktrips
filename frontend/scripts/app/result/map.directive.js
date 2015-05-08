@@ -79,8 +79,9 @@
             zoomSegment(scope.selectedSegment);
           }, 80);
         } else {
-          map.fitBounds(mapBounds);
+
           drawPolylineOnMap(scope.activeSegments);
+          map.fitBounds(mapBounds);
         }
       });
 
@@ -199,6 +200,8 @@
             addPathLocation(segments[segmentIndex].end.location.latitude,
                         segments[segmentIndex].end.location.longitude);
           }
+
+          console.log(mapBounds);
 
         }
 
