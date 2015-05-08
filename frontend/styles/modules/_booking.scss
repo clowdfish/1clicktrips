@@ -153,7 +153,40 @@
 
     .booking-content {
       @include span(3);
+    }
 
+    .booking-content-summary-label {
+      display: inline-block;
+      font-size: $fs-normal;
+      color: lighten($c-text, 20%);
+      margin-bottom: 0;
+      margin-right: 3em;
+      vertical-align: top;
+
+      &.break-line {
+        display: block;
+      }
+    }
+
+    .booking-content-summary-info {
+      display: inline-block;
+      margin-bottom: 3em;
+    }
+
+    .booking-content-summary-info-location {
+      display: block;
+      font-size: $fs-large;
+      font-weight: 600;
+      margin-bottom: 0.2em;
+
+      &:before {
+        @include fa-icon;
+        content: $fa-var-map-marker + "\00a0\00a0";
+      }
+    }
+
+    .booking-content-summary-info-date {
+      font-size: $fs-small;
     }
   }
 
@@ -173,7 +206,7 @@
     margin-bottom: 0.5em;
   }
 
-  .booking-content-list-item {
+  .booking-content-list {
     list-style: none;
   }
 
@@ -222,7 +255,71 @@
 
   @include respond-above("medium") {
 
+    .booking-content-list {
+      display: table;
+      width: 100%;
+      margin-bottom: 2em;
+    }
 
+    .booking-content-list-item {
+      display: table-row;
+
+      &:last-of-type {
+
+        .booking-content-list-item-col {
+          border-bottom: 2px dotted $c-border;
+        }
+      }
+    }
+
+    .booking-content-list-item-col {
+      display: table-cell;
+      padding: 0.8em 0;
+      border-top: 2px dotted $c-border;
+
+      &.icon {
+        display: table-cell;
+        margin: 0;
+        padding-right: 1em;
+      }
+
+      &.location {
+
+        .title {
+          font-weight: 600;
+        }
+
+        .details {
+          display: block;
+          margin-bottom: 0.5em;
+        }
+
+        .time {
+          display: block;
+          font-style: italic;
+        }
+      }
+
+      &.price {
+        display: table-cell;
+        text-align: right;
+        font-weight: 600;
+        margin: 0;
+        padding-left: 2em;
+      }
+
+      &.include {
+        display: table-cell;
+        text-align: right;
+        margin: 0;
+        padding-left: 2em;
+      }
+    }
+
+    .booking-content-buttons {
+      margin-top: 0;
+      margin-bottom: 2em;
+    }
   }
 
   /************************************************/
@@ -236,20 +333,25 @@
 
     .booking-sidebar {
       display: block;
+
       @include span(3);
     }
 
     .booking-sidebar-box {
+      display: block;
+      margin-bottom: 3em;
       background-color: $c-grey;
     }
 
     .booking-sidebar-box-title {
       display: block;
-      padding: 0.5em 1.2em;
+      font-size: $fs-large;
+      padding: 0.6em 1.4em;
+      font-weight: 600;
       background-color: darken($c-grey, 10%);
 
       .fa {
-        margin-right: 0.5em;
+        margin-right: 0.8em;
       }
     }
 
@@ -263,7 +365,6 @@
 
     .booking-sidebar {
       @include span(2);
-      background-color: $c-grey;
     }
   }
 }
