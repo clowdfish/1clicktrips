@@ -69,6 +69,7 @@ function start () {
   require('./app/routes/auth.js')(app, express, passport, production);
 	require('./app/routes/search.js')(app, express, production);
   require('./app/routes/user.js')(app, express, production);
+  require('./app/routes/booking.js')(app, express, production);
 
   // put this at end of the list. It will deny all requests that are
   // not defined in the previous routes files.
