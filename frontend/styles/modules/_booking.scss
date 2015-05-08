@@ -131,7 +131,6 @@
 
   .booking-content-summary-label {
     color: $c-text-light;
-    font-size: $fs-small;
     margin-bottom: 0.6em;
   }
 
@@ -143,10 +142,16 @@
     display: block;
     font-size: $fs-large;
     font-weight: 600;
+
+    &:before {
+      @include fa-icon;
+      content: $fa-var-map-marker + "\00a0\00a0";
+    }
   }
 
   .booking-content-summary-info-date {
     color: $c-text-light;
+    font-size: $fs-small;
   }
 
   @include respond-above("medium") {
@@ -157,7 +162,6 @@
 
     .booking-content-summary-label {
       display: inline-block;
-      font-size: $fs-normal;
       color: lighten($c-text, 20%);
       margin-bottom: 0;
       margin-right: 3em;
@@ -174,15 +178,7 @@
     }
 
     .booking-content-summary-info-location {
-      display: block;
-      font-size: $fs-large;
-      font-weight: 600;
       margin-bottom: 0.2em;
-
-      &:before {
-        @include fa-icon;
-        content: $fa-var-map-marker + "\00a0\00a0";
-      }
     }
 
     .booking-content-summary-info-date {
@@ -211,13 +207,31 @@
   }
 
   .booking-content-list-item {
-    padding-bottom: 1em;
+    padding: 1em 0;
+    border-top: 2px dotted darken($c-border, 10%);
   }
 
   .booking-content-list-item-col {
 
     &.icon {
       margin-right: 0.3em;
+    }
+
+    &.location {
+
+      .title {
+        font-weight: 600;
+      }
+
+      .details {
+        display: block;
+        margin-bottom: 0.3em;
+      }
+
+      .time {
+        display: block;
+        font-style: italic;
+      }
     }
 
     &.price {
@@ -230,6 +244,16 @@
     &.include {
       display: block;
       margin-top: -1.2em;
+
+      .disable-booking-provider-reference {
+        display: inline-block;
+
+        &:after {
+          @include fa-icon();
+          content: "\00a0\00a0" + $fa-var-external-link;
+          font-size: $fs-small;
+        }
+      }
     }
   }
 
@@ -285,18 +309,8 @@
 
       &.location {
 
-        .title {
-          font-weight: 600;
-        }
-
         .details {
-          display: block;
           margin-bottom: 0.5em;
-        }
-
-        .time {
-          display: block;
-          font-style: italic;
         }
       }
 
@@ -313,6 +327,10 @@
         text-align: right;
         margin: 0;
         padding-left: 2em;
+
+        .disable-booking-provider-reference {
+          margin-top: 0.2em;
+        }
       }
     }
 

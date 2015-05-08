@@ -38,6 +38,10 @@ $input-mobile-height: 2.8rem; // mobile
   }
 }
 
+
+input[type=checkbox][disabled]{
+  outline:1px solid red; // or whatever
+}
 /*
  * Checkboxes
  */
@@ -54,6 +58,14 @@ input[type="checkbox"] {
   }
   &:checked + label::before {
     content: $fa-var-check-square-o;
+  }
+  &[disabled] + label::before {
+    color: lighten($c-text-light, 10%);
+  }
+  &[disabled] + label {
+    color: lighten($c-text-light, 10%);
+    cursor: default;
+    text-decoration: line-through;
   }
   & + label {
     cursor: pointer;

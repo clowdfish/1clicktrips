@@ -38,7 +38,7 @@
 
         <span class="booking-content-list-item-col include">
           <!-- BOOKABLE ITEM -->
-          <div class="enable-booking" ng-if="segment.bookable">
+          <div class="enable-booking" ng-if="segment.bookable && segment.price.amount > 0">
             <fieldset>
               <input type="checkbox" ng-model="segment.isBooked" name="isBooked[{[key]}]" id="isBooked[{[key]}]" />
               <label for="isBooked[{[key]}]">Include in Booking</label>
@@ -46,12 +46,12 @@
           </div>
 
           <!-- NON-BOOKABLE ITEM -->
-          <div class="disable-booking" ng-if=" ! segment.bookable">
+          <div class="disable-booking" ng-if="!segment.bookable || segment.price.amount == 0">
             <fieldset>
               <input type="checkbox" disabled/>
               <label>Include in Booking</label>
             </fieldset>
-            <a ng-href="segment.providerUrl" ng-show="!segment.bookable" target="_blank">Go to provider</a>
+            <a class="disable-booking-provider-reference" ng-href="segment.providerUrl" ng-show="segment.price.amount > 0" target="_blank">Go to provider</a>
           </div>
         </span>
     </li>
