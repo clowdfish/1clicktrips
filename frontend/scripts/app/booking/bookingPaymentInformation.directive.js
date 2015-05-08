@@ -12,6 +12,7 @@
       templateUrl: 'scripts/app/templates/booking/booking-payment-information.html',
       scope: {
         bookingData: '=',
+        previousStep: '=',
         nextStep: '='
       },
       link: link
@@ -24,7 +25,11 @@
         password: null
       };
 
-      scope.submit = function() {
+      scope.back = function() {
+        scope.previousStep();
+      };
+
+      scope.continue = function() {
 
         if (session.isLogin() === false) {
           createUserAccount();

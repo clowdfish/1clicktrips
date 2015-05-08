@@ -81,14 +81,12 @@
     .booking-progress-step {
       position: relative;
       padding: 0 10%;
-      cursor: pointer;
 
       &:last-of-type {
         padding-right: 10%;
       }
 
       &.active {
-        cursor: default;
 
         .booking-progress-step-label {
           width: 100%;
@@ -274,6 +272,7 @@
 
     &>.next {
       float: right;
+      margin-left: 0.3em;
     }
   }
 
@@ -337,7 +336,37 @@
     .booking-content-buttons {
       margin-top: 0;
       margin-bottom: 2em;
+
+      &>.next {
+        margin-left: 0.6em;
+      }
     }
+  }
+
+  /************************************************/
+  /* Payment and confirmation                          */
+  /************************************************/
+  .booking-content-form {
+    margin-bottom: 2em;
+
+    input, select {
+      margin-bottom: 0.3em;
+    }
+  }
+
+  .booking-content-form-expiration {
+
+    &>select {
+      @include span(3);
+    }
+  }
+
+  .booking-content-confirmation {
+    margin-bottom: 2em;
+  }
+
+  @include respond-above("medium") {
+
   }
 
   /************************************************/
@@ -376,6 +405,25 @@
     .booking-sidebar-box-text {
       display: block;
       padding: 0.5em 1.2em;
+
+      div.separator {
+        border-top: 2px dotted darken($c-grey, 10%);
+        margin: 0.8em 0 0.3em 0;
+      }
+    }
+
+    .booking-sidebar-box-text-row {
+      @include clearfix;
+
+      span.left {
+        display: block;
+        float: left;
+      }
+
+      span.right {
+        display: block;
+        float: right;
+      }
     }
   }
 

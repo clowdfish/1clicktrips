@@ -1,12 +1,16 @@
-<h3>Confirm Booking</h3>
+<h3 class="booking-content-title">Confirm booking</h3>
 
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</p>
+<div class="booking-content-confirmation">
+  Please confirm your booking:
 
-<input type="button" class="button" value="Book" ng-click="book(bookingData)"/>
+  <span class="booking-content-confirmation-overview">
+     <!-- TODO: add booking overview here -->
+  </span>
+</div>
+
+<!-- ACTION BUTTONS -->
+<div class="booking-content-buttons">
+  <a class="button--light back" ng-click="back()">Back</a>
+
+  <a class="button next" ng-click="book(bookingData)">Book now</a>
+</div>
