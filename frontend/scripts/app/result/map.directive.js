@@ -200,9 +200,6 @@
             addPathLocation(segments[segmentIndex].end.location.latitude,
                         segments[segmentIndex].end.location.longitude);
           }
-
-          console.log(mapBounds);
-
         }
 
       }

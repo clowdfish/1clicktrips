@@ -13,10 +13,10 @@
         Go by {{ getAlternativeVehicleType(alternative) | translate }}
       </div>
       <div class="alternatives-row-price">
-        Price difference
+        {[ alternative.different.price | price: itinerary.currency ]}
       </div>
       <div class="alternatives-row-time">
-        Time difference
+        {[ alternative.different.duration | durationToTime : "%hh %m min" ]}
       </div>
       <div class="alternatives-row-button">
         <a ng-click="selectAlternative(alternative)" class="button">Select</a>

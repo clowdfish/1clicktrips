@@ -11,6 +11,8 @@
         return '';
       }
 
+      duration = Math.abs(duration);
+
       if (format.lastIndexOf('%d') == -1 || format.lastIndexOf('%n') == -1) {
         throw new Error('Invalid format, it should have %d and %n');
       }

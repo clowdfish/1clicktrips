@@ -109,7 +109,7 @@
         $scope.showAlternativeHotelsPanel = false;
 
         tripApi
-          .findAlternativeVehiclesSegment(segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
+          .findAlternativeVehiclesSegment($scope.itinerary, segment.id, segment.tripId, appConfig.activeLanguageKey, appConfig.activeCurrency)
           .then(function(alternatives) {
             $scope.alternativeVehicles = alternatives;
           });

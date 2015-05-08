@@ -82,7 +82,7 @@
     /**
     * Find alternatives vehicle
     */
-    function findAlternativeVehiclesSegment(segmentId, tripId, language, currency) {
+    function findAlternativeVehiclesSegment(itinerary, segmentId, tripId, language, currency) {
       var searchParams = {
         tripId: tripId,
         segmentId: segmentId,
@@ -97,6 +97,8 @@
           })
           .success(function(alternatives) {
             alternatives = appendTripIdToAlternativeVehicles(alternatives, tripId);
+            alternatives = calculateTimeAndPriceDifferent(itinerary, alternatives);
+            console.log(alternatives);
             resolve(alternatives);
           })
           .error(function(data, status) {
@@ -106,6 +108,40 @@
             });
           });
       });
+    }
+
+    function calculateTimeAndPriceDifferent(itinerary, alternatives) {
+      for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
+        var alternative = alternatives[alternativeIndex];
+        var alternativePrice = _.sum(alternative.segments, function(item) {
+          if (_.has(item, 'price')) {
+            return item.price.amount;
+          }
+        });
+        var alternativeDuration = _.sum(alternative.segments, function(item) {
+          return item.duration;
+        });
+        var originalSegments = [];
+        loopThroughGroupSegment(itinerary.groupSegment, function(segment) {
+          if (alternative.replace.indexOf(segment.id) != -1) {
+            originalSegments.push(segment);
+          }
+        });
+
+        var originalPrice = _.sum(originalSegments, function(item) {
+          return item.price.amount;
+        });
+
+        var originalDuration = _.sum(originalSegments, function(item) {
+          return item.duration;
+        });
+
+        alternative['different'] = {
+          price: originalPrice - alternativePrice,
+          duration: originalDuration - alternativeDuration
+        };
+      }
+      return alternatives;
     }
 
     /**
