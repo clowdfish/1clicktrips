@@ -3,7 +3,7 @@
     .module('app.result')
     .directive('tripSegments', tripSegments);
 
-  function tripSegments(tripApi, browser) {
+  function tripSegments(browser) {
     return {
       require: '^tripResultWrapper',
       restrict: 'E',
@@ -70,9 +70,9 @@
       });
 
       scope.$watch('activeSegments', function(activeSegments) {
-        if (scope.itinerary == null || activeSegments == null) {
-          return;
-        }
+        //if (scope.itinerary == null || activeSegments == null) {
+        //  return;
+        //}
         //scope.groupSegment[scope.activeSegmentsNumber] = activeSegments;
         //scope.itinerary = tripApi.updateItineraryByGroupSegment(scope.itinerary, scope.groupSegment);
       });

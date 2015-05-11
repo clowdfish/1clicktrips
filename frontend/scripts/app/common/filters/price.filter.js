@@ -12,7 +12,7 @@
   function price(currencyApi, currencyFilter) {
     return function(price, currencyCode) {
 
-      if (!price || !currencyCode) {
+      if (price == undefined || !currencyCode) {
         return;
       }
 

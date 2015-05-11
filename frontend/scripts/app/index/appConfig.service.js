@@ -18,7 +18,7 @@
     /**
     * Booking Rate Percent
     */
-    this.bookingRate = 5;
+    this.bookingRate = 0;
     return this;
   }
 

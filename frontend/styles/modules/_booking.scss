@@ -257,6 +257,22 @@
     }
   }
 
+  .booking-content-help {
+    margin-bottom: 2em;
+    font-size: $fs-small;
+  }
+
+  .booking-content-help-title {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 0.3em;
+  }
+
+  .booking-content-help-text {
+    display: block;
+    margin-bottom: 0.3em;
+  }
+
   .booking-content-buttons {
     @include clearfix;
     margin-top: 1em;
@@ -353,8 +369,12 @@
   }
 
   /************************************************/
-  /* Payment and confirmation                          */
+  /* Payment and confirmation                     */
   /************************************************/
+  .booking-content-group {
+    margin-bottom: 2em;
+  }
+
   .booking-content-form {
     margin-bottom: 2em;
 
@@ -366,12 +386,41 @@
   .booking-content-form-expiration {
 
     &>select {
-      @include span(3);
+      display: inline-block;
+      width: 48%;
+
+      &:first-of-type {
+        margin-right: 2%;
+      }
     }
   }
 
   .booking-content-confirmation {
     margin-bottom: 2em;
+  }
+
+  fieldset {
+    margin-bottom: 0.5em;
+  }
+
+  .booking-content-confirmation-overview-title {
+    font-weight: 800;
+  }
+
+  .booking-content-confirmation-overview-time {
+    display: block;
+    color: $c-text-light;
+    margin-bottom: 1em;
+  }
+
+  .booking-content-confirmation-overview-price {
+    display: block;
+    margin-bottom: 1em;
+  }
+
+  .booking-content-confirmation-overview-segments-list {
+    margin-top: 0.5em;
+    margin-left: 2em;
   }
 
   @include respond-above("medium") {

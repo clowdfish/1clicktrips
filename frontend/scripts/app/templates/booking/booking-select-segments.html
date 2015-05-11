@@ -1,7 +1,7 @@
 <div class="booking-content-summary">
   <div class="booking-content-summary-label">Your trip to</div>
   <div class="booking-content-summary-info">
-    <span class="booking-content-summary-info-location">{[ trip.destination ]}</span>
+    <span class="booking-content-summary-info-location">{[ trip.outbound.destination.description ]}</span>
     <span class="booking-content-summary-info-date">
       From {[ trip.startTime | date: "dd.MM.yyyy" ]} to
       {[ trip.endTime | date: "dd.MM.yyyy" ]}
@@ -43,7 +43,7 @@
           <!-- BOOKABLE ITEM -->
           <div class="enable-booking" ng-if="segment.bookable && segment.price.amount > 0">
             <fieldset>
-              <input type="checkbox" ng-model="segment.isBooked" name="isBooked[{[key]}]" id="isBooked[{[key]}]" />
+              <input type="checkbox" ng-model="segment.isBooked" ng-change="validateBookableSegments()" name="isBooked[{[key]}]" id="isBooked[{[key]}]" />
               <label for="isBooked[{[key]}]">Include in Booking</label>
             </fieldset>
           </div>
@@ -51,7 +51,7 @@
           <!-- NON-BOOKABLE ITEM -->
           <div class="disable-booking" ng-if="!segment.bookable || segment.price.amount == 0">
             <fieldset>
-              <input type="checkbox" disabled/>
+              <input type="checkbox" disabled />
               <label>Include in Booking</label>
             </fieldset>
             <a class="disable-booking-provider-reference" ng-href="segment.providerUrl" ng-show="segment.price.amount > 0" target="_blank">Go to provider</a>
@@ -60,13 +60,22 @@
     </li>
   </ul>
 </div>
-<div class="validate-error" ng-show="bookingError">You must book at least of one segment</div>
-<div class="booking-content-buttons">
 
+<div class="booking-content-help" ng-show="!bookable">
+  <span class="booking-content-help-title">Please remember:</span>
+  <span class="booking-content-help-text">
+    You can only go on with booking, after you have selected at least one trip segment.
+  </span>
+  <span class="booking-content-help-text">
+    If no trip segment can be selected for that trip, you can still save the trip to take it with you on your mobile.
+    The booking can be done through the provider links then.
+  </span>
+</div>
+
+<div class="booking-content-buttons">
   <a class="button--light back" ng-click="back()">Back</a>
 
-  <a class="button next" ng-click="continue()">Continue</a>
-
+  <a class="button next" ng-class="{ 'is-disabled': !bookable }" ng-click="continue()">Continue</a>
   <a class="button--light next" ng-click="">Save</a>
 </div>
 

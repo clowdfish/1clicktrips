@@ -1,12 +1,9 @@
-<h3 class="booking-content-title">Confirm booking</h3>
+<h3 class="booking-content-title">Confirm your booking</h3>
 
 <div class="booking-content-confirmation">
-  Please confirm your booking:
-
   <span class="booking-content-confirmation-overview">
-     <!-- TODO: add booking overview here -->
      <div class="booking-content-confirmation-overview-title">
-       from {[bookingData.trip.origin]} to {[bookingData.trip.destination]}
+       {[ bookingData.trip.outbound.origin.description ]} to {[ bookingData.trip.outbound.destination.description ]}
      </div>
 
       <div class="booking-content-confirmation-overview-time">
@@ -14,14 +11,15 @@
       </div>
 
       <div class="booking-content-confirmation-overview-price">
+        Total Price:
         {[bookingData.trip.totalCost | price: bookingData.trip.currency]}
       </div>
 
       <div class="booking-content-confirmation-overview-segments">
+        You have selected the following trips segments:
 
         <ul class="booking-content-confirmation-overview-segments-list" ng-show="selectedSegments.length > 0">
           <li class="booking-content-confirmation-overview-segments-item" ng-repeat="segment in selectedSegments track by segment.id">
-
             <span ng-if='segment.start.description == "Origin"' class="title">
               {[segment.end.description]}
             </span>
@@ -31,16 +29,13 @@
             <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"' class="title">
               {[segment.start.description]} - {[segment.end.description]}
             </span>
-
           </li>
         </ul>
 
         <div class="no-selected-segments" ng-show="selectedSegments.length == 0">
-          No selected segments
+          No segments have been selected.
         </div>
-
       </div>
-
   </span>
 </div>
 

@@ -38,9 +38,8 @@ $input-mobile-height: 2.8rem; // mobile
   }
 }
 
-
 input[type=checkbox][disabled]{
-  outline:1px solid red; // or whatever
+  outline:1px solid red;
 }
 /*
  * Checkboxes
@@ -132,7 +131,6 @@ select {
 label.editable-options-label, label.editable-dropdown-label, label.editable-textfield-label {
   display: block;
   font-size: $fs-small;
-  //font-weight: 800;
   margin-bottom: 0.3em;
 }
 

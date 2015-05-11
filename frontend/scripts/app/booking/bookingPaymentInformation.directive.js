@@ -60,7 +60,7 @@
       /**
       * Prepare years dropdown data
       */
-      var date = new Date();
+      date = new Date();
       var startYear = date.getFullYear();
       scope.years = range(startYear, 10);
 
@@ -77,10 +77,8 @@
       */
       function validateForm() {
         scope.error = {};
-        if (false === validatePaymentForm()) {
-          return false;
-        }
-        return true;
+        return false !== validatePaymentForm();
+
       }
 
       function validatePaymentForm() {
@@ -88,8 +86,6 @@
           scope.informationForm.cardNumber.$error.invalid = true;
           return false;
         }
-
-
       }
 
       function validateUserForm() {
@@ -128,7 +124,6 @@
             .signup(scope.account);
         }
       }
-
     }
   }
 })();

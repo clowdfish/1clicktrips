@@ -1,7 +1,7 @@
 <!-- ASK FOR CUSTOMER DETAILS -->
 <h3 class="booking-content-title">Customer information</h3>
 <form name="informationForm" ng-submit="continue()">
-  <div class="booking-content-group customer-group">
+  <div class="booking-content-group customer-data">
     <fieldset>
       <label for="firstName">First Name</label>
       <input type="text" ng-model="bookingData.userProfile.first_name" name="firstName" id="firstName" required/>
@@ -19,13 +19,13 @@
   </div>
 
   <!-- OFFER PAYMENT TYPES: PAYPAL OR CREDIT CARD -->
-  <div class="booking-content-payment-option">
+  <div class="booking-content-group payment-option">
 
   </div>
 
   <!-- ASK FOR PAYMENT DETAILS -->
-  <h3 class="booking-content-title">Payment Information</h3>
-  <div class="booking-content-form payment-group">
+  <div class="booking-content-group payment-details">
+    <h3 class="booking-content-title">Payment Information</h3>
     <fieldset>
       <label for="nameOnCard">Name On Card</label>
       <input type="text" ng-model="bookingData.payment.nameOnCard" name="nameOnCard" id="nameOnCard" required/>
@@ -62,9 +62,10 @@
     </fieldset>
   </div>
 
+
   <!-- OFFER THE CREATION OF AN ACCOUNT -->
-  <div ng-if="false === isLogin" class="booking-content-create-account">
-    <h3 class="booking-content-title">Book faster next time. Create an account</h3>
+  <div ng-if="false === isLogin" class="booking-content-group create-account">
+    <h3 class="booking-content-title">Book faster next time. Create an account.</h3>
     <div class="booking-content-form create-account-group">
       <fieldset>
         <label>Email</label>
@@ -80,6 +81,6 @@
   <!-- ACTION BUTTONS -->
   <div class="booking-content-buttons">
     <a class="button--light back" ng-click="back()">Back</a>
-    <input type="submit" class="button next" value="Continue"/>
+    <input type="submit" class="button next" value="Continue" />
   </div>
 </form>
