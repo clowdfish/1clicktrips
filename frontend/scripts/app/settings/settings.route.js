@@ -44,6 +44,18 @@
         favorites: getFavorites
       }
     });
+
+    $stateProvider.state('settings.payment', {
+      url: '/payment',
+      templateUrl: 'scripts/app/templates/settings/payment.html',
+      controller: 'paymentCtrl'
+    });
+
+    $stateProvider.state('settings.privacy', {
+      url: '/privacy',
+      templateUrl: 'scripts/app/templates/settings/privacy.html',
+      controller: 'privacyCtrl'
+    });
   }
 
   function checkAuthenticaton($state, session, authHelper, $q) {

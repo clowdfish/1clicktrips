@@ -226,6 +226,8 @@ en:
       title: History
     privacy:
       title: Privacy
+    payment:
+      title: Payment
     preferences:
       title: Preferences
       travelProfile:
