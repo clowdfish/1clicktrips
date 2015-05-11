@@ -63,16 +63,16 @@ function insertBooking(userId, bookingObject, done) {
 }
 
 function insertUserData(bookingId, bookingObject, done) {
-  var userFields = [first_name,
-                      last_name,
-                      email,
-                      phone,
-                      address_street,
-                      address_city,
-                      address_postal,
-                      address_country,
-                      company_name,
-                      company_tax_no];
+  var userFields = ['first_name',
+                      'last_name',
+                      'email',
+                      'phone',
+                      'address_street',
+                      'address_city',
+                      'address_postal',
+                      'address_country',
+                      'company_name',
+                      'company_tax_no'];
   var insertData = [];
   insertData.push(bookingId);
   for (var i = 0; i < userFields.length; i++) {
@@ -86,4 +86,8 @@ function insertUserData(bookingId, bookingObject, done) {
                   'value(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [insertData], function(err) {
     done(err);
   });
+}
+
+function insertBookingSegment(bookingId, bookingObject) {
+
 }
