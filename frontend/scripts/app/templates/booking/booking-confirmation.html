@@ -21,34 +21,21 @@
 
         <ul class="booking-content-confirmation-overview-segments-list" ng-show="selectedSegments.length > 0">
           <li class="booking-content-confirmation-overview-segments-item" ng-repeat="segment in selectedSegments track by segment.id">
-            <span class="booking-content-confirmation-overview-segments-item-col icon">
-              <i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i>
-            </span>
-            <span class="booking-content-confirmation-overview-segments-item location">
-              <span ng-if='segment.start.description == "Origin"' class="title">
-                {[segment.end.description]}
-              </span>
-              <span ng-if='segment.end.description == "Destination"' class="title">
-                {[segment.start.description]}
-              </span>
-              <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"' class="title">
-                {[segment.start.description]} - {[segment.end.description]}
-              </span>
 
-              <span class="details">Deutsche Bahn, Regional train</span>
-              <span class="time">April 24, 2015: 7:04 - 7:53</span>
+            <span ng-if='segment.start.description == "Origin"' class="title">
+              {[segment.end.description]}
             </span>
-            <span class="booking-content-confirmation-overview-segments-item price">
-              {{ segment.price.amount | price: segment.price.currency }}
+            <span ng-if='segment.end.description == "Destination"' class="title">
+              {[segment.start.description]}
+            </span>
+            <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"' class="title">
+              {[segment.start.description]} - {[segment.end.description]}
             </span>
 
-            <span class="booking-content-confirmation-overview-segments-item duration">
-              {{ segment.duration | durationToTime:"%h hrs %m mins" }}
-            </span>
           </li>
         </ul>
 
-        <div class="no-selected-segments">
+        <div class="no-selected-segments" ng-show="selectedSegments.length == 0">
           No selected segments
         </div>
 
