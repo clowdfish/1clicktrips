@@ -35,6 +35,10 @@
           {{ segment.price.amount | price: segment.price.currency }}
         </span>
 
+        <span class="booking-content-list-item-col duration">
+          {{ segment.duration | durationToTime:"%h hrs %m mins" }}
+        </span>
+
         <span class="booking-content-list-item-col include">
           <!-- BOOKABLE ITEM -->
           <div class="enable-booking" ng-if="segment.bookable && segment.price.amount > 0">

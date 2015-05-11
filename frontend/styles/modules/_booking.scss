@@ -239,6 +239,8 @@
       margin-top: 0.3em;
     }
 
+
+
     &.include {
       display: block;
       margin-top: -1.2em;
@@ -317,6 +319,13 @@
         display: table-cell;
         text-align: right;
         font-weight: 600;
+        margin: 0;
+        padding-left: 1em;
+      }
+
+      &.duration {
+        display: table-cell;
+        text-align: right;
         margin: 0;
         padding-left: 2em;
       }
