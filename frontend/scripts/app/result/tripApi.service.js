@@ -5,7 +5,7 @@
     .module('app.result')
     .service('tripApi', tripApi);
 
-  function tripApi($http, $q, $timeout) {
+  function tripApi($http, $q, $timeout, appConfig) {
     var service = this;
 
     /**
@@ -283,6 +283,7 @@
       itinerary['groupSegment'] = groupSegment;
       itinerary['duration'] = getItineraryDuration(groupSegment);
       itinerary['cost'] = getItineraryCost(groupSegment);
+      itinerary['totalCost'] = itinerary['cost'] +  itinerary['cost'] * appConfig.bookingRate / 100;
       itinerary['vehicleTypeList'] = getVehicleTypeList(groupSegment);
       itinerary['startTime'] = getItineraryStartTime(groupSegment);
       itinerary['endTime'] = getItineraryEndTime(groupSegment);

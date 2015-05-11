@@ -38,10 +38,11 @@
         <h3 class="booking-sidebar-box-title"><i class="fa fa-shopping-cart"></i>Overview</h3>
         <span class="booking-sidebar-box-text">
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Booking total</span><span class="right">0.00 EUR</span>
+            <span class="left">Booking total</span>
+            <span class="right">{[ bookingData.trip.totalCost | price: bookingData.trip.currency ]}</span>
           </span>
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Booking rate</span><span class="right">0.00  EUR</span>
+            <span class="left">Booking rate</span><span class="right">{[ appConfig.bookingRate ]}%</span>
           </span>
           <div class="separator"></div>
           <span class="booking-sidebar-box-text-row">

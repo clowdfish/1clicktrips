@@ -14,6 +14,11 @@
     this.currencySymbol = '$';
     this.activeLanguageKey = 'en';
     this.currencyDecimalDigits = 2;
+
+    /**
+    * Booking Rate Percent
+    */
+    this.bookingRate = 5;
     return this;
   }
 
