@@ -30,7 +30,7 @@
       };
 
       scope.continue = function() {
-
+        console.log(scope.informationForm);
         if (session.isLogin() === false) {
           createUserAccount();
         }
@@ -77,12 +77,18 @@
       */
       function validateForm() {
         scope.error = {};
-        var isValid = true;
-        //isValid = scope.error['cardNumber'] = validateCreditCardNumber(scope.bookingData.payment.cardNumber);
-        return isValid;
+        if (false === validatePaymentForm()) {
+          return false;
+        }
+        return true;
       }
 
       function validatePaymentForm() {
+        if (false === validateCreditCardNumber(scope.informationForm.cardNumber.$modelValue)) {
+          scope.informationForm.cardNumber.$error.invalid = true;
+          return false;
+        }
+
 
       }
 
