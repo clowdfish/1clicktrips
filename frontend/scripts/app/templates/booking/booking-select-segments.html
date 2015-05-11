@@ -10,6 +10,7 @@
   <div class="booking-content-summary-label break-line">Contains the following travel segments</div>
 </div>
 
+
 <div ng-repeat="(dayNumber, groupSegment) in trip.groupSegment">
   <ul class="booking-content-list">
     <li class="booking-content-list-item" ng-repeat="(key, segment) in groupSegment">
@@ -55,11 +56,13 @@
     </li>
   </ul>
 </div>
-
+<div class="validate-error" ng-show="bookingError">You must book at least of one segment</div>
 <div class="booking-content-buttons">
+
   <a class="button--light back" ng-click="back()">Back</a>
 
   <a class="button next" ng-click="continue()">Continue</a>
+
   <a class="button--light next" ng-click="">Save</a>
 </div>
 
