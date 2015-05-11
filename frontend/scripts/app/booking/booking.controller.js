@@ -7,7 +7,7 @@
     .controller('bookingCtrl', bookingCtrl);
 
   function bookingCtrl($scope, $state, bookingData, userProfile, AUTH_EVENTS, $anchorScroll) {
-
+    window.MY_SCOPE = $scope; // DEBUG FROM CONSOLE
     console.log(bookingData); // DEBUGGING
 
     /**

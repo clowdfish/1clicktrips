@@ -23,9 +23,24 @@
 
     <!-- BOOKING CONTAINER -->
     <div class="booking-content">
-      <booking-select-segments trip="bookingData.trip" next-step="paymentStep" previous-step="mapView" ng-show="step == 1"></booking-select-segments>
-      <booking-payment-information booking-data="bookingData" previous-step="selectionStep" next-step="confirmationStep" ng-show="step == 2"></booking-payment-information>
-      <booking-confirmation is-confirm="bookingData.isConfirm" previous-step="paymentStep" ng-show="step == 3"></booking-confirmation>
+
+      <booking-select-segments
+        trip="bookingData.trip"
+        next-step="paymentStep"
+        previous-step="mapView"
+        ng-show="step == 1"></booking-select-segments>
+
+      <booking-payment-information
+        booking-data="bookingData"
+        previous-step="selectionStep"
+        next-step="confirmationStep"
+        ng-show="step == 2"></booking-payment-information>
+
+      <booking-confirmation
+        booking-data="bookingData"
+        previous-step="paymentStep"
+        ng-show="step == 3"></booking-confirmation>
+
     </div>
 
     <!-- BOOKING SIDEBAR -->

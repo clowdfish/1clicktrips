@@ -393,6 +393,7 @@
         for (i = 0; i < itinerary.outbound.segments.length; i++) {
           segment = itinerary.outbound.segments[i];
           segment['tripId'] = itinerary.outbound.id;
+          segment['bookable'] = true;
           if (result[day] == null) {
             result[day] = [];
           }

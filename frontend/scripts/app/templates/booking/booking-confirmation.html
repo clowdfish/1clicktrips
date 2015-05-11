@@ -5,6 +5,55 @@
 
   <span class="booking-content-confirmation-overview">
      <!-- TODO: add booking overview here -->
+     <div class="booking-content-confirmation-overview-title">
+       from {[bookingData.trip.origin]} to {[bookingData.trip.destination]}
+     </div>
+
+      <div class="booking-content-confirmation-overview-time">
+        From {[ bookingData.trip.startTime | date: "dd.MM.yyyy" ]} to {[ bookingData.trip.endTime | date: "dd.MM.yyyy" ]}
+      </div>
+
+      <div class="booking-content-confirmation-overview-price">
+        {[bookingData.trip.totalCost | price: bookingData.trip.currency]}
+      </div>
+
+      <div class="booking-content-confirmation-overview-segments">
+
+        <ul class="booking-content-confirmation-overview-segments-list" ng-show="selectedSegments.length > 0">
+          <li class="booking-content-confirmation-overview-segments-item" ng-repeat="segment in selectedSegments track by segment.id">
+            <span class="booking-content-confirmation-overview-segments-item-col icon">
+              <i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i>
+            </span>
+            <span class="booking-content-confirmation-overview-segments-item location">
+              <span ng-if='segment.start.description == "Origin"' class="title">
+                {[segment.end.description]}
+              </span>
+              <span ng-if='segment.end.description == "Destination"' class="title">
+                {[segment.start.description]}
+              </span>
+              <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"' class="title">
+                {[segment.start.description]} - {[segment.end.description]}
+              </span>
+
+              <span class="details">Deutsche Bahn, Regional train</span>
+              <span class="time">April 24, 2015: 7:04 - 7:53</span>
+            </span>
+            <span class="booking-content-confirmation-overview-segments-item price">
+              {{ segment.price.amount | price: segment.price.currency }}
+            </span>
+
+            <span class="booking-content-confirmation-overview-segments-item duration">
+              {{ segment.duration | durationToTime:"%h hrs %m mins" }}
+            </span>
+          </li>
+        </ul>
+
+        <div class="no-selected-segments">
+          No selected segments
+        </div>
+
+      </div>
+
   </span>
 </div>
 
