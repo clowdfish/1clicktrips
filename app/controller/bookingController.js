@@ -5,6 +5,7 @@ var Promise = require('es6-promise').Promise;
 var mysql = require('mysql');
 var connection = mysql.createConnection(dbConfig.connection);
 var async = require('async');
+var _ = require('underscore');
 module.exports = {
 
   getBookings: function(userId, limit) {
@@ -26,6 +27,9 @@ module.exports = {
         },
         function(bookingId, done) {
           insertUserData(bookingId, bookingObject, done);
+        },
+        function(bookingId, bookingObject, done) {
+          insertBookingSegment(bookingId, bookingObject, done);
         }
       ], function(err) {
         if (err) {
@@ -73,21 +77,65 @@ function insertUserData(bookingId, bookingObject, done) {
                       'address_country',
                       'company_name',
                       'company_tax_no'];
-  var insertData = [];
-  insertData.push(bookingId);
+
+  var insertData = {
+    'booking_id': bookingId
+  };
   for (var i = 0; i < userFields.length; i++) {
-    if (bookingObject.user[userFields[i]]) {
-      insertData.push(bookingObject.user[userFields[i]]);
+    var field = userFields[i];
+    if (bookingObject.user[field]) {
+      insertData[field] = bookingObject.user[field];
     }
   }
-  connection.query('INSERT INTO booking_user ' +
-                  '(booking_id, first_name, last_name, email, phone, address_street,' +
-                  'address_city, address_postal, address_country, company_name, company_tax_no) ' +
-                  'value(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [insertData], function(err) {
-    done(err);
+  connection.query('INSERT INTO booking_user SET ?', insertData, function(err) {
+    if (err) {
+      return done(err);
+    } else {
+      return done(null, bookingId, bookingObject);
+    }
   });
 }
 
-function insertBookingSegment(bookingId, bookingObject) {
+function insertBookingSegment(bookingId, bookingObject, done) {
+  var segments = [];
+  _.each(bookingObject.trip.groupSegment, function(groupSegment) {
+    _.each(groupSegment, function(segment) {
+      segments.push(segment);
+    });
+  });
 
+  console.log(segments);
+
+  var order = 0;
+  async.each(segments, function(item, callback) {
+    order++;
+    var insertObject = {
+      booking_id: bookingId,
+      segment_id: item.id,
+      segment_selected: item.isBooked,
+      provider_id: null,
+      provider_booking_id: null,
+      segment_price: item.price.amount,
+      segment_currency: item.price.currency,
+      segment_tax: 0,
+      segment_start_time: item.departureTime,
+      segment_start_location_longitude: item.start.location.longitude,
+      segment_start_location_latitude: item.start.location.latitude,
+      segment_start_location_name: item.start.description,
+      segment_end_time: item.arrivalTime,
+      segment_end_location_longitude: item.end.location.longitude,
+      segment_end_location_latitude: item.end.location.latitude,
+      segment_end_location_name: item.end.description,
+      segment_type: item.type,
+      segment_order: order,
+      segment_checkin_url: null
+    };
+    connection.query('INSERT INTO booking_segment SET ?', insertObject, callback);
+  }, function(err) {
+    if (err) {
+      return done(err);
+    } else {
+      return done(null);
+    }
+  });
 }

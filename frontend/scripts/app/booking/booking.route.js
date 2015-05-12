@@ -20,6 +20,7 @@
 
   function getTrip($stateParams, bookingApi) {
     var bookingData = bookingApi.getShareTripData();
+    if (bookingData === null) return null;
     return resetBookingData(bookingData);
   }
 

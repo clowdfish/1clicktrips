@@ -70,6 +70,11 @@ module.exports = function (app, express, production) {
 /**
 * Validate set booking request
 */
-function validateBookingObject(bookingObject) {
+function validateBookingObject(userId, bookingObject) {
+  if (!_.has(bookingObject, 'user') || _.isEmpty(bookingObject.user)) {
+    console.log(bookingObject.user);
+    console.log('Missing user data');
+    return false;
+  }
   return true;
 }
