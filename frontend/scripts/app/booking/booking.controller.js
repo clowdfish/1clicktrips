@@ -11,6 +11,21 @@
     console.log(bookingData); // DEBUGGING
 
     /**
+    * Booking price before booking fee
+    */
+    $scope.bookingPrice = 0;
+
+    /**
+    * Booking price after booking fee
+    */
+    $scope.totalBookingPrice = 0;
+
+    /**
+    * Booking fee, calculate from booking rate and booking price
+    */
+    $scope.bookingFee = 0;
+
+    /**
     * Booking step ( total 3 steps )
     */
     $scope.step = 1;
@@ -75,6 +90,7 @@
     function mapView() {
       $state.go('search_result', bookingData['search'])
     }
+
   }
 
 })();

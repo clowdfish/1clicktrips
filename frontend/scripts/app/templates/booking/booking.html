@@ -28,6 +28,9 @@
         trip="bookingData.trip"
         next-step="paymentStep"
         previous-step="mapView"
+        total-booking-price="totalBookingPrice"
+        booking-fee="bookingFee"
+        booking-price="bookingPrice"
         ng-show="step == 1"></booking-select-segments>
 
       <booking-payment-information
@@ -54,14 +57,14 @@
         <span class="booking-sidebar-box-text">
           <span class="booking-sidebar-box-text-row">
             <span class="left">Booking total</span>
-            <span class="right">{[ bookingData.trip.totalCost | price: bookingData.trip.currency ]}</span>
+            <span class="right">{[ bookingPrice | price: bookingData.trip.currency ]}</span>
           </span>
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Booking fees ({[ appConfig.bookingRate ]}%)</span><span class="right">{[ 0 | price: bookingData.trip.currency ]}</span>
+            <span class="left">Booking fees ({[ appConfig.bookingRate ]}%)</span><span class="right">{[ bookingFee | price: bookingData.trip.currency ]}</span>
           </span>
           <div class="separator"></div>
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Total</span><span class="right bold">0.00  EUR</span>
+            <span class="left">Total</span><span class="right bold">{[ totalBookingPrice | price: bookingData.trip.currency ]}  EUR</span>
           </span>
         </span>
       </div>

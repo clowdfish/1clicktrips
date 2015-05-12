@@ -43,7 +43,7 @@
           <!-- BOOKABLE ITEM -->
           <div class="enable-booking" ng-if="segment.bookable && segment.price.amount > 0">
             <fieldset>
-              <input type="checkbox" ng-model="segment.isBooked" ng-change="validateBookableSegments()" name="isBooked[{[key]}]" id="isBooked[{[key]}]" />
+              <input type="checkbox" ng-model="segment.isBooked" ng-change="handleBookableChange()" name="isBooked[{[key]}]" id="isBooked[{[key]}]" />
               <label for="isBooked[{[key]}]">Include in Booking</label>
             </fieldset>
           </div>

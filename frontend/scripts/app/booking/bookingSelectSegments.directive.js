@@ -6,13 +6,16 @@
     .module('app.booking')
     .directive('bookingSelectSegments', bookingSelectSegments);
 
-  function bookingSelectSegments() {
+  function bookingSelectSegments(appConfig) {
     return {
       restrict: 'E',
       scope: {
         trip: '=',
         previousStep: '=',
-        nextStep: '='
+        nextStep: '=',
+        totalBookingPrice: '=',
+        bookingPrice: '=',
+        bookingFee: '='
       },
       templateUrl: 'scripts/app/templates/booking/booking-select-segments.html',
       link: link
@@ -32,14 +35,29 @@
       };
 
       scope.bookable = false;
-      scope.validateBookableSegments = validateBookableSegments;
+      scope.handleBookableChange = handleBookableChange;
+
+      /**
+      * Automatic set bookable and calculate at when trip data is loaded
+      */
+      scope.$watch('trip', function() {
+        handleBookableChange();
+      });
+
+      /**
+      * Validate bookable segment and calculate booking price
+      */
+      function handleBookableChange() {
+        validateBookableSegments();
+        caculateBookingPrice();
+      }
 
       function validateBookableSegments() {
         var hasBookableSegment = false;
         var hasAtLeastOneBookedSegment = false;
+        scope.trip['bookingPrice'] = 0;
         _.each(scope.trip.groupSegment, function(groupSegment) {
           _.each(groupSegment, function(segment) {
-
             if (segment.bookable) hasBookableSegment = true;
             if (segment.isBooked) hasAtLeastOneBookedSegment = true;
           });
@@ -50,7 +68,23 @@
         scope.bookable = hasAtLeastOneBookedSegment;
         return hasAtLeastOneBookedSegment;
       }
+
+      function caculateBookingPrice() {
+        scope.bookingPrice = 0;
+        _.each(scope.trip.groupSegment, function(groupSegment) {
+          _.each(groupSegment, function(segment) {
+            if (segment.bookable && segment.isBooked) {
+              scope.bookingPrice += segment.price.amount;
+            }
+          });
+        });
+
+        scope.bookingFee = scope.bookingPrice * appConfig.bookingRate / 100;
+        scope.totalBookingPrice = scope.bookingPrice + scope.bookingFee;
+      }
     }
+
+
   }
 
 })();

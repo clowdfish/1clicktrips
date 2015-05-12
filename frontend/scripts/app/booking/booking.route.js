@@ -19,7 +19,8 @@
   }
 
   function getTrip($stateParams, bookingApi) {
-    return bookingApi.getShareTripData();
+    var bookingData = bookingApi.getShareTripData();
+    return resetBookingData(bookingData);
   }
 
   function getUserProfile(session, userApi) {
@@ -27,6 +28,18 @@
       return userApi.getUserProfile();
     }
     return null;
+  }
+
+  /**
+  * Remove booking data and some user data from session
+  */
+  function resetBookingData(bookingData) {
+    _.each(bookingData.trip.groupSegment, function(groupSegment) {
+      _.each(groupSegment, function(segment) {
+        segment['isBooked'] = false;
+      });
+    });
+    return bookingData;
   }
 
 })();
