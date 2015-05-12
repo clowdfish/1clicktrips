@@ -28,13 +28,13 @@
   }
 
   .result-selection {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     position: absolute;
     top: 0;
     left: -100%;
-    height: 100%;
     width: 100%;
+    height: 100%;
     z-index: 3;
     background-color: white;
     transition: left 1s ease-out 0s;
@@ -78,7 +78,6 @@
   @include respond-above("medium") {
 
     .result-selection {
-      overflow: visible;
       position: relative;
       width: $selection-width;
       margin-left: -$selection-width;
@@ -99,8 +98,8 @@
         left: $selection-width - 0.2rem;
 
         &:before {
-          font-family: FontAwesome;
-          content: "\f00d";
+          @include fa-icon();
+          content: $fa-var-close;
         }
       }
     }
@@ -298,6 +297,7 @@
     }
 
     .result-selection-list {
+      @include clearfix;
       position: relative;
       top: auto;
       left: auto;

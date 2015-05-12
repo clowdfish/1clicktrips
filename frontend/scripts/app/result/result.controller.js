@@ -20,11 +20,25 @@
                       searchObject,
                       bookingApi) {
 
-    $rootScope.fullHeight = true;
+    $rootScope.windowHeight = browser.getViewport().height + "px";
+
+    $(window).on("resize.doResize", function () {
+      $scope.$apply(function() {
+        $rootScope.windowHeight = browser.getViewport().height + "px";
+      });
+    });
+
+    $scope.$on("$destroy",function () {
+      // remove the handler added earlier to avoid memory leaks
+      $(window).off("resize.doResize");
+
+      destroyController();
+    });
 
     $scope.appConfig = appConfig;
     $scope.showAddToFavorite = true;
     $scope.itinerary = null;
+    $scope.isMobile = browser.isMobileDevice();
 
     findAllItineraries();
 
@@ -33,8 +47,6 @@
         "message" : "test",
         "action" : null
       }];
-
-    $scope.isMobile = browser.isMobileDevice();
 
     $scope.showSelectionPanel = true;
     $scope.showList = false;
@@ -58,10 +70,6 @@
     $scope.acceptNotification = acceptNotification;
 
     $scope.addToFavorites = addToFavorites;
-
-    $scope.$on('$destroy', function() {
-      destroyController();
-    });
 
     /**
     * Store itinerary data and go to booking page
@@ -179,7 +187,7 @@
     * Destroy controller and listeners
     */
     function destroyController() {
-     $rootScope.fullHeight = false;
+     $rootScope.windowHeight = "100%";
       destroyAuthenticationListener();
     }
 

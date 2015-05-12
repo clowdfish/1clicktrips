@@ -45,8 +45,8 @@
         next-step="successStep"
         ng-show="step == 3"></booking-confirmation>
 
-      <div class="booking-success" ng-show="step == 4">
-      Thanks for booking
+      <div class="booking-content-success" ng-show="step == 4">
+        Thanks for booking!
       </div>
 
     </div>
@@ -69,7 +69,7 @@
           </span>
           <div class="separator"></div>
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Total</span><span class="right bold">{[ totalBookingPrice | price: bookingData.trip.currency ]}  EUR</span>
+            <span class="left">Total</span><span class="right bold">{[ totalBookingPrice | price: bookingData.trip.currency ]}</span>
           </span>
         </span>
       </div>

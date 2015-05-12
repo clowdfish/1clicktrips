@@ -1,7 +1,10 @@
 %header {
   @include clearfix;
 
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   height: $header-height;
   background: $c-white;
   color: $c-text;
@@ -65,7 +68,6 @@
     right: 0;
     background-color: $c-white;
     border: 1px solid $c-border;
-  ;
     list-style: none;
     z-index: 999;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
@@ -256,13 +258,14 @@
       cursor: pointer;
 
       &:after {
-        font-family: FontAwesome;
-        content: "\00a0\f0d7";
+        @include fa-icon();
+        content: "\00a0" + $fa-var-caret-down;
         font-size: $fs-normal;
       }
 
       &:hover ul {
         display: block;
+        box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
       }
 
       & .currency-switch, & .language-switch {
