@@ -20,12 +20,8 @@
     "angular-ui-router": "*",
     "angular-mocks": "*",
     "angular-ui-bootstrap-bower": "*",
-<<<<<<< HEAD
-    "lodash": "3.8.0",
-=======
     "lodash": "~3.8.0",
->>>>>>> 1293e0c... Add concrete version for lodash package
-    "font-awesome": "*",
+    "font-awesome": "4.3.0",
     "moment": "2.1.0",
     "susy": "~2.1.3",
     "use-angular-translate": "2.6.0",
