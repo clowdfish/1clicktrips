@@ -38,7 +38,7 @@
       $scope.bookingData = {
         trip: bookingData['trip'],
         payment: {},
-        userProfile: {},
+        user: {},
         isConfirm: false
       };
 
@@ -73,6 +73,10 @@
     $scope.confirmationStep = function() {
       setStep(3);
     };
+
+    $scope.successStep = function() {
+      setStep(4);
+    }
 
     function setStep(stepNumber) {
       $scope.step = stepNumber;

@@ -6,12 +6,13 @@
     .module('app.booking')
     .directive('bookingConfirmation', bookingConfirmation);
 
-  function bookingConfirmation() {
+  function bookingConfirmation(bookingApi) {
     return {
       restrict: 'E',
       scope: {
         bookingData: '=',
-        previousStep: '='
+        previousStep: '=',
+        nextStep: '='
       },
       templateUrl: 'scripts/app/templates/booking/booking-confirmation.html',
       link: link
@@ -30,6 +31,17 @@
       scope.back = function () {
         scope.previousStep();
       };
+
+      scope.book = function() {
+        bookingApi
+          .saveBooking(scope.bookingData)
+          .then(function() {
+            scope.nextStep();
+          }, function(reason) {
+            scope.bookingError = true;
+          });
+
+      }
 
       function filterSelectedSegments() {
         scope.selectedSegments = [];

@@ -42,7 +42,12 @@
       <booking-confirmation
         booking-data="bookingData"
         previous-step="paymentStep"
+        next-step="successStep"
         ng-show="step == 3"></booking-confirmation>
+
+      <div class="booking-success" ng-show="step == 4">
+      Thanks for booking
+      </div>
 
     </div>
 

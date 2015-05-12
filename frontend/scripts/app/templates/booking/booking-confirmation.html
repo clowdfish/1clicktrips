@@ -41,7 +41,11 @@
 
 <!-- ACTION BUTTONS -->
 <div class="booking-content-buttons">
+  <div class="booking-error" ng-show="bookingError">
+    Error while saving your booking, please try again later
+  </div>
   <a class="button--light back" ng-click="back()">Back</a>
 
-  <a class="button next" ng-click="book(bookingData)">Book now</a>
+  <a class="button next" ng-click="book()">Book now</a>
 </div>
+

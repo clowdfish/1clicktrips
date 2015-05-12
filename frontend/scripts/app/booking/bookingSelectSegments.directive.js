@@ -34,7 +34,7 @@
         scope.nextStep();
       };
 
-      scope.bookable = false;
+      scope.bookable = true;
       scope.handleBookableChange = handleBookableChange;
 
       /**
@@ -55,7 +55,6 @@
       function validateBookableSegments() {
         var hasBookableSegment = false;
         var hasAtLeastOneBookedSegment = false;
-        scope.trip['bookingPrice'] = 0;
         _.each(scope.trip.groupSegment, function(groupSegment) {
           _.each(groupSegment, function(segment) {
             if (segment.bookable) hasBookableSegment = true;

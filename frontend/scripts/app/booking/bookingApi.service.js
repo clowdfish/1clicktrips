@@ -35,6 +35,11 @@
     */
     this.getBookingById = getBookingById;
 
+    /**
+    * Save booking data
+    */
+    this.saveBooking = saveBooking;
+
     function setShareTripData(trip, searchData) {
       var key = makeStorageKey(trip.id);
       $sessionStorage[key] = {};
@@ -108,6 +113,24 @@
             });
           });
       });
+    }
+
+    function saveBooking(bookingData) {
+      return $q(function(resolve, reject) {
+        $http
+          .post('/api/bookings', bookingData, {
+            waitingMessage: 'Save booking...'
+          })
+          .success(function() {
+            resolve();
+          })
+          .error(function(data, status) {
+            reject({
+              data: data,
+              status: status
+            })
+          });
+      })
     }
 
     return this;
