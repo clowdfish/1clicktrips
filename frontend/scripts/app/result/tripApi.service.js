@@ -97,7 +97,7 @@
           })
           .success(function(alternatives) {
             alternatives = appendTripIdToAlternativeVehicles(alternatives, tripId);
-            alternatives = calculateTimeAndPriceDifferent(itinerary, alternatives);
+            alternatives = calculateTimeAndPriceDifference(itinerary, alternatives);
             console.log(alternatives);
             resolve(alternatives);
           })
@@ -110,7 +110,7 @@
       });
     }
 
-    function calculateTimeAndPriceDifferent(itinerary, alternatives) {
+    function calculateTimeAndPriceDifference(itinerary, alternatives) {
       for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
         var alternative = alternatives[alternativeIndex];
         var alternativePrice = _.sum(alternative.segments, function(item) {
@@ -142,7 +142,7 @@
         alternative['differentPrice'] = {
           amount : originalPrice - alternativePrice,
           freezing: originalPrice - alternativePrice < 0
-        }
+        };
 
         alternative['differentDuration'] = {
           amount: originalDuration - alternativeDuration,
