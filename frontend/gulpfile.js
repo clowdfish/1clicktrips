@@ -112,7 +112,6 @@ gulp.task('scripts', ['i18n'], function() {
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
     'bower_components/angular-mocks/angular-mocks.js',
-    'bower_components/underscore/underscore-min.js',
     'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js',
     'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
     'bower_components/use-angular-translate/src/**/*.js',
