@@ -9,6 +9,10 @@ module.exports = {
     "confirmation": {
       "subject": "Your password has been changed",
       "body": "Hello,\n\nThis is a confirmation that the password for your account has just been changed.\n\n"
+    },
+    "booking_success": {
+      "subject": "Your booking is success",
+      "body": "This is the booking success email content"
     }
   }
 }

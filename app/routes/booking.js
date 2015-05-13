@@ -57,7 +57,7 @@ module.exports = function (app, express, production) {
       return;
     };
 
-    BookingController.setBooking(userId, req.body)
+    BookingController.setBooking(userId, req.body, req)
       .then(function() {
         res.status(200).send('OK');
       })

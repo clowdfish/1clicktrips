@@ -6,6 +6,9 @@ var mysql = require('mysql');
 var connection = mysql.createConnection(dbConfig.connection);
 var async = require('async');
 var _ = require('underscore');
+var nodeMailer = require('nodemailer');
+var authConfig = require('../../config/auth');
+var translate = require('../i18n/i18n').translate;
 module.exports = {
 
   getBookings: function(userId, limit) {
@@ -19,7 +22,7 @@ module.exports = {
     });
   },
 
-  setBooking: function(userId, bookingObject) {
+  setBooking: function(userId, bookingObject, req) {
     return new Promise(function(resolve, reject) {
       async.waterfall([
         function(done) {
@@ -30,6 +33,9 @@ module.exports = {
         },
         function(bookingId, bookingObject, done) {
           insertBookingSegment(bookingId, bookingObject, done);
+        },
+        function(done) {
+          sendBookingSuccessEmail(bookingObject, req, done);
         }
       ], function(err, bookingId) {
         if (err) {
@@ -145,6 +151,20 @@ function insertBookingSegment(bookingId, bookingObject, done) {
     } else {
       return done(null);
     }
+  });
+}
+
+function sendBookingSuccessEmail(bookingObject, req, done) {
+  var transporter = nodeMailer.createTransport(authConfig.nodeMailer.mandrill);
+  var mailOptions = {
+    to: bookingObject.user.email,
+    from: authConfig.mailOptions.supportEmail,
+    subject: translate('email.booking_success.subject', req.languageKey),
+    text: translate('email.booking_success.body', req.languageKey)
+  };
+
+  transporter.sendMail(mailOptions, function(err) {
+    done(err);
   });
 }
 
