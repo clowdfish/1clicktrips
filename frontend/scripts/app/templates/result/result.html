@@ -24,6 +24,7 @@
         <span class="fa fa-chevron-left result-selection-refine-button" ng-click="refineSearch()"></span>
         <span class="result-selection-refine-text">{[ "result_refine" | translate ]}</span>
       </div>
+
       <!-- SELECT RESULT TYPE CONTROL -->
       <div class="result-selection-type">
         <span class="result-selection-type-text">{[ "result_select" | translate ]}</span>
@@ -42,6 +43,7 @@
           </li>
         </ul>
       </div>
+
       <!-- RESULT DETAILS (MOBILE ONLY) -->
       <div class="result-selection-details">
         <div class="result-selection-details-header">
@@ -71,6 +73,7 @@
           </a>
         </div>
       </div>
+
       <!-- RESULT LIST CONTROL -->
       <div class="result-selection-list" ng-class="{ visible: isMobile && showList }">
         <!-- BACK TO DETAILS CONTROL (MOBILE ONLY) -->
@@ -85,31 +88,33 @@
                   active-segments-number="activeSegmentsNumber"
                   show-map-fn="toggleSelectionPanel()">
           </trip-segments>
-
-          <!-- ALTERNATIVES PANELS -->
-          <div ng-show="showAlternativeVehiclesPanel"
-               class="trip-segments-alternatives"
-               ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
-            <alternative-mean-of-travel
-                    itinerary="itinerary"
-                    alternatives="alternativeVehicles"
-                    active-segments="activeSegments"
-                    active-segments-number="activeSegmentsNumber">
-            </alternative-mean-of-travel>
-          </div>
-
-          <div ng-show="showAlternativeHotelsPanel"
-               class="trip-segments-alternatives"
-               ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
-            <alternative-hotels
-                    itinerary="itinerary"
-                    alternatives="alternativeHotels"
-                    selected-segment="selectedSegment">
-            </alternative-hotels>
-          </div>
         </div>
       </div>
     </div>
+
+    <!-- ALTERNATIVES PANELS -->
+    <div class="result-alternatives">
+      <div ng-show="showAlternativeVehiclesPanel"
+           class="trip-segments-alternatives"
+           ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+        <alternative-mean-of-travel
+                itinerary="itinerary"
+                alternatives="alternativeVehicles"
+                active-segments="activeSegments"
+                active-segments-number="activeSegmentsNumber">
+        </alternative-mean-of-travel>
+      </div>
+      <div ng-show="showAlternativeHotelsPanel"
+           class="trip-segments-alternatives"
+           ng-style="{left: alternativeLeft, top: alternativeTop, position: 'absolute'}">
+        <alternative-hotels
+                itinerary="itinerary"
+                alternatives="alternativeHotels"
+                selected-segment="selectedSegment">
+        </alternative-hotels>
+      </div>
+    </div>
+
     <!-- RESULT INFORMATION PANEL -->
     <div class="result-panel">
       <div class="result-panel-summary">

@@ -8,7 +8,7 @@
     .module('app.result')
     .directive('tripResultWrapper', tripResultWrapper);
 
-  function tripResultWrapper(browser, $timeout, appConfig) {
+  function tripResultWrapper(browser, appConfig) {
     return {
       restrict: 'E',
       scope: {
@@ -43,15 +43,20 @@
           return;
         }
 
-        scope.alternativeTop = $segmentSelector.position().top;
+        console.log("Top Offset " + $segmentSelector.offset().top);
 
-        if(browser.isMobileDevice())
-          scope.alternativeTop += $segmentSelector.innerHeight();
+        if(browser.isMobileDevice()) {
+          scope.alternativeTop = $segmentSelector.position().top + $segmentSelector.innerHeight();
+        }
+        else {
+          scope.alternativeTop = 100;
+        }
 
         if(browser.isMobileDevice())
           scope.alternativeLeft = 0;
         else
           scope.alternativeLeft = $tripSegmentsContainer.position().left + $tripSegmentsContainer.outerWidth();// + 27;
+
 
         lastSegmentIndex = segmentIndex;
       }
