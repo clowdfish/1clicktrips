@@ -31,9 +31,15 @@ module.exports = {
         function(bookingId, bookingObject, done) {
           insertBookingSegment(bookingId, bookingObject, done);
         }
-      ], function(err) {
+      ], function(err, bookingId) {
         if (err) {
-          return reject(err);
+          if (bookingId) {
+            removeBooking(bookingId, function() {
+              reject(err);
+            });
+          } else {
+            return reject(err);
+          }
         }
         return resolve();
       });
@@ -57,7 +63,11 @@ module.exports = {
 
 function insertBooking(userId, bookingObject, done) {
   var subject = bookingObject.trip.origin + ' ' + bookingObject.trip.destination;
-  connection.query('INSERT INTO booking(user_id, subject) VALUES(?, ?)', [userId, subject], function(err, data) {
+  var insertData = {
+    user_id: userId,
+    subject: subject
+  };
+  connection.query('INSERT INTO booking SET ?', insertData, function(err, data) {
     if (err) {
       done(err);
     } else {
@@ -89,7 +99,7 @@ function insertUserData(bookingId, bookingObject, done) {
   }
   connection.query('INSERT INTO booking_user SET ?', insertData, function(err) {
     if (err) {
-      return done(err);
+      return done(err, bookingId);
     } else {
       return done(null, bookingId, bookingObject);
     }
@@ -103,8 +113,6 @@ function insertBookingSegment(bookingId, bookingObject, done) {
       segments.push(segment);
     });
   });
-
-  console.log(segments);
 
   var order = 0;
   async.each(segments, function(item, callback) {
@@ -133,9 +141,20 @@ function insertBookingSegment(bookingId, bookingObject, done) {
     connection.query('INSERT INTO booking_segment SET ?', insertObject, callback);
   }, function(err) {
     if (err) {
-      return done(err);
+      return done(err, bookingId);
     } else {
       return done(null);
     }
   });
+}
+
+function removeBooking(bookingId, done) {
+  var deleteQueries = [
+    'DELETE FROM booking_segment WHERE booking_id = ?',
+    'DELETE FROM booking_user WHERE booking_id = ?',
+    'DELETE FROM booking where booking_id = ?'
+  ];
+  async.each(deleteQueries, function(query, callback) {
+    connection.query(query, callback);
+  }, done);
 }

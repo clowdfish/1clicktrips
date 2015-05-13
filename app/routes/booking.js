@@ -58,8 +58,8 @@ module.exports = function (app, express, production) {
     };
 
     BookingController.setBooking(userId, req.body)
-      .then(function(data) {
-        res.status(200).json(data);
+      .then(function() {
+        res.status(200).send('OK');
       })
       .catch(function(err) {
         res.status(500).send(err.message);
@@ -72,7 +72,6 @@ module.exports = function (app, express, production) {
 */
 function validateBookingObject(userId, bookingObject) {
   if (!_.has(bookingObject, 'user') || _.isEmpty(bookingObject.user)) {
-    console.log(bookingObject.user);
     console.log('Missing user data');
     return false;
   }

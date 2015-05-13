@@ -56,8 +56,8 @@
     $scope.setStep = setStep;
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $state.reload();
-      populateProfileData();
+
+      $state.go($state.current, {}, {reload: true});
     });
 
     $scope.mapView = mapView;
@@ -87,7 +87,7 @@
       if ( userProfile != null
         && _.isObject(userProfile)
         && _.has(userProfile, 'email')) {
-        $scope.bookingData.userProfile = userProfile;
+        $scope.bookingData.user = userProfile;
       }
     }
 
