@@ -30,6 +30,8 @@
     */
     this.getShareTripData = getShareTripData;
 
+    this.removeShareTripData = removeShareTripData;
+
     /**
     * Get booking detail by id
     */
@@ -41,7 +43,7 @@
     this.saveBooking = saveBooking;
 
     function setShareTripData(trip, searchData) {
-      var key = makeStorageKey(trip.id);
+      var key = makeStorageKey();
       $sessionStorage[key] = {};
       $sessionStorage[key]['trip'] = trip;
       $sessionStorage[key]['search'] = searchData;
@@ -53,6 +55,11 @@
         return $sessionStorage[key];
       }
       return null;
+    }
+
+    function removeShareTripData() {
+      var key = makeStorageKey();
+      delete $sessionStorage[key];
     }
 
     function makeStorageKey() {

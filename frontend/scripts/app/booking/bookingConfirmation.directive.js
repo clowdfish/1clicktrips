@@ -33,10 +33,14 @@
       };
 
       scope.book = function() {
+        var cloneBookingData = _.cloneDeep(scope.bookingData);
+        delete cloneBookingData['payment'];
         bookingApi
-          .saveBooking(scope.bookingData)
+          .saveBooking(cloneBookingData)
           .then(function() {
             scope.nextStep();
+            bookingApi.removeShareTripData();
+            cloneBookingData = null;
           }, function(reason) {
             scope.bookingError = true;
           });
