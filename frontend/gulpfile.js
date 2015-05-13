@@ -71,11 +71,7 @@ gulp.task('styles', function() {
   ])
   .pipe(gulp.dest("build/styles"));*/
 
-  return gulp.src([
-    'styles/*.scss'
-  ])
-  .pipe(plumber(plumberErrorHandler))
-  .pipe(sass({ style: 'expanded' }))
+  return sass('styles', { style: 'expanded' })
   .pipe(gulpif(production, autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1')))
   .pipe(gulpif(production, minifyCSS()))
   .pipe(gulp.dest('build/styles'));
