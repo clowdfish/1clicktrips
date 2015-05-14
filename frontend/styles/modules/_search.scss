@@ -14,10 +14,10 @@
   .search-form {
     @include span(6);
     @include clearfix;
-
-    padding: 2em 0.5em;
-    margin: 2em 0.3em;
     background-color: rgba(234,234,234,0.85);
+
+    margin: 2em 0.3em;
+    padding: 2em 0.5em;
   }
 
   .search-form-title {
@@ -46,6 +46,14 @@
     &.light {
       font-weight: 400;
     }
+
+    &.complete:after {
+      @include fa-icon();
+      content: $fa-var-check;
+      color: $c-status-okay;
+      float: right;
+      margin-right: 0.5em;
+    }
   }
 
   .search-form-input-item-icon {
@@ -57,7 +65,7 @@
   }
 
   .search-form-input-item-location-field-input {
-    margin-top: 0.3em;
+    margin: 0.3em 0;
   }
 
   .search-form-input-item-location-field-dropdown {
@@ -66,7 +74,7 @@
     z-index: 1;
     float: right;
     text-align: right;
-    margin-top: -$input-mobile-height;
+    margin-top: -($input-mobile-height + 0.3rem);
   }
 
   .search-form-input-item-location-field-dropdown-toggle {
@@ -134,10 +142,15 @@
       margin-bottom: 1em;
     }
 
+    .search-form-input-item-label.complete:after {
+      content: "";
+    }
+
     .search-form-input-item-button {
       width: 100%;
       height: $input-height + 0.5rem;
       padding-top: 1em;
+      border: none;
     }
 
     .search-form-input-item-icon {
@@ -150,7 +163,7 @@
         height: $input-icon-size;
         padding-top: 0.5em;
         background-color: $c-white;
-        border-radius: $input-icon-size/2;
+        border-radius: 50%;
 
         /* text properties */
         text-align: center;
@@ -164,6 +177,23 @@
         height: $input-icon-size;
         font-size: 2em;
       }
+
+      &.active>.fa {
+        background-color: $c-primary;
+        color: $c-white;
+      }
+
+      &.done>.fa:after {
+        @include fa-icon();
+        content: $fa-var-check;
+        color: $c-status-okay;
+        display: block;
+        font-size: 1rem;
+        margin-top: -($input-icon-size + 0.4em);
+        margin-right: -0.4em;
+        text-align: right;
+
+      }
     }
 
     .search-form-input-item-container {
@@ -174,7 +204,7 @@
     }
 
     .search-form-input-item-location-field-input {
-      display: block;
+      margin-bottom:0;
     }
 
     .search-form-input-item-location-field-dropdown {
@@ -202,7 +232,7 @@
   @include respond-above("x-large") {
 
     .search-form {
-      width: 40%;
+      width: 45%;
       margin-left: 5em;
     }
   }
@@ -226,6 +256,7 @@
       top: $input-mobile-height/2 - 0.7rem;
       color: lighten($c-text, 50%);
       cursor: pointer;
+      pointer-events: none; // let click "go through"
     }
 
     &>label {
@@ -255,6 +286,10 @@
   .search-form-input-item-date {
     position: relative;
     margin-bottom: 0.3em;
+
+    table {
+      outline: none; // for OS X
+    }
 
     .dropdown-menu {
       position: absolute;

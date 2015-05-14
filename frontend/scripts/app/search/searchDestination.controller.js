@@ -68,9 +68,9 @@
     function selectDestinationSuggestion($item) {
       selectSuggestion($item).then(function(location) {
         $scope.$parent.destinationLocation = location;
-        $scope.$parent.isStep1Ready = true;
+        $scope.$parent.isStepDestinationReady = true;
       }, function() {
-      	$scope.$parent.isStep1Ready = false;
+      	$scope.$parent.isStepDestinationReady = false;
       });
     }
 

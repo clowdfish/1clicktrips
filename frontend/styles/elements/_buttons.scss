@@ -60,3 +60,7 @@
   height: $input-mobile-height;
   padding: 0.4em 1em;
 }
+
+button:focus {
+  outline: none; // for OS X
+}

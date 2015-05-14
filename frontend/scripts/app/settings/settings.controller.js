@@ -7,9 +7,13 @@
     .controller('settingsCtrl', settingsCtrl);
 
   function settingsCtrl($scope,
+                        userProfile,
                         AUTH_EVENTS,
                         $state) {
+
   	$scope.$state = $state;
+    $scope.userProfile = userProfile;
+
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
        $state.reload();
     });

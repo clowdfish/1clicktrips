@@ -12,6 +12,7 @@
       meetingSpace: 'meeting'
     })
     .constant('SEARCH_STEPS', {
+      none: 0,
       origin: 1,
       destination: 2,
       appointment: 3

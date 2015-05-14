@@ -13,7 +13,8 @@
       controller: 'settingsCtrl',
       parent:'root',
       resolve: {
-        checkAuthenticaton: checkAuthenticaton
+        checkAuthenticaton: checkAuthenticaton,
+        userProfile: getUserProfile
       }
     });
 
@@ -22,7 +23,6 @@
       templateUrl: 'scripts/app/templates/settings/profile.html',
       controller: 'profileCtrl',
       resolve: {
-        userProfile: getUserProfile,
         countryList: getCountryList
       }
     });

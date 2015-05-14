@@ -1,0 +1,30 @@
+.tooltip.is-disabled {
+  position: relative;
+
+  &:after {
+    background: $c-status-error;
+    border-radius: 3px;
+    bottom: 0;
+    color: transparent;
+    content: "";
+    left: 0;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 0;
+    font-weight: 400;
+
+    transition: height 1s ease-out, color 0.1s linear 0.3s;
+  }
+
+  &:hover, &.show-tooltip {
+
+    &:after {
+      background: $c-status-error;
+      color: $c-white;
+      content: attr(reason);
+      padding: 0.4em 0.3em;
+      height: 100%;
+    }
+  }
+}

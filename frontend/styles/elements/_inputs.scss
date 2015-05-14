@@ -15,6 +15,7 @@ $input-mobile-height: 2.8rem; // mobile
   position: relative;
 
   &:focus {
+    outline: none;
     border-color: $c-primary;
   }
 }
@@ -41,6 +42,7 @@ $input-mobile-height: 2.8rem; // mobile
 input[type=checkbox][disabled]{
   outline:1px solid red;
 }
+
 /*
  * Checkboxes
  */
@@ -53,7 +55,13 @@ input[type="checkbox"] {
     width: 1em;
     color: $c-primary;
     vertical-align: middle;
-    margin-right: .5em;
+    margin-right: .1em;
+    font-size: 1.6em;
+
+    @include respond-above("medium") {
+      margin-right: .5em;
+      font-size: 1em;
+    }
   }
   &:checked + label::before {
     content: $fa-var-check-square-o;
@@ -183,3 +191,32 @@ input[type="radio"]:checked.error + label:after {
   color: $c-status-error;
   margin-left: 0.3em;
 }
+
+/******************************************/
+/* Input Placeholder Styling              */
+/******************************************/
+
+::-webkit-input-placeholder {
+  font-weight: 400;
+  font-size: $fs-small;
+  padding: 0.1em;
+  color: lighten($c-text-light, 10%);
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  font-weight: 400;
+  font-size: $fs-small;
+  padding: 0.1em;
+  color: lighten($c-text-light, 10%);}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  font-weight: 400;
+  font-size: $fs-small;
+  padding: 0.1em;
+  color: lighten($c-text-light, 10%);}
+
+:-ms-input-placeholder {
+  font-weight: 400;
+  font-size: $fs-small;
+  padding: 0.1em;
+  color: lighten($c-text-light, 10%);}

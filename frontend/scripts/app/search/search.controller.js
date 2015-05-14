@@ -10,12 +10,20 @@
                       $rootScope,
                       $timeout,
                       $state,
+                      browser,
                       searchFormData,
                       SEARCH_STEPS) {
+
     $rootScope.windowHeight = null;
+
     var favoriteOriginLocation = null;
+
+    $scope.isMobile = browser.isMobileDevice();
     $scope.isLogin = true;
     $scope.searchDataComplete = false;
+
+    // the message for the user why he cannot start the search
+    $scope.reason = "search_form_error_incomplete";
 
     // trip destination
     $scope.destination = null;
@@ -24,7 +32,7 @@
     $scope.origin = null;
 
     // active step
-    $scope.step = SEARCH_STEPS.origin;
+    $scope.step = SEARCH_STEPS.none;
 
     // select step functions
     $scope.stepOrigin = stepOrigin;
@@ -91,11 +99,31 @@
 
     $scope.$watchGroup(['origin', 'destination', 'startDate', 'endDate'], function() {
 
+      $scope.isStepAppointmentReady = false;
+      $scope.searchDataComplete = false;
+
       if ($scope.origin != null && $scope.destination != null &&
-          $scope.startDate != null && $scope.endDate != null) {
-        console.log('searchDataComplete', $scope.searchDataComplete);
-        $scope.searchDataComplete = true;
+        $scope.startDate != null && $scope.endDate != null) {
+        // all data is given
+
+        if ($scope.startDate < $scope.endDate) {
+          // start date is before end date
+
+          var now = new Date();
+          if($scope.startDate > now && $scope.endDate > now) {
+            // appointment date is in the future
+            $scope.reason = "";
+            $scope.isStepAppointmentReady = true;
+            $scope.searchDataComplete = true;
+          }
+          else
+            $scope.reason = "search_form_error_past";
+        }
+        else
+          $scope.reason = "search_form_error_timing";
       }
+      else
+        $scope.reason = "search_form_error_incomplete";
     });
 
     /**
@@ -103,21 +131,15 @@
      */
     function startSearch() {
 
-      if ($scope.origin == null || $scope.destination == null) {
+      if ($scope.origin == null || $scope.destination == null)
         return;
-      }
 
-      if ($scope.startDate > $scope.endDate) {
-        alert('End Date must larger than Start Date.');
+      if ($scope.startDate > $scope.endDate)
         $scope.searchDataComplete = false;
-      }
 
       var now = new Date();
-      if ($scope.startDate < now || $scope.endDate < now) {
-        alert('Can not choose date and time in the past.');
-
+      if ($scope.startDate < now || $scope.endDate < now)
         $scope.searchDataComplete = false;
-      }
 
       if($scope.searchDataComplete) {
         var startDate = formatDate($scope.startDate);

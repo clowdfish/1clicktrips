@@ -6,14 +6,12 @@
 		.module('app.search')
 		.controller('searchDateTimeSelectCtrl', searchDateTimeSelectCtrl);
 
-	function searchDateTimeSelectCtrl ($scope, $document) {
+	function searchDateTimeSelectCtrl ($scope) {
     /**
     * Date time picker open status
     */
     $scope.isOpenStartDatePicker = false;
-    $scope.isOpenStartTimePicker = false;
     $scope.isOpenEndDatePicker = false;
-    $scope.isOpenEndTimePicker = false;
 
     $scope.startTimeInvalid = false;
     $scope.endTimeInvalid = false;
@@ -51,41 +49,26 @@
       }
     };
 
-    $scope.openStartDatePicker = function($event) {
+    $scope.toggleStartDatePicker = function($event) {
       if ($event) {
         $event.preventDefault();
         $event.stopPropagation();
       }
 
-      closeAll();
-      $scope.isOpenStartDatePicker = true;
-    };
-
-    $scope.openEndDatePicker = function($event) {
-      if ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-      }
-
-      closeAll();
-      $scope.isOpenEndDatePicker = true;
-    };
-
-    /**
-     * Close all open date or time pickers
-     */
-    function closeAll() {
-      $scope.isOpenStartDatePicker = false;
-      $scope.isOpenStartTimePicker = false;
+      $scope.$parent.stepAppointment();
       $scope.isOpenEndDatePicker = false;
-      $scope.isOpenEndTimePicker = false;
-    }
+      $scope.isOpenStartDatePicker = !$scope.isOpenStartDatePicker;
+    };
 
-    $scope.$watchGroup(['$parent.startDate', '$parent.endDate'], function() {
-
-      if ($scope.$parent.startDate != null && $scope.$parent.endDate != null) {
-        $scope.$parent.isStepAppointmentReady = true;
+    $scope.toggleEndDatePicker = function($event) {
+      if ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
       }
-    });
+
+      $scope.$parent.stepAppointment();
+      $scope.isOpenStartDatePicker = false;
+      $scope.isOpenEndDatePicker = !$scope.isOpenEndDatePicker;
+    };
 	}
 })();

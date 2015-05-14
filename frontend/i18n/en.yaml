@@ -115,6 +115,10 @@ en:
           end: When does your appointment end?
           warning: The time format must be hh:mm
         submit: Start Search
+        error:
+          incomplete: You did not enter all necessary data.
+          past: Your selected dates are in the past.
+          timing: Your appointment ends before it starts. This could cause some trouble.
   result:
     refine: Refine search
     select: Choose your result type

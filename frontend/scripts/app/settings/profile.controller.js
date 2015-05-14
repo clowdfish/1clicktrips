@@ -8,11 +8,11 @@
 
   function profileCtrl($scope,
                       userApi,
-                      userProfile,
                       countryList) {
 
     $scope.countryList = countryList;
-    $scope.userProfile = userProfile;
+
+    $scope.userProfile = $scope.$parent.userProfile;
     $scope.isUploading = false;
 
     $scope.saveProfile = function(key, value) {
