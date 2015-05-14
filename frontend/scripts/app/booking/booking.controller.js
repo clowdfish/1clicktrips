@@ -76,7 +76,7 @@
 
     $scope.successStep = function() {
       setStep(4);
-    }
+    };
 
     function setStep(stepNumber) {
       $scope.step = stepNumber;
@@ -94,7 +94,6 @@
     function mapView() {
       $state.go('search_result', bookingData['search'])
     }
-
   }
 
 })();

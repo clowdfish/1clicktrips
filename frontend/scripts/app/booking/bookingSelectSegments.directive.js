@@ -34,7 +34,7 @@
         scope.nextStep();
       };
 
-      scope.bookable = true;
+      scope.bookable = false;
       scope.handleBookableChange = handleBookableChange;
 
       /**

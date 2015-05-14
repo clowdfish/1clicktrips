@@ -31,25 +31,27 @@
       var $element = $(element);
       var $tripSegmentsContainer = $element.find('.trip-segments-container:eq(0)');
       var lastSegmentIndex = null;
+
       scope.updateAlternativePosition = updateAlternativePosition;
 
       /**
       * Update position of alternative panel to match selected segment
       */
       function updateAlternativePosition(segmentIndex) {
+        /*
         var $segmentSelector = $element.find('.trip-segments-day-item').eq(segmentIndex);
+        console.log("Top Offset " + $segmentSelector.offset().top);
 
         if (null == $segmentSelector) {
           return;
         }
-
-        console.log("Top Offset " + $segmentSelector.offset().top);
+        */
 
         if(browser.isMobileDevice()) {
-          scope.alternativeTop = $segmentSelector.position().top + $segmentSelector.innerHeight();
+          scope.alternativeTop = 0; //$segmentSelector.offset().top + $segmentSelector.innerHeight();
         }
         else {
-          scope.alternativeTop = 100;
+          scope.alternativeTop = 120;
         }
 
         if(browser.isMobileDevice())

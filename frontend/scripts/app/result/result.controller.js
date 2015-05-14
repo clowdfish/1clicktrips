@@ -56,7 +56,7 @@
     */
     $scope.findTripByBudget = findTripByBudget;
     $scope.findTripByTime = findTripByTime;
-    $scope.findTripByComfort =  findTripByComfort;
+    $scope.findTripByComfort = findTripByComfort;
 
     /**
     * Back to search form
@@ -101,11 +101,19 @@
     }
 
     function findTripByTime() {
+
+      if($scope.itineraries.length<2)
+        return;
+
       $scope.itinerary = filterItineraryByType(TRIP_TYPE.timeSaving);
       $scope.activeTrip = 1;
     }
 
     function findTripByComfort() {
+
+      if($scope.itineraries.length<3)
+        return;
+
       $scope.itinerary = filterItineraryByType(TRIP_TYPE.comfortTrip);
       $scope.activeTrip = 2;
     }

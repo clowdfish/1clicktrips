@@ -14,6 +14,7 @@
   .trip-segments {
     display: inline-block;
     vertical-align: top;
+    width: 100%;
   }
 
   .trip-segments-header {
@@ -100,6 +101,7 @@
   .trip-segments-day-item {
     display: table-row;
     padding: 1em 0;
+    cursor: pointer;
   }
 
   .trip-segments-day-item-col {
@@ -194,6 +196,10 @@
         margin-top: 0;
         background-color: transparent;
       }
+    }
+
+    .trip-segments-day-item-timing {
+      width: 30%;
     }
 
     .trip-segments-day-item-timing-distance {

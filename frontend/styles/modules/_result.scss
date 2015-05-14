@@ -149,6 +149,10 @@
     padding: 0.7em;
     color: $c-white;
     cursor: pointer;
+
+    &:hover {
+      background-color: darken($c-primary, 5%);
+    }
   }
 
   .result-selection-refine-text {
@@ -166,22 +170,31 @@
   }
 
   .result-selection-type-list {
-    display: inline-block;
+    display: block;
     list-style: none;
     border: 1px solid $c-primary;
     border-radius: 2px;
+    width: 100%;
   }
 
   .result-selection-type-list-item {
     display: inline-block;
-    padding: 0.6em 1.1em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+    text-align: center;
     color: $c-primary;
     cursor: pointer;
     font-size: $fs-small;
     font-weight: 600;
+    width: 32%;
+    text-overflow: clip;
 
     .fa {
       margin-right: 0.3em;
+    }
+
+    &:hover {
+      color: darken($c-primary, 5%);
     }
 
     &.active {
@@ -191,7 +204,12 @@
     }
 
     &.missing {
-      display: none;
+      opacity: 0.25;
+      cursor: default;
+
+      &:hover {
+        color: $c-primary;
+      }
     }
   }
 
@@ -270,6 +288,7 @@
     top: 0;
     left: 100%;
     width: 100%;
+    height: 100%;
     background-color: $c-white;
     transition: left 1s ease-out 0s;
 
@@ -301,6 +320,7 @@
       position: relative;
       top: auto;
       left: auto;
+      height: auto;
     }
   }
 
