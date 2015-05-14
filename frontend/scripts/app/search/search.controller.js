@@ -7,11 +7,12 @@
     .controller('searchCtrl', searchCtrl);
 
   function searchCtrl($scope,
+                      $rootScope,
                       $timeout,
                       $state,
                       searchFormData,
                       SEARCH_STEPS) {
-
+    $rootScope.windowHeight = null;
     var favoriteOriginLocation = null;
     $scope.isLogin = true;
     $scope.searchDataComplete = false;
@@ -92,7 +93,7 @@
 
       if ($scope.origin != null && $scope.destination != null &&
           $scope.startDate != null && $scope.endDate != null) {
-
+        console.log('searchDataComplete', $scope.searchDataComplete);
         $scope.searchDataComplete = true;
       }
     });
@@ -114,6 +115,7 @@
       var now = new Date();
       if ($scope.startDate < now || $scope.endDate < now) {
         alert('Can not choose date and time in the past.');
+
         $scope.searchDataComplete = false;
       }
 

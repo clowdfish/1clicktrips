@@ -140,7 +140,7 @@
     endDate.setMinutes(0);
     endDate.setSeconds(0);
 
-    return {
+    var searchFormData = {
       destinationLocation: null,
       originLocation: null,
       startDate: startDate,
@@ -148,6 +148,8 @@
       destination: null,
       origin: null
     }
+
+    return searchFormData;
   }
 
   function getLanguages(languageApi) {
