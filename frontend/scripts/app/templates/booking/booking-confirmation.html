@@ -1,22 +1,23 @@
-<h3 class="booking-content-title">Confirm your booking</h3>
+<h3 class="booking-content-title">{[ "booking_confirmation_title" | translate ]}</h3>
 
 <div class="booking-content-confirmation">
   <span class="booking-content-confirmation-overview">
      <div class="booking-content-confirmation-overview-title">
-       {[ bookingData.trip.outbound.origin.description ]} to {[ bookingData.trip.outbound.destination.description ]}
+       {[ bookingData.trip.outbound.origin.description ]} {[ "general_to" | translate ]} {[ bookingData.trip.outbound.destination.description ]}
      </div>
 
       <div class="booking-content-confirmation-overview-time">
-        From {[ bookingData.trip.startTime | date: "dd.MM.yyyy" ]} to {[ bookingData.trip.endTime | date: "dd.MM.yyyy" ]}
+        {[ "general_from" | translate | capitalize ]} {[ bookingData.trip.startTime | date: "dd.MM.yyyy" ]}
+        {[ "general_until" | translate ]} {[ bookingData.trip.endTime | date: "dd.MM.yyyy" ]}
       </div>
 
       <div class="booking-content-confirmation-overview-price">
-        Total Price:
+        {[ "booking_confirmation_total" | translate ]}
         {[bookingData.trip.totalCost | price: bookingData.trip.currency]}
       </div>
 
       <div class="booking-content-confirmation-overview-segments">
-        You have selected the following trips segments:
+        {[ "booking_confirmation_selection" | translate ]}
 
         <ul class="booking-content-confirmation-overview-segments-list" ng-show="selectedSegments.length > 0">
           <li class="booking-content-confirmation-overview-segments-item" ng-repeat="segment in selectedSegments track by segment.id">
@@ -33,7 +34,7 @@
         </ul>
 
         <div class="no-selected-segments" ng-show="selectedSegments.length == 0">
-          No segments have been selected.
+          {[ "booking_confirmation_empty" | translate ]}
         </div>
       </div>
   </span>
@@ -42,10 +43,10 @@
 <!-- ACTION BUTTONS -->
 <div class="booking-content-buttons">
   <div class="booking-error" ng-show="bookingError">
-    Error while saving your booking, please try again later
+    {[ "booking_save_error" | translate ]}
   </div>
-  <a class="button--light back" ng-click="back()">Back</a>
 
-  <a class="button next" ng-click="book()">Book now</a>
+  <a class="button--light back" ng-click="back()">{[ "general_back" | translate | capitalize ]}</a>
+  <a class="button next" ng-click="book()">{[ "booking_confirmation_booknow" | translate ]}</a>
 </div>
 
