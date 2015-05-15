@@ -112,6 +112,7 @@
       });
 
       scope.$watch('listItems', function() {
+        console.log(scope.listItems);
         scope.itemPerPage = parseInt(scope.itemPerPage);
         scope.totalPage = Math.ceil(scope.listItems.length / scope.itemPerPage);
         scope.currentPage = 1;
@@ -141,6 +142,8 @@
           callSelectFavoriteFunction(favorite)
         }
         else {
+          clearMarkers();
+          //this.displayPath.setMap(null);
           scope.isShowingFavoriteDetail = true;
           showOverviewMap(favorite.origin.location, favorite.destination.location);
         }
@@ -170,6 +173,7 @@
 
       function showOverviewMap(originLocation, destinationLocation) {
         clearMarkers();
+        latLngs.clear();
         this.mapBounds = new google.maps.LatLngBounds();
         addLocation(originLocation);
         addLocation(destinationLocation);

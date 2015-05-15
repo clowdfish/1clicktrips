@@ -2,18 +2,24 @@ var dbm = global.dbm || require('db-migrate');
 var type = dbm.dataType;
 var async = require('async');
 exports.up = function(db, callback) {
-
   async.waterfall([
     function(done) {
-      db.dropTable('booking_segment', done);
+      db.dropTable('booking_segment', function(err) {
+        if (err) {
+          return done(err);
+        } else {
+          return done();
+        }
+      });
     },
     function(done) {
+      console.log('blala');
       db.createTable('booking_segment', {
         booking_id: {
           type: 'int',
           foreignKey: {
             name: 'fk_booking_and_booking_segment',
-	    table: 'booking', 
+	          table: 'booking',
             rules: {
               onDelete:'CASCADE',
               onUpdate: 'RESTRICT'
@@ -91,7 +97,13 @@ exports.up = function(db, callback) {
           type: 'string',
           length: 200
         }
-      }, done);
+      }, function(err) {
+        if (err) {
+          done(err);
+        } else {
+          done();
+        }
+      });
     }
   ], callback);
 };

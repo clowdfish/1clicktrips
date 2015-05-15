@@ -27,7 +27,7 @@ module.exports = {
             'licence': 0
           });
         }
-        else       
+        else
           resolve({
             'id': rows[0].id,
             'email': rows[0].email,
@@ -42,9 +42,9 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       connection.query("SELECT * FROM user WHERE id=?;", [userId], function (err, rows) {
-        if (err) 
+        if (err)
           return reject(err);
-    
+
         if(rows.length) {
           var userData = {};
           userData.email = rows[0]['email'];
@@ -137,12 +137,18 @@ module.exports = {
             favoritesArray.push({
                 "id" : row['id'],
                 "origin" : {
-                "description" : row['start'],
-                "location" : parseLocation(row['start_location'])
-              },
+                  "description" : row['start'],
+                  "location": {
+                    "latitude": row['start_location_latitude'],
+                    "longitude": row['start_location_longitude']
+                  }
+                },
                 "destination" : {
                 "description" : row['end'],
-                "location" : parseLocation(row['end_location'])
+                "location": {
+                  "latitude": row['end_location_latitude'],
+                  "longitude": row['end_location_longitude']
+                }
               },
               position: row['position']
             });
@@ -169,17 +175,19 @@ module.exports = {
         // create new favorite
         var queryString =
           "INSERT INTO favorite " +
-          "(user_id, start, start_location, end, end_location, transport) " +
-          "VALUES (?, ?, ?, ?, ?, ?);";
+          "(user_id, start, start_location_latitude, start_location_longitude, end, end_location_latitude, end_location_longitude, transport) " +
+          "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
         var queryParams = [];
 
         queryParams.push(
           userId,
           favoriteObject.origin.description,
-          createLocationString(favoriteObject.origin.location),
+          favoriteObject.origin.location.latitude,
+          favoriteObject.origin.location.longitude,
           favoriteObject.destination.description,
-          createLocationString(favoriteObject.destination.location)
+          favoriteObject.destination.location.latitude,
+          favoriteObject.destination.location.longitude
         );
 
         var transport = "";
