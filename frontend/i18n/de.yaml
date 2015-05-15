@@ -164,6 +164,8 @@ de:
       title: Bitte wähle eine Alternative
       hotel:
         title: Bitte wähle ein Hotel
+        distance: vom Ziel entfernt
+        select: Hotel auswählen
   dashboard:
     title: Was kann 1ClickTrips für Sie tun?
     message: 1ClickTrips integriert den Buchungsprozess in die tägliche Arbeit.

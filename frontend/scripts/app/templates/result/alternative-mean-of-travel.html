@@ -3,25 +3,25 @@
   <a class="alternatives-container-close" ng-click='close()'>{[ "general_close" | translate ]}</a>
 
   <div ng-if="!alternatives" class="alternatives-container-spinner">
-    <img src="../images/spinner.gif" alt="PLEASE WAIT" width="50px" height="50px" />
+    <img src="../images/spinner.gif" alt="{[ 'result_searching' | translate ]}" width="50px" height="50px" />
   </div>
 
   <div ng-if="alternatives">
-    <div ng-if="!alternatives.length">No alternatives available!</div>
+    <div ng-if="!alternatives.length">{[ 'result_alternatives_empty' | translate ]}</div>
     <div ng-repeat="alternative in alternatives" class="alternatives-row">
       <div class="alternatives-row-description">
-        Go by {{ getAlternativeVehicleType(alternative) | translate }}
+        {[ "result_alternatives_means_instruction" | translate ]} {{ getAlternativeVehicleType(alternative) | translate }}
       </div>
       <div class="alternatives-row-price">
 
         {[ alternative.differentPrice.amount | price: itinerary.currency ]}
       </div>
       <div class="alternatives-row-time">
-        <span class="amount-freezing" ng-if="alternative.differentDuration.freezing"> decrease </span>
+        <span class="amount-freezing" ng-if="alternative.differentDuration.freezing">-</span>
         {[ alternative.differentDuration.amount | durationToTime : "%hh %m min" ]}
       </div>
       <div class="alternatives-row-button">
-        <a ng-click="selectAlternative(alternative)" class="button">Select</a>
+        <a ng-click="selectAlternative(alternative)" class="button">{[ "result_alternatives_means_select" | translate ]}</a>
       </div>
     </div>
   </div>

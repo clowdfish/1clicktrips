@@ -42,13 +42,13 @@
 
     findAllItineraries();
 
-    $scope.notifications = [
-      {
-        "message" : "test",
-        "action" : null
-      }];
-
     $scope.showSelectionPanel = true;
+    /**
+     * On the mobile we have three steps:
+     * Selection Panel --> Segments List --> Map
+     *
+     * The Segments List will be hidden initially.
+     */
     $scope.showList = false;
 
     /**
@@ -65,9 +65,6 @@
 
     $scope.toggleSelectionPanel = toggleSelectionPanel;
     $scope.toggleSegmentList = toggleSegmentList;
-
-    $scope.deleteNotification = deleteNotification;
-    $scope.acceptNotification = acceptNotification;
 
     $scope.addToFavorites = addToFavorites;
 
@@ -119,7 +116,8 @@
     }
 
     /**
-     *
+     * Refining the search leads back to the search form with the
+     * search data pre-populated.
      */
     function refineSearch() {
 
@@ -142,31 +140,6 @@
         }
       }
       return null;
-    }
-
-    /**
-     * Delete the currently presented notification.
-     *
-     * @param {integer} item - position of notification in notification array
-     */
-    function deleteNotification(item) {
-      item = typeof item !== 'undefined' ? item : 0;
-
-      $scope.notifications.splice(item, 1);
-    }
-
-    /**
-     * Accept the currently presented notification and execute action that is
-     * defined in the the notification object.
-     *
-     * @param {integer} item - position of notification in notification array
-     */
-    function acceptNotification(item) {
-      item = typeof item !== 'undefined' ? item : 0;
-
-      // TODO execute action ...
-
-      $scope.notifications.splice(item, 1);
     }
 
     function addToFavorites() {

@@ -42,7 +42,7 @@
           if (scope.showMapFn) {
             scope.showMapFn();
           }
-        } else{
+        } else {
           if (scope.selectedSegment == segment) {
             scope.selectedSegment = null;
           } else {

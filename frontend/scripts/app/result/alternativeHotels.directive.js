@@ -30,13 +30,10 @@
         ctrl.closeAlternativesPanel();
       };
 
-      scope.unselectHotel = function(hotel) {
-        tripApi.unsetSegmentHotel(scope.itinerary, scope.selectedSegment);
-        scope.selectedHotelId = null;
-
-        ctrl.closeAlternativesPanel();
-      };
-
+      /**
+       * Refresh the selected hotel id when the user selects a different segment.
+       * See tripSegments.directive for implementation details.
+       */
       scope.$watch('selectedSegment', function() {
         if (_.has(scope.selectedSegment, 'hotel')) {
           scope.selectedHotelId = scope.selectedSegment.hotel.id;

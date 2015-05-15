@@ -162,8 +162,14 @@ en:
       64: ship
     alternatives:
       title: Please choose an alternative
+      empty: No alternatives available!
       hotel:
         title: Please choose your preferred hotel
+        distance: from destination
+        select: Select hotel
+      means:
+        instruction: Go by
+        select: Select alternative
   dashboard:
     title: What can 1ClickTrips do for you?
     message: 1ClickTrips integrates the booking process into your daily work routine.
