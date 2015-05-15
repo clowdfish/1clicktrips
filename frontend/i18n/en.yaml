@@ -18,7 +18,8 @@ en:
     delete: delete
     close: close
   toasts:
-    notimplemented: Not yet implemented
+    notimplemented: Not yet implemented.
+    nocontent: Nothing to show here yet.
   nav:
     about: About Us
     home: Home
@@ -214,6 +215,7 @@ en:
       logout: Logout
     profile:
       title: Profile
+      info: Personal info
       image: Image
       firstname: First name
       lastname: Last name
@@ -224,6 +226,7 @@ en:
         connect: connect account
         unlink: unlink account
       address:
+        title: Address
         street: Street and No.
         other: Other
         zip: Postal code

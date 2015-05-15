@@ -1,20 +1,19 @@
 <a href="#" class="modal-close" ng-click="cancel()"><i class="fa fa-close"></i></a>
 <form class="signin-modal-content" id="signinForm" name="loginForm" ng-submit="login()">
-
   <div class="modal-header">
-    <h1 class="signin-modal-title">{[ i18n.login_header | translate ]}</h1>
+    <h1 class="signin-modal-title">{[ 'login_header' | translate ]}</h1>
   </div>
 
   <div class="modal-body">
     <span id="signin-error" class="input-alert" ng-show="loginForm.$error.unauthorized">
-      {[ i18n.login_form_error | translate ]}
+      {[ 'login_form_error' | translate ]}
     </span>
 
     <fieldset>
       <input type="email"
             name="email"
             class="input"
-            placeholder="{[ i18n.login_form_username | translate ]}"
+            placeholder="{[ 'login_form_username' | translate ]}"
             ng-model="email"
             required/>
     </fieldset>
@@ -22,31 +21,30 @@
       <input type="password"
             name="password"
             class="ttg-input"
-            placeholder="{[ i18n.login_form_password | translate ]}"
+            placeholder="{[ 'login_form_password' | translate ]}"
             ng-model="password"
             required />
     </fieldset>
     <fieldset>
       <input type="checkbox" name="rememberMe" id="ttg-checkbox-signin" ng-model="rememberMe">
-      <label for="ttg-checkbox-signin">{[ i18n.login_form_check | translate ]}</label>
+      <label for="ttg-checkbox-signin">{[ "login_form_check" | translate ]}</label>
     </fieldset>
   </div>
 
   <div class="modal-footer">
-    <input type="submit" class="button" value="{[ i18n.login_form_submit | translate ]}" />
-    <a class="modal-forgot-password" ng-click="showForgotPasswordModal()">{[ i18n.login_form_forgot | translate ]}</a>
+    <input type="submit" class="button" value="{[ 'login_form_submit' | translate ]}" />
+    <a class="modal-forgot-password" ng-click="showForgotPasswordModal()">{[ "login_form_forgot" | translate ]}</a>
 
     <span class="modal-annotation">
-      {[ i18n.login_annotation_notyet | translate ]}
+      {[ "login_annotation_notyet" | translate ]}
       <a href='#' ng-click='showSignupModal()'>
-        {[ i18n.login_annotation_signup | translate ]}
+        {[ "login_annotation_signup" | translate ]}
       </a>
-      {[ i18n.general_or | translate ]}
+      {[ "general_or" | translate ]}
       <a href="#" ng-click='loginTwitter()'>
-        {[ i18n.login_annotation_twitter | translate ]}
+        {[ "login_annotation_twitter" | translate ]}
         <i class='fa fa-twitter'></i>
       </a>
     </span>
   </div>
-
 </form>

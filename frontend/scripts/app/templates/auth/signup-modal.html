@@ -1,34 +1,34 @@
 <a href="#" class="modal-close" ng-click="cancel()"><i class="fa fa-close"></i></a>
 <form id="signupForm" name="signupForm" ng-submit='signup(signupData)'>
   <div class="modal-header">
-    <h1 class="modal-title">{[ i18n.signup_header | translate ]}</h1>
-    <h4 class="modal-subtitle">{[ i18n.signup_headersub | translate ]}</h4>
+    <h1 class="modal-title">{[ "signup_header" | translate ]}</h1>
+    <h4 class="modal-subtitle">{[ "signup_headersub" | translate ]}</h4>
   </div>
 
   <div class="modal-body">
     <span>
       <span id="signup-agreement-alert" class="input-alert" ng-show="signupForm.email.$error.agreement">
-        {[ i18n.signup_form_error_agreement | translate ]}
+        {[ "signup_form_error_agreement" | translate ]}
       </span>
       <span id="signup-email-alert" class="input-alert" ng-show="signupForm.email.$error.exist">
-        {[ i18n.signup_form_error_email | translate ]}
+        {[ "signup_form_error_email" | translate ]}
       </span>
        <span id="signup-other-alert" class="input-alert" ng-show="signupForm.email.$error.other">
-         {[ i18n.signup_form_error_other | translate ]}
+         {[ "signup_form_error_other" | translate ]}
       </span>
     </span>
 
     <fieldset>
       <input type="email"
              name="email"
-             placeholder="{[ i18n.signup_form_email | translate ]}"
+             placeholder="{[ 'signup_form_email' | translate ]}"
              ng-model='signupData.email'
              required />
     </fieldset>
     <fieldset>
       <input type="password"
              name="password"
-             placeholder="{[ i18n.signup_form_password | translate ]}"
+             placeholder="{[ 'signup_form_password' | translate ]}"
              ng-model='signupData.password'
              required />
     </fieldset>
@@ -37,15 +37,15 @@
              name="agreement"
              id="ttg-checkbox-signup"
              ng-model="agreement" />
-      <label for="ttg-checkbox-signup" ng-bind-html="i18n.signup_form_check | translate"></label>
+      <label for="ttg-checkbox-signup" ng-bind-html="'signup_form_check' | translate"></label>
     </fieldset>
   </div>
 
   <div class="modal-footer">
     <input type="submit"
           class="button signup"
-          value="{[ i18n.signup_form_submit | translate ]}" />
-    <span class="alternative">{[ i18n.general_or | translate ]} <a ng-click="showLoginModal()">{[ i18n.signup_form_signin | translate ]}</a></span>
-    <span class="modal-footer-annotation">{[ i18n.signup_annotation | translate ]}</span>
+          value="{[ 'signup_form_submit' | translate ]}" />
+    <span class="alternative">{[ 'general_or' | translate ]} <a ng-click="showLoginModal()">{[ 'signup_form_signin' | translate ]}</a></span>
+    <span class="modal-footer-annotation">{[ 'signup_annotation' | translate ]}</span>
   </div>
 </form>

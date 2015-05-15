@@ -19,6 +19,7 @@ de:
     close: schließen
   toasts:
     notimplemented: Leider noch nicht verfügbar
+    nocontent: Noch nichts verfügbar.
   nav:
     about: Über Uns
     home: Startseite
@@ -214,6 +215,7 @@ de:
       logout: Abmelden
     profile:
       title: Profil
+      info: Personendaten
       image: Profilbild
       firstname: Vorname
       lastname: Nachname
@@ -224,6 +226,7 @@ de:
         connect: Konto verknüpfen
         unlink: Konto abmelden
       address:
+        title: Adresse
         street: Straße und Hausnummer
         other: Andere
         zip: Postleitzahl
