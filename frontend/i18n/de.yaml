@@ -162,10 +162,14 @@ de:
       64: Schiff
     alternatives:
       title: Bitte wähle eine Alternative
+      empty: Keine Alternative verfügbar
       hotel:
         title: Bitte wähle ein Hotel
         distance: vom Ziel entfernt
         select: Hotel auswählen
+      means:
+        instruction: Fahre mit
+        select: Alternative wählen
   dashboard:
     title: Was kann 1ClickTrips für Sie tun?
     message: 1ClickTrips integriert den Buchungsprozess in die tägliche Arbeit.

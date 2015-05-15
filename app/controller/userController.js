@@ -12,20 +12,13 @@ module.exports = {
 
   getUser: function(userId) {
 
+    console.log('User ID ' + userId);
+
     return new Promise(function(resolve, reject) {
 
       connection.query("SELECT * FROM user WHERE id=?;", [userId], function (err, rows) {
-        if (err)
-          reject(err);
 
-        if(rows.length) {
-          resolve({
-            'id': rows[0].id,
-            'email': rows[0].email,
-            'licence': rows[0].licence
-          });
-        }
-        else {
+        if (err || !rows || !rows.length) {
           console.log("User with ID=" + userId + " does not exist in database.");
 
           resolve({
@@ -34,6 +27,12 @@ module.exports = {
             'licence': 0
           });
         }
+        else       
+          resolve({
+            'id': rows[0].id,
+            'email': rows[0].email,
+            'licence': rows[0].licence
+          });
       });
     });
   },
@@ -43,9 +42,9 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       connection.query("SELECT * FROM user WHERE id=?;", [userId], function (err, rows) {
-        if (err)
-          reject(err);
-
+        if (err) 
+          return reject(err);
+    
         if(rows.length) {
           var userData = {};
           userData.email = rows[0]['email'];
@@ -53,7 +52,7 @@ module.exports = {
 
           connection.query("SELECT * FROM profile WHERE id=?;", [rows[0]['profile_id']], function (err, rows) {
             if (err)
-              reject(err);
+              return reject(err);
 
             if(rows.length) {
 
@@ -128,7 +127,7 @@ module.exports = {
 
       connection.query("SELECT * FROM favorite WHERE user_id=? ORDER BY position, id;", [userId], function (err, rows) {
         if (err)
-          reject(err);
+          return reject(err);
 
         if(rows.length) {
           var favoritesArray = [];
@@ -210,7 +209,7 @@ module.exports = {
 
       connection.query(queryString, [userId, favoriteId], function (err, result) {
         if (err)
-          reject(err);
+          return reject(err);
 
         if(result.affectedRows)
           resolve();
@@ -234,7 +233,7 @@ module.exports = {
 
       connection.query(queryString, [userId], function (err, rows) {
         if (err)
-          reject(err);
+          return reject(err);
 
         if(rows.length) {
           var messagesArray = [];
