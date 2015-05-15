@@ -182,6 +182,7 @@ de:
       content: "Enthält die folgenden Reiseabschnitte:"
       include: Zu Buchung hinzufügen
       provider: Zum Anbieter
+      notification:  The trip can now be found in your profile section. The prices won't stay the same, so it would be good to book now to avoid higher prices.
       warning:
         title: Bitte beachten!
         text1: Du kannst nur Buchen, wenn du mindestens einen Reiseabschnitt angewählt hast.
@@ -287,6 +288,8 @@ de:
       title: Verlauf
     privacy:
       title: Privatsphäre
+    payment:
+      title: Bezahlung
     preferences:
       title: Präferenzen
       travelProfile:
