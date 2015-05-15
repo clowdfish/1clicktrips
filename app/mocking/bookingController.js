@@ -52,6 +52,18 @@ module.exports = {
       else
         resolve(null);
     });
+  },
+
+  setBooking: function(userId, bookingObject, req) {
+    return new Promise(function(resolve, reject) {
+      resolve();
+    });
+  },
+
+  saveSegmentSelections: function(userId, req) {
+    return new Promise(function(resolve, reject) {
+      resolve();
+    });
   }
 };
 

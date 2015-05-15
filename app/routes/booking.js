@@ -65,14 +65,49 @@ module.exports = function (app, express, production) {
         res.status(500).send(err.message);
       });
   });
+
+  bookingApi.post('/save-selection', function(req, res) {
+    if (!req.body) {
+      res.status(500);
+      return;
+    }
+
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+    if (false === validateSaveSegmentSelectionRequest(req)) {
+      res.status(500).send('status.user.error.request.malformed');
+      return;
+    };
+
+    BookingController.saveSegmentSelections(userId, req)
+      .then(function() {
+        res.status(200).send('OK');
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
+  });
 }
 
 /**
 * Validate set booking request
 */
 function validateBookingObject(userId, bookingObject) {
+  if (!_.has(req.body, 'trip') || _.isEmpty(req.body.trip)) {
+    console.log('Missing trip data');
+    return false;
+  }
+
   if (!_.has(bookingObject, 'user') || _.isEmpty(bookingObject.user)) {
     console.log('Missing user data');
+    return false;
+  }
+  return true;
+}
+
+function validateSaveSegmentSelectionRequest(req) {
+
+  if (!_.has(req.body, 'trip') || _.isEmpty(req.body.trip)) {
+    console.log('Missing trip data');
     return false;
   }
   return true;

@@ -1,17 +1,17 @@
 <div class="booking-content-summary">
   <div class="booking-content-summary-label">{[ "booking_select_title" | translate ]}</div>
   <div class="booking-content-summary-info">
-    <span class="booking-content-summary-info-location">{[ trip.outbound.destination.description ]}</span>
+    <span class="booking-content-summary-info-location">{[ bookingData.trip.outbound.destination.description ]}</span>
     <span class="booking-content-summary-info-date">
-      {[ "general_from" | translate | capitalize ]} {[ trip.startTime | date: "dd.MM.yyyy" ]}
-      {[ "general_until" | translate ]} {[ trip.endTime | date: "dd.MM.yyyy" ]}
+      {[ "general_from" | translate | capitalize ]} {[ bookingData.trip.startTime | date: "dd.MM.yyyy" ]}
+      {[ "general_until" | translate ]} {[ bookingData.trip.endTime | date: "dd.MM.yyyy" ]}
     </span>
   </div>
   <div class="booking-content-summary-label break-line">{[ "booking_select_content" | translate ]}</div>
 </div>
 
 
-<div ng-repeat="(dayNumber, groupSegment) in trip.groupSegment">
+<div ng-repeat="(dayNumber, groupSegment) in bookingData.trip.groupSegment">
   <ul class="booking-content-list">
     <li class="booking-content-list-item" ng-repeat="(key, segment) in groupSegment">
         <span class="booking-content-list-item-col icon">
@@ -69,13 +69,16 @@
   <span class="booking-content-help-text">
     {[ "booking_select_warning_text2" | translate ]}
   </span>
+  <span class="booking-content-help-text" ng-show="showSaveBookingNotification">
+    {[ "booking_select_notification" | translate ]}
+  </span>
 </div>
 
 <div class="booking-content-buttons">
   <a class="button--light back" ng-click="back()">{[ "general_back" | translate | capitalize ]}</a>
 
   <a class="button next" ng-class="{ 'is-disabled': !bookable }" ng-click="continue()">{[ "general_continue" | translate | capitalize ]}</a>
-  <a class="button--light next" ng-click="">{[ "general_save" | translate | capitalize ]}</a>
+  <a class="button--light next" ng-click="save()">{[ "general_save" | translate | capitalize ]}</a>
 </div>
 
 

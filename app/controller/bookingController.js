@@ -64,6 +64,31 @@ module.exports = {
         return resolve(rows[0]);
       });
     });
+  },
+
+  saveSegmentSelections: function(userId, req) {
+    return new Promise(function(resolve, reject) {
+      var bookingObject = req.body;
+      async.waterfall([
+        function(done) {
+          insertBooking(userId, bookingObject, done);
+        },
+        function(bookingId, done) {
+          insertBookingSegment(bookingId, bookingObject, done);
+        }
+      ], function(err, bookingId) {
+        if (err) {
+          if (bookingId) {
+            removeBooking(bookingId, function() {
+              reject(err);
+            });
+          } else {
+            return reject(err);
+          }
+        }
+        return resolve();
+      });
+    });
   }
 };
 
@@ -113,6 +138,7 @@ function insertUserData(bookingId, bookingObject, done) {
 }
 
 function insertBookingSegment(bookingId, bookingObject, done) {
+  console.log(arguments);
   var segments = [];
   _.each(bookingObject.trip.groupSegment, function(groupSegment) {
     _.each(groupSegment, function(segment) {

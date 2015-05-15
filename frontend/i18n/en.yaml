@@ -182,6 +182,7 @@ en:
       content: Contains the following travel segments
       include: Include in Booking
       provider: Go to provider
+      notification:  The trip can now be found in your profile section. The prices won't stay the same, so it would be good to book now to avoid higher prices.
       warning:
         title: Please remember!
         text1: You can only go on with booking, after you have selected at least one trip segment.

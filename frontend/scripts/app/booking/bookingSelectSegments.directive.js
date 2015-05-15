@@ -6,11 +6,11 @@
     .module('app.booking')
     .directive('bookingSelectSegments', bookingSelectSegments);
 
-  function bookingSelectSegments(appConfig) {
+  function bookingSelectSegments(appConfig, bookingApi) {
     return {
       restrict: 'E',
       scope: {
-        trip: '=',
+        bookingData: '=',
         previousStep: '=',
         nextStep: '=',
         totalBookingPrice: '=',
@@ -22,7 +22,7 @@
     };
 
     function link(scope, element, attrs) {
-
+      scope.showSaveBookingNotification = false;
       scope.back = function() {
         scope.previousStep();
       };
@@ -34,13 +34,18 @@
         scope.nextStep();
       };
 
+      scope.save = function() {
+        scope.showSaveBookingNotification = true;
+        bookingApi.saveSegmentSelect(scope.bookingData);
+      }
+
       scope.bookable = false; // set true for debugging
       scope.handleBookableChange = handleBookableChange;
 
       /**
       * Automatic set bookable and calculate at when trip data is loaded
       */
-      scope.$watch('trip', function() {
+      scope.$watch('bookingData.trip', function() {
         handleBookableChange();
       });
 
@@ -55,7 +60,7 @@
       function validateBookableSegments() {
         var hasBookableSegment = false;
         var hasAtLeastOneBookedSegment = false;
-        _.each(scope.trip.groupSegment, function(groupSegment) {
+        _.each(scope.bookingData.trip.groupSegment, function(groupSegment) {
           _.each(groupSegment, function(segment) {
             if (segment.bookable) hasBookableSegment = true;
             if (segment.isBooked) hasAtLeastOneBookedSegment = true;
@@ -70,7 +75,7 @@
 
       function caculateBookingPrice() {
         scope.bookingPrice = 0;
-        _.each(scope.trip.groupSegment, function(groupSegment) {
+        _.each(scope.bookingData.trip.groupSegment, function(groupSegment) {
           _.each(groupSegment, function(segment) {
             if (segment.bookable && segment.isBooked) {
               scope.bookingPrice += segment.price.amount;
