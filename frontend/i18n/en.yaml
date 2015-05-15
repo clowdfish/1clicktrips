@@ -6,6 +6,7 @@ en:
     or: or
     from: from
     until: to
+    to: to
     origin: Start
     destination: Destination
     title: Title
@@ -14,9 +15,12 @@ en:
       of: of
     enable: enable
     disable: disable
-    date: Date
+    date: date
     delete: delete
     close: close
+    back: back
+    continue: continue
+    save: save
   toasts:
     notimplemented: Not yet implemented.
     nocontent: Nothing to show here yet.
@@ -171,6 +175,50 @@ en:
       means:
         instruction: Go by
         select: Select alternative
+  booking:
+    select:
+      label: Select Trip Segments
+      title: Your trip to
+      content: Contains the following travel segments
+      include: Include in Booking
+      provider: Go to provider
+      warning:
+        title: Please remember!
+        text1: You can only go on with booking, after you have selected at least one trip segment.
+        text2: If no trip segment can be selected for that trip, you can still save the trip to take it with you on your mobile. The booking can be done through the provider links then.
+    payment:
+      label: Booking and Payment Details
+      customer:
+        title: Customer information
+        firstname: First Name
+        lastname: Last Name
+        email: Email
+        password: Password
+      info:
+        title: Payment Information
+        name: Name On Card
+        number: Credit Card Number (e.g. 4539765475697132)
+        invalid: Invalid card number
+        expiration: Expiration date
+        secret: Secret
+      account: Book faster next time. Create an account.
+    confirmation:
+      label: Booking Confirmation
+      title: Confirm your booking
+      selection: "You have selected the following trips segments:"
+      empty: No segments have been selected.
+      booknow: Book now
+      total: "Total price:"
+    success: Thank you for your booking. You will get an email confirmation soon.
+    save:
+      error: Error while saving your booking, please try again later.
+    data:
+      price: Booking total
+      fees: Booking fees
+      total: Total
+    sidebar:
+      budget: Budget
+      overview: Overview
   dashboard:
     title: What can 1ClickTrips do for you?
     message: 1ClickTrips integrates the booking process into your daily work routine.

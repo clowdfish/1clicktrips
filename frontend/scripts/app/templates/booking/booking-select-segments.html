@@ -1,13 +1,13 @@
 <div class="booking-content-summary">
-  <div class="booking-content-summary-label">Your trip to</div>
+  <div class="booking-content-summary-label">{[ "booking_select_title" | translate ]}</div>
   <div class="booking-content-summary-info">
     <span class="booking-content-summary-info-location">{[ trip.outbound.destination.description ]}</span>
     <span class="booking-content-summary-info-date">
-      From {[ trip.startTime | date: "dd.MM.yyyy" ]} to
-      {[ trip.endTime | date: "dd.MM.yyyy" ]}
+      {[ "general_from" | translate | capitalize ]} {[ trip.startTime | date: "dd.MM.yyyy" ]}
+      {[ "general_until" | translate ]} {[ trip.endTime | date: "dd.MM.yyyy" ]}
     </span>
   </div>
-  <div class="booking-content-summary-label break-line">Contains the following travel segments</div>
+  <div class="booking-content-summary-label break-line">{[ "booking_select_content" | translate ]}</div>
 </div>
 
 
@@ -44,7 +44,7 @@
           <div class="enable-booking" ng-if="segment.bookable && segment.price.amount > 0">
             <fieldset>
               <input type="checkbox" ng-model="segment.isBooked" ng-change="handleBookableChange()" name="isBooked[{[key]}]" id="isBooked[{[key]}]" />
-              <label for="isBooked[{[key]}]">Include in Booking</label>
+              <label for="isBooked[{[key]}]">{[ "booking_select_include" | translate ]}</label>
             </fieldset>
           </div>
 
@@ -52,9 +52,9 @@
           <div class="disable-booking" ng-if="!segment.bookable || segment.price.amount == 0">
             <fieldset>
               <input type="checkbox" disabled />
-              <label>Include in Booking</label>
+              <label>{[ "booking_select_include" | translate ]}</label>
             </fieldset>
-            <a class="disable-booking-provider-reference" ng-href="segment.providerUrl" ng-show="segment.price.amount > 0" target="_blank">Go to provider</a>
+            <a class="disable-booking-provider-reference" ng-href="segment.providerUrl" ng-show="segment.price.amount > 0" target="_blank">{[ "booking_select_provider" | translate ]}</a>
           </div>
         </span>
     </li>
@@ -62,21 +62,20 @@
 </div>
 
 <div class="booking-content-help" ng-show="!bookable">
-  <span class="booking-content-help-title">Please remember:</span>
+  <span class="booking-content-help-title">{[ "booking_select_warning_title" | translate ]}</span>
   <span class="booking-content-help-text">
-    You can only go on with booking, after you have selected at least one trip segment.
+    {[ "booking_select_warning_text1" | translate ]}
   </span>
   <span class="booking-content-help-text">
-    If no trip segment can be selected for that trip, you can still save the trip to take it with you on your mobile.
-    The booking can be done through the provider links then.
+    {[ "booking_select_warning_text2" | translate ]}
   </span>
 </div>
 
 <div class="booking-content-buttons">
-  <a class="button--light back" ng-click="back()">Back</a>
+  <a class="button--light back" ng-click="back()">{[ "general_back" | translate | capitalize ]}</a>
 
-  <a class="button next" ng-class="{ 'is-disabled': !bookable }" ng-click="continue()">Continue</a>
-  <a class="button--light next" ng-click="">Save</a>
+  <a class="button next" ng-class="{ 'is-disabled': !bookable }" ng-click="continue()">{[ "general_continue" | translate | capitalize ]}</a>
+  <a class="button--light next" ng-click="">{[ "general_save" | translate | capitalize ]}</a>
 </div>
 
 

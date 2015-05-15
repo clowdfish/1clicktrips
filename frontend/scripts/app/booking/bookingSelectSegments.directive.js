@@ -34,7 +34,7 @@
         scope.nextStep();
       };
 
-      scope.bookable = false;
+      scope.bookable = false; // set true for debugging
       scope.handleBookableChange = handleBookableChange;
 
       /**
@@ -82,8 +82,5 @@
         scope.totalBookingPrice = scope.bookingPrice + scope.bookingFee;
       }
     }
-
-
   }
-
 })();

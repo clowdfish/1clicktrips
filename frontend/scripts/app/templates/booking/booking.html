@@ -1,23 +1,19 @@
 <section class="booking">
-  <div ng-if="bookingData == null" class="container">
-    Please <a ui-sref="index">search</a> for trip before go to booking page
-  </div>
-
   <div ng-if="bookingData != null" class="container">
     <!-- BOOKING PROGRESS CONTROL -->
     <ul class="booking-progress">
       <div class="booking-process-line"></div>
       <li ng-class="{active: step == 1}" class="booking-progress-step">
         <span class="booking-progress-step-number">1</span>
-        <span class="booking-progress-step-label">Select Trip Segments</span>
+        <span class="booking-progress-step-label">{[ "booking_select_label" | translate ]}</span>
       </li>
       <li ng-class="{active: step == 2}" class="booking-progress-step">
         <span class="booking-progress-step-number">2</span>
-        <span class="booking-progress-step-label">Booking and Payment Details</span>
+        <span class="booking-progress-step-label">{[ "booking_payment_label" | translate ]}</span>
       </li>
       <li ng-class="{active: step == 3}" class="booking-progress-step">
         <span class="booking-progress-step-number">3</span>
-        <span class="booking-progress-step-label">Booking Confirmation</span>
+        <span class="booking-progress-step-label">{[ "booking_confirmation_label" | translate ]}</span>
       </li>
     </ul>
 
@@ -46,7 +42,7 @@
         ng-show="step == 3"></booking-confirmation>
 
       <div class="booking-content-success" ng-show="step == 4">
-        Thank you for your booking. You will get an email confirmation soon.
+        {[ "booking_success" | translate ]}
       </div>
 
     </div>
@@ -54,22 +50,22 @@
     <!-- BOOKING SIDEBAR -->
     <div class="booking-sidebar">
       <div class="booking-sidebar-box">
-        <h3 class="booking-sidebar-box-title"><i class="fa fa-suitcase"></i>Budget</h3>
-        <span class="booking-sidebar-box-text">Not yet available.</span>
+        <h3 class="booking-sidebar-box-title"><i class="fa fa-suitcase"></i>{[ "booking_sidebar_budget" | translate ]}</h3>
+        <span class="booking-sidebar-box-text">{[ "toasts_nocontent" | translate ]}</span>
       </div>
       <div class="booking-sidebar-box">
-        <h3 class="booking-sidebar-box-title"><i class="fa fa-shopping-cart"></i>Overview</h3>
+        <h3 class="booking-sidebar-box-title"><i class="fa fa-shopping-cart"></i>{[ "booking_sidebar_overview" | translate ]}</h3>
         <span class="booking-sidebar-box-text">
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Booking total</span>
+            <span class="left">{[ "booking_data_price" | translate ]}</span>
             <span class="right">{[ bookingPrice | price: bookingData.trip.currency ]}</span>
           </span>
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Booking fees ({[ appConfig.bookingRate ]}%)</span><span class="right">{[ bookingFee | price: bookingData.trip.currency ]}</span>
+            <span class="left">{[ "booking_data_fees" | translate ]} ({[ appConfig.bookingRate ]}%)</span><span class="right">{[ bookingFee | price: bookingData.trip.currency ]}</span>
           </span>
           <div class="separator"></div>
           <span class="booking-sidebar-box-text-row">
-            <span class="left">Total</span><span class="right bold">{[ totalBookingPrice | price: bookingData.trip.currency ]}</span>
+            <span class="left">{[ "booking_data_total" | translate ]}</span><span class="right bold">{[ totalBookingPrice | price: bookingData.trip.currency ]}</span>
           </span>
         </span>
       </div>

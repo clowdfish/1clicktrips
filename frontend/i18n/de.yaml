@@ -6,6 +6,7 @@ de:
     or: oder
     from: von
     until: bis
+    to: nach
     origin: Start
     destination: Ziel
     title: Bezeichnung
@@ -17,6 +18,9 @@ de:
     date: Datum
     delete: löschen
     close: schließen
+    back: zurück
+    continue: weiter
+    save: speichern
   toasts:
     notimplemented: Leider noch nicht verfügbar
     nocontent: Noch nichts verfügbar.
@@ -171,6 +175,50 @@ de:
       means:
         instruction: Fahre mit
         select: Alternative wählen
+  booking:
+    select:
+      label: Wähle Reiseabschnitte
+      title: Deine Reise nach
+      content: "Enthält die folgenden Reiseabschnitte:"
+      include: Zu Buchung hinzufügen
+      provider: Zum Anbieter
+      warning:
+        title: Bitte beachten!
+        text1: Du kannst nur Buchen, wenn du mindestens einen Reiseabschnitt angewählt hast.
+        text2: Wenn keine Reiseabschnitt gewählt werden kann, kannst du die Reise trotzdem speichern und auf dem Smartphone abrufen. Die Buchung kann dann direkt über den Anbieter erfolgen.
+    payment:
+      label: Buchungs- und Zahlungsdetails
+      customer:
+        title: Kundeninformation
+        firstname: Vorname
+        lastname: Nachname
+        email: Email
+        password: Passwort
+      info:
+        title: Bezahlinformation
+        name: Name auf der Karte
+        number: Kreditkartennummer (z.B. 4539765475697132)
+        invalid: Ungültige Kartennummer
+        expiration: Gültig bis
+        secret: Code
+      account: Buche schneller nächstes Mal. Erstelle deinen eigenen Account.
+    confirmation:
+      label: Bestätigung der Buchung
+      title: Bestätige deine Buchung
+      selection: Du hast die folgenden Reiseabschnitte gewählt
+      empty: Es wurden keine Reiseabschnitte zum Buchen ausgewählt.
+      booknow: Jetzt buchen
+      total: "Gesamtpreis:"
+    success: Vielen Dank für die Buchung. Du wirst in Kürze eine Bestätigung per Mail erhalten.
+    save:
+      error: Fehler beim Speichern der Buchung. Versuche es später nochmal.
+    data:
+      price: Buchungspreis
+      fees: Buchungsgebühren
+      total: Gesamtpreis
+    sidebar:
+      budget: Budget
+      overview: Übersicht
   dashboard:
     title: Was kann 1ClickTrips für Sie tun?
     message: 1ClickTrips integriert den Buchungsprozess in die tägliche Arbeit.
