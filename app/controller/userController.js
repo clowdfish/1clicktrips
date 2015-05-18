@@ -410,29 +410,3 @@ function setFavoritePosition(params, callback) {
     callback();
   });
 }
-
-/**
- * Parses the location given as a string and transforms it into an
- * location object.
- *
- * @param location
- * @returns {object}
- */
-function parseLocation(location) {
-  var locationData = location.split(',');
-
-  return {
-    latitude: parseFloat(locationData[0]),
-    longitude: parseFloat(locationData[1])
-  }
-}
-
-/**
- * Creates a string out of the given location object.
- *
- * @param location
- * @returns {string}
- */
-function createLocationString(location) {
-  return location.latitude + "," + location.longitude;
-}

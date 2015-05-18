@@ -28,8 +28,8 @@
             {[segment.start.description]} - {[segment.end.description]}
           </span>
 
-          <span class="details">Deutsche Bahn, Regional train</span>
-          <span class="time">April 24, 2015: 7:04 - 7:53</span>
+          <span class="details">{[ segment.description ]}</span>
+          <span class="time">{[ segment.departureTime ]} - {[ segment.arrivalTime ]}</span>
         </span>
         <span class="booking-content-list-item-col price">
           {{ segment.price.amount | price: segment.price.currency }}
