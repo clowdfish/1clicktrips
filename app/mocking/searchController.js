@@ -226,6 +226,8 @@ function createMockTripResult() {
               "distance": 0.02,
               "path": "kxtfEv_bjUIc@",
               "type": 1,
+              "description": "Walking, 80m",
+              "instruction": "Walk to the bus stop ...",
 							"isMajor": 0,
 							"bookable": 0,
               "price": {
@@ -255,6 +257,8 @@ function createMockTripResult() {
               "distance": 5.8,
               "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
               "type": 4,
+              "description": "CA Bus Corp, City Bus",
+              "instruction": "Take the bus line 10 to the airport.",
 							"isMajor": 0,
 							"bookable": 0,
               "price": {
@@ -284,6 +288,8 @@ function createMockTripResult() {
               "distance": 9517.9,
               "path": "",
               "type": 16,
+              "description": "Air America, Airbus A380",
+              "instruction": "Take flight 2300 from San Diego to Frankfurt.",
 							"isMajor": 1,
 							"bookable": 1,
               "price": {
@@ -313,6 +319,8 @@ function createMockTripResult() {
               "distance": 18.22,
               "path": "cydhHsgbw@yJhlCwYbcDwu@j`BmnAvuBks@s]afAcUej@~`A}FjD_c@sGgj@suB_Oo}AoOqi@}[qG{Jan@wNy{@eUih@qo@wu@",
               "type": 8,
+              "description": "Deutsche Bahn, Regional train",
+              "instruction": "Take the S3 from Stuttgart (Flughafen) to Stuttgart Hbf from platform 2.",
 							"isMajor": 0,
 							"bookable": 0,
               "price": {
@@ -342,6 +350,8 @@ function createMockTripResult() {
               "distance": 26.27,
               "path": "}fwhHub`w@iiB}fFfCfA~M{~@lj@qkAlYy]rYuRpe@gg@|TyZruBoxAjt@{SnVwc@xNijBxDiDfiA_bFt@}m@|LezBnCelAbd@w[yFqi@y@_{@le@cu@wAub@x`@{cI",
               "type": 8,
+              "description": "Deutsche Bahn, Regional train",
+              "instruction": "Take the RB 2351 to Reichenbach (Fils) from platform 13.",
 							"isMajor": 0,
 							"bookable": 1,
               "price": {
@@ -371,6 +381,8 @@ function createMockTripResult() {
               "distance": 0.13,
               "path": "ohhhHmkwx@EZQUAaCLW@uAXK",
               "type": 1,
+              "description": "Walking, 750m",
+              "instruction": "Walk to your final destination.",
 							"isMajor": 0,
 							"bookable": 0,
               "price": {
@@ -428,6 +440,8 @@ function createMockTripResult() {
               "distance": 0.02,
               "path": "kxtfEv_bjUIc@",
               "type": 1,
+              "description": "Walking, 80m",
+              "instruction": "Walk to the bus stop ...",
 							"isMajor": 0,
 							"bookable": 0,
               "price": {
@@ -457,6 +471,8 @@ function createMockTripResult() {
               "distance": 5.8,
               "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
               "type": 4,
+              "description": "CA Bus Corp, City Bus",
+              "instruction": "Take the bus line 10 to the airport.",
 							"isMajor": 0,
 							"bookable": 1,
               "price": {
@@ -486,6 +502,8 @@ function createMockTripResult() {
               "distance": 9376.61,
               "path": "",
               "type": 16,
+              "description": "Air America, Airbus A380",
+              "instruction": "Take flight 2300 from San Diego to Frankfurt.",
 							"isMajor": 1,
 							"bookable": 1,
               "price": {
@@ -515,6 +533,8 @@ function createMockTripResult() {
               "distance": 177.12,
               "path": "i_opHuzhs@sBg|CrQm{@fc@oWt\\rEncLxcHfyGv{Ife@Yfn@p`AhfMzJ|j@fRnoDpxBx]vAluCgc@huB{pAr~BcZ~fBlz@xjDfkDxz@`hAbm@oJf~NarEfx@aInuI_Bds@_C|a@~`@pxA`uBzx@rZt_@aAhu@qyA`uCoaD|u@sr@`[{Cfg@g_Bha@{WfO}l@tbBymBvkCtQpeE}b@hiAsArY{R|v@lbAnrAjd@raDpl@tYlMllEn}CllBrj@ls@J`fBsQ`aBwcAr`BytBjy@u_Cdr@ytEvz@gyCbe@}UbPo}@`jCy{Dn`@cx@pjD_dL|bAgeC~h@}|@daBotB~e@a~@lpDqgJt_HimKvlAyoCxa@_R`Hoj@drG}eMbpAqgD|[}uAjo@eqExNup@`hAgmDx`@c|B|s@qkBhg@e_@huAMd\\tSt`A__@`cArHhb@sd@`gBjMph@wm@",
               "type": 8,
+              "description": "Deutsche Bahn, Inter City Express",
+              "instruction": "Take the ... to ...",
 							"isMajor": 0,
 							"bookable": 1,
               "price": {
@@ -544,6 +564,8 @@ function createMockTripResult() {
               "distance": 26.27,
               "path": "}fwhHub`w@iiB}fFfCfA~M{~@lj@qkAlYy]rYuRpe@gg@|TyZruBoxAjt@{SnVwc@xNijBxDiDfiA_bFt@}m@|LezBnCelAbd@w[yFqi@y@_{@le@cu@wAub@x`@{cI",
               "type": 8,
+              "description": "Deutsche Bahn, Regional train",
+              "instruction": "Take the RB 2351 to Reichenbach (Fils) from platform 13.",
 							"isMajor": 0,
 							"bookable": 1,
               "price": {
@@ -573,6 +595,8 @@ function createMockTripResult() {
               "distance": 0.13,
               "path": "ohhhHmkwx@EZQUAaCLW@uAXK",
               "type": 1,
+              "description": "Walking, 750m",
+              "instruction": "Walk to your final destination.",
 							"isMajor": 0,
 							"bookable": 0,
               "price": {
