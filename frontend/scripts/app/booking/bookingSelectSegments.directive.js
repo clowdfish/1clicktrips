@@ -6,7 +6,7 @@
     .module('app.booking')
     .directive('bookingSelectSegments', bookingSelectSegments);
 
-  function bookingSelectSegments(appConfig, bookingApi) {
+  function bookingSelectSegments(appConfig, bookingApi, session, authHelper, AUTH_EVENTS) {
     return {
       restrict: 'E',
       scope: {
@@ -35,8 +35,13 @@
       };
 
       scope.save = function() {
-        scope.showSaveBookingNotification = true;
-        bookingApi.storeBooking(scope.bookingData);
+        if (session.isLogin()) {
+          storeBooking();
+        } else {
+          authHelper.openLoginDialog();
+          scope.$on(AUTH_EVENTS.loginSuccess, storeBooking);
+          scope.$on(AUTH_EVENTS.signupSuccess, storeBooking);
+        }
       }
 
       scope.bookable = false; // set true for debugging
@@ -47,6 +52,13 @@
       */
       scope.$watch('bookingData.trip', function() {
         handleBookableChange();
+      });
+
+      /**
+      * Remove listener when this directive is destroyed
+      */
+      scope.$on('$destroy', function() {
+        removeAuthEventListener();
       });
 
       /**
@@ -85,6 +97,20 @@
 
         scope.bookingFee = scope.bookingPrice * appConfig.bookingRate / 100;
         scope.totalBookingPrice = scope.bookingPrice + scope.bookingFee;
+      }
+
+      /**
+      * Send store booking request and remove auth events listeners
+      */
+      function storeBooking() {
+        scope.showSaveBookingNotification = true;
+        bookingApi.storeBooking(scope.bookingData);
+        removeAuthEventListener();
+      }
+
+      function removeAuthEventListener() {
+        scope.$on(AUTH_EVENTS.loginSuccess, null);
+        scope.$on(AUTH_EVENTS.signupSuccess, null);
       }
     }
   }

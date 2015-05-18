@@ -112,7 +112,6 @@
       });
 
       scope.$watch('listItems', function() {
-        console.log(scope.listItems);
         scope.itemPerPage = parseInt(scope.itemPerPage);
         scope.totalPage = Math.ceil(scope.listItems.length / scope.itemPerPage);
         scope.currentPage = 1;
