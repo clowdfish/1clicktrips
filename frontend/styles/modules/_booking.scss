@@ -271,6 +271,12 @@
   .booking-content-help-text {
     display: block;
     margin-bottom: 0.3em;
+
+    &.save {
+      color: $c-status-okay;
+      font-weight: 800;
+      margin-top: 1em;
+    }
   }
 
   .booking-content-buttons {

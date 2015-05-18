@@ -42,7 +42,7 @@
           scope.$on(AUTH_EVENTS.loginSuccess, storeBooking);
           scope.$on(AUTH_EVENTS.signupSuccess, storeBooking);
         }
-      }
+      };
 
       scope.bookable = false; // set true for debugging
       scope.handleBookableChange = handleBookableChange;
@@ -66,7 +66,7 @@
       */
       function handleBookableChange() {
         validateBookableSegments();
-        caculateBookingPrice();
+        calculateBookingPrice();
       }
 
       function validateBookableSegments() {
@@ -85,7 +85,7 @@
         return hasAtLeastOneBookedSegment;
       }
 
-      function caculateBookingPrice() {
+      function calculateBookingPrice() {
         scope.bookingPrice = 0;
         _.each(scope.bookingData.trip.groupSegment, function(groupSegment) {
           _.each(groupSegment, function(segment) {
@@ -104,7 +104,13 @@
       */
       function storeBooking() {
         scope.showSaveBookingNotification = true;
-        bookingApi.storeBooking(scope.bookingData);
+        bookingApi.storeBooking(scope.bookingData)
+          .then(function() {
+            //alert("Booking was stored successfully.");
+          })
+          .catch(function(err) {
+            alert("Could not store booking: " + err.message);
+          });
         removeAuthEventListener();
       }
 

@@ -43,7 +43,7 @@ module.exports = {
     });
   },
 
-  getById: function(bookingId) {
+  getById: function(bookingId, userId) {
 
     return new Promise(function(resolve, reject) {
 

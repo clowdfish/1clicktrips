@@ -14,19 +14,16 @@ module.exports = function (app, express, production) {
   var AuthController = null;
   var SettingsController = null;
   var UserController = null;
-  var BookingController = null;
 
   if(production) {
     SettingsController = require('../controller/settingsController');
     UserController = require('../controller/userController');
     AuthController = require('../controller/authController');
-    BookingController = require('../mocking/bookingController');
   }
   else {
     SettingsController = require('../mocking/settingsController');
     UserController = require('../mocking/userController');
     AuthController = require('../mocking/authController');
-    BookingController = require('../mocking/bookingController');
   }
 
   var secret = app.get('jwtTokenSecret');
@@ -197,61 +194,6 @@ module.exports = function (app, express, production) {
       .catch(function(err) {
         res.status(500).send(err.message);
       })
-  });
-
-  // ==========================================================================
-  // BOOKINGS =================================================================
-  // ==========================================================================
-
-  accountApi.get('/bookings', function (req, res) {
-
-    var userId = AuthController.getUserIdFromRequest(req, secret);
-    var limit = req.query.limit;
-    // other query params: offset
-
-    BookingController.getBookings(userId, limit ? limit : 3)
-      .then(function (bookings) {
-        if (bookings)
-          res.status(200).json(bookings);
-        else
-          res.sendStatus(500);
-      })
-      .catch(function(err) {
-        res.status(500).send(err.message);
-      });
-  });
-
-  accountApi.get('/bookings/:id', function(req, res) {
-    var userId = AuthController.getUserIdFromRequest(req, secret);
-    var bookingId = req.param('id');
-
-    console.log('Booking id retrieved: ', bookingId);
-    BookingController.getById(bookingId)
-      .then(function(bookingItem) {
-        res.status(200).json(bookingItem);
-      })
-      .catch(function(err) {
-        res.status(500).send(err.message);
-      });
-  });
-
-  accountApi.post('/bookings', function (req, res) {
-
-    if (req.body) {
-      var userId = AuthController.getUserIdFromRequest(req, secret);
-
-      BookingController.setBooking(userId, req.body)
-        .then(function () {
-          res.sendStatus(200);
-        })
-        .catch(function(err) {
-          console.error('There was a problem updating the favorites.');
-          res.status(500).send(err.message);
-        });
-    }
-    else {
-      res.sendStatus(400);
-    }
   });
 
   // ==========================================================================

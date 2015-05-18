@@ -9,6 +9,7 @@ var _ = require('underscore');
 var nodeMailer = require('nodemailer');
 var authConfig = require('../../config/auth');
 var translate = require('../i18n/i18n').translate;
+
 module.exports = {
 
   getBookings: function(userId, limit) {
@@ -52,9 +53,9 @@ module.exports = {
     });
   },
 
-  getById: function(bookingId) {
+  getById: function(bookingId, userId) {
     return new Promise(function(resolve, reject) {
-      connection.query('SELECT * FROM booking WHERE id = ?', [bookingId], function(err, rows) {
+      connection.query('SELECT * FROM booking WHERE id = ? And user_id = ?', [bookingId, userId], function(err, rows) {
         if (err) {
           return reject(err);
         }

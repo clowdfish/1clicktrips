@@ -1,7 +1,5 @@
 var jwt     = require('jwt-simple');
 var Promise = require('es6-promise').Promise;
-var multipart     = require('connect-multiparty');
-var generalConfig = require('../../config/general.js');
 
 module.exports = function (app, express, production) {
   var BookingController,
@@ -17,14 +15,11 @@ module.exports = function (app, express, production) {
 
   var secret = app.get('jwtTokenSecret');
 
-  var bookingApi = express.Router();
+  // ==========================================================================
+  // RETRIEVE BOOKING(S) ======================================================
+  // ==========================================================================
 
-  app.use('/booking', bookingApi);
-
-  /**
-  * Get user's booking data
-  */
-  bookingApi.get('/all', AuthController.isLoggedIn, function(req, res) {
+  app.get('/bookings/', AuthController.isLoggedIn, function(req, res) {
     var userId = AuthController.getUserIdFromRequest(req, secret);
     if (userId === -1) {
       res.status(401);
@@ -34,18 +29,34 @@ module.exports = function (app, express, production) {
     console.log('Get bookings for user: ', userId);
 
     BookingController.getBookings(userId)
-      .then(function(data) {
-        res.status(200).json(data);
+      .then(function(bookings) {
+        res.status(200).json(bookings);
       })
       .catch(function(err) {
         res.status(500).send(err.message);
       });
   });
 
-  /**
-  * Booking trip
-  */
-  bookingApi.post('/request/', function(req, res) {
+  app.get('/booking/:id', AuthController.isLoggedIn, function(req, res) {
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+    var bookingId = req.param('id');
+
+    console.log('Get booking with id: ', bookingId);
+
+    BookingController.getById(bookingId, userId)
+      .then(function(bookingItem) {
+        res.status(200).json(bookingItem);
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
+  });
+
+  // ==========================================================================
+  // CREATE BOOKING ===========================================================
+  // ==========================================================================
+
+  app.post('/booking/request/', function(req, res) {
     if (!req.body) {
       res.status(500);
       return;
@@ -55,18 +66,18 @@ module.exports = function (app, express, production) {
     if (false === validateBookingRequest(userId, req.body)) {
       res.status(500).send('status.user.error.request.malformed');
       return;
-    };
+    }
 
     BookingController.requestRealBooking(userId, req.body, req)
       .then(function() {
-        res.status(200).send('OK');
+        res.status(200).send();
       })
       .catch(function(err) {
         res.status(500).send(err.message);
       });
   });
 
-  bookingApi.post('/', AuthController.isLoggedIn, function(req, res) {
+  app.post('/booking/', AuthController.isLoggedIn, function(req, res) {
     if (!req.body) {
       res.status(500);
       return;
@@ -77,17 +88,17 @@ module.exports = function (app, express, production) {
     if (false === validateStoreBookingRequest(req.body)) {
       res.status(500).send('status.user.error.request.malformed');
       return;
-    };
+    }
 
     BookingController.storeBooking(userId, req)
       .then(function() {
-        res.status(200).send('OK');
+        res.status(200).send();
       })
       .catch(function(err) {
         res.status(500).send(err.message);
       });
   });
-}
+};
 
 /**
 * Validate set booking request

@@ -77,7 +77,7 @@
     function getBookedTrips() {
       var deferred = $q.defer();
       $http
-        .get('/api/account/bookings')
+        .get('/api/bookings')
         .success(function(data) {
           var result = [];
           for (var i = 0; i < data.length; i++) {
@@ -101,12 +101,14 @@
       bookingItem.startDate = date.stringToDate(bookingItem.startDate);
       bookingItem.endDate = date.stringToDate(bookingItem.endDate);
 
-      for (var participantId = 0;
-            participantId < bookingItem.participants.length;
-            participantId++) {
-        var arrivalTime = bookingItem.participants[participantId].arrivalTime;
-        bookingItem.participants[participantId].arrivalTime = date.stringToDate(arrivalTime);
-      }
+      if(bookingItem.participants)
+        for (var participantId = 0;
+              participantId < bookingItem.participants.length;
+              participantId++) {
+
+          var arrivalTime = bookingItem.participants[participantId].arrivalTime;
+          bookingItem.participants[participantId].arrivalTime = date.stringToDate(arrivalTime);
+        }
 
       return bookingItem;
     }
@@ -114,7 +116,7 @@
     function getBookingById(bookingId) {
       return $q(function(resolve, reject) {
         $http
-          .get('/api/account/bookings/' + bookingId)
+          .get('/api/booking/' + bookingId)
           .success(function(data) {
             resolve(_this.formatBookingItem(data));
           })

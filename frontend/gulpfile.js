@@ -1,13 +1,14 @@
 // include gulp
 var gulp = require('gulp');
 var karma = require('karma').server;
+
 // include core modules
 var path  = require("path");
 var fs    = require("fs");
 var mkdirp = require('mkdirp');
+
 // include gulp plug-ins
 var changed 	  = require('gulp-changed'),
-    //imagemin 	  = require('gulp-imagemin'),
     concat 		  = require('gulp-concat'),
     coffee      = require('gulp-coffee'),
     stripDebug 	= require('gulp-strip-debug'),
