@@ -43,9 +43,9 @@
     /**
     * Real Booking
     */
-    this.book = book;
+    this.requestRealBooking = requestRealBooking;
 
-    this.saveSegmentSelect = saveSegmentSelect;
+    this.storeBooking = storeBooking;
 
     function setShareTripData(trip, searchData) {
       var key = makeStorageKey();
@@ -127,11 +127,11 @@
       });
     }
 
-    function book(bookingData) {
+    function requestRealBooking(bookingData) {
       return $q(function(resolve, reject) {
         $http
-          .post('/api/bookings', bookingData, {
-            waitingMessage: 'Save booking...'
+          .post('/api/booking/request', bookingData, {
+            waitingMessage: 'Request booking...'
           })
           .success(function() {
             resolve();
@@ -145,10 +145,10 @@
       });
     }
 
-    function saveSegmentSelect(bookingData) {
+    function storeBooking(bookingData) {
       return $q(function(resolve, reject) {
         $http
-          .post('/api/bookings/save-selection/', bookingData, {
+          .post('/api/booking/', bookingData, {
             waitingMessage: 'Save booking...'
           })
           .success(function() {

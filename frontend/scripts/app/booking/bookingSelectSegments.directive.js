@@ -36,7 +36,7 @@
 
       scope.save = function() {
         scope.showSaveBookingNotification = true;
-        bookingApi.saveSegmentSelect(scope.bookingData);
+        bookingApi.storeBooking(scope.bookingData);
       }
 
       scope.bookable = false; // set true for debugging

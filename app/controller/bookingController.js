@@ -17,12 +17,12 @@ module.exports = {
         if (err) {
           return reject(err);
         }
-        resolve(rows);
+        return resolve(rows);
       });
     });
   },
 
-  setBooking: function(userId, bookingObject, req) {
+  requestRealBooking: function(userId, bookingObject, req) {
     return new Promise(function(resolve, reject) {
       async.waterfall([
         function(done) {
@@ -41,7 +41,7 @@ module.exports = {
         if (err) {
           if (bookingId) {
             removeBooking(bookingId, function() {
-              reject(err);
+              return reject(err);
             });
           } else {
             return reject(err);
@@ -66,15 +66,20 @@ module.exports = {
     });
   },
 
-  saveSegmentSelections: function(userId, req) {
+  storeBooking: function(userId, req) {
     return new Promise(function(resolve, reject) {
       var bookingObject = req.body;
+      var bookingId = null;
       async.waterfall([
         function(done) {
           insertBooking(userId, bookingObject, done);
         },
-        function(bookingId, done) {
+        function(newBookingId, done) {
+          bookingId = newBookingId;
           insertBookingSegment(bookingId, bookingObject, done);
+        },
+        function(done) {
+          copyUserProfileToBookingUser(userId, bookingId, done);
         }
       ], function(err, bookingId) {
         if (err) {
@@ -100,9 +105,9 @@ function insertBooking(userId, bookingObject, done) {
   };
   connection.query('INSERT INTO booking SET ?', insertData, function(err, data) {
     if (err) {
-      done(err);
+      return done(err);
     } else {
-      done(null, data.insertId);
+      return done(null, data.insertId);
     }
   });
 }
@@ -137,8 +142,68 @@ function insertUserData(bookingId, bookingObject, done) {
   });
 }
 
+function copyUserProfileToBookingUser(userId, bookingId, finish) {
+  if (userId === -1) {
+    return finish(null, null);
+  }
+
+  async.waterfall([
+    function(done) {
+      connection.query('SELECT * FROM user WHERE id = ?', [userId], function(err, rows) {
+        if (err) return done(err);
+        if (rows.length > 0) {
+          return done(null, rows[0]);
+        } else {
+          return done(new Error('error.invalid.user.id'));
+        }
+      });
+    },
+
+    function(user, done) {
+      connection.query('SELECT * FROM profile WHERE id = ?', [user.profile_id], function(err, rows) {
+        if (err) return done(err);
+        if (rows.length > 0) {
+          var userProfile = rows[0];
+          userProfile['email'] = user['email'];
+          return done(null, rows[0]);
+        } else {
+          return done(new Error('error.invalid.profile.id'));
+        }
+      });
+    },
+
+    function(userProfile, done) {
+      var insertData = {
+        email: userProfile['email'],
+        first_name: userProfile['first_name'],
+        last_name: userProfile['last_name'],
+        phone: null,
+        address_street: userProfile['street'],
+        address_city: userProfile['city'],
+        address_postal: userProfile['zip_code'],
+        address_country: userProfile['country'],
+        company_name: null,
+        company_tax_no: null
+      };
+      connection.query('INSERT INTO booking_user SET ?', insertData, function(err) {
+        if (err) {
+          return done(err);
+        } else {
+          return done();
+        }
+      });
+    }
+  ], function(err) {
+    if (err) {
+      return finish(err);
+    } else {
+      return finish();
+    }
+  });
+}
+
 function insertBookingSegment(bookingId, bookingObject, done) {
-  console.log(arguments);
+
   var segments = [];
   _.each(bookingObject.trip.groupSegment, function(groupSegment) {
     _.each(groupSegment, function(segment) {
@@ -173,7 +238,7 @@ function insertBookingSegment(bookingId, bookingObject, done) {
     connection.query('INSERT INTO booking_segment SET ?', insertObject, callback);
   }, function(err) {
     if (err) {
-      return done(err, bookingId);
+      return done(err);
     } else {
       return done(null);
     }
@@ -190,7 +255,7 @@ function sendBookingSuccessEmail(bookingObject, req, done) {
   };
 
   transporter.sendMail(mailOptions, function(err) {
-    done(err);
+    return done(err);
   });
 }
 
@@ -200,7 +265,14 @@ function removeBooking(bookingId, done) {
     'DELETE FROM booking_user WHERE booking_id = ?',
     'DELETE FROM booking where booking_id = ?'
   ];
+
   async.each(deleteQueries, function(query, callback) {
-    connection.query(query, callback);
+    connection.query(query, [bookingId], function(err) {
+      if (err) {
+        return callback(err);
+      } else {
+        return callback();
+      }
+    });
   }, done);
 }

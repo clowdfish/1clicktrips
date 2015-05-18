@@ -19,19 +19,19 @@ module.exports = function (app, express, production) {
 
   var bookingApi = express.Router();
 
-  app.use('/bookings', bookingApi);
+  app.use('/booking', bookingApi);
 
   /**
   * Get user's booking data
   */
-  bookingApi.get('/', AuthController.isLoggedIn, function(req, res) {
+  bookingApi.get('/all', AuthController.isLoggedIn, function(req, res) {
     var userId = AuthController.getUserIdFromRequest(req, secret);
     if (userId === -1) {
       res.status(401);
       return;
     }
 
-    console.log('Get booking for user: ', userId);
+    console.log('Get bookings for user: ', userId);
 
     BookingController.getBookings(userId)
       .then(function(data) {
@@ -45,19 +45,19 @@ module.exports = function (app, express, production) {
   /**
   * Booking trip
   */
-  bookingApi.post('/', function(req, res) {
+  bookingApi.post('/request/', function(req, res) {
     if (!req.body) {
       res.status(500);
       return;
     }
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
-    if (false === validateBookingObject(userId, req.body)) {
+    if (false === validateBookingRequest(userId, req.body)) {
       res.status(500).send('status.user.error.request.malformed');
       return;
     };
 
-    BookingController.setBooking(userId, req.body, req)
+    BookingController.requestRealBooking(userId, req.body, req)
       .then(function() {
         res.status(200).send('OK');
       })
@@ -66,19 +66,19 @@ module.exports = function (app, express, production) {
       });
   });
 
-  bookingApi.post('/save-selection', function(req, res) {
+  bookingApi.post('/', function(req, res) {
     if (!req.body) {
       res.status(500);
       return;
     }
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
-    if (false === validateSaveSegmentSelectionRequest(req)) {
+    if (false === validateStoreBookingRequest(req.body)) {
       res.status(500).send('status.user.error.request.malformed');
       return;
     };
 
-    BookingController.saveSegmentSelections(userId, req)
+    BookingController.storeBooking(userId, req)
       .then(function() {
         res.status(200).send('OK');
       })
@@ -91,22 +91,22 @@ module.exports = function (app, express, production) {
 /**
 * Validate set booking request
 */
-function validateBookingObject(userId, bookingObject) {
-  if (!_.has(req.body, 'trip') || _.isEmpty(req.body.trip)) {
+function validateBookingRequest(userId, requestBody) {
+  if (!_.has(requestBody, 'trip') || _.isEmpty(requestBody.trip)) {
     console.log('Missing trip data');
     return false;
   }
 
-  if (!_.has(bookingObject, 'user') || _.isEmpty(bookingObject.user)) {
+  if (!_.has(requestBody, 'user') || _.isEmpty(requestBody.user)) {
     console.log('Missing user data');
     return false;
   }
   return true;
 }
 
-function validateSaveSegmentSelectionRequest(req) {
+function validateStoreBookingRequest(requestBody) {
 
-  if (!_.has(req.body, 'trip') || _.isEmpty(req.body.trip)) {
+  if (!_.has(requestBody, 'trip') || _.isEmpty(requestBody.trip)) {
     console.log('Missing trip data');
     return false;
   }

@@ -36,7 +36,7 @@
         var cloneBookingData = _.cloneDeep(scope.bookingData);
         delete cloneBookingData['payment'];
         bookingApi
-          .book(cloneBookingData)
+          .requestRealBooking(cloneBookingData)
           .then(function() {
             scope.nextStep();
             bookingApi.removeShareTripData();
