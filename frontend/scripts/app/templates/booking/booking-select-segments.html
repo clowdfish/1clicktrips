@@ -3,8 +3,8 @@
   <div class="booking-content-summary-info">
     <span class="booking-content-summary-info-location">{[ bookingData.trip.outbound.destination.description ]}</span>
     <span class="booking-content-summary-info-date">
-      {[ "general_from" | translate | capitalize ]} {[ bookingData.trip.startTime | date: "dd.MM.yyyy" ]}
-      {[ "general_until" | translate ]} {[ bookingData.trip.endTime | date: "dd.MM.yyyy" ]}
+      {[ "general_from" | translate | capitalize ]} {[ bookingData.trip.startDate | date: "dd.MM.yyyy" ]}
+      {[ "general_until" | translate ]} {[ bookingData.trip.endDate | date: "dd.MM.yyyy" ]}
     </span>
   </div>
   <div class="booking-content-summary-label break-line">{[ "booking_select_content" | translate ]}</div>
@@ -29,7 +29,9 @@
           </span>
 
           <span class="details">{[ segment.description ]}</span>
-          <span class="time">{[ segment.departureTime ]} - {[ segment.arrivalTime ]}</span>
+          <span class="time">
+            {[ segment.departureTime | untilTime: segment.arrivalTime ]}
+            </span>
         </span>
         <span class="booking-content-list-item-col price">
           {{ segment.price.amount | price: segment.price.currency }}
