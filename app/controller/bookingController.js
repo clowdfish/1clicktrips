@@ -70,6 +70,11 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       var bookingObject = req.body;
       var bookingId = null;
+
+      if (userId === -1) {
+        return reject(new Error('status.user.error.authorization.failure'));
+      }
+
       async.waterfall([
         function(done) {
           insertBooking(userId, bookingObject, done);
@@ -143,10 +148,6 @@ function insertUserData(bookingId, bookingObject, done) {
 }
 
 function copyUserProfileToBookingUser(userId, bookingId, finish) {
-  if (userId === -1) {
-    return finish(null, null);
-  }
-
   async.waterfall([
     function(done) {
       connection.query('SELECT * FROM user WHERE id = ?', [userId], function(err, rows) {

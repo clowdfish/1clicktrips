@@ -66,13 +66,14 @@ module.exports = function (app, express, production) {
       });
   });
 
-  bookingApi.post('/', function(req, res) {
+  bookingApi.post('/', AuthController.isLoggedIn, function(req, res) {
     if (!req.body) {
       res.status(500);
       return;
     }
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
+
     if (false === validateStoreBookingRequest(req.body)) {
       res.status(500).send('status.user.error.request.malformed');
       return;
