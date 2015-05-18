@@ -53,6 +53,10 @@
           "duration": 50,
           "distance": 50,
           "type": 2,
+          "description": "Deutsche Bahn, Regional train",
+          "instruction": "Walk somewhere",
+          "isMajor": 0,
+          "bookable": 0,
           "price": {
               "amount": 90,
               "currency": "EUR"
@@ -72,18 +76,20 @@
               "longitude": 106.666762
             }
           },
+          "departureTime": '2015-01-01T00:00:00Z',
+          "arrivalTime": '2015-01-02T00:00:00Z',
+          "duration": 50,
+          "distance": 50,
           "type": 2,
+          "description": "Walking, 580m",
+          "instruction": "Walk to bus station",
+          "isMajor": 0,
+          "bookable": 0,
           "price": {
               "amount": 90,
               "currency": "EUR"
-          },
-          "duration": 50,
-          "distance": 50,
-          "departureTime": '2015-01-01T00:00:00Z',
-          "arrivalTime": '2015-01-02T00:00:00Z',
-          "name": "Walk to bus station"
+          }
         },
-
         {
           "id": 3,
           "start": {
@@ -98,16 +104,19 @@
               "longitude": 106.651012
             }
           },
+          "departureTime": '2015-01-01T00:00:00Z',
+          "arrivalTime": '2015-01-02T00:00:00Z',
+          "duration": 50,
+          "distance": 50,
           "type": 8,
+          "description": "Grey Bus Corp, Regional bus",
+          "instruction": "Take bus E23 to K20",
+          "isMajor": 0,
+          "bookable": 0,
           "price": {
               "amount": 90,
               "currency": "EUR"
-          },
-          "duration": 50,
-          "distance": 50,
-          "departureTime": '2015-01-01T00:00:00Z',
-          "arrivalTime": '2015-01-02T00:00:00Z',
-          "name": "Take bus E23 to K20"
+          }
         },
         {
           "id": 4,
@@ -123,16 +132,17 @@
               "longitude": 106.641142
             }
           },
+          "departureTime": '2015-01-01T00:00:00Z',
+          "arrivalTime": '2015-01-02T00:00:00Z',
+          "duration": 50,
+          "distance": 50,
           "type": 0,
+          "description": "Motel One, Single Bed Room",
+          "instruction": "Stay one night at your destination hotel",
           "price": {
               "amount": 90,
               "currency": "EUR"
           },
-          "duration": 50,
-          "distance": 50,
-          "departureTime": '2015-01-01T00:00:00Z',
-          "arrivalTime": '2015-01-02T00:00:00Z',
-          "name": "Stay one night at your destination hotel",
           "alternatives": [
             {
               "id": 1,
@@ -174,16 +184,17 @@
               "longitude": 106.651012
             }
           },
+          "departureTime": '2015-01-01T00:00:00Z',
+          "arrivalTime": '2015-01-02T00:00:00Z',
+          "duration": 50,
+          "distance": 50,
           "type": 8,
+          "description": "My Bus, Line 761",
+          "instruction": "Take bus E23 to K20",
           "price": {
               "amount": 0,
               "currency": "EUR"
-          },
-          "duration": 50,
-          "distance": 50,
-          "departureTime": '2015-01-01T00:00:00Z',
-          "arrivalTime": '2015-01-02T00:00:00Z',
-          "name": "Take bus E23 to K20"
+          }
         }
       ]
       },
