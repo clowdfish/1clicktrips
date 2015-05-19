@@ -131,7 +131,7 @@ gulp.task('scripts', ['i18n'], function() {
     gulp.src([
       'scripts/app/templates/**/*'
     ])
-    .pipe(angularTemplateCache('templates.js',{
+    .pipe(angularTemplateCache('templates.js', {
       root: 'scripts/app/templates/',
       module: 'app.templates',
       standalone: true

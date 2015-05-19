@@ -45,6 +45,12 @@
     $scope.isMobile = browser.isMobileDevice();
 
     /**
+     * Show slider?
+     * @type {Boolean}
+     */
+    $scope.showSlider = false;
+
+    /**
      * Should show menu ?
      * @type {Boolean}
      */
@@ -140,7 +146,11 @@
       $state.go('settings.profile');
     };
 
-    /* MOBILE MENU FUNCTIONS */
+    /* MENU FUNCTIONS */
+
+    $scope.toggleSlider = function() {
+      $scope.showSlider = !$scope.showSlider;
+    };
 
     $scope.toggleMenu = function() {
       $scope.showMenu = !$scope.showMenu;
