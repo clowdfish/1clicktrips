@@ -8,13 +8,13 @@ var fs    = require("fs");
 var mkdirp = require('mkdirp');
 
 // include gulp plug-ins
-var changed 	  = require('gulp-changed'),
-    concat 		  = require('gulp-concat'),
+var concat 		  = require('gulp-concat'),
     coffee      = require('gulp-coffee'),
     stripDebug 	= require('gulp-strip-debug'),
     uglify 		  = require('gulp-uglify'),
+    rename      = require('gulp-rename'),
     autoprefix  = require('gulp-autoprefixer'),
-    minifyCSS 	= require('gulp-minify-css'),
+    minify     	= require('gulp-minify-css'),
     sass 		    = require('gulp-ruby-sass'),
     notify		  = require('gulp-notify'),
     plumber 	  = require('gulp-plumber'),
@@ -59,34 +59,31 @@ var plumberErrorHandler = {
 /* BUILD TASKS                                                                                      */
 /****************************************************************************************************/
 
-// copy font-awesome and compile styles
+// copy font awesome and compile styles
 gulp.task('styles', function() {
+
   gulp.src([
     'bower_components/font-awesome/fonts/*'
   ])
   .pipe(gulp.dest("build/fonts"));
 
-  /*gulp.src([
-    'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    'bower_components/animate.css/animate.min.css'
-  ])
-  .pipe(gulp.dest("build/styles"));*/
-
   return sass('styles', { style: 'expanded' })
-  .pipe(gulpif(production, autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1')))
-  .pipe(gulpif(production, minifyCSS()))
-  .pipe(gulp.dest('build/styles'));
+    .on('error', function (err) {
+      console.error('Error during scss compilation: ', err.message);
+    })
+    .pipe(autoprefix({
+        browsers: ['>1%', 'last 2 version', 'opera 12.1'],
+        cascade: true
+      }))
+    .pipe(gulpif(production, minify()))
+    .pipe(gulpif(production, rename({ suffix: '.min' })))
+    .pipe(gulp.dest('build/styles'));
 });
 
-// minify images
+// copy images
 gulp.task('images', function() {
-  var imgSrc = 'images/**/*',
-      imgDst = 'build/images';
-
-  gulp.src(imgSrc)
-    .pipe(changed(imgDst))
-    //.pipe(imagemin()) // this one messes around with SVGs
-    .pipe(gulp.dest(imgDst));
+  gulp.src('images/**/*')
+    .pipe(gulp.dest('build/images'));
 });
 
 // start development web server
@@ -96,7 +93,7 @@ gulp.task('webserver', function() {
       livereload: true,
       open: 'en/',
       proxies: [
-        { source: '/api', target: 'http://localhost:8080/'}
+        { source: '/api', target: 'http://localhost:8080/' }
       ]
     }));
 });
@@ -131,7 +128,7 @@ gulp.task('scripts', ['i18n'], function() {
     gulp.src([
       'scripts/app/templates/**/*'
     ])
-    .pipe(angularTemplateCache('templates.js',{
+    .pipe(angularTemplateCache('templates.js', {
       root: 'scripts/app/templates/',
       module: 'app.templates',
       standalone: true
@@ -146,7 +143,7 @@ gulp.task('scripts', ['i18n'], function() {
   .pipe(
     gulpif(
       /[.]coffee$/,
-      coffee({bare: true})
+      coffee({ bare: true })
     )
   )
   .pipe(concat('script.js'))
@@ -251,6 +248,7 @@ gulp.task('test', function (done) {
 gulp.task('create-upload-folder', function() {
   mkdirp('build/images/uploaded');
 });
+
 // gulp task suite
 gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data', 'create-upload-folder'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);

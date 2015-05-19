@@ -40,13 +40,19 @@
       text-decoration: none;
       color: $c-text;
     }
-
-    a:hover {
-      color: $c-primary;
-    }
   }
 }
 
 .footer {
   @extend %footer;
+}
+
+/**********************************************/
+/* TOUCH SPECIFIC STYLING                     */
+/**********************************************/
+.no-touch .footer {
+
+  a:hover {
+    color: $c-primary;
+  }
 }

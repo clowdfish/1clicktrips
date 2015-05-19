@@ -17,10 +17,6 @@
       display: none;
     }
 
-    &:hover a {
-      color: $c-primary;
-    }
-
     &.active {
       border-bottom: 2px solid $c-primary;
 
@@ -76,8 +72,6 @@
   }
 
   .settings-side-profile-image {
-    $profile-image-size: 6em;
-
     position: relative;
     width: $profile-image-size;
     height: $profile-image-size;
@@ -86,29 +80,6 @@
     cursor: pointer;
     margin: 0 auto 0.5em auto;
     overflow: hidden;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.5);
-
-      img {
-        z-index: 0;
-      }
-    }
-
-    &:hover .settings-side-profile-image-label {
-      display: block;
-      position: absolute;
-      z-index: 5;
-      top: $profile-image-size/2;
-      width: 100%;
-      color: $c-white;
-      font-size: $fs-small;
-      font-weight: 800;
-
-      .fa {
-        margin-right: 0.3em;
-      }
-    }
 
     img {
       position: relative;
@@ -120,6 +91,17 @@
 
   .settings-side-profile-image-label {
     display: none;
+    position: absolute;
+    z-index: 5;
+    top: $profile-image-size/2;
+    width: 100%;
+    color: $c-white;
+    font-size: $fs-small;
+    font-weight: 800;
+
+    .fa {
+      margin-right: 0.3em;
+    }
   }
 
   .settings-side-profile-name {
@@ -196,15 +178,11 @@
           display: inline;
           border-bottom: none;
           cursor: default;
-
-          &:hover {
-            color: $c-text;
-          }
         }
 
         &:after {
-          font-family: FontAwesome;
-          content: "\f105";
+          @include fa-icon();
+          content: $fa-var-angle-right;
         }
       }
 
@@ -213,10 +191,6 @@
         text-decoration: none;
         padding-right: 0.5em;
         cursor: pointer;
-
-        &:hover {
-          color: $c-primary;
-        }
       }
 
       .fa {
@@ -224,7 +198,6 @@
         margin-right: 0.3em;
       }
     }
-
   }
 
   /*************************************************/
@@ -334,4 +307,47 @@
 
 .settings {
   @extend %settings;
+}
+
+/**********************************************/
+/* TOUCH SPECIFIC STYLING                     */
+/**********************************************/
+.no-touch .settings {
+
+  .settings-top-menu-item {
+
+    &.active:hover a {
+      color: $c-text;
+    }
+
+    &:hover a {
+      color: $c-primary;
+    }
+  }
+
+  .settings-side-profile-image {
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+
+      img {
+        z-index: 0;
+      }
+
+      .settings-side-profile-image-label {
+        display: block;
+      }
+    }
+  }
+
+  .settings-side-navigation-item {
+
+    &.active a:hover {
+      color: $c-text;
+    }
+
+    a:hover {
+      color: $c-primary;
+    }
+  }
 }

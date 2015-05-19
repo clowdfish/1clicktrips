@@ -1,9 +1,12 @@
 <header class="header">
   <!-- SLIDING PANE TOGGLE -->
-  <span class="header-toggle">+</span>
+  <span class="header-toggle" ng-click="toggleSlider()">+</span>
 
   <!-- SLIDING PANE -->
-  <div class="header-slider ng-cloak" id="header-slider" ng-if="!isMobile" ng-cloak>
+  <div class="header-slider ng-cloak" id="header-slider" ng-class="{ active: showSlider }" ng-if="!isMobile" ng-cloak>
+    <span class="header-slider-close">
+      <i class="fa fa-close" ng-click="toggleSlider()"></i>
+    </span>
     <span class="header-slider-message">{{ T.nav.message }}</span>
   </div>
 
@@ -58,7 +61,7 @@
         </li>
 
         <li class="header-navigation-menu-item">
-          <span class='header-navigation-menu-item-settings'>{[ activeCurrency.toUpperCase() ]}
+          <span class='header-navigation-menu-item-settings' ng-click="toggleCurrencies())">{[ activeCurrency.toUpperCase() ]}
             <ul class='currency-switch'>
               <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
                 {[ currency.code ]}
@@ -67,7 +70,7 @@
           </span>
         </li>
         <li class="header-navigation-menu-item">
-          <span class='header-navigation-menu-item-settings'>{[ activeLanguageName ]}
+          <span class='header-navigation-menu-item-settings' ng-click="toggleLanguages()">{[ activeLanguageName ]}
             <ul class='language-switch'>
               <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
                 {[ language.name ]}

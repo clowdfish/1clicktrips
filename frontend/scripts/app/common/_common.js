@@ -8,6 +8,7 @@
   angular
     .module('app.common', [])
     .config(httpConfig)
+    .constant('Modernizr', Modernizr)
     .run(run);
 
   function httpConfig($httpProvider) {
