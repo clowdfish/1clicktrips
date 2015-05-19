@@ -64,7 +64,14 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       resolve();
     });
+  },
+
+  deleteById: function(userId, bookingId) {
+    return new Promise(function(resolve, reject) {
+      resolve();
+    });
   }
+
 };
 
 // ==========================================================================

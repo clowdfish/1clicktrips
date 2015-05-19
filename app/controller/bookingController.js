@@ -18,7 +18,13 @@ module.exports = {
         if (err) {
           return reject(err);
         }
-        return resolve(rows);
+        var result = [];
+        for (var i = 0; i < rows.length; i++) {
+          var item = rows[i];
+          item['booked'] = rows[i]['booked'] == 1 ? true : false;
+          result.push(item);
+        }
+        return resolve(result);
       });
     });
   },
@@ -27,7 +33,8 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       async.waterfall([
         function(done) {
-          insertBooking(userId, bookingObject, done);
+          var isBooked = true;
+          insertBooking(userId, bookingObject, isBooked, done);
         },
         function(bookingId, done) {
           insertUserData(bookingId, bookingObject, done);
@@ -78,7 +85,8 @@ module.exports = {
 
       async.waterfall([
         function(done) {
-          insertBooking(userId, bookingObject, done);
+          var isBooked = false;
+          insertBooking(userId, bookingObject, isBooked, done);
         },
         function(newBookingId, done) {
           bookingId = newBookingId;
@@ -100,14 +108,42 @@ module.exports = {
         return resolve();
       });
     });
+  },
+
+  deleteById: function(userId, bookingId) {
+    return new Promise(function(resolve, reject) {
+      async.waterfall([
+        function(done) {
+          connection.query('SELECT * FROM booking WHERE user_id = ? AND id = ? AND booked = 0', [userId, bookingId], function(err, rows) {
+            if (err) {
+              return done(err);
+            }
+            if (rows.length == 0) {
+              return done(new Error('status.error.cant.delete.booking'));
+            }
+            return done(null, rows[0]);
+          });
+        },
+        function(booking, done) {
+          removeBooking(booking.id, done);
+        }
+      ], function(err) {
+        if (err) {
+          return reject(err);
+        }
+        return resolve();
+      });
+    });
   }
 };
 
-function insertBooking(userId, bookingObject, done) {
+
+function insertBooking(userId, bookingObject, isBooked, done) {
   var subject = bookingObject.trip.origin + ' ' + bookingObject.trip.destination;
   var insertData = {
     user_id: userId,
-    subject: subject
+    subject: subject,
+    booked: isBooked
   };
   connection.query('INSERT INTO booking SET ?', insertData, function(err, data) {
     if (err) {
@@ -265,7 +301,7 @@ function removeBooking(bookingId, done) {
   var deleteQueries = [
     'DELETE FROM booking_segment WHERE booking_id = ?',
     'DELETE FROM booking_user WHERE booking_id = ?',
-    'DELETE FROM booking where booking_id = ?'
+    'DELETE FROM booking where id = ?'
   ];
 
   async.each(deleteQueries, function(query, callback) {

@@ -7,6 +7,7 @@
         <th>{[ "general_date" | translate | capitalize ]}</th>
         <th>{[ "general_destination" | translate | capitalize ]}</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
         <td>{[ booking.booking_date | date: "dd MMM yyyy" ]}</td>
         <td>{[ booking.subject ]}</td>
         <td><a ui-sref="settings.booking.detail({id: booking.id})"><i class="fa fa-eye"></i></a></td>
+        <td><a ng-click="deleteBooking(booking)"><i class="fa fa-trash-o"></i></a></td>
       </tr>
     </tbody>
   </table>

@@ -98,6 +98,19 @@ module.exports = function (app, express, production) {
         res.status(500).send(err.message);
       });
   });
+
+  app.delete('/booking/:bookingId', AuthController.isLoggedIn, function(req, res) {
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+    BookingController
+      .deleteById(userId, req.params.bookingId)
+      .then(function() {
+        res.sendStatus(200);
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.status(500).send(err.message);
+      });
+  });
 };
 
 /**

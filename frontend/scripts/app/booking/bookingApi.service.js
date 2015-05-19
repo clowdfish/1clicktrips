@@ -41,11 +41,19 @@
     this.getBookingById = getBookingById;
 
     /**
-    * Real Booking
+    * Real Booking. Non-deletable
     */
     this.requestRealBooking = requestRealBooking;
 
+    /**
+    * Just store the booking. Deletable
+    */
     this.storeBooking = storeBooking;
+
+    /**
+    * Delete deletable booking
+    */
+    this.deleteBooking = deleteBooking;
 
     function setShareTripData(trip, searchData) {
       var key = makeStorageKey();
@@ -161,6 +169,21 @@
               data: data,
               status: status
             })
+          });
+      });
+    }
+
+    function deleteBooking(booking) {
+      return $q(function(resolve, reject) {
+        if (booking.booked) {
+          reject();
+        }
+        $http
+          .delete('/api/booking/' + booking.id)
+          .then(function() {
+            resolve();
+          }, function() {
+            reject();
           });
       });
     }

@@ -6,17 +6,17 @@
     .module('app.settings.booking')
     .directive('bookingTable', bookingTable);
 
-  function bookingTable() {
+  function bookingTable(bookingApi) {
     return {
       restrict: 'E',
       templateUrl: 'scripts/app/templates/settings/booking-table.html',
       scope: {
         bookingList: '='
       },
-      controller: controller
+      link: link
     };
 
-    function controller($scope) {
+    function link(scope, element, attrs) {
 
     }
   }
