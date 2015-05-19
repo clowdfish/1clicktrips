@@ -107,7 +107,7 @@
     initCurrencies();
 
     $scope.$watch('appConfig.userProfile', function() {
-      console.log(appConfig.userProfile);
+      //console.log(appConfig.userProfile);
       $scope.userProfile = appConfig.userProfile;
     });
 

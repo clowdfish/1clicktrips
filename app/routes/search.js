@@ -146,8 +146,11 @@ module.exports = function (app, express, production) {
     console.log(JSON.stringify(req.body, null, 2));
 
     if(checkValidity(req)) {
-
       var userLicence = null;
+
+      // parse roundtrip property and make a boolean out of it
+      var roundTrip = req.body['roundTrip'];
+      req.body['roundTrip'] = !!(roundTrip == 'true' || roundTrip == 1);
 
       var userId = AuthController.getUserIdFromRequest(req, secret);
 
@@ -192,8 +195,6 @@ function checkValidity(req) {
     req.body['appointments'].length > 0 && req.body['currency'] &&
     req.body['locale'] && req.body['roundTrip']) {
 
-    //req.body['roundTrip'] = 'true' ? true : false;
-
     if(!isNumber(req.body['origin']['latitude'])
       || !isNumber(req.body['origin']['longitude']))
       isValid = false;
@@ -208,7 +209,6 @@ function checkValidity(req) {
       }
 
       if(!checkAppointmentTimes(appointment)) {
-
         isValid = false;
       }
     });
