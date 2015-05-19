@@ -21,7 +21,6 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-ui-router/release/angular-ui-router.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/underscore/underscore-min.js',
       'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js',
       'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
       'bower_components/angular-animate/angular-animate.min.js',
@@ -34,6 +33,7 @@ module.exports = function(config) {
       'bower_components/ng-file-upload/angular-file-upload-all.min.js',
       'bower_components/angular-ui-sortable/sortable.min.js',
       'bower_components/ngstorage/ngStorage.min.js',
+      'scripts/lib/*.js',
       'scripts/**/*.js',
       'scripts/**/*.spec.js',
       'scripts/**/*.html'
