@@ -47,6 +47,7 @@
 
     favoriteOriginLocation = searchFormData.originLocation ? searchFormData.originLocation : null;
     $scope.destination = searchFormData.destination;
+    $scope.roundTrip = searchFormData.roundTrip;
     $scope.origin = searchFormData.origin;
 
     $scope.startDate = searchFormData.startDate;
@@ -153,7 +154,8 @@
           destinationLongitude: $scope.destinationLocation.longitude,
           destination: $scope.destination,
           startDate: startDate,
-          endDate: endDate
+          endDate: endDate,
+          roundTrip: $scope.roundTrip
         };
 
         $state.go('search_result', requestParameters);

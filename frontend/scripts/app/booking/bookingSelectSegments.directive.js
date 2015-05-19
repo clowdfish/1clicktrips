@@ -22,7 +22,7 @@
     };
 
     function link(scope, element, attrs) {
-      scope.showSaveBookingNotification = false;
+      scope.isBookingStored = false;
       scope.back = function() {
         scope.previousStep();
       };
@@ -103,7 +103,10 @@
       * Send store booking request and remove auth events listeners
       */
       function storeBooking() {
-        scope.showSaveBookingNotification = true;
+        if (scope.isBookingStored) {
+          return;
+        }
+        scope.isBookingStored = true;
         bookingApi.storeBooking(scope.bookingData)
           .then(function() {
             //alert("Booking was stored successfully.");

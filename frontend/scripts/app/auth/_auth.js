@@ -29,20 +29,23 @@
     $httpProvider.interceptors.push('requestChecker');
   }
 
-  function run($rootScope, $state, session, authApi, AUTH_EVENTS, authHelper) {
+  function run($rootScope, $state, session, authApi, AUTH_EVENTS, authHelper, userApi, appConfig) {
+    getUserProfile();
     //set isLogin when app start
     $rootScope.isLogin = session.isLogin();
 
     //Listen to signup and signin event to change isLogin
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $rootScope.isLogin = true;      
-      if (authHelper.redirectState !== null) {        
+      getUserProfile();
+      $rootScope.isLogin = true;
+      if (authHelper.redirectState !== null) {
         $state.go(authHelper.redirectState.state, authHelper.redirectState.data);
         authHelper.redirectState = null;
       }
     });
 
     $rootScope.$on(AUTH_EVENTS.signupSuccess, function() {
+      getUserProfile();
       $rootScope.isLogin = true;
       if (authHelper.redirectState !== null) {
         $state.go(authHelper.redirectState.state, authHelper.redirectState.data);
@@ -57,6 +60,20 @@
     $rootScope.$on(AUTH_EVENTS.invalidToken, function() {
       authApi.logout();
     });
+
+    function getUserProfile() {
+      userApi
+        .getUserProfile()
+        .then(function(userProfile) {
+          appConfig.userProfile = userProfile;
+          session.setUserProfile(userProfile);
+        }, function() {
+          appConfig.userProfile = null;
+          session.removeUserProfile();
+        });
+    }
   }
+
+
 
 })();

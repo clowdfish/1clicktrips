@@ -6,9 +6,11 @@
     .module('app.booking')
     .controller('bookingCtrl', bookingCtrl);
 
-  function bookingCtrl($scope, $state, bookingData, userProfile, AUTH_EVENTS, $anchorScroll) {
+  function bookingCtrl($scope, $state, $anchorScroll, bookingData, userProfile, AUTH_EVENTS, appConfig) {
     window.MY_SCOPE = $scope; // DEBUG FROM CONSOLE
     console.log(bookingData); // DEBUGGING
+
+    $scope.appConfig = appConfig;
 
     /**
     * Booking price before booking fee
@@ -50,15 +52,16 @@
     */
     $scope.userProfile = userProfile;
 
+    $scope.$watch('appConfig.userProfile', function() {
+      if (_.isEmpty($scope.bookingData.user)) {
+        $scope.bookingData.user = appConfig.userProfile;
+      }
+    });
+
     /**
     * Change step number
     */
     $scope.setStep = setStep;
-
-    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
-
-      $state.go($state.current, {}, {reload: true});
-    });
 
     $scope.mapView = mapView;
 

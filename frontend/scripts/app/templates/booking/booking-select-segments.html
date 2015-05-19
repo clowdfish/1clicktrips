@@ -71,7 +71,7 @@
   <span class="booking-content-help-text">
     {[ "booking_select_warning_text2" | translate ]}
   </span>
-  <span class="booking-content-help-text save" ng-show="showSaveBookingNotification">
+  <span class="booking-content-help-text save" ng-show="isBookingStored">
     {[ "booking_select_notification" | translate ]}
   </span>
 </div>
@@ -80,7 +80,7 @@
   <a class="button--light back" ng-click="back()">{[ "general_back" | translate | capitalize ]}</a>
 
   <a class="button next" ng-class="{ 'is-disabled': !bookable }" ng-click="continue()">{[ "general_continue" | translate | capitalize ]}</a>
-  <a class="button--light next" ng-click="save()">{[ "general_save" | translate | capitalize ]}</a>
+  <a class="button--light next" ng-class="{'is-disabled': isBookingStored }" ng-click="save()">{[ "general_save" | translate | capitalize ]}</a>
 </div>
 
 

@@ -100,14 +100,9 @@
 
     initCurrencies();
 
-    getUserProfile();
-
-    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
-      getUserProfile();
-    });
-
-    $scope.$on(AUTH_EVENTS.signupSuccess, function() {
-      getUserProfile();
+    $scope.$watch('appConfig.userProfile', function() {
+      console.log(appConfig.userProfile);
+      $scope.userProfile = appConfig.userProfile;
     });
 
     $scope.$watch('appConfig.activeCurrency', function() {
@@ -164,11 +159,11 @@
       userApi
         .getUserProfile()
         .then(function(userProfile) {
+          appConfig.userProfile = userProfile;
           $scope.userProfile = userProfile;
-          session.setUserProfile(userProfile);
         }, function() {
+          appConfig.userProfile = null;
           $scope.userProfile = null;
-          session.removeUserProfile();
         });
     }
 

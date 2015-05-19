@@ -54,13 +54,13 @@ module.exports = {
     });
   },
 
-  setBooking: function(userId, bookingObject, req) {
+  requestRealBooking: function(userId, bookingObject, req) {
     return new Promise(function(resolve, reject) {
       resolve();
     });
   },
 
-  saveSegmentSelections: function(userId, req) {
+  storeBooking: function(userId, req) {
     return new Promise(function(resolve, reject) {
       resolve();
     });

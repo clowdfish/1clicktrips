@@ -14,6 +14,7 @@
     this.currencySymbol = '$';
     this.activeLanguageKey = 'en';
     this.currencyDecimalDigits = 2;
+    this.userProfile = null;
 
     /**
     * Booking Rate Percent

@@ -9,7 +9,7 @@
   function routerConfig($stateProvider) {
 
     $stateProvider.state('search_result', {
-      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:destination,:origin',
+      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:destination,:origin,:roundTrip',
       templateUrl: 'scripts/app/templates/result/result.html',
       controller: 'resultCtrl',
       parent: 'root',
@@ -37,7 +37,7 @@
         }
       ],
       locale: appConfig.activeLanguageKey,
-      roundTrip: false,
+      roundTrip: $stateParams.roundTrip,
       currency: appConfig.activeCurrency
     };
   }

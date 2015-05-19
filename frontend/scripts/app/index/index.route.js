@@ -126,7 +126,8 @@
       startDate: startDate.toDate(),
       endDate: endDate.toDate(),
       destination: $stateParams.destination,
-      origin: $stateParams.origin
+      origin: $stateParams.origin,
+      roundTrip: $stateParams.roundTrip
     };
   }
 
@@ -146,7 +147,8 @@
       startDate: startDate,
       endDate: endDate,
       destination: null,
-      origin: null
+      origin: null,
+      roundTrip: 0
     }
 
     return searchFormData;

@@ -224,7 +224,8 @@
         destinationLongitude: $stateParams.destinationLongitude,
         destination: $stateParams.destination,
         startDate: $stateParams.startDate,
-        endDate: $stateParams.endDate
+        endDate: $stateParams.endDate,
+        roundTrip: $stateParams.roundTrip
       };
     }
 

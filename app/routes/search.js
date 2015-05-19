@@ -190,8 +190,10 @@ function checkValidity(req) {
 
   if(req.body['origin'] && req.body['appointments'] &&
     req.body['appointments'].length > 0 && req.body['currency'] &&
-    req.body['locale'] && (req.body['roundTrip'] === true ||
-    req.body['roundTrip'] === false)) {
+    req.body['locale'] && (req.body['roundTrip'] === 'true' ||
+    req.body['roundTrip'] === 'false')) {
+
+    //req.body['roundTrip'] = 'true' ? true : false;
 
     if(!isNumber(req.body['origin']['latitude'])
       || !isNumber(req.body['origin']['longitude']))
