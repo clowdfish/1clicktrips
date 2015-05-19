@@ -19,7 +19,7 @@
         config.timeout = deferred.promise;
 
         if ( ! session.isLogin() && config.url.match(regrex) !== null) {
-          console.log('Stop request to ', config.url);
+          //console.log('Stop request to ', config.url);
           deferred.resolve();
         }
 

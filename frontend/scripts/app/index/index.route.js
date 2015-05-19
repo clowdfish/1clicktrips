@@ -147,7 +147,7 @@
       endDate: endDate,
       destination: null,
       origin: null
-    }
+    };
 
     return searchFormData;
   }

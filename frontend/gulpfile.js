@@ -101,23 +101,23 @@ gulp.task('webserver', function() {
 // process and compile all script files
 gulp.task('scripts', ['i18n'], function() {
   gulp.src([
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/jquery-ui/jquery-ui.min.js',
+    'bower_components/jquery/dist/jquery.js',
+    'bower_components/jquery-ui/jquery-ui.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
     'bower_components/angular-mocks/angular-mocks.js',
-    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js',
-    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
     'bower_components/use-angular-translate/src/**/*.js',
-    'bower_components/angular-animate/angular-animate.min.js',
-    'bower_components/moment/min/moment.min.js',
-    'bower_components/lodash/lodash.min.js',
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/moment/min/moment.js',
+    'bower_components/lodash/lodash.js',
     'bower_components/use-angular-translate/src/**/*.js',
-    'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-    'bower_components/angular-sanitize/angular-sanitize.min.js',
-    'bower_components/ng-file-upload/angular-file-upload-all.min.js',
-    'bower_components/angular-ui-sortable/sortable.min.js',
-    'bower_components/ngstorage/ngStorage.min.js',
+    'bower_components/angular-local-storage/dist/angular-local-storage.js',
+    'bower_components/angular-sanitize/angular-sanitize.js',
+    'bower_components/ng-file-upload/angular-file-upload-all.js',
+    'bower_components/angular-ui-sortable/sortable.js',
+    'bower_components/ngstorage/ngStorage.js',
     'bower_components/fastclick/lib/fastclick.js'
   ])
   .pipe(plumber(plumberErrorHandler))

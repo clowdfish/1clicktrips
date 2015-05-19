@@ -61,7 +61,7 @@
         </li>
 
         <li class="header-navigation-menu-item">
-          <span class='header-navigation-menu-item-settings' ng-click="toggleCurrencies())">{[ activeCurrency.toUpperCase() ]}
+          <span class='header-navigation-menu-item-settings' ng-click="toggleCurrencies()">{[ activeCurrency.toUpperCase() ]}
             <ul class='currency-switch'>
               <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
                 {[ currency.code ]}
