@@ -59,7 +59,8 @@
           ':startDate,' +
           ':endDate,' +
           ':origin,' +
-          ':destination',
+          ':destination' +
+          ':roundTrip',
       views: {
         '': {
           templateUrl: 'scripts/app/templates/index/index.html',
@@ -113,7 +114,7 @@
     if (validTimeValues.indexOf(endDate.minutes()) == -1) {
       endDate.minutes(0);
     }
-
+    console.log($stateParams);
     return {
       destinationLocation: {
         latitude: parseFloat($stateParams.destinationLatitude),
@@ -127,7 +128,7 @@
       endDate: endDate.toDate(),
       destination: $stateParams.destination,
       origin: $stateParams.origin,
-      roundTrip: $stateParams.roundTrip
+      roundTrip: $stateParams.roundTrip === "true" ? true : false
     };
   }
 

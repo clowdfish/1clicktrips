@@ -129,7 +129,8 @@
         startDate: $stateParams.startDate,
         endDate: $stateParams.endDate,
         origin: $stateParams.origin,
-        destination: $stateParams.destination
+        destination: $stateParams.destination,
+        roundTrip: $stateParams.roundTrip
       });
     }
 
