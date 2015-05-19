@@ -110,7 +110,7 @@ gulp.task('scripts', ['i18n'], function() {
     'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
     'bower_components/use-angular-translate/src/**/*.js',
     'bower_components/angular-animate/angular-animate.js',
-    'bower_components/moment/min/moment.js',
+    'bower_components/moment/moment.js',
     'bower_components/lodash/lodash.js',
     'bower_components/use-angular-translate/src/**/*.js',
     'bower_components/angular-local-storage/dist/angular-local-storage.js',
