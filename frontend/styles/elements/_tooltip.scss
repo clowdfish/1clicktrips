@@ -17,14 +17,19 @@
     transition: height 1s ease-out, color 0.1s linear 0.3s;
   }
 
-  &:hover, &.show-tooltip {
-
-    &:after {
-      background: $c-status-error;
-      color: $c-white;
-      content: attr(reason);
-      padding: 0.4em 0.3em;
-      height: 100%;
-    }
+  &.show-tooltip:after {
+    background: $c-status-error;
+    color: $c-white;
+    content: attr(reason);
+    padding: 0.4em 0.3em;
+    height: 100%;
   }
+}
+
+.no-touch .tooltip.is-disabled:hover:after {
+  background: $c-status-error;
+  color: $c-white;
+  content: attr(reason);
+  padding: 0.4em 0.3em;
+  height: 100%;
 }

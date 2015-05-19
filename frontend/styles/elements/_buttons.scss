@@ -16,15 +16,6 @@
   &.is-disabled {
     opacity: 0.4;
     cursor: default;
-
-    &:hover {
-      background: $c-primary;
-    }
-  }
-
-  &:hover {
-    background: darken($c-primary, 5%);
-    text-decoration: none;
   }
 
   & > .fa {
@@ -45,11 +36,6 @@
   font-size: $fs-small;
   color: $c-primary;
   border: 1px solid $c-primary;
-
-  &:hover {
-    background-color: $c-primary;
-    color: $c-white;
-  }
 }
 
 .button--mobile {
@@ -63,4 +49,33 @@
 
 button:focus {
   outline: none; // for OS X
+}
+
+/**********************************************/
+/* TOUCH SPECIFIC STYLING                     */
+/**********************************************/
+.no-touch {
+  .button, .button-mobile {
+
+    &.is-disabled:hover {
+      background: $c-primary;
+    }
+
+    &:hover {
+      background: darken($c-primary, 5%);
+      text-decoration: none;
+    }
+  }
+
+  .button--light {
+
+    &.is-disabled:hover {
+      background: $c-primary;
+    }
+
+    &:hover {
+      background-color: $c-primary;
+      color: $c-white;
+    }
+  }
 }

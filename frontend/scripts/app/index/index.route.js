@@ -150,7 +150,8 @@
       destination: null,
       origin: null,
       roundTrip: 0
-    }
+    };
+
 
     return searchFormData;
   }

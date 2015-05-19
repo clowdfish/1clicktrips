@@ -257,8 +257,8 @@ $modal-inner-padding: 1em;
   color: $c-red;
 
   &:before {
-    font-family: FontAwesome;
-    content: "\f071\00a0";
+    @include fa-icon();
+    content: $fa-var-exclamation-triangle + "\00a0";
   }
 }
 
