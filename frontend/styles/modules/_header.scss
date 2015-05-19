@@ -285,9 +285,9 @@
 
     .header-navigation-profile-image {
       display: inline-block;
-      width: $profile-image-size;
-      height: $profile-image-size;
-      border-radius: $profile-image-size/2;
+      width: $navigation-image-size;
+      height: $navigation-image-size;
+      border-radius: $navigation-image-size/2;
       overflow: hidden;
       vertical-align: middle;
       margin-right: 0.3em;
@@ -298,8 +298,8 @@
       cursor: pointer;
 
       img {
-        width: $profile-image-size - 0.2rem;
-        height: $profile-image-size - 0.2rem;
+        width: $navigation-image-size - 0.2rem;
+        height: $navigation-image-size - 0.2rem;
       }
     }
 

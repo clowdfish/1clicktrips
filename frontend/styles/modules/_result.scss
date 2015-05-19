@@ -149,10 +149,6 @@
     padding: 0.7em;
     color: $c-white;
     cursor: pointer;
-
-    &:hover {
-      background-color: darken($c-primary, 5%);
-    }
   }
 
   .result-selection-refine-text {
@@ -193,10 +189,6 @@
       margin-right: 0.3em;
     }
 
-    &:hover {
-      color: darken($c-primary, 5%);
-    }
-
     &.active {
       background-color: $c-primary;
       color: $c-white;
@@ -206,10 +198,6 @@
     &.missing {
       opacity: 0.25;
       cursor: default;
-
-      &:hover {
-        color: $c-primary;
-      }
     }
   }
 
@@ -520,4 +508,29 @@
 
 .result {
   @extend %result;
+}
+
+/**********************************************/
+/* TOUCH SPECIFIC STYLING                     */
+/**********************************************/
+.no-touch .result {
+
+  .result-selection-type-list-item {
+
+    &:hover {
+      color: darken($c-primary, 5%);
+    }
+
+    &.active:hover {
+      color: $c-white;
+    }
+
+    &.missing:hover {
+      color: $c-primary;
+    }
+  }
+
+  .result-selection-refine-button:hover {
+    background-color: darken($c-primary, 5%);
+  }
 }
