@@ -149,7 +149,7 @@
       endDate: endDate,
       destination: null,
       origin: null,
-      roundTrip: 0
+      roundTrip: false
     };
 
 
