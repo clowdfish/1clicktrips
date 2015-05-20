@@ -10,20 +10,13 @@ var nodeMailer = require('nodemailer');
 var authConfig = require('../../config/auth');
 var translate = require('../i18n/i18n').translate;
 
+var bookingSelectHelper = require('../helpers/bookingSelectHelper');
 module.exports = {
 
   getBookings: function(userId, limit) {
     return new Promise(function(resolve, reject) {
-      connection.query('SELECT * FROM booking WHERE user_id = ?', [userId], function(err, rows) {
-        if (err) {
-          return reject(err);
-        }
-        var result = [];
-        for (var i = 0; i < rows.length; i++) {
-          var item = rows[i];
-          item['booked'] = rows[i]['booked'] == 1 ? true : false;
-          result.push(item);
-        }
+      return bookingSelectHelper(userId, function(err, result) {
+        if (err) return reject(err);
         return resolve(result);
       });
     });
@@ -90,6 +83,7 @@ module.exports = {
         },
         function(newBookingId, done) {
           bookingId = newBookingId;
+          console.log(newBookingId);
           insertBookingSegment(bookingId, bookingObject, done);
         },
         function(done) {
@@ -212,6 +206,7 @@ function copyUserProfileToBookingUser(userId, bookingId, finish) {
 
     function(userProfile, done) {
       var insertData = {
+        booking_id: bookingId,
         email: userProfile['email'],
         first_name: userProfile['first_name'],
         last_name: userProfile['last_name'],
