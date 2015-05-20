@@ -9,38 +9,38 @@
     var service = this;
 
     /**
-    * Find trip api
-    */
+     * Find trip api
+     */
     service.findItinerary = findItinerary;
 
     /**
-    * Find alternative vehicles
-    */
+     * Find alternative vehicles
+     */
     service.findAlternativeVehiclesSegment = findAlternativeVehiclesSegment;
 
     /**
-    * Find alternative hotels
-    */
+     * Find alternative hotels
+     */
     service.findAlternativeHotelsSegment = findAlternativeHotelsSegment;
 
     /**
-    * Use group segment to update trip data
-    */
+     * Use group segment to update trip data
+     */
     service.updateItineraryByGroupSegment = updateItineraryByGroupSegment;
 
     /**
-    * Replace segment with alternative
-    */
+     * Replace segment with alternative
+     */
     service.replaceSegmentWithAlternatives = replaceSegmentWithAlternatives;
 
     /**
-    * Set hotel
-    */
+     * Set hotel
+     */
     service.setSegmentHotel = setSegmentHotel;
 
     /**
-    * Remove hotel
-    */
+     * Remove hotel
+     */
     service.unsetSegmentHotel = unsetSegmentHotel;
 
     function findItinerary(searchObject, additionData) {
@@ -66,10 +66,12 @@
         .success(function(response) {
           var data = response[0];
           var result = [];
+
           for (var i = 0; i < data.length; i++) {
             var itinerary = transformItinerary(data[i], additionData);
             result.push(itinerary);
           }
+
           deferred.resolve(result);
         })
         .error(function() {
@@ -80,8 +82,8 @@
     }
 
     /**
-    * Find alternatives vehicle
-    */
+     * Find alternatives vehicle
+     */
     function findAlternativeVehiclesSegment(itinerary, segmentId, tripId, language, currency) {
       var searchParams = {
         tripId: tripId,
@@ -98,7 +100,8 @@
           .success(function(alternatives) {
             alternatives = appendTripIdToAlternativeVehicles(alternatives, tripId);
             alternatives = calculateTimeAndPriceDifference(itinerary, alternatives);
-            console.log(alternatives);
+
+            //console.log(alternatives);
             resolve(alternatives);
           })
           .error(function(data, status) {
@@ -118,7 +121,7 @@
             return item.price.amount;
           } else {
             //mock data
-            return 5;
+            return 0;
           }
         });
         var alternativeDuration = _.sum(alternative.segments, function(item) {
@@ -153,12 +156,13 @@
     }
 
     /**
-    * Because alternatives data from server doesn't have tripId,
-    * we have to append tripId to alternatives segments so we can search for another alternatives later
-    * @params Array - alternatives data
-    * @params string - Trip Id
-    * @returns Array - alternatives with tripId in each segments
-    */
+     * Because alternatives data from server doesn't have tripId,
+     * we have to append tripId to alternatives segments so we can search for another alternatives later.
+     *
+     * @params Array - alternatives data
+     * @params string - Trip Id
+     * @returns Array - alternatives with tripId in each segments
+     */
     function appendTripIdToAlternativeVehicles(alternatives, tripId) {
       for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
         var alternative = alternatives[alternativeIndex];
@@ -170,8 +174,8 @@
     }
 
     /**
-    * Find alternative hotels
-    */
+     * Find alternative hotels
+     */
     function findAlternativeHotelsSegment(segmentId, tripId, language, currency) {
       var searchParams = {
         tripId: tripId,
@@ -246,13 +250,13 @@
     }
 
     /**
-    * Insert array2 into array1 at index position
-    *
-    * @params {Array} array1 - Array which will contain the insertment array
-    * @params {Array} array2 - Array which will be inserted into array1
-    * @params {int} index - Position to insert array2 into array1
-    * @return {Array} new array
-    */
+     * Insert array2 into array1 at index position.
+     *
+     * @params {Array} array1 - Array which will contain the insertment array
+     * @params {Array} array2 - Array which will be inserted into array1
+     * @params {int} index - Position to insert array2 into array1
+     * @return {Array} new array
+     */
     function insertAt(array1, array2, index) {
       var origin = _.clone(array1);
       var end = origin.splice(index);
@@ -261,9 +265,15 @@
 
     function transformItinerary(itinerary, searchObject) {
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
-      var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
+      outboundSegments.forEach(function(segment) {
+        segment['tripId'] = itinerary.outbound.id;
+      });
 
-      //var groupSegment = groupSegmentByDate(itinerary);
+      var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
+      inboundSegments.forEach(function(segment) {
+        segment['tripId'] = itinerary.inbound.id;
+      });
+
       var groupSegment = [];
       groupSegment.push(outboundSegments);
       groupSegment.push(inboundSegments);
@@ -279,11 +289,11 @@
     }
 
     /**
-    * Collect data from group segments and update to itinerary
-    * @params {Object} itinerary - Itinerary object
-    * @params {Object} groupSegment
-    * @return {Object} itinerary - Itinerary is updated by data from groupSegment
-    */
+     * Collect data from group segments and update to itinerary
+     * @params {Object} itinerary - Itinerary object
+     * @params {Object} groupSegment
+     * @return {Object} itinerary - Itinerary is updated by data from groupSegment
+     */
     function updateItineraryByGroupSegment(itinerary) {
       var groupSegment = itinerary.groupSegment;
       itinerary['groupSegment'] = groupSegment;
@@ -297,10 +307,10 @@
     }
 
     /**
-    * Get vehicle number array from group segments
-    * @params {Object} groupSegment
-    * @returns {Array} array of vehicle number
-    */
+     * Get vehicle number array from group segments
+     * @params {Object} groupSegment
+     * @returns {Array} array of vehicle number
+     */
     function getVehicleTypeList(groupSegment) {
       var vehicleTypeList = [];
 
@@ -314,8 +324,8 @@
     }
 
     /**
-    * Get departure time of the first segment in group segments
-    */
+     * Get departure time of the first segment in group segments
+     */
     function getItineraryStartTime(groupSegment) {
       if (_.isUndefined(groupSegment[1])) {
         return;
@@ -324,8 +334,8 @@
     }
 
     /**
-    * Get arrival time of last segment in group segments
-    */
+     * Get arrival time of last segment in group segments
+     */
     function getItineraryEndTime(groupSegment) {
       var keys = _.keys(groupSegment);
       var lastIndex = keys.length;
@@ -335,8 +345,8 @@
     }
 
     /**
-    * Sum of duration in group segments
-    */
+     * Sum of duration in group segments
+     */
     function getItineraryDuration(groupSegment) {
       var duration = 0;
       loopThroughGroupSegment(groupSegment, function(segment) {
@@ -385,7 +395,6 @@
     /**
      * Group segment by day.
      * REMARK: For now, it won't group it by day but by inbound and outbound.
-     * See the commented part for further information
      */
     function groupSegmentByDate(itinerary) {
       var i = 0;
@@ -396,6 +405,7 @@
       var segment;
 
       if (itinerary.outbound && itinerary.outbound.hasOwnProperty('segments')) {
+
         for (i = 0; i < itinerary.outbound.segments.length; i++) {
           segment = itinerary.outbound.segments[i];
           segment['tripId'] = itinerary.outbound.id;
@@ -406,13 +416,11 @@
           result[day].push(segment);
 
           // This part will put the segments into different groups based on days
-          //if (segment.type == 0) day++;
+          if (segment.type == 0) day++;
         }
       }
 
       if (itinerary.inbound && itinerary.inbound.hasOwnProperty('segments')) {
-        // increase day variable to create different groups in result screen
-        day++;
 
         for (i = 0; i < itinerary.inbound.segments.length; i++) {
           segment = itinerary.inbound.segments[i];
@@ -425,7 +433,7 @@
           result[day].push(segment);
 
           // This part will put the segments into different groups based on days
-          //if (segment.type == 0) day++;
+          if (segment.type == 0) day++;
         }
       }
       return result;
