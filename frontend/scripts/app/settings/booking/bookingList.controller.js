@@ -17,7 +17,7 @@
         }, function() {
           alert('Can not delete real booking');
         });
-    }
+    };
 
     function removeBookingFromList(booking) {
       var index = _.findIndex($scope.bookingList, function(item) {
