@@ -56,8 +56,10 @@ module.exports = {
   getByKey: function(userId, key) {
     return new Promise(function(resolve, reject) {
       connection.query("SELECT * FROM setting WHERE user_id = ? AND `key` = ?", [userId, key], function(err, rows) {
-        if (err) return reject(err);
-        if (rows.length === 0) resolve();
+        if (err)
+          return reject(err);
+
+        if (rows.length === 0) return resolve();
         return resolve(rows[0].value);
       });
     });

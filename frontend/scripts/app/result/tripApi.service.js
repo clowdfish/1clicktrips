@@ -282,7 +282,7 @@
       groupSegments.push(outboundSegments);
 
       // create inbound group if inbound is available
-      if(itinerary.inbound && itinerary.inbound.length) {
+      if(itinerary.inbound && itinerary.inbound.segments.length) {
         var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
         inboundSegments.forEach(function (segment) {
           segment['tripId'] = itinerary.inbound.id;
@@ -450,6 +450,5 @@
       }
       return result;
     }
-
   }
 })();

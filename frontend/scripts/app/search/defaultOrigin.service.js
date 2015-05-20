@@ -36,28 +36,31 @@
     }
 
     function setDefaultOrigin(description, location) {
+
       return $q(function(resolve, reject) {
 
-        var origin = {
-          description: description,
-          location: location
-        }
-        if (description === null || location === null) {
-          origin = null;
+        var origin = null;
+
+        if (description != null && location != null) {
+          origin = {
+            description: description,
+            location: location
+          };
         }
 
         if (false === session.isLogin()) {
           $sessionStorage[storageKey] = origin;
           return resolve();
         }
-
-        settings
-          .setUserSettings(storageKey, JSON.stringify(origin))
-          .then(function() {
-            resolve();
-          }, function() {
-            reject();
-          });
+        else {
+          settings
+            .setUserSettings(storageKey, JSON.stringify(origin))
+            .then(function() {
+              resolve();
+            }, function() {
+              reject();
+            });
+        }
       });
     }
   }

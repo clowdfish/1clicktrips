@@ -79,12 +79,6 @@
 
     function stepOrigin() {
       $scope.step = SEARCH_STEPS.origin;
-
-      $timeout(function() {
-        if ($scope.origin && favoriteOriginLocation) {
-          $scope.originLocation = favoriteOriginLocation;
-        }
-      }, 50);
     }
 
     function stepDestination() {

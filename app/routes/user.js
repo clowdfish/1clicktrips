@@ -115,11 +115,7 @@ module.exports = function (app, express, production) {
     SettingsController
       .getByKey(userId, req.params.key)
       .then(function(setting) {
-        if (setting) {
-          res.status(200).json(setting)
-        } else {
-          res.sendStatus(500);
-        }
+        res.status(200).json(setting);
       })
       .catch(function(err) {
         res.status(500).send(err.message);
@@ -190,7 +186,7 @@ module.exports = function (app, express, production) {
 
     var userId = AuthController.getUserIdFromRequest(req, secret);
 
-    var favoriteId = req.param('id');
+    var favoriteId = req.params.id;
     console.log('Favorite id retrieved: ' + favoriteId);
 
     UserController.deleteFavorite(userId, favoriteId)
