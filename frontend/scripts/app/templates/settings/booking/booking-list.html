@@ -15,7 +15,7 @@
         <td>{[ booking.booking_date | date: "dd MMM yyyy" ]}</td>
         <td>{[ booking.title ]}</td>
         <td><a ui-sref="settings.booking.detail({id: booking.id})"><i class="fa fa-eye"></i></a></td>
-        <td><a ng-click="deleteBooking(booking)" ng-show=" ! booking.booked"><i class="fa fa-trash-o"></i></a></td>
+        <td><a ng-click="deleteBooking(booking)" ng-show="!booking.booked"><i class="fa fa-trash-o"></i></a></td>
       </tr>
     </tbody>
   </table>

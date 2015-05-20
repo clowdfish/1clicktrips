@@ -263,22 +263,34 @@
       return origin.concat(array2, end);
     }
 
+    /**
+     *
+     *
+     * @param itinerary
+     * @param searchObject
+     * @returns {Object|*}
+     */
     function transformItinerary(itinerary, searchObject) {
+      // the different groups that are shown as tabs in the trip segment list
+      var groupSegments = [];
+
+      // create outbound group
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       outboundSegments.forEach(function(segment) {
         segment['tripId'] = itinerary.outbound.id;
       });
+      groupSegments.push(outboundSegments);
 
-      var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
-      inboundSegments.forEach(function(segment) {
-        segment['tripId'] = itinerary.inbound.id;
-      });
+      // create inbound group if inbound is available
+      if(itinerary.inbound && itinerary.inbound.length) {
+        var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
+        inboundSegments.forEach(function (segment) {
+          segment['tripId'] = itinerary.inbound.id;
+        });
+        groupSegments.push(inboundSegments);
+      }
 
-      var groupSegment = [];
-      groupSegment.push(outboundSegments);
-      groupSegment.push(inboundSegments);
-
-      itinerary['groupSegment'] = groupSegment;
+      itinerary['groupSegment'] = groupSegments;
       itinerary = updateItineraryByGroupSegment(itinerary);
       itinerary['startDate'] = searchObject.startDate;
       itinerary['endDate'] = searchObject.endDate;
@@ -327,10 +339,10 @@
      * Get departure time of the first segment in group segments
      */
     function getItineraryStartTime(groupSegment) {
-      if (_.isUndefined(groupSegment[1])) {
+      if (_.isUndefined(groupSegment[0])) {
         return;
       }
-      return _.first(groupSegment[1]).departureTime;
+      return _.first(groupSegment[0]).departureTime;
     }
 
     /**
@@ -399,7 +411,7 @@
     function groupSegmentByDate(itinerary) {
       var i = 0;
       var result = {};
-      var day = 1;
+      var day = 0;
       result[day] = [];
 
       var segment;

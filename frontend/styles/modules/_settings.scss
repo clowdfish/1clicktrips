@@ -295,6 +295,13 @@
     }
   }
 
+  .settings-bookings-item {
+
+    &>td:first-of-type {
+      min-width: 7em;
+    }
+  }
+
   .settings-bookings-back {
     display: block;
     margin-bottom: 0.8em;

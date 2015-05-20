@@ -70,7 +70,8 @@ button:focus {
   .button--light {
 
     &.is-disabled:hover {
-      background: $c-primary;
+      background: transparent;
+      color: $c-primary;
     }
 
     &:hover {
