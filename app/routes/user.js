@@ -109,6 +109,23 @@ module.exports = function (app, express, production) {
       });
   });
 
+  accountApi.get('/settings/:key', function(req, res) {
+    var userId = AuthController.getUserIdFromRequest(req, secret);
+
+    SettingsController
+      .getByKey(userId, req.params.key)
+      .then(function(setting) {
+        if (setting) {
+          res.status(200).json(setting)
+        } else {
+          res.sendStatus(500);
+        }
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      });
+  });
+
   accountApi.post('/settings', function (req, res) {
 
     if (req.body) {

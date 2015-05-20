@@ -25,7 +25,11 @@
               ng-model='$parent.origin'
               typeahead="address.description for address in getAddressSuggestion($viewValue)"
               typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
-            <input type="checkbox" id="default_origin" name="default_origin" ng-click="stepOrigin()" />
+            <input type="checkbox"
+                    id="default_origin"
+                    name="default_origin"
+                    ng-model="storeDefaultOrigin"
+                    ng-click="toggleDefaultOrigin()" />
             <label for="default_origin" class="search-form-input-item-label light">{[ "search_form_origin_default" | translate ]}</label>
           </div>
         </li>

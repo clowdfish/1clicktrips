@@ -25,6 +25,12 @@ module.exports = {
       else
         reject(new Error('Setting could not be retrieved.'));
     });
+  },
+
+  getByKey: function(userId, key) {
+    return new Promise(function(resolve, reject) {
+      resolve();
+    }
   }
 };
 

@@ -13,6 +13,7 @@
     this.getUserSettings = getUserSettings;
     this.setUserSettings = setUserSettings;
     this.mergeUserSettingWithTemplate = mergeUserSettingWithTemplate;
+    this.getSettingByKey = getSettingByKey;
 
     function getUserSettings() {
       return $q(function(resolve, reject) {
@@ -26,6 +27,24 @@
           .success(function(response) {
             var settings = mergeUserSettingWithTemplate(response);
             resolve(settings);
+          })
+          .error(function() {
+            reject();
+          });
+      });
+    }
+
+    function getSettingByKey(key) {
+      return $q(function(resolve, reject) {
+
+        if (session.getAuthToken() === null) {
+          reject(new Error("Token is not available"));
+        }
+
+        $http
+          .get('/api/account/settings/' + key)
+          .success(function(response) {
+            resolve(response);
           })
           .error(function() {
             reject();
