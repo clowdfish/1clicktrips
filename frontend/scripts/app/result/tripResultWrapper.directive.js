@@ -8,7 +8,7 @@
     .module('app.result')
     .directive('tripResultWrapper', tripResultWrapper);
 
-  function tripResultWrapper(browser, appConfig) {
+  function tripResultWrapper(browser, appConfig, VEHICLE_TYPE) {
     return {
       restrict: 'E',
       scope: {
@@ -98,7 +98,7 @@
           $event.preventDefault();
           $event.stopPropagation();
         }
-        if (segment.type === 1) {
+        if (segment.type === VEHICLE_TYPE.bed) {
           showAlternativeHotels(segment);
         } else {
           showAlternativeVehicles(segment);
