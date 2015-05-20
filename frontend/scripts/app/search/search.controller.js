@@ -98,6 +98,30 @@
       $scope.step = SEARCH_STEPS.appointment;
     }
 
+    /**
+     * Set start time on startDate change.
+     */
+    $scope.$watch('startDate', function() {
+      var startTime = $scope.startTimeString;
+
+      $scope.startDate.setHours(parseInt(startTime.substr(0, 2)));
+      $scope.startDate.setMinutes(parseInt(startTime.substr(3, 2)));
+    });
+
+    /**
+     * Set end time on endDate change.
+     */
+    $scope.$watch('endDate', function() {
+      // set end time
+      var endTime = $scope.endTimeString;
+
+      $scope.endDate.setHours(parseInt(endTime.substr(0, 2)));
+      $scope.endDate.setMinutes(parseInt(endTime.substr(3, 2)));
+    });
+
+    /**
+     * Watch input form data to check on completeness.
+     */
     $scope.$watchGroup(['origin', 'destination', 'startDate', 'endDate'], function() {
 
       $scope.isStepAppointmentReady = false;

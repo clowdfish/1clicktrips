@@ -76,6 +76,7 @@ button:focus {
     &:hover {
       background-color: $c-primary;
       color: $c-white;
+      text-decoration: none;
     }
   }
 }

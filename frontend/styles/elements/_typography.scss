@@ -55,6 +55,7 @@ p {
 a, a:visited {
   color: $c-primary;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .no-touch a:hover {
