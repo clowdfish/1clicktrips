@@ -247,6 +247,7 @@
 
     /**
     * Insert array2 into array1 at index position
+    *
     * @params {Array} array1 - Array which will contain the insertment array
     * @params {Array} array2 - Array which will be inserted into array1
     * @params {int} index - Position to insert array2 into array1
@@ -261,9 +262,14 @@
     function transformItinerary(itinerary, searchObject) {
       var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
       var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
-      var groupSegment = groupSegmentByDate(itinerary);
+
+      //var groupSegment = groupSegmentByDate(itinerary);
+      var groupSegment = [];
+      groupSegment.push(outboundSegments);
+      groupSegment.push(inboundSegments);
+
       itinerary['groupSegment'] = groupSegment;
-      itinerary = updateItineraryByGroupSegment(itinerary, groupSegment);
+      itinerary = updateItineraryByGroupSegment(itinerary);
       itinerary['startDate'] = searchObject.startDate;
       itinerary['endDate'] = searchObject.endDate;
       itinerary['origin'] = searchObject.origin;
