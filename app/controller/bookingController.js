@@ -137,7 +137,11 @@ function insertBooking(userId, bookingObject, isBooked, done) {
   var insertData = {
     user_id: userId,
     subject: subject,
-    booked: isBooked
+    booked: isBooked,
+    origin: bookingObject.trip.origin,
+    destination: bookingObject.trip.destination,
+    start_date: bookingObject.trip.startDate,
+    end_date: bookingObject.trip.endDate
   };
   connection.query('INSERT INTO booking SET ?', insertData, function(err, data) {
     if (err) {

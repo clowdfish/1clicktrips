@@ -17,6 +17,9 @@
     * @return {Date} date object
     */
     function stringToDate(date) {
+      if (date === null) {
+        return null;
+      }
       return moment(date, "YYYY-MM-DDTHH:mm:ssZ").toDate();
     }
   }

@@ -20,7 +20,7 @@ function bookings(userId, callback) {
 }
 
 function getAllBookings(userId, done) {
-  connection.query('SELECT * FROM booking WHERE user_id = ? and reference IS null', [userId], function(err, rows) {
+  connection.query('SELECT * FROM booking WHERE user_id = ? and reference IS null ORDER BY end_date DESC', [userId], function(err, rows) {
     if (err) {
       return done(err);
     }
@@ -29,6 +29,8 @@ function getAllBookings(userId, done) {
       var item = rows[i];
       item['booked'] = rows[i]['booked'] == 1 ? true : false;
       item['title'] = item['subject'];
+      item['startDate'] = item['start_date'];
+      item['endDate'] = item['end_date'];
       delete item['subject'];
       result.push(item);
     }

@@ -11,7 +11,8 @@
   */
   function dateFormatter(dateFilter) {
     return function(dateString, format) {
-      if (typeof(dateString) === "string") {
+      if (dateString === null) return null;
+      if (typeof(dateString) === "string" && dateString.trim() !== '') {
         var date = moment(dateString).toDate();
         return dateFilter(date, format);
       }

@@ -4,6 +4,7 @@
     "user"      : "root",
     "password"  : "",
     "database"  : "1clicktrips",
-    "driver"    : "mysql"
+    "driver"    : "mysql",
+    "multipleStatements": true
   }
 }
