@@ -16,11 +16,11 @@ function bookings(userId, callback) {
   ], function(err, result) {
     if (err) return callback(err);
     callback(null, result);
-  })
+  });
 }
 
 function getAllBookings(userId, done) {
-  connection.query('SELECT * FROM booking WHERE user_id = ? and reference is null', [userId], function(err, rows) {
+  connection.query('SELECT * FROM booking WHERE user_id = ? and reference IS null', [userId], function(err, rows) {
     if (err) {
       return done(err);
     }
@@ -37,6 +37,9 @@ function getAllBookings(userId, done) {
 }
 
 function attachAdditionBookingData(bookings, done) {
+  if (bookings.length == 0) {
+    done(null, []);
+  }
   async.each(bookings, function(booking) {
     async.series([
       function(participantDone) {
@@ -71,10 +74,10 @@ function attachParticipants(booking, done) {
 }
 
 function getParticipantFromReference(bookingId, done) {
-  var selectQuery = 'select * from booking b ' +
-                    'join user u on u.id = b.user_id ' +
-                    'join profile p on p.id = u.profile_id ' +
-                    'where b.id = ?';
+  var selectQuery = 'SELECT * FROM booking b ' +
+                    'JOIN user u ON u.id = b.user_id ' +
+                    'JOIN profile p ON p.id = u.profile_id ' +
+                    'WHERE b.id = ?';
   connection.query(selectQuery, [bookingId], function(err, rows) {
     if (err) return done(err);
     if (rows.length == 0) {

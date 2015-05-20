@@ -293,19 +293,32 @@ function sendBookingSuccessEmail(bookingObject, req, done) {
 }
 
 function removeBooking(bookingId, done) {
-  var deleteQueries = [
-    'DELETE FROM booking_segment WHERE booking_id = ?',
-    'DELETE FROM booking_user WHERE booking_id = ?',
-    'DELETE FROM booking where id = ?'
-  ];
-
-  async.each(deleteQueries, function(query, callback) {
-    connection.query(query, [bookingId], function(err) {
-      if (err) {
-        return callback(err);
-      } else {
+  async.waterfall([
+    function(callback) {
+      var deleteQueries = [
+        'DELETE FROM booking_segment WHERE booking_id = ?',
+        'DELETE FROM booking_user WHERE booking_id = ?',
+        'DELETE FROM booking where id = ?'
+      ];
+      async.each(deleteQueries, function(query, deleteDone) {
+        connection.query(query, [bookingId], function(err) {
+          if (err) {
+            return deleteDone(err);
+          } else {
+            return deleteDone();
+          }
+        });
+      }, callback);
+    },
+    function(callback) {
+      connection.query('UPDATE booking SET reference = null WHERE reference = ?', [bookingId], function(err) {
+        if (err) return callback(err);
         return callback();
-      }
-    });
-  }, done);
+      });
+    }
+  ], function(err) {
+    if (err) return done(err);
+    return done();
+  });
+
 }
