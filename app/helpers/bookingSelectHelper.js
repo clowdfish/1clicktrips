@@ -28,6 +28,8 @@ function getAllBookings(userId, done) {
     for (var i = 0; i < rows.length; i++) {
       var item = rows[i];
       item['booked'] = rows[i]['booked'] == 1 ? true : false;
+      item['title'] = item['subject'];
+      delete item['subject'];
       result.push(item);
     }
     return done(null, result);
@@ -35,7 +37,7 @@ function getAllBookings(userId, done) {
 }
 
 function attachAdditionBookingData(bookings, done) {
-  async.each(bookings, function(booking, bookingDone) {
+  async.each(bookings, function(booking) {
     async.series([
       function(participantDone) {
         attachParticipants(booking, participantDone);

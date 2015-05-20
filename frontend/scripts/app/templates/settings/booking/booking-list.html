@@ -13,7 +13,7 @@
     <tbody>
       <tr class="settings-bookings-item" ng-repeat="booking in bookingList">
         <td>{[ booking.booking_date | date: "dd MMM yyyy" ]}</td>
-        <td>{[ booking.subject ]}</td>
+        <td>{[ booking.title ]}</td>
         <td><a ui-sref="settings.booking.detail({id: booking.id})"><i class="fa fa-eye"></i></a></td>
         <td><a ng-click="deleteBooking(booking)"><i class="fa fa-trash-o"></i></a></td>
       </tr>
