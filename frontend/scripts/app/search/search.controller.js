@@ -16,8 +16,6 @@
 
     $rootScope.windowHeight = null;
 
-    var favoriteOriginLocation = null;
-
     $scope.isMobile = browser.isMobileDevice();
     $scope.isLogin = true;
     $scope.searchDataComplete = false;
@@ -42,13 +40,12 @@
     $scope.startSearch = startSearch;
 
     // search data
-    $scope.destinationLocation = searchFormData.destinationLocation;
     $scope.originLocation = searchFormData.originLocation;
+    $scope.destinationLocation = searchFormData.destinationLocation;
 
-    favoriteOriginLocation = searchFormData.originLocation ? searchFormData.originLocation : null;
+    $scope.origin = searchFormData.origin;
     $scope.destination = searchFormData.destination;
     $scope.roundTrip = searchFormData.roundTrip;
-    $scope.origin = searchFormData.origin;
 
     $scope.startDate = searchFormData.startDate;
     $scope.startDate.setHours(10);
@@ -70,7 +67,7 @@
     */
     function selectFavorite(favorite) {
       $scope.origin = favorite.origin.description;
-      favoriteOriginLocation = favorite.origin.location;
+      $scope.originLocation = favorite.origin.location;
       $scope.isStepOriginReady = true;
 
       $scope.destination = favorite.destination.description;

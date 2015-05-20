@@ -11,6 +11,7 @@
                         AUTH_EVENTS,
                         favoriteApi,
                         bookingApi) {
+
     $scope.favoriteList = favoriteList;
     $scope.bookedTripList = bookedTripList;
 

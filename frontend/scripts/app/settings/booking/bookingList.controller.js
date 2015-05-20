@@ -10,7 +10,7 @@
     $scope.bookingList = bookingList;
 
     $scope.deleteBooking = function(booking) {
-      var shouldDelete = confirm($translate.instant('settings_bookings_confirmdelete'));
+      var shouldDelete = confirm($translate.instant('settings_bookings_delete'));
       if (!shouldDelete) {
         return;
       }
@@ -20,7 +20,7 @@
         .then(function() {
           removeBookingFromList(booking);
         }, function() {
-          alert('Can not delete real booking');
+          alert('Can not delete real booking.');
         });
     };
 

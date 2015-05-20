@@ -6,11 +6,11 @@
       <div class="favorite-list-detail-data">
         <div class="favorite-list-box-label">{[ "general_from" | translate | capitalize ]}</div>
         <div class="favorite-list-box-location">{[favorite.origin.description]}</div>
-        <div class="favorite-list-box-verticle-separator"></div>
+        <div class="favorite-list-box-vertical-separator"></div>
         <div class="favorite-list-box-label">{[ "general_destination" | translate ]}</div>
         <div class="favorite-list-box-location">{[favorite.destination.description]}</div>
         <div class="favorite-list-box-separator"></div>
-        <a ng-click="callSelectFavoriteFunction(favorite)" class="button favorite-list-box-button">{[ "dashboard_favorites_start" | translate ]}</a>
+        <a ng-click="selectFavoriteFunction(favorite)" class="button favorite-list-box-button">{[ "dashboard_favorites_start" | translate ]}</a>
       </div>
     </div>
   </div>
@@ -31,7 +31,6 @@
           <span class="favorite-list-box-location">{[item.destination.description]}</span>
         </div>
       </div>
-
       <div class="clearfix"></div>
 
       <div class='paging list-paging'>

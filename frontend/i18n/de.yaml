@@ -136,7 +136,10 @@ de:
     comfort:
       title: Komfortabel
       description: Text Beschreibung
-    favorite: '+ als Favorit speichern'
+    favorite:
+      label: '+ als Favorit speichern'
+      added: Favorit wurde erfolgreich hinzugefügt.
+      error: Favorit konnte nicht hinzugefügt werden.
     searching: Suchend, bitte warten...
     destination:
       label: Ihr Zielort
@@ -182,7 +185,7 @@ de:
       content: "Enthält die folgenden Reiseabschnitte:"
       include: Zu Buchung hinzufügen
       provider: Zum Anbieter
-      notification:  The trip can now be found in your profile section. The prices won't stay the same, so it would be good to book now to avoid higher prices.
+      notification: Die Buchung ist ab sofort in deinem Profilbereich zu finden. Die Preise werden sich ändern, also buchst du am besten gleich jetzt, um erhöhte Preise zu vermeiden.
       warning:
         title: Bitte beachten!
         text1: Du kannst nur Buchen, wenn du mindestens einen Reiseabschnitt angewählt hast.
@@ -290,6 +293,8 @@ de:
       title: Privatsphäre
     payment:
       title: Bezahlung
+    bookings:
+      delete: Willst du diese gespeicherte Buchung wirklich löschen?
     preferences:
       title: Präferenzen
       travelProfile:

@@ -30,7 +30,7 @@
         booking: getBookingById
       }
     });
-  };
+  }
 
   function getBookingList(session, bookingApi) {
     if (!session.isLogin()) {

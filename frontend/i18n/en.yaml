@@ -97,33 +97,33 @@ en:
     placeholder: Your email address
     submit: Subscribe
   search:
-      navigation:
-        destination: Specify Your Destination
-        timing: Specify Date & Time
-        origin: Specify Your Origin
-      form:
-        title: Travel to your next appointment. Now.
-        origin:
-          label: Where do you want to start?
-          placeholder: Enter your origin
-          default: make this my default origin
-        destination:
-          label: Where is your appointment?
-          placeholder: Enter your destination
-          type:
-            address: Address
-            event: Event
-            meeting: Meeting Space
-          roundtrip: this is a round-trip
-        appointment:
-          start: When does your appointment start?
-          end: When does your appointment end?
-          warning: The time format must be hh:mm
-        submit: Start Search
-        error:
-          incomplete: You did not enter all necessary data.
-          past: Your selected dates are in the past.
-          timing: Your appointment ends before it starts. This could cause some trouble.
+    navigation:
+      destination: Specify Your Destination
+      timing: Specify Date & Time
+      origin: Specify Your Origin
+    form:
+      title: Travel to your next appointment. Now.
+      origin:
+        label: Where do you want to start?
+        placeholder: Enter your origin
+        default: make this my default origin
+      destination:
+        label: Where is your appointment?
+        placeholder: Enter your destination
+        type:
+          address: Address
+          event: Event
+          meeting: Meeting Space
+        roundtrip: this is a round-trip
+      appointment:
+        start: When does your appointment start?
+        end: When does your appointment end?
+        warning: The time format must be hh:mm
+      submit: Start Search
+      error:
+        incomplete: You did not enter all necessary data.
+        past: Your selected dates are in the past.
+        timing: Your appointment ends before it starts. This could cause some trouble.
   result:
     refine: Refine search
     select: Choose your result type
@@ -136,7 +136,10 @@ en:
     comfort:
       title: Comfort
       description: Text description
-    favorite: 'Add to Favorites'
+    favorite:
+      label: 'Add to Favorites'
+      added: Added to favorites successfully.
+      error: Could not add to favorites.
     searching: Searching, please wait...
     destination:
       label: Your destination
@@ -291,7 +294,7 @@ en:
     payment:
       title: Payment
     bookings:
-      confirmdelete: Do you want to delete this booking ?
+      delete: Do you really want to delete this booking?
     preferences:
       title: Preferences
       travelProfile:

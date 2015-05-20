@@ -105,7 +105,7 @@
       /**
       * Scroll to top then call selectFavorite();
       */
-      scope.callSelectFavoriteFunction = callSelectFavoriteFunction;
+      scope.selectFavoriteFunction = selectFavoriteFunction;
 
       scope.$watch('currentPage', function() {
         scope.offset = (scope.currentPage - 1) * scope.itemPerPage;
@@ -123,7 +123,7 @@
         destroy();
       });
 
-      function callSelectFavoriteFunction(favorite) {
+      function selectFavoriteFunction(favorite) {
         $('body').animate({
           scrollTop: 0
         });
@@ -138,11 +138,10 @@
         scope.favorite = favorite;
 
         if(browser.isMobileDevice()) {
-          callSelectFavoriteFunction(favorite)
+          selectFavoriteFunction(favorite)
         }
         else {
           clearMarkers();
-          //this.displayPath.setMap(null);
           scope.isShowingFavoriteDetail = true;
           showOverviewMap(favorite.origin.location, favorite.destination.location);
         }
@@ -173,7 +172,7 @@
       function showOverviewMap(originLocation, destinationLocation) {
         clearMarkers();
         latLngs.clear();
-        this.mapBounds = new google.maps.LatLngBounds();
+        _this.mapBounds = new google.maps.LatLngBounds();
         addLocation(originLocation);
         addLocation(destinationLocation);
         map.fitBounds(mapBounds);
@@ -191,11 +190,9 @@
           position: latLng
         });
 
-        this.markers.push(marker);
-
-        this.mapBounds.extend(latLng);
-
-        this.displayPath.setPath(this.latLngs);
+        _this.markers.push(marker);
+        _this.mapBounds.extend(latLng);
+        _this.displayPath.setPath(_this.latLngs);
 
         $timeout(function() {
           google.maps.event.trigger(_this.map, 'resize');
@@ -209,9 +206,9 @@
       */
       function clearMarkers() {
         for (var i = 0; i < markers.length > 0; i++) {
-          this.markers[i].setMap(null);
+          _this.markers[i].setMap(null);
         }
-        this.markers = [];
+        _this.markers = [];
       }
 
       /**
@@ -219,10 +216,10 @@
       */
       function destroy() {
         clearMarkers();
-        this.latLngs.clear();
-        this.markers = [];
-        this.mapBounds = null;
-        this.map = null;
+        _this.latLngs.clear();
+        _this.markers = [];
+        _this.mapBounds = null;
+        _this.map = null;
       }
     }
   }

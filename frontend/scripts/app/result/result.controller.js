@@ -6,6 +6,7 @@
 
   function resultCtrl($rootScope,
                       $scope,
+                      $translate,
                       $stateParams,
                       $state,
                       $modal,
@@ -179,6 +180,7 @@
     }
 
     function addFavorite() {
+
       var favorite = {
         origin: {
           description: $stateParams.origin,
@@ -199,9 +201,9 @@
         .addFavorite(favorite)
         .then(function() {
           $scope.showAddToFavorite = false;
-          alert('Add favorite successful');
+          alert($translate.instant('result_favorite_added'));
         }, function() {
-          alert('Error while add result to favorite');
+          alert($translate.instant('result_favorite_error'));
         });
 
       destroyAuthenticationListener();
@@ -209,7 +211,8 @@
 
     function bookTrip() {
       bookingApi.setShareTripData($scope.itinerary, createSearchParameters());
-      console.log($scope.itinerary);
+
+      //console.log($scope.itinerary);
       $state.go('booking');
     }
 
