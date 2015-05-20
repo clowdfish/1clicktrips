@@ -6,10 +6,15 @@
     .module('app.settings.booking')
     .controller('bookingListCtrl', bookingListCtrl);
 
-  function bookingListCtrl($scope, bookingList, bookingApi) {
+  function bookingListCtrl($scope, $translate, bookingList, bookingApi) {
     $scope.bookingList = bookingList;
 
     $scope.deleteBooking = function(booking) {
+      var shouldDelete = confirm($translate.instant('settings_bookings_confirmdelete'));
+      if (!shouldDelete) {
+        return;
+      }
+
       bookingApi
         .deleteBooking(booking)
         .then(function() {
