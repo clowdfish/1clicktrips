@@ -12,7 +12,9 @@
       return $q(function(resolve, reject) {
 
         $http
-          .post('/api/auth/register', signupData)
+          .post('/api/auth/register', signupData, {
+            waitingMessage: 'Checking your credentials'
+          })
           .success(function(data) {
             session.authSuccess(data.token);
             resolve(data);
