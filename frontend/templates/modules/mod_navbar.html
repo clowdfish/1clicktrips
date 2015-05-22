@@ -23,6 +23,8 @@
       <div ng-if="isMobile" ng-cloak class="ng-cloak">
         <a ng-click="toggleMenu()" class="header-navigation-menu-toggle"><i class="fa fa-bars" ng-class="{'fa-bars': !showMenu, 'fa-close': showMenu }"></i></a>
         <ul ng-show="showMenu" class="header-navigation-menu">
+          <li class="header-navigation-menu-item"><a href="http://www.1clicktrips.com/{{ locale }}/about-us" target="_blank">{{ T.footer.links.about }}</a></li>
+          <li class="header-navigation-menu-item"><a href="http://www.1clicktrips.com/{{ locale }}/blog" target="_blank">{{ T.footer.links.blog }}</a></li>
           <li ng-if='!userProfile' class="header-navigation-menu-item"><a ng-click='createLoginModal(); toggleMenu()'>{{ T.nav.signin }}</a></li>
           <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='openProfile(); toggleMenu()'>{{ T.nav.mobile.profile }}</a></li>
           <li ng-if='userProfile' class="header-navigation-menu-item"><a ng-click='logout(); toggleMenu()'>{{ T.nav.logout }}</a></li>

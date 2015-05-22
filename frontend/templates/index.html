@@ -1,6 +1,7 @@
 {{> partials/_header }}
   <div id="wrapper">
     {{> modules/mod_navbar }}
+    <div class="overlay" ng-class="{ show: showMenu }"></div>
 
     <div class="content-placeholder" style="height: {[ windowHeight ]};" ui-view>
       {{> modules/mod_dashboard }}
