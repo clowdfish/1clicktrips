@@ -128,7 +128,7 @@
       width: 70%;
       min-width: 20em;
       padding: 1em 2em;
-      margin: 2em;
+      margin: 2em 1em;
     }
 
     .search-form-input {
@@ -221,16 +221,7 @@
   @include respond-above("large") {
 
     .search-form {
-      width: 50%;
-      margin-left: 4em;
-    }
-  }
-
-  @include respond-above("x-large") {
-
-    .search-form {
-      width: 45%;
-      margin-left: 5em;
+      width: 60%;
     }
   }
 
