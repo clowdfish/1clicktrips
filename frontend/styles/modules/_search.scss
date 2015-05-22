@@ -286,6 +286,7 @@
 
     table {
       outline: none; // for OS X
+      width: 100%;
     }
 
     .dropdown-menu {
@@ -306,15 +307,24 @@
 
       .fa {
         font-size: 1em;
+        margin: 0 0.5em;
       }
 
       tr {
-        line-height: $input-mobile-height;
         color: $c-text-dark-bg;
+        text-align: center;
+      }
+
+      thead>tr {
+        line-height: 1.8em;
+      }
+
+      tbody>tr {
+        line-height: 2.2em;
       }
 
       td {
-        padding: 0 0.2em;
+        padding: 0 3%;
       }
 
       input {
