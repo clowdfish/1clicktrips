@@ -1,7 +1,7 @@
 <section class="result" ng-show='itinerary == null'>
   <!-- WAITING ANIMATION -->
   <div class='result-waiting' >
-    <span class="result-waiting-progress">
+    <span class="result-waiting-progress" ng-show="!isMobile">
       {[ "result_searching" | translate ]}
     </span>
   </div>
