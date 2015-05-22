@@ -37,15 +37,11 @@
 
       // set date object in result controller
       if(!$scope.startTimeInvalid) {
-        $scope.$parent.startDate.setHours(parseInt(startTime.substr(0, 2)));
-        $scope.$parent.startDate.setMinutes(parseInt(startTime.substr(3, 2)));
-        $scope.$parent.startDate.setSeconds(0);
+        $scope.updateTimeForStartDate();
       }
 
       if(!$scope.endTimeInvalid) {
-        $scope.$parent.endDate.setHours(parseInt(endTime.substr(0, 2)));
-        $scope.$parent.endDate.setMinutes(parseInt(endTime.substr(3, 2)));
-        $scope.$parent.endDate.setSeconds(0);
+        $scope.updateTimeForEndDate();
       }
     };
 
