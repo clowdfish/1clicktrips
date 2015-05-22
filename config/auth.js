@@ -42,5 +42,11 @@ module.exports = {
   },
   'mailOptions': {
     'supportEmail': 'support@1clicktrips.com'
+  },
+  'activeCampaign': {
+    "apiKey":"d7689da5bf9662f928868d2373bf627e2fd9ad5bbb10dee325d7826da45d7d9a74ca9e8b",
+    "url":"https://efexcon.api-us1.com",
+    "listName":"7",
+    "listId":9
   }
 };

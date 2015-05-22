@@ -13,6 +13,12 @@ module.exports = {
     "booking_success": {
       "subject": "Your booking is success",
       "body": "This is the booking success email content"
+    },
+    "subscribe" : {
+        "emptyResponse": 'Nothing was returned. Do you have a connection to Email Marketing server?',
+        "apiError": "Sorry, there was a problem subscribing you to the mailing list.",
+        "success": 'You have been successfully subscribed to the 1ClickTrips newsletter. Awesome!',
+        "alreadySubscribe" : "You have been already subscribed to the newsletter. We love your eagerness!"
     }
   }
 }

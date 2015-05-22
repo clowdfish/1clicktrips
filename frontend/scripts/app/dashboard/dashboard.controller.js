@@ -10,7 +10,8 @@
                         browser,
                         AUTH_EVENTS,
                         favoriteApi,
-                        bookingApi) {
+                        bookingApi,
+                        newsletterApi) {
 
     $scope.favoriteList = favoriteList;
     $scope.bookedTripList = bookedTripList;
@@ -30,6 +31,20 @@
     $scope.$on(AUTH_EVENTS.signupSuccess, function() {
       refreshDashboard();
     });
+
+    $scope.subscribe = function(email) {
+      if (email == null || email.trim() === '') {
+        return;
+      }
+      $scope.subscribeMessage = null;
+      newsletterApi
+        .subscribe(email)
+        .then(function(message) {
+          $scope.subscribeMessage = message;
+        }, function(message) {
+          $scope.subscribeMessage = message;
+        });
+    }
 
     function refreshDashboard() {
       favoriteApi

@@ -9,6 +9,7 @@
   function mainCtrl($scope,
                     $modal,
                     $translate,
+                    $state,
                     currencyApi,
                     appConfig,
                     browser,
@@ -18,7 +19,7 @@
                     session,
                     userApi,
                     authHelper,
-                    $state) {
+                    newsletterApi) {
 
     /**
      * Global service for app config data

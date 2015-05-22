@@ -77,6 +77,17 @@ module.exports = function (app, production) {
       })
   });
 
+  app.post('/subscribe-newsletter', function(req, res) {
+    console.log('Subscribe for email: ', req.body.email);
+    AppController
+      .subscribe(req.body.email)
+      .then(function() {
+        res.status(200).send('OK');
+      }, function(err) {
+        res.status(500).send(err.message);
+      });
+  });
+
   // =============================================================================
   // FALLBACK ====================================================================
   // =============================================================================

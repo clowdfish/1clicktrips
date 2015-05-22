@@ -2,12 +2,12 @@
 var dbConfig = require('../../config/database.json');
 var Promise = require('es6-promise').Promise;
 var mysql = require('mysql');
-
+var ActiveCampaign = require('../helpers/activeCampaign');
 var connection = mysql.createConnection(dbConfig.connection);
 
 var currencies = require('../../config/currencies.json');
 var languages = require('../../config/languages.json');
-
+var translate = require('../i18n/i18n').translate;
 module.exports = {
 
   getAvailableCurrencies: function() {
@@ -39,6 +39,19 @@ module.exports = {
         }
         resolve(result);
       });
+    });
+  },
+
+  subscribe: function(email, req) {
+    return new Promise(function(resolve, reject) {
+      var activeCampaign = new ActiveCampaign();
+      activeCampaign
+        .subscribeUser(email)
+        .then(function(status) {
+          resolve(translate(status, req.languageKey));
+        }, function(status) {
+          reject(new Error(translate(status, req.languageKey)));
+        });
     });
   }
 };
