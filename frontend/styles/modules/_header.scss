@@ -342,7 +342,7 @@
     cursor: default;
   }
 
-  .header-navigation-menu-item-settings:hover ul {
+  .header-navigation-menu-item-settings ul.active {
     display: block;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
   }

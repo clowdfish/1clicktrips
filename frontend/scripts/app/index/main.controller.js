@@ -61,13 +61,13 @@
      * Show language dropdown
      * @type {Boolean}
      */
-    $scope.showLanguages = false;
+    $scope.isShowingLanguages = false;
 
     /**
      * Show currencies dropdown
      * @type {Boolean}
      */
-    $scope.showCurrencies = false;
+    $scope.isShowingCurrencies = false;
 
     /**
      * Key/Value object contains currency data
@@ -156,9 +156,21 @@
       $scope.showLanguages = !$scope.showLanguages;
     };
 
-    $scope.toggleCurrencies = function() {
-      $scope.showCurrencies = !$scope.showCurrencies;
+    $scope.showCurrencies = function() {
+      $scope.isShowingCurrencies = true;
     };
+
+    $scope.hideCurrencies = function() {
+      $scope.isShowingCurrencies = false;
+    }
+
+    $scope.showLanguages = function() {
+      $scope.isShowingLanguages = true;
+    }
+
+    $scope.hideLanguages = function() {
+      $scope.isShowingLanguages = false;
+    }
 
     /* END OF MOBILE MENU FUNCTIONS */
 
@@ -190,6 +202,7 @@
     }
 
     function changeCurrency(code) {
+      $scope.isShowingCurrencies = false;
       code = code.toLowerCase();
 
       if (!currencyApi.getCurrencyDataByCode(code)) {
@@ -204,6 +217,7 @@
      * Fetch language data and set active language
      */
     function initLanguages() {
+      $scope.isShowingLanguages = false;
       $scope.languages = languageApi.getAvailableLanguages();
 
       if (locale) {

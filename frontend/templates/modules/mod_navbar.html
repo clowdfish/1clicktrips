@@ -63,8 +63,10 @@
         </li>
 
         <li class="header-navigation-menu-item">
-          <span class='header-navigation-menu-item-settings' ng-click="toggleCurrencies()">{[ activeCurrency.toUpperCase() ]}
-            <ul class='currency-switch' ng-class="{ active: showCurrencies }">
+          <span class='header-navigation-menu-item-settings'
+                ng-mouseenter="showCurrencies()"
+                ng-mouseleave="hideCurrencies()">{[ activeCurrency.toUpperCase() ]}
+            <ul class='currency-switch' ng-class="{ active: isShowingCurrencies }">
               <li ng-repeat='currency in currencies' ng-click='changeCurrency(currency.code)' ng-class='{active: appConfig.activeCurrency === currency.code.toLowerCase()}'>
                 {[ currency.code ]}
               </li>
@@ -72,8 +74,10 @@
           </span>
         </li>
         <li class="header-navigation-menu-item">
-          <span class='header-navigation-menu-item-settings' ng-click="toggleLanguages()">{[ activeLanguageName ]}
-            <ul class='language-switch' ng-class="{ active: showLanguages }">
+          <span class='header-navigation-menu-item-settings'
+                ng-mouseenter="showLanguages()"
+                ng-mouseleave="hideLanguages()">{[ activeLanguageName ]}
+            <ul class='language-switch' ng-class="{ active: isShowingLanguages }">
               <li ng-repeat='language in languages' ng-click='changeLanguage(language.code)' ng-class='{active: appConfig.activeLanguageKey === language.code}'>
                 {[ language.name ]}
               </li>
