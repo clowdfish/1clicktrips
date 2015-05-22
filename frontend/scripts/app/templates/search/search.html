@@ -154,16 +154,13 @@
           <div class="search-form-input-item-icon"><span></span></div>
 
           <div class="search-form-input-item-container">
-            <input type="button"
-              reason="{[ reason | translate ]}"
-              ng-click="startSearch()"
-              class="button tooltip search-form-input-item-button"
-              ng-class="{ 'is-disabled': !searchDataComplete, 'show-tooltip': isMobile && reason }"
-              ng-blur="resetTabIndex()"
-              tabindex="7"
-              value='{[ "search_form_submit" | translate ]}'>
-
-            </button>
+            <a reason="{[ reason | translate ]}"
+               ng-click="startSearch()"
+               ng-keypress="($event.which === 13) ? startSearch() : 0"
+               class="button tooltip search-form-input-item-button"
+               ng-class="{ 'is-disabled': !searchDataComplete, 'show-tooltip': isMobile && reason }"
+               ng-blur="resetTabIndex()"
+               tabindex="7">{[ "search_form_submit" | translate ]}</a>
           </div>
         </li>
       </ul>

@@ -1,5 +1,5 @@
 <a href="#" class="modal-close" ng-click="cancel()"><i class="fa fa-close"></i></a>
-<form id="signupForm" name="signupForm" ng-submit='signup(signupData)'>
+<form id="signupForm" name="signupForm">
   <div class="modal-header">
     <h1 class="modal-title">{[ "signup_header" | translate ]}</h1>
     <h4 class="modal-subtitle">{[ "signup_headersub" | translate ]}</h4>
@@ -42,9 +42,7 @@
   </div>
 
   <div class="modal-footer">
-    <input type="submit"
-          class="button signup"
-          value="{[ 'signup_form_submit' | translate ]}" />
+    <a class="button signup" ng-click="signup(signupData)">{[ 'signup_form_submit' | translate ]}</a>
     <span class="alternative">{[ 'general_or' | translate ]} <a ng-click="showLoginModal()">{[ 'signup_form_signin' | translate ]}</a></span>
     <span class="modal-footer-annotation">{[ 'signup_annotation' | translate ]}</span>
   </div>

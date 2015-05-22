@@ -49,6 +49,12 @@
 
 button:focus {
   outline: none; // for OS X
+
+}
+
+.button:focus, .button-mobile:focus {
+  background: darken($c-primary, 5%);
+  text-decoration: none;
 }
 
 /**********************************************/

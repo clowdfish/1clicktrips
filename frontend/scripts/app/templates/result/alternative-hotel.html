@@ -28,9 +28,9 @@
           + {[ hotel.price | price: currencySymbol ]}
         </span>
 
-        <button class="button hotels-list-item-select"
-                ng-click='selectHotel(hotel)'
-                ng-hide="selectedHotelId == hotel.id">{[ "result_alternatives_hotel_select" | translate ]}</button>
+        <a class="button hotels-list-item-select"
+           ng-click='selectHotel(hotel)'
+           ng-hide="selectedHotelId == hotel.id">{[ "result_alternatives_hotel_select" | translate ]}</a>
       </li>
     </ul>
   </div>

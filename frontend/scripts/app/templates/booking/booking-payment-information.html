@@ -1,6 +1,6 @@
 <!-- ASK FOR CUSTOMER DETAILS -->
 <h3 class="booking-content-title">{[ "booking_payment_customer_title" | translate ]}</h3>
-<form name="informationForm" ng-submit="continue()">
+<form name="informationForm">
   <div class="booking-content-group customer-data">
     <fieldset>
       <label for="firstName">{[ "booking_payment_customer_firstname" | translate ]}</label>
@@ -81,6 +81,6 @@
   <!-- ACTION BUTTONS -->
   <div class="booking-content-buttons">
     <a class="button--light back" ng-click="back()">{[ "general_back" | translate | capitalize ]}</a>
-    <input type="submit" class="button next" value="{[ 'general_continue' | translate | capitalize ]}" />
+    <a class="button next" ng-click="continue()">{[ 'general_continue' | translate | capitalize ]}</a>
   </div>
 </form>
