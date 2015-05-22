@@ -44,6 +44,8 @@
     findAllItineraries();
 
     $scope.showSelectionPanel = true;
+    $scope.showInfoPanel = true;
+
     /**
      * On the mobile we have three steps:
      * Selection Panel --> Segments List --> Map
@@ -66,6 +68,7 @@
 
     $scope.toggleSelectionPanel = toggleSelectionPanel;
     $scope.toggleSegmentList = toggleSegmentList;
+    $scope.toggleInfoPanel = toggleInfoPanel;
 
     $scope.addToFavorites = addToFavorites;
 
@@ -241,6 +244,10 @@
       $timeout(function() {
         $scope.$broadcast('redrawMap');
       }, 1000);
+    }
+
+    function toggleInfoPanel() {
+      $scope.showInfoPanel = !$scope.showInfoPanel;
     }
 
     function toggleSegmentList() {

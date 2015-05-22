@@ -6,7 +6,7 @@
   $breakpoint-value: breakpoint($breakpoint-name);
 
   @if $breakpoint-value != null {
-    @media screen and (min-width: $breakpoint-value) {
+    @media screen and (min-width: $breakpoint-value + 1) {
       @content;
     }
   } @else {

@@ -27,7 +27,7 @@
     padding: 0 0.3em;
   }
 
-  @include respond-above("medium") {
+  @include respond-above("small") {
 
     .trip-segments-title {
       display: block;

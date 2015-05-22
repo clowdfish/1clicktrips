@@ -14,12 +14,11 @@
                     appConfig,
                     browser,
                     languageApi,
-                    AUTH_EVENTS,
                     authApi,
                     session,
                     userApi,
-                    authHelper,
-                    newsletterApi) {
+                    AUTH_EVENTS,
+                    authHelper) {
 
     /**
      * Global service for app config data
@@ -61,13 +60,13 @@
      * Show language dropdown
      * @type {Boolean}
      */
-    $scope.isShowingLanguages = false;
+    $scope.showLanguages = false;
 
     /**
      * Show currencies dropdown
      * @type {Boolean}
      */
-    $scope.isShowingCurrencies = false;
+    $scope.showCurrencies = false;
 
     /**
      * Key/Value object contains currency data
@@ -103,12 +102,22 @@
      */
     $scope.userProfile = null;
 
+    $scope.$on(AUTH_EVENTS.signupSuccess, function() {
+      getUserProfile();
+    });
+
+    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+      getUserProfile();
+    });
+
+    getUserProfile();
+
     initLanguages();
 
     initCurrencies();
 
+
     $scope.$watch('appConfig.userProfile', function() {
-      //console.log(appConfig.userProfile);
       $scope.userProfile = appConfig.userProfile;
     });
 
@@ -125,7 +134,8 @@
     };
 
     $scope.createSignupModal = function(size) {
-      var modalInstance = $modal.open({
+
+      $modal.open({
         templateUrl: 'scripts/app/templates/auth/signup-modal.html',
         controller: 'signupCtrl',
         size: size ? size : 'lg'
@@ -135,7 +145,6 @@
     $scope.logout = function() {
       authApi.logout();
       $scope.userProfile = null;
-      //alert('Logout successful');
     };
 
     $scope.openProfile = function() {
@@ -156,23 +165,11 @@
       $scope.showLanguages = !$scope.showLanguages;
     };
 
-    $scope.showCurrencies = function() {
-      $scope.isShowingCurrencies = true;
+    $scope.toggleCurrencies = function() {
+      $scope.showCurrencies = !$scope.showCurrencies;
     };
 
-    $scope.hideCurrencies = function() {
-      $scope.isShowingCurrencies = false;
-    }
-
-    $scope.showLanguages = function() {
-      $scope.isShowingLanguages = true;
-    }
-
-    $scope.hideLanguages = function() {
-      $scope.isShowingLanguages = false;
-    }
-
-    /* END OF MOBILE MENU FUNCTIONS */
+    /* END OF MENU FUNCTIONS */
 
     function getUserProfile() {
       $scope.userProfile = session.getUserProfile();

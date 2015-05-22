@@ -75,7 +75,7 @@
     display: none;
   }
 
-  @include respond-above("medium") {
+  @include respond-above("small") {
 
     .result-selection {
       position: relative;
@@ -119,6 +119,7 @@
 
     .result-panel {
       display: block;
+      visibility: hidden;
       position: absolute;
       top: 1em;
       left:  $selection-width + 1rem;
@@ -127,6 +128,24 @@
       z-index: 1;
       padding: 1em;
       box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+      transition: left 1s ease-out 0s;
+
+      &.full-width {
+        visibility: visible;
+        left: 1rem;
+      }
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .result-panel {
+      visibility: visible;
+      transition: left 1s ease-out 0s;
+
+      &.full-width {
+        left: 1rem;
+      }
     }
   }
 
@@ -293,7 +312,7 @@
     }
   }
 
-  @include respond-above("medium") {
+  @include respond-above("small") {
 
     .result-selection-type {
       padding: 1em;
@@ -315,46 +334,6 @@
   /*******************************************************/
   /* Result Panel                                        */
   /*******************************************************/
-  .result-panel-summary-header {
-    display: table;
-  }
-
-  .result-panel-summary-header-col {
-    display: table-cell;
-  }
-
-  .result-panel-summary-header-col:first-child {
-    vertical-align: middle;
-  }
-
-  .result-panel-summary-header-destination {
-    display: block;
-    float: left;
-    font-size: $fs-smallest;
-    color: $c-text-dark-bg;
-  }
-
-  .result-panel-summary-header-destination.no-float {
-    float:none;
-  }
-
-  .result-panel-summary-header-timing {
-    display: block;
-    float: right;
-    font-size: $fs-smallest;
-    color: $c-text-dark-bg;
-    margin-bottom: 0.6em;
-  }
-
-  .result-panel-summary-header-timing-date {
-    color: $c-primary;
-  }
-
-  .result-panel-summary-header-title {
-    display: inline-block;
-    margin: 0.3em 0 0 0;
-  }
-
   .result-panel-summary-header-back-link {
     $button-size: 3.4em;
 
@@ -377,53 +356,107 @@
     }
   }
 
-  @include respond-above("medium") {
+  @include respond-above("small") {
 
     .result-panel-summary {
       float: left;
     }
 
-    .result-panel-summary-header-destination {
-      float: none;
-    }
-
     .result-panel-summary-header-title {
-      margin: 0.2em 1em 0.2em 0;
-      float: none;
+      display: inline-block;
+      margin: 0 0.8em 0.2em 0;
 
       .fa {
         margin-right: 0.5em;
       }
     }
 
-    .result-panel-summary-header-timing {
-      float: none;
+    .result-panel-summary-header-link {
+      font-size: $fs-small;
+      color: $c-primary;
+      cursor: pointer;
+    }
+
+    .result-panel-summary-header-appointment {
+      display: block;
+      font-size: $fs-small;
+      color: lighten($c-text, 45%);
+
+      span:last-of-type {
+        display: inline-block;
+        margin-left: 1em;
+      }
+    }
+
+    .result-panel-summary-details {
+      display: table;
+      font-size: $fs-small;
+      margin-top: 1em;
+    }
+
+    .result-panel-summary-details-item {
+      display: table-row;
+
+      span {
+        display: table-cell;
+        padding: 0 0.8em 0.2em 0;
+      }
+
     }
 
     .result-panel-controls {
-      float: right;
       text-align: right;
     }
 
     .result-panel-controls-price {
       display: block;
       font-size: $fs-largest;
-      margin-bottom: 0.3em;
+      margin-bottom: 0.1em;
     }
 
     .result-panel-controls-time {
       display: block;
       font-size: $fs-small;
-      margin-bottom: 2em;
+      margin-bottom: 2.2em;
     }
 
     .result-panel-controls-buttons {
+      margin-top: 0.3em;
 
       a {
-        margin-left: 0.6em;
+        display: inline-block;
+        margin-left: 0.3em;
+        margin-bottom: 0.3em;
+      }
+    }
+
+    .result-panel-controls-buttons-favorites {
+
+      &>.fa {
+        margin: 0;
+      }
+
+      &>span {
+        display: none;
       }
     }
   }
+
+
+  @include respond-above("large") {
+
+    .result-panel-controls-buttons-favorites {
+
+      &>.fa {
+        margin: 0.3em;
+      }
+
+      &>span {
+        display: inline;
+      }
+    }
+  }
+
 
   /*******************************************************/
   /* Trip Summary Directive                              */
@@ -447,7 +480,7 @@
     font-weight: 800;
   }
 
-  @include respond-above("medium") {
+  @include respond-above("small") {
 
     .trip-summary-list {
       display: inline-block;

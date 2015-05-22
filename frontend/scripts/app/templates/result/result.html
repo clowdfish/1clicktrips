@@ -116,33 +116,37 @@
     </div>
 
     <!-- RESULT INFORMATION PANEL -->
-    <div class="result-panel">
+    <div class="result-panel" ng-class="{ 'full-width': !showSelectionPanel }">
       <div class="result-panel-summary">
         <!-- RESULT  HEADER -->
         <div class="result-panel-summary-header">
-          <span class="result-panel-summary-header-destination">{[ "result_destination_label" | translate ]}</span>
           <h2 class="result-panel-summary-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
-          <div class='result-panel-summary-header-timing'>
-            {[ "general_from" | translate ]} <span class="result-panel-summary-header-timing-date">{[itinerary.startTime | date: "dd.MM.yyyy"]}</span> {[ "general_until" | translate ]} <span class="result-panel-summary-header-timing-date">{[itinerary.endTime | date: "dd.MM.yyyy"]}</span>
-          </div>
+          <span class="result-panel-summary-header-link"><a ng-click="toggleInfoPanel()">
+            <span ng-if="showInfoPanel">hide details</span>
+            <span ng-if="!showInfoPanel">show details</span>
+          </a></span>
+          <span class="result-panel-summary-header-appointment"><span>Your appointment:</span><span>{[itinerary.startTime | date: "dd.MM.yyyy"]}</span></span>
         </div>
         <!-- RESULT SUMMARY -->
-        <div class="result-panel-summary-details">
-          <trip-summary itinerary="itinerary"></trip-summary>
+        <div class="result-panel-summary-details" ng-show="showInfoPanel">
+          <span class="result-panel-summary-details-item"><span><i class="fa fa-home"></i></span><span>Start at origin:</span><span>12:30</span></span>
+          <span class="result-panel-summary-details-item"><span><i class="fa fa-flag"></i></span><span>Arrival at destination:</span><span>12:30</span></span>
+          <span class="result-panel-summary-details-item"><span><i class="fa fa-clock-o"></i></span><span>Time before meeting:</span><span>12:30</span></span>
+          <!--<trip-summary itinerary="itinerary"></trip-summary>-->
         </div>
       </div>
 
       <div class="result-panel-controls">
-        <span class="result-panel-controls-price">
+        <span class="result-panel-controls-price" ng-show="showInfoPanel">
           {[ itinerary.cost | price: itinerary.currency ]}
         </span>
-        <span class="result-panel-controls-time">
+        <span class="result-panel-controls-time" ng-show="showInfoPanel">
           {[ itinerary.duration | durationToTime:"%h hrs %m mins" ]}
         </span>
 
         <div class="result-panel-controls-buttons">
-          <a class="button--light" ng-click="addToFavorites()">
-            <i class="fa fa-heart"></i>{[ "result_favorite_label" | translate ]}
+          <a class="button--light result-panel-controls-buttons-favorites" ng-click="addToFavorites()" ng-show="showInfoPanel">
+            <i class="fa fa-heart"></i><span>{[ "result_favorite_label" | translate ]}</span>
           </a>
           <a class="button" ng-click="bookTrip()">
             <i class="fa fa-shopping-cart"></i>{[ "result_checkout" | translate ]}

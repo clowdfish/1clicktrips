@@ -112,7 +112,7 @@ $size-dashboard-icons: 5em;
     }
   }
 
-  @include respond-above("medium") {
+  @include respond-above("small") {
 
     .dashboard-info {
       padding: 2em 1em;

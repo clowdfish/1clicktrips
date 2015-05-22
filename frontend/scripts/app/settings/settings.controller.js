@@ -10,6 +10,7 @@
                         userProfile,
                         AUTH_EVENTS,
                         $state) {
+
   	$scope.$state = $state;
     $scope.userProfile = userProfile;
 

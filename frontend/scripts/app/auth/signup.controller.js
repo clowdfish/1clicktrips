@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('signupCtrl', signupCtrl);
 
-  function signupCtrl($scope, $modal, $modalInstance, $rootScope, AUTH_EVENTS, authApi, authHelper) {
+  function signupCtrl($scope, $modalInstance, $rootScope, AUTH_EVENTS, authApi, authHelper) {
 
     $scope.agreement = false;
 
