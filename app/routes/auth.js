@@ -162,7 +162,6 @@ module.exports = function (app, express, passport, production) {
 
       var redirectUrl = app.get('loginCallbackUrl') + '?token=' + token;
       res.redirect(redirectUrl);
-
     });
 
   // =============================================================================
