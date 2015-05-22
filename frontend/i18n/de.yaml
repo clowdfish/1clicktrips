@@ -97,12 +97,12 @@ de:
     placeholder: Ihre Email Adresse
     submit: Registrieren
   search:
-    title: Reise zu deinem nächstem Termin. Jetzt.
     navigation:
       destination: Finde den Zielort
       timing: Meetingzeiten angeben
       origin: Finde den Startort
     form:
+      title: Reise zu deinem nächsten Termin.
       origin:
         label: Wo möchten Sie starten?
         placeholder: Ihre Startort
