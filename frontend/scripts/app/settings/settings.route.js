@@ -11,7 +11,6 @@
       url:'/settings',
       templateUrl: 'scripts/app/templates/settings/settings.html',
       controller: 'settingsCtrl',
-      parent:'root',
       resolve: {
         checkAuthenticaton: checkAuthenticaton,
         userProfile: getUserProfile
@@ -63,8 +62,9 @@
     if (!session.isLogin()) {
       authHelper.openLoginDialog('settings.profile');
       deferred.reject();
+    } else {
+      deferred.resolve();
     }
-    deferred.resolve();
     return deferred.promise;
   }
 

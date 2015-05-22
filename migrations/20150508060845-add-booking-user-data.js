@@ -12,6 +12,7 @@ exports.up = function(db, callback) {
       type: 'int',
       foreignKey: {
         name: 'fk_booking_and_booking_user',
+        table: 'booking',
         rules: {
           onDelete:'CASCADE',
           onUpdate: 'RESTRICT'

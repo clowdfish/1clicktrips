@@ -24,7 +24,8 @@ describe('module: settings', function() {
                       _session_,
                       _mockBooking_,
                       _mockFavorites_,
-                      _mockCountryList_) {
+                      _mockCountryList_,
+                      _mockUserProfile_) {
     $state = _$state_;
     $scope = _$rootScope_;
     $location = _$location_;
@@ -32,7 +33,7 @@ describe('module: settings', function() {
     session = _session_;
     session.authSuccess('test_token');
 
-    $httpBackend.whenGET(/\/api\/account\/profile/).respond({});
+    $httpBackend.whenGET(/\/api\/account\/profile/).respond(_mockUserProfile_);
     $httpBackend.whenGET(/\/api\/account\/settings/).respond([]);
     $httpBackend.whenGET(/\/api\/countries/).respond(_mockCountryList_);
     $httpBackend.whenGET(/\/api\/account\/bookings/).respond(_mockBooking_);

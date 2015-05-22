@@ -62,6 +62,10 @@
       selectFavorite(data);
     });
 
+    $scope.isStepOriginReady = false;
+    $scope.isStepDestinationReady = false;
+    $scope.isStepAppointmentReady = false;
+
     /**
     * Select favorite
     */
@@ -139,6 +143,7 @@
             $scope.reason = "";
             $scope.isStepAppointmentReady = true;
             $scope.searchDataComplete = true;
+            return true;
           }
           else {
             $scope.reason = "search_form_error_past";
@@ -151,23 +156,17 @@
       else {
         $scope.reason = "search_form_error_incomplete";
       }
+
+      return false;
     }
     /**
      * Send search parameter to result page
      */
     function startSearch() {
 
-      if ($scope.origin == null || $scope.destination == null)
-        return;
+      var formValid = validateFormInput();
 
-      if ($scope.startDate > $scope.endDate)
-        $scope.searchDataComplete = false;
-
-      var now = new Date();
-      if ($scope.startDate < now || $scope.endDate < now)
-        $scope.searchDataComplete = false;
-
-      if($scope.searchDataComplete) {
+      if(formValid) {
         var startDate = formatDate($scope.startDate);
         var endDate = formatDate($scope.endDate);
 

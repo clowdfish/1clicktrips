@@ -62,6 +62,11 @@
     });
 
     function getUserProfile() {
+      if (session.getUserProfile() !== null) {
+        appConfig.userProfile = session.getUserProfile();
+        return;
+      }
+
       userApi
         .getUserProfile()
         .then(function(userProfile) {

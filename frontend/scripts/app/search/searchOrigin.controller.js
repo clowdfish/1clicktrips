@@ -6,7 +6,12 @@
 		.module('app.search')
 		.controller('searchOriginCtrl', searchOriginCtrl);
 
-	function searchOriginCtrl ($scope, SUGGESTION_TYPES, AUTH_EVENTS, suggestionAdapter, googleMap, defaultOriginApi) {
+	function searchOriginCtrl ($scope,
+                            SUGGESTION_TYPES,
+                            AUTH_EVENTS,
+                            suggestionAdapter,
+                            googleMap,
+                            defaultOriginApi) {
 
 		$scope.getAddressSuggestion = getAddressSuggestion;
     $scope.selectOriginSuggestion = selectOriginSuggestion;

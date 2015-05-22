@@ -23,7 +23,8 @@ describe('service: settings', function() {
                             _$q_,
                             _settings_,
                             _settingsTemplate_,
-                            _session_
+                            _session_,
+                            _mockUserProfile_
                             ) {
     $scope = _$rootScope_.$new();
     settingsService = _settings_,
@@ -34,6 +35,7 @@ describe('service: settings', function() {
     userSettings = [{"key":"transfer_time","value":"0"},{"key":"travel_profile","value":"2"}];
 
     $httpBackend.whenGET(/\/api\/account\/settings/).respond(userSettings)
+    $httpBackend.whenGET(/\/api\/account\/profile/).respond(_mockUserProfile_);
     session.authSuccess('test_token');
   }));
 

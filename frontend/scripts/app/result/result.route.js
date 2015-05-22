@@ -12,7 +12,6 @@
       url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:destination,:origin,:roundTrip',
       templateUrl: 'scripts/app/templates/result/result.html',
       controller: 'resultCtrl',
-      parent: 'root',
       resolve: {
         searchObject: getSearchObject
       }

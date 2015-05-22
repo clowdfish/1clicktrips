@@ -42,7 +42,9 @@
       $httpBackend.flush();
       $scope.bookedTripList = bookedTripList;
       var element = angular.element("<booked-trips list-items='bookedTripList' item-per-page='2'></booked-trips>");
-      bookedTrips = _$compile_(element)($scope);
+      bookedTrips = _$compile_(element)($scope, {
+        bookingApi: _bookingApi_
+      });
       $scope.$digest();
       bookedTripsScope = element.isolateScope();
     }));

@@ -24,7 +24,6 @@
 
     $stateProvider.state('index', {
       url: '/',
-      parent: 'root',
       views: {
         '': {
           templateUrl: 'scripts/app/templates/index/index.html',

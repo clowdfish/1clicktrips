@@ -4,6 +4,7 @@ describe('searchDestinationFormCtrl', function() {
     suggestionAdapter,
     SUGGESTION_TYPES,
     $q,
+    $httpBackend,
     mockAddress,
     mockEvents,
     mockMeetingSpaces,
@@ -22,6 +23,7 @@ describe('searchDestinationFormCtrl', function() {
   beforeEach(inject(function(
                               _$controller_,
                               _$rootScope_,
+                              _$httpBackend_,
                               _suggestionAdapter_,
                               _SUGGESTION_TYPES_,
                               _$q_,
@@ -33,6 +35,8 @@ describe('searchDestinationFormCtrl', function() {
     SUGGESTION_TYPES = _SUGGESTION_TYPES_;
     suggestionAdapter = _suggestionAdapter_;
     $q = _$q_;
+    $httpBackend = _$httpBackend_;
+    $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, 'OK');
     mockAddress = _mockAddress_;
     mockEvents = _mockEvents_;
     mockMeetingSpaces = _mockEvents_; //we use same data now
@@ -106,13 +110,14 @@ describe('searchDestinationFormCtrl', function() {
     });
 
     it('assign destinationLocation after select address from suggestion', function() {
+      $scope.$parent.isStepDestinationReady = false;
       var $item = {
         description: 'Stuttgart, Baden-Württemberg, Germany'
       }
       $scope.selectDestinationSuggestion($item);
       $scope.$digest();
       expect($scope.$parent.destinationLocation).toEqual(mockLocation);
-      expect($scope.$parent.isStep1Ready).toEqual(true);
+      expect($scope.$parent.isStepDestinationReady).toEqual(true);
     });
   });
 });

@@ -4,6 +4,7 @@ describe('searchOriginCtrl', function() {
       $scope,
       $q,
       $state,
+      $httpBackend,
       mockLocation,
       suggestionAdapter,
       mockAddress,
@@ -16,6 +17,7 @@ describe('searchOriginCtrl', function() {
     module('app.auth');
     module('app.templates');
     module('app.result');
+    module('app.settings');
     module('mockdata');
   });
 
@@ -23,11 +25,14 @@ describe('searchOriginCtrl', function() {
                             _$q_,
                             _$controller_,
                             _$state_,
+                            _$httpBackend_,
                             _SUGGESTION_TYPES_,
                             _suggestionAdapter_,
                             _googleMap_,
                             _mockAddress_,
-                            _AUTH_EVENTS_) {
+                            _AUTH_EVENTS_,
+                            _session_) {
+    _session_.authFailed();
     $scope = _$rootScope_.$new();
     $rootScope = _$rootScope_;
     $q = _$q_;
@@ -39,7 +44,8 @@ describe('searchOriginCtrl', function() {
     suggestionAdapter = _suggestionAdapter_;
     mockAddress = _mockAddress_;
     $state = _$state_;
-
+    $httpBackend = _$httpBackend_;
+    $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, 'OK');
     ctrl = _$controller_('searchOriginCtrl', {
       $scope: $scope,
       $state: _$state_,
@@ -81,19 +87,9 @@ describe('searchOriginCtrl', function() {
     }
     $scope.selectOriginSuggestion($item);
     $scope.$digest();
+    //$httpBackend.flush();
     expect($scope.$parent.originLocation).not.toEqual(null);
-    expect($scope.$parent.isStep3Ready).toEqual(true);
+    expect($scope.$parent.isStepOriginReady).toEqual(true);
   });
 
-  it('send search data to form correctly', function() {
-    $scope.$parent.startDate = new Date();
-    $scope.$parent.endDate = new Date();
-    $scope.$parent.startTime = new Date();
-    $scope.$parent.endTime = new Date();
-    $scope.$parent.destinationLocation = mockLocation;
-    $scope.$parent.originLocation = mockLocation;
-    $scope.startSearch();
-    $rootScope.$digest();
-    expect($state.current.name).toBe('search_result');
-  });
 });

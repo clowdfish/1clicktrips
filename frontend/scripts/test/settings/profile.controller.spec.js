@@ -33,14 +33,14 @@ describe('controller: profileCtrl', function() {
       userProfile: _mockUserProfile_,
       countryList: _mockCountryList_
     });
-
+    $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, _mockUserProfile_);
     $httpBackend.whenPOST(/\/api\/account\/profile/).respond(200, 'OK');
 
   }));
 
   it('save profile', function() {
     $scope.saveProfile('test_key','test_value');
-    $httpBackend.flush();
     $scope.$digest();
+    $httpBackend.flush();
   });
 });

@@ -55,7 +55,8 @@ describe('dashboardCtrl', function() {
       $scope: $scope,
       $rootScope: $rootScope,
       favoriteList: _mockFavorites_,
-      bookedTripList: _mockBooking_
+      bookedTripList: _mockBooking_,
+      bookingApi: bookingApi
     });
 
     $scope.$digest();

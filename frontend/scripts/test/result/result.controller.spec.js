@@ -31,7 +31,8 @@ describe('resultCtrl', function() {
                             _$state_,
                             _$stateParams_,
                             _$httpBackend_,
-                            _favoriteApi_) {
+                            _favoriteApi_,
+                            _bookingApi_) {
     itinerary = mockItinerary;
     TRIP_TYPE = _TRIP_TYPE_;
     $controller = _$controller_;
@@ -46,7 +47,8 @@ describe('resultCtrl', function() {
       tripApi: tripApi,
       browser: _browser_,
       favoriteApi: _favoriteApi_,
-      searchObject: {}
+      searchObject: {},
+      bookingApi: _bookingApi_
     });
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);

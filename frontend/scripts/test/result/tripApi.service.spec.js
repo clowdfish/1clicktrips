@@ -33,8 +33,15 @@ describe('service: tripApi', function() {
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
 
+    var searchObject = {};
+    var additionData = {
+      startDate: new Date(),
+      endDate: new Date(),
+      origin: 'Ha Noi',
+      destination: 'Ho Chi Minh'
+    }
     tripApi
-      .findItinerary()
+      .findItinerary(searchObject, additionData)
       .then(function(data) {
         itinerary = data;
       });
