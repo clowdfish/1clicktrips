@@ -20,7 +20,7 @@
               class='search-form-input-item-location-field-input'
               placeholder='{[ "search_form_origin_placeholder" | translate ]}'
               name='origin'
-              tab-index="1"
+              tabindex="1"
               ng-focus="stepOrigin()"
               ng-model='$parent.origin'
               typeahead="address.description for address in getAddressSuggestion($viewValue)"
@@ -50,7 +50,7 @@
                 class='search-form-input-item-location-field-input'
                 placeholder='{[ "search_form_destination_placeholder" | translate ]}'
                 name='destination'
-                tab-index="2"
+                tabindex="2"
                 ng-focus="stepDestination()"
                 ng-model='$parent.destination'
                 typeahead="address.description for address in getSuggestion($viewValue)"
@@ -86,7 +86,7 @@
                   <input
                     type="text"
                     id="date_start"
-                    tab-index="3"
+                    tabindex="3"
                     show-weeks="false"
                     ng-model="$parent.startDate"
                     datepicker-options="dateOptions"
@@ -105,7 +105,7 @@
                   <input
                     type="text"
                     id="time_start"
-                    tab-index="4"
+                    tabindex="4"
                     ng-model="$parent.startTimeString"
                     ng-focus="stepAppointment()"
                     ng-blur="checkTimeFormat()" />
@@ -120,7 +120,7 @@
                   <input
                     type="text"
                     id="date_end"
-                    tab-index="5"
+                    tabindex="5"
                     show-weeks="false"
                     ng-model="$parent.endDate"
                     datepicker-options="dateOptions"
@@ -139,7 +139,7 @@
                   <input
                     type="text"
                     id="time_end"
-                    tab-index="6"
+                    tabindex="6"
                     ng-model="$parent.endTimeString"
                     ng-focus="stepAppointment()"
                     ng-blur="checkTimeFormat()" />
@@ -154,9 +154,16 @@
           <div class="search-form-input-item-icon"><span></span></div>
 
           <div class="search-form-input-item-container">
-            <a reason="{[ reason | translate ]}" ng-click="startSearch()" class="button tooltip search-form-input-item-button" ng-class="{ 'is-disabled': !searchDataComplete, 'show-tooltip': isMobile && reason }">
-              {[ "search_form_submit" | translate ]}
-            </a>
+            <input type="button"
+              reason="{[ reason | translate ]}"
+              ng-click="startSearch()"
+              class="button tooltip search-form-input-item-button"
+              ng-class="{ 'is-disabled': !searchDataComplete, 'show-tooltip': isMobile && reason }"
+              ng-blur="resetTabIndex()"
+              tabindex="7"
+              value='{[ "search_form_submit" | translate ]}'>
+
+            </button>
           </div>
         </li>
       </ul>

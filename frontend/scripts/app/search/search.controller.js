@@ -89,6 +89,18 @@
       $scope.step = SEARCH_STEPS.appointment;
     }
 
+    $scope.resetTabIndex = function() {
+      $('#origin').focus();
+    }
+
+    $scope.$watch('startDate', function() {
+      $scope.updateTimeForStartDate();
+    });
+
+    $scope.$watch('endDate', function() {
+      $scope.updateTimeForEndDate();
+    })
+
     $scope.updateTimeForEndDate = function() {
       var endTime = $scope.endTimeString;
       $scope.endDate.setHours(parseInt(endTime.substr(0, 2)));
