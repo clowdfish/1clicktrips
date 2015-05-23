@@ -13,32 +13,12 @@
     padding: 0.5em;
   }
 
-  .footer-links {
-    display: none;
-  }
-
   @include respond-above("medium") {
     padding: 0.4em;
 
     .footer-copyright {
       font-size: $fs-normal;
       padding: 0;
-    }
-
-    .footer-links {
-      display: block;
-      position: absolute;
-      top: 0.4em;
-      left: 0;
-      right: 0;
-      text-align: center;
-    }
-
-    a, a:visited {
-      display: inline-block;
-      margin: 0 0.6em;
-      text-decoration: none;
-      color: $c-text;
     }
   }
 }

@@ -151,8 +151,13 @@ en:
       starttime: Start time
       endtime: End time
       transport: Means of travel used
-      details: Show Details
-      back: Close details
+      details: show details
+      hide: hide details
+      back: close details
+      appointment: your appointment
+      start: Start time
+      destination: Arrival time
+      time: Time before meeting
     segments:
       title: Trip Details
       day: Day

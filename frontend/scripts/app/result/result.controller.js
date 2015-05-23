@@ -44,7 +44,7 @@
     findAllItineraries();
 
     $scope.showSelectionPanel = true;
-    $scope.showInfoPanel = true;
+    $scope.showInfoPanel =  browser.getViewport().width > 768;
 
     /**
      * On the mobile we have three steps:
@@ -241,6 +241,7 @@
      */
     function toggleSelectionPanel() {
       $scope.showSelectionPanel = !$scope.showSelectionPanel;
+
       $timeout(function() {
         $scope.$broadcast('redrawMap');
       }, 1000);

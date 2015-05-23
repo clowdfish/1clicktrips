@@ -154,10 +154,6 @@
 
   @include respond-above("medium") {
 
-    .booking-content {
-      @include span(3);
-    }
-
     .booking-content-summary-label {
       display: inline-block;
       color: lighten($c-text, 20%);
@@ -239,11 +235,8 @@
       margin-top: 0.3em;
     }
 
-
-
     &.include {
       display: block;
-      margin-top: -1.2em;
 
       .disable-booking-provider-reference {
         display: inline-block;
@@ -374,6 +367,16 @@
     }
   }
 
+  @include respond-above("large") {
+
+    .booking-content-list-item-col {
+
+      &.include {
+        margin-top: -1.2em;
+      }
+    }
+  }
+
   /************************************************/
   /* Payment and confirmation                     */
   /************************************************/
@@ -442,10 +445,14 @@
 
   @include respond-above("medium") {
 
+  }
+
+  @include respond-above("large") {
+
     .booking-sidebar {
       display: block;
 
-      @include span(3);
+      @include span(2);
     }
 
     .booking-sidebar-box {
@@ -488,13 +495,6 @@
         display: block;
         float: right;
       }
-    }
-  }
-
-  @include respond-above("large") {
-
-    .booking-sidebar {
-      @include span(2);
     }
   }
 }

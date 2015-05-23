@@ -11,13 +11,20 @@
   }
 
   .result-waiting-progress {
-    display: block;
-    font-style: italic;
+    display: none;
   }
 
   .result-waiting-animation {
     display: block;
     margin: 4em auto;
+  }
+
+  @include respond-above("small") {
+
+    .result-waiting-progress {
+      display: block;
+      font-style: italic;
+    }
   }
 
   /*******************************************************/
@@ -119,7 +126,6 @@
 
     .result-panel {
       display: block;
-      visibility: hidden;
       position: absolute;
       top: 1em;
       left:  $selection-width + 1rem;
@@ -131,7 +137,6 @@
       transition: left 1s ease-out 0s;
 
       &.full-width {
-        visibility: visible;
         left: 1rem;
       }
     }
@@ -140,11 +145,9 @@
   @include respond-above("medium") {
 
     .result-panel {
-      visibility: visible;
-      transition: left 1s ease-out 0s;
 
       &.full-width {
-        left: 1rem;
+
       }
     }
   }
@@ -265,11 +268,11 @@
     margin: 0.5em;
 
     a:after {
+      @include fa-icon();
+      content: $fa-var-angle-right;
       display: inline-block;
       width: 1em;
       text-align: right;
-      font-family: FontAwesome;
-      content: "\f105";
     }
   }
 
@@ -306,6 +309,7 @@
 
   .result-selection-list-close {
     padding: 0.5em;
+    cursor: pointer;
 
     .fa {
       margin-right: 0.5em;
@@ -328,6 +332,10 @@
       top: auto;
       left: auto;
       height: auto;
+    }
+
+    .result-selection-list-close {
+      display: none;
     }
   }
 
@@ -360,11 +368,12 @@
 
     .result-panel-summary {
       float: left;
+      margin-right: 1em;
     }
 
     .result-panel-summary-header-title {
       display: inline-block;
-      margin: 0 0.8em 0.2em 0;
+      margin: 0;
 
       .fa {
         margin-right: 0.5em;
@@ -372,20 +381,15 @@
     }
 
     .result-panel-summary-header-link {
+      display: block;
       font-size: $fs-small;
       color: $c-primary;
       cursor: pointer;
+      margin-bottom: 1em;
     }
 
     .result-panel-summary-header-appointment {
-      display: block;
-      font-size: $fs-small;
-      color: lighten($c-text, 45%);
-
-      span:last-of-type {
-        display: inline-block;
-        margin-left: 1em;
-      }
+      display: none;
     }
 
     .result-panel-summary-details {
@@ -401,11 +405,11 @@
         display: table-cell;
         padding: 0 0.8em 0.2em 0;
       }
-
     }
 
     .result-panel-controls {
       text-align: right;
+      margin-top: 0.3em;
     }
 
     .result-panel-controls-price {
@@ -417,6 +421,50 @@
     .result-panel-controls-time {
       display: block;
       font-size: $fs-small;
+      margin-bottom: 1em;
+    }
+
+    .result-panel-controls-buttons-favorites {
+
+      margin-bottom: 0.3em;
+      &>.fa {
+        margin: 0;
+      }
+
+      &>span {
+        display: none;
+      }
+    }
+  }
+
+  @include respond-above("medium") {
+
+    .result-panel-summary-header-title {
+      margin-right: 0.8em;
+      margin-bottom: 0.2em;
+    }
+
+    .result-panel-summary-header-link {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+
+    .result-panel-summary-header-appointment {
+      display: block;
+      font-size: $fs-small;
+      color: lighten($c-text, 45%);
+
+      span:last-of-type {
+        display: inline-block;
+        margin-left: 1em;
+      }
+    }
+
+    .result-panel-controls {
+      text-align: right;
+    }
+
+    .result-panel-controls-time {
       margin-bottom: 2.2em;
     }
 
@@ -429,19 +477,7 @@
         margin-bottom: 0.3em;
       }
     }
-
-    .result-panel-controls-buttons-favorites {
-
-      &>.fa {
-        margin: 0;
-      }
-
-      &>span {
-        display: none;
-      }
-    }
   }
-
 
   @include respond-above("large") {
 

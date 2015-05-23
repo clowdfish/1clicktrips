@@ -204,7 +204,13 @@
       margin-top: 0.5em;
       margin-right: 1em;
       color: $c-white;
-      font-weight: 800;
+
+      a, a:visited {
+        display: inline-block;
+        margin: 0 0.6em;
+        text-decoration: none;
+        color: $c-white;
+      }
     }
 
     .header-slider-close {
@@ -370,6 +376,10 @@
 /* TOUCH SPECIFIC STYLING                     */
 /**********************************************/
 .no-touch .header {
+
+  .header-slider-message a:hover {
+    text-decoration: underline;
+  }
 
   .header-navigation-menu a {
 

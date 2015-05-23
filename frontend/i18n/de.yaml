@@ -151,8 +151,13 @@ de:
       starttime: Startzeit
       endtime: Ankunftszeit
       transport: Benutzte Verkehrsmittel
-      details: Zeige Einzelheiten
+      details: Details anzeigen
+      hide: Details ausblenden
       back: Details schließen
+      appointment: dein Termin
+      start: Startzeit
+      destination: Ankunftszeit
+      time: Zeit vor dem Termin
     segments:
       title: Reisedetails
       outbound: Hinreise

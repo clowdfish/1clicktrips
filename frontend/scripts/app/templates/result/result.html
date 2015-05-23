@@ -1,7 +1,7 @@
 <section class="result" ng-show='itinerary == null'>
   <!-- WAITING ANIMATION -->
   <div class='result-waiting' >
-    <span class="result-waiting-progress" ng-show="!isMobile">
+    <span class="result-waiting-progress">
       {[ "result_searching" | translate ]}
     </span>
   </div>
@@ -75,9 +75,9 @@
       </div>
 
       <!-- RESULT LIST CONTROL -->
-      <div class="result-selection-list" ng-class="{ visible: isMobile && showList }">
+      <div class="result-selection-list" ng-class="{ visible: showList }">
         <!-- BACK TO DETAILS CONTROL (MOBILE ONLY) -->
-        <div class="result-selection-list-close" ng-if="isMobile" ng-click="toggleSegmentList()">
+        <div class="result-selection-list-close" ng-click="toggleSegmentList()">
           <i class="fa fa-close"></i>{[ "result_summary_back" | translate ]}
         </div>
         <div class="trip-segments-container">
@@ -120,18 +120,18 @@
       <div class="result-panel-summary">
         <!-- RESULT  HEADER -->
         <div class="result-panel-summary-header">
-          <h2 class="result-panel-summary-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
+          <h2 class="result-panel-summary-header-title"><i class="fa fa-map-marker"></i>{[ itinerary.outbound.destination.description ]}</h2>
           <span class="result-panel-summary-header-link"><a ng-click="toggleInfoPanel()">
-            <span ng-if="showInfoPanel">hide details</span>
-            <span ng-if="!showInfoPanel">show details</span>
+            <span ng-if="showInfoPanel">{[ "result_summary_hide" | translate ]}</span>
+            <span ng-if="!showInfoPanel">{[ "result_summary_details" | translate ]}</span>
           </a></span>
-          <span class="result-panel-summary-header-appointment"><span>Your appointment:</span><span>{[itinerary.startTime | date: "dd.MM.yyyy"]}</span></span>
+          <span class="result-panel-summary-header-appointment"><span>{[ "result_summary_appointment" | translate | capitalize ]}:</span><span>{[itinerary.startTime | date: "dd.MM.yyyy"]}</span></span>
         </div>
         <!-- RESULT SUMMARY -->
         <div class="result-panel-summary-details" ng-show="showInfoPanel">
-          <span class="result-panel-summary-details-item"><span><i class="fa fa-home"></i></span><span>Start at origin:</span><span>12:30</span></span>
-          <span class="result-panel-summary-details-item"><span><i class="fa fa-flag"></i></span><span>Arrival at destination:</span><span>12:30</span></span>
-          <span class="result-panel-summary-details-item"><span><i class="fa fa-clock-o"></i></span><span>Time before meeting:</span><span>12:30</span></span>
+          <span class="result-panel-summary-details-item"><span><i class="fa fa-home"></i></span><span>{[ "result_summary_start" | translate ]}:</span><span>{[ itinerary.startTime | date:"EEE hh:mm" ]}</span></span>
+          <span class="result-panel-summary-details-item"><span><i class="fa fa-flag"></i></span><span>{[ "result_summary_destination" | translate ]}:</span><span>{[ itinerary.endTime | date:"EEE hh:mm" ]}</span></span>
+          <span class="result-panel-summary-details-item"><span><i class="fa fa-clock-o"></i></span><span>{[ "result_summary_time" | translate ]}:</span><span>?</span></span>
           <!--<trip-summary itinerary="itinerary"></trip-summary>-->
         </div>
       </div>
@@ -155,7 +155,7 @@
       </div>
     </div>
     <!-- RESULT MAP CONTROL -->
-    <div class="result-selection-toggle" ng-class="{ close: showSelectionPanel }" ng-click="toggleSelectionPanel()" ng-if="!isMobile || isMobile && !showSelectionPanel"></div>
+    <div class="result-selection-toggle" ng-class="{ close: showSelectionPanel }" ng-click="toggleSelectionPanel()"></div>
     <div class="result-map" ng-class="{ 'full-width': !showSelectionPanel }">
       <map itinerary="itinerary"
            active-segments="activeSegments"

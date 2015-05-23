@@ -7,7 +7,12 @@
     <span class="header-slider-close">
       <i class="fa fa-close" ng-click="toggleSlider()"></i>
     </span>
-    <span class="header-slider-message">{{ T.nav.message }}</span>
+    <span class="header-slider-message">
+      <a href="http://www.1clicktrips.com/{{ locale }}/about-us" target="_blank">{{ T.footer.links.about }}</a>
+      <a href="http://www.1clicktrips.com/{{ locale }}/blog" target="_blank">{{ T.footer.links.blog }}</a>
+      <a href="http://www.1clicktrips.com/{{ locale }}/legal" target="_blank">{{ T.footer.links.legal }}</a>
+      <a href="http://www.1clicktrips.com/{{ locale }}/privacy" target="_blank">{{ T.footer.links.privacy }}</a>
+    </span>
   </div>
 
   <div class="header-bar">
