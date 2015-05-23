@@ -143,7 +143,6 @@ en:
     searching: Searching, please wait...
     destination:
       label: Your destination
-      action: '+ Change location & date'
     checkout: Go To Booking
     summary:
       duration: Total Travel Time

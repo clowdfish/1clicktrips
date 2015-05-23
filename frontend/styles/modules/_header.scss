@@ -66,6 +66,7 @@
     display: inline-block;
     font-size: $fs-largest;
     padding: 0.6em 0.4em;
+    cursor: pointer;
 
     &:after {
       @include fa-icon();

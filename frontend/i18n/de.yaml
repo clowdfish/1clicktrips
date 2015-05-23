@@ -137,13 +137,12 @@ de:
       title: Komfortabel
       description: Text Beschreibung
     favorite:
-      label: '+ als Favorit speichern'
+      label: 'Speichern als Favorit'
       added: Favorit wurde erfolgreich hinzugefügt.
       error: Favorit konnte nicht hinzugefügt werden.
-    searching: Suchend, bitte warten...
+    searching: Am Suchen, bitte warten...
     destination:
       label: Ihr Zielort
-      action: '+ Ort & Zeit ändern'
     checkout: Zur Buchung
     summary:
       duration: Gesamte Reisezeit

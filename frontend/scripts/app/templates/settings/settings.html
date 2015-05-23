@@ -3,11 +3,11 @@
     <!-- TOP NAVIGATION -->
     <div class="settings-top">
       <ul class="settings-top-menu">
-        <li ng-class="{active: $state.includes('settings.profile') || $state.includes('settings.preferences')}"
+        <li ng-class="{ active: $state.includes('settings.profile') || $state.includes('settings.preferences') }"
             class="settings-top-menu-item">
           <a ui-sref="settings.profile">{[ "settings_nav_profile" | translate ]}</a>
         </li>
-        <li ng-class="{active: $state.includes('settings.booking.list') || $state.includes('settings.booking.detail')}"
+        <li ng-class="{ active: $state.includes('settings.booking.list') || $state.includes('settings.booking.detail') }"
             class="settings-top-menu-item">
           <a ui-sref="settings.booking.list">{[ "settings_nav_bookings" | translate ]}</a>
         </li>
@@ -18,7 +18,7 @@
     </div>
 
     <!-- SIDE BAR -->
-    <div class="settings-side">
+    <div class="settings-side" ng-class="{ profile: !$state.includes('settings.booking') }">
       <div class="settings-side-profile">
         <div class="settings-side-profile-image">
           <img ng-src="{[ userProfile['image'] ? userProfile['image'] : '/images/avatar.svg' ]}"

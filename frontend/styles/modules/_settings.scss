@@ -60,10 +60,15 @@
   /* SIDE BAR                                      */
   /*************************************************/
   .settings-side {
+    display: none;
     width: 80%;
     margin: 1em auto;
     padding: 1em;
     background-color: $c-grey;
+
+    &.profile {
+      display: block;
+    }
   }
 
   .settings-side-profile {
@@ -156,6 +161,10 @@
       vertical-align: top;
       margin: 0 4em 0 0;
       padding: 1em 2em;
+
+      &.profile {
+        display: inline-block;
+      }
     }
 
     .settings-side-navigation {
