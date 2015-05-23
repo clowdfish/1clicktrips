@@ -13,7 +13,8 @@ if [ $# -eq 1 ] || [ $# -eq 2 ] ; then
 			echo -e "\nDeployment for development environment"
 			echo "Synchronizing files to server"
 			echo "..."
-			rsync -arv --exclude='.git*' --exclude='node_modules' --exclude='deploy.sh' --exclude='*~' -e ssh ./ $user@$domain:$base_directory
+			#rsync -arv --exclude='.git*' --exclude='node_modules' --exclude='config' --exclude='test' --exclude='documentation' --exclude='deploy.sh' --exclude='*~' -e ssh ./ $user@$domain:$base_directory
+			rsync -arv --include='app/***' --include='server.js' --include='setup.sh' --include='package.json' --include='frontend' --include='frontend/build/***' --exclude='*' -e ssh ./ $user@$domain:$base_directory
 
 			echo "Preparing server"
 			echo "..."
