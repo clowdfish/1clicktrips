@@ -6,13 +6,13 @@
     .module('app.auth')
     .controller('loginCtrl', loginCtrl);
 
-  function loginCtrl($scope, 
-                    $rootScope, 
-                    $modal, 
-                    $modalInstance, 
-                    AUTH_EVENTS, 
-                    oAuthDialog, 
-                    authApi, 
+  function loginCtrl($scope,
+                    $rootScope,
+                    $modal,
+                    $modalInstance,
+                    AUTH_EVENTS,
+                    oAuthDialog,
+                    authApi,
                     authHelper) {
 
     /**
@@ -41,6 +41,12 @@
           handleLoginError(data);
         });
     };
+
+    $scope.loginOnKeydown = function($event) {
+      if ($event.keyCode === 13) {
+        $scope.login();
+      }
+    }
 
     /**
      * Close login modal when login success

@@ -1,5 +1,5 @@
 <a href="#" class="modal-close" ng-click="cancel()"><i class="fa fa-close"></i></a>
-<form id="signupForm" name="signupForm" ng-submit="signup(signupData)">
+<form id="signupForm" name="signupForm">
   <div class="modal-header">
     <h1 class="modal-title">{[ "signup_header" | translate ]}</h1>
     <h4 class="modal-subtitle">{[ "signup_headersub" | translate ]}</h4>
@@ -23,6 +23,7 @@
              name="email"
              placeholder="{[ 'signup_form_email' | translate ]}"
              ng-model='signupData.email'
+             ng-keydown="signupOnKeydown($event)"
              required />
     </fieldset>
     <fieldset>
@@ -30,6 +31,7 @@
              name="password"
              placeholder="{[ 'signup_form_password' | translate ]}"
              ng-model='signupData.password'
+             ng-keydown="signupOnKeydown($event)"
              required />
     </fieldset>
     <fieldset>
@@ -42,8 +44,7 @@
   </div>
 
   <div class="modal-footer">
-    <input type="submit" class="button signup" value="{[ 'signup_form_submit' | translate ]}" />
-
+    <a class="button signup" ng-click="signup()">{[ 'signup_form_submit' | translate ]}</a>
     <span class="alternative">{[ 'general_or' | translate ]} <a ng-click="showLoginModal()">{[ 'signup_form_signin' | translate ]}</a></span>
     <span class="modal-footer-annotation">{[ 'signup_annotation' | translate ]}</span>
   </div>

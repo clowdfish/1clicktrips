@@ -15,6 +15,7 @@
             class="input"
             placeholder="{[ 'login_form_username' | translate ]}"
             ng-model="email"
+            ng-keydown="loginOnKeydown($event)"
             required/>
     </fieldset>
     <fieldset>
@@ -23,6 +24,7 @@
             class="ttg-input"
             placeholder="{[ 'login_form_password' | translate ]}"
             ng-model="password"
+            ng-keydown="loginOnKeydown($event)"
             required />
     </fieldset>
     <fieldset>
@@ -32,7 +34,7 @@
   </div>
 
   <div class="modal-footer">
-    <input type="submit" class="button" value="{[ 'login_form_submit' | translate ]}" />
+    <a class="button" ng-click="login()">{[ 'login_form_submit' | translate ]}</a>
     <a class="modal-forgot-password" ng-click="showForgotPasswordModal()">{[ "login_form_forgot" | translate ]}</a>
 
     <span class="modal-annotation">
