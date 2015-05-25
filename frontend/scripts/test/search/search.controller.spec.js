@@ -19,6 +19,7 @@ describe('searchCtrl', function() {
     module('app.index');
     module('app.dashboard');
     module('app.auth');
+    module('app.result');
     module('app.templates');
     module('app.settings');
     module('mockdata');

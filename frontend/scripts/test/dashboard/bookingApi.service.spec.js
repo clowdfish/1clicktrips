@@ -9,9 +9,7 @@
         mockBooking;
 
     beforeEach(function() {
-      module('app.common');
-      module('app.dashboard');
-      module('app.templates');
+      module('app');
       module('mockdata');
     });
 

@@ -66,8 +66,7 @@ describe('tripSummary', function() {
 
   it('has valid html', function() {
     expect(compiledDirective.html()).toContain('Total Travel Time');
-    expect(compiledDirective.html()).toContain('Total Cost');
-    expect(compiledDirective.html()).toContain('360');
+    expect(compiledDirective.html()).toContain('4 hrs 10 mins');
   });
 
 });

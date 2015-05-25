@@ -32,9 +32,15 @@ describe('directive: tripSegments', function() {
     mockItinerary = _mockItinerary_;
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
+    var additionData = {
+      startDate: new Date(),
+      endDate: new Date(),
+      origin: 'Ha Noi',
+      destination: 'Ho Chi Minh'
+    };
     var returnValue;
     tripApi
-      .findItinerary()
+      .findItinerary({}, additionData)
       .then(function(data) {
         returnValue = data;
       });

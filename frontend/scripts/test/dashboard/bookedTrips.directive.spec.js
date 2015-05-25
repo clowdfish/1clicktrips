@@ -12,9 +12,7 @@
         mockBooking;
 
     beforeEach(function() {
-      module('app.common');
-      module('app.dashboard');
-      module('app.templates');
+      module('app');
       module('mockdata');
     });
 
@@ -30,7 +28,7 @@
       mockBooking = _mockBooking_;
 
       $httpBackend = _$httpBackend_;
-      $httpBackend.whenGET(/\/api\/account\/bookings/).respond(_mockBooking_);
+      $httpBackend.whenGET(/\/api\/bookings/).respond(_mockBooking_);
 
       var bookedTripList = null;
       bookingApi
@@ -42,9 +40,7 @@
       $httpBackend.flush();
       $scope.bookedTripList = bookedTripList;
       var element = angular.element("<booked-trips list-items='bookedTripList' item-per-page='2'></booked-trips>");
-      bookedTrips = _$compile_(element)($scope, {
-        bookingApi: _bookingApi_
-      });
+      bookedTrips = _$compile_(element)($scope);
       $scope.$digest();
       bookedTripsScope = element.isolateScope();
     }));

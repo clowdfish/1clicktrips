@@ -63,23 +63,21 @@ describe('service: tripApi', function() {
 
     expect(trip.duration).toEqual(250);
     expect(trip.cost).toEqual(360);
-    expect(1 in trip.groupSegment).toEqual(true);
-    expect(2 in trip.groupSegment).toEqual(true);
-    expect(3 in trip.groupSegment).toEqual(false);
+    expect(0 in trip.groupSegment).toEqual(true);
+    expect(1 in trip.groupSegment).toEqual(false);
   });
 
   it('change cost and duration after change alternative segment', function() {
     var trip = itinerary[0];
     expect(trip.cost).toEqual(360);
-    trip = tripApi.replaceSegmentWithAlternatives(trip, 1, mockAlternativeSegment[0]);
+    trip = tripApi.replaceSegmentWithAlternatives(trip, 0, mockAlternativeSegment[0]);
     expect(trip.cost).toEqual(370);
   });
 
   it('increase cost after select hotel', function() {
     var trip = itinerary[0];
     expect(trip.cost).toEqual(360);
-    trip = tripApi.setSegmentHotel(trip, trip.groupSegment[1][0], mockHotels[0]);
-    console.log(mockHotels[0]);
+    trip = tripApi.setSegmentHotel(trip, trip.groupSegment[0][1], mockHotels[0]);
     expect(trip.cost).toEqual(360 + mockHotels[0].price);
   });
 

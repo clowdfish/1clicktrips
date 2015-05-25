@@ -10,11 +10,7 @@ describe('dashboardCtrl', function() {
       mockFavorites;
 
   beforeEach(function() {
-    module('app.index');
-    module('app.auth');
-    module('app.common');
-    module('app.dashboard');
-    module('app.templates');
+    module('app');
     module('mockdata');
   });
 

@@ -3,12 +3,7 @@
 describe('resultCtrl', function() {
 
   beforeEach(function() {
-    module('app.common');
-    module('app.index');
-    module('app.result');
-    module('app.auth');
-    module('app.dashboard');
-    module('app.templates');
+    module('app');
     module('mockdata');
   });
 
@@ -72,33 +67,29 @@ describe('resultCtrl', function() {
     expect($scope.itinerary.type).toEqual(TRIP_TYPE.timeSaving);
   });
 
-  it('findTripByComfort', function() {
-    /**
-     * Our mockup doesn't have data for comfort trip type
-     */
-    $scope.findTripByComfort();
-    $scope.$digest();
-    expect($scope.activeTrip).toEqual(2);
-    expect($scope.itinerary).toEqual(null);
-  });
-
   it('router change route correctly', function() {
     $state.go('search_result', {
       originLatitude: 1,
       originLongitude: 2,
+      origin: 'Origin',
       destinationLatitude: 3,
       destinationLongitude: 4,
+      destination: 'Destination',
       startDate: 5,
-      endDate: 6
+      endDate: 6,
+      roundTrip: false
     });
     $scope.$digest();
 
     expect(parseInt($stateParams.originLatitude)).toEqual(1);
     expect(parseInt($stateParams.originLongitude)).toEqual(2);
+    expect($stateParams.origin).toEqual('Origin');
     expect(parseInt($stateParams.destinationLatitude)).toEqual(3);
     expect(parseInt($stateParams.destinationLongitude)).toEqual(4);
+    expect($stateParams.destination).toEqual('Destination');
     expect(parseInt($stateParams.startDate)).toEqual(5);
     expect(parseInt($stateParams.endDate)).toEqual(6);
+    expect($stateParams.roundTrip).toEqual('false');
   });
 
 

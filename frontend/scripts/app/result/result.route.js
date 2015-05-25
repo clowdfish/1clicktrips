@@ -9,7 +9,8 @@
   function routerConfig($stateProvider) {
 
     $stateProvider.state('search_result', {
-      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,:startDate,:endDate,:destination,:origin,:roundTrip',
+      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,' +
+           ':startDate,:endDate,:destination,:origin,:roundTrip',
       templateUrl: 'scripts/app/templates/result/result.html',
       controller: 'resultCtrl',
       resolve: {
