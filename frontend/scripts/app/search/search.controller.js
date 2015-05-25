@@ -198,7 +198,7 @@
     }
 
     function setOrigin(options) {
-      if (options === null) {
+      if (options === null || (options.description === null || options.location === null)) {
         $scope.origin = null;
         $scope.originLocation = null;
         $scope.isStepOriginReady = false;
@@ -210,7 +210,7 @@
     }
 
     function setDestination(options) {
-      if (options === null) {
+      if (options === null || (options.description === null || options.location === null)) {
         $scope.destination = null;
         $scope.destinationLocation = null;
         $scope.isStepDestinationReady = false;
@@ -230,7 +230,7 @@
       $scope.startDate = options.startDate;
       $scope.startDate.setHours(parseInt(options.startTime.substr(0, 2)));
       $scope.startDate.setMinutes(parseInt(options.startTime.substr(3, 2)));
-      $scope.isStepAppointmentReady = true;
+      validateFormInput();
     }
 
     function setEndDate(options) {
@@ -242,7 +242,7 @@
       $scope.endDate = options.endDate;
       $scope.endDate.setHours(parseInt(options.endTime.substr(0, 2)));
       $scope.endDate.setMinutes(parseInt(options.endTime.substr(3, 2)));
-      $scope.isStepAppointmentReady = true;
+      validateFormInput();
     }
 
   }

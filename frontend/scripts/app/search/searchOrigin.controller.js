@@ -18,6 +18,10 @@
     */
     $scope.origin = $scope.$parent.origin;
     $scope.originLocation = $scope.$parent.originLocation;
+    $scope.setOrigin({
+      description: $scope.origin,
+      location: $scope.originLocation
+    });
 
 		$scope.getAddressSuggestion = getAddressSuggestion;
     $scope.selectOriginSuggestion = selectOriginSuggestion;

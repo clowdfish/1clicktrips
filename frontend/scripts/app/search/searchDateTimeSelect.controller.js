@@ -14,7 +14,8 @@
     $scope.startTimeString = $scope.$parent.startTimeString;
     $scope.endDate = $scope.$parent.endDate;
     $scope.endDateString = $scope.$parent.endDateString;
-
+    $scope.checkTimeFormat = checkTimeFormat;
+    checkTimeFormat();
     /**
     * Date time picker open status
     */
@@ -34,7 +35,7 @@
     $scope.format = $scope.formats[0];
     $scope.showWeeks = false;
 
-    $scope.checkTimeFormat = function() {
+    function checkTimeFormat() {
       var startTime = $scope.startTimeString;
       var endTime = $scope.endTimeString;
 
