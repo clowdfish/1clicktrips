@@ -59,7 +59,7 @@
           endTime: endTime
         });
       } else {
-        $scpoe.setEndDate(null);
+        $scope.setEndDate(null);
       }
     };
 
