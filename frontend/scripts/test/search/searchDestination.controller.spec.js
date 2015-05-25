@@ -45,6 +45,9 @@ describe('searchDestinationFormCtrl', function() {
       latitude: 1,
       longitude: 1
     }
+
+    $scope.setDestination = jasmine.createSpy('setDestination');
+
     controller = _$controller_('searchDestinationFormCtrl', {
       $scope: $scope,
       SUGGESTION_TYPES: SUGGESTION_TYPES,
@@ -58,6 +61,8 @@ describe('searchDestinationFormCtrl', function() {
         resolve(mockLocation);
       });
     });
+
+
   }));
 
   describe('get suggestion', function() {
@@ -116,8 +121,7 @@ describe('searchDestinationFormCtrl', function() {
       }
       $scope.selectDestinationSuggestion($item);
       $scope.$digest();
-      expect($scope.$parent.destinationLocation).toEqual(mockLocation);
-      expect($scope.$parent.isStepDestinationReady).toEqual(true);
+      expect($scope.setDestination).toHaveBeenCalled();
     });
   });
 });

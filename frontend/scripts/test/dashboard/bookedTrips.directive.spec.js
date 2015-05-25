@@ -50,12 +50,15 @@
       expect(bookedTripsScope.itemPerPage).toEqual(2);
     });
 
-    xit('directive changes page as expected', function() {
+    it('directive changes page as expected', function() {
       expect(bookedTripsScope.currentPage).toEqual(1);
-      bookedTripsScope.changePage(2);
+      bookedTripsScope.nextPage();
       expect(bookedTripsScope.currentPage).toEqual(2);
-      bookedTripsScope.changePage(3);
+      bookedTripsScope.nextPage();
       expect(bookedTripsScope.currentPage).toEqual(2);
+      bookedTripsScope.previousPage();
+      expect(bookedTripsScope.currentPage).toEqual(1);
+      bookedTripsScope.previousPage();
     });
   });
 

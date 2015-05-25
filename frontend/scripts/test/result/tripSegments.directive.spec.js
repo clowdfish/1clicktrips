@@ -47,7 +47,7 @@ describe('directive: tripSegments', function() {
     $scope.$digest();
     $httpBackend.flush();
     itinerary = returnValue[0]; // get the first itinerary
-    console.log(itinerary);
+
     //prepare data
     $scope.itinerary = itinerary;
 

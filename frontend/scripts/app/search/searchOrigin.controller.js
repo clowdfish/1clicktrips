@@ -13,6 +13,12 @@
                             googleMap,
                             defaultOriginApi) {
 
+    /**
+    * Initial data
+    */
+    $scope.origin = $scope.$parent.origin;
+    $scope.originLocation = $scope.$parent.originLocation;
+
 		$scope.getAddressSuggestion = getAddressSuggestion;
     $scope.selectOriginSuggestion = selectOriginSuggestion;
 
@@ -30,18 +36,24 @@
       loadDefaultOrigin();
     });
 
+    $scope.$watch('origin', function(origin) {
+      if (_.isEmpty(origin)) {
+        $scope.setOrigin(null);
+      }
+    });
+
     function loadDefaultOrigin() {
 
       defaultOriginApi
         .getDefaultOrigin()
         .then(function(defaultOrigin) {
-          if (defaultOrigin == null) { return; }
+          if (defaultOrigin === null) { return; }
 
-          if ($scope.$parent.origin == null || $scope.$parent.origin.trim() === '') {
-            $scope.$parent.origin = defaultOrigin.description;
-            $scope.$parent.originLocation = defaultOrigin.location;
+          if (false === _.isEmpty(defaultOrigin)) {
+            $scope.origin = defaultOrigin.description;
+            $scope.originLocation = defaultOrigin.location;
+            $scope.setOrigin(defaultOrigin);
             $scope.storeDefaultOrigin = true;
-            $scope.$parent.isStepOriginReady = true;
           }
         });
     }
@@ -54,7 +66,7 @@
         }
         else {
           defaultOriginApi
-            .setDefaultOrigin($scope.$parent.origin, $scope.$parent.originLocation);
+            .setDefaultOrigin($scope.origin, $scope.originLocation);
         }
       } else {
         defaultOriginApi
@@ -76,10 +88,16 @@
       googleMap
       	.geocode($item.description)
       	.then(function(location) {
-      		$scope.$parent.originLocation = location;
-      		$scope.$parent.isStepOriginReady = true;
+          if ($scope.storeDefaultOrigin) {
+            defaultOriginApi
+              .setDefaultOrigin($scope.origin, $scope.originLocation);
+          }
+          $scope.setOrigin({
+            description: $scope.origin,
+            location: location
+          });
       	}, function() {
-					$scope.$parent.isStepOriginReady = false;
+          $scope.setOrigin(null);
       	});
     }
 	}

@@ -41,7 +41,6 @@ xdescribe('tripResultWrapper directive', function() {
     tripApi = _tripApi_;
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);
-    console.log(mockItinerary.toString());
     var searchObject = {};
     var itinerary = null;
     tripApi

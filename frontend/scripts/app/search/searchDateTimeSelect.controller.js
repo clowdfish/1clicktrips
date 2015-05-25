@@ -8,6 +8,14 @@
 
 	function searchDateTimeSelectCtrl ($scope) {
     /**
+    * Initial data
+    */
+    $scope.startDate = $scope.$parent.startDate;
+    $scope.startTimeString = $scope.$parent.startTimeString;
+    $scope.endDate = $scope.$parent.endDate;
+    $scope.endDateString = $scope.$parent.endDateString;
+
+    /**
     * Date time picker open status
     */
     $scope.isOpenStartDatePicker = false;
@@ -27,8 +35,8 @@
     $scope.showWeeks = false;
 
     $scope.checkTimeFormat = function() {
-      var startTime = $scope.$parent.startTimeString;
-      var endTime = $scope.$parent.endTimeString;
+      var startTime = $scope.startTimeString;
+      var endTime = $scope.endTimeString;
 
       var regEx = new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
 
@@ -36,14 +44,28 @@
       $scope.endTimeInvalid = !regEx.test(endTime);
 
       // set date object in result controller
-      if(!$scope.startTimeInvalid) {
-        $scope.updateTimeForStartDate();
+      if (!$scope.startTimeInvalid) {
+        $scope.setStartDate({
+          startDate: $scope.startDate,
+          startTime: startTime
+        });
+      } else {
+        $scope.setStartDate(null);
       }
 
-      if(!$scope.endTimeInvalid) {
-        $scope.updateTimeForEndDate();
+      if (!$scope.endTimeInvalid) {
+        $scope.setEndDate({
+          endDate: $scope.endDate,
+          endTime: endTime
+        });
+      } else {
+        $scpoe.setEndDate(null);
       }
     };
+
+    $scope.$watchGroup(['startDate', 'endDate', 'startTimeString', 'endDateString'], function() {
+      $scope.checkTimeFormat();
+    });
 
     $scope.toggleStartDatePicker = function($event) {
       if ($event) {

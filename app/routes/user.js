@@ -115,7 +115,7 @@ module.exports = function (app, express, production) {
     SettingsController
       .getByKey(userId, req.params.key)
       .then(function(setting) {
-        res.status(200).json(setting);
+        res.status(200).send(setting);
       })
       .catch(function(err) {
         res.status(500).send(err.message);

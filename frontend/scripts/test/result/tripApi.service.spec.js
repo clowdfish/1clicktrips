@@ -64,7 +64,6 @@ describe('service: tripApi', function() {
     expect(trip.duration).toEqual(250);
     expect(trip.cost).toEqual(360);
     expect(0 in trip.groupSegment).toEqual(true);
-    expect(1 in trip.groupSegment).toEqual(false);
   });
 
   it('change cost and duration after change alternative segment', function() {

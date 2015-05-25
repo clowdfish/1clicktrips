@@ -36,6 +36,7 @@
     if (!session.isLogin()) {
       return [];
     }
+
     return bookingApi.getBookedTrips();
   }
 

@@ -12,6 +12,16 @@
                                       suggestionAdapter,
                                       googleMap) {
 
+    /**
+    * Initial data
+    */
+    $scope.destination = $scope.$parent.destination;
+    $scope.destinationLocation = $scope.$parent.destinationLocation;
+    $scope.setDestination({
+      description: $scope.destination,
+      location: $scope.destinationLocation
+    });
+
 		$scope.setDestinationType = setDestinationType;
 		$scope.getSuggestion = getSuggestion;
 		$scope.selectDestinationSuggestion = selectDestinationSuggestion;
@@ -20,6 +30,11 @@
     $scope.destinationType = SUGGESTION_TYPES.address;
     $scope.destinationTypeArray = suggestionAdapter.getSuggestionType();
 
+    $scope.$watch('destination', function(destination) {
+      if (_.isEmpty(destination)) {
+        $scope.setDestination(null);
+      }
+    })
     $scope.toggleLocationDropdown = function() {
       $scope.isOpen = !$scope.isOpen;
     };
@@ -67,10 +82,12 @@
 
     function selectDestinationSuggestion($item) {
       selectSuggestion($item).then(function(location) {
-        $scope.$parent.destinationLocation = location;
-        $scope.$parent.isStepDestinationReady = true;
+        $scope.setDestination({
+          description: $scope.destination,
+          location: location
+        });
       }, function() {
-      	$scope.$parent.isStepDestinationReady = false;
+      	$scope.setDestination(null);
       });
     }
 

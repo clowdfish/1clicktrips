@@ -68,7 +68,6 @@ describe('dashboardCtrl', function() {
     $scope.selectFavorite(mockFavorites[0]);
     $scope.$digest();
     $scope.$on('selectFavorite', function(e, data) {
-      console.log(data);
       favorite = data;
     });
     $scope.$digest();

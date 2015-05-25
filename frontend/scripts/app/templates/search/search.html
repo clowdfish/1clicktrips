@@ -23,7 +23,7 @@
               name='origin'
               tabindex="1"
               ng-focus="stepOrigin()"
-              ng-model='$parent.origin'
+              ng-model='origin'
               typeahead="address.description for address in getAddressSuggestion($viewValue)"
               typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
             <input type="checkbox"
@@ -53,7 +53,7 @@
                 name='destination'
                 tabindex="2"
                 ng-focus="stepDestination()"
-                ng-model='$parent.destination'
+                ng-model='destination'
                 typeahead="address.description for address in getSuggestion($viewValue)"
                 typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
 
@@ -89,7 +89,7 @@
                     id="date_start"
                     tabindex="3"
                     show-weeks="false"
-                    ng-model="$parent.startDate"
+                    ng-model="startDate"
                     datepicker-options="dateOptions"
                     datepicker-popup="{[format]}"
                     ng-required="true"
@@ -107,9 +107,9 @@
                     type="text"
                     id="time_start"
                     tabindex="4"
-                    ng-model="$parent.startTimeString"
+                    ng-model="startTimeString"
                     ng-focus="stepAppointment()"
-                    ng-blur="checkTimeFormat()" />
+                    />
                   <i class="fa fa-clock-o"></i>
                   <label for="time_start">{[ "search_form_appointment_warning" | translate ]}</label>
                 </div>
@@ -123,7 +123,7 @@
                     id="date_end"
                     tabindex="5"
                     show-weeks="false"
-                    ng-model="$parent.endDate"
+                    ng-model="endDate"
                     datepicker-options="dateOptions"
                     datepicker-popup="{[format]}"
                     ng-required="true"
@@ -141,9 +141,9 @@
                     type="text"
                     id="time_end"
                     tabindex="6"
-                    ng-model="$parent.endTimeString"
+                    ng-model="endTimeString"
                     ng-focus="stepAppointment()"
-                    ng-blur="checkTimeFormat()" />
+                    />
                   <i class="fa fa-clock-o"></i>
                   <label for="time_end">{[ "search_form_appointment_warning" | translate ]}</label>
                 </div>

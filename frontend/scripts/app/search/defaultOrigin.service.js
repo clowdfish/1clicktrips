@@ -23,11 +23,7 @@
         settings
           .getSettingByKey(storageKey)
           .then(function(value) {
-            try {
-              resolve(JSON.parse(value));
-            } catch(e) {
-              resolve(null);
-            }
+            resolve(value);
 
           }, function() {
             reject();

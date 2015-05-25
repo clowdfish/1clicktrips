@@ -56,27 +56,47 @@ describe('searchCtrl', function() {
     });
   }));
 
-  xit('change step correctly', function() {
+  it('change step correctly', function() {
     $scope.stepOrigin();
     expect($scope.step).toEqual(SEARCH_STEPS.origin);
-    $scope.originLocation = {latitude: 1, longitude: 1};
-    $scope.$digest();
-
-    expect($scope.isStepDestinationReady).toEqual(true);
-
-    $scope.stepDestination();
-    $scope.destinationLocation = {latitude: 1, longitude: 1};
-    $scope.$digest();
-    expect($scope.step).toEqual(SEARCH_STEPS.destination);
-    $scope.startDate = new Date();
-    $scope.endDate = new Date();
+    $scope.setOrigin({
+      description: 'San Diego',
+      location: {
+        latitude: 1,
+        longitude: 1
+      }
+    });
     $scope.$digest();
     expect($scope.isStepOriginReady).toEqual(true);
 
+    $scope.stepDestination();
+    expect($scope.step).toEqual(SEARCH_STEPS.destination);
+    $scope.setDestination({
+      description: 'Washington, United States',
+      location: {
+        latitude: 1,
+        longitude: 1
+      }
+    });
+    $scope.$digest();
+    expect($scope.isStepDestinationReady).toEqual(true);
+
     $scope.stepAppointment();
     expect($scope.step).toEqual(SEARCH_STEPS.appointment);
-
-    expect($scope.isStep3Ready).toEqual(true);
+    var startDate = new Date();
+    startDate.setDate(startDate.getDate() + 1);
+    $scope.setStartDate({
+      startDate: startDate,
+      startTime: '12:00'
+    });
+    var endDate = new Date();
+    endDate.setDate(endDate.getDate() + 2);
+    $scope.setEndDate({
+      endDate: endDate,
+      endTime: '12:00'
+    });
+    $scope.$digest();
+    expect($scope.isStepAppointmentReady).toEqual(true);
   });
 
   it('populate search form with data from selectFavorite event', function() {

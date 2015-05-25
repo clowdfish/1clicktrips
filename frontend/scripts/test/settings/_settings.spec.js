@@ -9,11 +9,7 @@ describe('module: settings', function() {
       session;
 
   beforeEach(function() {
-    module('app.auth');
-    module('app.settings');
-    module('app.dashboard');
-    module('app.index');
-    module('app.templates');
+    module('app');
     module('mockdata');
   });
 
@@ -36,9 +32,13 @@ describe('module: settings', function() {
     $httpBackend.whenGET(/\/api\/account\/profile/).respond(_mockUserProfile_);
     $httpBackend.whenGET(/\/api\/account\/settings/).respond([]);
     $httpBackend.whenGET(/\/api\/countries/).respond(_mockCountryList_);
-    $httpBackend.whenGET(/\/api\/account\/bookings/).respond(_mockBooking_);
+    $httpBackend.whenGET(/\/api\/bookings/).respond(_mockBooking_);
     $httpBackend.whenGET(/\/api\/account\/favorites/).respond(_mockFavorites_);
   }));
+
+  afterEach(function() {
+    session.authFailed();
+  });
 
   it('profile state', function() {
     $location.path('/settings/profile');
@@ -54,11 +54,18 @@ describe('module: settings', function() {
     expect($state.current.name).toEqual('settings.preferences');
   });
 
-  xit('history state', function() {
-    $location.path('/settings/history');
-    $scope.$digest();
-    $httpBackend.flush();
-    expect($state.current.name).toEqual('settings.history');
-  });
+ it('booking history', function() {
+  $location.path('/settings/booking/list');
+  $scope.$digest();
+  $httpBackend.flush();
+  expect($state.current.name).toEqual('settings.booking.list');
+ });
+
+ it('favorite history', function() {
+  $location.path('/settings/favorite');
+  $scope.$digest();
+  $httpBackend.flush();
+  expect($state.current.name).toEqual('settings.favorite');
+ });
 
 });

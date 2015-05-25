@@ -14,9 +14,10 @@
                       searchFormData,
                       SEARCH_STEPS) {
 
+    /**
+    * VARIABLES
+    */
     $rootScope.windowHeight = null;
-
-    $scope.isMobile = browser.isMobileDevice();
     $scope.isLogin = true;
     $scope.searchDataComplete = false;
 
@@ -31,15 +32,8 @@
 
     // active step
     $scope.step = SEARCH_STEPS.none;
+    $scope.isMobile = browser.isMobileDevice();
 
-    // select step functions
-    $scope.stepOrigin = stepOrigin;
-    $scope.stepDestination = stepDestination;
-    $scope.stepAppointment = stepAppointment;
-
-    $scope.startSearch = startSearch;
-
-    // search data
     $scope.originLocation = searchFormData.originLocation;
     $scope.destinationLocation = searchFormData.destinationLocation;
 
@@ -58,14 +52,27 @@
     $scope.startTimeString = "10:00";
     $scope.endTimeString = "14:00";
 
-    $scope.$on('selectFavorite', function(e, data) {
-      selectFavorite(data);
-    });
-
     $scope.isStepOriginReady = false;
     $scope.isStepDestinationReady = false;
     $scope.isStepAppointmentReady = false;
 
+    /**
+    * SCOPE FUNCTIONS
+    */
+    $scope.stepOrigin = stepOrigin;
+    $scope.stepDestination = stepDestination;
+    $scope.stepAppointment = stepAppointment;
+
+    $scope.startSearch = startSearch;
+
+    $scope.$on('selectFavorite', function(e, data) {
+      selectFavorite(data);
+    });
+
+    $scope.setOrigin = setOrigin;
+    $scope.setDestination = setDestination;
+    $scope.setStartDate = setStartDate;
+    $scope.setEndDate = setEndDate;
     /**
     * Select favorite
     */
@@ -189,5 +196,55 @@
     function formatDate(date) {
       return moment(date).format('YYYY-MM-DDTHH:mm:ss');
     }
+
+    function setOrigin(options) {
+      if (options === null) {
+        $scope.origin = null;
+        $scope.originLocation = null;
+        $scope.isStepOriginReady = false;
+        return;
+      }
+      $scope.origin = options.description;
+      $scope.originLocation = options.location;
+      $scope.isStepOriginReady = true;
+    }
+
+    function setDestination(options) {
+      if (options === null) {
+        $scope.destination = null;
+        $scope.destinationLocation = null;
+        $scope.isStepDestinationReady = false;
+        return;
+      }
+      $scope.destination = options.description;
+      $scope.destinationLocation = options.location;
+      $scope.isStepDestinationReady = true;
+    }
+
+    function setStartDate(options) {
+      if (options === null) {
+        $scope.startDate = null;
+        $scope.isStepAppointmentReady = false;
+        return;
+      }
+      $scope.startDate = options.startDate;
+      $scope.startDate.setHours(parseInt(options.startTime.substr(0, 2)));
+      $scope.startDate.setMinutes(parseInt(options.startTime.substr(3, 2)));
+      $scope.isStepAppointmentReady = true;
+    }
+
+    function setEndDate(options) {
+      if (options === null) {
+        $scope.endDate = null;
+        $scope.isStepAppointmentReady = false;
+        return;
+      }
+      $scope.endDate = options.endDate;
+      $scope.endDate.setHours(parseInt(options.endTime.substr(0, 2)));
+      $scope.endDate.setMinutes(parseInt(options.endTime.substr(3, 2)));
+      $scope.isStepAppointmentReady = true;
+    }
+
   }
+
 })();

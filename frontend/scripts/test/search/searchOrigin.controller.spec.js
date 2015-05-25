@@ -67,6 +67,8 @@ describe('searchOriginCtrl', function() {
       return deferred.promise;
     });
 
+    $scope.setOrigin = jasmine.createSpy('setOrigin');
+
   }));
 
   it('return value when call getAddressSuggestion()', function() {
@@ -88,8 +90,7 @@ describe('searchOriginCtrl', function() {
     $scope.selectOriginSuggestion($item);
     $scope.$digest();
     //$httpBackend.flush();
-    expect($scope.$parent.originLocation).not.toEqual(null);
-    expect($scope.$parent.isStepOriginReady).toEqual(true);
+    expect($scope.setOrigin).toHaveBeenCalled();
   });
 
 });
