@@ -55,11 +55,12 @@
     */
     this.deleteBooking = deleteBooking;
 
-    function setShareTripData(trip, searchData) {
+    function setShareTripData(itineraries, tripType, searchData) {
       var key = makeStorageKey();
       $sessionStorage[key] = {};
-      $sessionStorage[key]['trip'] = trip;
-      $sessionStorage[key]['search'] = searchData;
+      $sessionStorage[key]['tripType'] = tripType;
+      $sessionStorage[key]['searchParams'] = searchData;
+      $sessionStorage[key]['itineraries'] = itineraries;
     }
 
     function getShareTripData() {

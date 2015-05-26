@@ -29,6 +29,7 @@
       <div class="result-selection-type">
         <span class="result-selection-type-text">{[ "result_select" | translate ]}</span>
         <ul class="result-selection-type-list">
+<<<<<<< HEAD
           <li class="result-selection-type-list-item" ng-class="{ active: activeTrip == 0}" ng-click="findTripByBudget()">
             <i class="fa fa-dollar"></i>
             {[ "result_budget_title" | translate ]}
@@ -38,6 +39,23 @@
             {[ "result_time_title" | translate ]}
           </li>
           <li class="result-selection-type-list-item" ng-class="{ active: activeTrip == 2, missing: itineraries.length<3 }" ng-click="findTripByComfort()">
+=======
+          <li class="result-selection-type-list-item"
+              ng-class="{active: activeTrip == TRIP_TYPE.lowBudget}"
+              ng-click="findTripByBudget()">
+            <i class="fa fa-dollar"></i>
+            {[ "result_budget_title" | translate ]}
+          </li>
+          <li class="result-selection-type-list-item"
+              ng-class="{active: activeTrip == TRIP_TYPE.timeSaving, missing: itineraries.length<2 }"
+              ng-click="findTripByTime()">
+            <i class="fa fa-clock-o"></i>
+            {[ "result_time_title" | translate ]}
+          </li>
+          <li class="result-selection-type-list-item"
+              ng-class="{active: activeTrip == TRIP_TYPE.comfortTrip, missing: itineraries.length<3 }"
+              ng-click="findTripByComfort()">
+>>>>>>> 8c8312e... Don't search again when going back from booking #201
             <i class="fa fa-diamond"></i>
             {[ "result_comfort_title" | translate ]}
           </li>

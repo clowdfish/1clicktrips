@@ -10,14 +10,23 @@
 
     $stateProvider.state('search_result', {
       url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,' +
-           ':startDate,:endDate,:destination,:origin,:roundTrip',
+           ':startDate,:endDate,:destination,:origin,:roundTrip,:fromCache',
       templateUrl: 'scripts/app/templates/result/result.html',
       controller: 'resultCtrl',
       resolve: {
+        cachedSearchResult: getCachedSearchResult,
         searchObject: getSearchObject
       }
     });
 
+  }
+
+  function getCachedSearchResult($stateParams, bookingApi) {
+    var shareTripData = bookingApi.getShareTripData();
+    if (_.has($stateParams, 'fromCache') && parseInt($stateParams.fromCache) === 1 && shareTripData !== null) {
+      return shareTripData.itineraries;
+    }
+    return null;
   }
 
   function getSearchObject($stateParams, appConfig) {

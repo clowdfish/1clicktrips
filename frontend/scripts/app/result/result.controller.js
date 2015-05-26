@@ -19,7 +19,10 @@
                       AUTH_EVENTS,
                       favoriteApi,
                       searchObject,
-                      bookingApi) {
+                      bookingApi,
+                      cachedSearchResult) {
+
+    $scope.TRIP_TYPE = TRIP_TYPE;
 
     $rootScope.windowHeight = browser.getViewport().height + "px";
 
@@ -44,7 +47,13 @@
     $scope.getTimeAfterMeeting = getTimeAfterMeeting;
     $scope.isSingleDay = isSingleDayMeeting;
 
-    findAllItineraries();
+    if (cachedSearchResult) {
+      $scope.itineraries = cachedSearchResult;
+      findTripByBudget();
+    } else {
+      findAllItineraries();
+    }
+
 
     $scope.showSelectionPanel = true;
     $scope.showInfoPanel =  browser.getViewport().width > 768;
@@ -104,7 +113,7 @@
 
     function findTripByBudget() {
       $scope.itinerary = filterItineraryByType(TRIP_TYPE.lowBudget);
-      $scope.activeTrip = 0;
+      $scope.activeTrip = TRIP_TYPE.lowBudget;
     }
 
     function findTripByTime() {
@@ -113,7 +122,7 @@
         return;
 
       $scope.itinerary = filterItineraryByType(TRIP_TYPE.timeSaving);
-      $scope.activeTrip = 1;
+      $scope.activeTrip = TRIP_TYPE.timeSaving;
     }
 
     function findTripByComfort() {
@@ -122,7 +131,7 @@
         return;
 
       $scope.itinerary = filterItineraryByType(TRIP_TYPE.comfortTrip);
-      $scope.activeTrip = 2;
+      $scope.activeTrip = TRIP_TYPE.comfortTrip;
     }
 
     /**
@@ -219,9 +228,7 @@
     }
 
     function bookTrip() {
-      bookingApi.setShareTripData($scope.itinerary, createSearchParameters());
-
-      //console.log($scope.itinerary);
+      bookingApi.setShareTripData($scope.itineraries, $scope.activeTrip, createSearchParameters());
       $state.go('booking');
     }
 
@@ -238,7 +245,8 @@
         destination: $stateParams.destination,
         startDate: $stateParams.startDate,
         endDate: $stateParams.endDate,
-        roundTrip: $stateParams.roundTrip
+        roundTrip: $stateParams.roundTrip,
+        fromCache: 1
       };
     }
 

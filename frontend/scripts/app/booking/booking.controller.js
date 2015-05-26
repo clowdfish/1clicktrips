@@ -37,8 +37,12 @@
     */
 
     if (bookingData !== null) {
+      var trip = _.find(bookingData['itineraries'], function(tripItem) {
+        return tripItem.type === bookingData['tripType'];
+      });
+      trip = resetTripData(trip);
       $scope.bookingData = {
-        trip: bookingData['trip'],
+        trip: trip,
         payment: {},
         user: {},
         isConfirm: false
@@ -95,7 +99,19 @@
     }
 
     function mapView() {
-      $state.go('search_result', bookingData['search'])
+      $state.go('search_result', bookingData['searchParams'])
+    }
+
+    /**
+    * Remove booking data and some user data from session
+    */
+    function resetTripData(trip) {
+      _.each(trip.groupSegment, function(groupSegment) {
+        _.each(groupSegment, function(segment) {
+          segment['isBooked'] = false;
+        });
+      });
+      return trip;
     }
   }
 
