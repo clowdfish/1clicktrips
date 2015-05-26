@@ -15,7 +15,7 @@
     $scope.endDate = $scope.$parent.endDate;
     $scope.endDateString = $scope.$parent.endDateString;
     $scope.checkTimeFormat = checkTimeFormat;
-    checkTimeFormat();
+
     /**
     * Date time picker open status
     */
@@ -62,7 +62,7 @@
       } else {
         $scope.setEndDate(null);
       }
-    };
+    }
 
     $scope.$watchGroup(['startDate', 'endDate'], function() {
       $scope.checkTimeFormat();

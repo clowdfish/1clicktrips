@@ -8,7 +8,6 @@
 
   function searchCtrl($scope,
                       $rootScope,
-                      $timeout,
                       $state,
                       browser,
                       searchFormData,
@@ -102,29 +101,30 @@
 
     $scope.resetTabIndex = function() {
       $('#origin').focus();
-    }
+    };
 
     $scope.$watch('startDate', function() {
-      $scope.updateTimeForStartDate();
+      $scope.updateTime($scope.startDate, $scope.startTimeString);
     });
 
     $scope.$watch('endDate', function() {
-      $scope.updateTimeForEndDate();
-    })
+      $scope.updateTime($scope.endDate, $scope.endTimeString);
+    });
 
-    $scope.updateTimeForEndDate = function() {
-      var endTime = $scope.endTimeString;
-      $scope.endDate.setHours(parseInt(endTime.substr(0, 2)));
-      $scope.endDate.setMinutes(parseInt(endTime.substr(3, 2)));
-      validateFormInput();
-    }
+    $scope.updateTime = function(dateObject, timeString) {
 
-    $scope.updateTimeForStartDate = function() {
-      var startTime = $scope.startTimeString;
-      $scope.startDate.setHours(parseInt(startTime.substr(0, 2)));
-      $scope.startDate.setMinutes(parseInt(startTime.substr(3, 2)));
-      validateFormInput();
-    }
+      if(!new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
+          .test(timeString)) {
+
+        if(timeString.indexOf(":") === 1)
+          timeString = "0".concat(timeString);
+
+        dateObject.setHours(parseInt(timeString.substr(0, 2)));
+        dateObject.setMinutes(parseInt(timeString.substr(3, 2)));
+
+        validateFormInput();
+      }
+    };
 
     function validateFormInput() {
       $scope.isStepAppointmentReady = false;
@@ -190,56 +190,69 @@
       return moment(date).format('YYYY-MM-DDTHH:mm:ss');
     }
 
+
+    /**
+     * Functions to set the content of the search form.
+     */
+
     function setOrigin(options) {
-      if (options === null || (options.description === null || options.location === null)) {
+      if (options == null || (options.description == null || options.location == null)) {
         $scope.origin = null;
         $scope.originLocation = null;
         $scope.isStepOriginReady = false;
         return;
       }
+
       $scope.origin = options.description;
       $scope.originLocation = options.location;
       $scope.isStepOriginReady = true;
+
+      validateFormInput();
     }
 
     function setDestination(options) {
-      if (options === null || (options.description === null || options.location === null)) {
+      if (options == null || (options.description == null || options.location == null)) {
         $scope.destination = null;
         $scope.destinationLocation = null;
         $scope.isStepDestinationReady = false;
         return;
       }
+
       $scope.destination = options.description;
       $scope.destinationLocation = options.location;
       $scope.isStepDestinationReady = true;
+
+      validateFormInput();
     }
 
     function setStartDate(options) {
-      if (options === null) {
+      if (options == null) {
         $scope.startDate = null;
         $scope.isStepAppointmentReady = false;
         return;
       }
+
       $scope.startDate = options.startDate;
       $scope.startDate.setHours(parseInt(options.startTime.substr(0, 2)));
       $scope.startDate.setMinutes(parseInt(options.startTime.substr(3, 2)));
       $scope.startTimeString = options.startTime;
+
       validateFormInput();
     }
 
     function setEndDate(options) {
-      if (options === null) {
+      if (options == null) {
         $scope.endDate = null;
         $scope.isStepAppointmentReady = false;
         return;
       }
+
       $scope.endDate = options.endDate;
       $scope.endDate.setHours(parseInt(options.endTime.substr(0, 2)));
       $scope.endDate.setMinutes(parseInt(options.endTime.substr(3, 2)));
       $scope.endTimeString = options.endTime;
+
       validateFormInput();
     }
-
   }
-
 })();
