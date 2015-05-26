@@ -111,6 +111,26 @@ module.exports = function (app, express, production) {
         res.status(500).send(err.message);
       });
   });
+
+  // ==========================================================================
+  // MOBILE BOOKING ===========================================================
+  // ==========================================================================
+
+  app.get('/mobile-bookings', function(req, res) {
+    BookingController
+      .getMobileBookings()
+      .then(function(bookings) {
+        if (bookings) {
+          res.status(200).json(bookings)
+        } else {
+          console.log(bookings);
+          res.sendStatus(500);
+        }
+      })
+      .catch(function(err) {
+        res.status(500).send(err.message);
+      })
+  });
 };
 
 /**

@@ -20,6 +20,8 @@
     $scope.numberOfFavorites = $scope.isMobile ? 3 : 6;
     $scope.numberOfTrips = $scope.isMobile ? 1 : 3;
 
+    $scope.subscriptionEmail = "";
+
     $scope.selectFavorite = function(favorite) {
       $rootScope.$broadcast('selectFavorite', favorite);
     };
@@ -32,19 +34,24 @@
       refreshDashboard();
     });
 
-    $scope.subscribe = function(email) {
+    $scope.subscribe = function() {
+      var email = $scope.subscriptionEmail;
+
       if (email == null || email.trim() === '') {
         return;
       }
+
       $scope.subscribeMessage = null;
+
       newsletterApi
         .subscribe(email)
         .then(function(message) {
           $scope.subscribeMessage = message;
         }, function(message) {
           $scope.subscribeMessage = message;
+          console.log("Error Response: " + message);
         });
-    }
+    };
 
     function refreshDashboard() {
       favoriteApi

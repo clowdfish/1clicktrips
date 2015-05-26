@@ -33,6 +33,12 @@ module.exports = {
 
       resolve(createCountryMock());
     });
+  },
+
+  subscribe: function() {
+    return new Promise(function(resolve) {
+      resolve();
+    });
   }
 };
 

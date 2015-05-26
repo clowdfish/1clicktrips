@@ -1,6 +1,6 @@
 var yaml = require('js-yaml'),
     fs   = require('fs'),
-    vsprintf = require("sprintf-js").vsprintf;
+    vsprintf = require("sprintf-js").vsprintf,
     en = require('../../config/i18n/en'),
     de = require('../../config/i18n/de'),
     _ = require('underscore');
@@ -8,7 +8,7 @@ var yaml = require('js-yaml'),
 var languages = {
   en: formatLanguageData(en),
   de: formatLanguageData(de)
-}
+};
 
 var defaultLanguageKey = 'en';
 
@@ -44,7 +44,6 @@ function languageKeyParser(req, res, next) {
   next();
 }
 
-
 /**
 * Flatten json file
 */
@@ -70,9 +69,7 @@ function formatLanguageData(translationData, prefix) {
   return result;
 }
 
-
-
 module.exports = {
   translate: translate,
   languageKeyParser: languageKeyParser
-}
+};

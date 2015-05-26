@@ -8,6 +8,7 @@ var connection = mysql.createConnection(dbConfig.connection);
 var currencies = require('../../config/currencies.json');
 var languages = require('../../config/languages.json');
 var translate = require('../i18n/i18n').translate;
+
 module.exports = {
 
   getAvailableCurrencies: function() {
@@ -43,15 +44,13 @@ module.exports = {
   },
 
   subscribe: function(email, req) {
+
     return new Promise(function(resolve, reject) {
-      var activeCampaign = new ActiveCampaign();
-      activeCampaign
+
+      new ActiveCampaign()
         .subscribeUser(email)
-        .then(function(status) {
-          resolve(translate(status, req.languageKey));
-        }, function(status) {
-          reject(new Error(translate(status, req.languageKey)));
-        });
+        .then(resolve)
+        .catch(reject);
     });
   }
 };

@@ -8,6 +8,7 @@
 
   function newsletterApi($q, $http) {
     this.subscribe = subscribe;
+
     function subscribe(email) {
       return $q(function(resolve, reject) {
         $http

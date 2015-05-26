@@ -15,8 +15,6 @@ module.exports = function (app, production) {
     AppController = require('../mocking/appController');
   }
 
-  BookingController = require('../mocking/bookingController');
-
   // =============================================================================
   // LANGUAGE ====================================================================
   // =============================================================================
@@ -60,30 +58,18 @@ module.exports = function (app, production) {
       });
   });
 
-  app.get('/mobile-bookings', function(req, res) {
-    BookingController
-      .getMobileBookings()
-      .then(function(bookings) {
-        if (bookings) {
-          res.status(200).json(bookings)
-        } else {
-          console.log(bookings);
-          res.sendStatus(500);
-        }
-      })
-      .catch(function(err) {
-
-        res.status(500).send(err.message);
-      })
-  });
-
+  // =============================================================================
+  // SUBSCRIPTION ================================================================
+  // =============================================================================
   app.post('/subscribe-newsletter', function(req, res) {
     console.log('Subscribe for email: ', req.body.email);
+
     AppController
       .subscribe(req.body.email)
       .then(function() {
-        res.status(200).send('OK');
-      }, function(err) {
+        res.status(200).send();
+      })
+      .catch(function(err) {
         res.status(500).send(err.message);
       });
   });
