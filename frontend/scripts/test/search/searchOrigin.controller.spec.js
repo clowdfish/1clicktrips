@@ -8,7 +8,11 @@ describe('searchOriginCtrl', function() {
       mockLocation,
       suggestionAdapter,
       mockAddress,
-      googleMap;
+      googleMap,
+      defaultOriginApi,
+      defaultOriginHandler,
+      defaultOriginMock,
+      session;
 
   beforeEach(function() {
     module('app.search');
@@ -31,8 +35,9 @@ describe('searchOriginCtrl', function() {
                             _googleMap_,
                             _mockAddress_,
                             _AUTH_EVENTS_,
-                            _session_) {
-    _session_.authFailed();
+                            _session_,
+                            _defaultOriginApi_) {
+    session = _session_;
     $scope = _$rootScope_.$new();
     $rootScope = _$rootScope_;
     $q = _$q_;
@@ -43,16 +48,29 @@ describe('searchOriginCtrl', function() {
     googleMap = _googleMap_;
     suggestionAdapter = _suggestionAdapter_;
     mockAddress = _mockAddress_;
+    defaultOriginApi = _defaultOriginApi_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, 'OK');
+    defaultOriginMock = {
+      description: 'San Diego',
+      location: {
+        latitude: 10.6,
+        longitude: 106.9
+      }
+    };
+
+    defaultOriginHandler = $httpBackend.whenGET(/\/api\/account\/settings\/default_origin/).respond(200, defaultOriginMock);
+    $httpBackend.whenPOST(/\/api\/account\/settings/).respond(200, 'OK');
+    session.authSuccess('test_token');
+    $scope.setOrigin = jasmine.createSpy('setOrigin');
     ctrl = _$controller_('searchOriginCtrl', {
       $scope: $scope,
       $state: _$state_,
       SUGGESTION_TYPES: _SUGGESTION_TYPES_,
       suggestionAdapter: _suggestionAdapter_,
       googleMap: _googleMap_,
-      AUTH_EVENTS: _AUTH_EVENTS_
+      AUTH_EVENTS: _AUTH_EVENTS_,
     });
 
     spyOn(googleMap, 'geocode').and.callFake(function() {
@@ -67,9 +85,47 @@ describe('searchOriginCtrl', function() {
       return deferred.promise;
     });
 
-    $scope.setOrigin = jasmine.createSpy('setOrigin');
+    spyOn(defaultOriginApi, 'setDefaultOrigin').and.callThrough();
 
   }));
+
+  afterEach(function() {
+    session.authFailed();
+  });
+
+  it('get/set default origin in session storage correctly', function() {
+    session.authFailed();
+    defaultOriginApi.setDefaultOrigin(defaultOriginMock.description, defaultOriginMock.location);
+    $scope.loadDefaultOrigin();
+    $scope.$digest();
+    expect($scope.origin).toEqual(defaultOriginMock.description);
+    expect($scope.originLocation).toEqual(defaultOriginMock.location);
+    expect($scope.storeDefaultOrigin).toEqual(true);
+  });
+
+  it('get/set default origin by Api correctly', function() {
+
+    defaultOriginHandler.respond(200, defaultOriginMock);
+    $scope.loadDefaultOrigin();
+    $scope.$digest();
+    $httpBackend.flush();
+    expect($scope.origin).toEqual(defaultOriginMock.description);
+    expect($scope.originLocation).toEqual(defaultOriginMock.location);
+    expect($scope.storeDefaultOrigin).toEqual(true);
+
+    $scope.storeDefaultOrigin = false;
+    $scope.toggleDefaultOrigin();
+    $scope.$digest();
+    expect(defaultOriginApi.setDefaultOrigin).toHaveBeenCalledWith(null);
+
+    $scope.storeDefaultOrigin = true;
+    $scope.origin = defaultOriginMock.description;
+    $scope.originLocation = defaultOriginMock.location;
+    $scope.toggleDefaultOrigin();
+    $scope.$digest();
+    $httpBackend.flush();
+    expect(defaultOriginApi.setDefaultOrigin).toHaveBeenCalledWith(defaultOriginMock.description, defaultOriginMock.location);
+  });
 
   it('return value when call getAddressSuggestion()', function() {
     var input = 'sample address input';

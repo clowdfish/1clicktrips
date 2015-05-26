@@ -32,11 +32,9 @@
     }
 
     function setDefaultOrigin(description, location) {
-
       return $q(function(resolve, reject) {
-
+        console.log(description, location);
         var origin = null;
-
         if (description != null && location != null) {
           origin = {
             description: description,
@@ -44,13 +42,16 @@
           };
         }
 
+
         if (false === session.isLogin()) {
           $sessionStorage[storageKey] = origin;
           return resolve();
         }
         else {
+          console.log(origin);
+          var settingValue = origin !== null ? JSON.stringify(origin) : null;
           settings
-            .setUserSettings(storageKey, JSON.stringify(origin))
+            .setUserSettings(storageKey, settingValue)
             .then(function() {
               resolve();
             }, function() {

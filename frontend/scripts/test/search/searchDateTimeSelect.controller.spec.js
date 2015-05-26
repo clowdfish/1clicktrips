@@ -51,11 +51,11 @@ describe('searchDateTimeSelectCtrl', function() {
   it('test date time valid', function() {
     $scope.startDate = new Date();
     $scope.startTimeString = '12:xyz';
-    $scope.checkTimeFormat();
-    expect($scope.setStartDate).toHaveBeenCalledWith(null);
+    $scope.updateStartDate();
+    expect($scope.setStartDate).not.toHaveBeenCalled();
 
     $scope.startTimeString = '12:00';
-    $scope.checkTimeFormat();
+    $scope.updateStartDate();
     expect($scope.setStartDate).toHaveBeenCalledWith({
       startDate: $scope.startDate,
       startTime: $scope.startTimeString

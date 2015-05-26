@@ -31,6 +31,7 @@
     */
     $scope.storeDefaultOrigin = false;
     $scope.toggleDefaultOrigin = toggleDefaultOrigin;
+    $scope.loadDefaultOrigin = loadDefaultOrigin;
 
     // load default origin on initialization
     loadDefaultOrigin();
@@ -64,7 +65,7 @@
 
     function toggleDefaultOrigin() {
       if ($scope.storeDefaultOrigin) {
-        if ($scope.$parent.origin == null) {
+        if ($scope.origin === null) {
           alert("Please enter your origin location");
           $scope.storeDefaultOrigin = false;
         }
@@ -78,11 +79,11 @@
       }
     }
 
-	/**
+	  /**
      * Get suggestion for address only
      * @param {string} val - input
      * @return {promise} - return a promise for typeahead
-     */
+    */
     function getAddressSuggestion(val) {
       return  suggestionAdapter
                 .getSuggestion(val, SUGGESTION_TYPES.address);
@@ -92,6 +93,7 @@
       googleMap
       	.geocode($item.description)
       	.then(function(location) {
+          $scope.originLocation = location;
           if ($scope.storeDefaultOrigin) {
             defaultOriginApi
               .setDefaultOrigin($scope.origin, $scope.originLocation);

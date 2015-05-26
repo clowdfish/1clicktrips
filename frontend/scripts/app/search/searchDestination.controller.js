@@ -34,7 +34,8 @@
       if (_.isEmpty(destination)) {
         $scope.setDestination(null);
       }
-    })
+    });
+
     $scope.toggleLocationDropdown = function() {
       $scope.isOpen = !$scope.isOpen;
     };
