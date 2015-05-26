@@ -69,6 +69,7 @@
     $scope.toggleSelectionPanel = toggleSelectionPanel;
     $scope.toggleSegmentList = toggleSegmentList;
     $scope.toggleInfoPanel = toggleInfoPanel;
+    $scope.toggleTooltip = toggleTooltip;
 
     $scope.addToFavorites = addToFavorites;
 
@@ -252,6 +253,11 @@
 
     function toggleSegmentList() {
       $scope.showList = !$scope.showList;
+    }
+
+    function toggleTooltip(index) {
+      if($scope.tooltip === index) $scope.tooltip = 0;
+      else $scope.tooltip = index;
     }
   }
 })();

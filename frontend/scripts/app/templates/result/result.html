@@ -125,14 +125,37 @@
             <span ng-if="showInfoPanel">{[ "result_summary_hide" | translate ]}</span>
             <span ng-if="!showInfoPanel">{[ "result_summary_details" | translate ]}</span>
           </a></span>
-          <span class="result-panel-summary-header-appointment"><span>{[ "result_summary_appointment" | translate | capitalize ]}:</span><span>{[itinerary.startTime | date: "dd.MM.yyyy"]}</span></span>
+          <span ng-if="showInfoPanel" class="result-panel-summary-header-appointment"><span>{[ "result_summary_appointment" | translate | capitalize ]}:</span><span>{[itinerary.startTime | date: "dd.MM.yyyy"]}</span></span>
         </div>
         <!-- RESULT SUMMARY -->
         <div class="result-panel-summary-details" ng-show="showInfoPanel">
-          <span class="result-panel-summary-details-item"><span><i class="fa fa-home"></i></span><span>{[ "result_summary_start" | translate ]}:</span><span>{[ itinerary.startTime | date:"EEE hh:mm" ]}</span></span>
-          <span class="result-panel-summary-details-item"><span><i class="fa fa-flag"></i></span><span>{[ "result_summary_destination" | translate ]}:</span><span>{[ itinerary.endTime | date:"EEE hh:mm" ]}</span></span>
-          <span class="result-panel-summary-details-item"><span><i class="fa fa-clock-o"></i></span><span>{[ "result_summary_time" | translate ]}:</span><span>?</span></span>
-          <!--<trip-summary itinerary="itinerary"></trip-summary>-->
+          <span class="result-panel-summary-details-item">
+            <span class="tooltip"
+                  title="{[ 'result_summary_start' | translate ]}"
+                  ng-click="toggleTooltip(1)"
+                  ng-class="{ show: tooltip === 1}">
+              <i class="fa fa-home"></i>
+            </span>
+            <span>{[ itinerary.startTime | date:"EEE hh:mm" ]}</span>
+          </span>
+          <span class="result-panel-summary-details-item">
+            <span class="tooltip"
+                  title="{[ 'result_summary_destination' | translate ]}"
+                  ng-click="toggleTooltip(2)"
+                  ng-class="{ show: tooltip === 2}">
+              <i class="fa fa-flag"></i>
+            </span>
+            <span>{[ itinerary.endTime | date:"EEE hh:mm" ]} test</span>
+          </span>
+          <span class="result-panel-summary-details-item">
+            <span class="tooltip"
+                  title="{[ 'result_summary_time' | translate ]}"
+                  ng-click="toggleTooltip(3)"
+                  ng-class="{ show: tooltip === 3}">
+              <i class="fa fa-clock-o"></i>
+            </span>
+            <span>?</span>
+          </span>
         </div>
       </div>
 

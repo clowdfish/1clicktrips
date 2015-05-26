@@ -154,8 +154,8 @@ de:
       hide: Details ausblenden
       back: Details schließen
       appointment: dein Termin
-      start: Startzeit
-      destination: Ankunftszeit
+      start: Abreise am Startort
+      destination: Ankunftszeit am Zielort
       time: Zeit vor dem Termin
     segments:
       title: Reisedetails

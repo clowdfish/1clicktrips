@@ -334,8 +334,7 @@
     }
 
     .header-navigation-menu-sub-item {
-      padding-right: 0.3em;
-      padding-left: 1em;
+      padding: 0.4em 0.3em 0.4em 1em;
       height: $input-height;
 
       &.active:before {

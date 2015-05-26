@@ -369,6 +369,7 @@
     .result-panel-summary {
       float: left;
       margin-right: 1em;
+      margin-bottom: 1em;
     }
 
     .result-panel-summary-header-title {
@@ -389,21 +390,30 @@
     }
 
     .result-panel-summary-header-appointment {
-      display: none;
+      display: block;
+      font-size: $fs-small;
+      color: lighten($c-text, 45%);
+
+      span:first-of-type {
+        display: inline-block;
+        margin-right: 1em;
+      }
     }
 
     .result-panel-summary-details {
-      display: table;
+      display: block;
       font-size: $fs-small;
-      margin-top: 1em;
+      margin-top: 0.5em;
     }
 
     .result-panel-summary-details-item {
-      display: table-row;
+      display: inline-block;
+      margin-right: 1em;
 
-      span {
-        display: table-cell;
-        padding: 0 0.8em 0.2em 0;
+      i {
+        color: $c-primary;
+        margin-right: 0.3em;
+        cursor: help;
       }
     }
 
@@ -449,23 +459,12 @@
       margin-bottom: 0;
     }
 
-    .result-panel-summary-header-appointment {
-      display: block;
-      font-size: $fs-small;
-      color: lighten($c-text, 45%);
-
-      span:last-of-type {
-        display: inline-block;
-        margin-left: 1em;
-      }
+    .result-panel-summary-details {
+      margin-top: 1.2em;
     }
 
     .result-panel-controls {
       text-align: right;
-    }
-
-    .result-panel-controls-time {
-      margin-bottom: 2.2em;
     }
 
     .result-panel-controls-buttons {
@@ -492,7 +491,6 @@
       }
     }
   }
-
 
   /*******************************************************/
   /* Trip Summary Directive                              */
