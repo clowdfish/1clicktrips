@@ -9,7 +9,7 @@
 
     <!-- tab control for the trip segments list -->
     <ul class='trip-segments-day-tab'>
-      <li class='trip-segments-day-tab-item' ng-class="{active: activeSegmentsNumber == header}" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
+      <li class='trip-segments-day-tab-item' ng-class="{ active: activeSegmentsNumber == header }" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
           <span ng-if="header == 0">{[ "result_segments_outbound" | translate ]}</span>
           <span ng-if="header == 1">{[ "result_segments_inbound" | translate ]}</span>
       </li>

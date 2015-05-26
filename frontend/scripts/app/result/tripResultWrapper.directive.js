@@ -38,17 +38,9 @@
       * Update position of alternative panel to match selected segment
       */
       function updateAlternativePosition(segmentIndex) {
-        /*
-        var $segmentSelector = $element.find('.trip-segments-day-item').eq(segmentIndex);
-        console.log("Top Offset " + $segmentSelector.offset().top);
-
-        if (null == $segmentSelector) {
-          return;
-        }
-        */
 
         if(browser.isMobileDevice()) {
-          scope.alternativeTop = 0; //$segmentSelector.offset().top + $segmentSelector.innerHeight();
+          scope.alternativeTop = 0;
         }
         else {
           scope.alternativeTop = 120;
@@ -65,11 +57,6 @@
     }
 
     function controller($scope, tripApi) {
-
-      $scope.hideMap = $scope.hideMap || false;
-
-      // check for device type and configure accordingly
-      $scope.isMobile = browser.isMobileDevice();
 
       /**
       * List of hotels, alternative segments...

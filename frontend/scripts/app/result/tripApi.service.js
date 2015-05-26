@@ -221,6 +221,7 @@
     function setSegmentHotel(itinerary, segment, hotel) {
       for (var key in itinerary.groupSegment) {
         var groupSegment = itinerary.groupSegment[key];
+
         for (var i = 0; i < itinerary.groupSegment[key].length; i++) {
           var item = itinerary.groupSegment[key][i];
           if (item.id === segment.id) {
@@ -237,6 +238,7 @@
     function unsetSegmentHotel(itinerary, segment) {
       for (var key in itinerary.groupSegment) {
         var groupSegment = itinerary.groupSegment[key];
+
         for (var i = 0; i < itinerary.groupSegment[key].length; i++) {
           var item = itinerary.groupSegment[key][i];
           if (item.id === segment.id) {
@@ -264,7 +266,8 @@
     }
 
     /**
-     *
+     * Transforms the response from the server into a format that fits the
+     * requirements of the front end.
      *
      * @param itinerary
      * @param searchObject
@@ -292,8 +295,8 @@
 
       itinerary['groupSegment'] = groupSegments;
       itinerary = updateItineraryByGroupSegment(itinerary);
-      itinerary['startDate'] = searchObject.startDate;
-      itinerary['endDate'] = searchObject.endDate;
+      itinerary['appointmentStart'] = searchObject.startDate;
+      itinerary['appointmentEnd'] = searchObject.endDate;
       itinerary['origin'] = searchObject.origin;
       itinerary['destination'] = searchObject.destination;
 
@@ -301,25 +304,31 @@
     }
 
     /**
-     * Collect data from group segments and update to itinerary
+     * Collect data from group segments and update to itinerary.
+     *
      * @params {Object} itinerary - Itinerary object
      * @params {Object} groupSegment
      * @return {Object} itinerary - Itinerary is updated by data from groupSegment
      */
     function updateItineraryByGroupSegment(itinerary) {
       var groupSegment = itinerary.groupSegment;
+
       itinerary['groupSegment'] = groupSegment;
       itinerary['duration'] = getItineraryDuration(groupSegment);
       itinerary['cost'] = getItineraryCost(groupSegment);
       itinerary['totalCost'] = itinerary['cost'] +  itinerary['cost'] * appConfig.bookingRate / 100;
       itinerary['vehicleTypeList'] = getVehicleTypeList(groupSegment);
-      itinerary['startTime'] = getItineraryStartTime(groupSegment);
-      itinerary['endTime'] = getItineraryEndTime(groupSegment);
+
+      delete(itinerary['outbound']);
+      delete(itinerary['inbound']);
+      delete(itinerary['price']);
+
       return itinerary;
     }
 
     /**
-     * Get vehicle number array from group segments
+     * Get vehicle number array from group segments.
+     *
      * @params {Object} groupSegment
      * @returns {Array} array of vehicle number
      */
@@ -333,27 +342,6 @@
       });
 
       return vehicleTypeList;
-    }
-
-    /**
-     * Get departure time of the first segment in group segments
-     */
-    function getItineraryStartTime(groupSegment) {
-      if (_.isUndefined(groupSegment[0])) {
-        return;
-      }
-      return _.first(groupSegment[0]).departureTime;
-    }
-
-    /**
-     * Get arrival time of last segment in group segments
-     */
-    function getItineraryEndTime(groupSegment) {
-      var keys = _.keys(groupSegment);
-      var lastIndex = keys.length;
-      if (!_.isUndefined(groupSegment[lastIndex])) {
-        return _.last(groupSegment[lastIndex]).arrivalTime;
-      }
     }
 
     /**
@@ -402,53 +390,6 @@
           action(segment);
         });
       });
-    }
-
-    /**
-     * Group segment by day.
-     * REMARK: For now, it won't group it by day but by inbound and outbound.
-     */
-    function groupSegmentByDate(itinerary) {
-      var i = 0;
-      var result = {};
-      var day = 0;
-      result[day] = [];
-
-      var segment;
-
-      if (itinerary.outbound && itinerary.outbound.hasOwnProperty('segments')) {
-
-        for (i = 0; i < itinerary.outbound.segments.length; i++) {
-          segment = itinerary.outbound.segments[i];
-          segment['tripId'] = itinerary.outbound.id;
-          if (result[day] == null) {
-            result[day] = [];
-          }
-
-          result[day].push(segment);
-
-          // This part will put the segments into different groups based on days
-          if (segment.type == 0) day++;
-        }
-      }
-
-      if (itinerary.inbound && itinerary.inbound.hasOwnProperty('segments')) {
-
-        for (i = 0; i < itinerary.inbound.segments.length; i++) {
-          segment = itinerary.inbound.segments[i];
-          segment['tripId'] = itinerary.inbound.id;
-
-          if (result[day] == null) {
-            result[day] = [];
-          }
-
-          result[day].push(segment);
-
-          // This part will put the segments into different groups based on days
-          if (segment.type == 0) day++;
-        }
-      }
-      return result;
     }
   }
 })();

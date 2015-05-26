@@ -29,15 +29,15 @@
       <div class="result-selection-type">
         <span class="result-selection-type-text">{[ "result_select" | translate ]}</span>
         <ul class="result-selection-type-list">
-          <li class="result-selection-type-list-item" ng-class="{active: activeTrip == 0}" ng-click="findTripByBudget()">
+          <li class="result-selection-type-list-item" ng-class="{ active: activeTrip == 0}" ng-click="findTripByBudget()">
             <i class="fa fa-dollar"></i>
             {[ "result_budget_title" | translate ]}
           </li>
-          <li class="result-selection-type-list-item" ng-class="{active: activeTrip == 1, missing: itineraries.length<2 }" ng-click="findTripByTime()">
+          <li class="result-selection-type-list-item" ng-class="{ active: activeTrip == 1, missing: itineraries.length<2 }" ng-click="findTripByTime()">
             <i class="fa fa-clock-o"></i>
             {[ "result_time_title" | translate ]}
           </li>
-          <li class="result-selection-type-list-item" ng-class="{active: activeTrip == 2, missing: itineraries.length<3 }" ng-click="findTripByComfort()">
+          <li class="result-selection-type-list-item" ng-class="{ active: activeTrip == 2, missing: itineraries.length<3 }" ng-click="findTripByComfort()">
             <i class="fa fa-diamond"></i>
             {[ "result_comfort_title" | translate ]}
           </li>
@@ -48,7 +48,7 @@
       <div class="result-selection-details">
         <div class="result-selection-details-header">
           <span class="result-selection-details-header-label">{[ "result_destination_label" | translate ]}</span>
-          <h2 class="result-selection-details-header-title"><i class="fa fa-map-marker"></i>{[itinerary.outbound.destination.description]}</h2>
+          <h2 class="result-selection-details-header-title"><i class="fa fa-map-marker"></i>{[ itinerary.destination ]}</h2>
         </div>
 
         <div class="result-selection-details-item">
@@ -120,12 +120,21 @@
       <div class="result-panel-summary">
         <!-- RESULT  HEADER -->
         <div class="result-panel-summary-header">
-          <h2 class="result-panel-summary-header-title"><i class="fa fa-map-marker"></i>{[ itinerary.outbound.destination.description ]}</h2>
+          <h2 class="result-panel-summary-header-title"><i class="fa fa-map-marker"></i>{[ itinerary.destination ]}</h2>
           <span class="result-panel-summary-header-link"><a ng-click="toggleInfoPanel()">
             <span ng-if="showInfoPanel">{[ "result_summary_hide" | translate ]}</span>
             <span ng-if="!showInfoPanel">{[ "result_summary_details" | translate ]}</span>
           </a></span>
-          <span ng-if="showInfoPanel" class="result-panel-summary-header-appointment"><span>{[ "result_summary_appointment" | translate | capitalize ]}:</span><span>{[itinerary.startTime | date: "dd.MM.yyyy"]}</span></span>
+          <span ng-if="showInfoPanel" class="result-panel-summary-header-appointment">
+            <span>{[ "result_summary_appointment" | translate | capitalize ]}:</span>
+            <span ng-if="isSingleDay">
+              {[ itinerary.appointmentStart | date: "dd.MM.yyyy" ]},
+              {[ itinerary.appointmentStart | date: "H:mm" ]}-{[ itinerary.appointmentEnd | date: "H:mm" ]}
+            </span>
+            <span ng-if="!isSingleDay">
+              {[ itinerary.appointmentStart | date: "dd.MM.yyyy, H:mm" ]}-{[ itinerary.appointmentEnd | date: "dd.MM.yyyy, H:mm" ]}
+            </span>
+          </span>
         </div>
         <!-- RESULT SUMMARY -->
         <div class="result-panel-summary-details" ng-show="showInfoPanel">
@@ -134,27 +143,28 @@
                   title="{[ 'result_summary_start' | translate ]}"
                   ng-click="toggleTooltip(1)"
                   ng-class="{ show: tooltip === 1}">
-              <i class="fa fa-home"></i>
+              <i class="fa" ng-class="{ 'fa-home': activeSegmentsNumber === 0, 'fa-building-o' : activeSegmentsNumber === 1 }"></i>
             </span>
-            <span>{[ itinerary.startTime | date:"EEE hh:mm" ]}</span>
+            <span>{[ activeSegments[0].departureTime | date:"d.M.yyyy hh:mm" ]}</span>
           </span>
           <span class="result-panel-summary-details-item">
             <span class="tooltip"
                   title="{[ 'result_summary_destination' | translate ]}"
                   ng-click="toggleTooltip(2)"
                   ng-class="{ show: tooltip === 2}">
-              <i class="fa fa-flag"></i>
+              <i class="fa" ng-class="{ 'fa-flag': activeSegmentsNumber === 0, 'fa-home' : activeSegmentsNumber === 1 }"></i>
             </span>
-            <span>{[ itinerary.endTime | date:"EEE hh:mm" ]} test</span>
+            <span>{[ activeSegments[activeSegments.length - 1].arrivalTime | date: "d.M.yyyy hh:mm" ]}</span>
           </span>
           <span class="result-panel-summary-details-item">
             <span class="tooltip"
-                  title="{[ 'result_summary_time' | translate ]}"
+                  title="{[ activeSegmentsNumber === 0 ? 'result_summary_time_before' : 'result_summary_time_after' | translate ]}"
                   ng-click="toggleTooltip(3)"
                   ng-class="{ show: tooltip === 3}">
               <i class="fa fa-clock-o"></i>
             </span>
-            <span>?</span>
+            <span ng-if="activeSegmentsNumber === 0">{[ getTimeBeforeMeeting(activeSegments) | durationToTime: "%h hrs %m mins" ]}</span>
+            <span ng-if="activeSegmentsNumber === 1">{[ getTimeAfterMeeting(activeSegments) | durationToTime: "%h hrs %m mins" ]}</span>
           </span>
         </div>
       </div>

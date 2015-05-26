@@ -156,7 +156,9 @@ de:
       appointment: dein Termin
       start: Abreise am Startort
       destination: Ankunftszeit am Zielort
-      time: Zeit vor dem Termin
+      time:
+       before: Zeit vor dem Termin
+       after: Zeit nach dem Termin
     segments:
       title: Reisedetails
       outbound: Hinreise

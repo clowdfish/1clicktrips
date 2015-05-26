@@ -40,6 +40,9 @@
     $scope.showAddToFavorite = true;
     $scope.itinerary = null;
     $scope.isMobile = browser.isMobileDevice();
+    $scope.getTimeBeforeMeeting = getTimeBeforeMeeting;
+    $scope.getTimeAfterMeeting = getTimeAfterMeeting;
+    $scope.isSingleDay = isSingleDayMeeting;
 
     findAllItineraries();
 
@@ -89,6 +92,9 @@
       tripApi
         .findItinerary(searchObject, additionData)
         .then(function(itineraries) {
+
+          console.log(itineraries);
+
           $scope.itineraries = itineraries;
           if ($scope.itinerary == null) {
             $scope.findTripByBudget();
@@ -234,6 +240,51 @@
         endDate: $stateParams.endDate,
         roundTrip: $stateParams.roundTrip
       };
+    }
+
+    /**
+     * Calculates the time between the arrival time at the destination and the
+     * appointment's start time.
+     *
+     * @param trip
+     * @returns number in minutes
+     */
+    function getTimeBeforeMeeting(trip) {
+
+      if(trip) {
+        var arrivalTime = moment(trip[trip.length - 1].arrivalTime);
+        var appointmentStart = moment($scope.itinerary.appointmentStart);
+
+        return appointmentStart.diff(arrivalTime, 'minutes');
+      }
+    }
+
+    /**
+     * Calculates the time between the end of the appointment and the departure
+     * time of the return trip.
+     *
+     * @param trip the return trip's segment data
+     * @returns number in minutes
+     */
+    function getTimeAfterMeeting(trip) {
+
+      if(trip) {
+        var departureTime = moment(trip[0].departureTime);
+        var appointmentEnd = moment($scope.itinerary.appointmentEnd);
+
+        return departureTime.diff(appointmentEnd, 'minutes');
+      }
+    }
+
+    /**
+     * Returns true in case the meeting's duration is less than a day.
+     *
+     * @returns {boolean}
+     */
+    function isSingleDayMeeting() {
+
+      return moment($scope.itinerary.appointmentEnd)
+        .diff(moment($scope.itinerary.appointmentStart), 'days');
     }
 
     /**

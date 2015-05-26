@@ -112,8 +112,8 @@ function createMockEvent(id) {
     ],
     "dates" : [
       {
-        "start" : "2015-02-09T02:54:51+00:0",
-        "end" : "2015-02-15T09:54:51+00:0"
+        "start" : "2015-02-09T02:54:51",
+        "end" : "2015-02-15T09:54:51"
       }
     ],
     "open": true,
@@ -160,8 +160,8 @@ function createMockAlternative(id) {
             "longitude": -117.1974
           }
         },
-        "departureTime": "2015-02-15T09:54:51+00:0",
-        "arrivalTime": "2015-02-15T09:54:51+00:0",
+        "departureTime": "2015-02-15T09:54:51",
+        "arrivalTime": "2015-02-15T09:54:51",
         "duration": 18,
         "distance": 5.8,
         "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
@@ -181,7 +181,7 @@ function createMockTripResult() {
     [
       {
         "price": 724,
-        "currency": "EUR",
+        "currency": "USD",
         "type": 0,
         "outbound": {
           "id": "feg6754ehfwe",
@@ -199,8 +199,8 @@ function createMockTripResult() {
               "longitude": 9.46498
             }
           },
-          "departureTime": "2015-02-15T09:54:51+00:0",
-          "arrivalTime": "2015-02-15T09:54:51+00:0",
+          "departureTime": "2015-02-15T09:54:51",
+          "arrivalTime": "2015-02-15T09:54:51",
           "distance": 9568.339999999998,
           "duration": 918,
           "segments": [
@@ -220,8 +220,8 @@ function createMockTripResult() {
                   "longitude": -117.1609
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 0,
               "distance": 0.02,
               "path": "kxtfEv_bjUIc@",
@@ -232,7 +232,7 @@ function createMockTripResult() {
 							"bookable": 0,
               "price": {
                 "amount": 0,
-                "currency": "EUR"
+                "currency": "USD"
               }
             },
             {
@@ -251,8 +251,8 @@ function createMockTripResult() {
                   "longitude": -117.1974
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 18,
               "distance": 5.8,
               "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
@@ -282,8 +282,8 @@ function createMockTripResult() {
                   "longitude": 9.19219
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 850,
               "distance": 9517.9,
               "path": "",
@@ -313,8 +313,8 @@ function createMockTripResult() {
                   "longitude": 9.18075
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 27,
               "distance": 18.22,
               "path": "cydhHsgbw@yJhlCwYbcDwu@j`BmnAvuBks@s]afAcUej@~`A}FjD_c@sGgj@suB_Oo}AoOqi@}[qG{Jan@wNy{@eUih@qo@wu@",
@@ -344,8 +344,8 @@ function createMockTripResult() {
                   "longitude": 9.46375
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 21,
               "distance": 26.27,
               "path": "}fwhHub`w@iiB}fFfCfA~M{~@lj@qkAlYy]rYuRpe@gg@|TyZruBoxAjt@{SnVwc@xNijBxDiDfiA_bFt@}m@|LezBnCelAbd@w[yFqi@y@_{@le@cu@wAub@x`@{cI",
@@ -375,8 +375,8 @@ function createMockTripResult() {
                   "longitude": 9.46498
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 2,
               "distance": 0.13,
               "path": "ohhhHmkwx@EZQUAaCLW@uAXK",
@@ -387,7 +387,7 @@ function createMockTripResult() {
 							"bookable": 0,
               "price": {
                 "amount": 0,
-                "currency": "EUR"
+                "currency": "USD"
               }
             }
           ]
@@ -395,7 +395,7 @@ function createMockTripResult() {
       },
       {
         "price": 1263,
-        "currency": "EUR",
+        "currency": "USD",
         "type": 1,
         "outbound": {
           "id": "ourte453fjz",
@@ -413,8 +413,8 @@ function createMockTripResult() {
               "longitude": 9.46498
             }
           },
-          "departureTime": "2015-02-15T09:54:51+00:0",
-          "arrivalTime": "2015-02-15T09:54:51+00:0",
+          "departureTime": "2015-02-15T09:54:51",
+          "arrivalTime": "2015-02-15T09:54:51",
           "distance": 9585.95,
           "duration": 900,
           "segments": [
@@ -434,8 +434,8 @@ function createMockTripResult() {
                   "longitude": -117.1609
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 0,
               "distance": 0.02,
               "path": "kxtfEv_bjUIc@",
@@ -446,7 +446,7 @@ function createMockTripResult() {
 							"bookable": 0,
               "price": {
                 "amount": 0,
-                "currency": "EUR"
+                "currency": "USD"
               }
             },
             {
@@ -465,8 +465,8 @@ function createMockTripResult() {
                   "longitude": -117.1974
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 18,
               "distance": 5.8,
               "path": "uxtfEr~ajUPbm@S~@Gb[yr@CwCrAkLnIuCrOX~RmF~WmBnd@sB^lCSe@vWiErAiGrHcAzC",
@@ -496,8 +496,8 @@ function createMockTripResult() {
                   "longitude": 8.5714
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 785,
               "distance": 9376.61,
               "path": "",
@@ -527,8 +527,8 @@ function createMockTripResult() {
                   "longitude": 9.18075
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 74,
               "distance": 177.12,
               "path": "i_opHuzhs@sBg|CrQm{@fc@oWt\\rEncLxcHfyGv{Ife@Yfn@p`AhfMzJ|j@fRnoDpxBx]vAluCgc@huB{pAr~BcZ~fBlz@xjDfkDxz@`hAbm@oJf~NarEfx@aInuI_Bds@_C|a@~`@pxA`uBzx@rZt_@aAhu@qyA`uCoaD|u@sr@`[{Cfg@g_Bha@{WfO}l@tbBymBvkCtQpeE}b@hiAsArY{R|v@lbAnrAjd@raDpl@tYlMllEn}CllBrj@ls@J`fBsQ`aBwcAr`BytBjy@u_Cdr@ytEvz@gyCbe@}UbPo}@`jCy{Dn`@cx@pjD_dL|bAgeC~h@}|@daBotB~e@a~@lpDqgJt_HimKvlAyoCxa@_R`Hoj@drG}eMbpAqgD|[}uAjo@eqExNup@`hAgmDx`@c|B|s@qkBhg@e_@huAMd\\tSt`A__@`cArHhb@sd@`gBjMph@wm@",
@@ -558,8 +558,8 @@ function createMockTripResult() {
                   "longitude": 9.46375
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 21,
               "distance": 26.27,
               "path": "}fwhHub`w@iiB}fFfCfA~M{~@lj@qkAlYy]rYuRpe@gg@|TyZruBoxAjt@{SnVwc@xNijBxDiDfiA_bFt@}m@|LezBnCelAbd@w[yFqi@y@_{@le@cu@wAub@x`@{cI",
@@ -589,8 +589,8 @@ function createMockTripResult() {
                   "longitude": 9.46498
                 }
               },
-              "departureTime": "2015-02-15T09:54:51+00:0",
-              "arrivalTime": "2015-02-15T09:54:51+00:0",
+              "departureTime": "2015-02-15T09:54:51",
+              "arrivalTime": "2015-02-15T09:54:51",
               "duration": 2,
               "distance": 0.13,
               "path": "ohhhHmkwx@EZQUAaCLW@uAXK",
@@ -601,7 +601,7 @@ function createMockTripResult() {
 							"bookable": 0,
               "price": {
                 "amount": 0,
-                "currency": "EUR"
+                "currency": "USD"
               }
             }
           ]

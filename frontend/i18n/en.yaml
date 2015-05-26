@@ -156,7 +156,9 @@ en:
       appointment: your appointment
       start: Start time at origin
       destination: Arrival time at destination
-      time: Time before your meeting
+      time:
+       before: Time before your meeting
+       after: Time after your meeting
     segments:
       title: Trip Details
       day: Day
