@@ -154,8 +154,12 @@ de:
       hide: Details ausblenden
       back: Details schließen
       appointment: dein Termin
-      start: Abreise am Startort
-      destination: Ankunftszeit am Zielort
+      start:
+        before: Abreise am Startort
+        after: Abreise vom Zielort
+      destination:
+        before: Ankunftszeit am Zielort
+        after: Ankunftszeit am Startort
       time:
        before: Zeit vor dem Termin
        after: Zeit nach dem Termin

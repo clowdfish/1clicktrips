@@ -154,8 +154,12 @@ en:
       hide: hide details
       back: close details
       appointment: your appointment
-      start: Start time at origin
-      destination: Arrival time at destination
+      start:
+       before: Departure time at origin
+       after: Departure time at destination
+      destination:
+        before: Arrival time at destination
+        after: Arrival time at home
       time:
        before: Time before your meeting
        after: Time after your meeting

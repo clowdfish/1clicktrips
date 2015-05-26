@@ -140,31 +140,31 @@
         <div class="result-panel-summary-details" ng-show="showInfoPanel">
           <span class="result-panel-summary-details-item">
             <span class="tooltip"
-                  title="{[ 'result_summary_start' | translate ]}"
+                  title="{[ activeSegmentsNumber == 0 ? 'result_summary_start_before' : 'result_summary_start_after' | translate ]}"
                   ng-click="toggleTooltip(1)"
-                  ng-class="{ show: tooltip === 1}">
-              <i class="fa" ng-class="{ 'fa-home': activeSegmentsNumber === 0, 'fa-building-o' : activeSegmentsNumber === 1 }"></i>
+                  ng-class="{ show: tooltip == 1}">
+              <i class="fa" ng-class="{ 'fa-home': activeSegmentsNumber == 0, 'fa-flag' : activeSegmentsNumber == 1 }"></i>
             </span>
             <span>{[ activeSegments[0].departureTime | date:"d.M.yyyy hh:mm" ]}</span>
           </span>
           <span class="result-panel-summary-details-item">
             <span class="tooltip"
-                  title="{[ 'result_summary_destination' | translate ]}"
+                  title="{[ activeSegmentsNumber == 0 ? 'result_summary_destination_before' : 'result_summary_destination_after' | translate ]}"
                   ng-click="toggleTooltip(2)"
-                  ng-class="{ show: tooltip === 2}">
-              <i class="fa" ng-class="{ 'fa-flag': activeSegmentsNumber === 0, 'fa-home' : activeSegmentsNumber === 1 }"></i>
+                  ng-class="{ show: tooltip == 2}">
+              <i class="fa" ng-class="{ 'fa-flag': activeSegmentsNumber == 0, 'fa-home' : activeSegmentsNumber == 1 }"></i>
             </span>
             <span>{[ activeSegments[activeSegments.length - 1].arrivalTime | date: "d.M.yyyy hh:mm" ]}</span>
           </span>
           <span class="result-panel-summary-details-item">
             <span class="tooltip"
-                  title="{[ activeSegmentsNumber === 0 ? 'result_summary_time_before' : 'result_summary_time_after' | translate ]}"
+                  title="{[ activeSegmentsNumber == 0 ? 'result_summary_time_before' : 'result_summary_time_after' | translate ]}"
                   ng-click="toggleTooltip(3)"
-                  ng-class="{ show: tooltip === 3}">
+                  ng-class="{ show: tooltip == 3}">
               <i class="fa fa-clock-o"></i>
             </span>
-            <span ng-if="activeSegmentsNumber === 0">{[ getTimeBeforeMeeting(activeSegments) | durationToTime: "%h hrs %m mins" ]}</span>
-            <span ng-if="activeSegmentsNumber === 1">{[ getTimeAfterMeeting(activeSegments) | durationToTime: "%h hrs %m mins" ]}</span>
+            <span ng-if="activeSegmentsNumber == 0">{[ getTimeBeforeMeeting(activeSegments) | durationToTime: "%h hrs %m mins" ]}</span>
+            <span ng-if="activeSegmentsNumber == 1">{[ getTimeAfterMeeting(activeSegments) | durationToTime: "%h hrs %m mins" ]}</span>
           </span>
         </div>
       </div>
