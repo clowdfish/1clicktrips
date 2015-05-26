@@ -103,17 +103,9 @@
       $('#origin').focus();
     };
 
-    $scope.$watch('startDate', function() {
-      $scope.updateTime($scope.startDate, $scope.startTimeString);
-    });
+    function updateTime(dateObject, timeString) {
 
-    $scope.$watch('endDate', function() {
-      $scope.updateTime($scope.endDate, $scope.endTimeString);
-    });
-
-    $scope.updateTime = function(dateObject, timeString) {
-
-      if(!new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
+      if(new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
           .test(timeString)) {
 
         if(timeString.indexOf(":") === 1)
@@ -124,7 +116,7 @@
 
         validateFormInput();
       }
-    };
+    }
 
     function validateFormInput() {
       $scope.isStepAppointmentReady = false;
@@ -233,11 +225,9 @@
       }
 
       $scope.startDate = options.startDate;
-      $scope.startDate.setHours(parseInt(options.startTime.substr(0, 2)));
-      $scope.startDate.setMinutes(parseInt(options.startTime.substr(3, 2)));
       $scope.startTimeString = options.startTime;
 
-      validateFormInput();
+      updateTime($scope.startDate, $scope.startTimeString);
     }
 
     function setEndDate(options) {
@@ -248,11 +238,9 @@
       }
 
       $scope.endDate = options.endDate;
-      $scope.endDate.setHours(parseInt(options.endTime.substr(0, 2)));
-      $scope.endDate.setMinutes(parseInt(options.endTime.substr(3, 2)));
       $scope.endTimeString = options.endTime;
 
-      validateFormInput();
+      updateTime($scope.endDate, $scope.endTimeString);
     }
   }
 })();

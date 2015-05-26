@@ -109,7 +109,7 @@
                     tabindex="4"
                     ng-model="startTimeString"
                     ng-focus="stepAppointment()"
-                    ng-blur="checkTimeFormat()"
+                    ng-blur="updateStartDate()"
                     />
                   <i class="fa fa-clock-o"></i>
                   <label for="time_start">{[ "search_form_appointment_warning" | translate ]}</label>
@@ -144,7 +144,7 @@
                     tabindex="6"
                     ng-model="endTimeString"
                     ng-focus="stepAppointment()"
-                    ng-blur="checkTimeFormat()"
+                    ng-blur="updateEndDate()"
                     />
                   <i class="fa fa-clock-o"></i>
                   <label for="time_end">{[ "search_form_appointment_warning" | translate ]}</label>

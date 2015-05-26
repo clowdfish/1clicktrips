@@ -14,16 +14,12 @@
     $scope.startTimeString = $scope.$parent.startTimeString;
     $scope.endDate = $scope.$parent.endDate;
     $scope.endDateString = $scope.$parent.endDateString;
-    $scope.checkTimeFormat = checkTimeFormat;
 
     /**
     * Date time picker open status
     */
     $scope.isOpenStartDatePicker = false;
     $scope.isOpenEndDatePicker = false;
-
-    $scope.startTimeInvalid = false;
-    $scope.endTimeInvalid = false;
 
 		// configure date picker
 		$scope.dateOptions = {
@@ -35,37 +31,36 @@
     $scope.format = $scope.formats[0];
     $scope.showWeeks = false;
 
-    function checkTimeFormat() {
-      var startTime = $scope.startTimeString;
-      var endTime = $scope.endTimeString;
+    $scope.updateStartDate = function() {
 
-      var regEx = new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
+      $scope.startTimeInvalid = !new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
+        .test($scope.startTimeString);
 
-      $scope.startTimeInvalid = !regEx.test(startTime);
-      $scope.endTimeInvalid = !regEx.test(endTime);
-
-      // set date object in result controller
-      if (!$scope.startTimeInvalid) {
+      if(!$scope.startTimeInvalid)
         $scope.setStartDate({
           startDate: $scope.startDate,
-          startTime: startTime
+          startTime: $scope.startTimeString
         });
-      } else {
-        $scope.setStartDate(null);
-      }
+    };
 
-      if (!$scope.endTimeInvalid) {
+    $scope.updateEndDate = function() {
+
+      $scope.endTimeInvalid = !new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
+        .test($scope.endTimeString);
+
+      if(!$scope.endTimeInvalid)
         $scope.setEndDate({
           endDate: $scope.endDate,
-          endTime: endTime
+          endTime: $scope.endTimeString
         });
-      } else {
-        $scope.setEndDate(null);
-      }
-    }
+    };
 
-    $scope.$watchGroup(['startDate', 'endDate'], function() {
-      $scope.checkTimeFormat();
+    $scope.$watch('startDate', function() {
+      $scope.updateStartDate();
+    });
+
+    $scope.$watch('endDate', function() {
+      $scope.updateEndDate();
     });
 
     $scope.toggleStartDatePicker = function($event) {
