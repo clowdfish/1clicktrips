@@ -126,13 +126,6 @@
       validateFormInput();
     }
 
-    /**
-     * Watch input form data to check on completeness.
-     */
-    $scope.$watchGroup(['origin', 'destination', 'startDate', 'endDate'], function() {
-      validateFormInput();
-    });
-
     function validateFormInput() {
       $scope.isStepAppointmentReady = false;
       $scope.searchDataComplete = false;
@@ -230,6 +223,7 @@
       $scope.startDate = options.startDate;
       $scope.startDate.setHours(parseInt(options.startTime.substr(0, 2)));
       $scope.startDate.setMinutes(parseInt(options.startTime.substr(3, 2)));
+      $scope.startTimeString = options.startTime;
       validateFormInput();
     }
 
@@ -242,6 +236,7 @@
       $scope.endDate = options.endDate;
       $scope.endDate.setHours(parseInt(options.endTime.substr(0, 2)));
       $scope.endDate.setMinutes(parseInt(options.endTime.substr(3, 2)));
+      $scope.endTimeString = options.endTime;
       validateFormInput();
     }
 
