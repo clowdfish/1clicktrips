@@ -147,6 +147,17 @@
     }
   }
 
+  .trip-segments-day-item-description-title {
+    display: block;
+    margin-bottom: 0.3em;
+  }
+
+  .trip-segments-day-item-description-timing {
+    display: block;
+    color: lighten($c-text, 50%);
+    font-size: 0.9em;
+  }
+
   .trip-segments-day-item-timing {
     width: 28%;
     text-align: right;
@@ -194,7 +205,7 @@
         color: $c-blue;
         font-size: $fs-smaller;
         padding: 0;
-        margin-top: 0;
+        //margin-top: 0.5em;
         background-color: transparent;
       }
     }

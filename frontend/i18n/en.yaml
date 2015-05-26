@@ -117,7 +117,7 @@ en:
         roundtrip: this is a round-trip
       appointment:
         start: When does your appointment start?
-        end: When does your appointment end?
+        end: When do you want to start your return trip?
         warning: The time format must be hh:mm
       submit: Start Search
       error:
@@ -169,6 +169,9 @@ en:
       outbound: Your Trip
       inbound: Return Trip
       alternatives: '+View alternatives'
+      time:
+        arrival: Arrival time
+        departure: Departure time
     vehicle:
       1: walk
       2: car

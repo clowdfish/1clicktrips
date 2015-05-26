@@ -10,8 +10,8 @@
     <!-- tab control for the trip segments list -->
     <ul class='trip-segments-day-tab'>
       <li class='trip-segments-day-tab-item' ng-class="{ active: activeSegmentsNumber == header }" ng-repeat='header in segmentsHeaders' ng-click='showTab(header)'>
-          <span ng-if="header == 0">{[ "result_segments_outbound" | translate ]}</span>
-          <span ng-if="header == 1">{[ "result_segments_inbound" | translate ]}</span>
+        <span ng-if="header == 0">{[ "result_segments_outbound" | translate ]}</span>
+        <span ng-if="header == 1">{[ "result_segments_inbound" | translate ]}</span>
       </li>
     </ul>
   </div>
@@ -22,14 +22,14 @@
       <li class='trip-segments-day-item' ng-repeat='segment in activeSegments' ng-click="selectSegment(segment)">
         <span class='trip-segments-day-item-col trip-segments-day-item-type'><i class='fa {[ segment.type | vehicleTypeToIcon ]}'></i></span>
         <span class='trip-segments-day-item-col trip-segments-day-item-description'>
-          <span ng-if='segment.start.description == "Origin"'>
-            {[segment.end.description]}
-          </span>
-          <span ng-if='segment.end.description == "Destination"'>
-            {[segment.start.description]}
-          </span>
-          <span ng-if='segment.start.description != "Origin" && segment.end.description != "Destination"'>
+          <span class="trip-segments-day-item-description-title">
             {[segment.start.description]} - {[segment.end.description]}
+          </span>
+          <span ng-if="segment != activeSegments[0]" class="trip-segments-day-item-description-timing">
+            {[ "result_segments_time_arrival" | translate ]}: {[ segment.arrivalTime | date: "H:mm" ]}
+          </span>
+          <span ng-if="segment != activeSegments[activeSegments.length - 1]" class="trip-segments-day-item-description-timing">
+            {[ "result_segments_time_departure" | translate ]}: {[ segment.departureTime | date: "H:mm" ]}
           </span>
           <a ng-click='showAlternativesFn(segment, $event, $index)'
             ng-show="segment.isMajor == 0">{[ "result_segments_alternatives" | translate ]}</a>

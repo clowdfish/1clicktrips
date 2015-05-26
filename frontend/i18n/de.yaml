@@ -117,7 +117,7 @@ de:
         roundtrip: hin und zurück
       appointment:
         start: Wann beginnt der Termin?
-        end: Wann endet der Termin?
+        end: Wann möchten Sie die Rückreise antreten?
         warning: Das Zeitformat muss hh:mm entsprechen!
       submit: Suche starten
       error:
@@ -169,6 +169,9 @@ de:
       inbound: Rückreise
       day: Tag
       alternatives: '+Alternativen anzeigen'
+      time:
+        arrival: Ankunftszeit
+        departure: Abreisezeit
     vehicle:
       1: laufen
       2: Auto
