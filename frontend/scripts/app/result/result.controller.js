@@ -101,9 +101,6 @@
       tripApi
         .findItinerary(searchObject, additionData)
         .then(function(itineraries) {
-
-          console.log(itineraries);
-
           $scope.itineraries = itineraries;
           if ($scope.itinerary == null) {
             $scope.findTripByBudget();
