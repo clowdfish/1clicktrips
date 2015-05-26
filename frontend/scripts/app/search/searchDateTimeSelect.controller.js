@@ -64,7 +64,7 @@
       }
     };
 
-    $scope.$watchGroup(['startDate', 'endDate', 'startTimeString', 'endDateString'], function() {
+    $scope.$watchGroup(['startDate', 'endDate'], function() {
       $scope.checkTimeFormat();
     });
 
