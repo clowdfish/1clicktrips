@@ -1,12 +1,12 @@
 // server.js
 
 // set up ======================================================================
-var express       = require('express'),
-    passport      = require('passport'),
-    session       = require('express-session'),
-    morgan        = require('morgan'),
-    cookieParser  = require('cookie-parser'),
-    bodyParser    = require('body-parser');
+var express           = require('express'),
+    passport          = require('passport'),
+    session           = require('express-session'),
+    morgan            = require('morgan'),
+    cookieParser      = require('cookie-parser'),
+    bodyParser        = require('body-parser'),
     languageKeyParser = require('./app/i18n/i18n').languageKeyParser;
 
 // initiate server instance
@@ -23,7 +23,8 @@ require('./config/passport')(passport); // pass passport for configuration
 
 
 /**
- * General server setup is happening here
+ * General server setup is happening here. We are setting up the middleware
+ * that is used for each incoming request.
  */
 function setupServer() {
 

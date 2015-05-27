@@ -20,12 +20,12 @@ var nodeMailer = require('nodemailer');
 var UserController = require('./userController');
 
 var moment = require('moment');
-
 var translate = require('../i18n/i18n').translate;
+
 module.exports = {
 
   forgotPassword: function(req, res, next) {
-    var language = req.headers['x-language'];
+
     return new Promise(function(resolve, reject) {
 
       async.waterfall([

@@ -13,7 +13,7 @@ var languages = {
 var defaultLanguageKey = 'en';
 
 /**
-* Translate text by textId, languakey key, and params
+* Translate text by textId, language key, and params
 * Example: translate("email.reset.subject", "en", [email]);
 */
 function translate(textId, languageKey, params) {
@@ -27,6 +27,7 @@ function translate(textId, languageKey, params) {
   return vsprintf(languages[languageKey][textId], params);
 }
 
+
 function getLanguageKeyFromRequest(req) {
   var languageKey = req.headers['x-language'];
   if (languages[languageKey]) {
@@ -36,11 +37,10 @@ function getLanguageKeyFromRequest(req) {
 }
 
 /**
-* Get lanaguageKey from header or from user profile
+* Get the language key from the header and assign it to the request object.
 */
 function languageKeyParser(req, res, next) {
-  var languageKey = getLanguageKeyFromRequest(req);
-  req['languageKey'] = languageKey;
+  req['languageKey'] = getLanguageKeyFromRequest(req);
   next();
 }
 
