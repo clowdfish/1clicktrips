@@ -20,7 +20,10 @@ describe('searchDateTimeSelectCtrl', function() {
 
     $scope.setStartDate = jasmine.createSpy('setStartDate');
     $scope.setEndDate = jasmine.createSpy('setEndDate');
-    $scope.$parent = {};
+    $scope.$parent = {
+      startDate: new Date(),
+      endDate: new Date()
+    };
     $scope.$parent.stepAppointment = jasmine.createSpy('setStepAppointment');
 
     _$controller_('searchDateTimeSelectCtrl', {
@@ -60,6 +63,18 @@ describe('searchDateTimeSelectCtrl', function() {
       startDate: $scope.startDate,
       startTime: $scope.startTimeString
     });
+  });
+
+  it('endDate change when startDate change', function() {
+    $scope.startDate = new Date();
+    $scope.$digest();
+    expect($scope.endDate.toDateString()).toEqual($scope.startDate.toDateString());
+
+    var now = new Date();
+    now.setFullYear(now.getFullYear() + 1);
+    $scope.startDate = now;
+    $scope.$digest();
+    expect($scope.endDate.toDateString()).toEqual($scope.startDate.toDateString());
   });
 
 });

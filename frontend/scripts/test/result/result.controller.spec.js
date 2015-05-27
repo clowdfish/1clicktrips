@@ -43,7 +43,8 @@ describe('resultCtrl', function() {
       browser: _browser_,
       favoriteApi: _favoriteApi_,
       searchObject: {},
-      bookingApi: _bookingApi_
+      bookingApi: _bookingApi_,
+      cachedSearchResult: null
     });
 
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(mockItinerary);

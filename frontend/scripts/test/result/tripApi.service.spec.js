@@ -52,12 +52,11 @@ describe('service: tripApi', function() {
 
   it('it find and have valid data', function() {
     var trip = itinerary[0];
-    expect(trip.hasOwnProperty('outbound')).toEqual(true);
-    expect(trip.hasOwnProperty('inbound')).toEqual(false);
+
     expect(trip.hasOwnProperty('cost')).toEqual(true);
     expect(trip.hasOwnProperty('currency')).toEqual(true);
-    expect(trip.hasOwnProperty('startTime')).toEqual(true);
-    expect(trip.hasOwnProperty('endTime')).toEqual(true);
+    expect(trip.hasOwnProperty('appointmentStart')).toEqual(true);
+    expect(trip.hasOwnProperty('appointmentEnd')).toEqual(true);
     expect(trip.hasOwnProperty('duration')).toEqual(true);
     expect(trip.hasOwnProperty('groupSegment')).toEqual(true);
 
