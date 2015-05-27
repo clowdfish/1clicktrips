@@ -26,6 +26,7 @@
               ng-model='origin'
               typeahead="address.description for address in getAddressSuggestion($viewValue)"
               typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
+
             <input type="checkbox"
                     id="default_origin"
                     name="default_origin"
