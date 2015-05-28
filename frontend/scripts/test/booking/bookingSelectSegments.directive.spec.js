@@ -1,10 +1,10 @@
 'use strict';
 
 describe('bookingSelectSegments:directive', function () {
-  var $state,
-      $q,
-      $httpBackend,
+  var $httpBackend,
       $scope,
+      $rootScope,
+      $q,
       $state,
       tripApi,
       bookingApi,
@@ -23,11 +23,9 @@ describe('bookingSelectSegments:directive', function () {
     module('mockdata');
   });
 
-  beforeEach(inject(function(_$state_,
+  beforeEach(inject(function(_$httpBackend_,
                             _$q_,
-                            _$httpBackend_,
                             _$rootScope_,
-                            _$controller_,
                             _$compile_,
                             _tripApi_,
                             _bookingApi_,
@@ -38,11 +36,10 @@ describe('bookingSelectSegments:directive', function () {
                             _appConfig_,
                             _session_,
                             _authHelper_) {
-    $scope = _$rootScope_.$new();
-    $q = _$q_;
-    $state = _$state_;
+    $rootScope = _$rootScope_;
+    $scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
-    $state = _$state_;
+    $q = _$q_;
     tripApi = _tripApi_;
     bookingApi = _bookingApi_;
     userProfile = _mockUserProfile_;
@@ -52,7 +49,7 @@ describe('bookingSelectSegments:directive', function () {
     authHelper = _authHelper_;
     appConfig = _appConfig_;
     $httpBackend.whenPOST(/\/api\/search\/trips/).respond(_mockItinerary_);
-
+    $httpBackend.whenPOST(/\/api\/booking/).respond(200, 'OK');
     var searchParams = {};
     var additionData = {
       startDate: new Date(),
@@ -98,6 +95,10 @@ describe('bookingSelectSegments:directive', function () {
     bookingSelectSegmentsScope = element.isolateScope();
   }));
 
+  afterEach(function() {
+    session.authFailed();
+  });
+
   it('calculate booking fee correctly', function() {
     setIsBooked(false);
     bookingSelectSegmentsScope.$digest();
@@ -130,6 +131,33 @@ describe('bookingSelectSegments:directive', function () {
 
     bookingSelectSegmentsScope.previousStep();
     expect($scope.mapView).toHaveBeenCalled();
+  });
+
+  it('it show login dialog when save booking', function() {
+    bookingApi.storeBooking = jasmine.createSpy('storeBooking').and.callFake(function() {
+      var deferred = $q.defer();
+      deferred.resolve();
+      return deferred.promise;
+    });
+    authHelper.openLoginDialog = jasmine.createSpy('openLoginDialog').and.callThrough();
+
+    session.authFailed();
+    setIsBooked(true);
+    bookingSelectSegmentsScope.$digest();
+    bookingSelectSegmentsScope.save();
+    expect(bookingApi.storeBooking).not.toHaveBeenCalled();
+    expect(authHelper.openLoginDialog).toHaveBeenCalled();
+    session.authSuccess('test_token');
+    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+    $scope.$digest();
+    expect(bookingApi.storeBooking).toHaveBeenCalled();
+
+    session.authSuccess('test_token');
+    setIsBooked(true);
+    bookingSelectSegmentsScope.$digest();
+    bookingSelectSegmentsScope.save();
+    expect(bookingApi.storeBooking).toHaveBeenCalled();
+
   });
 
   function setIsBooked(isBooked) {
