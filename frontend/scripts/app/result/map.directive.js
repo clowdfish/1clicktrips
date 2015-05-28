@@ -155,7 +155,13 @@
         map = new google.maps.Map($map[0], {
           zoom: 19,
           center: center,
-          scrollwheel: scrollwheel
+          scrollwheel: scrollwheel,
+          panControl: false,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          overviewMapControl: false
         });
 
         displayPath = new google.maps.Polyline({

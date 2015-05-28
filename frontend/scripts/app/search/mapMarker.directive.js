@@ -69,7 +69,13 @@
         mapContainer.style.display = 'block';
         if (map == null) {
           map = new google.maps.Map(mapContainer, {
-            zoom: 15
+            zoom: 15,
+            panControl: false,
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
           });
         }
         var position = new google.maps.LatLng(location.latitude, location.longitude);

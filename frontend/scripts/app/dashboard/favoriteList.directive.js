@@ -45,7 +45,13 @@
       * Map
       */
       this.map = new google.maps.Map($overviewMap[0], {
-        zoom: 15
+        zoom: 15,
+        panControl: false,
+        zoomControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        overviewMapControl: false
       });
 
       /**
