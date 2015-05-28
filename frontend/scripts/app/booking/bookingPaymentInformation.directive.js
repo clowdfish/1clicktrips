@@ -30,7 +30,6 @@
       };
 
       scope.continue = function() {
-        console.log(scope.informationForm);
         if (session.isLogin() === false) {
           createUserAccount();
         }
