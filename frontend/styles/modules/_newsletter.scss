@@ -29,6 +29,18 @@
     margin-bottom: 1em;
   }
 
+  .newsletter-subscription-status {
+    border: 1px solid;
+  }
+
+  .newsletter-subscription-status.success {
+    border-color: $c-green;
+  }
+
+  .newsletter-subscription-status.error {
+    border-color: $c-red;
+  }
+
   @include respond-above("medium") {
     padding: 3em 1em;
 

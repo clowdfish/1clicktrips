@@ -96,6 +96,11 @@ en:
     title: Join our newsletter
     placeholder: Your email address
     submit: Subscribe
+    subscription:
+      success: You are successful subscribed to our newsletter
+      error: Error while subscription to newsletter
+      invalidemail: Invalid email
+      duplicate: This email is already subscribed to our newsletter
   search:
     navigation:
       destination: Specify Your Destination

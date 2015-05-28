@@ -67,7 +67,7 @@ module.exports = function (app, production) {
     AppController
       .subscribe(req.body.email)
       .then(function() {
-        res.status(200).send();
+        res.status(200).send("subscription.success");
       })
       .catch(function(err) {
         res.status(500).send(err.message);

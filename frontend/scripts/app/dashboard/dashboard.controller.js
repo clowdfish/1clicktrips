@@ -20,8 +20,8 @@
     $scope.numberOfFavorites = $scope.isMobile ? 3 : 6;
     $scope.numberOfTrips = $scope.isMobile ? 1 : 3;
 
-    $scope.subscriptionEmail = "";
-
+    $scope.subscriptionEmail = null;
+    $scope.subscriptionStatus = null;
     $scope.selectFavorite = function(favorite) {
       $rootScope.$broadcast('selectFavorite', favorite);
     };
@@ -46,9 +46,12 @@
       newsletterApi
         .subscribe(email)
         .then(function(message) {
-          $scope.subscribeMessage = message;
+          $scope.subscriptionMessage = message;
+          $scope.subscriptionStatus = 'success';
+
         }, function(message) {
-          $scope.subscribeMessage = message;
+          $scope.subscriptionMessage = message;
+          $scope.subscriptionStatus = 'error';
           console.log("Error Response: " + message);
         });
     };
