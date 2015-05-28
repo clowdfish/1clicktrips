@@ -56,7 +56,8 @@
           "description": "Deutsche Bahn, Regional train",
           "instruction": "Walk somewhere",
           "isMajor": 0,
-          "bookable": 0,
+          "bookable": 1,
+          "isBooked": false,
           "price": {
               "amount": 90,
               "currency": "EUR"
@@ -84,7 +85,8 @@
           "description": "Walking, 580m",
           "instruction": "Walk to bus station",
           "isMajor": 0,
-          "bookable": 0,
+          "bookable": 1,
+          "isBooked": false,
           "price": {
               "amount": 90,
               "currency": "EUR"
@@ -112,7 +114,8 @@
           "description": "Grey Bus Corp, Regional bus",
           "instruction": "Take bus E23 to K20",
           "isMajor": 0,
-          "bookable": 0,
+          "bookable": 1,
+          "isBooked": false,
           "price": {
               "amount": 90,
               "currency": "EUR"

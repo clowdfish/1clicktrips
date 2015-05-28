@@ -33,7 +33,7 @@
 
     function setDefaultOrigin(description, location) {
       return $q(function(resolve, reject) {
-        console.log(description, location);
+
         var origin = null;
         if (description != null && location != null) {
           origin = {
@@ -48,7 +48,7 @@
           return resolve();
         }
         else {
-          console.log(origin);
+
           var settingValue = origin !== null ? JSON.stringify(origin) : null;
           settings
             .setUserSettings(storageKey, settingValue)

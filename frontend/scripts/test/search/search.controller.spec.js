@@ -14,14 +14,7 @@ describe('searchCtrl', function() {
     SEARCH_STEPS;
 
   beforeEach(function() {
-    module('app.search');
-    module('app.common');
-    module('app.index');
-    module('app.dashboard');
-    module('app.auth');
-    module('app.result');
-    module('app.templates');
-    module('app.settings');
+    module('app');
     module('mockdata');
   });
 
