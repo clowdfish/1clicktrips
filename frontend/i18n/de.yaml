@@ -91,11 +91,16 @@ de:
       privacy: Datenschutz
       legal: Rechtliches
       contact: Kontakt
-      feedback: Feedback
   newsletter:
     title: Unser Newsletter
     placeholder: Ihre Email Adresse
     submit: Registrieren
+    subscribing: Registrierung für den Newsletter läuft...
+    subscription:
+      success: Sie haben sich erfolgreich für den Newsletter registriert!
+      error: Es ist ein Fehler aufgetreten.
+      invalidemail: Ihre Email Adresse ist nicht gültig.
+      duplicate: Diese Email Adresse ist bereits registriert.
   search:
     navigation:
       destination: Finde den Zielort

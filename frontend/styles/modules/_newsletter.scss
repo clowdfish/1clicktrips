@@ -16,6 +16,10 @@
 
   .newsletter-input {
     width: 100%;
+
+    &.error {
+      border: 1px solid $c-status-error;
+    }
   }
 
   .newsletter-input-text {
@@ -29,16 +33,19 @@
     margin-bottom: 1em;
   }
 
-  .newsletter-subscription-status {
-    border: 1px solid;
-  }
+  .newsletter-input-status {
+    text-align: left;
+    margin-bottom: 0.3em;
+    font-size: 0.85em;
+    font-weight: 800;
 
-  .newsletter-subscription-status.success {
-    border-color: $c-green;
-  }
+    &.success {
+      color: $c-status-okay;
+    }
 
-  .newsletter-subscription-status.error {
-    border-color: $c-red;
+    &.error {
+      color: $c-status-error;
+    }
   }
 
   @include respond-above("medium") {
@@ -51,6 +58,10 @@
     .newsletter-input {
       width: 50%;
       margin: 3em auto;
+    }
+
+    .newsletter-input-status {
+      margin-left: 2.5%;
     }
 
     .newsletter-input-text {

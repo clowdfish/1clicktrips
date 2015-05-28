@@ -91,17 +91,16 @@ en:
       privacy: Privacy Policy
       legal: Legal
       contact: Contact
-      feedback: Feedback
   newsletter:
     title: Join our newsletter
     placeholder: Your email address
     submit: Subscribe
     subscribing: Subscribing to our newsletter...
     subscription:
-      success: You are successful subscribed to our newsletter
-      error: Error while subscription to newsletter
-      invalidemail: Invalid email
-      duplicate: This email is already subscribed to our newsletter
+      success: You have successfully subscribed to our newsletter!
+      error: Error while subscribing to our newsletter.
+      invalidemail: Your email address is not valid.
+      duplicate: This email is already subscribed to our newsletter.
   search:
     navigation:
       destination: Specify Your Destination

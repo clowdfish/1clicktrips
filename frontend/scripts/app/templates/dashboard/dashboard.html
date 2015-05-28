@@ -70,9 +70,9 @@
   <h2 class="newsletter-title">{[ "newsletter_title" | translate ]}</h2>
   <div class="newsletter-input">
     <form>
-      <div class="newsletter-subscription-status {[ subscriptionStatus ]}"
+      <div class="newsletter-input-status {[ subscriptionStatus ]}"
             ng-show="subscriptionStatus != null">{[ subscriptionMessage | translate ]}</div>
-      <input type="email" ng-model="subscriptionEmail" class="newsletter-input-text" placeholder="{[ 'newsletter_placeholder' | translate ]}" />
+      <input type="email" ng-model="subscriptionEmail" class="newsletter-input-text {[ subscriptionStatus ]}" placeholder="{[ 'newsletter_placeholder' | translate ]}" />
 
       <a class="button newsletter-input-button" ng-click="subscribe()">{[ 'newsletter_submit' | translate ]}</a>
     </form>
