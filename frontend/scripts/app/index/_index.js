@@ -5,37 +5,21 @@
 
   'use strict';
 
-  var i18n = {};
-
   angular
     .module('app.index', [
       'app.core'
     ])
     .config(interpolateConfig)
-    .config(languageConfig)
-    .run(run);
+    .config(languageConfig);
 
   function languageConfig($translateProvider) {
     var en = formatLanguageObject(Locales.en.en);
     var de = formatLanguageObject(Locales.de.de);
 
-    var languageKeys = _.keys(en);
-
-    i18n = {};
-
-    for (var i = 0; i < languageKeys.length; i++) {
-      i18n[languageKeys[i]] = languageKeys[i];
-    }
-
     $translateProvider.translations('en', en);
     $translateProvider.translations('de', de);
 
     $translateProvider.preferredLanguage('en');
-  }
-
-  function run($rootScope, $state, AUTH_EVENTS) {
-    // TODO do we need that part?
-    $rootScope.i18n = i18n;
   }
 
   function interpolateConfig($interpolateProvider) {
@@ -60,5 +44,4 @@
     }
     return result;
   }
-
 })();

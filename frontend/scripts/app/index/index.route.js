@@ -84,6 +84,13 @@
     });
   }
 
+  /**
+   * Retrieves the user's favorites from the back end (if authenticated).
+   *
+   * @param session
+   * @param favoriteApi
+   * @returns {*}
+   */
   function getFavoriteList(session, favoriteApi) {
     if (!session.isLogin()) {
       return [];
@@ -91,6 +98,13 @@
     return favoriteApi.getFavoriteList();
   }
 
+  /**
+   * Retrieves all booked trips from the back end (if authenticated).
+   *
+   * @param session
+   * @param bookingApi
+   * @returns {*}
+   */
   function getBookedTrips(session, bookingApi) {
     if (!session.isLogin()) {
       return [];
@@ -98,22 +112,20 @@
     return bookingApi.getBookedTrips();
   }
 
+  /**
+   * Retrieves the search form data from the state object.
+   *
+   * @param $stateParams contains the data from the previous search request
+   * @returns {*}
+   */
   function getSearchFormData($stateParams) {
-    //Minutes value must be in this range
-    var validTimeValues = [0, 15, 30, 45];
 
     var startDate = moment($stateParams.startDate);
     startDate.seconds(0);
-    if (validTimeValues.indexOf(startDate.minutes()) == -1) {
-      startDate.minutes(0);
-    }
 
     var endDate = moment($stateParams.endDate);
     endDate.seconds(0);
-    if (validTimeValues.indexOf(endDate.minutes()) == -1) {
-      endDate.minutes(0);
-    }
-    console.log($stateParams);
+
     return {
       destinationLocation: {
         latitude: parseFloat($stateParams.destinationLatitude),
@@ -127,21 +139,28 @@
       endDate: endDate.toDate(),
       destination: $stateParams.destination,
       origin: $stateParams.origin,
-      roundTrip: $stateParams.roundTrip === "true" ? true : false
+      roundTrip: $stateParams.roundTrip === "true"
     };
   }
 
+  /**
+   * Creates the default search form data without any pre-populated entries.
+   *
+   * @returns {*}
+   */
   function getDefaultSearchFormData() {
+
     var startDate = new Date();
     startDate.setHours(14);
     startDate.setMinutes(0);
     startDate.setSeconds(0);
+
     var endDate = new Date();
     endDate.setHours(16);
     endDate.setMinutes(0);
     endDate.setSeconds(0);
 
-    var searchFormData = {
+    return {
       destinationLocation: null,
       originLocation: null,
       startDate: startDate,
@@ -150,16 +169,5 @@
       origin: null,
       roundTrip: false
     };
-
-
-    return searchFormData;
-  }
-
-  function getLanguages(languageApi) {
-    return languageApi.getAvailableLanguages();
-  }
-
-  function getCurrencies(currencyApi) {
-    return currencyApi.getAvailableCurrencies();
   }
 })();

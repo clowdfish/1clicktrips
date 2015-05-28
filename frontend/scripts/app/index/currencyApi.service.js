@@ -6,7 +6,7 @@
 		.module('app.index')
 		.service('currencyApi', currencyApi);
 
-	function currencyApi($http, $q, $localStorage, appConfig) {
+	function currencyApi($localStorage) {
 		var _this = this;
 
 		this.currencyData = window["AppData"]["currencies"];

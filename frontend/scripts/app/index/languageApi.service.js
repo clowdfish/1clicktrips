@@ -6,9 +6,9 @@
 		.module('app.index')
 		.service('languageApi', languageApi);
 
-	function languageApi($http, $q, $sessionStorage, session, userApi) {
-		var _this = this;
+	function languageApi($q, $sessionStorage, session, userApi) {
 		var languageData = getAvailableLanguages();
+
 		this.getAvailableLanguages = getAvailableLanguages;
 		this.setActiveLanguageKey = setActiveLanguageKey;
 		this.getActiveLanguageKey = getActiveLanguageKey;
@@ -19,17 +19,18 @@
 		}
 
 		function setActiveLanguageKey(key) {
+
 			return $q(function(resolve, reject) {
 				$sessionStorage.activeLanguageKey = key;
+
 				if (session.isLogin()) {
-					//Store active language key on server
+					// store active language key on server
 					userApi
 						.setUserProfile('language', key)
 						.then(function() {
 							resolve();
-						}, function() {
-							reject();
-						});
+						})
+						.catch(reject);
 				} else {
 					resolve();
 				}
