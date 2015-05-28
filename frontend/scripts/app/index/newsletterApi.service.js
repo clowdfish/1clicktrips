@@ -6,7 +6,7 @@
     .module('app.index')
     .service('newsletterApi', newsletterApi);
 
-  function newsletterApi($q, $http) {
+  function newsletterApi($q, $http, $translate) {
     this.subscribe = subscribe;
 
     function subscribe(email) {
@@ -14,6 +14,8 @@
         $http
           .post('/api/subscribe-newsletter', {
             email: email
+          }, {
+            waitingMessage: $translate.instant('newsletter_subscribing')
           })
           .success(function(message) {
             resolve(getSubscriptionMessage(message));

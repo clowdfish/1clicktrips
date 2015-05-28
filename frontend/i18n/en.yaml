@@ -96,6 +96,7 @@ en:
     title: Join our newsletter
     placeholder: Your email address
     submit: Subscribe
+    subscribing: Subscribing to our newsletter...
     subscription:
       success: You are successful subscribed to our newsletter
       error: Error while subscription to newsletter
