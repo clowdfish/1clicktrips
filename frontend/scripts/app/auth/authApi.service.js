@@ -36,7 +36,9 @@
         }
 
         $http
-          .post('/api/auth/local', loginData)
+          .post('/api/auth/local', loginData, {
+            waitingMessage: 'Checking your credentials'
+          })
           .success(function(data) {
             session.authSuccess(data.token, remember);
             resolve(data);
