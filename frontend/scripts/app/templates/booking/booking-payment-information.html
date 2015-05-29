@@ -34,7 +34,7 @@
 
     <fieldset>
       <label for="cardNumber">{[ "booking_payment_info_number" | translate ]}</label>
-      <input type="number" ng-model="bookingData.payment.cardNumber" name="cardNumber" id="cardNumber" required/>
+      <input type="text" ng-model="bookingData.payment.cardNumber" name="cardNumber" id="cardNumber" required/>
       <span class="input-error" ng-show="informationForm.cardNumber.$error.invalid">{[ "booking_payment_info_invalid" | translate ]}</span>
     </fieldset>
 

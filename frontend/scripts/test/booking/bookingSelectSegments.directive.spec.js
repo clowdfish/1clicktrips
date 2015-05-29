@@ -133,7 +133,7 @@ describe('bookingSelectSegments:directive', function () {
     expect($scope.mapView).toHaveBeenCalled();
   });
 
-  it('it show login dialog when save booking', function() {
+  xit('it show login dialog when save booking', function() {
     bookingApi.storeBooking = jasmine.createSpy('storeBooking').and.callFake(function() {
       var deferred = $q.defer();
       deferred.resolve();
