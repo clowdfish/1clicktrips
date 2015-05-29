@@ -1,19 +1,16 @@
 'use strict';
 
 describe('bookingConfirmation: directive', function() {
-  var $state,
-      $q,
+  var $q,
       $httpBackend,
       $scope,
-      $state,
       $rootScope,
       tripApi,
       bookingApi,
       itineraries,
-      AUTH_EVENTS,
-      TRIP_TYPE,
       bookingConfirmation,
-      bookingConfirmationScope;
+      bookingConfirmationScope,
+      TRIP_TYPE;
 
   beforeEach(function() {
     module('app');
@@ -27,7 +24,6 @@ describe('bookingConfirmation: directive', function() {
                       _tripApi_,
                       _bookingApi_,
                       _mockItinerary_,
-                      _AUTH_EVENTS_,
                       _TRIP_TYPE_) {
     $q = _$q_;
     $httpBackend = _$httpBackend_;
@@ -35,7 +31,6 @@ describe('bookingConfirmation: directive', function() {
     $scope = $rootScope.$new();
     tripApi = _tripApi_;
     bookingApi = _bookingApi_;
-    AUTH_EVENTS = _AUTH_EVENTS_;
     TRIP_TYPE = _TRIP_TYPE_;
 
 
@@ -91,10 +86,6 @@ describe('bookingConfirmation: directive', function() {
     bookingConfirmationScope = element.isolateScope();
 
   }));
-
-  afterEach(function() {
-    //session.authFailed();
-  });
 
   it('call request real booking', function() {
     var cloneBookingData = _.cloneDeep(bookingConfirmationScope.bookingData);
