@@ -1,6 +1,6 @@
 var jwt     = require('jwt-simple');
 var Promise = require('es6-promise').Promise;
-
+var _ = require('underscore');
 module.exports = function (app, express, production) {
   var BookingController,
       AuthController;
