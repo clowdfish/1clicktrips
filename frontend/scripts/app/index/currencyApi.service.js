@@ -21,6 +21,8 @@
 		}
 
 		function setActiveCurrency(code) {
+			var currencyData = getCurrencyDataByCode(code);
+			if (!currencyData) return;
 			$localStorage.activeCurrency = code;
 		}
 

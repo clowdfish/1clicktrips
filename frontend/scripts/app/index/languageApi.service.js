@@ -21,6 +21,10 @@
 		function setActiveLanguageKey(key) {
 
 			return $q(function(resolve, reject) {
+				if (!getLanguageDataByCode(key)) {
+					return reject();
+				}
+
 				$sessionStorage.activeLanguageKey = key;
 
 				if (session.isLogin()) {
@@ -28,11 +32,11 @@
 					userApi
 						.setUserProfile('language', key)
 						.then(function() {
-							resolve();
+							return resolve();
 						})
 						.catch(reject);
 				} else {
-					resolve();
+					return resolve();
 				}
 			});
 		}
