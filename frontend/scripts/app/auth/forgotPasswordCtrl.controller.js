@@ -7,7 +7,9 @@
     .controller('forgotPasswordCtrl', forgotPasswordCtrl);
 
   function forgotPasswordCtrl($scope, $modalInstance, authApi) {
+
     $scope.sent = false;
+
     $scope.submit = function() {
       $scope.sent = false;
       $scope.error = false;

@@ -21,6 +21,7 @@
         }
         return $q.reject(rejection);
       }
+
     };
 
     function injectToken(config) {

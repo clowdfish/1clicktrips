@@ -32,6 +32,9 @@
         scope.previousStep();
       };
 
+      /**
+      * Send booking request
+      */
       scope.book = function() {
         var cloneBookingData = _.cloneDeep(scope.bookingData);
         delete cloneBookingData['payment'];
@@ -47,6 +50,9 @@
 
       }
 
+      /**
+      * Get booked segment from trip data
+      */
       function filterSelectedSegments() {
         scope.selectedSegments = [];
         _.each(scope.bookingData.trip.groupSegment, function(groupSegment) {
