@@ -25,11 +25,11 @@
           <span class="trip-segments-day-item-description-title">
             {[segment.start.description]} - {[segment.end.description]}
           </span>
-          <span ng-if="segment != activeSegments[0]" class="trip-segments-day-item-description-timing">
-            {[ "result_segments_time_arrival" | translate ]}: {[ segment.arrivalTime | date: "H:mm" ]}
-          </span>
           <span ng-if="segment != activeSegments[activeSegments.length - 1]" class="trip-segments-day-item-description-timing">
             {[ "result_segments_time_departure" | translate ]}: {[ segment.departureTime | date: "H:mm" ]}
+          </span>
+              <span ng-if="segment != activeSegments[0]" class="trip-segments-day-item-description-timing">
+            {[ "result_segments_time_arrival" | translate ]}: {[ segment.arrivalTime | date: "H:mm" ]}
           </span>
           <a ng-click='showAlternativesFn(segment, $event, $index)'
             ng-show="segment.isMajor == 0">{[ "result_segments_alternatives" | translate ]}</a>

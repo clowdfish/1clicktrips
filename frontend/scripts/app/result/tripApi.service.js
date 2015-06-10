@@ -282,6 +282,13 @@
       outboundSegments.forEach(function(segment) {
         segment['tripId'] = itinerary.outbound.id;
       });
+
+      if(!outboundSegments[0].departureTime)
+        outboundSegments[0].departureTime = itinerary.outbound.departureTime;
+
+      if(!outboundSegments[outboundSegments.length - 1].arrivalTime)
+        outboundSegments[outboundSegments.length - 1].arrivalTime = itinerary.outbound.arrivalTime;
+
       groupSegments.push(outboundSegments);
 
       // create inbound group if inbound is available
@@ -290,6 +297,13 @@
         inboundSegments.forEach(function (segment) {
           segment['tripId'] = itinerary.inbound.id;
         });
+
+        if(!inboundSegments[0].departureTime)
+          inboundSegments[0].departureTime = itinerary.inbound.departureTime;
+
+        if(!inboundSegments[inboundSegments.length - 1].arrivalTime)
+          inboundSegments[inboundSegments.length - 1].arrivalTime = itinerary.inbound.arrivalTime;
+
         groupSegments.push(inboundSegments);
       }
 
