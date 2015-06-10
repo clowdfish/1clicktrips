@@ -12,13 +12,16 @@
       controller: 'bookingCtrl',
       templateUrl: 'scripts/app/templates/booking/booking.html',
       resolve: {
-        bookingData: getTrip,
+        bookingData: getBookingData,
         userProfile: getUserProfile
       }
     });
   }
 
-  function getTrip($stateParams, bookingApi) {
+  /**
+  * Get booking data from session storage, include: itineraries, previous search params,
+  */
+  function getBookingData($stateParams, bookingApi) {
     var bookingData = bookingApi.getShareTripData();
     if (bookingData === null) return null;
     return bookingData;

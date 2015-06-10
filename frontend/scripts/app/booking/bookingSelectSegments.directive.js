@@ -22,7 +22,9 @@
     };
 
     function link(scope, element, attrs) {
+
       scope.isBookingStored = false;
+
       scope.back = function() {
         scope.previousStep();
       };

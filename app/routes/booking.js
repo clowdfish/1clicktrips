@@ -77,6 +77,21 @@ module.exports = function (app, express, production) {
       });
   });
 
+  app.get('/booking/:id/calendar', function(req, res) {
+    //var userId = AuthController.getUserIdFromRequest(req, secret);
+    BookingController
+      .getCalendarFile(1, req.params.id)
+      .then(function(fileContent) {
+        res.set('Content-Type', 'text/calendar');
+        res.set('Content-Length', fileContent.length);
+        res.send(fileContent);
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.status(500).send('status.error.generate.file');
+      });
+  });
+
   app.post('/booking/', AuthController.isLoggedIn, function(req, res) {
     if (!req.body) {
       res.status(500);

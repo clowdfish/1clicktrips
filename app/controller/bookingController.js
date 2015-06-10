@@ -11,6 +11,7 @@ var authConfig = require('../../config/auth');
 var translate = require('../i18n/i18n').translate;
 
 var bookingSelectHelper = require('../helpers/bookingSelectHelper');
+var BookingFile = require('../helpers/bookingFile');
 module.exports = {
 
   getBookings: function(userId, limit) {
@@ -128,21 +129,55 @@ module.exports = {
         return resolve();
       });
     });
+  },
+
+  getCalendarFile: function(userId, bookingId) {
+    return new Promise(function(resolve, reject) {
+      var file = new BookingFile(bookingId);
+      //console.log(file, file.generate);
+      file
+        .generate()
+        .then(function(fileContent) {
+          return resolve(fileContent);
+        })
+        .catch(function(err) {
+          return reject(err);
+        });
+    });
   }
 };
 
 
 function insertBooking(userId, bookingObject, isBooked, done) {
   var subject = bookingObject.trip.origin + ' ' + bookingObject.trip.destination;
+
   var insertData = {
     user_id: userId,
     subject: subject,
     booked: isBooked,
     origin: bookingObject.trip.origin,
     destination: bookingObject.trip.destination,
-    start_date: bookingObject.trip.startDate,
-    end_date: bookingObject.trip.endDate
+    start_date: bookingObject.trip.appointmentStart,
+    end_date: bookingObject.trip.appointmentEnd,
+    origin_location_latitude: 0,
+    origin_location_longitude: 0,
+    destination_location_latitude: 0,
+    destination_location_longitude: 0
   };
+
+  var originSegment = _.first(_.first(bookingObject.trip.groupSegment));
+  var destinationSegment = _.last(_.first(bookingObject.trip.groupSegment));
+
+  if (originSegment != null) {
+    insertData['origin_location_latitude'] = originSegment.start.location.latitude;
+    insertData['origin_location_longitude'] = originSegment.start.location.longitude;
+  }
+
+  if (destinationSegment != null) {
+    insertData['destination_location_latitude'] = destinationSegment.end.location.latitude;
+    insertData['destination_location_longitude'] = destinationSegment.end.location.longitude;
+  }
+
   connection.query('INSERT INTO booking SET ?', insertData, function(err, data) {
     if (err) {
       return done(err);

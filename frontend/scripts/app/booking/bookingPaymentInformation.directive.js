@@ -29,6 +29,9 @@
         scope.previousStep();
       };
 
+      /**
+      * Validate form and go to next step
+      */
       scope.continue = function() {
         if (session.isLogin() === false) {
           createUserAccount();
