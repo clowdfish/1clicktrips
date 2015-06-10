@@ -1,10 +1,12 @@
 [
   {
     "code": "de",
-    "name": "Deutsch"
+    "name": "Deutsch",
+    "locale": "de-DE"
   },
   {
     "code": "en",
-    "name": "English"
+    "name": "English",
+    "locale": "en-US"
   }
 ]

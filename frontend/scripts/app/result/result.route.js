@@ -18,7 +18,6 @@
         searchObject: getSearchObject
       }
     });
-
   }
 
   function getCachedSearchResult($stateParams, bookingApi) {
@@ -29,7 +28,10 @@
     return null;
   }
 
-  function getSearchObject($stateParams, appConfig) {
+  function getSearchObject($stateParams, appConfig, languageApi) {
+    var activeLanguage = appConfig.activeLanguageKey;
+    var languageData = languageApi.getLanguageDataByCode(activeLanguage);
+    var locale = !_.isEmpty(languageData) ? languageData.locale : 'en-US';
     return {
       origin: {
         latitude: parseFloat($stateParams.originLatitude),
@@ -45,7 +47,7 @@
           end: $stateParams.endDate
         }
       ],
-      locale: appConfig.activeLanguageKey,
+      locale: locale,
       roundTrip: $stateParams.roundTrip,
       currency: appConfig.activeCurrency
     };
