@@ -74,6 +74,13 @@
     margin-top: -($input-mobile-height + 0.3rem);
   }
 
+  .search-form-release-info {
+    display: inline-block;
+    margin-top: 0.5em;
+    font-size: $fs-smaller;
+    color: $c-text-light;
+  }
+
   .search-form-input-item-location-field-dropdown-toggle {
     height: $input-mobile-height;
     font-size: $fs-normal;

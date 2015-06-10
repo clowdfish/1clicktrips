@@ -129,6 +129,7 @@ de:
         incomplete: Du hast noch nicht alle Daten eingegeben.
         past: Deine Termindaten liegen in der Vergangenheit.
         timing: Dein Termin endet bevor er startet. Das könnte problematisch werden.
+      release: Du nutzt gerade Release Version
   result:
     refine: Suche ändern
     select: Wähle deinen Ergebnistyp
