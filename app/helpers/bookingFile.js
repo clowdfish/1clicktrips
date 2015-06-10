@@ -97,7 +97,7 @@ BookingFile.prototype.generateCalendarData = function(booking, bookingSegments, 
   var utcStartDate = moment.tz(booking.start_date, originTzName).utc().format('YYYYMMDDTHHmmss') + 'Z';
   var startDate = moment(booking.start_date).format('YYYYMMDDTHHmmss');
   var endDate = moment(booking.end_date).format('YYYYMMDDTHHmmss');
-  var status = booking.booked ? "CONFIRMED" : "IN-PROCESS";
+  var status = booking.booked ? "CONFIRMED" : "TENTATIVE";
   var summary = booking.subject;
   var description = booking.subject;
   var created = moment(booking.booking_date).format('YYYYMMDDTHHmmss') + 'Z';
@@ -158,12 +158,12 @@ BookingFile.prototype.generateContentArray = function(calendarData) {
         'DTSTART;' + 'TZID=' + calendarData.originTzName + ':' + calendarData.startDate,
         'DTEND;' + 'TZID=' + calendarData.destinationTzName + ':' + calendarData.endDate,
         'STATUS:' + calendarData.status,
-        'SUMMARY:' + calendarData.summary,
-        'DESCRIPTION:' + calendarData.description,
+        'SUMMARY:' + this.escapeSpecialCharacter(calendarData.summary),
+        'DESCRIPTION:' + this.escapeSpecialCharacter(calendarData.description),
         'CLASS:' + calendarData.className,
         'CREATED:' + calendarData.created,
         'GEO:' + calendarData.geo,
-        'LOCATION:' + calendarData.location,
+        'LOCATION:' + this.escapeSpecialCharacter(calendarData.location),
         'UID:' + calendarData.uid,
       'END:VEVENT',
     'END:VCALENDAR'
@@ -173,11 +173,18 @@ BookingFile.prototype.generateContentArray = function(calendarData) {
 }
 
 BookingFile.prototype.mergeContentArray = function(contentArray) {
+  var _this = this;
   var content = '';
   for (var contentIndex = 0; contentIndex < contentArray.length; contentIndex++) {
     content += foldLine(contentArray[contentIndex]) + '\n';
   }
   return content;
+}
+
+BookingFile.prototype.escapeSpecialCharacter = function(text) {
+  return text.replace(/[\\;,]/g, function(character) {
+    return '\\' + character;
+  });
 }
 
 /**
