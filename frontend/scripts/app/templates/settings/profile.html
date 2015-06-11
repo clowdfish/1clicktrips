@@ -5,23 +5,17 @@
 
     <editable-text-field
             class="settings-profile-attribute"
-            key="'first_name'"
-            value="userProfile.first_name"
-            label="'settings_profile_firstname'"
+            field-config="editableFields.firstName"
             save="saveProfile"></editable-text-field>
 
     <editable-text-field
             class="settings-profile-attribute"
-            key="'last_name'"
-            value="userProfile.last_name"
-            label="'settings_profile_lastname'"
+            field-config="editableFields.lastName"
             save="saveProfile"></editable-text-field>
 
     <editable-text-field
             class="settings-profile-attribute"
-            key="'company_name'"
-            value="userProfile.company_name"
-            label="'settings_profile_company'"
+            field-config="editableFields.companyName"
             save="saveProfile"></editable-text-field>
   </div>
 
@@ -30,31 +24,22 @@
 
     <editable-text-field
       class="settings-profile-attribute"
-      key="'street'"
-      value="userProfile.street"
-      label="'settings_profile_address_street'"
+      field-config="editableFields.street"
       save="saveProfile"></editable-text-field>
 
     <editable-text-field
       class="settings-profile-attribute"
-      key="'zip_code'"
-      value="userProfile.zip_code"
-      label="'settings_profile_address_zip'"
+      field-config="editableFields.zipCode"
       save="saveProfile"></editable-text-field>
 
     <editable-text-field
       class="settings-profile-attribute"
-      key="'city'"
-      value="userProfile.city"
-      label="'settings_profile_address_city'"
+      field-config="editableFields.city"
       save="saveProfile"></editable-text-field>
 
     <editable-dropdown
       class="settings-profile-attribute"
-      key="'country'"
-      value="userProfile.country"
-      label="'settings_profile_address_country'"
-      options="countryList"
+      field-config="editableFields.country"
       save="saveProfile">
     </editable-dropdown>
   </div>

@@ -57,11 +57,14 @@
 
     $scope.$watch('startDate', function() {
       $scope.updateStartDate();
-      var endDate = new Date();
-      endDate.setDate($scope.startDate.getDate());
-      endDate.setMonth($scope.startDate.getMonth());
-      endDate.setYear($scope.startDate.getFullYear());
-      $scope.endDate = endDate;
+
+      if ($scope.startDate > $scope.endDate) {
+        var endDate = new Date();
+        endDate.setDate($scope.startDate.getDate());
+        endDate.setMonth($scope.startDate.getMonth());
+        endDate.setYear($scope.startDate.getFullYear());
+        $scope.endDate = endDate;
+      }
     });
 
     $scope.$watch('endDate', function() {

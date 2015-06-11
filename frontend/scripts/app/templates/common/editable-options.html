@@ -1,14 +1,14 @@
 <fieldset>
-  <label class="editable-options-label">{[label | translate]}</label>
-  <span ng-repeat="option in options">
+  <label class="editable-options-label">{[fieldConfig.description | translate]}</label>
+  <span ng-repeat="option in fieldConfig.options">
     <input type="radio"
-           ng-model="value"
+           ng-model="fieldConfig.value"
            value="{[ option.value ]}"
-           id="{[ key ]}_{[ option.value ]}"
-           name="{[ key ]}"
+           id="{[ fieldConfig.key ]}_{[ option.value ]}"
+           name="{[ fieldConfig.key ]}"
            ng-click="save(option.value)"
            ng-class="{ error: error, success: success }" />
-    <label for="{[ key ]}_{[ option.value ]}">{[option.description | translate | capitalize]}</label>
+    <label for="{[ fieldConfig.key ]}_{[ option.value ]}">{[option.description | translate | capitalize]}</label>
   </span>
 </fieldset>
 

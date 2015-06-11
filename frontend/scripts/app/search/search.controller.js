@@ -41,15 +41,10 @@
     $scope.roundTrip = searchFormData.roundTrip;
 
     $scope.startDate = searchFormData.startDate;
-    $scope.startDate.setHours(10);
-    $scope.startDate.setMinutes(0);
-
     $scope.endDate = searchFormData.endDate;
-    $scope.endDate.setHours(14);
-    $scope.endDate.setMinutes(0);
 
-    $scope.startTimeString = "10:00";
-    $scope.endTimeString = "14:00";
+    $scope.startTimeString = searchFormData.startTimeString;
+    $scope.endTimeString = searchFormData.endTimeString;
 
     $scope.isStepOriginReady = false;
     $scope.isStepDestinationReady = false;

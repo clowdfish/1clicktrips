@@ -33,6 +33,7 @@
           templateUrl: 'scripts/app/templates/search/search.html',
           controller: 'searchCtrl',
           resolve: {
+            settingData: getUserSettings,
             searchFormData: getDefaultSearchFormData
           }
         },
@@ -148,17 +149,21 @@
    *
    * @returns {*}
    */
-  function getDefaultSearchFormData() {
-
+  function getDefaultSearchFormData(settingData, settings) {
+    console.log(settingData);
     var startDate = new Date();
-    startDate.setHours(14);
-    startDate.setMinutes(0);
-    startDate.setSeconds(0);
+    startDate.setDate(startDate.getDate() + 1);
 
     var endDate = new Date();
-    endDate.setHours(16);
-    endDate.setMinutes(0);
-    endDate.setSeconds(0);
+    endDate.setDate(endDate.getDate() + 1);
+
+    var startTimeString = "09:00";
+    var endTimeString = "17:00";
+
+    if (settingData) {
+      startTimeString = settings.findValueFromSettings(settingData, 'start_time');
+      endTimeString = settings.findValueFromSettings(settingData, 'end_time');
+    }
 
     return {
       destinationLocation: null,
@@ -167,7 +172,17 @@
       endDate: endDate,
       destination: null,
       origin: null,
-      roundTrip: false
+      roundTrip: false,
+      startTimeString: startTimeString,
+      endTimeString: endTimeString
     };
   }
+
+  function getUserSettings(session, settings) {
+    if (session.isLogin() === false) {
+      return null;
+    }
+    return settings.getUserSettings();
+  }
+
 })();

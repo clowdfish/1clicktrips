@@ -12,10 +12,7 @@
       templateUrl: 'scripts/app/templates/common/editable-options.html',
       scope: {
         saveFn: '=save',
-        options: '=',
-        key: '=',
-        value: '=',
-        label: '='
+        fieldConfig: '='
       },
       controller: 'editableCtrl'
     };

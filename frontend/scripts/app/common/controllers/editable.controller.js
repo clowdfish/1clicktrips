@@ -10,16 +10,16 @@
     $scope.error = false;
     $scope.success = false;
     $scope.optionDescription = '';
-    $scope.oldValue = $scope.value;
 
     getOptionDescription();
+
     $scope.$watch('value', function() {
       getOptionDescription();
     });
 
     function getOptionDescription() {
-      var option = _.find($scope.options, function(item) {
-        return item.value === $scope.value;
+      var option = _.find($scope.fieldConfig.options, function(item) {
+        return item.value === $scope.fieldConfig.value;
       });
 
       if (option) {
@@ -33,13 +33,23 @@
 
     $scope.save = function(newValue) {
 
-      if($scope.oldValue != newValue) {
-        $scope.value = newValue;
-        $scope.success = false;
-        $scope.error = false;
-        $scope.saveFn($scope.key, newValue)
-          .then(saveSuccess, saveError);
+      if($scope.value == newValue) {
+        return;
       }
+
+      if (_.isObject($scope.fieldConfig.validator) &&
+          _.isFunction($scope.fieldConfig.validator.test) &&
+          $scope.fieldConfig.validator.test(newValue) == false) {
+        $scope.error = true;
+        $scope.errorMessage = $scope.fieldConfig.validator.errorMessage;
+        return;
+      }
+      $scope.value = newValue;
+      $scope.success = false;
+      $scope.error = false;
+      $scope.saveFn($scope.fieldConfig.key, newValue)
+        .then(saveSuccess, saveError);
+
     };
 
     function saveSuccess() {

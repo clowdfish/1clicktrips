@@ -13,9 +13,7 @@
       scope: {
         blurElementFn: '=blurElement',
         saveFn: '=save',
-        key: '=',
-        label: '=',
-        value: '='
+        fieldConfig: '='
       },
       controller: 'editableCtrl'
     };

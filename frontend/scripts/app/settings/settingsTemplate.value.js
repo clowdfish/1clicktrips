@@ -205,6 +205,18 @@
             "value": 1
           }
         ]
+      },
+      {
+        "category": "Preferences",
+        "description": "settings_preferences_default_start_time",
+        "key": "start_time",
+        "defaultValue": "09:00"
+      },
+      {
+        "category": "Preferences",
+        "description": "settings_preferences_default_end_time",
+        "key": "end_time",
+        "defaultValue": "17:00"
       }
     ]);
 })();

@@ -1,11 +1,11 @@
 <fieldset>
-  <label class="editable-textfield-label">{[ label | translate ]}</label>
+  <label class="editable-textfield-label">{[ fieldConfig.description | translate ]}</label>
   <input
     type="text"
-    ng-model="value"
-    value="{[ value ]}"
+    ng-model="fieldConfig.value"
+    value="{[ fieldConfig.value ]}"
     ng-class="{ error: error, success: success }"
-    ng-blur="save(value)"
+    ng-blur="save(fieldConfig.value)"
     ng-keypress="($event.which === 13) ? blurElement($event) : 0"
     placeholder="{[ 'settings_other_edit' | translate]}" />
   <span class="input-status">

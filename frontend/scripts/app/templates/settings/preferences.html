@@ -8,10 +8,7 @@
       <div ng-if="preference.options">
         <editable-options
           class="settings-preferences-attribute"
-          label="preference.description"
-          key="preference.key"
-          value="preference.value"
-          options="preference.options"
+          field-config="preference"
           save="saveSetting">
         </editable-options>
       </div>
@@ -20,10 +17,8 @@
       <div ng-if="!preference.options">
         <editable-text-field
           class="settings-preferences-attribute"
-          label="preference.description"
-          key="preference.key"
-          value="preference.value"
-          save="saveSetting">
+          save="saveSetting"
+          field-config="preference">
         </editable-text-field>
       </div>
     </div>

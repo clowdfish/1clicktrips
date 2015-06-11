@@ -12,10 +12,7 @@
       templateUrl: 'scripts/app/templates/common/editable-dropdown.html',
       scope: {
         saveFn: '=save',
-        options: '=',
-        key: '=',
-        value: '=',
-        label: '='
+        fieldConfig: '='
       },
       controller: 'editableCtrl',
       link: link
