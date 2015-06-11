@@ -51,15 +51,15 @@
           activeMessages: [
             {
               title: 'Create routes',
-              time: 1000
+              time: 3000
             },
             {
               title: 'Retrieve pricing',
-              time: 2000
+              time: 3000
             },
             {
               title: 'Optimize routes',
-              time: 1000
+              time: 3000
             }
           ]
         })

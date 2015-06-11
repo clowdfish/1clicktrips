@@ -152,6 +152,12 @@
     margin-bottom: 0.3em;
   }
 
+  .trip-segments-day-item-description-details {
+    font-size: 0.85em;
+    margin-bottom: 0.5em;
+    display: block;
+  }
+
   .trip-segments-day-item-description-timing {
     display: block;
     color: lighten($c-text, 50%);

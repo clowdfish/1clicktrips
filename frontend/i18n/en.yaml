@@ -21,6 +21,7 @@ en:
     back: back
     continue: continue
     save: save
+    flight: Flight
   toasts:
     notimplemented: Not yet implemented.
     nocontent: Nothing to show here yet.
@@ -242,6 +243,9 @@ en:
     sidebar:
       budget: Budget
       overview: Overview
+    appointment:
+      starts: Your appointment starts at
+      on: on
   dashboard:
     title: What can 1ClickTrips do for you?
     message: 1ClickTrips integrates the booking process into your daily work routine.

@@ -8,11 +8,15 @@
 
   function untilTime() {
     return function(startDateString, endDateString) {
+
+      if(!startDateString || !endDateString)
+        return "";
+
       var startDate = moment(startDateString);
       var endDate = moment(endDateString);
 
       if (false === startDate.isValid() || false === endDate.isValid()) {
-        return null;
+        return "";
       }
 
       if (endDate.diff(startDate, 'days') > 0) {

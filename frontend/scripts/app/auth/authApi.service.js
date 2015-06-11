@@ -13,7 +13,7 @@
 
         $http
           .post('/api/auth/register', signupData, {
-            waitingMessage: 'Checking your credentials'
+            waitingMessage: 'Creating new user...'
           })
           .success(function(data) {
             session.authSuccess(data.token);
@@ -37,7 +37,7 @@
 
         $http
           .post('/api/auth/local', loginData, {
-            waitingMessage: 'Checking your credentials'
+            waitingMessage: 'Checking your credentials...'
           })
           .success(function(data) {
             session.authSuccess(data.token, remember);

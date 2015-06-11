@@ -29,7 +29,7 @@
       },
 
       /**
-      * Hide spinner when response info matchs request info
+      * Hide spinner when response info matches request info
       */
       response: function(response) {
         if (canHideSpinner(response.config)) {
@@ -65,19 +65,17 @@
     * Compare url and method with last request's url and method
     */
     function canHideSpinner(httpConfig) {
-      if (lastSpinnerObject != null &&
-              httpConfig.url == lastSpinnerObject.url &&
-              httpConfig.method == lastSpinnerObject.method) {
-        return true;
-      }
-      return false;
+      return !!(lastSpinnerObject != null &&
+      httpConfig.url == lastSpinnerObject.url &&
+      httpConfig.method == lastSpinnerObject.method);
+
     }
 
     function broadcastShowSpinnerEevent(httpConfig, data) {
       lastSpinnerObject = {
         method: httpConfig.method,
         url: httpConfig.url
-      }
+      };
       $rootScope.$broadcast(requestSpinnerEvents.show, data);
     }
 
@@ -85,7 +83,5 @@
       $rootScope.$broadcast(requestSpinnerEvents.hide);
       lastSpinnerObject = null;
     }
-
-
   }
 })();

@@ -1,10 +1,10 @@
 <div class="booking-content-summary">
   <div class="booking-content-summary-label">{[ "booking_select_title" | translate ]}</div>
   <div class="booking-content-summary-info">
-    <span class="booking-content-summary-info-location">{[ bookingData.trip.outbound.destination.description ]}</span>
+    <span class="booking-content-summary-info-location">{[ bookingData.trip.origin ]}</span>
     <span class="booking-content-summary-info-date">
-      {[ "general_from" | translate | capitalize ]} {[ bookingData.trip.startDate | date: "dd.MM.yyyy" ]}
-      {[ "general_until" | translate ]} {[ bookingData.trip.endDate | date: "dd.MM.yyyy" ]}
+      {[ "booking_appointment_starts" | translate ]} {[ bookingData.trip.appointmentStart | date: "HH:mm" ]}
+      {[ "booking_appointment_on" | translate ]} {[ bookingData.trip.appointmentStart | date: "dd.MM.yyyy" ]}
     </span>
   </div>
   <div class="booking-content-summary-label break-line">{[ "booking_select_content" | translate ]}</div>
@@ -28,7 +28,7 @@
             {[segment.start.description]} - {[segment.end.description]}
           </span>
 
-          <span class="details">{[ segment.description ]}</span>
+          <span class="details" ng-bind-html="segment.details | segmentInformation: segment.type"></span>
           <span class="time">
             {[ segment.departureTime | untilTime: segment.arrivalTime ]}
             </span>

@@ -21,6 +21,7 @@ de:
     back: zurück
     continue: weiter
     save: speichern
+    flight: Flug
   toasts:
     notimplemented: Leider noch nicht verfügbar
     nocontent: Noch nichts verfügbar.
@@ -242,6 +243,9 @@ de:
     sidebar:
       budget: Budget
       overview: Übersicht
+    appointment:
+      starts: Dein Termin beginnt um
+      on: am
   dashboard:
     title: Was kann 1ClickTrips für Sie tun?
     message: 1ClickTrips integriert den Buchungsprozess in die tägliche Arbeit.
