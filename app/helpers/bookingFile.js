@@ -15,8 +15,9 @@ var async = require('async');
 /**
 * This class generate an ics file from booking data.
 */
-function BookingFile(bookingId) {
+function BookingFile(userId, bookingId) {
   this.bookingId = bookingId;
+  this.userId = userId;
   tzwhere.init();
 }
 
@@ -26,17 +27,20 @@ BookingFile.prototype.generate = function() {
     async
       .waterfall([
         function(done) {
-          _this.queryBookingData(_this.bookingId, done);
+          _this.queryBookingData(_this.userId, _this.bookingId, done);
         },
         function(booking, bookingSegments, done) {
           var calendarData = _this.generateCalendarData(booking, bookingSegments);
           var contentArray = _this.generateContentArray(calendarData);
-          done(null, _this.mergeContentArray(contentArray));
+          var title = booking.subject;
+          done(null, title, _this.mergeContentArray(contentArray));
         }
-      ], function(err, data) {
-        console.log(data);
+      ], function(err, title, data) {
         if (err) return reject(err);
-        return resolve(data);
+        return resolve({
+          fileTitle: title,
+          fileContent: data
+        });
       });
   });
 }
@@ -49,11 +53,11 @@ BookingFile.prototype.verifyBookingData = function(bookingData, done) {
   return done();
 }
 
-BookingFile.prototype.queryBookingData = function(bookingId, done) {
+BookingFile.prototype.queryBookingData = function(userId, bookingId, done) {
   async
     .waterfall([
       function(done) {
-        connection.query('SELECT * FROM booking WHERE id = ?', [bookingId], function(err, rows) {
+        connection.query('SELECT * FROM booking WHERE id = ? and user_id = ?', [bookingId, userId], function(err, rows) {
           if (err) {
             return done(err);
           }

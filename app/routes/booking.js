@@ -77,19 +77,31 @@ module.exports = function (app, express, production) {
       });
   });
 
-  app.get('/booking/:id/calendar', function(req, res) {
-    //var userId = AuthController.getUserIdFromRequest(req, secret);
+  app.post('/booking/:id/calendar', AuthController.isLoggedIn, function(req, res) {
+    var userId = AuthController.getUserIdFromRequest(req, secret);
     BookingController
-      .getCalendarFile(1, req.params.id)
-      .then(function(fileContent) {
-        res.set('Content-Type', 'text/calendar');
-        res.set('Content-Length', fileContent.length);
-        res.send(fileContent);
+      .getCalendarFile(userId, req.params.id)
+      .then(function(file) {
+        req.session.bookingFile = file;
+        res.sendStatus(200);
       })
       .catch(function(err) {
         console.log(err);
         res.status(500).send('status.error.generate.file');
       });
+  });
+
+  app.get('/booking/:id/calendar', function(req, res) {
+    if (req.session.bookingFile) {
+      var file = _.clone(req.session.bookingFile);
+      delete req.session['bookingFile'];
+      res.set('Content-Type', 'text/calendar');
+      res.set('Content-Length', file.fileContent.length);
+      res.set('Content-Disposition', 'attachment; filename="' + file.fileTitle + '.ics"');
+      res.send(file.fileContent);
+    } else {
+      res.status(500).send('status.error.file.not.available');
+    }
   });
 
   app.post('/booking/', AuthController.isLoggedIn, function(req, res) {

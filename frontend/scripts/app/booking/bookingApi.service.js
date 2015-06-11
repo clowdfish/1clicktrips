@@ -55,6 +55,11 @@
     */
     this.deleteBooking = deleteBooking;
 
+    /**
+    * Create ics file from booking data
+    */
+    this.createCalendarFile = createCalendarFile;
+
     function setShareTripData(itineraries, tripType, searchData) {
       var key = makeStorageKey();
       $sessionStorage[key] = {};
@@ -187,6 +192,13 @@
             reject();
           });
       });
+    }
+
+    function createCalendarFile(booking) {
+      return $http
+        .post('/api/booking/' + booking.id + '/calendar', {}, {
+          waitingMessage: 'Downloading booking file'
+        });
     }
 
     return this;

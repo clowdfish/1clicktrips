@@ -12,6 +12,7 @@ var translate = require('../i18n/i18n').translate;
 
 var bookingSelectHelper = require('../helpers/bookingSelectHelper');
 var BookingFile = require('../helpers/bookingFile');
+var fs = require('fs');
 module.exports = {
 
   getBookings: function(userId, limit) {
@@ -133,12 +134,11 @@ module.exports = {
 
   getCalendarFile: function(userId, bookingId) {
     return new Promise(function(resolve, reject) {
-      var file = new BookingFile(bookingId);
-      //console.log(file, file.generate);
+      var file = new BookingFile(userId, bookingId);
       file
         .generate()
-        .then(function(fileContent) {
-          return resolve(fileContent);
+        .then(function(file) {
+          return resolve(file);
         })
         .catch(function(err) {
           return reject(err);
