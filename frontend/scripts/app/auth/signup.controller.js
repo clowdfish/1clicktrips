@@ -31,7 +31,7 @@
       if ( $event.keyCode === 13) {
         $scope.signup();
       }
-    }
+    };
 
     // close sign up modal when sign up success
     $scope.$on(AUTH_EVENTS.signupSuccess, function() {

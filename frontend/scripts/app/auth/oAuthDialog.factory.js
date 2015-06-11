@@ -26,14 +26,16 @@
       var height = 550;
       var top = ($window.outerHeight - height) / 2;
       var left = ($window.outerWidth - width) / 2;
+
       var windowOptions = 'width=' + width;
       windowOptions += ',height=' + height;
       windowOptions += ',scrollbars=0';
       windowOptions += ',top=' + top;
       windowOptions += ',left=' + left;
+
       var child = $window.open(url, provider + '_login', windowOptions);
       window.addEventListener("message", authDialogEventListener);
-    }
+    };
 
     /**
     * Receive token from auth dialog

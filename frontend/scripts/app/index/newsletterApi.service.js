@@ -15,7 +15,7 @@
           .post('/api/subscribe-newsletter', {
             email: email
           }, {
-            waitingMessage: $translate.instant('newsletter_subscribing')
+            waitingMessage: $translate.instant('waiting_newsletter')
           })
           .success(function(message) {
             resolve(getSubscriptionMessage(message));

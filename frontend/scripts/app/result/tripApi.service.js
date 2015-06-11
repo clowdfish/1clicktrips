@@ -5,7 +5,7 @@
     .module('app.result')
     .service('tripApi', tripApi);
 
-  function tripApi($http, $q, $timeout, appConfig) {
+  function tripApi($http, $q, appConfig, $translate) {
     var service = this;
 
     /**
@@ -50,15 +50,27 @@
         .post('/api/search/trips', searchObject, {
           activeMessages: [
             {
-              title: 'Create routes',
+              title: $translate.instant('waiting_routes_search'),
               time: 3000
             },
             {
-              title: 'Retrieve pricing',
+              title: $translate.instant('waiting_routes_create'),
               time: 3000
             },
             {
-              title: 'Optimize routes',
+              title: $translate.instant('waiting_routes_pricing'),
+              time: 3000
+            },
+            {
+              title: $translate.instant('waiting_routes_timing'),
+              time: 3000
+            },
+            {
+              title: $translate.instant('waiting_routes_optimize'),
+              time: 8000
+            },
+            {
+              title: $translate.instant('waiting_routes_extract'),
               time: 3000
             }
           ]
@@ -101,7 +113,6 @@
             alternatives = appendTripIdToAlternativeVehicles(alternatives, tripId);
             alternatives = calculateTimeAndPriceDifference(itinerary, alternatives);
 
-            //console.log(alternatives);
             resolve(alternatives);
           })
           .error(function(data, status) {

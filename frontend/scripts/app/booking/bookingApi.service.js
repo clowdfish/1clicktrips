@@ -6,7 +6,7 @@
     .module('app.booking')
     .service('bookingApi', bookingApi);
 
-  function bookingApi($http, $q, $sessionStorage, date) {
+  function bookingApi($http, $q, $sessionStorage, date, $translate) {
 
     var _this = this;
     /**
@@ -147,7 +147,7 @@
       return $q(function(resolve, reject) {
         $http
           .post('/api/booking/request', bookingData, {
-            waitingMessage: 'Request booking...'
+            waitingMessage: $translate.instant('waiting_booking_submit')
           })
           .success(function() {
             resolve();
@@ -165,7 +165,7 @@
       return $q(function(resolve, reject) {
         $http
           .post('/api/booking/', bookingData, {
-            waitingMessage: 'Save booking...'
+            waitingMessage: $translate.instant('waiting_booking_save')
           })
           .success(function() {
             resolve();

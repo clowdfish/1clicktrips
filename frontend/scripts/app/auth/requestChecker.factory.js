@@ -10,23 +10,21 @@
     .factory('requestChecker', requestChecker);
 
   function requestChecker($q, session) {
-    //Catch all requests start with /api/account
-    var regrex = /^\/api\/account\//;
-    return {
+    // catch all requests start with /api/account
+    var regex = /^\/api\/account\//;
 
+    return {
       request: function(config) {
         var deferred = $q.defer();
         config.timeout = deferred.promise;
 
-        if ( ! session.isLogin() && config.url.match(regrex) !== null) {
+        if ( ! session.isLogin() && config.url.match(regex) !== null) {
           //console.log('Stop request to ', config.url);
           deferred.resolve();
         }
 
         return config || $q.when(config);
       }
-
     };
   }
-
 })();

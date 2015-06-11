@@ -6,7 +6,7 @@
     .module('app.auth')
     .controller('resetPasswordCtrl', resetPasswordCtrl);
 
-  function resetPasswordCtrl($scope, $state, resetPasswordToken, isValidToken, auth) {
+  function resetPasswordCtrl($scope, resetPasswordToken, isValidToken, auth) {
 
     $scope.success = false;
     $scope.error = null;
@@ -21,7 +21,5 @@
           $scope.error = reason.data;
         })
     }
-
   }
-
 })();

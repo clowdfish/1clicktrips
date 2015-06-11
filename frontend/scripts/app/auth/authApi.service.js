@@ -6,14 +6,14 @@
     .module('app.auth')
     .service('authApi', authApi);
 
-  function authApi($http, $q, $rootScope, AUTH_EVENTS, session) {
+  function authApi($http, $q, $rootScope, AUTH_EVENTS, session, $translate) {
 
     this.signup = function(signupData) {
       return $q(function(resolve, reject) {
 
         $http
           .post('/api/auth/register', signupData, {
-            waitingMessage: 'Creating new user...'
+            waitingMessage: $translate.instant('waiting_auth_register')
           })
           .success(function(data) {
             session.authSuccess(data.token);
@@ -37,7 +37,7 @@
 
         $http
           .post('/api/auth/local', loginData, {
-            waitingMessage: 'Checking your credentials...'
+            waitingMessage: $translate.instant('waiting_auth_login')
           })
           .success(function(data) {
             session.authSuccess(data.token, remember);
@@ -55,7 +55,7 @@
     this.forgotPassword = function(email) {
       return $q(function(resolve, reject) {
         if (!email) {
-          return reject(new Error("Email address empty"));
+          return reject(new Error('invalid.email.empty'));
         }
 
         $http
