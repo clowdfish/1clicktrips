@@ -51,7 +51,7 @@
   function configLanguage($q, $translate, appConfig, languageApi, $localStorage) {
     console.log('Resolve language');
     if (isAlreadyResolveGlobal) return true;
-
+    isAlreadyResolveGlobal = true;
     return $q(function(resolve, reject) {
 
       if (locale) {
