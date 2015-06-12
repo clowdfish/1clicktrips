@@ -72,6 +72,7 @@
         .then(function(userProfile) {
           appConfig.userProfile = userProfile;
           session.setUserProfile(userProfile);
+          console.log(userProfile);
         }, function() {
           appConfig.userProfile = null;
           session.removeUserProfile();

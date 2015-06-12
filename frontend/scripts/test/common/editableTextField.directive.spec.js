@@ -17,9 +17,7 @@ describe('directive: editableTextField', function() {
     $q = _$q_;
 
     var element = angular.element('<editable-text-field ' +
-                                  ' label="description" ' +
-                                  ' key="key" '           +
-                                  ' value="value" '       +
+                                  ' field-config="fieldData"' +
                                   ' save="saveSetting"> ' +
                                   '</editable-text-field>');
 
@@ -28,9 +26,11 @@ describe('directive: editableTextField', function() {
         resolve();
       });
     });
-    $scope.key = 'first_name';
-    $scope.value = 'David';
-    $scope.description = 'my_description';
+    $scope.fieldData = {
+      key: 'first_name',
+      value: 'David',
+      description: 'my_description'
+    };
 
     editableTextField = _$compile_(element)($scope);
     $scope.$digest();

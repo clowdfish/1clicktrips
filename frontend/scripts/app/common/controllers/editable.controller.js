@@ -18,6 +18,10 @@
     });
 
     function getOptionDescription() {
+      if (_.isEmpty($scope.fieldConfig.options)) {
+        return;
+      }
+
       var option = _.find($scope.fieldConfig.options, function(item) {
         return item.value === $scope.fieldConfig.value;
       });

@@ -22,6 +22,7 @@ describe('controller: profileCtrl', function() {
                             _mockUserProfile_,
                             _mockCountryList_) {
     $scope = _$rootScope_.$new();
+    $scope.$parent.userProfile = _mockUserProfile_;
     $httpBackend = _$httpBackend_;
     userApi = _userApi_;
     session = _session_;

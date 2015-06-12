@@ -10,14 +10,22 @@ describe('controller: editableCtrl', function() {
                             _$rootScope_,
                             _$q_) {
     $scope = _$rootScope_.$new();
+    //Reset controller variable
+    $scope.error = false;
+    $scope.success = false;
+
+    $scope.fieldConfig = {
+      key: 'first_name',
+      value: 'David',
+      description: 'my_description'
+    };
+
     editableCtrl = _$controller_('editableCtrl', {
       $scope: $scope
     });
     $q = _$q_;
 
-    //Reset controller variable
-    $scope.error = false;
-    $scope.success = false;
+
 
   }));
 

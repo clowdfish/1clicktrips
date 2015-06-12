@@ -42,16 +42,26 @@
     });
   }
 
-  function run(browser, languageApi, $localStorage) {
+  function run($rootScope, browser, languageApi, $localStorage, AUTH_EVENTS, appConfig) {
     if (browser.isMobileDevice()) {
       FastClick.attach(document.body);
+    }
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, authSuccess);
+    $rootScope.$on(AUTH_EVENTS.signupSuccess, authSuccess);
+
+    function authSuccess() {
+
     }
   }
 
   function configLanguage($q, $translate, appConfig, languageApi, $localStorage) {
     console.log('Resolve language');
+
     if (isAlreadyResolveGlobal) return true;
+
     isAlreadyResolveGlobal = true;
+
     return $q(function(resolve, reject) {
 
       if (locale) {

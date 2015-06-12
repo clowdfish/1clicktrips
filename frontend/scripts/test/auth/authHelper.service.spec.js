@@ -37,6 +37,7 @@ describe('authHelper: service', function() {
     $httpBackend.whenGET(/\/api\/countries/).respond(200, []);
     $httpBackend.whenGET(/\/api\/account\/favorites/).respond(200, []);
     $httpBackend.whenGET(/\/api\/bookings/).respond(200, []);
+    $httpBackend.whenGET(/\/api\/account\/settings/).respond(200, []);
   }));
 
   afterEach(function() {

@@ -31,6 +31,6 @@ describe('untilTime: filter', function() {
 
     startDateString = 'invalid1';
     endDateString = 'invalid2';
-    expect(untilTime(startDateString, endDateString)).toEqual(null);
+    expect(untilTime(startDateString, endDateString)).toEqual('');
   });
 });
