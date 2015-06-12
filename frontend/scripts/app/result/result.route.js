@@ -12,6 +12,7 @@
       url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,' +
            ':startDate,:endDate,:destination,:origin,:roundTrip,:fromCache',
       templateUrl: 'scripts/app/templates/result/result.html',
+      parent: 'root',
       controller: 'resultCtrl',
       resolve: {
         cachedSearchResult: getCachedSearchResult,

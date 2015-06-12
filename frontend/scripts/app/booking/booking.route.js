@@ -9,6 +9,7 @@
   function routeConfig($stateProvider) {
     $stateProvider.state('booking', {
       url: '/booking',
+      parent: 'root',
       controller: 'bookingCtrl',
       templateUrl: 'scripts/app/templates/booking/booking.html',
       resolve: {

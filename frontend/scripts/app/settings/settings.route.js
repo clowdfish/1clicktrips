@@ -11,6 +11,7 @@
       url:'/settings',
       templateUrl: 'scripts/app/templates/settings/settings.html',
       controller: 'settingsCtrl',
+      parent: 'root',
       resolve: {
         checkAuthenticaton: checkAuthenticaton,
         userProfile: getUserProfile
@@ -21,6 +22,7 @@
       url: '/profile',
       templateUrl: 'scripts/app/templates/settings/profile.html',
       controller: 'profileCtrl',
+      parent: 'root',
       resolve: {
         countryList: getCountryList
       }
@@ -30,6 +32,7 @@
       url: '/preferences',
       templateUrl: 'scripts/app/templates/settings/preferences.html',
       controller: 'preferencesCtrl',
+      parent: 'root',
       resolve: {
         userPreferences: getUserPreferences
       }
@@ -39,6 +42,7 @@
       url: '/favorite',
       templateUrl: 'scripts/app/templates/settings/favorite-table.html',
       controller: 'favoriteCtrl',
+      parent: 'root',
       resolve: {
         favorites: getFavorites
       }
@@ -47,11 +51,13 @@
     $stateProvider.state('settings.payment', {
       url: '/payment',
       templateUrl: 'scripts/app/templates/settings/payment.html',
+      parent: 'root',
       controller: 'paymentCtrl'
     });
 
     $stateProvider.state('settings.privacy', {
       url: '/privacy',
+      parent: 'root',
       templateUrl: 'scripts/app/templates/settings/privacy.html',
       controller: 'privacyCtrl'
     });

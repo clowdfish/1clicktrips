@@ -6,7 +6,7 @@
 		.module('app.index')
 		.service('languageApi', languageApi);
 
-	function languageApi($q, $sessionStorage, session, userApi) {
+	function languageApi($q, $localStorage, session, userApi) {
 		var languageData = getAvailableLanguages();
 
 		this.getAvailableLanguages = getAvailableLanguages;
@@ -25,7 +25,7 @@
 					return reject();
 				}
 
-				$sessionStorage.activeLanguageKey = key;
+				$localStorage.activeLanguageKey = key;
 
 				if (session.isLogin()) {
 					// store active language key on server
@@ -42,7 +42,7 @@
 		}
 
 		function getActiveLanguageKey() {
-			return $sessionStorage.activeLanguageKey;
+			return $localStorage.activeLanguageKey;
 		}
 
 		function getLanguageDataByCode(code) {

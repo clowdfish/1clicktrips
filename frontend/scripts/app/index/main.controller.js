@@ -216,21 +216,13 @@
     function initLanguages() {
       $scope.isShowingLanguages = false;
       $scope.languages = languageApi.getAvailableLanguages();
+    }
 
-      if (locale) {
-        appConfig.activeLanguageKey = locale;
-      }
-
-      if (appConfig.activeLanguageKey === null) {
-        appConfig.activeLanguageKey = 'en';
-      }
-
+    $scope.$watch('appConfig.activeLanguageKey', function() {
       $scope.activeLanguageKey = appConfig.activeLanguageKey;
-
       var languageData = languageApi.getLanguageDataByCode($scope.activeLanguageKey);
       $scope.activeLanguageName = languageData.name;
-      $translate.use($scope.activeLanguageKey);
-    }
+    });
 
     function changeLanguage(key) {
       if (!languageApi.getLanguageDataByCode(key)) {
