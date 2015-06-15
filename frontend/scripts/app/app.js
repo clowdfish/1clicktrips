@@ -37,6 +37,8 @@
       abstract: true,
       template: '<div ui-view></div>',
       resolve: {
+        rootUserProfile: getUserProfile,
+        rootUserSettings: getUserSettings,
         configLanguage: configLanguage
       }
     });
@@ -55,39 +57,78 @@
     }
   }
 
-  function configLanguage($q, $translate, appConfig, languageApi, $localStorage) {
-    console.log('Resolve language');
+  function getUserProfile($q, userApi, session, appConfig) {
+    if (session.isLogin() === false) {
+      return null;
+    }
 
-    if (isAlreadyResolveGlobal) return true;
+    return $q(function(resolve, reject) {
+      userApi
+        .getUserProfile()
+        .then(function(data) {
+          appConfig.userProfile = data
+          resolve(data);
+        }, function() {
+          resolve(null);
+        });
+    });
+  }
 
-    isAlreadyResolveGlobal = true;
+  function getUserSettings($q, settings, session, appConfig) {
+    if (session.isLogin() === false) {
+      return null;
+    }
+
+    return $q(function(resolve, reject) {
+      settings
+        .getUserSettings()
+        .then(function(data) {
+          appConfig.userSettings = data;
+          resolve();
+        }, reject);
+    });
+  }
+
+  function configLanguage($q, $translate, appConfig, languageApi, $localStorage, rootUserSettings, rootUserProfile) {
+
+    var localeMapping = {
+      de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
+      en: ['en-au', 'en-bz', 'en-ca', 'en-cb', 'en-gb', 'en-in', 'en-ie', 'en-jm', 'en-nz', 'en-ph', 'en-za', 'en-tt', 'en-us']
+    }
 
     return $q(function(resolve, reject) {
 
+      var languageKey = 'en';
+      var browserLanguage = navigator.language.toLowerCase();
+
+      if (typeof($localStorage.redirectToWebsiteToMatchBrowserLanguage) === 'undefined' && rootUserProfile === null) {
+        angular.forEach(localeMapping, function(localeList, localeKey) {
+          if (localeList.indexOf(browserLanguage) >= 0 || browserLanguage === localeKey) {
+            languageKey = localeKey;
+            languageApi
+              .setActiveLanguageKey(localeKey)
+              .then(function() {
+                $localStorage.redirectToWebsiteToMatchBrowserLanguage = true;
+                var hrefArray = location.href.split('#');
+                var newHref = '/' + localeKey + '/#' + hrefArray[1];
+                location.href = newHref;
+              });
+              return;
+          }
+        });
+      }
+
       if (locale) {
-        languageApi.setActiveLanguageKey(locale);
-        appConfig.activeLanguageKey = locale;
+        languageKey = locale;
       }
 
-      if (_.isEmpty($localStorage.redirectToWebsiteToMatchBrowserLanguage)) {
-        var browserLanguage = navigator.language.toLowerCase();
-        if ((browserLanguage == 'de' || browserLanguage == 'de-de')
-           && languageApi.getActiveLanguageKey() !== 'de') {
-          languageApi
-            .setActiveLanguageKey('de')
-            .then(function() {
-              $localStorage.redirectToWebsiteToMatchBrowserLanguage = true;
-              var hrefArray = location.href.split('#');
-              var newHref = '/de/#' + hrefArray[1];
-              location.href = newHref;
-            });
-        } else {
-          $localStorage.redirectToWebsiteToMatchBrowserLanguage = true;
-          languageApi.setActiveLanguageKey('en');
-        }
+      if (rootUserProfile !== null && false === _.isEmpty(rootUserProfile.language)) {
+        languageKey = rootUserProfile.language;
       }
 
-      $translate.use(appConfig.activeLanguageKey);
+      appConfig.activeLanguageKey = languageKey;
+      $localStorage.activeLanguageKey = languageKey;
+      $translate.use(languageKey);
 
       return resolve();
     });

@@ -12,7 +12,6 @@
                       browser,
                       searchFormData,
                       SEARCH_STEPS) {
-
     /**
     * VARIABLES
     */

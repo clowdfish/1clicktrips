@@ -102,20 +102,9 @@
      */
     $scope.userProfile = null;
 
-    $scope.$on(AUTH_EVENTS.signupSuccess, function() {
-      getUserProfile();
-    });
-
-    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
-      getUserProfile();
-    });
-
-    getUserProfile();
-
     initLanguages();
 
     initCurrencies();
-
 
     $scope.$watch('appConfig.userProfile', function() {
       $scope.userProfile = appConfig.userProfile;
@@ -123,10 +112,6 @@
 
     $scope.$watch('appConfig.activeCurrency', function() {
       $scope.activeCurrency = appConfig.activeCurrency;
-    });
-
-    $scope.$watch('appConfig.activeLanguageKey', function() {
-      $scope.activeLanguageKey = appConfig.activeLanguageKey;
     });
 
     $scope.createLoginModal = function(size) {
@@ -220,11 +205,13 @@
 
     $scope.$watch('appConfig.activeLanguageKey', function() {
       $scope.activeLanguageKey = appConfig.activeLanguageKey;
+      console.log(appConfig);
       var languageData = languageApi.getLanguageDataByCode($scope.activeLanguageKey);
       $scope.activeLanguageName = languageData.name;
     });
 
     function changeLanguage(key) {
+
       if (!languageApi.getLanguageDataByCode(key)) {
         return;
       }
@@ -232,9 +219,17 @@
       languageApi
         .setActiveLanguageKey(key)
         .then(function() {
+
           var hrefArray = location.href.split('#');
           var newHref = '/' + key + '/#' + hrefArray[1];
-          location.href = newHref;
+          console.log(newHref, location.href);
+
+          if (location.href === newHref) {
+            location.reload();
+          } else {
+            location.href = newHref;
+          }
+
         });
     }
   }
