@@ -17,6 +17,7 @@
     */
     $scope.destination = $scope.$parent.destination;
     $scope.destinationLocation = $scope.$parent.destinationLocation;
+
     $scope.setDestination({
       description: $scope.destination,
       location: $scope.destinationLocation
@@ -34,6 +35,15 @@
       if (_.isEmpty(destination)) {
         $scope.setDestination(null);
       }
+    });
+
+    $scope.$on('selectFavorite', function(e, favorite) {
+      $scope.setDestination({
+        description: favorite.destination.description,
+        location: favorite.destination.location
+      });
+      $scope.destination = favorite.destination.description;
+      $scope.destinationLocation = favorite.destination.location
     });
 
     $scope.toggleLocationDropdown = function() {

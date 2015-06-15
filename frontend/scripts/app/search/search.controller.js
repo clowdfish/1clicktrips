@@ -58,10 +58,6 @@
 
     $scope.startSearch = startSearch;
 
-    $scope.$on('selectFavorite', function(e, data) {
-      selectFavorite(data);
-    });
-
     $scope.setOrigin = setOrigin;
     $scope.setDestination = setDestination;
     $scope.setStartDate = setStartDate;
@@ -70,6 +66,7 @@
     * Select favorite
     */
     function selectFavorite(favorite) {
+      console.log(favorite);
       $scope.origin = favorite.origin.description;
       $scope.originLocation = favorite.origin.location;
       $scope.isStepOriginReady = true;

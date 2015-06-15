@@ -7,6 +7,7 @@
 		.controller('searchOriginCtrl', searchOriginCtrl);
 
 	function searchOriginCtrl ($scope,
+                            $state,
                             SUGGESTION_TYPES,
                             AUTH_EVENTS,
                             suggestionAdapter,
@@ -47,8 +48,19 @@
       }
     });
 
-    function loadDefaultOrigin() {
+    $scope.$on('selectFavorite', function(e, favorite) {
+      $scope.setOrigin({
+        description: favorite.origin.description,
+        location: favorite.origin.location
+      });
+      $scope.origin = favorite.origin.description;
+      $scope.originLocation = favorite.origin.location
+    });
 
+    function loadDefaultOrigin() {
+      if ($state.current.name === 'refineSearch') {
+        return;
+      }
       defaultOriginApi
         .getDefaultOrigin()
         .then(function(defaultOrigin) {

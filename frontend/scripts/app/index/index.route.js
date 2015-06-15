@@ -111,10 +111,10 @@
   function getSearchFormData($stateParams) {
 
     var startDate = moment($stateParams.startDate);
-    startDate.seconds(0);
-
     var endDate = moment($stateParams.endDate);
-    endDate.seconds(0);
+
+    var startTimeString = startDate.format('HH:mm');
+    var endTimeString = endDate.format('HH:mm');
 
     return {
       destinationLocation: {
@@ -129,7 +129,9 @@
       endDate: endDate.toDate(),
       destination: $stateParams.destination,
       origin: $stateParams.origin,
-      roundTrip: $stateParams.roundTrip === "true"
+      roundTrip: $stateParams.roundTrip === "true",
+      startTimeString: startTimeString,
+      endTimeString: endTimeString
     };
   }
 
