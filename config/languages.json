@@ -2,11 +2,13 @@
   {
     "code": "de",
     "name": "Deutsch",
-    "locale": "de-DE"
+    "locale": "de-DE",
+    "defaultCurrency": "eur"
   },
   {
     "code": "en",
     "name": "English",
-    "locale": "en-US"
+    "locale": "en-US",
+    "defaultCurrency": "usd"
   }
 ]

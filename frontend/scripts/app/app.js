@@ -73,7 +73,7 @@
     });
   }
 
-  function configLanguage($q, $translate, appConfig, languageApi, $localStorage, rootUserProfile) {
+  function configLanguage($q, $translate, appConfig, languageApi, currencyApi, $localStorage, rootUserProfile) {
 
     var localeMapping = {
       de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
@@ -111,10 +111,11 @@
         languageKey = rootUserProfile.language;
       }
 
-
-
       appConfig.activeLanguageKey = languageKey;
       $localStorage.activeLanguageKey = languageKey;
+      var languageData = languageApi.getLanguageDataByCode(languageKey);
+      currencyApi.setActiveCurrency(languageData.defaultCurrency);
+      appConfig.activeCurrency = languageData.defaultCurrency;
       $translate.use(languageKey);
 
       return resolve();
