@@ -20,7 +20,8 @@ describe('authHelper: service', function() {
                             _$httpBackend_,
                             _authHelper_,
                             _session_,
-                            _AUTH_EVENTS_) {
+                            _AUTH_EVENTS_,
+                            _mockUserProfile_) {
     $q = _$q_;
     $state = _$state_;
     $rootScope = _$rootScope_;
@@ -31,9 +32,7 @@ describe('authHelper: service', function() {
     var $modal = {
       open: jasmine.createSpy('$modal.open')
     };
-    $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, {
-      test_profile: 1
-    });
+    $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, _mockUserProfile_);
     $httpBackend.whenGET(/\/api\/countries/).respond(200, []);
     $httpBackend.whenGET(/\/api\/account\/favorites/).respond(200, []);
     $httpBackend.whenGET(/\/api\/bookings/).respond(200, []);

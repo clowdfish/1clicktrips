@@ -1,5 +1,6 @@
 describe('searchDestinationFormCtrl', function() {
   var searchCtrl,
+    $rootScope,
     $scope,
     suggestionAdapter,
     SUGGESTION_TYPES,
@@ -9,7 +10,9 @@ describe('searchDestinationFormCtrl', function() {
     mockEvents,
     mockMeetingSpaces,
     googleMap,
-    mockLocation;
+    mockLocation,
+    mockFavorites,
+    SEARCH_STEPS;
 
   beforeEach(function() {
     module('app.search');
@@ -30,10 +33,15 @@ describe('searchDestinationFormCtrl', function() {
                               _mockAddress_,
                               _mockEvents_,
                               _googleMap_,
-                              _AUTH_EVENTS_ ) {
+                              _AUTH_EVENTS_,
+                              _mockFavorites_,
+                              _SEARCH_STEPS_) {
     $scope = _$rootScope_.$new();
+    $rootScope = _$rootScope_;
     SUGGESTION_TYPES = _SUGGESTION_TYPES_;
     suggestionAdapter = _suggestionAdapter_;
+    mockFavorites = _mockFavorites_;
+    SEARCH_STEPS = _SEARCH_STEPS_;
     $q = _$q_;
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, 'OK');
@@ -122,6 +130,14 @@ describe('searchDestinationFormCtrl', function() {
       $scope.selectDestinationSuggestion($item);
       $scope.$digest();
       expect($scope.setDestination).toHaveBeenCalled();
+    });
+
+    it('populate search form with data from selectFavorite event', function() {
+      favorite = mockFavorites[0];
+      $rootScope.$broadcast('selectFavorite', favorite);
+      $scope.$digest();
+      expect($scope.destination).toEqual(favorite.destination.description);
+      expect($scope.destinationLocation).toEqual(favorite.destination.location);
     });
   });
 });

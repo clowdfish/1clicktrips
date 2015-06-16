@@ -205,7 +205,6 @@
 
     $scope.$watch('appConfig.activeLanguageKey', function() {
       $scope.activeLanguageKey = appConfig.activeLanguageKey;
-      console.log(appConfig);
       var languageData = languageApi.getLanguageDataByCode($scope.activeLanguageKey);
       $scope.activeLanguageName = languageData.name;
     });

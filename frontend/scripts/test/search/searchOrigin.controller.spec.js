@@ -12,16 +12,12 @@ describe('searchOriginCtrl', function() {
       defaultOriginApi,
       defaultOriginHandler,
       defaultOriginMock,
-      session;
+      session,
+      mockFavorites,
+      SEARCH_STEPS;
 
   beforeEach(function() {
-    module('app.search');
-    module('app.common');
-    module('app.index');
-    module('app.auth');
-    module('app.templates');
-    module('app.result');
-    module('app.settings');
+    module('app');
     module('mockdata');
   });
 
@@ -36,7 +32,10 @@ describe('searchOriginCtrl', function() {
                             _mockAddress_,
                             _AUTH_EVENTS_,
                             _session_,
-                            _defaultOriginApi_) {
+                            _defaultOriginApi_,
+                            _mockFavorites_,
+                            _SEARCH_STEPS_
+                            ) {
     session = _session_;
     $scope = _$rootScope_.$new();
     $rootScope = _$rootScope_;
@@ -45,6 +44,8 @@ describe('searchOriginCtrl', function() {
       latitude: 1,
       longitude: 1
     };
+    mockFavorites = _mockFavorites_;
+    SEARCH_STEPS = _SEARCH_STEPS_;
     googleMap = _googleMap_;
     suggestionAdapter = _suggestionAdapter_;
     mockAddress = _mockAddress_;
@@ -52,6 +53,10 @@ describe('searchOriginCtrl', function() {
     $state = _$state_;
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, 'OK');
+    $httpBackend.whenGET(/\/api\/account\/settings/).respond(200, 'OK');
+    $httpBackend.whenPOST(/\/api\/account\/settings/).respond(200, 'OK');
+    $httpBackend.whenGET(/\/api\/account\/favorites/).respond(200, []);
+    $httpBackend.whenGET(/\/api\/bookings/).respond(200, []);
     defaultOriginMock = {
       description: 'San Diego',
       location: {
@@ -61,7 +66,7 @@ describe('searchOriginCtrl', function() {
     };
 
     defaultOriginHandler = $httpBackend.whenGET(/\/api\/account\/settings\/default_origin/).respond(200, defaultOriginMock);
-    $httpBackend.whenPOST(/\/api\/account\/settings/).respond(200, 'OK');
+
     session.authSuccess('test_token');
     $scope.setOrigin = jasmine.createSpy('setOrigin');
     ctrl = _$controller_('searchOriginCtrl', {
@@ -104,11 +109,12 @@ describe('searchOriginCtrl', function() {
   });
 
   it('get/set default origin by Api correctly', function() {
-
+    session.authSuccess('test_token');
     defaultOriginHandler.respond(200, defaultOriginMock);
     $scope.loadDefaultOrigin();
     $scope.$digest();
-    $httpBackend.flush();
+    //$httpBackend.flush();
+    console.log($scope.origin);
     expect($scope.origin).toEqual(defaultOriginMock.description);
     expect($scope.originLocation).toEqual(defaultOriginMock.location);
     expect($scope.storeDefaultOrigin).toEqual(true);
@@ -147,6 +153,14 @@ describe('searchOriginCtrl', function() {
     $scope.$digest();
     //$httpBackend.flush();
     expect($scope.setOrigin).toHaveBeenCalled();
+  });
+
+  it('populate search form with data from selectFavorite event', function() {
+    favorite = mockFavorites[0];
+    $rootScope.$broadcast('selectFavorite', favorite);
+    $scope.$digest();
+    expect($scope.origin).toEqual(favorite.origin.description);
+    expect($scope.originLocation).toEqual(favorite.origin.location);
   });
 
 });

@@ -50,8 +50,8 @@
     function getSettingByKey(key) {
       return $q(function(resolve, reject) {
 
-        if (session.getAuthToken() === null) {
-          reject(new Error("Token is not available"));
+        if (session.isLogin() === false) {
+          reject(new Error("User must be login"));
         }
 
         $http

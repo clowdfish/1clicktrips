@@ -61,9 +61,11 @@
       if ($state.current.name === 'refineSearch') {
         return;
       }
+
       defaultOriginApi
         .getDefaultOrigin()
         .then(function(defaultOrigin) {
+
           if (defaultOrigin === null) { return; }
 
           if (false === _.isEmpty(defaultOrigin)) {

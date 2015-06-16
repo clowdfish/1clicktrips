@@ -26,7 +26,6 @@
   function config($interpolateProvider, $locationProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
-    //$locationProvider.html5Mode(true);
   }
 
   function routeConfig($stateProvider) {
@@ -38,7 +37,6 @@
       template: '<div ui-view></div>',
       resolve: {
         rootUserProfile: getUserProfile,
-        rootUserSettings: getUserSettings,
         configLanguage: configLanguage
       }
     });
@@ -67,6 +65,7 @@
         .getUserProfile()
         .then(function(data) {
           appConfig.userProfile = data
+
           resolve(data);
         }, function() {
           resolve(null);
@@ -74,22 +73,7 @@
     });
   }
 
-  function getUserSettings($q, settings, session, appConfig) {
-    if (session.isLogin() === false) {
-      return null;
-    }
-
-    return $q(function(resolve, reject) {
-      settings
-        .getUserSettings()
-        .then(function(data) {
-          appConfig.userSettings = data;
-          resolve();
-        }, reject);
-    });
-  }
-
-  function configLanguage($q, $translate, appConfig, languageApi, $localStorage, rootUserSettings, rootUserProfile) {
+  function configLanguage($q, $translate, appConfig, languageApi, $localStorage, rootUserProfile) {
 
     var localeMapping = {
       de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
@@ -108,6 +92,7 @@
             languageApi
               .setActiveLanguageKey(localeKey)
               .then(function() {
+
                 $localStorage.redirectToWebsiteToMatchBrowserLanguage = true;
                 var hrefArray = location.href.split('#');
                 var newHref = '/' + localeKey + '/#' + hrefArray[1];
@@ -118,13 +103,15 @@
         });
       }
 
-      if (locale) {
+      if (typeof(locale) !== 'undefined') {
         languageKey = locale;
       }
 
       if (rootUserProfile !== null && false === _.isEmpty(rootUserProfile.language)) {
         languageKey = rootUserProfile.language;
       }
+
+
 
       appConfig.activeLanguageKey = languageKey;
       $localStorage.activeLanguageKey = languageKey;

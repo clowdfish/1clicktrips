@@ -141,7 +141,6 @@
    * @returns {*}
    */
   function getDefaultSearchFormData(settingData, settings) {
-    console.log(settingData);
     var startDate = new Date();
     startDate.setDate(startDate.getDate() + 1);
 

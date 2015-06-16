@@ -92,16 +92,6 @@ describe('searchCtrl', function() {
     expect($scope.isStepAppointmentReady).toEqual(true);
   });
 
-  it('populate search form with data from selectFavorite event', function() {
-    favorite = mockFavorites[0];
-    $rootScope.$broadcast('selectFavorite', favorite);
-    $scope.$digest();
-    expect($scope.destination).toEqual(favorite.destination.description);
-    expect($scope.origin).toEqual(favorite.origin.description);
-    expect($scope.destinationLocation).toEqual(favorite.destination.location);
-    expect($scope.step).toEqual(SEARCH_STEPS.appointment);
-  });
-
   it('send search data to form correctly', function() {
     var location = {
       longitude: 1,
