@@ -53,7 +53,8 @@ describe('searchOriginCtrl', function() {
     $state = _$state_;
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET(/\/api\/account\/profile/).respond(200, 'OK');
-    $httpBackend.whenGET(/\/api\/account\/settings/).respond(200, 'OK');
+    $httpBackend.whenGET(/^\/api\/account\/settings$/).respond(200, 'OK');
+    defaultOriginHandler = $httpBackend.whenGET(/^\/api\/account\/settings\/default_origin$/).respond(200, defaultOriginMock);
     $httpBackend.whenPOST(/\/api\/account\/settings/).respond(200, 'OK');
     $httpBackend.whenGET(/\/api\/account\/favorites/).respond(200, []);
     $httpBackend.whenGET(/\/api\/bookings/).respond(200, []);
@@ -65,7 +66,7 @@ describe('searchOriginCtrl', function() {
       }
     };
 
-    defaultOriginHandler = $httpBackend.whenGET(/\/api\/account\/settings\/default_origin/).respond(200, defaultOriginMock);
+
 
     session.authSuccess('test_token');
     $scope.setOrigin = jasmine.createSpy('setOrigin');
@@ -113,8 +114,7 @@ describe('searchOriginCtrl', function() {
     defaultOriginHandler.respond(200, defaultOriginMock);
     $scope.loadDefaultOrigin();
     $scope.$digest();
-    //$httpBackend.flush();
-    console.log($scope.origin);
+    $httpBackend.flush();
     expect($scope.origin).toEqual(defaultOriginMock.description);
     expect($scope.originLocation).toEqual(defaultOriginMock.location);
     expect($scope.storeDefaultOrigin).toEqual(true);

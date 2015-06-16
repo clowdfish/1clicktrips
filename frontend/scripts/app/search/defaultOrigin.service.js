@@ -17,6 +17,7 @@
 
     function getDefaultOrigin() {
       return $q(function(resolve, reject) {
+
         if (false === session.isLogin()) {
           return resolve($sessionStorage[storageKey]);
         }
@@ -28,6 +29,7 @@
           }, function() {
             reject();
           });
+
       });
     }
 
