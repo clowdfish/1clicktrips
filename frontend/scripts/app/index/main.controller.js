@@ -223,7 +223,7 @@
           var newHref = '/' + key + '/#' + hrefArray[1];
           console.log(newHref, location.href);
 
-          if (location.href === newHref) {
+          if (location.href === location.origin + newHref) {
             location.reload();
           } else {
             location.href = newHref;
