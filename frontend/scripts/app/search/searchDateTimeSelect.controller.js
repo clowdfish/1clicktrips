@@ -6,7 +6,8 @@
 		.module('app.search')
 		.controller('searchDateTimeSelectCtrl', searchDateTimeSelectCtrl);
 
-	function searchDateTimeSelectCtrl ($scope) {
+	function searchDateTimeSelectCtrl ($scope, $timeout) {
+    console.log('Initial searchDateTimeSelectCtrl');
     /**
     * Initial data
     */
@@ -92,5 +93,13 @@
       $scope.isOpenStartDatePicker = false;
       $scope.isOpenEndDatePicker = !$scope.isOpenEndDatePicker;
     };
+
+    $scope.$on('selectFavorite', function(e, favorite) {
+      $('#date_start').focus();
+      $timeout(function() {
+        $scope.isOpenStartDatePicker = true;
+      }, 0);
+
+    });
 	}
 })();

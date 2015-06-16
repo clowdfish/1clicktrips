@@ -66,7 +66,6 @@
     * Select favorite
     */
     function selectFavorite(favorite) {
-      console.log(favorite);
       $scope.origin = favorite.origin.description;
       $scope.originLocation = favorite.origin.location;
       $scope.isStepOriginReady = true;

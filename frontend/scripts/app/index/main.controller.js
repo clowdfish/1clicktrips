@@ -221,7 +221,6 @@
 
           var hrefArray = location.href.split('#');
           var newHref = '/' + key + '/#' + hrefArray[1];
-          console.log(newHref, location.href);
 
           if (location.href === location.origin + newHref) {
             location.reload();
