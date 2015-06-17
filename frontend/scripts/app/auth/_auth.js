@@ -62,7 +62,7 @@
     });
 
     function getUserProfile() {
-      if (_.isEmpty(session.getUserProfile())) {
+      if (false === _.isEmpty(session.getUserProfile())) {
         appConfig.userProfile = session.getUserProfile();
         return;
       }
