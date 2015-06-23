@@ -72,6 +72,7 @@
             $scope.originLocation = defaultOrigin.location;
             $scope.setOrigin(defaultOrigin);
             $scope.storeDefaultOrigin = true;
+            focusOnDestinationField();
           }
         });
     }
@@ -115,9 +116,17 @@
             description: $scope.origin,
             location: location
           });
+          focusOnDestinationField();
       	}, function() {
           $scope.setOrigin(null);
       	});
     }
+
+    //Focus on destination field
+    function focusOnDestinationField() {
+      $('#destination').focus();
+    }
 	}
+
+
 })();

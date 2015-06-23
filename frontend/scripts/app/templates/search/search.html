@@ -94,6 +94,7 @@
                     datepicker-options="dateOptions"
                     datepicker-popup="{[format]}"
                     ng-required="true"
+                    ng-change="changeStartDate"
                     placeholder="Start Date"
                     is-open="isOpenStartDatePicker"
                     show-button-bar="false"
@@ -111,6 +112,7 @@
                     ng-model="startTimeString"
                     ng-focus="stepAppointment()"
                     ng-blur="updateStartDate()"
+                    ng-keydown="onTimeStartKeydown($event)"
                     />
                   <i class="fa fa-clock-o"></i>
                   <label for="time_start">{[ "search_form_appointment_warning" | translate ]}</label>
@@ -146,6 +148,7 @@
                     ng-model="endTimeString"
                     ng-focus="stepAppointment()"
                     ng-blur="updateEndDate()"
+                    ng-keydown="onTimeEndKeydown($event)"
                     />
                   <i class="fa fa-clock-o"></i>
                   <label for="time_end">{[ "search_form_appointment_warning" | translate ]}</label>

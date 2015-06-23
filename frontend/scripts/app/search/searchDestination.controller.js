@@ -8,6 +8,7 @@
 
 	function searchDestinationFormCtrl ($scope,
                                       $q,
+                                      $rootScope,
                                       SUGGESTION_TYPES,
                                       suggestionAdapter,
                                       googleMap) {
@@ -44,6 +45,7 @@
       });
       $scope.destination = favorite.destination.description;
       $scope.destinationLocation = favorite.destination.location
+      focusOnStartDate();
     });
 
     $scope.toggleLocationDropdown = function() {
@@ -97,9 +99,14 @@
           description: $scope.destination,
           location: location
         });
+        focusOnStartDate();
       }, function() {
       	$scope.setDestination(null);
       });
+    }
+
+    function focusOnStartDate() {
+      $rootScope.$broadcast('openStartDatePicker');
     }
 
 	}

@@ -232,5 +232,6 @@
 
       updateTime($scope.endDate, $scope.endTimeString);
     }
+
   }
 })();
