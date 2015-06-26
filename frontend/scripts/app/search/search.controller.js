@@ -111,35 +111,29 @@
     function validateFormInput() {
       $scope.isStepAppointmentReady = false;
       $scope.searchDataComplete = false;
+      $scope.reason = "";
 
-      if ($scope.origin != null && $scope.destination != null &&
-        $scope.startDate != null && $scope.endDate != null) {
-        // all data is given
-
-        if ($scope.startDate < $scope.endDate) {
-          // start date is before end date
-
-          var now = new Date();
-          if($scope.startDate > now && $scope.endDate > now) {
-            // appointment date is in the future
-            $scope.reason = "";
-            $scope.isStepAppointmentReady = true;
-            $scope.searchDataComplete = true;
-            return true;
-          }
-          else {
-            $scope.reason = "search_form_error_past";
-          }
-        }
-        else {
-          $scope.reason = "search_form_error_timing";
-        }
-      }
-      else {
+      if ($scope.origin == null || $scope.destination == null ||
+        $scope.startDate == null || $scope.endDate == null) {
         $scope.reason = "search_form_error_incomplete";
+        return false;
       }
 
-      return false;
+      if ($scope.startDate > $scope.endDate) {
+        $scope.reason = "search_form_error_timing";
+        return false;
+      }
+
+      var now = new Date();
+      if($scope.startDate < now || $scope.endDate < now) {
+        $scope.reason = "search_form_error_past";
+        return false;
+      }
+
+      // appointment date is in the future
+      $scope.isStepAppointmentReady = true;
+      $scope.searchDataComplete = true;
+      return true;
     }
     /**
      * Send search parameter to result page

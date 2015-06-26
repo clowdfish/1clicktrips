@@ -1,8 +1,12 @@
 <section class="result" ng-show='itinerary == null'>
   <!-- WAITING ANIMATION -->
   <div class='result-waiting' >
-    <span class="result-waiting-progress">
+    <span class="result-waiting-progress" ng-show="isValidSearchParams.isValid">
       {[ "result_searching" | translate ]}
+    </span>
+
+    <span class="result-waiting-process" ng-show="false == isValidSearchParams.isValid">
+      {[ isValidSearchParams.message | translate ]}
     </span>
   </div>
 </section>

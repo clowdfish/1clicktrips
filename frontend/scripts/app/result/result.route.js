@@ -15,7 +15,8 @@
       parent: 'root',
       controller: 'resultCtrl',
       resolve: {
-        searchObject: getSearchObject
+        searchObject: getSearchObject,
+        isValidSearchParams: checkIsValidSearchParams
       }
     });
   }
@@ -43,6 +44,37 @@
       roundTrip: $stateParams.roundTrip,
       currency: appConfig.activeCurrency
     };
+  }
+
+  function checkIsValidSearchParams($stateParams) {
+    if (moment($stateParams.startDate).isValid() === false || moment($stateParams.endDate).isValid() === false) {
+      return {
+        isValid: false,
+        message: 'search_form_error_timing'
+      };
+    }
+
+    var startDate = moment($stateParams.startDate).toDate();
+    var endDate = moment($stateParams.endDate).toDate();
+    var now = new Date();
+
+    if (startDate > endDate) {
+      return {
+        isValid: false,
+        message: 'search_form_error_timing'
+      };
+    }
+
+    if (startDate < now || endDate < now) {
+      return {
+        isValid: false,
+        message: 'search_form_error_past'
+      };
+    }
+
+    return {
+      isValid: true
+    }
   }
 
 })();

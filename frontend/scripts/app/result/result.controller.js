@@ -20,7 +20,8 @@
                       favoriteApi,
                       searchObject,
                       bookingApi,
-                      tripCache) {
+                      tripCache,
+                      isValidSearchParams) {
 
     $scope.TRIP_TYPE = TRIP_TYPE;
 
@@ -47,6 +48,10 @@
     $scope.getTimeAfterMeeting = getTimeAfterMeeting;
     $scope.isSingleDay = isSingleDayMeeting;
 
+    if (isValidSearchParams.isValid === false) {
+      $scope.isValidSearchParams = isValidSearchParams
+      return;
+    }
     var cachedSearchResult = getCachedSearchResult();
     if (cachedSearchResult) {
       $scope.itineraries = cachedSearchResult;
