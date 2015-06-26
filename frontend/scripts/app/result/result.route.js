@@ -15,18 +15,9 @@
       parent: 'root',
       controller: 'resultCtrl',
       resolve: {
-        cachedSearchResult: getCachedSearchResult,
         searchObject: getSearchObject
       }
     });
-  }
-
-  function getCachedSearchResult($stateParams, bookingApi) {
-    var shareTripData = bookingApi.getShareTripData();
-    if (_.has($stateParams, 'fromCache') && parseInt($stateParams.fromCache) === 1 && shareTripData !== null) {
-      return shareTripData.itineraries;
-    }
-    return null;
   }
 
   function getSearchObject($stateParams, appConfig, languageApi) {

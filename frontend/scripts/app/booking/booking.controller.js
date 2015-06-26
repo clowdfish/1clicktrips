@@ -39,12 +39,15 @@
       var trip = _.find(bookingData['itineraries'], function(tripItem) {
         return tripItem.type === bookingData['tripType'];
       });
+
       trip = resetTripData(trip);
+      console.log(trip);
       $scope.bookingData = {
         trip: trip,
         payment: {},
         user: {},
-        isConfirm: false
+        isConfirm: false,
+        searchParams: bookingData.searchParams
       };
 
       populateProfileData();

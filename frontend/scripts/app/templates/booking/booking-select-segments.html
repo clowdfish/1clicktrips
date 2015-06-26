@@ -77,7 +77,7 @@
 </div>
 
 <div class="booking-content-buttons">
-  <a class="button--light back" ng-click="back()">{[ "general_back" | translate | capitalize ]}</a>
+  <a class="button--light back" ui-sref="search_result(bookingData.searchParams)">{[ "general_back" | translate | capitalize ]}</a>
 
   <a class="button next" ng-class="{ 'is-disabled': !bookable }" ng-click="continue()">{[ "general_continue" | translate | capitalize ]}</a>
   <a class="button--light next" ng-class="{'is-disabled': isBookingStored }" ng-click="save()">{[ "general_save" | translate | capitalize ]}</a>

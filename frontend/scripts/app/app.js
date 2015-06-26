@@ -46,13 +46,6 @@
     if (browser.isMobileDevice()) {
       FastClick.attach(document.body);
     }
-
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, authSuccess);
-    $rootScope.$on(AUTH_EVENTS.signupSuccess, authSuccess);
-
-    function authSuccess() {
-
-    }
   }
 
   function getUserProfile($q, userApi, session, appConfig) {

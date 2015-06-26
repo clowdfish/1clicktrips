@@ -20,7 +20,7 @@
                       favoriteApi,
                       searchObject,
                       bookingApi,
-                      cachedSearchResult) {
+                      tripCache) {
 
     $scope.TRIP_TYPE = TRIP_TYPE;
 
@@ -47,6 +47,7 @@
     $scope.getTimeAfterMeeting = getTimeAfterMeeting;
     $scope.isSingleDay = isSingleDayMeeting;
 
+    var cachedSearchResult = getCachedSearchResult();
     if (cachedSearchResult) {
       $scope.itineraries = cachedSearchResult;
       findTripByBudget();
@@ -101,6 +102,7 @@
       tripApi
         .findItinerary(searchObject, additionData)
         .then(function(itineraries) {
+          tripCache.storeTrip(itineraries);
           $scope.itineraries = itineraries;
           if ($scope.itinerary == null) {
             $scope.findTripByBudget();
@@ -242,8 +244,7 @@
         destination: $stateParams.destination,
         startDate: $stateParams.startDate,
         endDate: $stateParams.endDate,
-        roundTrip: $stateParams.roundTrip,
-        fromCache: 1
+        roundTrip: $stateParams.roundTrip
       };
     }
 
@@ -314,6 +315,14 @@
     function toggleTooltip(index) {
       if($scope.tooltip === index) $scope.tooltip = 0;
       else $scope.tooltip = index;
+    }
+
+    function getCachedSearchResult() {
+      var cachedTrip = tripCache.getCachedTrip();
+      if (cachedTrip !== null) {
+        return cachedTrip;
+      }
+      return null;
     }
   }
 })();

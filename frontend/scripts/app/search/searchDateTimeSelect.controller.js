@@ -64,13 +64,8 @@
       return false;
     };
 
-    $scope.changeStartDate = function() {
-      console.log('asdasdsad');
-    }
-
-    $scope.$watch('startDate', function() {
+    $scope.$watch('startDate', function(newValue, oldValue) {
       $scope.updateStartDate();
-      focusOnStartTime();
       if ($scope.startDate > $scope.endDate) {
         var endDate = new Date();
         endDate.setDate($scope.startDate.getDate());
