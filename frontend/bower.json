@@ -29,7 +29,8 @@
     "angular-sanitize": "*",
     "angular-ui-sortable": "0.13.3",
     "ngstorage": "~0.3.0",
-    "fastclick": "~1.0.6"
+    "fastclick": "~1.0.6",
+    "ng-file-upload": "~7.0.15"
   },
   "devDependencies": {},
   "resolutions": {

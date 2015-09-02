@@ -1,8 +1,8 @@
 // base colors
 $c-orange: #ff9c00;
 $c-white: #fff;
-$c-grey: #bfbfbf;
-$c-grey-dark: #464646;
+$c-grey: #b9b9b9;
+$c-grey-dark: #7a7a7a;
 $c-green: #5cbd3d;
 $c-red: #d92929;
 $c-yellow: #ffefc8;
@@ -10,7 +10,7 @@ $c-blue: #4978ac;
 
 // standard colors
 $c-primary: $c-orange;
-$c-border: $c-grey;
+$c-border: $c-grey-dark;
 
 // background colors
 $c-background: #e6e6e6;
@@ -19,7 +19,7 @@ $c-background-light: $c-grey;
 
 // font colors
 $c-text: #2e2e2e;
-$c-text-light: #9b9b9b;
+$c-text-light: $c-grey-dark;
 $c-text-dark-bg: #f3f3f3;
 
 // status colors

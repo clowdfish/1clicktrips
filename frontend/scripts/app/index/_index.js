@@ -4,6 +4,7 @@
 
   angular
     .module('app.index', [
+      'app.common',
       'app.core'
     ])
     .constant('INDEX_STATE', {

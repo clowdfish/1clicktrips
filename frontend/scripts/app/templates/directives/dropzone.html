@@ -1,0 +1,17 @@
+<div class="dropzone"
+     ng-model="file"
+     ngf-drop
+     ngf-drag-over-class="dragover"
+     ngf-multiple="false"
+     ngf-allow-dir="false"
+     accept="image/*"
+     ngf-pattern="'image/*">
+
+  <span class="dropzone-title">Drag your .ics file here</span>
+  <span class="dropzone-error" ngf-no-file-drop>File Drag/Drop is not supported for this browser</span>
+  <span class="dropzone-link">
+    or <a ngf-select>select from your computer</a>
+  </span>
+
+  <span ng-if="file != null">{{file.name}}</span> <!-- {{f.$error}} {{f.$errorParam}} -->
+</div>

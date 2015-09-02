@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('app.common', [])
+    .module('app.common', ['ngFileUpload'])
     .config(httpConfig)
     .run(run);
 

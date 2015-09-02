@@ -9,7 +9,7 @@
   function requestSpinner($timeout, requestSpinnerEvents) {
     return {
       restrict: 'E',
-      templateUrl: 'scripts/app/templates/common/request-spinner.html',
+      templateUrl: 'scripts/app/templates/directives/request-spinner.html',
       link: link,
       scope: {}
     };

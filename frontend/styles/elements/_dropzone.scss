@@ -1,0 +1,46 @@
+.dropzone {
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px dashed $c-border;
+  border-radius: 5px;
+  width: $dropzone-width;
+  height: $dropzone-height;
+  text-align: center;
+  padding: 0.8em;
+
+  .dropzone-title {
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: $c-text-light;
+    margin-bottom: 0.4em;
+  }
+
+  .dropzone-error {
+
+  }
+
+  .dropzone-link {
+    display: block;
+    position: relative;
+    margin-top: 1em;
+    font-size: 0.8em;
+
+    &:before {
+      content:url('../images/arrow.png');
+      position: absolute;
+      left: 1em;
+    }
+
+    &:after {
+      content:url('../images/arrow.png');
+      position: absolute;
+      right: 1em;
+    }
+  }
+
+  &.dragover {
+    background: rgba(0, 57, 255, .2);
+    border: 2px dashed #285cff;
+  }
+}

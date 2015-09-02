@@ -25,7 +25,7 @@
 
     $stateProvider.state('index.file', {
       url: '/',
-      template: '<div></div>',
+      template: '<div class="index-dropzone"><dropzone></dropzone></div>',
       controller: 'indexCtrl',
       resolve: {
 
