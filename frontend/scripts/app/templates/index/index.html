@@ -1,2 +1,14 @@
-<div ui-view="search"></div>
-<div ui-view="dashboard"></div>
+<section class="index">
+
+  <h1 class="index-title">Get the perfect trip for your appointment.</h1>
+
+  <div class="index-input" ui-view>
+    <!-- content in here will be overwritten when dynamic part is loaded -->
+  </div>
+
+  <span class="index-state-selector">
+    <a ui-sref="index.file" ui-sref-active="active">file upload</a>
+    <span class="index-state-separator">|</span>
+    <a ui-sref="index.form" ui-sref-active="active">search form</a>
+  </span>
+</section>

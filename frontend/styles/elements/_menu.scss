@@ -1,0 +1,26 @@
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  list-style: none;
+  background-color: $c-background;
+  border: 1px solid $c-background-light;
+
+  li {
+    padding: 0.5em;
+    border-bottom: 1px solid $c-background-light;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    &.active {
+      background-color: $c-background-light;
+
+      a {
+        color: $c-text;
+      }
+    }
+  }
+}

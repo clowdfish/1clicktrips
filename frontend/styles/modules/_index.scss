@@ -1,0 +1,32 @@
+%index {
+  background-image: url('../images/background.jpg');
+  background-color: $c-text;
+  background-position: 50% 50%;
+  background-size: cover;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  text-align: center;
+  padding-top: $logo-container-height - 1em;
+
+  .index-title {
+    font-size: 2em;
+    text-shadow: 4px 4px 10px rgba(255, 255, 255, .8);
+    margin-bottom: 1em;
+  }
+
+  .index-state-selector {
+
+    a.active {
+      color: $c-text;
+    }
+  }
+}
+
+.index {
+  @extend %index;
+}

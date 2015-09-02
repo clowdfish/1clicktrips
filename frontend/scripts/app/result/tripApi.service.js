@@ -1,420 +1,139 @@
 (function() {
+
   'use strict';
 
   angular
     .module('app.result')
     .service('tripApi', tripApi);
 
-  function tripApi($http, $q, appConfig, $translate) {
-    var service = this;
+  function tripApi($http, $q) {
+    var _this = this;
+
+    _this.getAvailableItineraries = getAvailableItineraries;
+    _this.getTripDetails = getTripDetails;
+    _this.getAvailableHotels = getAvailableHotels;
 
     /**
-     * Find trip api
+     *
+     *
+     * @param searchObject
+     * @returns {*}
      */
-    service.findItinerary = findItinerary;
-
-    /**
-     * Find alternative vehicles
-     */
-    service.findAlternativeVehiclesSegment = findAlternativeVehiclesSegment;
-
-    /**
-     * Find alternative hotels
-     */
-    service.findAlternativeHotelsSegment = findAlternativeHotelsSegment;
-
-    /**
-     * Use group segment to update trip data
-     */
-    service.updateItineraryByGroupSegment = updateItineraryByGroupSegment;
-
-    /**
-     * Replace segment with alternative
-     */
-    service.replaceSegmentWithAlternatives = replaceSegmentWithAlternatives;
-
-    /**
-     * Set hotel
-     */
-    service.setSegmentHotel = setSegmentHotel;
-
-    /**
-     * Remove hotel
-     */
-    service.unsetSegmentHotel = unsetSegmentHotel;
-
-    function findItinerary(searchObject, additionData) {
+    function getAvailableItineraries(searchObject) {
       var deferred = $q.defer();
 
       $http
         .post('/api/search/trips', searchObject, {
           activeMessages: [
             {
-              title: $translate.instant('waiting_routes_search'),
+              title: "Searching for alternatives...",
               time: 3000
             },
             {
-              title: $translate.instant('waiting_routes_create'),
+              title: "Creating routes...",
               time: 3000
             },
             {
-              title: $translate.instant('waiting_routes_pricing'),
+              title: "Searching for flights...",
+              time: 10000
+            },
+            {
+              title: "Adding pricing information...",
               time: 3000
             },
             {
-              title: $translate.instant('waiting_routes_timing'),
+              title: "Adding timing information...",
               time: 3000
             },
             {
-              title: $translate.instant('waiting_routes_optimize'),
+              title: "Optimizing routes...",
               time: 8000
-            },
-            {
-              title: $translate.instant('waiting_routes_extract'),
-              time: 3000
             }
           ]
         })
         .success(function(response) {
-          var data = response[0];
-          var result = [];
-
-          for (var i = 0; i < data.length; i++) {
-            var itinerary = transformItinerary(data[i], additionData);
-            result.push(itinerary);
-          }
+          // returns an array of trips
+          var result = response.map(function(itinerary) {
+            return itinerary;
+          });
 
           deferred.resolve(result);
         })
-        .error(function() {
-          deferred.reject();
+        .error(function(err) {
+          deferred.reject(err);
         });
 
       return deferred.promise;
     }
 
     /**
-     * Find alternatives vehicle
-     */
-    function findAlternativeVehiclesSegment(itinerary, segmentId, tripId, language, currency) {
-      var searchParams = {
-        tripId: tripId,
-        segmentId: segmentId,
-        language: language,
-        currency: currency
-      };
-
-      return $q(function(resolve, reject) {
-        $http
-          .get('/api/search/alternatives', {
-            params: searchParams
-          })
-          .success(function(alternatives) {
-            alternatives = appendTripIdToAlternativeVehicles(alternatives, tripId);
-            alternatives = calculateTimeAndPriceDifference(itinerary, alternatives);
-
-            resolve(alternatives);
-          })
-          .error(function(data, status) {
-            reject({
-              data: data,
-              status: status
-            });
-          });
-      });
-    }
-
-    function calculateTimeAndPriceDifference(itinerary, alternatives) {
-      for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
-        var alternative = alternatives[alternativeIndex];
-        var alternativePrice = _.sum(alternative.segments, function(item) {
-          if (_.has(item, 'price')) {
-            return item.price.amount;
-          } else {
-            //mock data
-            return 0;
-          }
-        });
-        var alternativeDuration = _.sum(alternative.segments, function(item) {
-          return item.duration;
-        });
-        var originalSegments = [];
-        loopThroughGroupSegment(itinerary.groupSegment, function(segment) {
-          if (alternative.replace.indexOf(segment.id) != -1) {
-            originalSegments.push(segment);
-          }
-        });
-
-        var originalPrice = _.sum(originalSegments, function(item) {
-          return item.price.amount;
-        });
-
-        var originalDuration = _.sum(originalSegments, function(item) {
-          return item.duration;
-        });
-
-        alternative['differentPrice'] = {
-          amount : originalPrice - alternativePrice,
-          freezing: originalPrice - alternativePrice < 0
-        };
-
-        alternative['differentDuration'] = {
-          amount: originalDuration - alternativeDuration,
-          freezing: originalDuration - alternativeDuration < 0
-        };
-      }
-      return alternatives;
-    }
-
-    /**
-     * Because alternatives data from server doesn't have tripId,
-     * we have to append tripId to alternatives segments so we can search for another alternatives later.
+     * Calls the REST API to get the details for one specific itinerary.
      *
-     * @params Array - alternatives data
-     * @params string - Trip Id
-     * @returns Array - alternatives with tripId in each segments
-     */
-    function appendTripIdToAlternativeVehicles(alternatives, tripId) {
-      for (var alternativeIndex = 0; alternativeIndex < alternatives.length; alternativeIndex++) {
-        var alternative = alternatives[alternativeIndex];
-        for (var segmentIndex = 0; segmentIndex < alternative.segments.length; segmentIndex++) {
-          alternative.segments[segmentIndex]['tripId'] = tripId;
-        }
-      }
-      return alternatives;
-    }
-
-    /**
-     * Find alternative hotels
-     */
-    function findAlternativeHotelsSegment(segmentId, tripId, language, currency) {
-      var searchParams = {
-        tripId: tripId,
-        segmentId: segmentId,
-        language: language,
-        currency: currency
-      };
-
-      return $q(function(resolve, reject) {
-        $http
-          .get('/api/search/alternative-hotels', {
-            params: searchParams
-          })
-          .success(function(alternatives) {
-            resolve(alternatives);
-          })
-          .error(function(data, status) {
-            reject({
-              data: data,
-              status: status
-            });
-          });
-      });
-    }
-
-    function replaceSegmentWithAlternatives(itinerary, groupNumber, alternative) {
-      var activeSegments = itinerary.groupSegment[groupNumber];
-      var lastIndex = _.findIndex(activeSegments, function(item) {
-        return item.id == alternative.replace[0];
-      });
-      if (lastIndex === -1) {
-        return itinerary;
-      }
-      var newActiveSegments = insertAt(activeSegments, alternative.segments, lastIndex);
-      newActiveSegments = _.reject(newActiveSegments, function(item) {
-        return alternative.replace.indexOf(item.id) !== -1;
-      });
-      itinerary.groupSegment[groupNumber] = newActiveSegments;
-      itinerary = updateItineraryByGroupSegment(itinerary);
-      return itinerary;
-    }
-
-    function setSegmentHotel(itinerary, segment, hotel) {
-      for (var key in itinerary.groupSegment) {
-        var groupSegment = itinerary.groupSegment[key];
-
-        for (var i = 0; i < itinerary.groupSegment[key].length; i++) {
-          var item = itinerary.groupSegment[key][i];
-          if (item.id === segment.id) {
-            item['hotel'] = hotel;
-            itinerary.groupSegment[key][i] = item;
-          }
-        }
-      }
-
-      itinerary['cost'] = getItineraryCost(itinerary.groupSegment);
-      return itinerary;
-    }
-
-    function unsetSegmentHotel(itinerary, segment) {
-      for (var key in itinerary.groupSegment) {
-        var groupSegment = itinerary.groupSegment[key];
-
-        for (var i = 0; i < itinerary.groupSegment[key].length; i++) {
-          var item = itinerary.groupSegment[key][i];
-          if (item.id === segment.id) {
-            delete item['hotel'];
-            itinerary.groupSegment[key][i] = item;
-          }
-        }
-      }
-      itinerary['cost'] = getItineraryCost(itinerary.groupSegment);
-      return itinerary;
-    }
-
-    /**
-     * Insert array2 into array1 at index position.
-     *
-     * @params {Array} array1 - Array which will contain the insertment array
-     * @params {Array} array2 - Array which will be inserted into array1
-     * @params {int} index - Position to insert array2 into array1
-     * @return {Array} new array
-     */
-    function insertAt(array1, array2, index) {
-      var origin = _.clone(array1);
-      var end = origin.splice(index);
-      return origin.concat(array2, end);
-    }
-
-    /**
-     * Transforms the response from the server into a format that fits the
-     * requirements of the front end.
-     *
-     * @param itinerary
      * @param searchObject
-     * @returns {Object|*}
+     * @returns {*}
      */
-    function transformItinerary(itinerary, searchObject) {
-      // the different groups that are shown as tabs in the trip segment list
-      var groupSegments = [];
+    function getTripDetails(searchObject) {
+      var deferred = $q.defer();
 
-      // create outbound group
-      var outboundSegments = getObjectValue(itinerary.outbound, 'segments', []);
-      outboundSegments.forEach(function(segment) {
-        segment['tripId'] = itinerary.outbound.id;
-      });
-
-      if(!outboundSegments[0].departureTime)
-        outboundSegments[0].departureTime = itinerary.outbound.departureTime;
-
-      if(!outboundSegments[outboundSegments.length - 1].arrivalTime)
-        outboundSegments[outboundSegments.length - 1].arrivalTime = itinerary.outbound.arrivalTime;
-
-      groupSegments.push(outboundSegments);
-
-      // create inbound group if inbound is available
-      if(itinerary.inbound && itinerary.inbound.segments.length) {
-        var inboundSegments = getObjectValue(itinerary.inbound, 'segments', []);
-        inboundSegments.forEach(function (segment) {
-          segment['tripId'] = itinerary.inbound.id;
+      $http
+        .post('/api/search/trip-details', searchObject, {
+          activeMessages: [
+            {
+              title: "Getting data from external resources...",
+              time: 6000
+            },
+            {
+              title: "Adding pricing information...",
+              time: 2000
+            },
+            {
+              title: "Adding timing information...",
+              time: 2000
+            },
+            {
+              title: "Optimizing routes...",
+              time: 8000
+            }
+          ]
+        })
+        .success(function(response) {
+          // returns one trip object
+          deferred.resolve(response);
+        })
+        .error(function(err) {
+          deferred.reject(err);
         });
 
-        if(!inboundSegments[0].departureTime)
-          inboundSegments[0].departureTime = itinerary.inbound.departureTime;
-
-        if(!inboundSegments[inboundSegments.length - 1].arrivalTime)
-          inboundSegments[inboundSegments.length - 1].arrivalTime = itinerary.inbound.arrivalTime;
-
-        groupSegments.push(inboundSegments);
-      }
-
-      itinerary['groupSegment'] = groupSegments;
-      itinerary = updateItineraryByGroupSegment(itinerary);
-      itinerary['appointmentStart'] = searchObject.startDate;
-      itinerary['appointmentEnd'] = searchObject.endDate;
-      itinerary['origin'] = searchObject.origin;
-      itinerary['destination'] = searchObject.destination;
-
-      return itinerary;
+      return deferred.promise;
     }
 
     /**
-     * Collect data from group segments and update to itinerary.
-     *
-     * @params {Object} itinerary - Itinerary object
-     * @params {Object} groupSegment
-     * @return {Object} itinerary - Itinerary is updated by data from groupSegment
+     * Calls the REST API to get all available hotels.
      */
-    function updateItineraryByGroupSegment(itinerary) {
-      var groupSegment = itinerary.groupSegment;
+    function getAvailableHotels(searchObject) {
+      var deferred = $q.defer();
 
-      itinerary['groupSegment'] = groupSegment;
-      itinerary['duration'] = getItineraryDuration(groupSegment);
-      itinerary['cost'] = getItineraryCost(groupSegment);
-      itinerary['totalCost'] = itinerary['cost'] +  itinerary['cost'] * appConfig.bookingRate / 100;
-      itinerary['vehicleTypeList'] = getVehicleTypeList(groupSegment);
-
-      delete(itinerary['outbound']);
-      delete(itinerary['inbound']);
-      delete(itinerary['price']);
-
-      return itinerary;
-    }
-
-    /**
-     * Get vehicle number array from group segments.
-     *
-     * @params {Object} groupSegment
-     * @returns {Array} array of vehicle number
-     */
-    function getVehicleTypeList(groupSegment) {
-      var vehicleTypeList = [];
-
-      loopThroughGroupSegment(groupSegment, function(segment) {
-        if (segment['type'] && vehicleTypeList.indexOf(segment['type']) === -1) {
-          vehicleTypeList.push(segment['type']);
-        }
-      });
-
-      return vehicleTypeList;
-    }
-
-    /**
-     * Sum of duration in group segments
-     */
-    function getItineraryDuration(groupSegment) {
-      var duration = 0;
-      loopThroughGroupSegment(groupSegment, function(segment) {
-        if (segment['duration']) {
-          duration += segment.duration;
-        }
-      });
-      return duration;
-    }
-
-    /**
-    * Sum of price in group segments
-    */
-    function getItineraryCost(groupSegment) {
-      var cost = 0;
-      loopThroughGroupSegment(groupSegment, function(segment) {
-        if (segment['price'] && segment['price']['amount']) {
-          cost += segment.price.amount;
-        }
-
-        if (segment['hotel']) {
-          cost += segment.hotel.price;
-        }
-      });
-      return cost;
-    }
-
-    function getObjectValue(object, key, defaultValue) {
-      if (!object || !object[key]) {
-        return defaultValue;
-      }
-      return object[key];
-    }
-
-    /**
-    * Handy function to loop through every segment in group segments
-    */
-    function loopThroughGroupSegment(groupSegment, action) {
-      _.each(groupSegment, function(segments) {
-        _.each(segments, function(segment) {
-          action(segment);
+      $http
+        .post('/api/search/hotels', searchObject, {
+          activeMessages: [
+            {
+              title: "Getting hotel data...",
+              time: 3000
+            },
+            {
+              title: "Filtering and prioritizing hotels...",
+              time: 5000
+            }
+          ]
+        })
+        .success(function(hotels) {
+          deferred.resolve(hotels);
+        })
+        .error(function(err) {
+          deferred.reject(err);
         });
-      });
+
+      return deferred.promise;
     }
   }
 })();

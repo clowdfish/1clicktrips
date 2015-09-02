@@ -7,133 +7,103 @@
     .controller('searchCtrl', searchCtrl);
 
   function searchCtrl($scope,
-                      $rootScope,
                       $state,
-                      browser,
-                      searchFormData,
-                      SEARCH_STEPS) {
-    /**
-    * VARIABLES
-    */
-    $rootScope.windowHeight = null;
-    $scope.isLogin = true;
-    $scope.searchDataComplete = false;
-
-    // the message for the user why he cannot start the search
-    $scope.reason = "search_form_error_incomplete";
-
-    // trip destination
-    $scope.destination = null;
+                      searchFormData) {
 
     // trip origin
     $scope.origin = null;
 
-    // active step
-    $scope.step = SEARCH_STEPS.none;
-    $scope.isMobile = browser.isMobileDevice();
+    // trip destination
+    $scope.destination = null;
 
     $scope.originLocation = searchFormData.originLocation;
     $scope.destinationLocation = searchFormData.destinationLocation;
 
     $scope.origin = searchFormData.origin;
     $scope.destination = searchFormData.destination;
-    $scope.roundTrip = searchFormData.roundTrip;
 
-    $scope.startDate = searchFormData.startDate;
-    $scope.endDate = searchFormData.endDate;
+    $scope.startDate = searchFormData.startDate; // moment object
+    $scope.targetDate = searchFormData.targetDate;
 
+    $scope.startDateString = searchFormData.startDate.format("DD.MM.YYYY");
     $scope.startTimeString = searchFormData.startTimeString;
-    $scope.endTimeString = searchFormData.endTimeString;
-
-    $scope.isStepOriginReady = false;
-    $scope.isStepDestinationReady = false;
-    $scope.isStepAppointmentReady = false;
 
     /**
-    * SCOPE FUNCTIONS
-    */
-    $scope.stepOrigin = stepOrigin;
-    $scope.stepDestination = stepDestination;
-    $scope.stepAppointment = stepAppointment;
-
+     * scope functions
+     */
     $scope.startSearch = startSearch;
 
     $scope.setOrigin = setOrigin;
     $scope.setDestination = setDestination;
-    $scope.setStartDate = setStartDate;
-    $scope.setEndDate = setEndDate;
-    /**
-    * Select favorite
-    */
-    function selectFavorite(favorite) {
-      $scope.origin = favorite.origin.description;
-      $scope.originLocation = favorite.origin.location;
-      $scope.isStepOriginReady = true;
-
-      $scope.destination = favorite.destination.description;
-      $scope.destinationLocation = favorite.destination.location;
-      $scope.isStepDestinationReady = true;
-
-      stepAppointment();
-    }
-
-    function stepOrigin() {
-      $scope.step = SEARCH_STEPS.origin;
-    }
-
-    function stepDestination() {
-      $scope.step = SEARCH_STEPS.destination;
-    }
-
-    function stepAppointment() {
-      $scope.step = SEARCH_STEPS.appointment;
-    }
 
     $scope.resetTabIndex = function() {
       $('#origin').focus();
     };
 
-    function updateTime(dateObject, timeString) {
+    /**
+     *
+     *
+     * @returns {boolean}
+     */
+    function validateFormInput() {
 
-      if(new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
-          .test(timeString)) {
+      // check if all fields are filled
+      if ($scope.origin == null || $scope.destination == null) {
+        alert("All location fields must be filled.");
+        return false;
+      }
 
-        if(timeString.indexOf(":") === 1)
+      if($scope.startDateString == null || $scope.startTimeString == null) {
+        alert("Date and time fields must be filled.");
+        return false;
+      }
+
+      // check if date and time format is correct
+      if(dateIsValid($scope.startDateString) && timeIsValid($scope.startTimeString)) {
+
+        var timeString = $scope.startTimeString;
+
+        if(timeString.indexOf(":") == 1)
           timeString = "0".concat(timeString);
 
-        dateObject.setHours(parseInt(timeString.substr(0, 2)));
-        dateObject.setMinutes(parseInt(timeString.substr(3, 2)));
+        var dateTimeString = $scope.startDateString + " " + timeString;
 
-        validateFormInput();
+        $scope.startDate = moment(dateTimeString, "DD.MM.YYYY HH:mm");
       }
-    }
-
-    function validateFormInput() {
-      $scope.isStepAppointmentReady = false;
-      $scope.searchDataComplete = false;
-      $scope.reason = "";
-
-      if ($scope.origin == null || $scope.destination == null ||
-        $scope.startDate == null || $scope.endDate == null) {
-        $scope.reason = "search_form_error_incomplete";
+      else {
+        alert("Date or time is not valid (must be DD.MM.YYYY and HH:mm).");
         return false;
       }
 
-      if ($scope.startDate > $scope.endDate) {
-        $scope.reason = "search_form_error_timing";
+      // check if date is in the future
+      if($scope.startDate.isBefore(moment(new Date()))) {
+        alert("Date must be in the future.");
         return false;
       }
 
-      var now = new Date();
-      if($scope.startDate < now || $scope.endDate < now) {
-        $scope.reason = "search_form_error_past";
-        return false;
-      }
-
-      // appointment date is in the future
-      $scope.isStepAppointmentReady = true;
-      $scope.searchDataComplete = true;
       return true;
+
+      /**
+       *
+       *
+       * @param time
+       * @returns {boolean}
+       */
+      function timeIsValid(time) {
+        return new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
+          .test(time);
+      }
+
+      /**
+       *
+       *
+       * @param date
+       * @returns {boolean}
+       */
+      function dateIsValid(date) {
+        return new RegExp("^[0-9]{2}.[0-9]{2}.[0-9]{4}$")
+          .test(date);
+      }
     }
     /**
      * Send search parameter to result page
@@ -144,7 +114,6 @@
 
       if(formValid) {
         var startDate = formatDate($scope.startDate);
-        var endDate = formatDate($scope.endDate);
 
         var requestParameters = {
           originLatitude: $scope.originLocation.latitude,
@@ -154,12 +123,13 @@
           destinationLongitude: $scope.destinationLocation.longitude,
           destination: $scope.destination,
           startDate: startDate,
-          endDate: endDate,
-          roundTrip: $scope.roundTrip
+          targetDate: $scope.targetDate
         };
 
-        $state.go('search_result', requestParameters);
+        $state.go('result.list', requestParameters);
       }
+      else
+        console.log("Search form is not valid!");
     }
 
     function formatDate(date) {
@@ -181,51 +151,22 @@
 
       $scope.origin = options.description;
       $scope.originLocation = options.location;
-      $scope.isStepOriginReady = true;
-
-      validateFormInput();
     }
 
+    /**
+     *
+     *
+     * @param options
+     */
     function setDestination(options) {
       if (options == null || (options.description == null || options.location == null)) {
         $scope.destination = null;
         $scope.destinationLocation = null;
-        $scope.isStepDestinationReady = false;
         return;
       }
 
       $scope.destination = options.description;
       $scope.destinationLocation = options.location;
-      $scope.isStepDestinationReady = true;
-
-      validateFormInput();
     }
-
-    function setStartDate(options) {
-      if (options == null) {
-        $scope.startDate = null;
-        $scope.isStepAppointmentReady = false;
-        return;
-      }
-
-      $scope.startDate = options.startDate;
-      $scope.startTimeString = options.startTime;
-
-      updateTime($scope.startDate, $scope.startTimeString);
-    }
-
-    function setEndDate(options) {
-      if (options == null) {
-        $scope.endDate = null;
-        $scope.isStepAppointmentReady = false;
-        return;
-      }
-
-      $scope.endDate = options.endDate;
-      $scope.endTimeString = options.endTime;
-
-      updateTime($scope.endDate, $scope.endTimeString);
-    }
-
   }
 })();

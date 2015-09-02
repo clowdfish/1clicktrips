@@ -9,7 +9,7 @@ var SearchApi = SearchEngine.SearchApi;
 var MockController = require('../mocking/searchController');
 
 // handle different timezones?
-var disableTimezones = true;
+var disableTimezones = false;
 var searchApi = new SearchApi(disableTimezones, Config.logLocation);
 
 module.exports = {
@@ -30,15 +30,15 @@ module.exports = {
     return MockController.getMeetingSpaces(filter, limit);
   },
 
-  getAlternatives: function(tripId, segmentId, language, currency) {
-    console.log("Retrieving trip alternatives.");
+  getHotels: function(searchObject) {
+    console.log("Retrieving hotels.");
 
     return new Promise(function(resolve, reject) {
 
-      // API request
-      searchApi.getSegmentAlternatives(tripId, segmentId, language, currency)
-        .then(function(alternatives) {
-          resolve(alternatives);
+      // search engine API request
+      searchApi.getAccommodations(searchObject)
+        .then(function(hotels) {
+          resolve(hotels);
         })
         .catch(function(err) {
           reject(err);
@@ -46,26 +46,34 @@ module.exports = {
     });
   },
 
-  getAlternativeHotels: function(tripId, segmentId, language, currency) {
-    console.log("Retrieving mock hotel alternatives.");
-
-    // TODO implement
-
-    return MockController.getAlternativeHotels(tripId, segmentId, language, currency);
-  },
-
   getTripResults: function(searchObject, userLicence) {
-    console.log("Retrieving trip results.");
+    console.log("Retrieving trip alternatives.");
 
     return new Promise(function(resolve, reject) {
 
-      // Rome2Rio API request
-      searchApi.search(searchObject, 0, userLicence)
+      // search engine API request
+      searchApi.getTrips(searchObject, userLicence)
         .then(function(itineraries) {
           resolve(itineraries);
         })
         .catch(function(error) {
           reject(error);
+        });
+    });
+  },
+
+  getTripDetails: function(searchObject, userLicence) {
+    console.log("Retrieving trip details.");
+
+    return new Promise(function(resolve, reject) {
+
+      // search engine API request
+      searchApi.getTripDetails(searchObject, userLicence)
+        .then(function(itinerary) {
+          resolve(itinerary);
+        })
+        .catch(function(err) {
+          reject(err);
         });
     });
   }

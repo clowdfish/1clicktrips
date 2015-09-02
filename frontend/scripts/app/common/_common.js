@@ -8,14 +8,14 @@
   angular
     .module('app.common', [])
     .config(httpConfig)
-    .constant('Modernizr', Modernizr)
     .run(run);
 
   function httpConfig($httpProvider) {
     $httpProvider.interceptors.push('spinnerInterceptor');
   }
 
-  function run($rootScope, requestSpinnerEvents) {
+  function run($rootScope) {
+
   }
 
 })();

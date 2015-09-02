@@ -9,13 +9,12 @@
 	function searchDestinationFormCtrl ($scope,
                                       $q,
                                       $rootScope,
-                                      SUGGESTION_TYPES,
                                       suggestionAdapter,
                                       googleMap) {
 
     /**
-    * Initial data
-    */
+     * Initial data.
+     */
     $scope.destination = $scope.$parent.destination;
     $scope.destinationLocation = $scope.$parent.destinationLocation;
 
@@ -24,13 +23,8 @@
       location: $scope.destinationLocation
     });
 
-		$scope.setDestinationType = setDestinationType;
 		$scope.getSuggestion = getSuggestion;
 		$scope.selectDestinationSuggestion = selectDestinationSuggestion;
-
-		//Destination type: address, event, meeting, company...
-    $scope.destinationType = SUGGESTION_TYPES.address;
-    $scope.destinationTypeArray = suggestionAdapter.getSuggestionType();
 
     $scope.$watch('destination', function(destination) {
       if (_.isEmpty(destination)) {
@@ -38,58 +32,30 @@
       }
     });
 
-    $scope.$on('selectFavorite', function(e, favorite) {
-      $scope.setDestination({
-        description: favorite.destination.description,
-        location: favorite.destination.location
-      });
-      $scope.destination = favorite.destination.description;
-      $scope.destinationLocation = favorite.destination.location
-      focusOnStartDate();
-    });
-
-    $scope.toggleLocationDropdown = function() {
-      $scope.isOpen = !$scope.isOpen;
-    };
-
-		function setDestinationType(item) {
-      $scope.destinationType = item;
-      $scope.isOpen = false;
-    }
-
     /**
-    * Get suggestion for text input
-    * @param {string} val - input source
-    * @return {promise} - return a promise for typeahead
-    */
+     * Get suggestion for text input.
+     *
+     * @param {string} val - input source
+     * @return {promise} - return a promise for typeahead
+     */
     function getSuggestion(val) {
-      return suggestionAdapter
-              .getSuggestion(val, $scope.destinationType);
+      return suggestionAdapter.getAddressSuggestion(val);
     }
 
     /**
-    * Select suggestion and display on map
-    * @param {object|string} $item - Suggestion object
-    */
+     * Select suggestion and display on map.
+     *
+     * @param {object|string} $item - Suggestion object
+     */
     function selectSuggestion($item) {
       var deferred = $q.defer();
-      switch ($scope.destinationType) {
-        case SUGGESTION_TYPES.address:
-          googleMap
-            .geocode($item.description)
-            .then(function(location) {
-              deferred.resolve(location);
-            });
-          break;
-        case SUGGESTION_TYPES.events:
-          deferred.resolve($item.location);
-          break;
-        case SUGGESTION_TYPES.meetingSpace:
-          deferred.resolve($item.location);
-          break;
-        default:
-          deferred.reject();
-      }
+
+      googleMap
+        .geocode($item.description)
+        .then(function(location) {
+          deferred.resolve(location);
+        });
+
       return deferred.promise;
     }
 
@@ -108,6 +74,5 @@
     function focusOnStartDate() {
       $rootScope.$broadcast('openStartDatePicker');
     }
-
 	}
 })();

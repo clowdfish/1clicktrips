@@ -8,13 +8,9 @@
   angular
     .module('app.core', [
       'ui.router',
-      'ngAnimate',
-      'pascalprecht.translate',
       'ngStorage',
       'ui.bootstrap',
-      'ui.bootstrap.tpls',
       'ngSanitize',
-      'angularFileUpload',
       'ui.sortable'
     ]);
 })();

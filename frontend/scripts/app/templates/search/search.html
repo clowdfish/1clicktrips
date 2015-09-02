@@ -2,174 +2,89 @@
   <div class="container">
     <form class="search-form">
       <!-- SEARCH FORM TITLE -->
-      <h1 class="search-form-title">{[ "search_form_title" | translate ]}</h1>
+      <h1 class="search-form-title">Trip Engine Test UI</h1>
 
       <!-- SEARCH FORM INPUT -->
       <ul class="search-form-input">
 
         <!-- ORIGIN FORM -->
         <li class="search-form-input-item" ng-controller='searchOriginCtrl'>
-          <div class="search-form-input-item-icon" ng-class="{ active: step == 1, done: isStepOriginReady }" >
-            <span class="fa fa-map-marker"></span>
-          </div>
-
           <div class="search-form-input-item-container">
-            <label for="origin" class="search-form-input-item-label" ng-class="{ complete: isStepOriginReady }">{[ "search_form_origin_label" | translate ]}</label>
+            <span class="fa fa-map-marker search-form-input-item-icon"></span>
+            <label for="origin" class="search-form-input-item-label">Origin location</label>
             <input
               type="text"
               id="origin"
               class='search-form-input-item-location-field-input'
-              placeholder='{[ "search_form_origin_placeholder" | translate ]}'
+              placeholder='Origin location'
               name='origin'
               tabindex="1"
-              ng-focus="stepOrigin()"
               ng-model='origin'
               typeahead="address.description for address in getAddressSuggestion($viewValue)"
               typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
-
-            <input type="checkbox"
-                    id="default_origin"
-                    name="default_origin"
-                    ng-model="storeDefaultOrigin"
-                    ng-click="toggleDefaultOrigin()" />
-            <label for="default_origin" class="search-form-input-item-label light">{[ "search_form_origin_default" | translate ]}</label>
           </div>
         </li>
 
         <!-- DESTINATION FORM -->
         <li class="search-form-input-item" ng-controller='searchDestinationFormCtrl'>
-
           <div class="search-form-input-item-location-field">
-            <div class="search-form-input-item-icon" ng-class="{ active: step == 2, done: isStepDestinationReady }">
-              <span class="fa fa-flag-o"></span>
-            </div>
-
             <div class="search-form-input-item-container">
-              <label for="destination" class="search-form-input-item-label" ng-class="{ complete: isStepDestinationReady }">{[ "search_form_destination_label" | translate ]}</label>
+              <span class="fa fa-flag-o search-form-input-item-icon"></span>
+              <label for="destination" class="search-form-input-item-label">Destination location</label>
               <input
                 type="text"
                 id='destination'
                 class='search-form-input-item-location-field-input'
-                placeholder='{[ "search_form_destination_placeholder" | translate ]}'
+                placeholder='Destination location'
                 name='destination'
                 tabindex="2"
-                ng-focus="stepDestination()"
                 ng-model='destination'
                 typeahead="address.description for address in getSuggestion($viewValue)"
                 typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
-
-              <div class="search-form-input-item-location-field-dropdown"> <!--ng-model='destinationType'-->
-                <button type="button" class="search-form-input-item-location-field-dropdown-toggle" ng-click="toggleLocationDropdown()">
-                  <i class="fa {[ destinationType | destinationTypeToIcon ]}"></i><span class="fa fa-caret-down"></span>
-                </button>
-                <ul class="dropdown-menu right" ng-class="{ active: isOpen }">
-                  <li ng-repeat="item in destinationTypeArray" ng-click="setDestinationType(item)">{[ "search_form_destination_type_" + item | translate ]}</li>
-                </ul>
-              </div>
-
-              <input type="checkbox" id="round_trip" name="round_trip" ng-click="stepDestination()" ng-model="$parent.roundTrip" />
-              <label for="round_trip" class="search-form-input-item-label light">{[ "search_form_destination_roundtrip" | translate ]}</label>
             </div>
           </div>
         </li>
 
         <!-- SCHEDULE FORM -->
         <li class="search-form-input-item">
-
           <div ng-controller='searchDateTimeSelectCtrl'>
-            <div class="search-form-input-item-icon" ng-class="{ active: step == 3, done: isStepAppointmentReady }">
-              <span class="fa fa-calendar"></span>
-            </div>
-
             <div class="search-form-input-item-container">
-              <label for="date_start" class="search-form-input-item-label">{[ "search_form_appointment_start" | translate ]}</label>
+              <span class="fa fa-calendar search-form-input-item-icon"></span>
+              <label for="date_start" class="search-form-input-item-label">Appointment date</label>
               <div class='search-form-timing-container'>
-                <div class='search-form-input-item-date'>
+                <div class='search-form-input-item'>
                   <input
                     type="text"
                     id="date_start"
                     tabindex="3"
-                    show-weeks="false"
-                    ng-model="startDate"
-                    datepicker-options="dateOptions"
-                    datepicker-popup="{[format]}"
-                    ng-required="true"
-                    ng-change="changeStartDate"
-                    placeholder="Start Date"
-                    is-open="isOpenStartDatePicker"
-                    show-button-bar="false"
-                    ng-click="toggleStartDatePicker($event)"
-                    minDate="now"
-                    readonly />
-                  <i class="fa fa-calendar"></i>
+                    ng-model="$parent.startDateString"
+                    placeholder="Appointment start date (DD.MM.YYYY)"
+                    required />
                 </div>
 
-                <div class='search-form-input-item-time' ng-class="{ alert: startTimeInvalid }">
+                <div class='search-form-input-item'>
+                  <i class="fa fa-clock-o search-form-input-item-icon"></i>
+                  <label for="time_start" class="search-form-input-item-label">Appointment time</label>
                   <input
                     type="text"
                     id="time_start"
                     tabindex="4"
-                    ng-model="startTimeString"
-                    ng-focus="stepAppointment()"
-                    ng-blur="updateStartDate()"
-                    ng-keydown="onTimeStartKeydown($event)"
-                    />
-                  <i class="fa fa-clock-o"></i>
-                  <label for="time_start">{[ "search_form_appointment_warning" | translate ]}</label>
+                    ng-model="$parent.startTimeString"
+                    placeholder="Appointment start time (hh:mm)"
+                    required />
                 </div>
               </div>
 
-              <div class='search-form-timing-container'>
-                <label for="date_end" class="search-form-input-item-label">{[ "search_form_appointment_end" | translate ]}</label>
-                <div class='search-form-input-item-date'>
-                  <input
-                    type="text"
-                    id="date_end"
-                    tabindex="5"
-                    show-weeks="false"
-                    ng-model="endDate"
-                    datepicker-options="dateOptions"
-                    datepicker-popup="{[format]}"
-                    ng-required="true"
-                    placeholder="End Date"
-                    is-open="isOpenEndDatePicker"
-                    show-button-bar="false"
-                    ng-click="toggleEndDatePicker($event)"
-                    min="now"
-                    readonly />
-                  <i class="fa fa-calendar"></i>
-                </div>
-
-                <div class='search-form-input-item-time' ng-class="{ alert: endTimeInvalid }">
-                  <input
-                    type="text"
-                    id="time_end"
-                    tabindex="6"
-                    ng-model="endTimeString"
-                    ng-focus="stepAppointment()"
-                    ng-blur="updateEndDate()"
-                    ng-keydown="onTimeEndKeydown($event)"
-                    />
-                  <i class="fa fa-clock-o"></i>
-                  <label for="time_end">{[ "search_form_appointment_warning" | translate ]}</label>
-                </div>
-              </div>
+              <input type="checkbox" id="targetDate" name="targetDate" ng-model="$parent.targetDate" />
+              <label for="targetDate" class="search-form-input-item-label">Optimize towards target date</label>
             </div>
           </div>
         </li>
         <li class="search-form-input-item">
-          <div class="search-form-input-item-icon"><span></span></div>
-
-          <div class="search-form-input-item-container">
-            <a reason="{[ reason | translate ]}"
-               ng-click="startSearch()"
+            <a ng-click="startSearch()"
                ng-keypress="($event.which === 13) ? startSearch() : 0"
-               class="button tooltip search-form-input-item-button"
-               ng-class="{ 'is-disabled': !searchDataComplete, 'show-tooltip': isMobile && reason }"
-               ng-blur="resetTabIndex()"
-               tabindex="7">{[ "search_form_submit" | translate ]}</a>
-            <span class="search-form-release-info">{[ "search_form_release" | translate ]} <a href="http://www.1clicktrips.com/{[ locale ]}/releases#r-0.0.2" target="_blank">0.0.2</a></span>
-          </div>
+               class="button"
+               tabindex="7">Submit</a>
         </li>
       </ul>
     </form>

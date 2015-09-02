@@ -8,73 +8,119 @@
 
   function routerConfig($stateProvider) {
 
-    $stateProvider.state('search_result', {
-      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,' +
-           ':startDate,:endDate,:destination,:origin,:roundTrip,:fromCache',
-      templateUrl: 'scripts/app/templates/result/result.html',
+    $stateProvider.state('result', {
+      abstract: true,
       parent: 'root',
+      template: '<div ui-view></div>'
+    });
+
+    $stateProvider.state('result.list', {
+      url: '/result?:originLatitude,:originLongitude,:destinationLatitude,:destinationLongitude,' +
+           ':origin,:destination,:startDate,:targetDate,:selectedAlternatives',
+      templateUrl: 'scripts/app/templates/result/result-list.html',
       controller: 'resultCtrl',
       resolve: {
-        searchObject: getSearchObject,
-        isValidSearchParams: checkIsValidSearchParams
+        resultState: getOverviewState,
+        searchObject: getTripSearchObject
+      }
+    });
+
+    $stateProvider.state('result.details', {
+      url: '/result/details?:tripKey,:sessionId,:originLatitude,:originLongitude,:destinationLatitude,' +
+      ':destinationLongitude,:origin,:destination,:startDate,:targetDate,:selectedAlternatives',
+      templateUrl: 'scripts/app/templates/result/result-details.html',
+      controller: 'resultCtrl',
+      resolve: {
+        resultState: getDetailsState,
+        searchObject: getTripSearchObject
+      }
+    });
+
+    $stateProvider.state('result.hotels', {
+      url: '/result/details/hotels?:tripKey,:sessionId,:latitude,:longitude,:date,:duration',
+      templateUrl: 'scripts/app/templates/result/result-hotels.html',
+      controller: 'resultCtrl',
+      resolve: {
+        resultState: getHotelState,
+        searchObject: getHotelSearchObject
       }
     });
   }
 
-  function getSearchObject($stateParams, appConfig, languageApi) {
-    var activeLanguage = appConfig.activeLanguageKey;
-    var languageData = languageApi.getLanguageDataByCode(activeLanguage);
-    var locale = !_.isEmpty(languageData) ? languageData.locale : 'en-US';
-    return {
+  function getOverviewState(RESULT_STATE) {
+    return RESULT_STATE.overview;
+  }
+
+  function getDetailsState(RESULT_STATE) {
+    return RESULT_STATE.details;
+  }
+
+  function getHotelState(RESULT_STATE) {
+    return RESULT_STATE.hotels;
+  }
+
+  /**
+   * Create a search object for the trips API.
+   *
+   * @param $stateParams
+   * @param language
+   * @param currency
+   * @returns {*}
+   */
+  function getTripSearchObject($stateParams, language, currency) {
+
+    var searchObject = {
       origin: {
         latitude: parseFloat($stateParams.originLatitude),
         longitude: parseFloat($stateParams.originLongitude)
       },
-      appointments: [
-        {
-          location: {
-            latitude: parseFloat($stateParams.destinationLatitude),
-            longitude: parseFloat($stateParams.destinationLongitude)
-          },
-          start: $stateParams.startDate,
-          end: $stateParams.endDate
-        }
-      ],
-      locale: locale,
-      roundTrip: $stateParams.roundTrip,
-      currency: appConfig.activeCurrency
+      originDescription: $stateParams.origin,
+      destination: {
+        latitude: parseFloat($stateParams.destinationLatitude),
+        longitude: parseFloat($stateParams.destinationLongitude)
+      },
+      destinationDescription: $stateParams.destination,
+      timing: [ $stateParams.startDate ],
+      locale: language.get().locale,
+      currency: currency.get().code,
+      targetDate: $stateParams.targetDate
     };
+
+    if($stateParams.tripKey)
+      searchObject.tripKey = $stateParams.tripKey;
+
+    if($stateParams.sessionId)
+      searchObject.sessionId = $stateParams.sessionId;
+
+    if($stateParams.selectedAlternatives)
+      searchObject.selectedAlternatives =
+        $stateParams.selectedAlternatives;
+
+    return searchObject;
   }
 
-  function checkIsValidSearchParams($stateParams) {
-    if (moment($stateParams.startDate).isValid() === false || moment($stateParams.endDate).isValid() === false) {
-      return {
-        isValid: false,
-        message: 'search_form_error_timing'
-      };
-    }
-
-    var startDate = moment($stateParams.startDate).toDate();
-    var endDate = moment($stateParams.endDate).toDate();
-    var now = new Date();
-
-    if (startDate > endDate) {
-      return {
-        isValid: false,
-        message: 'search_form_error_timing'
-      };
-    }
-
-    if (startDate < now || endDate < now) {
-      return {
-        isValid: false,
-        message: 'search_form_error_past'
-      };
-    }
+  /**
+   * Create a search object for the hotel API.
+   *
+   * @param $stateParams
+   * @param language
+   * @param currency
+   * @returns {*}
+   */
+  function getHotelSearchObject($stateParams, language, currency) {
 
     return {
-      isValid: true
-    }
+      tripKey: $stateParams.tripKey,
+      sessionId: $stateParams.sessionId,
+      location: {
+        latitude: parseFloat($stateParams.latitude),
+        longitude: parseFloat($stateParams.longitude)
+      },
+      dateString: $stateParams.date,
+      duration: $stateParams.duration,
+      locale: language.get().locale,
+      currency: currency.get().code,
+      userAgent: navigator.userAgent
+    };
   }
-
 })();

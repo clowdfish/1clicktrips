@@ -1,0 +1,50 @@
+<section class="result" ng-show='itineraries == null'>
+  <!-- error message -->
+  <span class="result-details-error" ng-show="errorState != null">
+    There was a problem on the server: <br /><br />
+    {[ errorState.message ]}
+  </span>
+</section>
+
+<section class="result" ng-show='itineraries != null'>
+  <h1 class="result-title">The result itineraries:</h1>
+
+  <ul class="result-selection">
+    <li class="result-selection-item" ng-repeat="tempItinerary in itineraries">
+      <a ng-click="activateItinerary($index)">Itinerary {[ $index + 1 ]}</a>
+    </li>
+  </ul>
+
+  <div class="result-details" ng-if="activeItinerary > -1">
+    <h2 class="result-details-title">Details for "Itinerary {[ activeItinerary + 1 ]}"</h2>
+
+    <span class="result-details-row">
+      <span class="result-details-cell">Pricing</span>
+      <span class="result-details-cell">{[ itineraries[activeItinerary]['price'].toFixed(2) ]} {[ itineraries[activeItinerary]['currency'] | uppercase ]}</span>
+    </span>
+    <span class="result-details-row">
+      <span class="result-details-cell">Departure time</span>
+      <span class="result-details-cell">{[ itineraries[activeItinerary]['departureTime'] | dateFormatter ]}</span>
+    </span>
+    <span class="result-details-row">
+      <span class="result-details-cell">Arrival time</span>
+      <span class="result-details-cell">{[ itineraries[activeItinerary]['arrivalTime'] | dateFormatter ]}</span>
+    </span>
+      <span class="result-details-row">
+      <span class="result-details-cell">Duration</span>
+      <span class="result-details-cell">{[ itineraries[activeItinerary]['duration'].toFixed(0) ]} minutes</span>
+    </span>
+
+    <div class="result-details">
+      <h3 class="result-details-title">Trip segments:</h3>
+
+      <span ng-repeat="container in itineraries[activeItinerary]['segmentsContainer']" ng-init="containerIndex = $index">
+        <span ng-repeat="segment in container['alternatives'][0]" ng-init="segmentIndex = $index">
+          <trip-segment segment="segment" show-major="1" show-minor="0"></trip-segment>
+        </span>
+      </span>
+    </div>
+
+    <a ng-click="goToItinerary(activeItinerary)" class="button">Get details</a>
+  </div>
+</section>

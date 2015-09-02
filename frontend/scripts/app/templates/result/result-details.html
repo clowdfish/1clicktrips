@@ -1,0 +1,46 @@
+<section class="result container" ng-show='itinerary == null'>
+  <!-- error message -->
+  <span class="result-details-error" ng-show="errorState != null">
+    There was a problem on the server: <br /><br />
+    {[ errorState.message ]}
+  </span>
+</section>
+
+<section class="result container" ng-show='itinerary != null'>
+  <h2 class="result-details-title">Itinerary details</h2>
+
+    <span class="result-details-row">
+      <span class="result-details-cell">Pricing</span>
+      <span class="result-details-cell">{[ itinerary['price'].toFixed(2) ]} {[ itinerary['currency'] | uppercase ]}</span>
+    </span>
+    <span class="result-details-row">
+      <span class="result-details-cell">Departure time</span>
+      <span class="result-details-cell">{[ itinerary['departureTime'] | dateFormatter ]}</span>
+    </span>
+    <span class="result-details-row">
+      <span class="result-details-cell">Arrival time</span>
+      <span class="result-details-cell">{[ itinerary['arrivalTime'] | dateFormatter ]}</span>
+    </span>
+      <span class="result-details-row">
+      <span class="result-details-cell">Duration</span>
+      <span class="result-details-cell">{[ itinerary['duration'].toFixed(0) ]} minutes</span>
+    </span>
+
+  <div class="result-details">
+    <h3 class="result-details-title">Trip segments:</h3>
+
+    <span ng-repeat="container in itinerary['segmentsContainer']" ng-init="containerIndex = $index">
+      <span ng-repeat="segment in container['alternatives'][0]" ng-init="segmentIndex = $index" ng-class="{ fixed: segment['isMajor'] }">
+        <trip-segment segment="segment" show-major="0" show-minor="1"></trip-segment>
+      </span>
+
+      <!-- show available alternatives -->
+      <span ng-if="container['alternatives'].length > 1">
+        <a ng-click="toggleAlternative(containerIndex)">Alternatives available <i class="fa fa-smile-o"></i></a>
+      </span>
+    </span>
+  </div>
+
+  <a ng-click="goToOverview()" class="button--light">Back to overview</a>
+  <a ng-click="goToHotels()" class="button">Get available hotels</a>
+</section>

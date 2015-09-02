@@ -1,0 +1,15 @@
+%info {
+  @include container;
+
+  h1 {
+    margin-bottom: 0.8em;
+  }
+
+  p {
+
+  }
+}
+
+.info {
+  @extend %info;
+}

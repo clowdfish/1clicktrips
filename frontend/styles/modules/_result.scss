@@ -1,570 +1,70 @@
 %result {
-  position: relative;
-  height: 100%;
+  @include container;
+  padding: 0 0.5em;
 
-  /*******************************************************/
-  /* Result Search Progress                              */
-  /*******************************************************/
-  .result-waiting {
-    margin: 3em auto;
-    text-align: center;
-  }
-
-  .result-waiting-progress {
-    display: none;
-  }
-
-  .result-waiting-animation {
-    display: block;
-    margin: 4em auto;
-  }
-
-  @include respond-above("small") {
-
-    .result-waiting-progress {
-      display: block;
-      font-style: italic;
-    }
-  }
-
-  /*******************************************************/
-  /* Result Frame Layout                                 */
-  /*******************************************************/
-  .trip-result, .trip-result-wrapper {
-    height: 100%;
+  .result-title {
+    margin-bottom: 0.3em;
   }
 
   .result-selection {
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    background-color: white;
-    transition: left 1s ease-out 0s;
+    list-style-type: none;
+  }
 
-    &.show {
-      left: 0;
+  .result-selection-item {
+    display: inline-block;
+    padding: 0.4em 1em 0.4em 0;
+  }
 
-      .result-selection-toggle {
-        display: none;
-      }
+  .result-details {
+    margin-top: 1.5em;
+  }
+
+  .result-details-title {
+    margin: 0.5em 0;
+  }
+
+  .result-details-row {
+    display: table-row;
+    margin-bottom: 0.2em;
+  }
+
+  .result-details-cell {
+    display: table-cell;
+    padding-right: 1em;
+
+    &:first-of-type {
+      color: #999;
     }
   }
 
-  .result-selection-toggle {
+  .result-details-segment {
     display: block;
-    width: $selection-toggle-size + 0.2rem;
-    background-color: $c-white;
-    position: absolute;
-    z-index: 1;
-    left: -0.2em;
-    top: 45%;
-    text-align: center;
-    padding: 0.6em 0;
-    border-radius: 0.3em;
-    box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.5);
+    margin-bottom: 1.2em;
+  }
+
+  .result-hotels-list {
+    list-style: none;
+  }
+  
+  .result-hotels-list-item {
+    margin-bottom: 1em;
+  }
+
+  .button {
+    margin-top: 1.5em;
+  }
+
+  .result-details-error {
+    display: block;
+    margin-top: 0.5em;
+    color: $c-status-error;
 
     &:before {
       @include fa-icon();
-      content: $fa-var-bars;
-    }
-  }
-
-  .result-map {
-    height: 100%;
-  }
-
-  .result-panel {
-    display: none;
-  }
-
-  @include respond-above("small") {
-
-    .result-selection {
-      position: relative;
-      width: $selection-width;
-      margin-left: -$selection-width;
-      vertical-align: top;
-      transition: margin 1s ease-out 0s;
-
-      &.show {
-        margin-left: 0;
-      }
-    }
-
-    .result-selection-toggle {
-      left: -0.2em;
-      cursor: pointer;
-      transition: left 1s ease-out 0s;
-
-      &.close {
-        left: $selection-width - 0.2rem;
-
-        &:before {
-          @include fa-icon();
-          content: $fa-var-close;
-        }
-      }
-    }
-
-    .result-map {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding-left: $selection-width;
-      transition: padding 1s ease-out 0s;
-
-      &.full-width {
-        padding-left: 0;
-      }
-    }
-
-    .result-panel {
-      display: block;
-      position: absolute;
-      top: 1em;
-      left:  $selection-width + 1rem;
-      right: 1em;
-      background-color: $c-white;
-      z-index: 1;
-      padding: 1em;
-      box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
-      transition: left 1s ease-out 0s;
-
-      &.full-width {
-        left: 1rem;
-      }
-    }
-  }
-
-  @include respond-above("medium") {
-
-    .result-panel {
-
-      &.full-width {
-
-      }
-    }
-  }
-
-  /*******************************************************/
-  /* Result Selection                                    */
-  /*******************************************************/
-  .result-selection-refine {
-    width: 100%;
-    background-color: $c-grey;
-    height: $refine-control-height;
-  }
-
-  .result-selection-refine-button {
-    display: inline-block;
-    width: $refine-control-height;
-    height: $refine-control-height;
-    background-color: $c-primary;
-    text-align: center;
-    vertical-align: top;
-    padding: 0.7em;
-    color: $c-white;
-    cursor: pointer;
-  }
-
-  .result-selection-refine-text {
-    display: inline-block;
-    padding: 0.5em;
-  }
-
-  .result-selection-type {
-    padding: 0.5em;
-  }
-
-  .result-selection-type-text {
-    display: block;
-    margin-bottom: 0.5em;
-  }
-
-  .result-selection-type-list {
-    display: block;
-    list-style: none;
-    border: 1px solid $c-primary;
-    border-radius: 2px;
-    width: 100%;
-  }
-
-  .result-selection-type-list-item {
-    display: inline-block;
-    padding-top: 0.6em;
-    padding-bottom: 0.6em;
-    text-align: center;
-    color: $c-primary;
-    cursor: pointer;
-    font-size: $fs-small;
-    font-weight: 600;
-    width: 32%;
-    text-overflow: clip;
-
-    .fa {
-      margin-right: 0.3em;
-    }
-
-    &.active {
-      background-color: $c-primary;
-      color: $c-white;
-      cursor: default;
-    }
-
-    &.missing {
-      opacity: 0.25;
-      cursor: default;
-    }
-  }
-
-  .result-selection-details {
-    display: block;
-    margin-top: 0.5em;
-  }
-
-  .result-selection-details-header {
-    margin: 0 0 1em 0.5em;
-  }
-
-  .result-selection-details-header-label {
-    font-size: $fs-small;
-    color: $c-text-light;
-  }
-
-  .result-selection-details-header-title {
-
-    .fa {
-      margin-right: 0.3em;
-    }
-  }
-
-  .result-selection-details-item {
-    display: inline-block;
-    width: 48%;
-    margin-right: 1%;
-  }
-
-  .result-selection-details-item-title {
-    font-size: $fs-small;
-    color: $c-text-light;
-    margin-left: 0.5em;
-  }
-
-  .result-selection-details-item-value {
-    font-size: $fs-large;
-    font-weight: 800;
-    margin-bottom: 0.5em;
-    margin-left: 0.5em;
-  }
-
-  .result-selection-details-more {
-    color: $c-primary;
-    margin: 0.5em;
-
-    a:after {
-      @include fa-icon();
-      content: $fa-var-angle-right;
+      content: $fa-var-exclamation;
+      color: $c-status-error;
       display: inline-block;
-      width: 1em;
-      text-align: right;
-    }
-  }
-
-  .result-selection-details-action {
-
-    a {
-      width: 48%;
-      padding: 0.8em 0.5em;
-      margin-left: 1%;
-      margin-top: 1em;
-      text-align: center;
-
-
-      .fa {
-        margin-right: 0.3em;
-      }
-    }
-  }
-
-  .result-selection-list {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 100%;
-    height: 100%;
-    background-color: $c-white;
-    transition: left 1s ease-out 0s;
-
-    &.visible {
-      left: 0;
-    }
-  }
-
-  .result-selection-list-close {
-    padding: 0.5em;
-    cursor: pointer;
-
-    .fa {
       margin-right: 0.5em;
-    }
-  }
-
-  @include respond-above("small") {
-
-    .result-selection-type {
-      padding: 1em;
-    }
-
-    .result-selection-details {
-      display: none;
-    }
-
-    .result-selection-list {
-      @include clearfix;
-      position: relative;
-      top: auto;
-      left: auto;
-      height: auto;
-    }
-
-    .result-selection-list-close {
-      display: none;
-    }
-  }
-
-  /*******************************************************/
-  /* Result Panel                                        */
-  /*******************************************************/
-  .result-panel-summary-header-back-link {
-    $button-size: 3.4em;
-
-    display: block;
-    float: left;
-    width: $button-size;
-    height: $button-size;
-    background-color: $c-red;
-    color: #fff;
-    text-align: center;
-    padding-top: $button-size/2;
-    cursor: pointer;
-    margin-right: 0.5em;
-    margin-left: -0.8em;
-
-    .fa {
-      margin-top: -1.5em;
-      margin-right: 0.1em;
-      font-size: 2.6em;
-    }
-  }
-
-  @include respond-above("small") {
-
-    .result-panel-summary {
-      float: left;
-      margin-right: 1em;
-      margin-bottom: 1em;
-    }
-
-    .result-panel-summary-header-title {
-      display: inline-block;
-      margin: 0;
-
-      .fa {
-        margin-right: 0.5em;
-      }
-    }
-
-    .result-panel-summary-header-link {
-      display: block;
-      font-size: $fs-small;
-      color: $c-primary;
-      cursor: pointer;
-      margin-bottom: 1em;
-    }
-
-    .result-panel-summary-header-appointment {
-      display: block;
-      font-size: $fs-small;
-      color: lighten($c-text, 45%);
-
-      span:first-of-type {
-        display: inline-block;
-        margin-right: 1em;
-      }
-    }
-
-    .result-panel-summary-details {
-      display: block;
-      font-size: $fs-small;
-      margin-top: 0.5em;
-    }
-
-    .result-panel-summary-details-item {
-      display: inline-block;
-      margin-right: 1em;
-
-      i {
-        color: $c-primary;
-        margin-right: 0.3em;
-        cursor: help;
-      }
-    }
-
-    .result-panel-controls {
-      text-align: right;
-      margin-top: 0.3em;
-    }
-
-    .result-panel-controls-price {
-      display: block;
-      font-size: $fs-largest;
-      margin-bottom: 0.1em;
-    }
-
-    .result-panel-controls-time {
-      display: block;
-      font-size: $fs-small;
-      margin-bottom: 1em;
-    }
-
-    .result-panel-controls-buttons-favorites {
-
-      margin-bottom: 0.3em;
-      &>.fa {
-        margin: 0;
-      }
-
-      &>span {
-        display: none;
-      }
-    }
-  }
-
-  @include respond-above("medium") {
-
-    .result-panel-summary-header-title {
-      margin-right: 0.8em;
-      margin-bottom: 0.2em;
-    }
-
-    .result-panel-summary-header-link {
-      display: inline-block;
-      margin-bottom: 0;
-    }
-
-    .result-panel-summary-details {
-      margin-top: 1.2em;
-    }
-
-    .result-panel-controls {
-      text-align: right;
-    }
-
-    .result-panel-controls-buttons {
-      margin-top: 0.3em;
-
-      a {
-        display: inline-block;
-        margin-left: 0.3em;
-        margin-bottom: 0.3em;
-      }
-    }
-  }
-
-  @include respond-above("large") {
-
-    .result-panel-controls-buttons-favorites {
-
-      &>.fa {
-        margin: 0.3em;
-      }
-
-      &>span {
-        display: inline;
-      }
-    }
-  }
-
-  /*******************************************************/
-  /* Trip Summary Directive                              */
-  /*******************************************************/
-  .trip-summary-list {
-    list-style: none;
-  }
-
-  .trip-summary-item {
-    float: left;
-    width: 50%;
-    margin-bottom: 0.5em;
-  }
-
-  .trip-summary-item-title {
-    font-size: $fs-smallest;
-  }
-
-  .trip-summary-item-value {
-    color: $c-primary;
-    font-weight: 800;
-  }
-
-  @include respond-above("small") {
-
-    .trip-summary-list {
-      display: inline-block;
-      margin-top: 0.5em;
-    }
-
-    .trip-summary-item {
-      width: auto;
-      padding: 0 1.5em 0 0;
-      margin-bottom: 0;
-    }
-
-    .trip-summary-item-value {
-      margin-top: 0.2em;
-    }
-
-    .duration-by-days {
-      display: block;
-      font-size: $fs-smallest;
-      font-weight: 400;
-    }
-  }
-
-  /*******************************************************/
-  /* Result Notification                                 */
-  /*******************************************************/
-  .result-notification {
-    width: 97%;
-    margin: 1em auto 0;
-    padding: .5em 1em;
-    background-color: $c-yellow;
-    border-radius: 3px;
-    border: 1px solid darken($c-grey, 5%);
-
-    .fa {
-      opacity: 0.4;
-    }
-  }
-
-  .result-notification-message {
-    margin: 0 1em;
-    opacity: 0.5;
-    font-size: $fs-small;
-  }
-
-  .result-notification-action {
-    float: right;
-
-    .fa {
-      cursor: pointer;
     }
   }
 
@@ -577,27 +77,6 @@
   @extend %result;
 }
 
-/**********************************************/
-/* TOUCH SPECIFIC STYLING                     */
-/**********************************************/
-.no-touch .result {
-
-  .result-selection-type-list-item {
-
-    &:hover {
-      color: darken($c-primary, 5%);
-    }
-
-    &.active:hover {
-      color: $c-white;
-    }
-
-    &.missing:hover {
-      color: $c-primary;
-    }
-  }
-
-  .result-selection-refine-button:hover {
-    background-color: darken($c-primary, 5%);
-  }
+.ngdialog-content {
+  @extend %result;
 }

@@ -1,0 +1,15 @@
+.modal-title {
+  margin-bottom: 0.8em;
+}
+
+.modal-sub-title {
+  margin-bottom: 0.5em;
+}
+
+/*
+ * Overwrite default width of ngDialog
+ */
+
+.ngdialog-content {
+  width: 80% !important;
+}

@@ -1,0 +1,10 @@
+<h1 class="modal-title">Check out the alternatives</h1>
+
+<span ng-repeat="alternative in alternatives" ng-init="alternativeIndex = $index">
+  <span ng-if="alternativeIndex > 0">
+    <h2 class="modal-sub-title">Alternative {[ alternativeIndex ]}</h2>
+    <span ng-repeat="segment in alternative" ng-init="segmentIndex = $index" ng-class="{ fixed: segment['isMajor'] }">
+      <trip-segment segment="segment"></trip-segment>
+    </span>
+  </span>
+</span>

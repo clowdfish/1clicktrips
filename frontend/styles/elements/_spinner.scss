@@ -1,0 +1,24 @@
+.request-spinner-wrapper {
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  height:100%;
+  top: 0;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.request-spinner-container {
+  position: relative;
+  top: 30%;
+  margin: 0 auto;
+  text-align: center;
+
+  .fa {
+    color: $c-white;
+    margin-bottom: 0.3em;
+  }
+}
+
+.request-spinner-title {
+  color: $c-white;
+}

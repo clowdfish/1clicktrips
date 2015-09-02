@@ -1,0 +1,39 @@
+<!doctype html>
+<html ng-app='app'>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TTG Search Engine Test UI</title>
+  <link rel="stylesheet" type="text/css" href="../styles/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../styles/style.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,800">
+</head>
+<body>
+  <request-spinner></request-spinner>
+
+  <header class="header">
+    <div class="header-logo">
+      <a ui-sref="search" href='/'>
+        <img src="images/logo.png" alt="1ClickTrips">
+      </a>
+    </div>
+  </header>
+
+  <!-- holds the dynamic part of the application -->
+  <div class="content" ui-view>
+    <!-- content in here will be overwritten when dynamic part is loaded -->
+  </div>
+
+  <footer class="footer">
+    <span class="footer-copyright">
+      &copy; 2015 1ClickTrips. All rights reserved.
+    </span>
+  </footer>
+
+  <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY&libraries=places,geometry&language={{locale}}"></script>
+
+  <script src="../scripts/vendor.js"></script>
+  <script src="../scripts/script.js"></script>
+</body>
+</html>

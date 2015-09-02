@@ -34,6 +34,110 @@ module.exports = function (app, express, production) {
   app.use('/search', searchApi);
 
   // ==========================================================================
+  // HOTELS API ===============================================================
+  // ==========================================================================
+  searchApi.post('/hotels', function(req, res) {
+
+    var clientIpAddress = req.ip;
+
+    console.log('Hotel request coming from a client with IP address: ' + clientIpAddress);
+    console.log(JSON.stringify(req.body, null, 2));
+
+    if(hotelRequestIsValid(req)) {
+
+      if(!clientIpAddress)
+        res.status(500).send('Could not figure out client IP address.');
+
+      // add IP address of client
+      req.body.ipAddress = clientIpAddress;
+
+      SearchController.getHotels(req.body)
+        .then(function(hotels) {
+          res.status(200).json(hotels);
+        })
+        .catch(function(err) {
+          res.status(500).json(err.message);
+        });
+    }
+    else {
+      res.status(400).send("status.user.error.request.malformed");
+    }
+  });
+
+  // ==========================================================================
+  // SEARCH API ===============================================================
+  // ==========================================================================
+
+  searchApi.post('/trips', function (req, res) {
+
+    var secret = app.get('jwtTokenSecret');
+
+    console.log('Trip request coming from the client:');
+    console.log(JSON.stringify(req.body, null, 2));
+
+    if(tripRequestIsValid(req)) {
+
+      var userLicence = null;
+      var userId = AuthController.getUserIdFromRequest(req, secret);
+
+      UserController.getUser(userId)
+        .then(function (user) {
+          userLicence = user.licence;
+
+          SearchController.getTripResults(req.body, user.licence)
+            .then(function(tripResults) {
+              res.status(200).json(tripResults);
+            })
+            .catch(function(err) {
+              console.log(err.message);
+
+              res.status(500).json(err.message);
+            });
+        });
+    }
+    else {
+      res.status(400).send('status.user.error.request.malformed');
+    }
+  });
+
+  searchApi.post('/trip-details', function (req, res) {
+
+    var secret = app.get('jwtTokenSecret');
+
+    console.log('Trip details request coming from the client:');
+    console.log(JSON.stringify(req.body, null, 2));
+
+    if(tripRequestIsValid(req)) {
+
+      if(!req.body['tripKey']) {
+        res.status(400).send('status.user.error.request.key.missing');
+        return;
+      }
+
+      var userLicence = null;
+      var userId = AuthController.getUserIdFromRequest(req, secret);
+
+      UserController.getUser(userId)
+        .then(function (user) {
+          userLicence = user.licence;
+
+          SearchController.getTripDetails(req.body, user.licence)
+            .then(function(tripResults) {
+              res.status(200).json(tripResults);
+            })
+            .catch(function(err) {
+              console.log(err.message);
+
+              res.status(500).json(err.message);
+            });
+        });
+    }
+    else {
+      res.status(400).send('status.user.error.request.malformed');
+    }
+  });
+
+  // ==========================================================================
   // EVENT API ================================================================
   // ==========================================================================
   searchApi.get('/events', function (req, res) {
@@ -83,138 +187,87 @@ module.exports = function (app, express, production) {
         res.status(500).json(err.message);
       });
   });
-
-  // ==========================================================================
-  // ALTERNATIVES API =========================================================
-  // ==========================================================================
-  searchApi.get('/alternatives', function (req, res) {
-
-    var segmentId = req.query.segmentId;
-    var tripId = req.query.tripId;
-    var language = req.query.language;
-    var currency = req.query.currency;
-
-    if(segmentId && tripId && language && currency) {
-      console.log('Query for alternative segment received. Segment ID=' + segmentId
-        + '; Trip ID=' + tripId);
-
-      SearchController.getAlternatives(tripId, segmentId, language, currency)
-        .then(function(alternatives) {
-          res.status(200).json(alternatives);
-        })
-        .catch(function(err) {
-          res.status(500).json(err.message);
-        });
-    }
-    else {
-      res.status(400).send("status.user.error.request.malformed");
-    }
-  });
-
-  searchApi.get('/alternative-hotels', function(req, res) {
-    var segmentId = req.query.segmentId;
-    var tripId = req.query.tripId;
-    var language = req.query.language;
-    var currency = req.query.currency;
-
-    if(segmentId && tripId && language && currency) {
-      console.log('Query for alternative segment received. Segment ID=' + segmentId
-        + '; Trip ID=' + tripId);
-
-      SearchController.getAlternativeHotels(tripId, segmentId, language, currency)
-        .then(function(alternatives) {
-          res.status(200).json(alternatives);
-        })
-        .catch(function(err) {
-          res.status(500).json(err.message);
-        });
-    }
-    else {
-      res.status(400).send("status.user.error.request.malformed");
-    }
-  });
-
-  // ==========================================================================
-  // SEARCH API ===============================================================
-  // ==========================================================================
-
-  searchApi.post('/trips', function (req, res) {
-
-    var secret = app.get('jwtTokenSecret');
-
-    console.log('Request coming from the client:');
-    console.log(JSON.stringify(req.body, null, 2));
-
-    if(checkValidity(req)) {
-      var userLicence = null;
-
-      // parse roundtrip property and make a boolean out of it
-      var roundTrip = req.body['roundTrip'];
-      req.body['roundTrip'] = !!(roundTrip == 'true' || roundTrip == 1);
-
-      var userId = AuthController.getUserIdFromRequest(req, secret);
-
-      UserController.getUser(userId)
-        .then(function (user) {
-          userLicence = user.licence;
-
-          SearchController.getTripResults(req.body, user.licence)
-            .then(function(tripResults) {
-              res.status(200).json(tripResults);
-            })
-            .catch(function(err) {
-              console.log(err.message);
-
-              res.status(500).json(err.message);
-            });
-        });
-    }
-    else {
-      res.status(400).send('status.user.error.request.malformed');
-    }
-  });
 };
 
-function checkValidity(req) {
+/**
+ * Checks the validity of a trip search request object.
+ *
+ * @param req
+ * @returns {boolean}
+ */
+function tripRequestIsValid(req) {
 
-  var isValid = true;
+  if(req.body['origin'] && req.body['destination'] &&
+    req.body['timing'] && req.body['timing'].length > 0 &&
+    req.body['currency'] && req.body['locale']) {
 
-  function isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
-
-  function checkAppointmentTimes(appointment) {
-    var timePattern =
-      /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/;
-
-    return timePattern.test(appointment['start']) &&
-      timePattern.test(appointment['end'])
-  }
-
-  if(req.body['origin'] && req.body['appointments'] &&
-    req.body['appointments'].length > 0 && req.body['currency'] &&
-    req.body['locale'] && req.body['roundTrip']) {
-
+    // check origin format
     if(!isNumber(req.body['origin']['latitude'])
       || !isNumber(req.body['origin']['longitude']))
-      isValid = false;
+      return false;
 
-    req.body['appointments'].forEach(function(appointment) {
+    // check destination format
+    if(!isNumber(req.body['destination']['latitude'])
+      || !isNumber(req.body['destination']['longitude']))
+      return false;
 
-      if(!(appointment['location']
-        && isNumber(appointment['location']['latitude'])
-        && isNumber(appointment['location']['longitude']))) {
-
-        isValid = false;
-      }
-
-      if(!checkAppointmentTimes(appointment)) {
-        isValid = false;
-      }
+    req.body['timing'].forEach(function(timing) {
+      if(!timingIsValid(timing))
+        return false;
     });
   }
   else
-    isValid = false;
+    return false;
 
-  return isValid;
+  return true;
+}
+
+/**
+ * Checks the validity of a hotel search request object.
+ *
+ * @param req
+ * @returns {boolean}
+ */
+function hotelRequestIsValid(req) {
+
+  if(req.body['tripKey'] && req.body['sessionId'] &&
+    req.body['location'] && req.body['dateString'] &&
+    req.body['duration'] && req.body['locale'] &&
+    req.body['currency'] && req.body['userAgent']) {
+
+    // check location format
+    if(!isNumber(req.body['location']['latitude'])
+      || !isNumber(req.body['location']['longitude']))
+      return false;
+
+    if(!timingIsValid(req.body['dateString']))
+      return false;
+  }
+  else
+    return false;
+
+  return true;
+}
+
+/**
+ * Test if given argument is a number.
+ *
+ * @param n
+ * @returns {boolean}
+ */
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
+ * Test timing string coming from the client.
+ *
+ * @param timing
+ * @returns {boolean}
+ */
+function timingIsValid(timing) {
+  var timePattern =
+    /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+
+  return timePattern.test(timing);
 }

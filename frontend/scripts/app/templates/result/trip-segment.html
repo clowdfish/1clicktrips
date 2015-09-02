@@ -1,0 +1,51 @@
+<span class="result-details-segment" ng-class="{ fixed: segment['isMajor'] }">
+  <hr ng-if="segment['isMajor']">
+  <span class="result-details-row">
+    <span class="result-details-cell">From</span>
+    <span class="result-details-cell">{[ segment['start']['description'] ]}</span>
+  </span>
+  <span class="result-details-row">
+    <span class="result-details-cell">To</span>
+    <span class="result-details-cell">{[ segment['end']['description'] ]}</span>
+  </span>
+  <span class="result-details-row">
+    <span class="result-details-cell">Travel type</span>
+    <span class="result-details-cell"><i class="fa {[ segment['type'] | vehicleTypeToIcon ]}"></i></span>
+  </span>
+  <span class="result-details-row" ng-if="segment['type'] == 16">
+    <span class="result-details-cell">Flight details</span>
+    <span class="result-details-cell">
+      {[ segment['details']['carriers'][0]['name'] ]},
+      Flight {[ segment['details']['flightNumbers'][0]['flightNumber'] ]}
+    </span>
+  </span>
+  <span class="result-details-row">
+    <span class="result-details-cell">Departure time</span>
+    <span class="result-details-cell">{[ segment['departureTime'] | dateFormatter ]}</span>
+  </span>
+  <span class="result-details-row">
+    <span class="result-details-cell">Arrival time</span>
+    <span class="result-details-cell">{[ segment['arrivalTime'] | dateFormatter ]}</span>
+  </span>
+  <span class="result-details-row">
+    <span class="result-details-cell">Duration</span>
+    <span class="result-details-cell">{[ segment['duration'].toFixed(2) ]}</span>
+  </span>
+   <span class="result-details-row">
+    <span class="result-details-cell">Price</span>
+    <span class="result-details-cell">{[ segment['price']['amount'].toFixed(2) ]} {[ segment['price']['currency'] | uppercase ]}</span>
+  </span>
+  <span class="result-details-row" ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && showMajor == 1 || !segment['isMajor'] && showMinor == 1)">
+  <span class="result-details-cell">Alternatives</span>
+  <span class="result-details-cell">
+    <select ng-model="selection['k-' + containerIndex + '-' + segmentIndex]">
+      <option style="display:none;" value="">Choose alternative timing</option>
+      <option ng-repeat="alternative in segment['alternatives']" value="{[ $index ]}">
+        {[ alternative['departureTime'] | dateFormatter ]} - {[ alternative['arrivalTime'] | dateFormatter ]} -->
+        <span ng-if="alternative['price']">{[ alternative['price']['amount'].toFixed(2) ]} {[ alternative['price']['currency'] | uppercase ]}</span>
+      </option>
+    </select>
+  </span>
+</span>
+<hr ng-if="segment['isMajor']">
+</span>

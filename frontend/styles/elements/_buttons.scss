@@ -38,52 +38,11 @@
   border: 1px solid $c-primary;
 }
 
-.button--mobile {
-  @extend %button;
-  font-size: $fs-normal;
-  font-weight: 400;
-
-  height: $input-mobile-height;
-  padding: 0.4em 1em;
-}
-
 button:focus {
   outline: none; // for OS X
-
 }
 
 .button:focus, .button-mobile:focus {
   background: darken($c-primary, 5%);
   text-decoration: none;
-}
-
-/**********************************************/
-/* TOUCH SPECIFIC STYLING                     */
-/**********************************************/
-.no-touch {
-  .button, .button-mobile {
-
-    &.is-disabled:hover {
-      background: $c-primary;
-    }
-
-    &:hover {
-      background: darken($c-primary, 5%);
-      text-decoration: none;
-    }
-  }
-
-  .button--light {
-
-    &.is-disabled:hover {
-      background: transparent;
-      color: $c-primary;
-    }
-
-    &:hover {
-      background-color: $c-primary;
-      color: $c-white;
-      text-decoration: none;
-    }
-  }
 }

@@ -28,13 +28,17 @@
       scope.$on(requestSpinnerEvents.show, function(e, data) {
         scope.isShowing = true;
         activeMessageIndex = 0;
+
         if (_.has(data, 'title')) {
           scope.title = data.title;
-        } else if (_.has(data, 'activeMessages')) {
+        }
+        else if (_.has(data, 'activeMessages')) {
           activeMessages = data.activeMessages;
+
           if (activeMessages.length == 0) {
-            throw new Error("Can not provide empty messages");
+            throw new Error("Can not provide empty messages.");
           }
+
           nextActiveMessages(activeMessages);
         }
       });
@@ -48,11 +52,13 @@
 
       function nextActiveMessages() {
         var messageItem = activeMessages[activeMessageIndex];
+
         if (typeof(messageItem) !== 'undefined') {
           scope.title = messageItem.title;
         }
 
         var nextMessageItem = activeMessages[activeMessageIndex++];
+
         if (typeof(nextMessageItem) !== 'undefined') {
           $timeout(function() {
             nextActiveMessages();
@@ -61,5 +67,4 @@
       }
     }
   }
-
 })();

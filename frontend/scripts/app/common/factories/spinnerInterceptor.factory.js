@@ -15,11 +15,8 @@
       * Show spinner when get waitingMessage
       */
       request: function(config) {
-        if (_.has(config, 'waitingMessage')) {
-          broadcastShowSpinnerEevent(config, {
-            title: config.waitingMessage
-          });
-        } else if (_.has(config, 'activeMessages')) {
+
+        if (_.has(config, 'activeMessages')) {
           broadcastShowSpinnerEevent(config, {
             activeMessages: config.activeMessages
           });

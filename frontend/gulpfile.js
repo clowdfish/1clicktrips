@@ -4,26 +4,17 @@ var karma = require('karma').server;
 
 // include core modules
 var path  = require("path");
-var fs    = require("fs");
-var mkdirp = require('mkdirp');
 
 // include gulp plug-ins
 var concat 		  = require('gulp-concat'),
-    coffee      = require('gulp-coffee'),
-    stripDebug 	= require('gulp-strip-debug'),
     uglify 		  = require('gulp-uglify'),
-    rename      = require('gulp-rename'),
     autoprefix  = require('gulp-autoprefixer'),
-    minify     	= require('gulp-minify-css'),
     sass 		    = require('gulp-ruby-sass'),
     notify		  = require('gulp-notify'),
     plumber 	  = require('gulp-plumber'),
     webserver   = require('gulp-webserver'),
-    gulpif      = require('gulp-if'),
     declare     = require('gulp-declare'),
-    yaml        = require('gulp-yml'),
     yml         = require('js-yaml'),
-    compile     = require('gulp-compile-handlebars'),
     data        = require('gulp-data'),
     ngAnnotate  = require('gulp-ng-annotate'),
     merge       = require('gulp-merge'),
@@ -33,12 +24,6 @@ var concat 		  = require('gulp-concat'),
 /****************************************************************************************************/
 /* SETTING UP DEVELOPMENT ENVIRONMENT                                                               */
 /****************************************************************************************************/
-
-// development/production flag
-var production = false;
-
-// available locales
-var locales = ['en', 'de'];
 
 // the title and icon that will be used for notifications
 var notifyInfo = {
@@ -67,6 +52,13 @@ gulp.task('styles', function() {
   ])
   .pipe(gulp.dest("build/fonts"));
 
+  gulp.src([
+    'bower_components/ngDialog/css/ngDialog.css',
+    'bower_components/ngDialog/css/ngDialog-theme-default.css'
+  ])
+  .pipe(concat('vendor.css'))
+  .pipe(gulp.dest('build/styles'));
+
   return sass('styles', { style: 'expanded' })
     .on('error', function (err) {
       console.error('Error during scss compilation: ', err.message);
@@ -75,8 +67,6 @@ gulp.task('styles', function() {
         browsers: ['>1%', 'last 2 version', 'opera 12.1'],
         cascade: true
       }))
-    .pipe(gulpif(production, minify()))
-    .pipe(gulpif(production, rename({ suffix: '.min' })))
     .pipe(gulp.dest('build/styles'));
 });
 
@@ -91,7 +81,7 @@ gulp.task('webserver', function() {
   gulp.src('build/')
     .pipe(webserver({
       livereload: true,
-      open: 'en/',
+      open: '/',
       proxies: [
         { source: '/api', target: 'http://localhost:8080/' }
       ]
@@ -99,24 +89,20 @@ gulp.task('webserver', function() {
 });
 
 // process and compile all script files
-gulp.task('scripts', ['i18n'], function() {
+gulp.task('scripts', function() {
   gulp.src([
     'bower_components/jquery/dist/jquery.js',
-    'bower_components/jquery-ui/jquery-ui.js',
-    'bower_components/angular/angular.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.js',
-    'bower_components/angular-mocks/angular-mocks.js',
-    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
-    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
-    'bower_components/use-angular-translate/src/**/*.js',
-    'bower_components/angular-animate/angular-animate.js',
     'bower_components/moment/moment.js',
     'bower_components/lodash/lodash.js',
-    'bower_components/use-angular-translate/src/**/*.js',
+    'bower_components/angular/angular.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
+    'bower_components/angular-mocks/angular-mocks.js',
     'bower_components/angular-local-storage/dist/angular-local-storage.js',
     'bower_components/angular-sanitize/angular-sanitize.js',
-    'bower_components/ng-file-upload/angular-file-upload-all.js',
     'bower_components/angular-ui-sortable/sortable.js',
+    'bower_components/ngDialog/js/ngDialog.js',
     'bower_components/ngstorage/ngStorage.js',
     'bower_components/fastclick/lib/fastclick.js'
   ])
@@ -135,81 +121,36 @@ gulp.task('scripts', ['i18n'], function() {
     })),
     gulp.src([
       'scripts/**/*.js',
-      '!scripts/**/*.spec.js',
-      '!scripts/mockdata/**/*.js'
+      '!scripts/**/*.spec.js'
     ])
   )
   .pipe(plumber(plumberErrorHandler))
-  .pipe(
-    gulpif(
-      /[.]coffee$/,
-      coffee({ bare: true })
-    )
-  )
   .pipe(concat('script.js'))
-  .pipe(gulpif(production, ngAnnotate()))
-  .pipe(gulpif(production, stripDebug()))
-  .pipe(gulpif(production, uglify()))
+  .pipe(ngAnnotate())
   .pipe(gulp.dest('build/scripts'));
 });
 
 // compile angular templates to make them available on client
 gulp.task('angular-templates', function() {
 
-  locales.forEach( function( locale ) {
-    gulp
-      .src([
-        'scripts/app/templates/**/*'
-      ])
-      .pipe(angularTemplateCache('templates.js',{
-        root: 'scripts/app/templates/',
-        module: 'app.templates',
-        standalone: true
-      }))
-      .pipe(gulpif(production, ngAnnotate()))
-      .pipe(gulpif(production, uglify()))
-      .pipe(gulp.dest('scripts/app/templates'));
-  });
+  gulp
+    .src([
+      'scripts/app/templates/**/*'
+    ])
+    .pipe(angularTemplateCache('templates.js',{
+      root: 'scripts/app/templates/',
+      module: 'app.templates',
+      standalone: true
+    }))
+    .pipe(ngAnnotate())
+    .pipe(gulp.dest('scripts/app/templates'));
 });
 
-// compile html files and replace language strings
+// copy html files
 gulp.task('preprocess', function() {
 
-  locales.forEach( function( locale ) {
-    var templateData = {
-      T: yml.safeLoad(fs.readFileSync('./i18n/' + locale + '.yaml', 'utf8'))[locale],
-      locale: locale,
-      production: production
-    },
-    options = {
-      batch : ['templates/modules', 'templates/partials'],
-      helpers : {
-        capitals : function(str) {
-            return str.toUpperCase();
-        }
-      }
-    };
-
-    gulp.src('templates/*.html')
-      .pipe(plumber(plumberErrorHandler))
-      .pipe(compile(templateData, options))
-      .pipe(gulp.dest(path.join('build/', locale)));
-  });
-});
-
-
-// create translation file
-gulp.task('i18n', function() {
-  gulp.src('i18n/*.yaml')
-    .pipe(plumber(plumberErrorHandler))
-    .pipe(yaml().on( "error", console.error ))
-    .pipe(declare({
-      namespace: 'Locales',
-      noRedeclare: false,
-      root: 'window'
-    }))
-    .pipe(concat('locales.js'))
-    .pipe(gulp.dest('scripts/locale/'));
+  gulp.src('index.html')
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('app-data', function() {
@@ -241,21 +182,18 @@ gulp.task('app-data', function() {
 gulp.task('test', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: false
+    singleRun: true
   }, done);
 });
 
-gulp.task('create-upload-folder', function() {
-  mkdirp('build/images/uploaded');
-});
-
 // gulp task suite
-gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data', 'create-upload-folder'], function() {
+gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data'], function() {
+
   gulp.watch('styles/**/*.scss', ['styles']);
   gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
-  gulp.watch(['templates/**/*.html', 'i18n/*.yaml'], ['preprocess', 'i18n', 'scripts']);
+  gulp.watch(['*.html'], ['preprocess', 'scripts']);
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
   gulp.watch(['scripts/app/**/*.js'], ['scripts']);
 });
 
-gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data', 'create-upload-folder'], function() {});
+gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data'], function() {});

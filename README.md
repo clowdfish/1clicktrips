@@ -110,4 +110,3 @@ The REST API follows some general guidelines in order to be as consistent, self-
 The REST API documentation is done with [Swagger 2.0](http://swagger.io/) and can be found [here](http://swagger.homeunix.com/ui/).
 
 The documentation for Swagger 2.0 can be found [here](https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md).
-
