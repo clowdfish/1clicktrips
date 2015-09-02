@@ -1,92 +1,86 @@
 <section class="search">
-  <div class="container">
-    <form class="search-form">
-      <!-- SEARCH FORM TITLE -->
-      <h1 class="search-form-title">Trip Engine Test UI</h1>
+  <form class="search-form">
 
-      <!-- SEARCH FORM INPUT -->
-      <ul class="search-form-input">
+      <!-- ORIGIN FORM -->
+      <div class="search-form-item" ng-controller='searchOriginCtrl'>
+        <div class="search-form-item-container">
+          <span class="fa fa-map-marker search-form-item-icon"></span>
+          <label for="origin" class="search-form-item-label">Origin location</label>
+          <input
+            type="text"
+            id="origin"
+            class='search-form-item-input'
+            placeholder='Origin location'
+            name='origin'
+            tabindex="1"
+            ng-model='origin'
+            typeahead="address.description for address in getAddressSuggestion($viewValue)"
+            typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
+        </div>
+      </div>
 
-        <!-- ORIGIN FORM -->
-        <li class="search-form-input-item" ng-controller='searchOriginCtrl'>
-          <div class="search-form-input-item-container">
-            <span class="fa fa-map-marker search-form-input-item-icon"></span>
-            <label for="origin" class="search-form-input-item-label">Origin location</label>
-            <input
-              type="text"
-              id="origin"
-              class='search-form-input-item-location-field-input'
-              placeholder='Origin location'
-              name='origin'
-              tabindex="1"
-              ng-model='origin'
-              typeahead="address.description for address in getAddressSuggestion($viewValue)"
-              typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
-          </div>
-        </li>
+      <!-- DESTINATION FORM -->
+      <div class="search-form-item" ng-controller='searchDestinationFormCtrl'>
+        <div class="search-form-item-container">
+          <span class="fa fa-flag-o search-form-item-icon"></span>
+          <label for="destination" class="search-form-item-label">Destination location</label>
+          <input
+            type="text"
+            id='destination'
+            class='search-form-item-input'
+            placeholder='Destination location'
+            name='destination'
+            tabindex="2"
+            ng-model='destination'
+            typeahead="address.description for address in getSuggestion($viewValue)"
+            typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
+        </div>
+      </div>
 
-        <!-- DESTINATION FORM -->
-        <li class="search-form-input-item" ng-controller='searchDestinationFormCtrl'>
-          <div class="search-form-input-item-location-field">
-            <div class="search-form-input-item-container">
-              <span class="fa fa-flag-o search-form-input-item-icon"></span>
-              <label for="destination" class="search-form-input-item-label">Destination location</label>
-              <input
-                type="text"
-                id='destination'
-                class='search-form-input-item-location-field-input'
-                placeholder='Destination location'
-                name='destination'
-                tabindex="2"
-                ng-model='destination'
-                typeahead="address.description for address in getSuggestion($viewValue)"
-                typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
-            </div>
-          </div>
-        </li>
-
-        <!-- SCHEDULE FORM -->
-        <li class="search-form-input-item">
-          <div ng-controller='searchDateTimeSelectCtrl'>
-            <div class="search-form-input-item-container">
-              <span class="fa fa-calendar search-form-input-item-icon"></span>
-              <label for="date_start" class="search-form-input-item-label">Appointment date</label>
-              <div class='search-form-timing-container'>
-                <div class='search-form-input-item'>
-                  <input
-                    type="text"
-                    id="date_start"
-                    tabindex="3"
-                    ng-model="$parent.startDateString"
-                    placeholder="Appointment start date (DD.MM.YYYY)"
-                    required />
-                </div>
-
-                <div class='search-form-input-item'>
-                  <i class="fa fa-clock-o search-form-input-item-icon"></i>
-                  <label for="time_start" class="search-form-input-item-label">Appointment time</label>
-                  <input
-                    type="text"
-                    id="time_start"
-                    tabindex="4"
-                    ng-model="$parent.startTimeString"
-                    placeholder="Appointment start time (hh:mm)"
-                    required />
-                </div>
+      <!-- SCHEDULE FORM -->
+      <div class="search-form-item">
+        <div ng-controller='searchDateTimeSelectCtrl'>
+          <div class="search-form-item-container">
+            <span class="fa fa-calendar search-form-item-icon"></span>
+            <label for="date_start" class="search-form-item-label">Appointment date</label>
+            <div class='search-form-timing-container'>
+              <div class='search-form-item'>
+                <input
+                  type="text"
+                  id="date_start"
+                  class='search-form-item-input'
+                  tabindex="3"
+                  ng-model="$parent.startDateString"
+                  placeholder="Appointment start date (DD.MM.YYYY)"
+                  required />
               </div>
 
+              <div class='search-form-item'>
+                <i class="fa fa-clock-o search-form-item-icon"></i>
+                <label for="time_start" class="search-form-item-label">Appointment time</label>
+                <input
+                  type="text"
+                  id="time_start"
+                  class='search-form-item-input'
+                  tabindex="4"
+                  ng-model="$parent.startTimeString"
+                  placeholder="Appointment start time (hh:mm)"
+                  required />
+              </div>
+            </div>
+
+            <div class="search-form-item-input">
               <input type="checkbox" id="targetDate" name="targetDate" ng-model="$parent.targetDate" />
-              <label for="targetDate" class="search-form-input-item-label">Optimize towards target date</label>
+              <label for="targetDate" class="search-form-item-label">Optimize towards target date</label>
             </div>
           </div>
-        </li>
-        <li class="search-form-input-item">
-            <a ng-click="startSearch()"
-               ng-keypress="($event.which === 13) ? startSearch() : 0"
-               class="button"
-               tabindex="7">Submit</a>
-        </li>
-      </ul>
-    </form>
-  </div>
+        </div>
+      </div>
+      <div class="search-form-item">
+          <a ng-click="startSearch()"
+             ng-keypress="($event.which === 13) ? startSearch() : 0"
+             class="button"
+             tabindex="7">Submit</a>
+      </div>
+  </form>
 </section>

@@ -10,26 +10,29 @@
     margin-bottom: 2em;
   }
 
-  .search-form-input {
-    list-style: none;
-  }
-
-  .search-form-input-item {
+  .search-form-item {
     margin-bottom: 1em;
   }
 
-  .search-form-input-item-label {
+  .search-form-item-label {
     display: inline-block;
     margin-bottom: 0.2em;
   }
 
-  .search-form-input-item-icon {
+  .search-form-item-icon {
     display: inline-block;
+    margin-left: 25%;
     margin-right: 0.3em;
   }
 
-  .search-form-input-item-container {
+  .search-form-item-container {
     position: relative;
+    text-align: left;
+  }
+
+  .search-form-item-input {
+    width: 50%;
+    margin-left: 25%;
   }
 
   @include respond-above("medium") {
