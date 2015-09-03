@@ -1,17 +1,24 @@
 <div class="dropzone"
      ng-model="file"
+     ngf-change="processFile()"
      ngf-drop
      ngf-drag-over-class="dragover"
      ngf-multiple="false"
      ngf-allow-dir="false"
-     accept="image/*"
-     ngf-pattern="'image/*">
+     accept=".ics"
+     ngf-pattern="'.ics'">
 
-  <span class="dropzone-title">Drag your .ics file here</span>
-  <span class="dropzone-error" ngf-no-file-drop>File Drag/Drop is not supported for this browser</span>
-  <span class="dropzone-link">
-    or <a ngf-select>select from your computer</a>
-  </span>
+  <div ng-if="!appointmentData">
+    <span class="dropzone-title">Drag your .ics file here</span>
+    <span class="dropzone-error" ngf-no-file-drop>File Drag/Drop is not supported for this browser</span>
+    <span class="dropzone-link">
+      or <a ngf-select>select from your computer</a>
+    </span>
+  </div>
 
-  <span ng-if="file != null">{{file.name}}</span> <!-- {{f.$error}} {{f.$errorParam}} -->
+  <div ng-if="appointmentData">
+    Your appointment data:
+    Address: {{ appointmentData.address }}
+    Timing: {{ appointmentData.start }} - {{ appointmentData.end }}
+  </div>
 </div>

@@ -30,12 +30,18 @@
       content:url('../images/arrow.png');
       position: absolute;
       left: 1em;
+      animation-name: jumping;
+      animation-duration: 1.5s;
+      animation-iteration-count: infinite;
     }
 
     &:after {
       content:url('../images/arrow.png');
       position: absolute;
       right: 1em;
+      animation-name: jumping;
+      animation-duration: 1.5s;
+      animation-iteration-count: infinite;
     }
   }
 
@@ -43,4 +49,10 @@
     background: rgba(0, 57, 255, .2);
     border: 2px dashed #285cff;
   }
+}
+
+@keyframes jumping {
+  0%   { transform: translate(0, -2px); }
+  70%  { transform: translate(0, 2px); }
+  100% { transform: translate(0, -2px); }
 }
