@@ -9,19 +9,24 @@
   /**
   * Convert a string to date and format
   */
-  function dateFormatter(dateFilter) {
+  function dateFormatter() {
 
-    return function(dateString, format) {
-      if (dateString == null) return "";
+    return function(date, format) {
+      if (date == null) return "";
 
       if(!format)
         format = "DD.MM.YYYY HH:mm";
 
-      if (typeof(dateString) == "string" && dateString.trim() != '') {
-        return moment(dateString, 'YYYY-MM-DDTHH:mm:ss').format(format);
+      if (typeof(date) == "string" && date.trim() != '') {
+        return moment(date, 'YYYY-MM-DDTHH:mm:ss').format(format);
       }
 
-      return "";
+      try {
+        return date.format(format);
+      }
+      catch(ex) {
+        return "";
+      }
     }
   }
 })();

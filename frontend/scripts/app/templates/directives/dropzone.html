@@ -8,7 +8,7 @@
      accept=".ics"
      ngf-pattern="'.ics'">
 
-  <div ng-if="!appointmentData">
+  <div ng-if="!schedule">
     <span class="dropzone-title">Drag your .ics file here</span>
     <span class="dropzone-error" ngf-no-file-drop>File Drag/Drop is not supported for this browser</span>
     <span class="dropzone-link">
@@ -16,9 +16,33 @@
     </span>
   </div>
 
-  <div ng-if="appointmentData">
-    Your appointment data:
-    Address: {{ appointmentData.address }}
-    Timing: {{ appointmentData.start }} - {{ appointmentData.end }}
+  <div ng-if="schedule">
+    <span class="dropzone-summary-title">{{ schedule.title }}</span>
+    <span class="dropzone-summary-value">
+      <i class="fa fa-map-marker"></i>
+      {{ schedule.destinationAddress }}
+    </span>
+    <span class="dropzone-summary-value">
+      <i class="fa fa-calendar"></i>
+      {{ schedule.time | dateFormatter }}
+    </span>
+
+    <span class="test" ng-controller='searchOriginCtrl'>
+      <label for="origin">Where do you want to start?</label>
+      <input
+        type="text"
+        id="origin"
+        placeholder='Origin location'
+        name='origin'
+        tabindex="1"
+        ng-model='origin'
+        typeahead="address.description for address in getAddressSuggestion($viewValue)"
+        typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
+    </span>
+
+    <a ng-click="startSearch()"
+       ng-keypress="($event.which === 13) ? startSearch() : 0"
+       class="button"
+       tabindex="2">Start search</a>
   </div>
 </div>

@@ -16,7 +16,7 @@
 
     $stateProvider.state('index.form', {
       url: '/search',
-      templateUrl: 'scripts/app/templates/search/search.html',
+      templateUrl: 'scripts/app/templates/search/form.html',
       controller: 'searchCtrl',
       resolve: {
         searchFormData: getDefaultSearchFormData
@@ -25,9 +25,11 @@
 
     $stateProvider.state('index.file', {
       url: '/',
-      template: '<div class="index-dropzone"><dropzone></dropzone></div>',
-      controller: 'indexCtrl',
-      resolve: { }
+      templateUrl: 'scripts/app/templates/search/file.html',
+      controller: 'searchCtrl',
+      resolve: {
+        searchFormData: getDefaultSearchFormData
+      }
     });
   }
 

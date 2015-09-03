@@ -10,31 +10,25 @@
                       $state,
                       searchFormData) {
 
-    // trip origin
-    $scope.origin = null;
-
-    // trip destination
-    $scope.destination = null;
-
-    $scope.originLocation = searchFormData.originLocation;
-    $scope.destinationLocation = searchFormData.destinationLocation;
-
-    $scope.origin = searchFormData.origin;
-    $scope.destination = searchFormData.destination;
-
-    $scope.startDate = searchFormData.startDate; // moment object
+    // optimize forward or backward
     $scope.targetDate = searchFormData.targetDate;
 
     $scope.startDateString = searchFormData.startDate.format("DD.MM.YYYY");
     $scope.startTimeString = searchFormData.startTimeString;
 
+    $scope.schedule = {
+      title: "",
+      origin: searchFormData.originLocation,
+      originAddress: searchFormData.origin,
+      destination: searchFormData.destinationLocation,
+      destinationAddress: searchFormData.destination,
+      time: searchFormData.startDate // moment object
+    };
+
     /**
      * scope functions
      */
     $scope.startSearch = startSearch;
-
-    $scope.setOrigin = setOrigin;
-    $scope.setDestination = setDestination;
 
     $scope.resetTabIndex = function() {
       $('#origin').focus();
@@ -48,7 +42,7 @@
     function validateFormInput() {
 
       // check if all fields are filled
-      if ($scope.origin == null || $scope.destination == null) {
+      if ($scope.schedule.origin == null || $scope.schedule.destination == null) {
         alert("All location fields must be filled.");
         return false;
       }
@@ -68,7 +62,7 @@
 
         var dateTimeString = $scope.startDateString + " " + timeString;
 
-        $scope.startDate = moment(dateTimeString, "DD.MM.YYYY HH:mm");
+        $scope.schedule.time = moment(dateTimeString, "DD.MM.YYYY HH:mm");
       }
       else {
         alert("Date or time is not valid (must be DD.MM.YYYY and HH:mm).");
@@ -76,7 +70,7 @@
       }
 
       // check if date is in the future
-      if($scope.startDate.isBefore(moment(new Date()))) {
+      if($scope.schedule.time.isBefore(moment(new Date()))) {
         alert("Date must be in the future.");
         return false;
       }
@@ -113,15 +107,15 @@
       var formValid = validateFormInput();
 
       if(formValid) {
-        var startDate = formatDate($scope.startDate);
+        var startDate = formatDate($scope.schedule.time);
 
         var requestParameters = {
-          originLatitude: $scope.originLocation.latitude,
-          originLongitude: $scope.originLocation.longitude,
-          origin: $scope.origin,
-          destinationLatitude: $scope.destinationLocation.latitude,
-          destinationLongitude: $scope.destinationLocation.longitude,
-          destination: $scope.destination,
+          originLatitude: $scope.schedule.origin.latitude,
+          originLongitude: $scope.schedule.origin.longitude,
+          origin: $scope.schedule.originAddress,
+          destinationLatitude: $scope.schedule.destination.latitude,
+          destinationLongitude: $scope.schedule.destination.longitude,
+          destination: $scope.schedule.destinationAddress,
           startDate: startDate,
           targetDate: $scope.targetDate
         };
@@ -134,39 +128,6 @@
 
     function formatDate(date) {
       return moment(date).format('YYYY-MM-DDTHH:mm:ss');
-    }
-
-
-    /**
-     * Functions to set the content of the search form.
-     */
-
-    function setOrigin(options) {
-      if (options == null || (options.description == null || options.location == null)) {
-        $scope.origin = null;
-        $scope.originLocation = null;
-        $scope.isStepOriginReady = false;
-        return;
-      }
-
-      $scope.origin = options.description;
-      $scope.originLocation = options.location;
-    }
-
-    /**
-     *
-     *
-     * @param options
-     */
-    function setDestination(options) {
-      if (options == null || (options.description == null || options.location == null)) {
-        $scope.destination = null;
-        $scope.destinationLocation = null;
-        return;
-      }
-
-      $scope.destination = options.description;
-      $scope.destinationLocation = options.location;
     }
   }
 })();

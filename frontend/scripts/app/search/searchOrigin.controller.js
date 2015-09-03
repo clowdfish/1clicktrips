@@ -10,25 +10,31 @@
                             suggestionAdapter,
                             googleMap) {
 
-    /**
-    * Initial data
-    */
-    $scope.origin = $scope.$parent.origin;
-    $scope.originLocation = $scope.$parent.originLocation;
-    $scope.setOrigin({
-      description: $scope.origin,
-      location: $scope.originLocation
-    });
-
 		$scope.getAddressSuggestion = getAddressSuggestion;
     $scope.selectOriginSuggestion = selectOriginSuggestion;
 
     $scope.$watch('origin', function(origin) {
       if (_.isEmpty(origin)) {
-        $scope.setOrigin(null);
+        setOrigin(null);
       }
     });
 
+    /**
+     *
+     *
+     * @param options
+     */
+    function setOrigin(options) {
+
+      if(options == null) {
+        $scope.$parent.schedule.originAddress = null;
+        $scope.$parent.schedule.origin = null;
+      }
+      else {
+        $scope.$parent.schedule.originAddress = options.address;
+        $scope.$parent.schedule.origin = options.location;
+      }
+    }
 
     /**
      * Get suggestion for address
@@ -39,25 +45,32 @@
       return suggestionAdapter.getAddressSuggestion(val);
     }
 
+    /**
+     *
+     *
+     * @param $item
+     */
     function selectOriginSuggestion($item) {
       googleMap
       	.geocode($item.description)
       	.then(function(location) {
-          $scope.originLocation = location;
 
-          $scope.setOrigin({
-            description: $scope.origin,
+          setOrigin({
+            address: $scope.origin,
             location: location
           });
+
           focusOnDestinationField();
       	}, function() {
-          $scope.setOrigin(null);
+          setOrigin(null);
       	});
     }
 
-    //Focus on destination field
+    /**
+     *
+     */
     function focusOnDestinationField() {
-      $('#destination').focus();
+      //$('#destination').focus();
     }
 	}
 })();

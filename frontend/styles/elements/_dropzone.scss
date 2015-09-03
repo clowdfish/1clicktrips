@@ -3,7 +3,7 @@
   border: 2px dashed $c-border;
   border-radius: 5px;
   width: $dropzone-width;
-  height: $dropzone-height;
+  min-height: $dropzone-height;
   text-align: center;
   padding: 0.8em;
 
@@ -42,6 +42,22 @@
       animation-name: jumping;
       animation-duration: 1.5s;
       animation-iteration-count: infinite;
+    }
+  }
+
+  .dropzone-summary-title {
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 0.4em;
+  }
+
+  .dropzone-summary-value {
+    display: block;
+    margin-bottom: 0.1em;
+
+    & > .fa {
+      margin-right: 0.3em;
     }
   }
 

@@ -1,18 +1,21 @@
 angular
   .module('app.common')
-  .directive('dropzone', button);
+  .directive('dropzone', dropzone);
 
-function button() {
+function dropzone() {
 
   return {
     restrict: 'E',
     templateUrl: 'scripts/app/templates/directives/dropzone.html',
-    link: link,
-    controller: dropzoneCtrl
+    scope: {
+      schedule: '=',
+      startSearch: '&'
+    },
+    link: link
   };
 
   function link(scope, element, attrs) {
-    scope.appointmentData = null;
+    scope.schedule = null;
 
     scope.processFile = function() {
       if (scope.file != null && scope.file.type.match('text/calendar')) {
@@ -20,28 +23,16 @@ function button() {
 
         reader.onerror = errorHandler;
 
-        reader.onabort = function() {
-          console.warn('File read cancelled.');
-        };
-
         reader.onload = function() {
           // the file is ready
-
-          // Make sure to call an anonymous function inside of .$apply
           scope.$apply(function () {
-            scope.appointmentData = parseIcsFile(reader.result);
+            scope.schedule = parseIcsFile(reader.result);
           });
-
-          console.log(JSON.stringify(scope.appointmentData, null, 2));
         };
 
         reader.readAsText(scope.file, 'utf-8');
       }
     };
-  }
-
-  function dropzoneCtrl($scope, $timeout) {
-
   }
 
   /**
@@ -59,7 +50,7 @@ function button() {
         alert('File is not readable');
         break;
       case evt.target.error.ABORT_ERR:
-        break; // noop
+        break;
       default:
         alert('An error occurred reading this file.');
     }
@@ -96,23 +87,46 @@ function button() {
       else if(icsHierarchy[icsHierarchy.length - 1] == 'VEVENT') {
 
         if(line.startsWith('DTSTART'))
-          appointmentObject.start = line.split(':')[1];
+          appointmentObject.time = formatTiming(line.split(':')[1]);
 
-        if(line.startsWith('DTEND'))
-          appointmentObject.end = line.split(':')[1];
+        //if(line.startsWith('DTEND'))
+        //  appointmentObject.end = line.split(':')[1];
 
-        if(line.startsWith('LOCATION:'))
-          appointmentObject.address = line.substr(9);
+        if(line.startsWith('LOCATION'))
+          appointmentObject.destinationAddress = formatAddress(line.substr(9));
 
-        if(line.startsWith('SUMMARY:'))
+        if(line.startsWith('SUMMARY'))
           appointmentObject.title = line.substr(8);
 
-        if(line.startsWith('COORDINATES:'))
-          appointmentObject.location = parseGeoCoordinates(line.split(':')[1]);
+        if(line.startsWith('COORDINATES'))
+          appointmentObject.destination = parseGeoCoordinates(line.split(':')[1]);
       }
     });
 
+    if(!appointmentObject.hasOwnProperty('title'))
+      appointmentObject.title = 'Your appointment data';
+
     return appointmentObject;
+  }
+
+  /**
+   *
+   *
+   * @param text
+   * @returns {string}
+   */
+  function formatAddress(text) {
+    return text.replace('\\n', ', ');
+  }
+
+  /**
+   *
+   *
+   * @param text
+   * @returns {*}
+   */
+  function formatTiming(text) {
+    return moment(text, 'YYYYMMDDTHHmmss');
   }
 
   /**

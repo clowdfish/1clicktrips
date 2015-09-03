@@ -12,25 +12,31 @@
                                       suggestionAdapter,
                                       googleMap) {
 
-    /**
-     * Initial data.
-     */
-    $scope.destination = $scope.$parent.destination;
-    $scope.destinationLocation = $scope.$parent.destinationLocation;
-
-    $scope.setDestination({
-      description: $scope.destination,
-      location: $scope.destinationLocation
-    });
-
 		$scope.getSuggestion = getSuggestion;
 		$scope.selectDestinationSuggestion = selectDestinationSuggestion;
 
     $scope.$watch('destination', function(destination) {
       if (_.isEmpty(destination)) {
-        $scope.setDestination(null);
+        setDestination(null);
       }
     });
+
+    /**
+     *
+     *
+     * @param options
+     */
+    function setDestination(options) {
+
+      if(options == null) {
+        $scope.$parent.schedule.destinationAddress = null;
+        $scope.$parent.schedule.destination = null;
+      }
+      else {
+        $scope.$parent.schedule.destinationAddress = options.description;
+        $scope.$parent.schedule.destination = options.location;
+      }
+    }
 
     /**
      * Get suggestion for text input.
@@ -59,20 +65,28 @@
       return deferred.promise;
     }
 
+    /**
+     *
+     *
+     * @param $item
+     */
     function selectDestinationSuggestion($item) {
+
       selectSuggestion($item).then(function(location) {
-        $scope.setDestination({
+
+        setDestination({
           description: $scope.destination,
           location: location
         });
-        focusOnStartDate();
+
+        focusOnTimeSelection();
       }, function() {
-      	$scope.setDestination(null);
+      	setDestination(null);
       });
     }
 
-    function focusOnStartDate() {
-      $rootScope.$broadcast('openStartDatePicker');
+    function focusOnTimeSelection() {
+      //$rootScope.$broadcast('openTimePicker');
     }
 	}
 })();
