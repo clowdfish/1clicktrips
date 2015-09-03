@@ -1,17 +1,13 @@
 $inputs-text: 'input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea';
 $inputs-check: 'input[type="checkbox"], input[type="radio"]';
 
-$input-height: 2.3rem; // non-mobile
-$input-mobile-height: 2.8rem; // mobile
-
-
 %input {
   font-family: $ff-body;
   display: block;
   border: 1px solid $c-border;
   border-radius: 3px;
   width: 100%;
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   position: relative;
 
   &:focus {
@@ -27,15 +23,15 @@ $input-mobile-height: 2.8rem; // mobile
   @extend %input;
 
   font-size: $fs-normal;
-  height: $input-mobile-height;
-  padding: .4em .6em;
+  height: $input-height-mobile;
+  padding: 0.65rem 1rem;
 }
 
 @include respond-above("medium") {
 
-  input[type='text'] {
+  #{$inputs-text} {
     height: $input-height;
-    padding: .3em .6em;
+    padding: .5rem .6rem;
   }
 }
 
@@ -124,7 +120,7 @@ input[type=radio] {
  */
 select {
   @extend %input;
-  height: $input-mobile-height;
+  height: $input-height-mobile;
   font-size: $fs-normal;
   padding-left: 0.3em;
 

@@ -7,11 +7,27 @@
   }
 
   .search-form-title {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
   }
 
   .search-form-item {
-    margin-bottom: 1em;
+    position: relative;
+    text-align: left;
+    margin-bottom: 0.8em;
+
+    &.small {
+      display: inline-block;
+      width: 47%;
+
+      &:last-of-type {
+        float: right;
+      }
+    }
+
+    & .fa {
+      display: inline-block;
+      margin-right: 0.3em;
+    }
   }
 
   .search-form-item-label {
@@ -19,24 +35,88 @@
     margin-bottom: 0.2em;
   }
 
-  .search-form-item-icon {
-    display: inline-block;
-    margin-left: 25%;
-    margin-right: 0.3em;
-  }
-
-  .search-form-item-container {
-    position: relative;
-    text-align: left;
-  }
-
-  .search-form-item-input {
-    width: 50%;
-    margin-left: 25%;
+  .button {
+    width: 100%;
   }
 
   @include respond-above("medium") {
 
+    .search-form-title {
+      margin-bottom: 1em;
+    }
+
+    .search-form-item {
+
+      &.small {
+        width: 37%;
+
+        &:first-of-type {
+          margin-left: 12.5%;
+        }
+
+        &:last-of-type {
+          margin-right: 12.5%;
+          float: right;
+        }
+      }
+    }
+
+    .search-form-item-icon {
+      margin-left: 12.5%;
+    }
+
+    .search-form-item-container {
+      position: relative;
+      text-align: left;
+    }
+
+    .search-form-item-input {
+      width: 75%;
+      margin-left: 12.5%;
+    }
+
+    .button {
+      width: 75%;
+      margin-left: 12.5%;
+    }
+  }
+
+  @include respond-above("large") {
+
+    .search-form-title {
+      margin-bottom: 2em;
+    }
+
+    .search-form-item {
+      &.small {
+        width: 24%;
+
+        &:first-of-type {
+          margin-left: 25%;
+        }
+
+        &:last-of-type {
+          margin-right: 25%;
+          float: right;
+        }
+      }
+    }
+
+    .search-form-item-icon {
+      display: inline-block;
+      margin-left: 25%;
+      margin-right: 0.3em;
+    }
+
+    .search-form-item-input {
+      width: 50%;
+      margin-left: 25%;
+    }
+
+    .button {
+      width: 50%;
+      margin-left: 25%;
+    }
   }
 }
 

@@ -1,17 +1,7 @@
 %index {
-  background-image: url('../images/background.jpg');
-  background-color: $c-text;
-  background-position: 50% 50%;
-  background-size: cover;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
   text-align: center;
-  padding-top: $logo-container-height - 1em;
+  padding-top: $logo-container-height - 4em;
+  padding-bottom: 1em;
 
   .index-title {
     font-size: 2em;
@@ -20,9 +10,11 @@
   }
 
   .index-state-selector {
+    margin-bottom: 1em;
 
     a.active {
       color: $c-text;
+      cursor: default;
     }
   }
 
@@ -32,6 +24,11 @@
     & .dropzone {
       margin: 3em auto 2em auto;
     }
+  }
+
+  @include respond-above("medium") {
+    padding-top: $logo-container-height - 1em;
+
   }
 }
 
