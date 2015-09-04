@@ -17,7 +17,10 @@
   }
 
   .dropzone-error {
-
+    display: block;
+    margin-top: 1em;
+    color: $c-red;
+    font-weight: bold;
   }
 
   .dropzone-link {
@@ -59,6 +62,21 @@
     & > .fa {
       margin-right: 0.3em;
     }
+  }
+
+  .dropzone-form {
+    display: block;
+    position: relative;
+    margin-top: 1.5em;
+  }
+
+  .dropzone-form-title {
+    display: block;
+    margin-bottom: 0.3em;
+  }
+
+  .dropzone-input {
+    margin-bottom: 0.3em;
   }
 
   &.dragover {

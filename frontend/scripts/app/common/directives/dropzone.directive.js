@@ -16,6 +16,7 @@ function dropzone() {
 
   function link(scope, element, attrs) {
     scope.schedule = null;
+    scope.error = null;
 
     scope.processFile = function() {
       if (scope.file != null && scope.file.type.match('text/calendar')) {
@@ -26,7 +27,7 @@ function dropzone() {
         reader.onload = function() {
           // the file is ready
           scope.$apply(function () {
-            scope.schedule = parseIcsFile(reader.result);
+            scope.schedule = parseIcsFile(scope, reader.result);
           });
         };
 
@@ -36,7 +37,7 @@ function dropzone() {
   }
 
   /**
-   *
+   * Error handler for reading the .ics file.
    *
    * @param evt
    */
@@ -47,7 +48,7 @@ function dropzone() {
         alert('File Not Found!');
         break;
       case evt.target.error.NOT_READABLE_ERR:
-        alert('File is not readable');
+        alert('File is not readable!');
         break;
       case evt.target.error.ABORT_ERR:
         break;
@@ -57,13 +58,19 @@ function dropzone() {
   }
 
   /**
+   * The parser for the .ics file format.
    *
-   *
+   * @param scope
    * @param text
    */
-  function parseIcsFile(text) {
+  function parseIcsFile(scope, text) {
 
     var linesArray = text.split("\n");
+
+    if(linesArray.length < 5) {
+      scope.error = new Error('Wrong file structure or encoding.');
+      return null;
+    }
 
     var icsHierarchy = [];
     var appointmentObject = {};
@@ -81,16 +88,17 @@ function dropzone() {
 
         if (icsHierarchy[icsHierarchy.length - 1] == hierarchy)
           icsHierarchy.pop();
-        else
-          console.warn('Wrong file structure.');
+        else {
+          scope.error = new Error('Wrong file structure.');
+        }
       }
       else if(icsHierarchy[icsHierarchy.length - 1] == 'VEVENT') {
 
         if(line.startsWith('DTSTART'))
           appointmentObject.time = formatTiming(line.split(':')[1]);
 
-        //if(line.startsWith('DTEND'))
-        //  appointmentObject.end = line.split(':')[1];
+        if(line.startsWith('DTEND'))
+          appointmentObject.appointmentEnd = formatTiming(line.split(':')[1]);
 
         if(line.startsWith('LOCATION'))
           appointmentObject.destinationAddress = formatAddress(line.substr(9));
@@ -106,11 +114,24 @@ function dropzone() {
     if(!appointmentObject.hasOwnProperty('title'))
       appointmentObject.title = 'Your appointment data';
 
+    var complete =
+      appointmentObject.hasOwnProperty('destination') &&
+      appointmentObject.destination.hasOwnProperty('latitude') &&
+      appointmentObject.destination.hasOwnProperty('longitude') &&
+      appointmentObject.hasOwnProperty('destinationAddress') &&
+      appointmentObject.hasOwnProperty('time');
+
+    if(!complete) {
+      scope.error = new Error('Wrong file structure.');
+      return null;
+    }
+
+    scope.error = null;
     return appointmentObject;
   }
 
   /**
-   *
+   * Replace line breaks with comma.
    *
    * @param text
    * @returns {string}
@@ -120,7 +141,7 @@ function dropzone() {
   }
 
   /**
-   *
+   * Create moment object out of datetime string
    *
    * @param text
    * @returns {*}
@@ -130,7 +151,7 @@ function dropzone() {
   }
 
   /**
-   *
+   * Create geo data object from string.
    *
    * @param text
    * @returns {{latitude: Number, longitude: Number}}

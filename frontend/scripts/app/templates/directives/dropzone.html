@@ -14,6 +14,9 @@
     <span class="dropzone-link">
       or <a ngf-select>select from your computer</a>
     </span>
+    <span class="dropzone-error" ng-if="error != null">
+      {{ error.message }}
+    </span>
   </div>
 
   <div ng-if="schedule">
@@ -27,11 +30,12 @@
       {{ schedule.time | dateFormatter }}
     </span>
 
-    <span class="test" ng-controller='searchOriginCtrl'>
-      <label for="origin">Where do you want to start?</label>
+    <span class="dropzone-form" ng-controller='searchOriginCtrl'>
+      <label for="origin" class="dropzone-form-title">Where do you want to start?</label>
       <input
         type="text"
         id="origin"
+        class="dropzone-input"
         placeholder='Origin location'
         name='origin'
         tabindex="1"
@@ -41,6 +45,7 @@
     </span>
 
     <a ng-click="startSearch()"
+       class="button"
        ng-keypress="($event.which === 13) ? startSearch() : 0"
        class="button"
        tabindex="2">Start search</a>
