@@ -1,22 +1,17 @@
 <div class="dropzone"
-     ng-model="file"
-     ngf-change="processFile()"
-     ngf-drop
+     ngf-drop="processFile($file)"
      ngf-drag-over-class="dragover"
-     ngf-multiple="false"
-     ngf-allow-dir="false"
-     accept=".ics"
-     ngf-pattern="'.ics'">
+     ngf-multiple="false">
 
-  <div ng-if="!schedule">
+  <div ng-hide="schedule">
     <span class="dropzone-title">Drag your .ics file here</span>
     <span class="dropzone-error" ngf-no-file-drop>File Drag/Drop is not supported for this browser</span>
     <span class="dropzone-link">
-      or <a ngf-select>select from your computer</a>
+      or <a ngf-select="processFile($file)"
+            ngf-multiple="false"
+            accept=".ics">select from your computer</a>
     </span>
-    <span class="dropzone-error" ng-if="error != null">
-      {{ error.message }}
-    </span>
+    <span class="dropzone-error" ng-if="error != null">{{ error.message }}</span>
   </div>
 
   <div ng-if="schedule">

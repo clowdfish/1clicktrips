@@ -18,21 +18,30 @@ function dropzone() {
     scope.schedule = null;
     scope.error = null;
 
-    scope.processFile = function() {
-      if (scope.file != null && scope.file.type.match('text/calendar')) {
-        var reader = new FileReader();
+    scope.processFile = function(fileObj) {
 
-        reader.onerror = errorHandler;
+      if (fileObj) {
+        // the file.type property is not always available
+        if(!fileObj.type.length || fileObj.type.indexOf('text') != -1) {
 
-        reader.onload = function() {
-          // the file is ready
-          scope.$apply(function () {
-            scope.schedule = parseIcsFile(scope, reader.result);
-          });
-        };
+          var reader = new FileReader();
 
-        reader.readAsText(scope.file, 'utf-8');
+          reader.onerror = errorHandler;
+
+          reader.onload = function () {
+            // the file is ready
+            scope.$apply(function () {
+              scope.schedule = parseIcsFile(scope, reader.result);
+            });
+          };
+
+          reader.readAsText(fileObj, 'utf-8');
+        }
+        else
+          scope.error = new Error('File type is not supported.');
       }
+      else
+        console.warn('The file is null.');
     };
   }
 
@@ -78,11 +87,11 @@ function dropzone() {
     linesArray.forEach(function(line) {
       var hierarchy;
 
-      if(line.startsWith('BEGIN')) {
+      if(line.indexOf('BEGIN') == 0) {
         hierarchy = line.split(':')[1];
         icsHierarchy.push(hierarchy.substr(0, hierarchy.length - 1));
       }
-      else if(line.startsWith('END')) {
+      else if(line.indexOf('END') == 0) {
         hierarchy = line.split(':')[1];
         hierarchy = hierarchy.substr(0, hierarchy.length - 1);
 
@@ -94,19 +103,19 @@ function dropzone() {
       }
       else if(icsHierarchy[icsHierarchy.length - 1] == 'VEVENT') {
 
-        if(line.startsWith('DTSTART'))
+        if(line.indexOf('DTSTART') == 0)
           appointmentObject.time = formatTiming(line.split(':')[1]);
 
-        if(line.startsWith('DTEND'))
+        if(line.indexOf('DTEND') == 0)
           appointmentObject.appointmentEnd = formatTiming(line.split(':')[1]);
 
-        if(line.startsWith('LOCATION'))
+        if(line.indexOf('LOCATION') == 0)
           appointmentObject.destinationAddress = formatAddress(line.substr(9));
 
-        if(line.startsWith('SUMMARY'))
+        if(line.indexOf('SUMMARY') == 0)
           appointmentObject.title = line.substr(8);
 
-        if(line.startsWith('COORDINATES'))
+        if(line.indexOf('COORDINATES') == 0)
           appointmentObject.destination = parseGeoCoordinates(line.split(':')[1]);
       }
     });
