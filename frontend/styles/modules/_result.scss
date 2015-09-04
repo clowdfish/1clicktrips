@@ -1,6 +1,12 @@
 %result {
   @include container;
-  padding: 0 0.5em;
+  width: 95%;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1em;
+  margin-top: $logo-container-height / 2 + 1em;
+  margin-bottom: 4em;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 
   .result-title {
     margin-bottom: 0.3em;
