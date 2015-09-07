@@ -2,7 +2,7 @@
   @include container;
   width: 95%;
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 1em;
+  padding: 0.5em;
   margin-top: $logo-container-height / 2 + 1em;
   margin-bottom: 4em;
   border-radius: 6px;
@@ -13,16 +13,79 @@
   }
 
   .result-selection {
+    float: left;
     list-style-type: none;
+    width: 25%;
   }
 
   .result-selection-item {
+    display: block;
+    padding: 1em 1em 1em 0.8em;
+    border-left: 5px solid transparent;
+    cursor: pointer;
+
+    &.active {
+      background-color: #fff;
+      border-left: 5px solid $c-primary;
+      border-bottom-left-radius: 3px;
+      border-top-left-radius: 3px;
+      cursor: default;
+
+      & > .result-selection-item-icon {
+        background-color: $c-primary;
+        border: 2px solid $c-primary;
+
+        & .fa {
+          color: #fff;
+          text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+  }
+
+  .result-selection-item-icon {
+    $icon-size: 2.6em;
+
     display: inline-block;
-    padding: 0.4em 1em 0.4em 0;
+    height: $icon-size;
+    width: $icon-size;
+    background-color: #fff;
+    border: 2px solid $c-border;
+    border-radius: $icon-size / 2;
+    text-align: center;
+
+    & .fa {
+      color: $c-border;
+      font-size: 1.6em;
+      margin-top: 0.3em;
+      text-shadow: none;
+    }
+  }
+
+  .result-selection-item-label {
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: top;
+  }
+
+  .result-selection-item-label-price {
+    display: block;
+    font-size: $fs-large;
+    font-weight: bold;
+    margin-bottom: 0.1em;
+  }
+
+  .result-selection-item-label-description {
+    display: block;
+    color: $c-text-light;
+    font-size: $fs-small;
   }
 
   .result-details {
-    margin-top: 1.5em;
+    float: left;
+    padding: 0.5em 1em;
+    background-color: #fff;
+    width: 75%;
   }
 
   .result-details-title {

@@ -7,11 +7,19 @@
 </section>
 
 <section class="result" ng-show='itineraries != null'>
-  <h1 class="result-title">The result itineraries:</h1>
-
   <ul class="result-selection">
-    <li class="result-selection-item" ng-repeat="tempItinerary in itineraries">
-      <a ng-click="activateItinerary($index)">Itinerary {[ $index + 1 ]}</a>
+    <li class="result-selection-item"
+        ng-repeat="tempItinerary in itineraries"
+        ng-class="{ active: activeItinerary == $index}"
+        ng-click="activateItinerary($index)">
+
+      <span class="result-selection-item-icon">
+        <i class="fa fa-plane"></i>
+      </span>
+      <span class="result-selection-item-label">
+        <span class="result-selection-item-label-price">{[ itineraries[$index]['price'].toFixed(2) ]} {[ itineraries[$index]['currency'] | uppercase ]}</span>
+        <span class="result-selection-item-label-description">Itinerary {[ $index + 1 ]}</span>
+      </span>
     </li>
   </ul>
 
