@@ -24,10 +24,5 @@
       cab: 32,
       ship: 64
     })
-    .config(interpolateConfig);
-
-  function interpolateConfig($interpolateProvider) {
-    $interpolateProvider.startSymbol('{[');
-    $interpolateProvider.endSymbol(']}');
-  }
+    .constant('OVERNIGHT_WIDTH', 10);
 })();

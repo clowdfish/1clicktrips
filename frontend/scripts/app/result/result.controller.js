@@ -26,7 +26,7 @@
     $scope.goBack = goBack;
     $scope.toggleAlternative = toggleAlternative;
 
-    $scope.activeItinerary = -1;
+    $scope.activeItinerary = 0;
     $scope.activateItinerary = activateItinerary;
 
     $scope.selection = { };

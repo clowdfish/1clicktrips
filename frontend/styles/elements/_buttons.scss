@@ -36,6 +36,11 @@
   @extend %button;
 
   font-size: $fs-small;
+
+  &:hover, &:focus {
+    background: darken($c-primary, 5%);
+    text-decoration: none;
+  }
 }
 
 .button--light {
@@ -45,13 +50,14 @@
   font-size: $fs-small;
   color: $c-primary;
   border: 1px solid $c-primary;
+
+  &:hover, &:focus {
+    background: $c-primary;
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 button:focus {
   outline: none; // for OS X
-}
-
-.button:hover, .button:focus {
-  background: darken($c-primary, 5%);
-  text-decoration: none;
 }

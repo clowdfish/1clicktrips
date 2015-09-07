@@ -7,6 +7,9 @@
 </section>
 
 <section class="result" ng-show='itineraries != null'>
+  <trip-segment-container itineraries="itineraries" timing="{ 'value': '2015-09-17T14:00:00', 'targetDate': true }"></trip-segment-container>
+
+  <!--
   <ul class="result-selection">
     <li class="result-selection-item"
         ng-repeat="tempItinerary in itineraries"
@@ -23,36 +26,31 @@
     </li>
   </ul>
 
-  <div class="result-details" ng-if="activeItinerary > -1">
-    <h2 class="result-details-title">Details for "Itinerary {[ activeItinerary + 1 ]}"</h2>
-
-    <span class="result-details-row">
-      <span class="result-details-cell">Pricing</span>
-      <span class="result-details-cell">{[ itineraries[activeItinerary]['price'].toFixed(2) ]} {[ itineraries[activeItinerary]['currency'] | uppercase ]}</span>
-    </span>
-    <span class="result-details-row">
-      <span class="result-details-cell">Departure time</span>
-      <span class="result-details-cell">{[ itineraries[activeItinerary]['departureTime'] | dateFormatter ]}</span>
-    </span>
-    <span class="result-details-row">
-      <span class="result-details-cell">Arrival time</span>
-      <span class="result-details-cell">{[ itineraries[activeItinerary]['arrivalTime'] | dateFormatter ]}</span>
-    </span>
-      <span class="result-details-row">
-      <span class="result-details-cell">Duration</span>
-      <span class="result-details-cell">{[ itineraries[activeItinerary]['duration'].toFixed(0) ]} minutes</span>
+  <div class="result-details">
+    <span class="result-details-item">
+      <span class="result-details-item-label">Origin location</span>
+      <span class="result-details-item-title">{[ itineraries[activeItinerary]['origin']['description'] ]}</span>
+      <span class="result-details-item-timing">{[ itineraries[activeItinerary]['departureTime'] | dateFormatter ]}</span>
     </span>
 
-    <div class="result-details">
-      <h3 class="result-details-title">Trip segments:</h3>
+    <span class="result-details-item"
+          ng-repeat="container in itineraries[activeItinerary]['segmentsContainer']"
+          ng-if="container['isMajor']"
+          ng-init="containerIndex = $index">
 
-      <span ng-repeat="container in itineraries[activeItinerary]['segmentsContainer']" ng-init="containerIndex = $index">
-        <span ng-repeat="segment in container['alternatives'][0]" ng-init="segmentIndex = $index">
-          <trip-segment segment="segment" show-major="1" show-minor="0"></trip-segment>
-        </span>
+      <span ng-repeat="segment in container['alternatives'][0]" ng-init="segmentIndex = $index">
+        <trip-segment segment="segment" show-major="1" show-minor="0"></trip-segment>
       </span>
-    </div>
+    </span>
 
+     <span class="result-details-item">
+      <span class="result-details-item-label">Destination location</span>
+      <span class="result-details-item-title">{[ itineraries[activeItinerary]['destination']['description'] ]}</span>
+      <span class="result-details-item-timing">{[ itineraries[activeItinerary]['arrivalTime'] | dateFormatter ]}</span>
+    </span>
+
+    <a ng-click="" class="button--light">Cancel</a>
     <a ng-click="goToItinerary(activeItinerary)" class="button">Get details</a>
   </div>
+  -->
 </section>
