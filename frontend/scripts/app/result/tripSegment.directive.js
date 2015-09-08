@@ -20,6 +20,9 @@ function tripSegment() {
 
   function link(scope, element, attrs) {
 
+    scope.majorAlternatives = scope.showMajor == 'true' && scope.showMinor == 'false';
+    scope.minorAlternatives = scope.showMinor == 'true';
+
     scope.width = 0;
     scope.marginLeft = 0;
 

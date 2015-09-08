@@ -11,14 +11,15 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
     scope: {
       itineraries: '=',
       timing: '=',
-      showMajor: '@',
-      showMinor: '@',
       selectItinerary: '&'
     },
     link: link
   };
 
   function link(scope, element, attrs) {
+
+    scope.showMajor = 'showMajor' in attrs;
+    scope.showMinor = 'showMinor' in attrs;
 
     // overnight states the percentage that is needed for the day before or day after section
     scope.overnightStay = 0;

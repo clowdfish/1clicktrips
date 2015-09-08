@@ -18,7 +18,7 @@
     <span class="result-segment-duration">{{ segment['duration'] | durationFormatter }}</span>
 
     <span class="result-segment-alternatives"
-          ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && showMajor || !segment['isMajor'] && showMinor)">
+          ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
 
       <!-- alternative selection -->
       <select ng-model="selection['k-' + containerIndex + '-' + segmentIndex]"
