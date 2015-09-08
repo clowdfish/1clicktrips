@@ -10,8 +10,10 @@ function tripSegment() {
     replace: true,
     scope: {
       segment: '=',
-      showMajor: '=',
-      showMinor: '='
+      containerIndex: '@',
+      segmentIndex: '@',
+      showMajor: '@',
+      showMinor: '@'
     },
     link: link
   };

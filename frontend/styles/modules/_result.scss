@@ -1,4 +1,7 @@
 %result {
+  $result-list-item-height: 5rem;
+
+
   @include container;
   width: 95%;
   background-color: rgba(255, 255, 255, 0.6);
@@ -8,81 +11,6 @@
   border-radius: 6px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 
-  .result-title {
-    margin-bottom: 0.3em;
-  }
-
-  /*
-  .result-selection {
-    float: left;
-    list-style-type: none;
-    width: 25%;
-  }
-
-  .result-selection-item {
-    display: block;
-    padding: 1em 1em 1em 0.8em;
-    border-left: 5px solid transparent;
-    cursor: pointer;
-
-    &.active {
-      background-color: #fff;
-      border-left: 5px solid $c-primary;
-      border-bottom-left-radius: 3px;
-      border-top-left-radius: 3px;
-      cursor: default;
-
-      & > .result-selection-item-icon {
-        background-color: $c-primary;
-        border: 2px solid $c-primary;
-
-        & .fa {
-          color: #fff;
-          text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
-        }
-      }
-    }
-  }
-
-  .result-selection-item-icon {
-    $icon-size: 2.6em;
-
-    display: inline-block;
-    height: $icon-size;
-    width: $icon-size;
-    background-color: #fff;
-    border: 2px solid $c-border;
-    border-radius: $icon-size / 2;
-    text-align: center;
-
-    & .fa {
-      color: $c-border;
-      font-size: 1.6em;
-      margin-top: 0.3em;
-      text-shadow: none;
-    }
-  }
-
-  .result-selection-item-label {
-    display: inline-block;
-    margin-left: 0.5em;
-    vertical-align: top;
-  }
-
-  .result-selection-item-label-price {
-    display: block;
-    font-size: $fs-large;
-    font-weight: bold;
-    margin-bottom: 0.1em;
-  }
-
-  .result-selection-item-label-description {
-    display: block;
-    color: $c-text-light;
-    font-size: $fs-small;
-  }
-  */
-
   .result-list {
     padding: 1em 0;
     list-style: none;
@@ -90,17 +18,46 @@
     width: 100%;
   }
 
-  .result-list-item {
-    display: block;
+  .result-list-item-price {
     position: relative;
-    height: 5em;
+    display: inline-block;
+    width: 9%;
+    padding: 0.2em 0.5em;
+    vertical-align: top;
+
+    & > span {
+      position: relative;
+      z-index: 5;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+
+    & > .fa {
+      position: absolute;
+      z-index: 0;
+      top: 0.2em;
+      right: 0.15em;
+      font-size: 2em;
+      color: lighten($c-text-light, 40%);
+    }
+
+    & > .button {
+      margin-top: 0.3em;
+    }
+  }
+
+  .result-list-item {
+    display: inline-block;
+    width: 90%;
+    position: relative;
+    height: $result-list-item-height;
   }
 
   .result-list-item-start {
-    display: block;
+    display: inline-block;
     position: absolute;
     left: 0;
-    height: 4em;
+    height: $result-list-item-height;
     border-left: 3px solid $c-border;
 
     &.focus {
@@ -112,7 +69,7 @@
     display: block;
     position: absolute;
     right: 0;
-    height: 4em;
+    height: $result-list-item-height;
     border-left: 3px solid $c-border;
 
     &.focus {
@@ -120,64 +77,91 @@
     }
   }
 
+  .result-segment {
+    display: block;
+    cursor: pointer;
+
+    &:hover {
+
+      .result-segment-timing {
+        display: block;
+      }
+
+      .result-segment-location {
+        display: block;
+      }
+
+      .result-segment-duration {
+        display: inline-block;
+      }
+
+      .result-segment-alternatives {
+        display: block;
+      }
+
+      .result-segment-details {
+        display: block;
+      }
+    }
+  }
+
   .result-segment-block {
     display: block;
     position: absolute;
     height: 2em;
-    top: 1em;
+    top: 1.5em;
     background-color: blue;
     color: #fff;
     text-align: center;
     padding: 0.3em;
   }
 
-  .result-details-title {
-    margin: 0.5em 0;
-  }
-
-  .result-details-row {
-    display: table-row;
-    margin-bottom: 0.2em;
-  }
-
-  .result-details-item {
-    display: block;
-    padding: 1em 0;
-    border-bottom: 1px dashed $c-border;
-  }
-
-  .result-details-item-label {
-    display: block;
-    font-size: $fs-smallest;
-    color: #999;
-  }
-
-  .result-details-item-title {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 0.3em;
-  }
-
-  .result-details-item-timing {
-    display: inline-block;
+  .result-segment-timing {
+    display: none;
+    position: absolute;
+    top: 0.3em;
     font-size: $fs-small;
-    font-style: italic;
-    border-bottom: 2px dotted $c-primary;
-    cursor: help;
   }
 
-  .result-details-cell {
-    display: table-cell;
-    padding-right: 1em;
-
-    &:first-of-type {
-      color: #999;
-    }
+  .result-segment-location {
+    display: none;
+    position: absolute;
+    top: -0.8em;
+    font-size: $fs-small;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .result-details-segment {
-    display: block;
-    margin-bottom: 1.2em;
+  .result-segment-duration {
+    display: none;
+    margin-left: 1em;
+  }
+
+  .result-segment-alternatives {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 2em;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
+    cursor: pointer;
+  }
+
+  .result-segment-details {
+    display: none;
+    position: absolute;
+    top: 4.2em;
+    left: 0;
+    font-size: $fs-small;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .result-hotels-list {

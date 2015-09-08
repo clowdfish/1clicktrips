@@ -6,29 +6,38 @@
   -->
 
   <ul class="result-list">
-    <li class="result-list-item"
-        ng-repeat="itinerary in itineraries"
+    <li ng-repeat="itinerary in itineraries"
         ng-init="itineraryIndex = $index">
 
-     <span class="result-list-item-start"
-           ng-class="{ focus: !timing['targetDate'] }"></span>
-
-     <span ng-repeat="container in itineraries[itineraryIndex]['segmentsContainer']"
-           ng-init="containerIndex = $index">
-
-        <span ng-repeat="segment in container['alternatives'][0]"
-              ng-if="segment['isMajor']"
-              ng-init="segmentIndex = $index">
-
-          <trip-segment
-            segment="segment"
-            show-major="1"
-            show-minor="0"></trip-segment>
-        </span>
+      <span class="result-list-item-price">
+        <span>{{ itinerary['price'].toFixed(2) }}</span>
+        <i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
+        <a class="button">Select</a>
       </span>
 
-      <span class="result-list-item-end"
-            ng-class="{ focus: timing['targetDate'] }"></span>
+      <span class="result-list-item">
+        <span class="result-list-item-start"
+             ng-class="{ focus: !timing['targetDate'] }"></span>
+
+        <span ng-repeat="container in itineraries[itineraryIndex]['segmentsContainer']"
+             ng-init="containerIndex = $index">
+
+          <span ng-repeat="segment in container['alternatives'][0]"
+                ng-if="segment['isMajor']"
+                ng-init="segmentIndex = $index">
+
+            <trip-segment
+              segment="segment"
+              container-index="containerIndex"
+              segment-index="segmentIndex"
+              show-major="1"
+              show-minor="0"></trip-segment>
+          </span>
+        </span>
+
+        <span class="result-list-item-end"
+              ng-class="{ focus: timing['targetDate'] }"></span>
+      </span>
     </li>
   </ul>
 </div>

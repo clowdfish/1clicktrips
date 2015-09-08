@@ -29,6 +29,12 @@
     $scope.activeItinerary = 0;
     $scope.activateItinerary = activateItinerary;
 
+    // timing is required for the trip segment container
+    $scope.timing = {
+      value: searchObject.timing[0],
+      targetDate: searchObject.targetDate
+    };
+
     $scope.selection = { };
 
     if(resultState == RESULT_STATE.overview) {

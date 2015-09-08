@@ -162,7 +162,6 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
           Math.abs(time.diff(appointmentTime, 'minutes'));
       }
 
-
       if(scope.latestArrivalDayAfter) {
         // we have a day after section
         if(time.isSame(scope.latestArrivalDayAfter, 'day')) {
