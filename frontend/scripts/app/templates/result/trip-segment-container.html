@@ -5,33 +5,37 @@
   <span>Latest arrival time: {{ latestArrival }}</span>
   -->
 
-  <ul class="result-list">
+  <ul class="result-list" ng-if="itineraries">
     <li ng-repeat="itinerary in itineraries"
         ng-init="itineraryIndex = $index">
 
       <span class="result-list-item-price">
         <span>{{ itinerary['price'].toFixed(2) }}</span>
         <i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
-        <a class="button">Select</a>
+        <a ng-click="selectTrip(itineraryIndex)"
+           class="button">Select</a>
       </span>
 
       <span class="result-list-item">
         <span class="result-list-item-start"
              ng-class="{ focus: !timing['targetDate'] }"></span>
 
-        <span ng-repeat="container in itineraries[itineraryIndex]['segmentsContainer']"
-             ng-init="containerIndex = $index">
+        <span class="result-list-item-line"></span>
 
+        <span ng-repeat="container in itineraries[itineraryIndex]['segmentsContainer']"
+              ng-init="containerIndex = $index">
+
+          <!-- do not show minor segments and no major walking segments -->
           <span ng-repeat="segment in container['alternatives'][0]"
-                ng-if="segment['isMajor']"
+                ng-if="(showMajor && segment['isMajor']) || (showMinor && !segment['isMajor'])"
                 ng-init="segmentIndex = $index">
 
             <trip-segment
               segment="segment"
               container-index="containerIndex"
               segment-index="segmentIndex"
-              show-major="1"
-              show-minor="0"></trip-segment>
+              show-major="showMajor"
+              show-minor="showMinor"></trip-segment>
           </span>
         </span>
 

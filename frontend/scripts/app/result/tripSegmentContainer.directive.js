@@ -10,7 +10,10 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
     replace: true,
     scope: {
       itineraries: '=',
-      timing: '='
+      timing: '=',
+      showMajor: '@',
+      showMinor: '@',
+      selectItinerary: '&'
     },
     link: link
   };
@@ -35,9 +38,21 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
 
     scope.defineMarginLeft = defineMarginLeft;
 
-    // initialize the boundaries for the segments
-    defineBoundaries();
-    calculateDimensions();
+    scope.selectTrip = function(index) {
+      // we must call the bound function with an object that has keys
+      // corresponding to the function parameters given in the bindung
+      scope.selectItinerary({ index: index });
+    };
+
+    // only initialize the trip segment container, when itineraries are available
+    scope.$watch('itineraries', function() {
+
+      if(scope.itineraries != null) {
+        // initialize the boundaries for the segments
+        defineBoundaries();
+        calculateDimensions();
+      }
+    });
 
     /**
      *
@@ -51,7 +66,6 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       var targetDate = scope.timing['targetDate'];
 
       scope.itineraries.forEach(function(itinerary) {
-
         var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
         var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
 

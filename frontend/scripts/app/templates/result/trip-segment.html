@@ -18,7 +18,7 @@
     <span class="result-segment-duration">{{ segment['duration'] | durationFormatter }}</span>
 
     <span class="result-segment-alternatives"
-          ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && showMajor == 1 || !segment['isMajor'] && showMinor == 1)">
+          ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && showMajor || !segment['isMajor'] && showMinor)">
 
       <!-- alternative selection -->
       <select ng-model="selection['k-' + containerIndex + '-' + segmentIndex]"
@@ -38,16 +38,7 @@
       {{ segment['details']['flightNumbers'][0]['flightNumber'] }}
     </span>
 
-    <!-- TODO include details of other mean of travel -->
+    <!-- TODO include details of other means of travel -->
   </span>
-
-  <!--
-
-
-   <span class="result-details-row">
-    <span class="result-details-cell">Price</span>
-    <span class="result-details-cell">{{ </span>
-  </span>
-  -->
 </span>
 

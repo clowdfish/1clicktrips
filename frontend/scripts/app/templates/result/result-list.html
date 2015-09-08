@@ -7,50 +7,16 @@
 </section>
 
 <section class="result" ng-show='itineraries != null'>
-  <trip-segment-container itineraries="itineraries" timing="timing"></trip-segment-container>
-
-  <!--
-  <ul class="result-selection">
-    <li class="result-selection-item"
-        ng-repeat="tempItinerary in itineraries"
-        ng-class="{ active: activeItinerary == $index}"
-        ng-click="activateItinerary($index)">
-
-      <span class="result-selection-item-icon">
-        <i class="fa fa-plane"></i>
-      </span>
-      <span class="result-selection-item-label">
-        <span class="result-selection-item-label-price">{[ itineraries[$index]['price'].toFixed(2) ]} {[ itineraries[$index]['currency'] | uppercase ]}</span>
-        <span class="result-selection-item-label-description">Itinerary {[ $index + 1 ]}</span>
-      </span>
-    </li>
-  </ul>
-
-  <div class="result-details">
-    <span class="result-details-item">
-      <span class="result-details-item-label">Origin location</span>
-      <span class="result-details-item-title">{[ itineraries[activeItinerary]['origin']['description'] ]}</span>
-      <span class="result-details-item-timing">{[ itineraries[activeItinerary]['departureTime'] | dateFormatter ]}</span>
-    </span>
-
-    <span class="result-details-item"
-          ng-repeat="container in itineraries[activeItinerary]['segmentsContainer']"
-          ng-if="container['isMajor']"
-          ng-init="containerIndex = $index">
-
-      <span ng-repeat="segment in container['alternatives'][0]" ng-init="segmentIndex = $index">
-        <trip-segment segment="segment" show-major="1" show-minor="0"></trip-segment>
-      </span>
-    </span>
-
-     <span class="result-details-item">
-      <span class="result-details-item-label">Destination location</span>
-      <span class="result-details-item-title">{[ itineraries[activeItinerary]['destination']['description'] ]}</span>
-      <span class="result-details-item-timing">{[ itineraries[activeItinerary]['arrivalTime'] | dateFormatter ]}</span>
-    </span>
-
-    <a ng-click="" class="button--light">Cancel</a>
-    <a ng-click="goToItinerary(activeItinerary)" class="button">Get details</a>
+  <h1 class="result-title">Summary</h1>
+  <div class="result-overview">
+    <span>Search details (<a href="#">modify</a>)</span>
+    <span class="result-instructions">You can now select your favorite trip.</span>
   </div>
-  -->
+
+  <trip-segment-container itineraries="itineraries"
+                          timing="timing"
+                          show-major="true"
+                          select-itinerary="goToItinerary(index)">
+
+  </trip-segment-container>
 </section>
