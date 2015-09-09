@@ -2,15 +2,30 @@
   <!-- error message -->
   <span class="result-details-error" ng-show="errorState != null">
     There was a problem on the server: <br /><br />
-    {[ errorState.message ]}
+    {{ errorState.message }}
   </span>
 </section>
 
 <section class="result" ng-show='itineraries != null'>
-  <h1 class="result-title">Summary</h1>
-  <div class="result-overview">
-    <span>Search details (<a href="#">modify</a>)</span>
-    <span class="result-instructions">You can now select your favorite trip.</span>
+  <h1 class="result-title">Results</h1>
+  <div class="result-search-details">
+    <h2 class="result-search-details-title">Search details</h2>
+    (<a href="#">change</a>)
+
+    <span class="result-search-details-data table">
+      <span class="row">
+        <span class="cell">From</span><span class="cell">{{ searchData['originDescription'] }}</span>
+      </span>
+      <span class="row">
+        <span class="cell">To</span><span class="cell">{{ searchData['destinationDescription'] }}</span>
+      </span>
+      <span class="row">
+        <span class="cell"></span><span class="cell">{{ searchData['timing'] | dateFormatter }}</span>
+      </span>
+    </span>
+  </div>
+  <div class="result-instructions">
+    You can now select your favorite trip to get the detailed trip plan.
   </div>
 
   <trip-segment-container itineraries="itineraries"

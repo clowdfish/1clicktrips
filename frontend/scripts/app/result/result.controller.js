@@ -14,6 +14,12 @@
                       tripApi,
                       searchObject) {
 
+    $scope.searchData = {
+      originDescription: searchObject['originDescription'],
+      destinationDescription: searchObject['destinationDescription'],
+      timing: searchObject['timing'][0]
+    };
+
     $scope.itineraries = null;
     $scope.itinerary = null;
     $scope.hotels = null;

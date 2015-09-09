@@ -8,6 +8,50 @@
 
 <section class="result container" ng-show='itinerary != null'>
   <h1 class="result-title">Itinerary details</h1>
+  <div class="result-search-details">
+    <h2 class="result-search-details-title">Search details</h2>
+    (<a href="#">change</a>)
+
+    <span class="result-search-details-data table">
+      <span class="row">
+        <span class="cell">From</span><span class="cell">{{ searchData['originDescription'] }}</span>
+      </span>
+      <span class="row">
+        <span class="cell">To</span><span class="cell">{{ searchData['destinationDescription'] }}</span>
+      </span>
+      <span class="row">
+        <span class="cell"></span><span class="cell">{{ searchData['timing'] | dateFormatter }}</span>
+      </span>
+    </span>
+  </div>
+
+  <div class="result-trip-details">
+    <h2 class="result-trip-details-title">Trip overview</h2>
+
+    <span class="result-trip-details-data table">
+      <span class="row">
+        <span class="cell">Price</span><span class="cell">{{ itinerary['price'] }} {{ itinerary['currency'] | uppercase }}</span>
+      </span>
+      <span class="row">
+        <span class="cell">Duration</span><span class="cell">{{ itinerary['duration'] | durationFormatter }} </span>
+      </span>
+      <span class="row">
+        <span class="cell">Departure time</span><span class="cell">{{ itinerary['departureTime'] | dateFormatter }}</span>
+      </span>
+       <span class="row">
+        <span class="cell">Arrival time</span><span class="cell">{{ itinerary['arrivalTime'] | dateFormatter }}</span>
+      </span>
+    </span>
+  </div>
+
+  <div class="result-instructions">
+    Please check the trip details before proceeding to booking.
+
+    <div class="result-instructions-overnight" ng-if="false">
+      Your trip requires an overnight stay. You can easily book the hotel proposal, select a
+      different hotel or deselect the hotel option.
+    </div>
+  </div>
 
   <trip-segment-container itineraries="[itinerary]"
                           timing="timing"
@@ -16,6 +60,6 @@
 
   </trip-segment-container>
 
-  <a ng-click="goToOverview()" class="button">Back to overview</a>
+  <a ng-click="goToOverview()" class="button--light">Back to overview</a>
   <!--<a ng-click="goToHotels()" class="button">Get available hotels</a>-->
 </section>

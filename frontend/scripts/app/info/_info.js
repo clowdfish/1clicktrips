@@ -10,7 +10,9 @@
     .config(interpolateConfig);
 
   function interpolateConfig($interpolateProvider) {
+    /*
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
+    */
   }
 })();

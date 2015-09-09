@@ -9,14 +9,15 @@
     <li ng-repeat="itinerary in itineraries"
         ng-init="itineraryIndex = $index">
 
-      <span class="result-list-item-price">
+      <span class="result-list-item-price" ng-if="!showMinor">
         <span>{{ itinerary['price'].toFixed(2) }}</span>
         <i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
         <a ng-click="selectTrip(itineraryIndex)"
            class="button">Select</a>
       </span>
 
-      <span class="result-list-item">
+      <span class="result-list-item"
+            ng-style="{ 'width': !showMinor ? '90%' : '98%', 'margin-left': !showMinor ? '0' : '1%' }">
         <span class="result-list-item-start"
              ng-class="{ focus: !timing['targetDate'] }"></span>
 
