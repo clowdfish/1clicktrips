@@ -10,34 +10,63 @@ function tripSegment() {
     replace: true,
     scope: {
       segment: '=',
+      ratio: '=',
       containerIndex: '@',
       segmentIndex: '@',
       showMajor: '@',
-      showMinor: '@'
+      defineLeftMargin: '&'
     },
     link: link
   };
 
   function link(scope, element, attrs) {
 
-    scope.majorAlternatives = scope.showMajor == 'true' && scope.showMinor == 'false';
-    scope.minorAlternatives = scope.showMinor == 'true';
+    scope.majorAlternatives = scope.showMajor == 'true';
+    scope.minorAlternatives = scope.showMajor == 'false';
 
-    scope.width = 0;
-    scope.marginLeft = 0;
+    scope.zoomToSegment = zoomToSegment;
+    scope.zoomOut = zoomOut;
 
-    defineWidth();
-    defineMargin();
+    var departureTime = scope.segment['departureTime'];
 
-    function defineWidth() {
-      scope.width = scope.segment['duration'] * scope.$parent.ratio; // TODO replace by isolate scope
+    scope.width = defineWidth(scope.segment, scope.ratio);
+    scope.marginLeft = departureTime ?
+      scope.defineLeftMargin({ time: departureTime }) : 0;
+
+    scope.$on('dimensionChange', function(event, args){
+      scope.width = defineWidth(scope.segment, args['ratio']);
+      scope.marginLeft = departureTime ?
+        scope.defineLeftMargin({ time: departureTime }) : 0;
+    });
+
+    /**
+     * Define width of segment within the trip segment container.
+     *
+     * @param segment
+     * @param ratio
+     */
+    function defineWidth(segment, ratio) {
+      // do not show segments without concrete timings
+      return segment['departureTime'] ?
+        segment['duration'] * ratio : 0;
     }
 
-    function defineMargin() {
-      var start = scope.segment['departureTime'];
+    /**
+     *
+     *
+     * @param containerIndex
+     * @param segmentIndex
+     */
+    function zoomToSegment(containerIndex, segmentIndex) {
+      console.log("Zoom in.");
+    }
 
-      if(start)
-        scope.marginLeft = scope.$parent.defineMarginLeft(start); // TODO replace by isolate scope
+    /**
+     *
+     *
+     */
+    function zoomOut() {
+      console.log("Zoom out.");
     }
   }
 }

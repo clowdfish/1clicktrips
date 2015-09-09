@@ -13,7 +13,8 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       timing: '=',
       selectItinerary: '&'
     },
-    link: link
+    link: link,
+    controller: tripSegmentContainerCtrl
   };
 
   function link(scope, element, attrs) {
@@ -41,7 +42,7 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
 
     scope.selectTrip = function(index) {
       // we must call the bound function with an object that has keys
-      // corresponding to the function parameters given in the bindung
+      // corresponding to the function parameters given in the binding
       scope.selectItinerary({ index: index });
     };
 
@@ -52,6 +53,12 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
         // initialize the boundaries for the segments
         defineBoundaries();
         calculateDimensions();
+
+        console.log("Broadcast dimension change...");
+
+        scope.$broadcast('dimensionChange', {
+          "ratio": scope.ratio
+        });
       }
     });
 
@@ -186,5 +193,26 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
 
       return margin;
     }
+  }
+
+  /**
+   *
+   *
+   * @param $scope
+   * @param $timeout
+   */
+  function tripSegmentContainerCtrl($scope, $timeout) {
+
+    /*
+
+     // FOR TESTING ONLY
+     $timeout(function() {
+     $scope.$broadcast('dimensionChange', {
+     "ratio": 0.3
+     });
+     }, 2000);
+     // END OF TESTING
+
+     */
   }
 }

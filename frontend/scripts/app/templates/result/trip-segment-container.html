@@ -34,8 +34,9 @@
               segment="segment"
               container-index="containerIndex"
               segment-index="segmentIndex"
-              show-major="{{ showMajor }}"
-              show-minor="{{ showMinor }}"></trip-segment>
+              show-major="{{ !showMinor }}"
+              ratio="ratio"
+              define-left-margin="defineMarginLeft(time)"></trip-segment>
           </span>
         </span>
 

@@ -1,19 +1,25 @@
 <span class="result-segment">
-  <span class="result-segment-location" style="left:{{ marginLeft }}%; max-width:{{width/2}}%">
+  <span class="result-segment-location"
+        ng-style="{ 'left': marginLeft + '%', 'max-width': width/2 + '%' }">
     {{ segment['start']['description'] }}
   </span>
-  <span class="result-segment-location" style="right:{{ 100 - (marginLeft + width) }}%; max-width:{{width / 2}}%">
+  <span class="result-segment-location"
+        ng-style="{ 'right': 100 - (marginLeft + width) + '%', 'max-width': width/2 + '%' }">
     {{ segment['end']['description'] }}
   </span>
 
-  <span class="result-segment-timing" style="left:{{ marginLeft }}%;">
+  <span class="result-segment-timing"
+        ng-style="{ 'left': marginLeft + '%' }">
     {{ segment['departureTime'] | dateFormatter : 'HH:mm' }}
   </span>
-  <span class="result-segment-timing" style="right:{{ 100 - (marginLeft + width) }}%;">
+  <span class="result-segment-timing"
+        ng-style="{ 'right': 100 - (marginLeft + width) + '%' }">
     {{ segment['arrivalTime'] | dateFormatter : 'HH:mm' }}
   </span>
 
-  <span class="result-segment-block" style="width:{{width}}%; left:{{ marginLeft }}%;">
+  <span class="result-segment-block"
+        ng-style="{ 'width': width + '%', 'left': marginLeft + '%' }"
+        ng-mouseover="zoomToSegment(containerIndex, segmentIndex)" ng-mouseleave="zoomOut()">
     <i class="fa {{ segment['type'] | vehicleTypeToIcon }}"></i>
     <span class="result-segment-duration">{{ segment['duration'] | durationFormatter }}</span>
 
@@ -32,7 +38,8 @@
     </span>
   </span>
 
-  <span class="result-segment-details" style="left:{{ marginLeft }}%; max-width:{{width}}%">
+  <span class="result-segment-details"
+        ng-style="{ 'left': marginLeft + '%', 'max-width': width + '%' }">
     <span ng-if="segment['type'] == 16">
       {{ segment['details']['carriers'][0]['name'] }} flight
       {{ segment['details']['flightNumbers'][0]['flightNumber'] }}
