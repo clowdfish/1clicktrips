@@ -65,19 +65,30 @@
   }
 
   .result-list {
-    padding: 1em 0;
+    padding: 0;
     list-style: none;
     background-color: #fff;
     width: 100%;
   }
 
+  .result-list-item-container {
+    border-bottom: 2px dotted $c-border;
+    padding-top: 0.8em;
+    padding-bottom: 1.5em;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
   .result-list-item {
-    display: inline-block;
-    width: 90%;
+    display: block;
+    width: 98%;
     position: relative;
     height: $result-list-item-height;
     overflow-x: hidden;
-    margin: 0 auto;
+    margin: 1.2em auto 0 auto;
+
   }
 
   .result-list-item-line {
@@ -91,39 +102,35 @@
 
   .result-list-item-price {
     position: relative;
-    display: inline-block;
-    width: 9%;
-    min-width: 6em;
-    padding: 0.2em 0.5em;
+    display: block;
     vertical-align: top;
+    padding: 0 0.8em;
 
     & > span {
       position: relative;
-      z-index: 5;
-      font-size: 1.3em;
+      font-size: $fs-larger;
       font-weight: bold;
+      margin-top: 0.5em;
     }
 
     & > .fa {
-      position: absolute;
-      z-index: 0;
-      top: 0.2em;
-      right: 0.15em;
-      font-size: 2em;
-      color: lighten($c-text-light, 40%);
+      font-size: $fs-larger;
+      color: $c-text-light;
+      margin-top: 0.5em;
     }
 
     & > .button {
-      margin-top: 0.3em;
+      margin-top: 0;
+      float: right;
     }
-  }
 
+    @include clearfix();
+  }
 
   .result-list-item-start {
     display: inline-block;
     position: absolute;
     z-index: 5;
-    //left: -3px;
     height: $result-list-item-height;
     border-left: 3px solid $c-border;
 
@@ -136,7 +143,7 @@
     display: block;
     position: absolute;
     z-index: 5;
-    right: 0; //-3px;
+    right: 0;
     height: $result-list-item-height;
     border-left: 3px solid $c-border;
 
@@ -148,33 +155,6 @@
   .result-segment {
     display: block;
     cursor: pointer;
-
-    &:hover {
-
-      .result-segment-timing {
-        display: block;
-      }
-
-      .result-segment-location {
-        display: block;
-      }
-
-      .result-segment-duration {
-        display: inline-block;
-      }
-
-      .result-segment-alternatives {
-        display: block;
-      }
-
-      .result-segment-block {
-
-      }
-
-      .result-segment-details {
-        display: block;
-      }
-    }
   }
 
   .result-segment-block {
@@ -195,14 +175,14 @@
   }
 
   .result-segment-timing {
-    display: none;
+    display: block;
     position: absolute;
     top: 0.85rem;
     font-size: $fs-small;
   }
 
   .result-segment-location {
-    display: none;
+    display: block;
     position: absolute;
     top: -0.15rem;
     font-size: $fs-small;
@@ -213,12 +193,12 @@
   }
 
   .result-segment-duration {
-    display: none;
+    display: inline-block;
     margin-left: 1em;
   }
 
   .result-segment-alternatives {
-    display: none;
+    display: block;
     position: absolute;
     right: 0;
     top: 0;
@@ -232,7 +212,7 @@
   }
 
   .result-segment-details {
-    display: none;
+    display: block;
     position: absolute;
     top: 4.7em;
     left: 0;
@@ -270,6 +250,106 @@
 
   @include respond-above("medium") {
 
+    .result-list {
+      padding: 1em 0;
+    }
+
+    .result-list-item {
+      display: inline-block;
+      width: 86%;
+      margin: 0 auto;
+
+      &.full-width {
+        width: 98%;
+        margin-left: 1%;
+      }
+    }
+
+    .result-list-item-price {
+      position: relative;
+      display: inline-block;
+      width: 8%;
+      margin: 0;
+      min-width: 6em;
+      padding: 0.2em 0.5em;
+      vertical-align: top;
+
+      & > span {
+        position: relative;
+        z-index: 5;
+        font-size: $fs-larger;
+        font-weight: bold;
+        margin-top: 0;
+      }
+
+      & > .fa {
+        position: absolute;
+        z-index: 0;
+        top: 0.2em;
+        right: 0.15em;
+        font-size: 2em;
+        color: lighten($c-text-light, 40%);
+        margin-top: 0;
+      }
+
+      & > .button {
+        margin-top: 0.3em;
+        float: none;
+      }
+    }
+
+    .result-segment {
+
+      &:hover {
+
+        .result-segment-timing {
+          display: block;
+        }
+
+        .result-segment-location {
+          display: block;
+        }
+
+        .result-segment-duration {
+          display: inline-block;
+        }
+
+        .result-segment-alternatives {
+          display: block;
+        }
+
+        .result-segment-details {
+          display: block;
+        }
+      }
+    }
+
+    .result-segment-timing {
+      display: none;
+    }
+
+    .result-segment-location {
+      display: none;
+    }
+
+    .result-segment-duration {
+      display: none;
+    }
+
+    .result-segment-alternatives {
+      display: none;
+    }
+
+    .result-segment-details {
+      display: none;
+    }
+  }
+
+  @include respond-above("large") {
+
+    .result-list-item {
+      width: 90%;
+    }
   }
 }
 
