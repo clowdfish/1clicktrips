@@ -64,7 +64,7 @@ gulp.task('styles', function() {
       console.error('Error during scss compilation: ', err.message);
     })
     .pipe(autoprefix({
-        browsers: ['>1%', 'last 2 version', 'opera 12.1'],
+        browsers: ['last 2 version'],
         cascade: true
       }))
     .pipe(gulp.dest('build/styles'));

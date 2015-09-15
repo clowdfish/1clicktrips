@@ -33,10 +33,11 @@
 
             <trip-segment
               segment="segment"
+              ratio="{{ dimensions.ratio }}"
               container-index="containerIndex"
               segment-index="segmentIndex"
               show-major="{{ !showMinor }}"
-              ratio="ratio"
+              set-dimensions="setDimensions(data)"
               define-left-margin="defineMarginLeft(time)"></trip-segment>
           </span>
         </span>

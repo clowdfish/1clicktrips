@@ -10,10 +10,11 @@ function tripSegment() {
     replace: true,
     scope: {
       segment: '=',
-      ratio: '=',
+      ratio: '@',
       containerIndex: '@',
       segmentIndex: '@',
       showMajor: '@',
+      setDimensions: '&',
       defineLeftMargin: '&'
     },
     link: link
@@ -21,23 +22,36 @@ function tripSegment() {
 
   function link(scope, element, attrs) {
 
+    console.log("Ratio in child: " + scope.ratio);
+
     scope.majorAlternatives = scope.showMajor == 'true';
     scope.minorAlternatives = scope.showMajor == 'false';
 
     scope.zoomToSegment = zoomToSegment;
     scope.zoomOut = zoomOut;
 
-    var departureTime = scope.segment['departureTime'];
+    initialize();
 
-    scope.width = defineWidth(scope.segment, scope.ratio);
-    scope.marginLeft = departureTime ?
-      scope.defineLeftMargin({ time: departureTime }) : 0;
-
-    scope.$on('dimensionChange', function(event, args){
+    scope.$on('dimensionChange', function(event, args) {
       scope.width = defineWidth(scope.segment, args['ratio']);
-      scope.marginLeft = departureTime ?
-        scope.defineLeftMargin({ time: departureTime }) : 0;
+
+      scope.marginLeft = scope.segment['departureTime'] ?
+        scope.defineLeftMargin({ time: scope.segment['departureTime'] }) : 0;
+
+      console.log("After zoom: " + scope.marginLeft + "; Width: " + scope.width);
     });
+
+    /**
+     * Set initial values to the segment.
+     *
+     */
+    function initialize() {
+
+      scope.width = defineWidth(scope.segment, scope.ratio);
+
+      scope.marginLeft = scope.segment['departureTime'] ?
+        scope.defineLeftMargin({ time: scope.segment['departureTime'] }) : 0;
+    }
 
     /**
      * Define width of segment within the trip segment container.
@@ -58,15 +72,33 @@ function tripSegment() {
      * @param segmentIndex
      */
     function zoomToSegment(containerIndex, segmentIndex) {
-      console.log("Zoom in.");
+      var leftBorder = scope.marginLeft;
+      var width = scope.width;
+
+      console.log("Before zoom: " + leftBorder + "; Width: " + width);
+
+      if(scope.width < 25) {
+        var ratioMultiplier = 50 / scope.width;
+        console.log("Ratio multiplier: " + ratioMultiplier);
+
+        scope.setDimensions({
+          ratio: scope.ratio * ratioMultiplier,
+          data: {
+            start: "", // TODO calculate interval start
+            end: "" // TODO calculate interval end
+          }
+        });
+      }
     }
 
     /**
-     *
+     * Reset trip segment container.
      *
      */
     function zoomOut() {
       console.log("Zoom out.");
+
+      scope.setDimensions();
     }
   }
 }

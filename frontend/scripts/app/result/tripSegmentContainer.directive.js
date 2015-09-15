@@ -26,7 +26,12 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
     scope.overnightStay = 0;
 
     // how much percent per minute
-    scope.ratio = 0;
+    scope.dimensions = {
+      ratio: 0
+    };
+
+    // the original ration to go back to after zooming
+    scope.originalRatio = 0;
 
     // when arriving the day before
     scope.earliestDepartureDayBefore = undefined;
@@ -39,6 +44,7 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
     scope.latestArrival = undefined;
 
     scope.defineMarginLeft = defineMarginLeft;
+    scope.setDimensions = setDimensions;
 
     scope.selectTrip = function(index) {
       // we must call the bound function with an object that has keys
@@ -54,41 +60,98 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
         defineBoundaries();
         calculateDimensions();
 
-        console.log("Broadcast dimension change...");
+        console.log("Dimensions change...");
+        console.log("Ratio: " + scope.dimensions.ratio);
+
+        scope.originalRatio = scope.dimensions.ratio;
 
         scope.$broadcast('dimensionChange', {
-          "ratio": scope.ratio
+          ratio: scope.dimensions.ratio
         });
       }
     });
 
     /**
+     * Will be called to zoom within the segment container.
+     *
+     * @param dimensionData
+     */
+    function setDimensions(dimensionData) {
+
+      if(!dimensionData) {
+        // set back to original dimensions
+        defineBoundaries();
+
+        scope.dimensions = {
+          ratio: scope.originalRatio
+        };
+      }
+      else {
+        // set new dimensions
+        var boundaryData = {
+          start: dimensionData['start'],
+          end: dimensionData['end']
+        };
+
+        defineBoundaries(boundaryData);
+
+        scope.originalRatio = scope.dimensions.ratio;
+        scope.dimensions = {
+          ratio: boundaryData['ratio']
+        };
+      }
+
+      console.log("Dimensions change...");
+
+      scope.$broadcast('dimensionChange', {
+        ratio: scope.dimensions.ratio
+      });
+    }
+
+    /**
      *
      *
      */
-    function defineBoundaries() {
+    function defineBoundaries(boundaryData) {
 
-      // TODO must be tested!!!
+      if(boundaryData) {
+        var intervalStart = boundaryData['start'];
+        var intervalEnd = boundaryData['end'];
 
-      var appointmentTime = moment(scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
-      var targetDate = scope.timing['targetDate'];
+        setBoundaries(intervalStart, intervalEnd);
+      }
+      else {
+        scope.itineraries.forEach(function (itinerary) {
+          var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
+          var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
 
-      scope.itineraries.forEach(function(itinerary) {
-        var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
-        var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
+          setBoundaries(departureTime, arrivalTime);
+        });
+      }
 
-        if(targetDate) {
+      /**
+       *
+       *
+       * @param intervalStart
+       * @param intervalEnd
+       */
+      function setBoundaries(intervalStart, intervalEnd) {
+
+        var appointmentTime = moment(scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
+        var targetDate = scope.timing['targetDate'];
+
+        if (targetDate) {
           // optimize towards target date
-          if(departureTime.isBefore(appointmentTime, 'day')) {
+          if (intervalStart.isBefore(appointmentTime, 'day')) {
             // overnight stay
-            if(scope.earliestDepartureDayBefore == undefined || departureTime.isBefore(scope.earliestDepartureDayBefore)) {
-              scope.earliestDepartureDayBefore = departureTime;
+            if (scope.earliestDepartureDayBefore == undefined || intervalStart.isBefore(scope.earliestDepartureDayBefore)) {
+              scope.earliestDepartureDayBefore = intervalStart;
             }
           }
           else {
             // same day
-            if(scope.earliestDeparture == undefined || departureTime.isBefore(scope.earliestDeparture)) {
-              scope.earliestDeparture = departureTime;
+            if (scope.earliestDeparture == undefined || intervalStart.isBefore(scope.earliestDeparture)) {
+              scope.earliestDeparture = intervalStart;
             }
           }
 
@@ -97,23 +160,23 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
         }
         else {
           // optimize from given date
-          if(arrivalTime.isAfter(appointmentTime, 'day')) {
+          if (intervalEnd.isAfter(appointmentTime, 'day')) {
             // overnight stay
-            if(scope.latestArrivalDayAfter == undefined || arrivalTime.isAfter(scope.latestArrivalDayAfter)) {
-              scope.latestArrivalDayAfter = arrivalTime;
+            if (scope.latestArrivalDayAfter == undefined || intervalEnd.isAfter(scope.latestArrivalDayAfter)) {
+              scope.latestArrivalDayAfter = intervalEnd;
             }
           }
           else {
             // same day
-            if(scope.latestArrival == undefined || arrivalTime.isAfter(scope.latestArrival)) {
-              scope.latestArrival = arrivalTime;
+            if (scope.latestArrival == undefined || intervalEnd.isAfter(scope.latestArrival)) {
+              scope.latestArrival = intervalEnd;
             }
           }
 
           // set earliest departure time
           scope.earliestDeparture = appointmentTime;
         }
-      });
+      }
     }
 
     /**
@@ -121,8 +184,6 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
      *
      */
     function calculateDimensions() {
-
-      // TODO must be tested!!!
 
       var durationSameDay = Math.abs(scope.latestArrival.diff(scope.earliestDeparture, 'minutes'));
 
@@ -143,11 +204,16 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       }
 
       if(durationOvernight) {
-        scope.ratio = (100 - OVERNIGHT_WIDTH) / (durationOvernight + durationSameDay);
-        scope.overnightStay = scope.ratio * durationOvernight;
+
+        scope.dimensions = {
+          ratio: (100 - OVERNIGHT_WIDTH) / (durationOvernight + durationSameDay)
+        };
+        scope.overnightStay = scope.dimensions.ratio * durationOvernight;
       }
       else {
-        scope.ratio = 100 / durationSameDay;
+        scope.dimensions = {
+          ratio: 100 / durationSameDay
+        };
         scope.overnightStay = 0;
       }
     }
@@ -160,8 +226,6 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
      */
     function defineMarginLeft(timeString) {
 
-      // TODO must be tested!!!
-
       var time = moment(timeString, 'YYYY-MM-DDTHH:mm:ss');
       var appointmentTime = moment(scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
 
@@ -170,24 +234,24 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       if(scope.earliestDepartureDayBefore) {
         // we have a day before section
         if(time.isAfter(scope.earliestDepartureDayBefore, 'day')) {
-          margin += (scope.overnightStay + OVERNIGHT_WIDTH) * scope.ratio;
+          margin += (scope.overnightStay + OVERNIGHT_WIDTH) * scope.dimensions.ratio;
         }
       }
 
       // the current day
       if(scope.timing['targetDate']) {
-        margin += scope.ratio *
+        margin += scope.dimensions.ratio *
           Math.abs(time.diff(scope.earliestDeparture, 'minutes'));
       }
       else {
-        margin += scope.ratio *
+        margin += scope.dimensions.ratio *
           Math.abs(time.diff(appointmentTime, 'minutes'));
       }
 
       if(scope.latestArrivalDayAfter) {
         // we have a day after section
         if(time.isSame(scope.latestArrivalDayAfter, 'day')) {
-          margin += (scope.overnightStay + OVERNIGHT_WIDTH) * scope.ratio;
+          margin += (scope.overnightStay + OVERNIGHT_WIDTH) * scope.dimensions.ratio;
         }
       }
 

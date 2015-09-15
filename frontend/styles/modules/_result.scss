@@ -67,18 +67,14 @@
   .result-list {
     padding: 0;
     list-style: none;
-    background-color: #fff;
     width: 100%;
   }
 
   .result-list-item-container {
-    border-bottom: 2px dotted $c-border;
-    padding-top: 0.8em;
-    padding-bottom: 1.5em;
-
-    &:last-of-type {
-      border-bottom: none;
-    }
+    background-color: #fff;
+    padding: 1em 0;
+    margin-bottom: 1em;
+    border-radius: 3px;
   }
 
   .result-list-item {
@@ -86,7 +82,7 @@
     width: 98%;
     position: relative;
     height: $result-list-item-height;
-    overflow-x: hidden;
+    overflow: hidden;
     margin: 1.2em auto 0 auto;
 
   }
@@ -96,7 +92,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: $result-list-item-height / 2;
+    top: $result-list-item-height / 2 + 0.5rem;
     border: 1px dashed $c-border;
   }
 
@@ -297,7 +293,7 @@
         float: none;
       }
     }
-
+    /*
     .result-segment {
 
       &:hover {
@@ -343,6 +339,7 @@
     .result-segment-details {
       display: none;
     }
+    */
   }
 
   @include respond-above("large") {
