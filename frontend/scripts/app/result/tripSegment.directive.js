@@ -2,7 +2,7 @@ angular
   .module('app.result')
   .directive('tripSegment', tripSegment);
 
-function tripSegment() {
+function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
 
   return {
     restrict: 'E',
@@ -11,8 +11,6 @@ function tripSegment() {
     scope: {
       segment: '=',
       ratio: '@',
-      containerIndex: '@',
-      segmentIndex: '@',
       showMajor: '@',
       setDimensions: '&',
       defineLeftMargin: '&'
@@ -35,8 +33,6 @@ function tripSegment() {
 
       scope.marginLeft = scope.segment['departureTime'] ?
         scope.defineLeftMargin({ time: scope.segment['departureTime'] }) : 0;
-
-      //console.log("After zoom: " + scope.marginLeft + "; Width: " + scope.width);
     });
 
     /**
@@ -64,24 +60,22 @@ function tripSegment() {
     }
 
     /**
-     *
+     * Zoom segment within segment container.
      *
      */
     function zoomToSegment() {
-      var leftBorder = scope.marginLeft;
-      var width = scope.width;
 
-      console.log("Before zoom: " + leftBorder + "; Width: " + width);
-
-      if(scope.width < 25) {
-        var ratioMultiplier = 40 / scope.width;
-        console.log("Ratio multiplier: " + ratioMultiplier);
+      if(scope.width < SEGMENT_ZOOM_THRESHOLD) {
+        var ratioMultiplier = SEGMENT_ZOOM_WIDTH / scope.width;
 
         var newRatio = scope.ratio * ratioMultiplier;
         var newIntervalBoundaries =
-          defineIntervalBoundaries(scope.segment['departureTime'], scope.segment['duration'], scope.ratio, scope.marginLeft, newRatio);
-
-        console.log(JSON.stringify(newIntervalBoundaries, null, 2));
+          defineIntervalBoundaries(
+            scope.segment['departureTime'],
+            scope.segment['duration'],
+            scope.ratio,
+            scope.marginLeft,
+            newRatio);
 
         scope.setDimensions({
           data: {
@@ -97,14 +91,13 @@ function tripSegment() {
      *
      */
     function zoomOut() {
-      //console.log("Zoom out.");
-
       scope.setDimensions();
     }
 
 
     /**
-     *
+     * Define the boundaries of a result list item based in the segment to be
+     * zoomed.
      *
      * @param departureTime
      * @param duration
@@ -113,21 +106,18 @@ function tripSegment() {
      * @param newRatio
      * @returns {*}
      */
-    function defineIntervalBoundaries(departureTime, duration, ratio, leftMargin, newRatio) {
+    function defineIntervalBoundaries(departureTime,
+                                      duration,
+                                      ratio,
+                                      leftMargin,
+                                      newRatio) {
 
       if(!departureTime)
         return null;
 
       var departureTimeObject = moment(departureTime, 'YYYY-MM-DDTHH:mm:ss');
 
-      console.log(departureTimeObject.toISOString());
-      console.log("Left margin: " + leftMargin);
-      console.log("Ratio: " + ratio);
-      console.log("New ratio: " + newRatio);
-
       var growth = duration * (newRatio - ratio);
-
-      console.log("Growth: " + growth);
 
       var newLeftMargin = leftMargin - growth / 2;
       var newRightMargin = leftMargin + ratio * duration + growth / 2;
@@ -137,9 +127,6 @@ function tripSegment() {
 
       else if(newRightMargin > 100)
         newLeftMargin = 100 - (ratio * duration + growth);
-
-      console.log("New left margin: " + newLeftMargin);
-      console.log("New width: " + (ratio * duration + growth));
 
       var leftIntervalBoundary = departureTimeObject
         .clone().subtract(newLeftMargin / newRatio, 'minutes');

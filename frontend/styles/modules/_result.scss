@@ -10,6 +10,15 @@
   border-radius: 6px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 
+  .hidden {
+    opacity: 0;
+  }
+
+  .segment-transition {
+    -webkit-transition: max-width 2s ease-in-out, left 2s ease-in-out, right 2s ease-in-out, opacity 1s linear .5s;
+    transition: max-width 2s ease-in-out, left 2s ease-in-out, right 2s ease-in-out, opacity 1s linear .5s;
+  }
+
   .result-title {
     display: block;
     margin-bottom: 0.7em;
@@ -150,7 +159,6 @@
 
   .result-segment {
     display: block;
-    cursor: pointer;
   }
 
   .result-segment-block {
@@ -172,9 +180,8 @@
     -webkit-transition: width 2s ease-in-out, left 2s ease-in-out;
     transition: width 2s ease-in-out, left 2s ease-in-out;
 
-
     &.help {
-      cursor: help;
+      cursor: zoom-in;
     }
   }
 
@@ -182,18 +189,28 @@
     display: block;
     position: absolute;
     top: 0.85rem;
+    opacity: 1;
     font-size: $fs-small;
+
+    &.hidden {
+      opacity: 0;
+    }
   }
 
   .result-segment-location {
     display: block;
     position: absolute;
     top: -0.15rem;
+    opacity: 1;
     font-size: $fs-small;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    &.hidden {
+      opacity: 0;
+    }
   }
 
   .result-segment-duration {
@@ -222,10 +239,15 @@
     position: absolute;
     top: 4.7em;
     left: 0;
+    opacity: 1;
     font-size: $fs-small;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    &.hidden {
+      opacity: 0;
+    }
   }
 
   .result-hotels-list {
@@ -302,53 +324,6 @@
         float: none;
       }
     }
-    /*
-    .result-segment {
-
-      &:hover {
-
-        .result-segment-timing {
-          display: block;
-        }
-
-        .result-segment-location {
-          display: block;
-        }
-
-        .result-segment-duration {
-          display: inline-block;
-        }
-
-        .result-segment-alternatives {
-          display: block;
-        }
-
-        .result-segment-details {
-          display: block;
-        }
-      }
-    }
-
-    .result-segment-timing {
-      display: none;
-    }
-
-    .result-segment-location {
-      display: none;
-    }
-
-    .result-segment-duration {
-      display: none;
-    }
-
-    .result-segment-alternatives {
-      display: none;
-    }
-
-    .result-segment-details {
-      display: none;
-    }
-    */
   }
 
   @include respond-above("large") {

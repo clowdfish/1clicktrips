@@ -1,10 +1,4 @@
 <div>
-  <!--
-  <span>Ratio [% per minute]: </span><span>{{ ratio }}</span><br />
-  <span>Earliest departure time: {{ earliestDeparture }}</span><br />
-  <span>Latest arrival time: {{ latestArrival }}</span>
-  -->
-
   <ul class="result-list" ng-if="itineraries">
     <li class="result-list-item-container"
         ng-repeat="itinerary in itineraries"
@@ -33,8 +27,6 @@
             <trip-segment
               segment="segment"
               ratio="{{ dimensions.ratio }}"
-              container-index="containerIndex"
-              segment-index="segmentIndex"
               show-major="{{ !showMinor }}"
               set-dimensions="setDimensions(data)"
               define-left-margin="defineMarginLeft(time)"></trip-segment>

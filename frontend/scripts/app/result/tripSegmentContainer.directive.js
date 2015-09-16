@@ -13,8 +13,7 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       timing: '=',
       selectItinerary: '&'
     },
-    link: link,
-    controller: tripSegmentContainerCtrl
+    link: link
   };
 
   function link(scope, element, attrs) {
@@ -60,9 +59,6 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
         defineBoundaries();
         calculateDimensions();
 
-        console.log("Dimensions change...");
-        console.log("Ratio: " + scope.dimensions.ratio);
-
         scope.originalRatio = scope.dimensions.ratio;
 
         scope.$broadcast('dimensionChange', {
@@ -101,15 +97,12 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
         };
       }
 
-      //console.log("Dimensions change...");
-
       scope.$broadcast('dimensionChange', {
         ratio: scope.dimensions.ratio
       });
     }
 
     /**
-     *
      *
      */
     function defineBoundaries(boundaryData) {
@@ -271,26 +264,5 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
 
       return margin;
     }
-  }
-
-  /**
-   *
-   *
-   * @param $scope
-   * @param $timeout
-   */
-  function tripSegmentContainerCtrl($scope, $timeout) {
-
-    /*
-
-     // FOR TESTING ONLY
-     $timeout(function() {
-     $scope.$broadcast('dimensionChange', {
-     "ratio": 0.3
-     });
-     }, 2000);
-     // END OF TESTING
-
-     */
   }
 }

@@ -1,29 +1,37 @@
 <span class="result-segment">
-  <span class="result-segment-location"
+  <span class="result-segment-location segment-transition"
+        ng-class="{ hidden: width < 20 }"
         ng-style="{ 'left': marginLeft + '%', 'max-width': width/2 + '%' }">
     {{ segment['start']['description'] }}
   </span>
-  <span class="result-segment-location"
+  <span class="result-segment-location segment-transition"
+        ng-class="{ hidden: width < 20 }"
         ng-style="{ 'right': 100 - (marginLeft + width) + '%', 'max-width': width/2 + '%' }">
     {{ segment['end']['description'] }}
   </span>
 
-  <span class="result-segment-timing"
+  <span class="result-segment-timing segment-transition"
+        ng-class="{ hidden: width < 20 }"
         ng-style="{ 'left': marginLeft + '%' }">
     {{ segment['departureTime'] | dateFormatter : 'HH:mm' }}
   </span>
-  <span class="result-segment-timing"
+  <span class="result-segment-timing segment-transition"
+        ng-class="{ hidden: width < 20 }"
         ng-style="{ 'right': 100 - (marginLeft + width) + '%' }">
     {{ segment['arrivalTime'] | dateFormatter : 'HH:mm' }}
   </span>
 
-  <span class="result-segment-block"
+  <span class="result-segment-block segment-transition"
         ng-class="{ help: width < 25 }"
         ng-style="{ 'width': width + '%', 'left': marginLeft + '%' }"
-        ng-click="zoomToSegment(containerIndex, segmentIndex)"
+        ng-click="zoomToSegment()"
         ng-mouseleave="zoomOut()">
-    <i class="fa {{ segment['type'] | vehicleTypeToIcon }}"></i>
-    <span class="result-segment-duration">{{ segment['duration'] | durationFormatter }}</span>
+
+    <i class="fa {{ segment['type'] | vehicleTypeToIcon }} segment-transition"
+       ng-class="{ hidden: width < 5 }"></i>
+
+    <span class="result-segment-duration segment-transition"
+          ng-class="{ hidden: width < 10 }">{{ segment['duration'] | durationFormatter }}</span>
 
     <span class="result-segment-alternatives"
           ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
@@ -40,7 +48,8 @@
     </span>
   </span>
 
-  <span class="result-segment-details"
+  <span class="result-segment-details segment-transition"
+        ng-class="{ hidden: width < 20 }"
         ng-style="{ 'left': marginLeft + '%', 'max-width': width + '%' }">
     <span ng-if="segment['type'] == 16">
       {{ segment['details']['carriers'][0]['name'] }} flight

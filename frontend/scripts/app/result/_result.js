@@ -24,5 +24,7 @@
       cab: 32,
       ship: 64
     })
-    .constant('OVERNIGHT_WIDTH', 10);
+    .constant('OVERNIGHT_WIDTH', 10)
+    .constant('SEGMENT_ZOOM_THRESHOLD', 25) // up to which value to zoom the segment
+    .constant('SEGMENT_ZOOM_WIDTH', 40); // size to zoom the segment to
 })();
