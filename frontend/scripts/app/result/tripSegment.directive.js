@@ -22,8 +22,6 @@ function tripSegment() {
 
   function link(scope, element, attrs) {
 
-    console.log("Ratio in child: " + scope.ratio);
-
     scope.majorAlternatives = scope.showMajor == 'true';
     scope.minorAlternatives = scope.showMajor == 'false';
 
@@ -38,7 +36,7 @@ function tripSegment() {
       scope.marginLeft = scope.segment['departureTime'] ?
         scope.defineLeftMargin({ time: scope.segment['departureTime'] }) : 0;
 
-      console.log("After zoom: " + scope.marginLeft + "; Width: " + scope.width);
+      //console.log("After zoom: " + scope.marginLeft + "; Width: " + scope.width);
     });
 
     /**
@@ -68,24 +66,27 @@ function tripSegment() {
     /**
      *
      *
-     * @param containerIndex
-     * @param segmentIndex
      */
-    function zoomToSegment(containerIndex, segmentIndex) {
+    function zoomToSegment() {
       var leftBorder = scope.marginLeft;
       var width = scope.width;
 
       console.log("Before zoom: " + leftBorder + "; Width: " + width);
 
       if(scope.width < 25) {
-        var ratioMultiplier = 50 / scope.width;
+        var ratioMultiplier = 40 / scope.width;
         console.log("Ratio multiplier: " + ratioMultiplier);
 
+        var newRatio = scope.ratio * ratioMultiplier;
+        var newIntervalBoundaries =
+          defineIntervalBoundaries(scope.segment['departureTime'], scope.segment['duration'], scope.ratio, scope.marginLeft, newRatio);
+
+        console.log(JSON.stringify(newIntervalBoundaries, null, 2));
+
         scope.setDimensions({
-          ratio: scope.ratio * ratioMultiplier,
           data: {
-            start: "", // TODO calculate interval start
-            end: "" // TODO calculate interval end
+            ratio: newRatio,
+            interval: newIntervalBoundaries
           }
         });
       }
@@ -96,9 +97,60 @@ function tripSegment() {
      *
      */
     function zoomOut() {
-      console.log("Zoom out.");
+      //console.log("Zoom out.");
 
       scope.setDimensions();
+    }
+
+
+    /**
+     *
+     *
+     * @param departureTime
+     * @param duration
+     * @param ratio
+     * @param leftMargin
+     * @param newRatio
+     * @returns {*}
+     */
+    function defineIntervalBoundaries(departureTime, duration, ratio, leftMargin, newRatio) {
+
+      if(!departureTime)
+        return null;
+
+      var departureTimeObject = moment(departureTime, 'YYYY-MM-DDTHH:mm:ss');
+
+      console.log(departureTimeObject.toISOString());
+      console.log("Left margin: " + leftMargin);
+      console.log("Ratio: " + ratio);
+      console.log("New ratio: " + newRatio);
+
+      var growth = duration * (newRatio - ratio);
+
+      console.log("Growth: " + growth);
+
+      var newLeftMargin = leftMargin - growth / 2;
+      var newRightMargin = leftMargin + ratio * duration + growth / 2;
+
+      if(newLeftMargin < 0)
+        newLeftMargin = 0;
+
+      else if(newRightMargin > 100)
+        newLeftMargin = 100 - (ratio * duration + growth);
+
+      console.log("New left margin: " + newLeftMargin);
+      console.log("New width: " + (ratio * duration + growth));
+
+      var leftIntervalBoundary = departureTimeObject
+        .clone().subtract(newLeftMargin / newRatio, 'minutes');
+
+      var rightIntervalBoundary = departureTimeObject
+        .clone().add((100 - newLeftMargin) / newRatio, 'minutes');
+
+      return {
+        start: leftIntervalBoundary,
+        end: rightIntervalBoundary
+      };
     }
   }
 }

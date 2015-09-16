@@ -89,19 +89,19 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       else {
         // set new dimensions
         var boundaryData = {
-          start: dimensionData['start'],
-          end: dimensionData['end']
+          start: dimensionData['interval']['start'],
+          end: dimensionData['interval']['end']
         };
 
         defineBoundaries(boundaryData);
 
         scope.originalRatio = scope.dimensions.ratio;
         scope.dimensions = {
-          ratio: boundaryData['ratio']
+          ratio: dimensionData['ratio']
         };
       }
 
-      console.log("Dimensions change...");
+      //console.log("Dimensions change...");
 
       scope.$broadcast('dimensionChange', {
         ratio: scope.dimensions.ratio
@@ -115,12 +115,26 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
     function defineBoundaries(boundaryData) {
 
       if(boundaryData) {
+        // reset boundaries
+        scope.earliestDepartureDayBefore = undefined;
+        scope.earliestDeparture = undefined;
+        scope.latestArrivalDayAfter = undefined;
+        scope.latestArrival = undefined;
+        scope.overnightStay = 0;
+
         var intervalStart = boundaryData['start'];
         var intervalEnd = boundaryData['end'];
 
         setBoundaries(intervalStart, intervalEnd);
       }
       else {
+        // reset boundaries
+        scope.earliestDepartureDayBefore = undefined;
+        scope.earliestDeparture = undefined;
+        scope.latestArrivalDayAfter = undefined;
+        scope.latestArrival = undefined;
+        scope.overnightStay = 0;
+
         scope.itineraries.forEach(function (itinerary) {
           var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
           var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
@@ -241,11 +255,11 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       // the current day
       if(scope.timing['targetDate']) {
         margin += scope.dimensions.ratio *
-          Math.abs(time.diff(scope.earliestDeparture, 'minutes'));
+          time.diff(scope.earliestDeparture, 'minutes');
       }
       else {
         margin += scope.dimensions.ratio *
-          Math.abs(time.diff(appointmentTime, 'minutes'));
+          time.diff(appointmentTime, 'minutes');
       }
 
       if(scope.latestArrivalDayAfter) {

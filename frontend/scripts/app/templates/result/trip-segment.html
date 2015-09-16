@@ -18,15 +18,14 @@
   </span>
 
   <span class="result-segment-block"
+        ng-class="{ help: width < 25 }"
         ng-style="{ 'width': width + '%', 'left': marginLeft + '%' }"
-        ng-mouseover="zoomToSegment(containerIndex, segmentIndex)"
+        ng-click="zoomToSegment(containerIndex, segmentIndex)"
         ng-mouseleave="zoomOut()">
     <i class="fa {{ segment['type'] | vehicleTypeToIcon }}"></i>
     <span class="result-segment-duration">{{ segment['duration'] | durationFormatter }}</span>
 
     <span class="result-segment-alternatives"
-          ng-mouseover="zoomToSegment(containerIndex, segmentIndex)"
-          ng-mouseleave="zoomOut()">
           ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
 
       <!-- alternative selection -->
