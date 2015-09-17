@@ -7,7 +7,6 @@
   function resultCtrl($scope,
                       $state,
                       $window,
-                      ngDialog,
                       resultState,
                       RESULT_STATE,
                       tripCache,
@@ -30,7 +29,6 @@
     $scope.goToItinerary = goToItinerary;
     $scope.goToHotels = goToHotels;
     $scope.goBack = goBack;
-    $scope.toggleAlternative = toggleAlternative;
 
     $scope.activeItinerary = 0;
     $scope.activateItinerary = activateItinerary;
@@ -195,26 +193,6 @@
 
     function goBack() {
       $window.history.back();
-    }
-
-    /**
-     * Shows alternatives for the given container index.
-     *
-     * @param containerIndex
-     */
-    function toggleAlternative(containerIndex) {
-
-      ngDialog.open({
-        template: 'scripts/app/templates/modals/result-alternative.html',
-        controller: function($scope, alternatives) {
-          $scope.alternatives = alternatives;
-        },
-        resolve: {
-          alternatives: function() {
-            return $scope.itinerary['segmentsContainer'][containerIndex]['alternatives'];
-          }
-        }
-      });
     }
 
     /**

@@ -13,7 +13,8 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
       ratio: '@',
       showMajor: '@',
       setDimensions: '&',
-      defineLeftMargin: '&'
+      defineLeftMargin: '&',
+      selectAlternative: '&'
     },
     link: link
   };
@@ -25,6 +26,7 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
 
     scope.zoomToSegment = zoomToSegment;
     scope.zoomOut = zoomOut;
+    scope.alternativeChange = alternativeChange;
 
     initialize();
 
@@ -46,6 +48,20 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
       scope.marginLeft = scope.segment['departureTime'] ?
         scope.defineLeftMargin({ time: scope.segment['departureTime'] }) : 0;
     }
+
+    /**
+     *
+     *
+     * @param timingSelection is set if a timing alternative was selected
+     * @param alternativeSelection is set if a segments alternative was selected
+     */
+    function alternativeChange(timingSelection, alternativeSelection) {
+
+      scope.selectAlternative({
+        timingIndex: timingSelection,
+        alternativeIndex: alternativeSelection
+      });
+    };
 
     /**
      * Define width of segment within the trip segment container.
@@ -98,6 +114,8 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
     /**
      * Define the boundaries of a result list item based in the segment to be
      * zoomed.
+     *
+     * TODO: Could be moved to trip segment container.
      *
      * @param departureTime
      * @param duration

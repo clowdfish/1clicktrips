@@ -11,6 +11,7 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
     scope: {
       itineraries: '=',
       timing: '=',
+      selection: '=',
       selectItinerary: '&'
     },
     link: link
@@ -32,18 +33,20 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
     // the original ration to go back to after zooming
     scope.originalRatio = 0;
 
-    // when arriving the day before
+    // defining the latest/earliest point in time of the given itineraries
     scope.earliestDepartureDayBefore = undefined;
-
-    // when departing the day after
     scope.latestArrivalDayAfter = undefined;
-
-    // when travelling the same day
     scope.earliestDeparture = undefined;
     scope.latestArrival = undefined;
 
+    // functions for the segments to call
     scope.defineMarginLeft = defineMarginLeft;
     scope.setDimensions = setDimensions;
+
+    // the alternatives selection logic
+    scope.selectAlternative = selectAlternative;
+    scope.updateTrip = updateTrip;
+    scope.renderTimeLine = renderTimeLine;
 
     scope.selectTrip = function(index) {
       // we must call the bound function with an object that has keys
@@ -151,15 +154,13 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
           // optimize towards target date
           if (intervalStart.isBefore(appointmentTime, 'day')) {
             // overnight stay
-            if (scope.earliestDepartureDayBefore == undefined || intervalStart.isBefore(scope.earliestDepartureDayBefore)) {
+            if (scope.earliestDepartureDayBefore == undefined || intervalStart.isBefore(scope.earliestDepartureDayBefore))
               scope.earliestDepartureDayBefore = intervalStart;
-            }
           }
           else {
             // same day
-            if (scope.earliestDeparture == undefined || intervalStart.isBefore(scope.earliestDeparture)) {
+            if (scope.earliestDeparture == undefined || intervalStart.isBefore(scope.earliestDeparture))
               scope.earliestDeparture = intervalStart;
-            }
           }
 
           // set latest arrival time
@@ -169,15 +170,13 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
           // optimize from given date
           if (intervalEnd.isAfter(appointmentTime, 'day')) {
             // overnight stay
-            if (scope.latestArrivalDayAfter == undefined || intervalEnd.isAfter(scope.latestArrivalDayAfter)) {
+            if (scope.latestArrivalDayAfter == undefined || intervalEnd.isAfter(scope.latestArrivalDayAfter))
               scope.latestArrivalDayAfter = intervalEnd;
-            }
           }
           else {
             // same day
-            if (scope.latestArrival == undefined || intervalEnd.isAfter(scope.latestArrival)) {
+            if (scope.latestArrival == undefined || intervalEnd.isAfter(scope.latestArrival))
               scope.latestArrival = intervalEnd;
-            }
           }
 
           // set earliest departure time
@@ -263,6 +262,58 @@ function tripSegmentContainer(OVERNIGHT_WIDTH) {
       }
 
       return margin;
+    }
+
+    /**
+     *
+     *
+     * @param itineraryIndex
+     * @param containerIndex
+     * @param segmentIndex
+     * @param alternativeIndex
+     * @param timingIndex
+     */
+    function selectAlternative(itineraryIndex,
+                               containerIndex,
+                               segmentIndex,
+                               alternativeIndex,
+                               timingIndex) {
+
+      console.log("Itinerary index: " + itineraryIndex);
+      console.log("Container index: " + containerIndex);
+      console.log("Segment index: " + segmentIndex);
+      console.log("Alternative index: " + alternativeIndex);
+      console.log("Timing alternatives index: " + timingIndex);
+
+      // TODO
+      // Check if dependent trip segments make a call to the backend necessary
+      // then call updateTrip()
+
+      // TODO
+      // After the trip was updated (in case it must have been updated), render
+      // the time line to represent the new selection.
+    }
+
+    /**
+     *
+     */
+    function updateTrip() {
+
+    }
+
+    /**
+     * Re-renders the time line.
+     */
+    function renderTimeLine() {
+
+      defineBoundaries();
+      calculateDimensions();
+
+      scope.originalRatio = scope.dimensions.ratio;
+
+      scope.$broadcast('dimensionChange', {
+        ratio: scope.dimensions.ratio
+      });
     }
   }
 }

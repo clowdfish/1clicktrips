@@ -37,7 +37,8 @@
           ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
 
       <!-- alternative selection -->
-      <select ng-model="selection['k-' + containerIndex + '-' + segmentIndex]"
+      <select ng-model="timingSelection"
+              ng-change="alternativeChange(timingSelection, undefined)"
               class="result-segment-alternatives">
         <option style="display:none;" value=""></option>
         <option ng-repeat="alternative in segment['alternatives']" value="{{ $index }}">
