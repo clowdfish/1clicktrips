@@ -24,6 +24,11 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
     scope.majorAlternatives = scope.showMajor == 'true';
     scope.minorAlternatives = scope.showMajor == 'false';
 
+    scope.timingSelection = undefined;
+    scope.alternativeSelection = undefined;
+
+    scope.zoomState = 0;
+
     scope.zoomToSegment = zoomToSegment;
     scope.zoomOut = zoomOut;
     scope.alternativeChange = alternativeChange;
@@ -31,19 +36,18 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
     initialize();
 
     scope.$on('dimensionChange', function(event, args) {
-      scope.width = defineWidth(scope.segment, args['ratio']);
-
-      scope.marginLeft = scope.segment['departureTime'] ?
-        scope.defineLeftMargin({ time: scope.segment['departureTime'] }) : 0;
+      initialize(args['ratio']);
     });
 
     /**
      * Set initial values to the segment.
      *
      */
-    function initialize() {
+    function initialize(ratio) {
 
-      scope.width = defineWidth(scope.segment, scope.ratio);
+      ratio = ratio ? ratio : scope.ratio;
+
+      scope.width = defineWidth(scope.segment, ratio);
 
       scope.marginLeft = scope.segment['departureTime'] ?
         scope.defineLeftMargin({ time: scope.segment['departureTime'] }) : 0;
@@ -61,7 +65,7 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
         timingIndex: timingSelection,
         alternativeIndex: alternativeSelection
       });
-    };
+    }
 
     /**
      * Define width of segment within the trip segment container.
@@ -82,6 +86,8 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
     function zoomToSegment() {
 
       if(scope.width < SEGMENT_ZOOM_THRESHOLD) {
+        scope.zoomState = 1;
+
         var ratioMultiplier = SEGMENT_ZOOM_WIDTH / scope.width;
 
         var newRatio = scope.ratio * ratioMultiplier;
@@ -107,7 +113,11 @@ function tripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH) {
      *
      */
     function zoomOut() {
-      scope.setDimensions();
+
+      if(scope.zoomState == 1) {
+        scope.setDimensions();
+        scope.zoomState = 0;
+      }
     }
 
 

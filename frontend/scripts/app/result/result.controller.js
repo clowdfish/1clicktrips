@@ -39,6 +39,8 @@
       targetDate: searchObject.targetDate
     };
 
+    // the selection object is a (itinerary-container-segment => timing) mapping
+    // with a string key (eg. "1-2-1") and a timing alternative index (eg. 2).
     $scope.selection = { };
 
     if(resultState == RESULT_STATE.overview) {
@@ -197,13 +199,19 @@
 
     /**
      * Creates a string representing the alternatives keys.
-     * The format is k-1-2-3 (container-segment-alternative) and is concatenated
+     * The format is k-1-2-3 (container-segment-timing) and is concatenated
      * with the % sign.
      *
      * @returns {*}
      */
     function createAlternativeKeys() {
 
+      // TODO
+      // This part must be revised. We do not only store a
+      // (container-segment => timing) combination now, but a
+      // (itinerary-container-segment => timing) combination.
+
+      /*
       var resultArray = [];
 
       for(var key in $scope.selection) {
@@ -213,6 +221,8 @@
       }
 
       return resultArray.join('%');
+      */
+      return "";
     }
   }
 })();

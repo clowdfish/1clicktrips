@@ -20,7 +20,7 @@
               ng-init="containerIndex = $index">
 
           <!-- do not show minor segments and no major walking segments -->
-          <span ng-repeat="segment in container['alternatives'][0]"
+          <span ng-repeat="segment in container['alternatives'][getAlternativeIndex(itineraryIndex, containerIndex)]"
                 ng-if="(showMajor && segment['isMajor']) || (showMinor && !segment['isMajor'])"
                 ng-init="segmentIndex = $index">
 
