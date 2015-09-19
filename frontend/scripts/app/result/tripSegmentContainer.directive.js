@@ -5,7 +5,7 @@
     .module('app.result')
     .directive('tripSegmentContainer', tripSegmentContainer);
 
-  function tripSegmentContainer(OVERNIGHT_WIDTH) {
+  function tripSegmentContainer(VEHICLE_TYPE, OVERNIGHT_WIDTH) {
 
     return {
       restrict: 'E',
@@ -358,38 +358,72 @@
           }
 
           if(timingIndex != undefined) {
-            // a different timing for the given segment (index) is selected, so
+            // a different timing for the given segment index is selected, so
             // the segment's size and position will change. The adjacent segments
-            // must be adapted or new timings must be retrieves from the back end
+            // must be adapted or new timings must be retrieved from the back end
 
             var itinerary = scope.itineraries[itineraryIndex];
             var container = itinerary['segmentsContainer'][containerIndex];
+            var segment = container['alternatives'][0][segmentIndex];
+            var alternative = segment['alternatives'][timingIndex];
 
             if(container['isMajor']) {
 
-              // TODO if other major containers are present
-              // Check if dependent trip segments make a call to the backend necessary
-              // then call updateTrip()
-              updateTrip(itineraryIndex, containerIndex, segmentIndex);
+              var numberOfMajorContainers =
+                itinerary['segmentsContainer'].filter(function(containerItem) {
+                  return !!containerItem['isMajor'];
+              }).length;
 
-              // TODO if no other major container is present
-              // modify segment data of major trip segment
-              // update itinerary data: departure time, arrival time, duration, price
+              if(numberOfMajorContainers > 1) {
+                // other major container is present
+                updateTrip(itineraryIndex, containerIndex, segmentIndex)
+                  .then(resolve).catch(reject);
+              }
+              else {
+                // no other major container is present -> update segment data
+                overWriteSegment(segment, alternative);
+                updateItineraryData(itinerary);
+                resolve();
+              }
             }
             else {
+              // minor container
+              var numberOfSegmentsInContainer = container['alternatives'][0].length;
 
-              // TODO if other segments are in the container with type public transport
-              // Check if dependent trip segments make a call to the backend necessary
-              // then call updateTrip()
-              updateTrip(itineraryIndex, containerIndex, segmentIndex);
+              if(numberOfSegmentsInContainer > 1) {
 
-              // TODO if other segments are in the container with type individual transport
-              // modify segment data of minor trip segment and all other segments
-              // update itinerary data: departure time, arrival time, duration, price
+                var otherPublicTransportSegments =
+                  container['alternatives'][0].some(function(segmentItem, index) {
+                    if(segmentItem['type'] == VEHICLE_TYPE.bus ||
+                      segmentItem['type'] == VEHICLE_TYPE.train ||
+                      segmentItem['type'] == VEHICLE_TYPE.subway) {
 
-              // TODO if no her segment is in the container
-              // modify segment data
-              // update itinerary data: departure time, arrival time, duration, price
+                      // check if the segment is different from the one that
+                      // the alternative was selected for
+                      if(index != segmentIndex) return true;
+                    }
+                    return false;
+                  });
+
+                if(otherPublicTransportSegments) {
+                  // other segments are in the container with type public transport
+                  updateTrip(itineraryIndex, containerIndex, segmentIndex)
+                    .then(resolve).catch(reject);
+                }
+                else {
+                  // only segments with type individual transport are in the container
+                  overWriteSegment(segment, alternative);
+                  adaptTimings(container, segmentIndex);
+                  updateItineraryData(itinerary);
+                  resolve();
+                }
+              }
+              else {
+                // no other segment is in the container
+                overWriteSegment(segment, alternative);
+                updateItineraryData(itinerary);
+                resolve();
+              }
             }
           }
         })
@@ -402,6 +436,99 @@
         });
       }
 
+
+      /**
+       * Overwrites the segment's data with the data from the alternative.
+       *
+       * @param segment
+       * @param alternative
+       */
+      function overWriteSegment(segment, alternative) {
+
+        segment['departureTime'] = alternative['departureTime'];
+        segment['arrivalTime'] = alternative['arrivalTime'];
+        segment['duration'] = alternative['duration'];
+
+        if(alternative['price'])
+          segment['price'] = alternative['price'];
+      }
+
+      /**
+       * Adapts the timings of all segments based on the segment given by the
+       * segmentIndex.
+       *
+       * @param container
+       * @param segmentIndex
+       */
+      function adaptTimings(container, segmentIndex) {
+        // the idea is to adapt all timings starting from the segmentIndex
+        // so for all segments smaller than the segmentIndex and for all
+        // segments bigger than segmentIndex
+
+        var segment = container['alternatives'][0][segmentIndex];
+
+        var timeFormat = 'YYYY-MM-DDTHH:mm:ss';
+        var departureTime = moment(segment['departureTime'], timeFormat);
+        var arrivalTime = moment(segment['arrivalTime'], timeFormat);
+
+        var segmentsList = container['alternatives'][0];
+
+        var i;
+        for(i=segmentIndex + 1; i<segmentsList.length; i++) {
+
+          var subsequentDepartureTime =
+            moment(segmentsList[i]['departureTime'], timeFormat);
+          var subsequentDuration =
+            moment.duration(segmentsList[i]['duration'], 'minutes');
+
+          if(subsequentDepartureTime.isBefore(arrivalTime)) {
+
+            departureTime = arrivalTime.clone().add(5, 'minutes');
+            arrivalTime = departureTime.clone().add(subsequentDuration);
+
+            segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
+            segmentsList[i]['arrivalTime'] = arrivalTime.format(timeFormat);
+          }
+        }
+
+        // now do the same for all segments smaller than the segmentIndex
+        departureTime = moment(segment['departureTime'], timeFormat);
+        arrivalTime = moment(segment['arrivalTime'], timeFormat);
+
+        for(i=segmentIndex - 1; i>=0; i--) {
+
+          var previousArrivalTime =
+            moment(segmentsList[i]['arrivalTime'], timeFormat);
+          var previousDuration =
+            moment.duration(segmentsList[i]['duration'], 'minutes');
+
+          if(previousArrivalTime.isAfter(departureTime)) {
+
+            arrivalTime = departureTime.clone().subtract(5, 'minutes');
+            departureTime = arrivalTime.clone().subtract(previousDuration);
+
+            segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
+            segmentsList[i]['arrivalTime'] = arrivalTime.format(timeFormat);
+          }
+        }
+      }
+
+      /**
+       * Updates itinerary data after changes to the underlying segments have
+       * been made. The itinerary data to be updates is:
+       * Departure time, arrival time, duration and price
+       *
+       * @param itinerary
+       */
+      function updateItineraryData(itinerary) {
+
+        // TODO implement
+
+        // TODO
+        // add trip data to itineraries and resolve
+
+      }
+
       /**
        *
        */
@@ -411,62 +538,14 @@
 
         /*
         var index = getTimingIndex(itineraryIndex, containerIndex, segmentIndex);
-
-        if(index > -1) {
-          var itinerary = scope.itineraries[itineraryIndex];
-          var segment = itinerary['segmentsContainer'][containerIndex]['alternatives'][0][segmentIndex];
-          var alternative = segment['alternatives'][index];
-
-          var departureTimeDifference = Math.abs(
-            moment(segment['departureTime'], 'YYYY-MM-DDTHH:mm:ss')
-              .diff(moment(alternative['departureTime'], 'YYYY-MM-DDTHH:mm:ss'), 'minutes'));
-
-          var arrivalTimeDifference = Math.abs(
-            moment(segment['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss')
-              .diff(moment(alternative['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss'), 'minutes'));
-
-          // check if selected alternative makes trip start earlier
-          if(moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss')
-              .isAfter(moment(alternative['departureTime'], 'YYYY-MM-DDTHH:mm:ss'))) {
-
-            itinerary['departureTime'] =
-              moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss')
-                .subtract(departureTimeDifference, 'minutes')
-                .format('YYYY-MM-DDTHH:mm:ss');
-          }
-
-          // check if selected alternative delays whole trip
-          if(moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss')
-              .isBefore(moment(alternative['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss'))) {
-
-            itinerary['arrivalTime'] =
-              moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss')
-                .add(arrivalTimeDifference, 'minutes')
-                .format('YYYY-MM-DDTHH:mm:ss');
-          }
-
-          segment['departureTime'] = alternative['departureTime'];
-          segment['arrivalTime'] = alternative['arrivalTime'];
-          segment['duration'] = alternative['duration'];
-
-          // TODO
-          // recalculate itinerary data
-          // - total price
-          // - total duration
-          // - departure time
-          // - arrival time
-
-          if(alternative['price']) {
-            var priceDifference =
-              alternative['price']['amount'] - segment['price']['amount'];
-
-            segment['price'] = alternative['price'];
-
-            // update itinerary price
-            itinerary['price'] += priceDifference;
-          }
-        }
         */
+        
+        // TODO
+        // recalculate itinerary data
+        // - total price
+        // - total duration
+        // - departure time
+        // - arrival time
       }
 
       /**
