@@ -117,27 +117,20 @@
        */
       function defineBoundaries(boundaryData) {
 
-        if(boundaryData) {
-          // reset boundaries
-          scope.earliestDepartureDayBefore = undefined;
-          scope.earliestDeparture = undefined;
-          scope.latestArrivalDayAfter = undefined;
-          scope.latestArrival = undefined;
-          scope.overnightStay = 0;
+        // reset boundaries
+        scope.earliestDepartureDayBefore = undefined;
+        scope.earliestDeparture = undefined;
+        scope.latestArrivalDayAfter = undefined;
+        scope.latestArrival = undefined;
+        scope.overnightStay = 0;
 
+        if(boundaryData) {
           var intervalStart = boundaryData['start'];
           var intervalEnd = boundaryData['end'];
 
           setBoundaries(intervalStart, intervalEnd);
         }
         else {
-          // reset boundaries
-          scope.earliestDepartureDayBefore = undefined;
-          scope.earliestDeparture = undefined;
-          scope.latestArrivalDayAfter = undefined;
-          scope.latestArrival = undefined;
-          scope.overnightStay = 0;
-
           scope.itineraries.forEach(function (itinerary) {
             var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
             var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
@@ -272,7 +265,8 @@
       }
 
       /**
-       *
+       * Checks if an alternative for a segment was selected and returns the
+       * index position in the given container.
        *
        * @param itineraryIndex
        * @param containerIndex
@@ -303,7 +297,8 @@
       }
 
       /**
-       * Is this function still necessary?
+       * Checks if an alternative timing for a segment was selected and returns
+       * the index position in the given segment's timing alternatives array.
        *
        * @param itineraryIndex
        * @param containerIndex
@@ -344,7 +339,7 @@
                                  alternativeIndex,
                                  timingIndex) {
 
-        // Store alternative selection
+        // store alternative in selection data structure
         var selectionKey =
           itineraryIndex + '-' + containerIndex + '-' + segmentIndex;
 
@@ -353,14 +348,58 @@
           timingIndex: timingIndex
         };
 
-        // TODO
-        // Check if dependent trip segments make a call to the backend necessary
-        // then call updateTrip()
-        updateTrip(itineraryIndex, containerIndex, segmentIndex);
+        new Promise(function(resolve, reject) {
 
-        // After the trip was updated (in case it must have been updated), render
-        // the time line to represent the new selection.
-        renderTimeLine();
+          if(alternativeIndex != undefined) {
+            // the new segments are automatically replaced during the next
+            // rendering process. In the trip-segments-container template the
+            // getAlternativeIndex(...) function is called to get the selected
+            // alternatives.
+          }
+
+          if(timingIndex != undefined) {
+            // a different timing for the given segment (index) is selected, so
+            // the segment's size and position will change. The adjacent segments
+            // must be adapted or new timings must be retrieves from the back end
+
+            var itinerary = scope.itineraries[itineraryIndex];
+            var container = itinerary['segmentsContainer'][containerIndex];
+
+            if(container['isMajor']) {
+
+              // TODO if other major containers are present
+              // Check if dependent trip segments make a call to the backend necessary
+              // then call updateTrip()
+              updateTrip(itineraryIndex, containerIndex, segmentIndex);
+
+              // TODO if no other major container is present
+              // modify segment data of major trip segment
+              // update itinerary data: departure time, arrival time, duration, price
+            }
+            else {
+
+              // TODO if other segments are in the container with type public transport
+              // Check if dependent trip segments make a call to the backend necessary
+              // then call updateTrip()
+              updateTrip(itineraryIndex, containerIndex, segmentIndex);
+
+              // TODO if other segments are in the container with type individual transport
+              // modify segment data of minor trip segment and all other segments
+              // update itinerary data: departure time, arrival time, duration, price
+
+              // TODO if no her segment is in the container
+              // modify segment data
+              // update itinerary data: departure time, arrival time, duration, price
+            }
+          }
+        })
+        .catch(function(err) {
+          console.error("Could not select alternative: " + err.message);
+        })
+        .then(function() {
+          // no matter what happened, the time line should be refreshed
+          renderTimeLine();
+        });
       }
 
       /**
@@ -370,6 +409,7 @@
                           containerIndex,
                           segmentIndex) {
 
+        /*
         var index = getTimingIndex(itineraryIndex, containerIndex, segmentIndex);
 
         if(index > -1) {
@@ -426,6 +466,7 @@
             itinerary['price'] += priceDifference;
           }
         }
+        */
       }
 
       /**

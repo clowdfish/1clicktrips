@@ -23,6 +23,7 @@
     "angular-ui-bootstrap-bower": "*",
     "angular-ui-router": "*",
     "angular-ui-sortable": "0.13.3",
+    "es6-promise": "~3.0.2",
     "fastclick": "~1.0.6",
     "font-awesome": "4.3.0",
     "jquery": "2.1.3",
