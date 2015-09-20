@@ -26,5 +26,6 @@
     })
     .constant('OVERNIGHT_WIDTH', 10)
     .constant('SEGMENT_ZOOM_THRESHOLD', 25) // up to which value to zoom the segment
-    .constant('SEGMENT_ZOOM_WIDTH', 40); // size to zoom the segment to
+    .constant('SEGMENT_ZOOM_WIDTH', 40) // size to zoom the segment to
+    .constant('TRANSFER_TIME', 5); // how much time is added between trip segments
 })();

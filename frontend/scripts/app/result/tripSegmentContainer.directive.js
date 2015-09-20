@@ -5,7 +5,7 @@
     .module('app.result')
     .directive('tripSegmentContainer', tripSegmentContainer);
 
-  function tripSegmentContainer(VEHICLE_TYPE, OVERNIGHT_WIDTH) {
+  function tripSegmentContainer(VEHICLE_TYPE, TRANSFER_TIME, OVERNIGHT_WIDTH) {
 
     return {
       restrict: 'E',
@@ -518,34 +518,104 @@
        * been made. The itinerary data to be updates is:
        * Departure time, arrival time, duration and price
        *
-       * @param itinerary
+       * @param itineraryIndex
        */
-      function updateItineraryData(itinerary) {
+      function updateItineraryData(itineraryIndex) {
 
-        // TODO implement
+        var itinerary = scope.itineraries[itineraryIndex];
 
-        // TODO
-        // add trip data to itineraries and resolve
+        // define itinerary price
+        var totalPrice =
+          itinerary['segmentsContainer'].map(function(container, containerIndex) {
 
+            var alternativeIndex =
+              getAlternativeIndex(itineraryIndex, containerIndex);
+
+            return container['alternatives'][alternativeIndex].map(function(segment) {
+              return segment.hasOwnProperty('price') ? segment['price']['amount'] : 0;
+            }).reduce(function(previousValue, currentValue) {
+              return previousValue + currentValue;
+            });
+          }).reduce(function(previousValue, currentValue) {
+            return previousValue + currentValue;
+          });
+
+
+        // define itinerary departure time
+        var departureTime = null;
+        var startDuration = 0;
+
+        var i, j;
+        var container, alternativeIndex, segment;
+
+        for(i=0; i<itinerary['segmentsContainer'].length; i++) {
+          if(departureTime != null) break;
+
+          container = itinerary['segmentsContainer'][i];
+          alternativeIndex = getAlternativeIndex(itineraryIndex, i);
+
+          for(j=0; j<container['alternatives'][alternativeIndex].length; j++) {
+            if(departureTime != null) break;
+
+            segment = container['alternatives'][alternativeIndex][j];
+
+            if(segment.hasOwnProperty("departureTime")) {
+              departureTime =
+                moment(segment['departureTime'], 'YYYY-MM-DDTHH:mm:ss')
+                  .subtract(startDuration, 'minutes');
+            }
+            else {
+              startDuration += (segment['duration'] + TRANSFER_TIME);
+            }
+          }
+        }
+
+        // define itinerary arrival time
+        var arrivalTime = null;
+        var endDuration = 0;
+
+        for(i=itinerary['segmentsContainer'].length - 1; i>=0; i--) {
+          if(arrivalTime != null) break;
+
+          container = itinerary['segmentsContainer'][i];
+          alternativeIndex = getAlternativeIndex(itineraryIndex, i);
+
+          for(j=container['alternatives'][alternativeIndex].length - 1; j>=0; j--) {
+            if(arrivalTime != null) break;
+
+            segment = container['alternatives'][alternativeIndex][j];
+
+            if(segment.hasOwnProperty("arrivalTime")) {
+              arrivalTime =
+                moment(segment['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss')
+                  .add(endDuration, 'minutes');
+            }
+            else {
+              endDuration += (segment['duration'] + TRANSFER_TIME);
+            }
+          }
+        }
+
+        itinerary['departureTime'] = departureTime.format('YYYY-MM-DDTHH:mm:ss');
+        itinerary['arrivalTime'] = arrivalTime.format('YYYY-MM-DDTHH:mm:ss');
+
+        itinerary['duration'] = arrivalTime.diff(departureTime, 'minutes');
+        itinerary['price'] = totalPrice;
       }
 
       /**
-       *
+       * Sends a request to the back end to get new itinerary data.
        */
       function updateTrip(itineraryIndex,
                           containerIndex,
                           segmentIndex) {
 
-        /*
-        var index = getTimingIndex(itineraryIndex, containerIndex, segmentIndex);
-        */
-        
-        // TODO
-        // recalculate itinerary data
-        // - total price
-        // - total duration
-        // - departure time
-        // - arrival time
+        return Promise(function(resolve, reject) {
+
+          // TODO implement
+
+          resolve();
+        });
       }
 
       /**
