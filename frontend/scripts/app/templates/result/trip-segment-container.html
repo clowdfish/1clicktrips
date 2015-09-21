@@ -4,7 +4,7 @@
         ng-repeat="itinerary in itineraries"
         ng-init="itineraryIndex = $index">
 
-      <span class="result-list-item-price" ng-if="!showMinor">
+      <span class="result-list-item-price" ng-if="!showDetails">
         <span>{{ itinerary['price'].toFixed(2) }}</span>
         <i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
         <a ng-click="selectTrip(itineraryIndex)"
@@ -21,13 +21,13 @@
 
           <!-- do not show minor segments and no major walking segments -->
           <span ng-repeat="segment in container['alternatives'][getAlternativeIndex(itineraryIndex, containerIndex)]"
-                ng-if="(showMajor && segment['isMajor']) || (showMinor && !segment['isMajor'])"
+                ng-if="(!showDetails && segment['isMajor']) || showDetails"
                 ng-init="segmentIndex = $index">
 
             <trip-segment
               segment="segment"
               ratio="{{ dimensions.ratio }}"
-              show-major="{{ !showMinor }}"
+              show-details="{{ showDetails }}"
               set-dimensions="setDimensions(data)"
               define-left-margin="defineMarginLeft(time)"
               select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)"></trip-segment>

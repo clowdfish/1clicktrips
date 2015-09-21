@@ -14,7 +14,7 @@
       scope: {
         segment: '=',
         ratio: '@',
-        showMajor: '@',
+        showDetails: '@',
         setDimensions: '&',
         defineLeftMargin: '&',
         selectAlternative: '&'
@@ -24,8 +24,8 @@
 
     function link(scope) {
 
-      scope.majorAlternatives = scope.showMajor == 'true';
-      scope.minorAlternatives = scope.showMajor == 'false';
+      scope.majorAlternatives = scope.showDetails == 'false';
+      scope.minorAlternatives = scope.showDetails == 'true';
 
       // used as reference for the selection model in the UI
       scope.timingSelection = undefined;

@@ -10,6 +10,7 @@
     var _this = this;
 
     _this.getAvailableItineraries = getAvailableItineraries;
+    _this.getTripUpdate = getTripUpdate;
     _this.getTripDetails = getTripDetails;
     _this.getAvailableHotels = getAvailableHotels;
 
@@ -58,6 +59,48 @@
           });
 
           deferred.resolve(result);
+        })
+        .error(function(err) {
+          deferred.reject(err);
+        });
+
+      return deferred.promise;
+    }
+
+    /**
+     *
+     *
+     * @param searchObject
+     * @returns {*}
+     */
+    function getTripUpdate(searchObject) {
+
+      var deferred = $q.defer();
+
+      $http
+        .post('/api/search/trip-update', searchObject, {
+          activeMessages: [
+            {
+              title: "Getting data from external resources...",
+              time: 6000
+            },
+            {
+              title: "Adding pricing information...",
+              time: 2000
+            },
+            {
+              title: "Adding timing information...",
+              time: 2000
+            },
+            {
+              title: "Optimizing routes...",
+              time: 8000
+            }
+          ]
+        })
+        .success(function(response) {
+          // returns one trip object
+          deferred.resolve(response);
         })
         .error(function(err) {
           deferred.reject(err);

@@ -5,7 +5,8 @@
     .module('app.result')
     .directive('tripSegmentContainer', tripSegmentContainer);
 
-  function tripSegmentContainer(VEHICLE_TYPE, TRANSFER_TIME, OVERNIGHT_WIDTH) {
+  function tripSegmentContainer(VEHICLE_TYPE,
+                                TRANSFER_TIME) {
 
     return {
       restrict: 'E',
@@ -15,18 +16,15 @@
         itineraries: '=',
         timing: '=',
         selection: '=',
-        selectItinerary: '&'
+        selectItinerary: '&',
+        updateItinerary: '&'
       },
       link: link
     };
 
     function link(scope, element, attrs) {
 
-      scope.showMajor = 'showMajor' in attrs;
-      scope.showMinor = 'showMinor' in attrs;
-
-      // overnight states the percentage that is needed for the day before or day after section
-      scope.overnightStay = 0;
+      scope.showDetails = 'showDetails' in attrs;
 
       // how much percent per minute
       scope.dimensions = {
@@ -37,8 +35,6 @@
       scope.originalRatio = 0;
 
       // defining the latest/earliest point in time of the given itineraries
-      scope.earliestDepartureDayBefore = undefined;
-      scope.latestArrivalDayAfter = undefined;
       scope.earliestDeparture = undefined;
       scope.latestArrival = undefined;
 
@@ -52,7 +48,6 @@
 
       // the alternatives selection logic
       scope.selectAlternative = selectAlternative;
-      scope.updateTrip = updateTrip;
       scope.renderTimeLine = renderTimeLine;
 
       scope.selectTrip = function(index) {
@@ -114,15 +109,14 @@
 
       /**
        *
+       *
+       * @param boundaryData
        */
       function defineBoundaries(boundaryData) {
 
         // reset boundaries
-        scope.earliestDepartureDayBefore = undefined;
         scope.earliestDeparture = undefined;
-        scope.latestArrivalDayAfter = undefined;
         scope.latestArrival = undefined;
-        scope.overnightStay = 0;
 
         if(boundaryData) {
           var intervalStart = boundaryData['start'];
@@ -132,10 +126,13 @@
         }
         else {
           scope.itineraries.forEach(function (itinerary) {
-            var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
-            var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
 
-            setBoundaries(departureTime, arrivalTime);
+            if(itinerary) {
+              var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
+              var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
+
+              setBoundaries(departureTime, arrivalTime);
+            }
           });
         }
 
@@ -147,80 +144,47 @@
          */
         function setBoundaries(intervalStart, intervalEnd) {
 
-          var appointmentTime = moment(scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
+          var appointmentTime =
+            moment(scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
           var targetDate = scope.timing['targetDate'];
 
           if (targetDate) {
             // optimize towards target date
-            if (intervalStart.isBefore(appointmentTime, 'day')) {
-              // overnight stay
-              if (scope.earliestDepartureDayBefore == undefined || intervalStart.isBefore(scope.earliestDepartureDayBefore))
-                scope.earliestDepartureDayBefore = intervalStart;
-            }
-            else {
-              // same day
-              if (scope.earliestDeparture == undefined || intervalStart.isBefore(scope.earliestDeparture))
-                scope.earliestDeparture = intervalStart;
-            }
+            if (scope.earliestDeparture == undefined || intervalStart.isBefore(scope.earliestDeparture))
+              scope.earliestDeparture = intervalStart.clone();
 
             // set latest arrival time
-            scope.latestArrival = appointmentTime;
+            if(!scope.showDetails)
+              scope.latestArrival = appointmentTime;
+            else if (scope.latestArrival == undefined || intervalEnd.isAfter(scope.latestArrival))
+              scope.latestArrival = intervalEnd.clone();
           }
           else {
             // optimize from given date
-            if (intervalEnd.isAfter(appointmentTime, 'day')) {
-              // overnight stay
-              if (scope.latestArrivalDayAfter == undefined || intervalEnd.isAfter(scope.latestArrivalDayAfter))
-                scope.latestArrivalDayAfter = intervalEnd;
-            }
-            else {
-              // same day
-              if (scope.latestArrival == undefined || intervalEnd.isAfter(scope.latestArrival))
-                scope.latestArrival = intervalEnd;
-            }
+            if (scope.latestArrival == undefined || intervalEnd.isAfter(scope.latestArrival))
+              scope.latestArrival = intervalEnd.clone();
 
             // set earliest departure time
-            scope.earliestDeparture = appointmentTime;
+            if(!scope.showDetails)
+              scope.earliestDeparture = appointmentTime;
+            else if (scope.earliestDeparture == undefined || intervalStart.isBefore(scope.earliestDeparture))
+              scope.earliestDeparture = intervalStart.clone();
           }
         }
       }
 
       /**
-       *
-       *
+       * Sets the ratio for the trip time line.
        */
       function calculateDimensions() {
 
-        var durationSameDay = Math.abs(scope.latestArrival.diff(scope.earliestDeparture, 'minutes'));
-
-        var durationOvernight;
-        if(scope.earliestDepartureDayBefore) {
-
-          durationOvernight = Math.abs(
-            scope.earliestDepartureDayBefore.clone()
-              .setHours(24).setMinutes(0).setSeconds(0)
-              .diff(scope.earliestDepartureDayBefore, 'minutes'));
-        }
-        else if(scope.latestArrivalDayAfter) {
-
-          durationOvernight = Math.abs(
-            scope.latestArrivalDayAfter.clone()
-              .setHours(0).setMinutes(0).setSeconds(0)
-              .diff(scope.earliestDepartureDayBefore, 'minutes'));
-        }
-
-        if(durationOvernight) {
+        if(scope.latestArrival && scope.earliestDeparture) {
+          var tripDuration =
+            scope.latestArrival.diff(scope.earliestDeparture, 'minutes');
 
           scope.dimensions = {
-            ratio: (100 - OVERNIGHT_WIDTH) / (durationOvernight + durationSameDay)
+            ratio: 100 / tripDuration
           };
-          scope.overnightStay = scope.dimensions.ratio * durationOvernight;
-        }
-        else {
-          scope.dimensions = {
-            ratio: 100 / durationSameDay
-          };
-          scope.overnightStay = 0;
         }
       }
 
@@ -233,32 +197,12 @@
       function defineMarginLeft(timeString) {
 
         var time = moment(timeString, 'YYYY-MM-DDTHH:mm:ss');
-        var appointmentTime = moment(scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
 
         var margin = 0;
 
-        if(scope.earliestDepartureDayBefore) {
-          // we have a day before section
-          if(time.isAfter(scope.earliestDepartureDayBefore, 'day')) {
-            margin += (scope.overnightStay + OVERNIGHT_WIDTH) * scope.dimensions.ratio;
-          }
-        }
-
-        // the current day
-        if(scope.timing['targetDate']) {
-          margin += scope.dimensions.ratio *
+        if(scope.earliestDeparture != undefined) {
+          margin = scope.dimensions.ratio *
             time.diff(scope.earliestDeparture, 'minutes');
-        }
-        else {
-          margin += scope.dimensions.ratio *
-            time.diff(appointmentTime, 'minutes');
-        }
-
-        if(scope.latestArrivalDayAfter) {
-          // we have a day after section
-          if(time.isSame(scope.latestArrivalDayAfter, 'day')) {
-            margin += (scope.overnightStay + OVERNIGHT_WIDTH) * scope.dimensions.ratio;
-          }
         }
 
         return margin;
@@ -376,13 +320,13 @@
 
               if(numberOfMajorContainers > 1) {
                 // other major container is present
-                updateTrip(itineraryIndex, containerIndex, segmentIndex)
+                scope.updateItinerary({ index: itineraryIndex })
                   .then(resolve).catch(reject);
               }
               else {
                 // no other major container is present -> update segment data
                 overWriteSegment(segment, alternative);
-                updateItineraryData(itinerary);
+                updateItineraryData(itineraryIndex);
                 resolve();
               }
             }
@@ -407,35 +351,34 @@
 
                 if(otherPublicTransportSegments) {
                   // other segments are in the container with type public transport
-                  updateTrip(itineraryIndex, containerIndex, segmentIndex)
+                  scope.updateItinerary({ index: itineraryIndex })
                     .then(resolve).catch(reject);
                 }
                 else {
                   // only segments with type individual transport are in the container
                   overWriteSegment(segment, alternative);
                   adaptTimings(container, segmentIndex);
-                  updateItineraryData(itinerary);
+                  updateItineraryData(itineraryIndex);
                   resolve();
                 }
               }
               else {
                 // no other segment is in the container
                 overWriteSegment(segment, alternative);
-                updateItineraryData(itinerary);
+                updateItineraryData(itineraryIndex);
                 resolve();
               }
             }
           }
         })
         .catch(function(err) {
-          console.error("Could not select alternative: " + err.message);
+          console.error("Could not select alternative: " + err);
         })
         .then(function() {
           // no matter what happened, the time line should be refreshed
           renderTimeLine();
         });
       }
-
 
       /**
        * Overwrites the segment's data with the data from the alternative.
@@ -481,9 +424,10 @@
           var subsequentDuration =
             moment.duration(segmentsList[i]['duration'], 'minutes');
 
-          if(subsequentDepartureTime.isBefore(arrivalTime)) {
+          if(subsequentDepartureTime.isBefore(arrivalTime) ||
+            subsequentDepartureTime.diff(arrivalTime, 'minutes') > 10) {
 
-            departureTime = arrivalTime.clone().add(5, 'minutes');
+            departureTime = arrivalTime.clone().add(TRANSFER_TIME, 'minutes');
             arrivalTime = departureTime.clone().add(subsequentDuration);
 
             segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
@@ -502,9 +446,10 @@
           var previousDuration =
             moment.duration(segmentsList[i]['duration'], 'minutes');
 
-          if(previousArrivalTime.isAfter(departureTime)) {
+          if(previousArrivalTime.isAfter(departureTime) ||
+            departureTime.diff(previousArrivalTime, 'minutes') > 10) {
 
-            arrivalTime = departureTime.clone().subtract(5, 'minutes');
+            arrivalTime = departureTime.clone().subtract(TRANSFER_TIME, 'minutes');
             departureTime = arrivalTime.clone().subtract(previousDuration);
 
             segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
@@ -559,7 +504,7 @@
 
             segment = container['alternatives'][alternativeIndex][j];
 
-            if(segment.hasOwnProperty("departureTime")) {
+            if(segment.hasOwnProperty("departureTime") && segment['departureTime'] != "") {
               departureTime =
                 moment(segment['departureTime'], 'YYYY-MM-DDTHH:mm:ss')
                   .subtract(startDuration, 'minutes');
@@ -585,7 +530,7 @@
 
             segment = container['alternatives'][alternativeIndex][j];
 
-            if(segment.hasOwnProperty("arrivalTime")) {
+            if(segment.hasOwnProperty("arrivalTime") && segment['arrivalTime'] != "") {
               arrivalTime =
                 moment(segment['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss')
                   .add(endDuration, 'minutes');
@@ -601,21 +546,6 @@
 
         itinerary['duration'] = arrivalTime.diff(departureTime, 'minutes');
         itinerary['price'] = totalPrice;
-      }
-
-      /**
-       * Sends a request to the back end to get new itinerary data.
-       */
-      function updateTrip(itineraryIndex,
-                          containerIndex,
-                          segmentIndex) {
-
-        return Promise(function(resolve, reject) {
-
-          // TODO implement
-
-          resolve();
-        });
       }
 
       /**

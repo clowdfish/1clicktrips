@@ -6,12 +6,15 @@
 
   function resultCtrl($scope,
                       $state,
+                      $stateParams,
                       $window,
                       resultState,
                       RESULT_STATE,
                       tripCache,
                       tripApi,
-                      searchObject) {
+                      searchObject,
+                      language,
+                      currency) {
 
     $scope.searchData = {
       originDescription: searchObject['originDescription'],
@@ -32,6 +35,7 @@
 
     $scope.activeItinerary = 0;
     $scope.activateItinerary = activateItinerary;
+    $scope.updateItinerary = updateItinerary;
 
     // timing is required for the trip segment container
     $scope.timing = {
@@ -73,6 +77,38 @@
             $scope.errorState = { message: err }
           });
       }
+    }
+
+    /**
+     * Sends a request to the back end to get new itinerary data.
+     *
+     * @param itineraryIndex
+     * @returns {*}
+     */
+    function updateItinerary(itineraryIndex) {
+
+      return new Promise(function(resolve, reject) {
+
+        var searchObject = {
+          tripKey: $scope.itineraries[itineraryIndex]['tripKey'],
+          timing: [ $stateParams.startDate ],
+          targetDate: $stateParams.targetDate,
+          selectedAlternatives: createAlternativeKeys(itineraryIndex),
+          locale: language.get().locale,
+          currency: currency.get().code
+        };
+
+        if($stateParams.sessionId)
+          searchObject.sessionId = $stateParams.sessionId;
+
+        tripApi.getTripUpdate(searchObject)
+          .then(function(trip) {
+            $scope.itineraries[itineraryIndex] = trip;
+            resolve();
+          }, function(err) {
+            reject(err);
+          });
+      });
     }
 
     /**
@@ -133,11 +169,8 @@
         destinationLongitude: searchObject.destination.longitude,
         destination: searchObject.destinationDescription,
         startDate: searchObject.timing[0],
-        targetDate: searchObject.targetDate,
-        selectedAlternatives: createAlternativeKeys()
+        targetDate: searchObject.targetDate
       };
-
-      $scope.selection = {};
 
       $state.go("result.list", requestParameters);
     }
@@ -160,10 +193,8 @@
         destination: searchObject.destinationDescription,
         startDate: searchObject.timing[0],
         targetDate: searchObject.targetDate,
-        selectedAlternatives: createAlternativeKeys()
+        selectedAlternatives: createAlternativeKeys(index)
       };
-
-      $scope.selection = {};
 
       $state.go("result.details", requestParameters);
     }
@@ -202,27 +233,30 @@
      * The format is k-1-2-3 (container-segment-timing) and is concatenated
      * with the % sign.
      *
-     * @returns {*}
+     * @returns {string}
      */
-    function createAlternativeKeys() {
+    function createAlternativeKeys(itineraryIndex) {
 
-      // TODO
-      // This part must be revised. We do not only store a
-      // (container-segment => timing) combination now, but a
-      // (itinerary-container-segment => timing) combination.
+      // In the selection object we store the alternative selection in the
+      // format
+      // {
+      //    "1-2-3": {
+      //      alternativeIndex: alternativeIndex,
+      //      timingIndex: timingIndex
+      //    }
+      // }
+      // The object key follows the format:
+      // itineraryIndex-containerIndex-segmentIndex
 
-      /*
       var resultArray = [];
 
       for(var key in $scope.selection) {
-        if($scope.selection.hasOwnProperty(key)) {
-          resultArray.push(key + "-" + $scope.selection[key]);
+        if($scope.selection.hasOwnProperty(key) && key.indexOf('' + itineraryIndex + '-') == 0) {
+          resultArray.push(key.substr(key.indexOf('-')) + "-" + $scope.selection[key]['timingIndex']);
         }
       }
 
       return resultArray.join('%');
-      */
-      return "";
     }
   }
 })();
