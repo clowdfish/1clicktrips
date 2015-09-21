@@ -23,7 +23,6 @@
     };
 
     function link(scope) {
-
       scope.majorAlternatives = scope.showDetails == 'false';
       scope.minorAlternatives = scope.showDetails == 'true';
 

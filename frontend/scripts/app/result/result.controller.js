@@ -252,7 +252,7 @@
 
       for(var key in $scope.selection) {
         if($scope.selection.hasOwnProperty(key) && key.indexOf('' + itineraryIndex + '-') == 0) {
-          resultArray.push(key.substr(key.indexOf('-')) + "-" + $scope.selection[key]['timingIndex']);
+          resultArray.push(key.substr(key.indexOf('-') + 1) + "-" + $scope.selection[key]['timingIndex']);
         }
       }
 

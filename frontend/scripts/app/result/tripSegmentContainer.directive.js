@@ -543,7 +543,6 @@
 
         itinerary['departureTime'] = departureTime.format('YYYY-MM-DDTHH:mm:ss');
         itinerary['arrivalTime'] = arrivalTime.format('YYYY-MM-DDTHH:mm:ss');
-
         itinerary['duration'] = arrivalTime.diff(departureTime, 'minutes');
         itinerary['price'] = totalPrice;
       }
