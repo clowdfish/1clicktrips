@@ -21,7 +21,7 @@
 
           <!-- do not show minor segments and no major walking segments -->
           <span ng-repeat="segment in container['alternatives'][getAlternativeIndex(itineraryIndex, containerIndex)]"
-                ng-if="(!showDetails && segment['isMajor']) || showDetails"
+                ng-if="segment['departureTime'] && (!showDetails && segment['isMajor'] || showDetails)"
                 ng-init="segmentIndex = $index">
 
             <trip-segment

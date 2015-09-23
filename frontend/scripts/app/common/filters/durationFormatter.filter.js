@@ -20,11 +20,14 @@
 
         var durationObj = moment.duration(duration, 'minutes');
 
+        var fullHours = Math.floor(durationObj.as('hours'));
+        var fullMinutes = Math.floor((durationObj.as('hours') % 1) * 60);
+
         switch(format) {
           case 'hours':
-            var durationString = durationObj.hours() + ':';
-            if(durationObj.minutes() < 10) durationString += '0';
-            return durationString + durationObj.minutes();
+            var durationString = fullHours + ':';
+            if(fullMinutes < 10) durationString += '0';
+            return durationString + fullMinutes;
           default:
             return '';
         }

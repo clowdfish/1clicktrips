@@ -154,7 +154,7 @@
               scope.earliestDeparture = intervalStart.clone();
 
             // set latest arrival time
-            if(!scope.showDetails)
+            if(!scope.showDetails && intervalEnd.isBefore(appointmentTime))
               scope.latestArrival = appointmentTime;
             else if (scope.latestArrival == undefined || intervalEnd.isAfter(scope.latestArrival))
               scope.latestArrival = intervalEnd.clone();
@@ -165,7 +165,7 @@
               scope.latestArrival = intervalEnd.clone();
 
             // set earliest departure time
-            if(!scope.showDetails)
+            if(!scope.showDetails && intervalStart.isAfter(appointmentTime))
               scope.earliestDeparture = appointmentTime;
             else if (scope.earliestDeparture == undefined || intervalStart.isBefore(scope.earliestDeparture))
               scope.earliestDeparture = intervalStart.clone();
