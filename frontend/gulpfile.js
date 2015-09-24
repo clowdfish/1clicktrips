@@ -18,7 +18,8 @@ var concat 		  = require('gulp-concat'),
     data        = require('gulp-data'),
     ngAnnotate  = require('gulp-ng-annotate'),
     merge       = require('gulp-merge'),
-    angularTemplateCache = require('gulp-angular-templatecache');
+    angularTemplateCache = require('gulp-angular-templatecache'),
+    typescript  = require('gulp-typescript');
 
 
 /****************************************************************************************************/
@@ -121,15 +122,20 @@ gulp.task('scripts', function() {
       root: 'scripts/app/templates/',
       module: 'app.templates',
       standalone: true
-    })),
+    })),    
     gulp.src([
-      'scripts/**/*.js',
-      '!scripts/**/*.spec.js'
+      'scripts/_all.ts',
+      'scripts/**/*.ts',
+      '!scripts/**/*.spec.ts'      
     ])
+    .pipe(typescript({
+      out: 'typscript.js',
+      removeComments: true
+    }))    
   )
   .pipe(plumber(plumberErrorHandler))
-  .pipe(concat('script.js'))
-  .pipe(ngAnnotate())
+  .pipe(concat('script.js'))  
+  .pipe(ngAnnotate())  
   .pipe(gulp.dest('build/scripts'));
 });
 
@@ -196,7 +202,7 @@ gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'ap
   gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
   gulp.watch(['*.html'], ['preprocess', 'scripts']);
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
-  gulp.watch(['scripts/app/**/*.js'], ['scripts']);
+  gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
 });
 
 gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data'], function() {});

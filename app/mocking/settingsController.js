@@ -30,7 +30,7 @@ module.exports = {
   getByKey: function(userId, key) {
     return new Promise(function(resolve, reject) {
       resolve();
-    }
+    });
   }
 };
 

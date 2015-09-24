@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "A business traveler platform offering end to end trip management.",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-typescript": "^2.9.0"
+  },
   "devDependencies": {
     "gulp": "^3.8.7",
     "gulp-angular-templatecache": "^1.6.0",
