@@ -1,4 +1,5 @@
 /// <reference path="../../_all.ts" />
+
 module Index {
 
   'use strict';
@@ -36,6 +37,7 @@ module Index {
    * @returns {*}
    */
   function getDefaultSearchFormData() {
+
     var startDate = new Date();
     startDate.setDate(startDate.getDate() + 10);
 
@@ -52,4 +54,4 @@ module Index {
       targetDate: true
     };
   }
-};
+}

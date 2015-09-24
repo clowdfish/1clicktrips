@@ -1,4 +1,5 @@
 /// <reference path="../../_all.ts" />
+
 module Search {
 
   'use strict';
@@ -12,5 +13,4 @@ module Search {
     .controller('searchDateTimeSelectCtrl', SearchDateTimeSelectCtrl)
     .controller('searchDestinationFormCtrl', SearchDestinationFormCtrl)
     .controller('searchOriginCtrl', SearchOriginCtrl);
-    
-};
+}

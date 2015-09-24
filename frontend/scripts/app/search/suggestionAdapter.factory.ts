@@ -1,13 +1,21 @@
 /// <reference path="../../_all.ts" />
+
 module Search {
 
   'use strict';
   
-  export class SuggestionAdapter{
+  export class SuggestionAdapter {
+
     constructor(private $q) {
       
     }
-    
+
+    /**
+     *
+     *
+     * @param address
+     * @returns {IPromise<T>}
+     */
     public getAddressSuggestion(address) {
 
       var deferred = this.$q.defer();
@@ -23,41 +31,15 @@ module Search {
 
       return deferred.promise;
     }
-    
+
     public static Factory() {
+
       var service = ($q) => {
         return new SuggestionAdapter($q);
-      }
+      };
+
       service['$inject'] = ['$q'];
       return service;
     }
   }
-//  export function suggestionAdapter($q) {
-//
-//    this.getAddressSuggestion = getAddressSuggestion;
-//
-//    /**
-//    * Get address suggestion.
-//     *
-//    * @param {string} address - The input text to get suggestion
-//    * @return {string[]|Object[]} - array of suggestion
-//    */
-//    function getAddressSuggestion(address) {
-//
-//      var deferred = $q.defer();
-//      var service = new google.maps.places.AutocompleteService();
-//
-//      service.getQueryPredictions({input: address}, (response, status) => {
-//        if (status == google.maps.places.PlacesServiceStatus.OK) {
-//          return deferred.resolve(response);
-//        } else {
-//          return deferred.reject();
-//        }
-//      });
-//
-//      return deferred.promise;
-//    }
-//
-//    return this;
-//  }
-};
+}

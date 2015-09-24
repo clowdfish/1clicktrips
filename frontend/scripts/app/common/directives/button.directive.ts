@@ -1,4 +1,5 @@
 /// <reference path="../../../_all.ts" />
+
 module Common {
   'use strict';
   
@@ -22,9 +23,11 @@ module Common {
     }
     
     public static Factory() {
+
       var directive = () => {
         return new Button();
-      }
+      };
+
       directive['$inject'] = [];
       return directive;
     }

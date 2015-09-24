@@ -1,8 +1,11 @@
 /// <reference path="../../_all.ts" />
+
 module Result {
+
   'use strict';
   	
   export class TripSegment {
+
     public restrict = 'E';
     public templateUrl = 'scripts/app/templates/result/trip-segment.html';
     public replace = true;
@@ -17,16 +20,20 @@ module Result {
     public link: (scope, element, attrs) => void;
     
     public static Factory() {
+
       var directive = (SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH): any => {
         return new TripSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH);
-      }
+      };
+
       directive['$inject'] = ['SEGMENT_ZOOM_THRESHOLD', 'SEGMENT_ZOOM_WIDTH'];
       return directive;
     }
     
     constructor(SEGMENT_ZOOM_THRESHOLD, 
                 SEGMENT_ZOOM_WIDTH) {
+
       TripSegment.prototype.link = (scope, element, attrs) => {
+
         scope.majorAlternatives = scope.showDetails == 'false';
         scope.minorAlternatives = scope.showDetails == 'true';
   
@@ -68,7 +75,8 @@ module Result {
          * @param timingSelection is set if a timing alternative was selected
          * @param alternativeSelection is set if a segment alternative was selected
          */
-        function alternativeChange(timingSelection, alternativeSelection) {
+        function alternativeChange(timingSelection:number,
+                                   alternativeSelection:number) {
   
           scope.selectAlternative({
             timingIndex: timingSelection,
@@ -82,7 +90,8 @@ module Result {
          * @param segment
          * @param ratio
          */
-        function defineWidth(segment, ratio) {
+        function defineWidth(segment:any,
+                             ratio:number) {
           // do not show segments without concrete timings
           return segment['departureTime'] ?
           segment['duration'] * ratio : 0;
@@ -141,11 +150,11 @@ module Result {
          * @param newRatio
          * @returns {*}
          */
-        function defineIntervalBoundaries(departureTime,
-                                          duration,
-                                          ratio,
-                                          leftMargin,
-                                          newRatio) {
+        function defineIntervalBoundaries(departureTime:string,
+                                          duration:number,
+                                          ratio:number,
+                                          leftMargin:number,
+                                          newRatio:number) {
   
           if (!departureTime)
             return null;
@@ -173,7 +182,6 @@ module Result {
             end: rightIntervalBoundary
           };
         }
-     
       }
     }
   }

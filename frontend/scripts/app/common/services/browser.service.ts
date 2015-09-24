@@ -1,13 +1,14 @@
 /// <reference path="../../../_all.ts" />
+
 module Common {
 
   'use strict';
 
   export class Browser {
+
     constructor(private $document, 
                 private $window) {        
     }
-    
 
     /**
      * Try to figure out, if the user uses a mobile device.
@@ -37,4 +38,4 @@ module Common {
       }
     }
   }
-};
+}

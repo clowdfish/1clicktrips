@@ -1,4 +1,5 @@
 /// <reference path="../../../_all.ts" />
+
 module Common {
   
   'use strict';
@@ -8,7 +9,9 @@ module Common {
   */
   export function dateFormatter() {
 
-    return function(date, format) {
+    return function(date:any,
+                    format?:string) {
+
       if (date == null) return "";
 
       if(!format)
@@ -26,4 +29,4 @@ module Common {
       }
     }
   }
-};
+}

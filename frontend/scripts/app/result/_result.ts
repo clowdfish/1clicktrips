@@ -1,4 +1,5 @@
 /// <reference path="../../_all.ts" />
+
 module Result {
 
   'use strict';
@@ -34,4 +35,4 @@ module Result {
     .directive('tripSegment', TripSegment.Factory())
     .directive('tripSegmentContainer', TripSegmentContainer.Factory())
     .config(routerConfig);
-};
+}

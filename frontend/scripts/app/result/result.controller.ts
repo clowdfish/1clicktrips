@@ -1,8 +1,10 @@
 /// <reference path="../../_all.ts" />
+
 module Result {
   'use strict';
 
   export class ResultCtrl {
+
     constructor(private $scope,
                 private $state,
                 private $stateParams,
@@ -14,7 +16,8 @@ module Result {
                 private tripApi,
                 private searchObject,
                 private language,
-                private currency) {      
+                private currency) {
+
       $scope.searchData = {
         originDescription: searchObject['originDescription'],
         destinationDescription: searchObject['destinationDescription'],
@@ -35,7 +38,7 @@ module Result {
       $scope.activeItinerary = 0;
       $scope.activateItinerary = this.activateItinerary;
       $scope.updateItinerary = this.updateItinerary;
-  
+
       // timing is required for the trip segment container
       $scope.timing = {
         value: searchObject.timing[0],
@@ -57,12 +60,12 @@ module Result {
       }
     }
 
-    
+
 
     /**
      * Call the trip API to get all itinerary alternatives.
      */
-     getItineraries = () => {
+    getItineraries = () => {
 
       var cachedSearchResult = this.tripCache.getCachedTrip();
 
@@ -79,7 +82,7 @@ module Result {
             this.$scope.errorState = { message: err }
           });
       }
-    }
+    };
 
     /**
      * Sends a request to the back end to get new itinerary data.
@@ -111,7 +114,7 @@ module Result {
             reject(err);
           });
       });
-    }
+    };
 
     /**
      * Call the trip API to get all itinerary details.
@@ -133,7 +136,7 @@ module Result {
             this.$scope.errorState = { message: err }
           });
       }
-    }
+    };
 
     /**
      * Call the trip API to get all available hotels.
@@ -146,7 +149,7 @@ module Result {
         }, (err) => {
           this.$scope.errorState = { message: err }
         });
-    }
+    };
 
     /**
      * Set the itinerary with the given index to active.
@@ -155,7 +158,7 @@ module Result {
      */
     activateItinerary = (index) => {
       this.$scope.activeItinerary = index;
-    }
+    };
 
     /**
      * Transition to the state that provides the overview of all itineraries.
@@ -174,7 +177,7 @@ module Result {
       };
 
       this.$state.go("result.list", requestParameters);
-    }
+    };
 
     /**
      * Transition to the state that provides the details of ine itinerary.
@@ -198,7 +201,7 @@ module Result {
       };
 
       this.$state.go("result.details", requestParameters);
-    }
+    };
 
     /**
      * Transition to the state that provides the overview of all hotels.
@@ -223,11 +226,11 @@ module Result {
       };
 
       this.$state.go("result.hotels", requestParameters);
-    }
+    };
 
     goBack = () => {
       this.$window.history.back();
-    }
+    };
 
     /**
      * Creates a string representing the alternatives keys.
@@ -260,4 +263,4 @@ module Result {
       return resultArray.join('%');
     }
   }
-};
+}

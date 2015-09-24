@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+
 /// -----------Common module-----------
 /// <reference path="app/app.ts" />
 /// <reference path="app/common/directives/button.directive.ts" />
@@ -15,14 +16,17 @@
 /// <reference path="app/common/services/browser.service.ts" />
 /// <reference path="app/common/services/currency.service.ts" />
 /// <reference path="app/common/_common.ts" />
+
 /// -----------Index Module ------------
 /// <reference path="app/index/index.controller.ts" />
 /// <reference path="app/index/index.route.ts" />
 /// <reference path="app/index/_index.ts" />
+
 /// -----------Info Module -------------
 /// <reference path="app/info/info.controller.ts" />
 /// <reference path="app/info/info.route.ts" />
 /// <reference path="app/info/_info.ts" />
+
 /// -----------Result Module -----------
 /// <reference path="app/result/result.controller.ts" />
 /// <reference path="app/result/result.route.ts" />
@@ -31,6 +35,7 @@
 /// <reference path="app/result/tripSegment.directive.ts" />
 /// <reference path="app/result/tripSegmentContainer.directive.ts" />
 /// <reference path="app/result/_result.ts" />
+
 /// -----------Search Module ------------
 /// <reference path="app/search/search.controller.ts" />
 /// <reference path="app/search/searchDateTimeSelect.controller.ts" />

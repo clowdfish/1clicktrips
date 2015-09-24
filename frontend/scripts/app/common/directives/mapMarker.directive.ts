@@ -1,13 +1,16 @@
 /// <reference path="../../../_all.ts" />
+
 /**
 * This directive decode address and display a marker on map.
  *
 * <map-marker address="address"></map-marker>
 */
 module Common {
+
   'use strict';
 	
   export class MapMarker {
+
     public restrict = 'EA';
     public scope = {
       address: '=',
@@ -57,7 +60,12 @@ module Common {
             scope.displayMarkerByLatLon(scope.address);
           }
         }
-  
+
+        /**
+         *
+         *
+         * @param location
+         */
         function displayMarkerByLatLon(location) {
   
           mapContainer.style.display = 'block';
@@ -79,7 +87,12 @@ module Common {
             position: position
           });
         }
-  
+
+        /**
+         *
+         *
+         * @param address
+         */
         function displayMarkerByAddress(address) {
           geocoder
             .geocode({address: address}, (results, status) => {
@@ -104,9 +117,11 @@ module Common {
     }
     
     public static Factory() {
+
       var directive = () => {
         return new MapMarker();
-      }
+      };
+
       return directive;
     }
   }

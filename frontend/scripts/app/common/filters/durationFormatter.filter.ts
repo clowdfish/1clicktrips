@@ -1,4 +1,5 @@
 /// <reference path="../../../_all.ts" />
+
 module Common {
 
   'use strict';
@@ -32,4 +33,4 @@ module Common {
       return '';
     }
   }
-};
+}

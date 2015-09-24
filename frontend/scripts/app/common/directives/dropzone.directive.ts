@@ -1,7 +1,9 @@
 /// <reference path="../../../_all.ts" />
+
 module Common {
   
   export class Dropzone {
+
     public restrict = 'E';
     public templateUrl = 'scripts/app/templates/directives/dropzone.html';
     public scope = {
@@ -11,7 +13,9 @@ module Common {
     public link: (scope, element, attrs) => void;
     
     constructor() {
+
       Dropzone.prototype.link = (scope, element, attrs) => {
+
         scope.schedule = null;
         scope.error = null;
   
@@ -24,7 +28,6 @@ module Common {
               var reader = new FileReader();
   
               reader.onerror = this.errorHandler;
-  
               reader.onload = () => {
                 // the file is ready
                 scope.$apply(() => {
@@ -56,7 +59,7 @@ module Common {
         default:
           alert('An error occurred reading this file.');
       }
-    }
+    };
 
     /**
      * The parser for the .ics file format.
@@ -129,7 +132,7 @@ module Common {
 
       scope.error = null;
       return appointmentObject;
-    }
+    };
 
     /**
      * Replace line breaks with comma.
@@ -139,7 +142,7 @@ module Common {
      */
     formatAddress = (text) => {
       return text.replace('\\n', ', ');
-    }
+    };
 
     /**
      * Create moment object out of datetime string
@@ -149,7 +152,7 @@ module Common {
      */
     formatTiming = (text) => {
       return moment(text, 'YYYYMMDDTHHmmss');
-    }
+    };
 
     /**
      * Create geo data object from string.
@@ -164,16 +167,16 @@ module Common {
         latitude: parseFloat(textArray[0]),
         longitude: parseFloat(textArray[1])
       };
-    }        
+    };
     
     public static Factory() {
+
       var directive = () => {
         return new Dropzone();
-      }
+      };
+
       directive['$inject'] = [];
       return directive;
     }
-  }  
-  
+  }
 }
-

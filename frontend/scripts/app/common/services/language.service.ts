@@ -3,6 +3,7 @@ module Common {
   'use strict';
 
   export class Language {
+
     public get() {
       return {
         "code": "en",
@@ -12,4 +13,4 @@ module Common {
       }
     }   
   }
-};
+}

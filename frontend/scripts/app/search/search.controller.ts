@@ -1,9 +1,11 @@
 /// <reference path="../../_all.ts" />
+
 module Search {
 
   'use strict';
 
   export class SearchCtrl {
+
     constructor(private $scope,
                 private $state,
                 private searchFormData) {
@@ -31,8 +33,6 @@ module Search {
         $('#origin').focus();
       };
     }
-
-    
 
     /**
      *
@@ -98,7 +98,8 @@ module Search {
         return new RegExp("^[0-9]{2}.[0-9]{2}.[0-9]{4}$")
           .test(date);
       }
-    }
+    };
+
     /**
      * Send search parameter to result page
      */
@@ -124,10 +125,13 @@ module Search {
       }
       else
         console.log("Search form is not valid!");
-    }
+    };
 
+    /**
+     *
+     */
     formatDate = (date) => {
       return moment(date).format('YYYY-MM-DDTHH:mm:ss');
-    }
+    };
   }
-};
+}

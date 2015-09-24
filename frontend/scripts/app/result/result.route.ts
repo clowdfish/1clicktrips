@@ -1,4 +1,5 @@
 /// <reference path="../../_all.ts" />
+
 module Result {
 
   'use strict';
@@ -84,13 +85,13 @@ module Result {
     };
 
     if($stateParams.tripKey)
-      this.searchObject.tripKey = $stateParams.tripKey;
+      searchObject['tripKey'] = $stateParams.tripKey;
 
     if($stateParams.sessionId)
-      this.searchObject.sessionId = $stateParams.sessionId;
+      searchObject['sessionId'] = $stateParams.sessionId;
 
     if($stateParams.selectedAlternatives)
-      this.searchObject.selectedAlternatives = $stateParams.selectedAlternatives;
+      searchObject['selectedAlternatives'] = $stateParams.selectedAlternatives;
 
     return searchObject;
   }
@@ -119,4 +120,4 @@ module Result {
       userAgent: navigator.userAgent
     };
   }
-};
+}

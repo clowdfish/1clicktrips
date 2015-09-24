@@ -1,4 +1,5 @@
 /// <reference path="../../_all.ts" />
+
 module Search {
 
 	'use strict';
@@ -6,7 +7,6 @@ module Search {
 	export class SearchDestinationFormCtrl {
     constructor(private $scope,
                 private $q,
-                private $rootScope,
                 private suggestionAdapter,
                 private googleMap) {
       $scope.getSuggestion = this.getSuggestion;
@@ -19,14 +19,13 @@ module Search {
       });              
     }
 
-		
-
     /**
      *
      *
      * @param options
      */
     setDestination = (options) => {
+
       if(options == null) {
         this.$scope.$parent.schedule.destinationAddress = null;
         this.$scope.$parent.schedule.destination = null;
@@ -35,7 +34,7 @@ module Search {
         this.$scope.$parent.schedule.destinationAddress = options.description;
         this.$scope.$parent.schedule.destination = options.location;
       }
-    }
+    };
 
     /**
      * Get suggestion for text input.
@@ -44,10 +43,11 @@ module Search {
      * @return {promise} - return a promise for typeahead
      */
     getSuggestion = (val) => {
+
       return this
         .suggestionAdapter
         .getAddressSuggestion(val);
-    }
+    };
 
     /**
      * Select suggestion and display on map.
@@ -55,6 +55,7 @@ module Search {
      * @param {object|string} $item - Suggestion object
      */
     selectSuggestion = ($item) => {
+
       var deferred = this.$q.defer();
 
       this
@@ -65,7 +66,7 @@ module Search {
         });
 
       return deferred.promise;
-    }
+    };
 
     /**
      *
@@ -85,10 +86,13 @@ module Search {
       }, () => {
       	return this.setDestination(null);
       });
-    }
+    };
 
+    /**
+     *
+     */
     focusOnTimeSelection = () => {
-      //$rootScope.$broadcast('openTimePicker');
-    }
+
+    };
 	}
-};
+}

@@ -49,7 +49,7 @@ module Search {
     */
     getAddressSuggestion = (val) => {
       return this.suggestionAdapter.getAddressSuggestion(val);
-    }
+    };
 
     /**
      *
@@ -70,13 +70,13 @@ module Search {
       	}, () => {
           this.setOrigin(null);
       	});
-    }
+    };
 
     /**
      *
      */
     focusOnDestinationField = () => {
-      //$('#destination').focus();
-    }
+
+    };
 	}
-};
+}

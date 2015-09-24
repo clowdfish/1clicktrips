@@ -1,9 +1,11 @@
 /// <reference path="../../../_all.ts" />
+
 module Common {
 
   'use strict';
 
   export class Currency {
+
     public get() {
       return {
         "code": "EUR",
@@ -17,4 +19,4 @@ module Common {
       }
     }
   }
-};
+}

@@ -1,4 +1,5 @@
 module Common {
+
   'use strict';
 
   /**
@@ -24,4 +25,4 @@ module Common {
       return '';
     }
   }
-};
+}

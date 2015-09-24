@@ -1,13 +1,15 @@
 /// <reference path="../../_all.ts" />
+
 module Result {
 
   'use strict';
 
-  export class TripApi{
+  export class TripApi {
+
     constructor(private $http, 
-                private $q: ng.IQService) {        
+                private $q: ng.IQService) {
+
     }
-    
 
     /**
      *
@@ -18,8 +20,7 @@ module Result {
     getAvailableItineraries(searchObject) {
       var deferred = this.$q.defer();
 
-      this
-        .$http
+      this.$http
         .post('/api/search/trips', searchObject, {
           activeMessages: [
             {
@@ -73,8 +74,7 @@ module Result {
 
       var deferred = this.$q.defer();
 
-      this
-        .$http
+      this.$http
         .post('/api/search/trip-update', searchObject, {
           activeMessages: [
             {
@@ -115,8 +115,7 @@ module Result {
     getTripDetails(searchObject) {
       var deferred = this.$q.defer();
 
-      this
-        .$http
+      this.$http
         .post('/api/search/trip-details', searchObject, {
           activeMessages: [
             {
@@ -154,8 +153,7 @@ module Result {
     getAvailableHotels(searchObject) {
       var deferred = this.$q.defer();
 
-      this
-        .$http
+      this.$http
         .post('/api/search/hotels', searchObject, {
           activeMessages: [
             {
@@ -178,4 +176,4 @@ module Result {
       return deferred.promise;
     }
   }
-};
+}

@@ -1,4 +1,5 @@
 /// <reference path="../../_all.ts" />
+
 module Index {
 
   'use strict';
@@ -13,5 +14,5 @@ module Index {
       file: 1
     })
     //.controller('indexCtrl', IndexCtrl)
-    .config(routerConfig)
-};
+    .config(routerConfig);
+}

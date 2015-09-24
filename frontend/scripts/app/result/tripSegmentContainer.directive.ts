@@ -1,8 +1,11 @@
 /// <reference path="../../_all.ts" />
+
 module Result {
+
   'use strict';
   	
   export class TripSegmentContainer {
+
     private restrict = 'E';
     private templateUrl = 'scripts/app/templates/result/trip-segment-container.html';
     private replace = true;
@@ -16,9 +19,11 @@ module Result {
     private link: (scope, element, attrs) => void;
     
     public static Factory() {
-      var directive = (VEHICLE_TYPE, TRANSFER_TIME, $q): any => {
+
+      var directive = (VEHICLE_TYPE, TRANSFER_TIME, $q):any => {
         return new TripSegmentContainer(VEHICLE_TYPE, TRANSFER_TIME, $q);
-      }
+      };
+
       directive['$inject'] = ['VEHICLE_TYPE', 'TRANSFER_TIME', '$q'];
       return directive;
     }
@@ -26,6 +31,7 @@ module Result {
     constructor(private VEHICLE_TYPE,
                 private TRANSFER_TIME,
                 private $q: ng.IQService) {
+
       TripSegmentContainer.prototype.link = (scope, element, attrs) => {
         scope.showDetails = 'showDetails' in attrs;
   
@@ -80,7 +86,7 @@ module Result {
          *
          * @param dimensionData
          */
-        function setDimensions(dimensionData) {
+        function setDimensions(dimensionData:any) {
   
           if(!dimensionData) {
             // set back to original dimensions
@@ -115,7 +121,7 @@ module Result {
          *
          * @param boundaryData
          */
-        function defineBoundaries(boundaryData?) {
+        function defineBoundaries(boundaryData?:any) {
   
           // reset boundaries
           scope.earliestDeparture = undefined;
@@ -145,7 +151,8 @@ module Result {
            * @param intervalStart
            * @param intervalEnd
            */
-          function setBoundaries(intervalStart, intervalEnd) {
+          function setBoundaries(intervalStart:moment.Moment,
+                                 intervalEnd:moment.Moment) {
   
             var appointmentTime =
               moment(scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
@@ -197,7 +204,7 @@ module Result {
          * @param timeString
          * @returns {number}
          */
-        function defineMarginLeft(timeString) {
+        function defineMarginLeft(timeString:string) {
   
           var time = moment(timeString, 'YYYY-MM-DDTHH:mm:ss');
   
@@ -219,7 +226,8 @@ module Result {
          * @param containerIndex
          * @returns {number}
          */
-        function getAlternativeIndex(itineraryIndex, containerIndex) {
+        function getAlternativeIndex(itineraryIndex:number,
+                                     containerIndex:number) {
   
           // check if selection has an entry matching the given arguments
           var selectionKey = itineraryIndex + '-' + containerIndex;
@@ -252,7 +260,9 @@ module Result {
          * @param segmentIndex
          * @returns {number}
          */
-        function getTimingIndex(itineraryIndex, containerIndex, segmentIndex) {
+        function getTimingIndex(itineraryIndex:number,
+                                containerIndex:number,
+                                segmentIndex:number) {
   
           // check if selection has an entry matching the given arguments
           var selectionKey =
@@ -280,11 +290,11 @@ module Result {
          * @param alternativeIndex
          * @param timingIndex
          */
-        function selectAlternative(itineraryIndex,
-                                   containerIndex,
-                                   segmentIndex,
-                                   alternativeIndex,
-                                   timingIndex) {
+        function selectAlternative(itineraryIndex:number,
+                                   containerIndex:number,
+                                   segmentIndex:number,
+                                   alternativeIndex:number,
+                                   timingIndex:number) {
   
           // store alternative in selection data structure
           var selectionKey =
@@ -490,7 +500,7 @@ module Result {
   
   
           // define itinerary departure time
-          var departureTime = null;
+          var departureTime:moment.Moment = null;
           var startDuration = 0;
   
           var i, j;
@@ -519,7 +529,7 @@ module Result {
           }
   
           // define itinerary arrival time
-          var arrivalTime = null;
+          var arrivalTime:moment.Moment = null;
           var endDuration = 0;
   
           for(i=itinerary['segmentsContainer'].length - 1; i>=0; i--) {

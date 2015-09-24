@@ -1,19 +1,24 @@
 /// <reference path="../../../_all.ts" />
 
 module Common {
+
   'use strict';
   
   export class WaitingAnimation {
+
     public restrict = 'E';
     public templateUrl = 'scripts/app/templates/directives/waiting-animation.html';
     public link: (scope, element, attrs) => void;
-    public scope = {}
+    public scope = {};
     
     constructor(private $timeout, 
                 private requestSpinnerEvents) {
+
       WaitingAnimation.prototype.link = (scope, element, attrs): void => {
-        var activeMessages = null;
+
+        var activeMessages:string[] = [];
         var activeMessageIndex = 0;
+
         /**
         * @type boolean - directive visibility
         */
@@ -66,12 +71,13 @@ module Common {
     }
     
     public static Factory() {
+
       var directive = ($timeout, requestSpinnerEvents): any => {
         return new WaitingAnimation($timeout, requestSpinnerEvents);
-      }
+      };
+
       directive['$inject'] = ['$timeout', 'requestSpinnerEvents'];
       return directive;
     }
   }
-  
-};
+}

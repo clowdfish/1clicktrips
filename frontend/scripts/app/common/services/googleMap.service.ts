@@ -1,4 +1,5 @@
 /// <reference path="../../../_all.ts" />
+
 module Common {
 
 	'use strict';
@@ -8,7 +9,6 @@ module Common {
 		
 		constructor(private $q) {
 			this.geocoder = new google.maps.Geocoder();
-			this.geocode = this.geocode;	
 		}		
 
 		/**
@@ -16,11 +16,10 @@ module Common {
 		* @params {string} address - Address
 		* @return {Object} latitude and longitude of address
 		*/
-		public geocode = (address) => {
+		public geocode = (address:string) => {
 			var deferred = this.$q.defer();
 
-			this
-				.geocoder
+			this.geocoder
         .geocode({address: address}, function(results, status) {
 
           if (status == google.maps.GeocoderStatus.OK) {
@@ -36,6 +35,5 @@ module Common {
         });
       return deferred.promise;
 		}
-		
 	}
-};
+}

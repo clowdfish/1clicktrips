@@ -1,6 +1,8 @@
 /// <reference path="../../../_all.ts" />
 module Common {
+
 	'use strict';
+
 	/**
   * Show spinner
   */
@@ -19,7 +21,7 @@ module Common {
       return !!(this.lastSpinnerObject != null &&
               httpConfig.url == this.lastSpinnerObject.url &&
               httpConfig.method == this.lastSpinnerObject.method);
-    }
+    };
 
     private _broadcastShowSpinnerEevent = (httpConfig, data) => {
       this.lastSpinnerObject = {
@@ -27,12 +29,12 @@ module Common {
         url: httpConfig.url
       };
       this.$rootScope.$broadcast(this.requestSpinnerEvents.show, data);
-    }
+    };
 
     private _broadcastHideSpinnerEvent = () => {
       this.$rootScope.$broadcast(this.requestSpinnerEvents.hide);
       this.lastSpinnerObject = null;
-    }
+    };
     
     /**
     * Show spinner when get waitingMessage
@@ -44,7 +46,7 @@ module Common {
         });
       }
       return config; 
-    }
+    };
     
     /**
     * Hide spinner when response info matches request info
@@ -54,7 +56,7 @@ module Common {
         this._broadcastHideSpinnerEvent();
       }
       return response;
-    }
+    };
     
     /**
     * Hide spinner when response error
@@ -64,7 +66,7 @@ module Common {
         this._broadcastHideSpinnerEvent();
       }
       return this.$q.reject(rejection);
-    }
+    };
 
     /**
     * Hide spinner when request error
@@ -74,17 +76,15 @@ module Common {
         this._broadcastHideSpinnerEvent();
       }
       return this.$q.reject(rejection);
-    }
-    
-    
-    
+    };
+
     public static Factory() {
       var service = ($q, $rootScope, requestSpinnerEvents) => {
         return new SpinnerIntercepter($q, $rootScope, requestSpinnerEvents); 
-      }      
+      };
+
       service['$inject'] = ['$q', '$rootScope', 'requestSpinnerEvents'];
       return service; 
     }
   }
- 
-};
+}

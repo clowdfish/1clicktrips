@@ -1,4 +1,5 @@
 /// <reference path="../../_all.ts" />
+
 module Core {
 
   'use strict';
