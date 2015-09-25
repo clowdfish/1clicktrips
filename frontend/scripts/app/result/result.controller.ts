@@ -1,6 +1,7 @@
 /// <reference path="../../_all.ts" />
 
 module Result {
+  
   'use strict';
 
   export class ResultCtrl {

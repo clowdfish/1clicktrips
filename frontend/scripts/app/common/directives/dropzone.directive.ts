@@ -2,6 +2,8 @@
 
 module Common {
   
+  'use strict';
+  
   export class Dropzone {
 
     public restrict = 'E';

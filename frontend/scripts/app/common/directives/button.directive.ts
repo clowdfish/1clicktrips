@@ -1,6 +1,7 @@
 /// <reference path="../../../_all.ts" />
 
 module Common {
+  
   'use strict';
   
   export class Button {
