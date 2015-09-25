@@ -50,6 +50,15 @@ module.exports = {
     });
   },
 
+  getTripUpdate: function(searchObject, userLicence) {
+    console.log("Retrieving mock trip update.");
+
+    return new Promise(function(resolve) {
+
+      resolve(createMockTripDetails());
+    });
+  },
+
   getTripDetails: function(searchObject, userLicence) {
     console.log("Retrieving mock trip details.");
 

@@ -33,6 +33,7 @@ module Result {
                 private $q: ng.IQService) {
 
       TripSegmentContainer.prototype.link = (scope, element, attrs) => {
+
         scope.showDetails = 'showDetails' in attrs;
   
         // how much percent per minute
@@ -139,8 +140,11 @@ module Result {
               if(itinerary) {
                 var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
                 var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
-  
-                setBoundaries(departureTime, arrivalTime);
+
+                if(departureTime && arrivalTime)
+                  setBoundaries(departureTime, arrivalTime);
+                else
+                  console.error("Itinerary has no departure or arrival time defined.")
               }
             });
           }

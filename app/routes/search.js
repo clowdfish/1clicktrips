@@ -75,7 +75,7 @@ module.exports = function (app, express, production) {
     console.log('Trip request coming from the client:');
     console.log(JSON.stringify(req.body, null, 2));
 
-    if(tripRequestIsValid(req)) {
+    if(tripRequestIsValid(req, true)) {
 
       var userLicence = null;
       var userId = AuthController.getUserIdFromRequest(req, secret);
@@ -100,6 +100,43 @@ module.exports = function (app, express, production) {
     }
   });
 
+  searchApi.post('/trip-update', function (req, res) {
+
+    var secret = app.get('jwtTokenSecret');
+
+    console.log('Trip update request coming from the client:');
+    console.log(JSON.stringify(req.body, null, 2));
+
+    if(tripRequestIsValid(req, false)) {
+
+      if(!req.body['tripKey']) {
+        res.status(400).send('status.user.error.request.key.missing');
+        return;
+      }
+
+      var userLicence = null;
+      var userId = AuthController.getUserIdFromRequest(req, secret);
+
+      UserController.getUser(userId)
+        .then(function (user) {
+          userLicence = user.licence;
+
+          SearchController.getTripUpdate(req.body, user.licence)
+            .then(function(tripResult) {
+              res.status(200).json(tripResult);
+            })
+            .catch(function(err) {
+              console.log(err.message);
+
+              res.status(500).json(err.message);
+            });
+        });
+    }
+    else {
+      res.status(400).send('status.user.error.request.malformed');
+    }
+  });
+
   searchApi.post('/trip-details', function (req, res) {
 
     var secret = app.get('jwtTokenSecret');
@@ -107,7 +144,7 @@ module.exports = function (app, express, production) {
     console.log('Trip details request coming from the client:');
     console.log(JSON.stringify(req.body, null, 2));
 
-    if(tripRequestIsValid(req)) {
+    if(tripRequestIsValid(req, false)) {
 
       if(!req.body['tripKey']) {
         res.status(400).send('status.user.error.request.key.missing');
@@ -122,8 +159,8 @@ module.exports = function (app, express, production) {
           userLicence = user.licence;
 
           SearchController.getTripDetails(req.body, user.licence)
-            .then(function(tripResults) {
-              res.status(200).json(tripResults);
+            .then(function(tripResult) {
+              res.status(200).json(tripResult);
             })
             .catch(function(err) {
               console.log(err.message);
@@ -193,9 +230,15 @@ module.exports = function (app, express, production) {
  * Checks the validity of a trip search request object.
  *
  * @param req
+ * @param initial
  * @returns {boolean}
  */
-function tripRequestIsValid(req) {
+function tripRequestIsValid(req, initial) {
+
+  if(!initial) {
+    if(req.body['tripKey'] && req.body['currency'] && req.body['locale'])
+      return true;
+  }
 
   if(req.body['origin'] && req.body['destination'] &&
     req.body['timing'] && req.body['timing'].length > 0 &&

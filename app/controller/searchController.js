@@ -62,6 +62,22 @@ module.exports = {
     });
   },
 
+  getTripUpdate: function(searchObject, userLicence) {
+    console.log("Retrieving trip update.");
+
+    return new Promise(function(resolve, reject) {
+
+      // search engine API request
+      searchApi.getTripUpdate(searchObject, userLicence)
+        .then(function(itinerary) {
+          resolve(itinerary);
+        })
+        .catch(function(error) {
+          reject(error);
+        });
+    });
+  },
+
   getTripDetails: function(searchObject, userLicence) {
     console.log("Retrieving trip details.");
 

@@ -40,11 +40,8 @@ module Result {
       $scope.activateItinerary = this.activateItinerary;
       $scope.updateItinerary = this.updateItinerary;
 
-      // timing is required for the trip segment container
-      $scope.timing = {
-        value: searchObject.timing[0],
-        targetDate: searchObject.targetDate
-      };
+      // timing is required for the trip segment container's formatting
+      $scope.timing = { };
   
       // the selection object is a (itinerary-container-segment => timing) mapping
       // with a string key (eg. "1-2-1") and a timing alternative index (eg. 2).
@@ -61,8 +58,6 @@ module Result {
       }
     }
 
-
-
     /**
      * Call the trip API to get all itinerary alternatives.
      */
@@ -71,6 +66,10 @@ module Result {
       var cachedSearchResult = this.tripCache.getCachedTrip();
 
       if(cachedSearchResult) {
+        // store appointment timing data
+        this.$scope.timing = cachedSearchResult[0]['timing'];
+        this.$scope.timing['targetDate'] = this.searchObject.targetDate;
+
         this.$scope.itineraries = cachedSearchResult;
       }
       else {
@@ -78,6 +77,11 @@ module Result {
           .getAvailableItineraries(this.searchObject)
           .then((itineraries) =>{
             this.tripCache.storeTrip(itineraries);
+
+            // store appointment timing data
+            this.$scope.timing = itineraries[0]['timing'];
+            this.$scope.timing['targetDate'] = this.searchObject.targetDate;
+
             this.$scope.itineraries = itineraries;
           }, (err) => {
             this.$scope.errorState = { message: err }
@@ -109,6 +113,10 @@ module Result {
 
         this.tripApi.getTripUpdate(searchObject)
           .then((trip) => {
+            // store appointment timing data
+            this.$scope.timing = trip['timing'];
+            this.$scope.timing['targetDate'] =  this.searchObject.targetDate;
+
             this.$scope.itineraries[itineraryIndex] = trip;
             resolve();
           }, (err) => {
@@ -125,12 +133,20 @@ module Result {
       var cachedTripDetails = this.tripCache.getCachedTrip();
 
       if(cachedTripDetails) {
+        // store appointment timing data
+        this.$scope.timing = cachedTripDetails['timing'];
+        this.$scope.timing['targetDate'] = this.searchObject.targetDate;
+
         this.$scope.itinerary = cachedTripDetails;
       }
       else {
         this.tripApi
           .getTripDetails(this.searchObject)
           .then((itinerary) => {
+            // store appointment timing data
+            this.$scope.timing = itinerary['timing'];
+            this.$scope.timing['targetDate'] = this.searchObject.targetDate;
+
             this.tripCache.storeTrip(itinerary);
             this.$scope.itinerary = itinerary;
           }, (err) => {
