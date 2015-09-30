@@ -1,7 +1,7 @@
 /// <reference path="../../_all.ts" />
 
 module Result {
-  
+
   'use strict';
 
   export class ResultCtrl {
@@ -17,36 +17,39 @@ module Result {
                 private tripApi,
                 private searchObject,
                 private language,
-                private currency) {
+                private currency,
+                private bookingApi) {
 
       $scope.searchData = {
         originDescription: searchObject['originDescription'],
         destinationDescription: searchObject['destinationDescription'],
         timing: searchObject['timing'][0]
       };
-  
+
       $scope.itineraries = null;
       $scope.itinerary = null;
       $scope.hotels = null;
-  
+
       $scope.errorState = null;
-  
+
       $scope.goToOverview = this.goToOverview;
       $scope.goToItinerary = this.goToItinerary;
       $scope.goToHotels = this.goToHotels;
       $scope.goBack = this.goBack;
-  
+
       $scope.activeItinerary = 0;
       $scope.activateItinerary = this.activateItinerary;
       $scope.updateItinerary = this.updateItinerary;
 
+      $scope.booking = this.booking;
+
       // timing is required for the trip segment container's formatting
       $scope.timing = { };
-  
+
       // the selection object is a (itinerary-container-segment => timing) mapping
       // with a string key (eg. "1-2-1") and a timing alternative index (eg. 2).
       $scope.selection = { };
-  
+
       if(resultState == RESULT_STATE.overview) {
         this.getItineraries();
       }
@@ -64,7 +67,7 @@ module Result {
     getItineraries = () => {
 
       var cachedSearchResult = this.tripCache.getCachedTrip();
-
+      console.log(cachedSearchResult);
       if(cachedSearchResult) {
         // store appointment timing data
         this.$scope.timing = cachedSearchResult[0]['timing'];
@@ -131,7 +134,7 @@ module Result {
     getItineraryDetails = () => {
 
       var cachedTripDetails = this.tripCache.getCachedTrip();
-
+      console.log(cachedTripDetails);
       if(cachedTripDetails) {
         // store appointment timing data
         this.$scope.timing = cachedTripDetails['timing'];
@@ -278,6 +281,12 @@ module Result {
       }
 
       return resultArray.join('%');
+    }
+
+    booking = (searchData, itinerary) => {
+      console.log(this.$scope.selection);
+      this.bookingApi.setBookingData(searchData, this.$scope.selection, itinerary);
+      return this.$state.go('booking');
     }
   }
 }

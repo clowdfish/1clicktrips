@@ -17,7 +17,7 @@ module Result {
     })
     .constant('VEHICLE_TYPE', {
       bed: 0,
-      street_view: 2,
+      street_view: 1,
       car: 2,
       bus: 4,
       subway: 6,

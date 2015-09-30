@@ -1,0 +1,108 @@
+<section class="booking container">
+
+	<h1 class="booking-title">Booking overview</h1>
+
+	<a href="#" class="button--light" ng-click="printPage($event)">Print</a>
+
+	<div class="booking-summary clearfix">
+		<div class="booking-summary-item">
+			<div class="booking-summary-item-header">
+				From
+			</div>
+			<div class="booking-summary-item-content">
+			{{searchParams.originDescription}}
+			</div>
+		</div>
+		<div class="booking-summary-item">
+			<div class="booking-summary-item-header">
+				To
+			</div>
+			<div class="booking-summary-item-content">
+				{{searchParams.destinationDescription}}
+			</div>
+		</div>
+		<div class="booking-summary-item">
+			<div class="booking-summary-item-header">
+				Time
+			</div>
+			<div class="booking-summary-item-content">
+				{{searchParams.timing}}
+			</div>
+		</div>
+		<div class="booking-summary-item">
+			<div class="booking-summary-item-header">
+			Price
+			</div>
+			<div class="booking-summary-item-content">
+			{{tripDetails.price | currencyFormatter : tripDetails.currency}}
+			</div>
+		</div>
+		<div class="booking-summary-item">
+			<div class="booking-summary-item-header">
+			Duration
+			</div>
+			<div class="booking-summary-item-content">
+			{{tripDetails.duration | durationFormatter}}
+			</div>
+		</div>
+	</div>
+
+	<div class="booking-segment-container">
+		<div class="booking-detail-title">Booking details</div>
+
+
+
+		<div class="booking-container"
+					ng-repeat="container in tripDetails.segmentsContainer"
+					ng-init="containerIndex = $index">
+			<div class="booking-segment-item clearfix"
+					ng-repeat="segment in getSegments(containerIndex, container)">
+				<div class="booking-segment-info">
+					<div class="booking-segment-title">
+						{{ getActionVerbBySegmentType(segment) }} from {{ segment.start.description }} to {{ segment.end.description }}
+					</div>
+					<div class="booking-segment-info-item">
+						<div class="booking-segment-info-item-title">
+							From
+						</div>
+						<div class="booking-segment-info-item-description">
+							{{segment.start.description}}
+						</div>
+					</div>
+					<div class="booking-segment-info-item">
+						<div class="booking-segment-info-item-title">
+							To
+						</div>
+						<div class="booking-segment-info-item-description">
+							{{segment.end.description}}
+						</div>
+					</div>
+					<div class="booking-segment-info-item">
+						<div class="booking-segment-info-item-title">
+							Price
+						</div>
+						<div class="booking-segment-info-item-description">
+							{{segment.price.amount | currency:segment.price.currency}}
+						</div>
+					</div>
+					<div class="booking-segment-info-item">
+						<div class="booking-segment-info-item-title">
+							Duration
+						</div>
+						<div class="booking-segment-info-item-description">
+							{{segment.duration | durationFormatter}}
+						</div>
+					</div>
+
+				</div>
+				<div class="booking-segment-map">
+					<static-map class="static-map"
+											path="getSegmentPath(segment)"
+											start="segment.start.location"
+											end="segment.end.location">
+					</static-map>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

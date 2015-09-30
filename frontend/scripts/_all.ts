@@ -43,3 +43,10 @@
 /// <reference path="app/search/searchOrigin.controller.ts" />
 /// <reference path="app/search/suggestionAdapter.factory.ts" />
 /// <reference path="app/search/_search.ts" />
+
+/// -----------Booking Module ------------
+/// <reference path="app/booking/booking.controller.ts" />
+/// <reference path="app/booking/booking.route.ts" />
+/// <reference path="app/booking/bookingApi.service.ts" />
+/// <reference path="app/booking/segmentDetails.directive.ts" />
+/// <reference path="app/booking/staticMap.directive.ts" />

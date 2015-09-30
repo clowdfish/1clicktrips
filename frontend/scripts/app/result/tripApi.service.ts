@@ -6,7 +6,7 @@ module Result {
 
   export class TripApi {
 
-    constructor(private $http, 
+    constructor(private $http,
                 private $q: ng.IQService) {
 
     }
@@ -17,7 +17,7 @@ module Result {
      * @param searchObject
      * @returns {*}
      */
-    getAvailableItineraries(searchObject) {
+    getAvailableItineraries = (searchObject) => {
       var deferred = this.$q.defer();
 
       this.$http
@@ -70,7 +70,7 @@ module Result {
      * @param searchObject
      * @returns {*}
      */
-    getTripUpdate(searchObject) {
+    getTripUpdate = (searchObject) => {
 
       var deferred = this.$q.defer();
 
@@ -112,7 +112,7 @@ module Result {
      * @param searchObject
      * @returns {*}
      */
-    getTripDetails(searchObject) {
+    getTripDetails = (searchObject) => {
       var deferred = this.$q.defer();
 
       this.$http
@@ -150,7 +150,7 @@ module Result {
     /**
      * Calls the REST API to get all available hotels.
      */
-    getAvailableHotels(searchObject) {
+    getAvailableHotels = (searchObject) => {
       var deferred = this.$q.defer();
 
       this.$http

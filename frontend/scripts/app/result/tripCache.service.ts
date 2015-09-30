@@ -9,9 +9,9 @@ module Result {
   */
   export class TripCache {
 
-    constructor(private $sessionStorage, 
+    constructor(private $sessionStorage,
                 private $location: ng.ILocationService) {
-      
+
     }
 
     /**
