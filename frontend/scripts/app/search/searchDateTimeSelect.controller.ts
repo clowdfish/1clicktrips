@@ -7,7 +7,7 @@ module Search {
 	export class SearchDateTimeSelectCtrl {
 
 		constructor(private $scope) {
-			
+
 		}
   }
-}
+}    

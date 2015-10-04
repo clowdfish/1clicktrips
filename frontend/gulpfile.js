@@ -19,7 +19,8 @@ var concat 		  = require('gulp-concat'),
     ngAnnotate  = require('gulp-ng-annotate'),
     merge       = require('gulp-merge'),
     angularTemplateCache = require('gulp-angular-templatecache'),
-    typescript  = require('gulp-typescript');
+    typescript  = require('gulp-typescript'),
+    gulpSequence = require('gulp-sequence');
 
 
 /****************************************************************************************************/
@@ -40,6 +41,11 @@ var plumberErrorHandler = {
     message: "Error: <%= error.message %>"
   })
 };
+
+var testFiles = [
+  'scripts/test/_test.ts',
+  'scripts/test/**/*.ts"'
+];
 
 /****************************************************************************************************/
 /* BUILD TASKS                                                                                      */
@@ -89,9 +95,8 @@ gulp.task('webserver', function() {
     }));
 });
 
-// process and compile all script files
-gulp.task('scripts', function() {
-  gulp.src([
+gulp.task('vendor-scripts', function(done) {
+  return gulp.src([
     'bower_components/jquery/dist/jquery.js',
     'bower_components/moment/moment.js',
     'bower_components/es6-promise/promise.js',
@@ -113,8 +118,13 @@ gulp.task('scripts', function() {
   .pipe(plumber(plumberErrorHandler))
   .pipe(concat('vendor.js'))
   .pipe(gulp.dest('build/scripts'));
+});
 
-  merge(
+// process and compile all script files
+gulp.task('client-scripts', function(done) {
+
+
+  return merge(
     gulp.src([
       'scripts/app/templates/**/*'
     ])
@@ -122,22 +132,24 @@ gulp.task('scripts', function() {
       root: 'scripts/app/templates/',
       module: 'app.templates',
       standalone: true
-    })),    
+    })),
     gulp.src([
       'scripts/_all.ts',
-      'scripts/**/*.ts',
-      '!scripts/**/*.spec.ts'      
+      'scripts/app/**/*.ts',
+      '!scripts/app/**/*.spec.ts'
     ])
     .pipe(typescript({
       out: 'typscript.js',
       removeComments: true
-    }))    
+    }))
   )
   .pipe(plumber(plumberErrorHandler))
-  .pipe(concat('script.js'))  
-  .pipe(ngAnnotate())  
+  .pipe(concat('script.js'))
+  .pipe(ngAnnotate())
   .pipe(gulp.dest('build/scripts'));
 });
+
+gulp.task('scripts', gulpSequence('vendor-scripts', 'client-scripts'));
 
 // compile angular templates to make them available on client
 gulp.task('angular-templates', function() {
@@ -188,12 +200,27 @@ gulp.task('app-data', function() {
     .pipe(gulp.dest('scripts/data'));
 });
 
-gulp.task('test', function (done) {
+gulp.task('compileTest', function(done) {
+  return gulp
+    .src(testFiles)
+    .pipe(typescript({
+      out: 'typscript.js',
+      removeComments: true
+    }))
+    .pipe(plumber(plumberErrorHandler))
+    .pipe(concat('test.js'))
+    .pipe(gulp.dest('build/scripts'));
+});
+
+gulp.task('runTest', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
+    autoWatch: false,
     singleRun: true
   }, done);
 });
+
+gulp.task('test', gulpSequence('scripts', 'compileTest', 'runTest'));
 
 // gulp task suite
 gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data'], function() {
@@ -206,3 +233,7 @@ gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'ap
 });
 
 gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data'], function() {});
+
+function compileScript() {
+
+}

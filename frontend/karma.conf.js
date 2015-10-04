@@ -16,22 +16,9 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY',
-      'bower_components/jquery/dist/jquery.min.js',
-      'bower_components/jquery-ui/jquery-ui.min.js',
-      'bower_components/angular/angular.js',
-      'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-      'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
-      'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/moment/min/moment.min.js',
-      'bower_components/lodash/lodash.min.js',
-      'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-      'bower_components/angular-sanitize/angular-sanitize.min.js',
-      'bower_components/angular-ui-sortable/sortable.min.js',
-      'bower_components/ngstorage/ngStorage.min.js',
-      'scripts/**/*.js',
-      'scripts/**/*.spec.js',
-      'scripts/**/*.html'
+      'build/scripts/vendor.js',
+      'build/scripts/script.js',
+      'build/scripts/test.js'
     ],
 
 

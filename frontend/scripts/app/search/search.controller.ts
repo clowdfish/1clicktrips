@@ -6,15 +6,15 @@ module Search {
 
   export class SearchCtrl {
 
-    constructor(private $scope,
-                private $state,
-                private searchFormData) {
+    constructor(public $scope,
+                public $state,
+                public searchFormData) {
       // optimize forward or backward
       $scope.targetDate = searchFormData.targetDate;
-  
+
       $scope.startDateString = searchFormData.startDate.format("DD.MM.YYYY");
       $scope.startTimeString = searchFormData.startTimeString;
-  
+
       $scope.schedule = {
         title: "",
         origin: searchFormData.originLocation,
@@ -23,12 +23,12 @@ module Search {
         destinationAddress: searchFormData.destination,
         time: searchFormData.startDate // moment object
       };
-  
+
       /**
        * scope functions
        */
       $scope.startSearch = this.startSearch;
-  
+
       $scope.resetTabIndex = function() {
         $('#origin').focus();
       };
@@ -39,7 +39,7 @@ module Search {
      *
      * @returns {boolean}
      */
-    validateFormInput = () => {
+    public validateFormInput = () => {
 
       // check if all fields are filled
       if (this.$scope.schedule.origin == null || this.$scope.schedule.destination == null) {

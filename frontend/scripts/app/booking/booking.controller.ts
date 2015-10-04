@@ -97,18 +97,6 @@ module Booking {
       this.$state.go('search_result', this.bookingData['searchParams'])
     }
 
-    /**
-    * Remove booking data and some user data from session
-    */
-    public resetTripData = (trip) => {
-      _.each(trip.groupSegment, function(groupSegment) {
-        _.each(groupSegment, function(segment) {
-          segment['isBooked'] = false;
-        });
-      });
-      return trip;
-    }
-
     public getActionVerbBySegmentType = (segment) => {
       switch (segment.type) {
         case this.VEHICLE_TYPE.bed:

@@ -6,19 +6,19 @@ module Result {
 
   export class ResultCtrl {
 
-    constructor(private $scope,
-                private $state,
-                private $stateParams,
-                private $window,
-                private $q: ng.IQService,
-                private resultState,
-                private RESULT_STATE,
-                private tripCache,
-                private tripApi,
-                private searchObject,
-                private language,
-                private currency,
-                private bookingApi) {
+    constructor(public $scope,
+                public $state,
+                public $stateParams,
+                public $window,
+                public $q: ng.IQService,
+                public resultState,
+                public RESULT_STATE,
+                public tripCache,
+                public tripApi,
+                public searchObject,
+                public language,
+                public currency,
+                public bookingApi) {
 
       $scope.searchData = {
         originDescription: searchObject['originDescription'],
@@ -284,7 +284,6 @@ module Result {
     }
 
     booking = (searchData, itinerary) => {
-      console.log(this.$scope.selection);
       this.bookingApi.setBookingData(searchData, this.$scope.selection, itinerary);
       return this.$state.go('booking');
     }
