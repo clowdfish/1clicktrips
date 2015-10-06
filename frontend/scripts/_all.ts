@@ -34,6 +34,7 @@
 /// <reference path="app/result/tripCache.service.ts" />
 /// <reference path="app/result/tripSegment.directive.ts" />
 /// <reference path="app/result/tripSegmentContainer.directive.ts" />
+/// <reference path="app/result/tripMap.directive.ts" />
 /// <reference path="app/result/_result.ts" />
 
 /// -----------Search Module ------------

@@ -29,10 +29,11 @@ module Result {
     .constant('SEGMENT_ZOOM_THRESHOLD', 25) // up to which value to zoom the segment
     .constant('SEGMENT_ZOOM_WIDTH', 40) // size to zoom the segment to
     .constant('TRANSFER_TIME', 5) // how much time is added between trip segments
-    .controller('resultCtrl', ResultCtrl)    
+    .controller('resultCtrl', ResultCtrl)
     .service('tripApi', TripApi)
     .service('tripCache', TripCache)
     .directive('tripSegment', TripSegment.Factory())
     .directive('tripSegmentContainer', TripSegmentContainer.Factory())
+    .directive('tripMap', TripMap.Factory())
     .config(routerConfig);
 }

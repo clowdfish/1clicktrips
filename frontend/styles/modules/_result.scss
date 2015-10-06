@@ -24,6 +24,24 @@
     margin-bottom: 0.7em;
   }
 
+  .result-summary {
+    .result-details {
+      float: left;
+      width: 50%;
+    }
+
+    .result-map {
+      float: left;
+
+      #itinerary-map {
+        height: 500px;
+        width: 500px;
+      }
+    }
+
+
+  }
+
   .result-search-details {
     margin-bottom: 1em;
 
@@ -253,7 +271,7 @@
   .result-hotels-list {
     list-style: none;
   }
-  
+
   .result-hotels-list-item {
     margin-bottom: 1em;
   }
