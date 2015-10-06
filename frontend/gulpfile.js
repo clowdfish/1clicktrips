@@ -149,7 +149,10 @@ gulp.task('client-scripts', function(done) {
   .pipe(gulp.dest('build/scripts'));
 });
 
-gulp.task('scripts', gulpSequence('vendor-scripts', 'client-scripts'));
+//gulp.task('scripts', gulpSequence('vendor-scripts', 'client-scripts'));
+gulp.task('scripts', function(done) {
+  gulpSequence('vendor-scripts', 'client-scripts')(done);
+});
 
 // compile angular templates to make them available on client
 gulp.task('angular-templates', function() {
