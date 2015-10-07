@@ -42,12 +42,16 @@ module Result {
 			this.$element = $(element);
 			this.$element.html('<div id="itinerary-map"></div>');
 
-			this.scopeService.$on('segmentChange', (data) => {
+			this.scopeService.$on('zoomSegment', (event, data) => {
 				this.drawSegment(data);
 			});
 
+			this.scopeService.$on('unzoomSegment', () => {
+				this.drawItinerary(this.scopeService.itinerary, this.scopeService.selection);
+			});
+
 			this.scopeService.$watch('itinerary', () => {
-				this.drawItinerary(this.scopeService.itinerary);
+				this.drawItinerary(this.scopeService.itinerary, this.scopeService.selection);
 			});
 		}
 
@@ -90,7 +94,7 @@ module Result {
 		/**
 		 * Get segments from itinerary and draw
 		 */
-		drawItinerary = (itinerary) => {
+		drawItinerary = (itinerary, selection) => {
 			if (!itinerary) {
 				return null;
 			}
@@ -99,7 +103,7 @@ module Result {
 				this.initializeMap(itinerary);
 			}
 
-			var segments = this.itineraryHelper.getActiveSegmentFromItinerary(itinerary, this.scopeService.selection);
+			var segments = this.itineraryHelper.getActiveSegmentFromItinerary(itinerary, selection);
 			var path = this.itineraryHelper.getSegmentsPath(segments);
 			this.applyPathToMap(path);
 		}
