@@ -32,6 +32,7 @@ module Result {
     .controller('resultCtrl', ResultCtrl)
     .service('tripApi', TripApi)
     .service('tripCache', TripCache)
+    .service('itineraryHelper', ItineraryHelper)
     .directive('tripSegment', TripSegment.Factory())
     .directive('tripSegmentContainer', TripSegmentContainer.Factory())
     .directive('tripMap', TripMap.Factory())

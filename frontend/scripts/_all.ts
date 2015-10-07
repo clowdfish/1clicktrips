@@ -32,6 +32,7 @@
 /// <reference path="app/result/result.route.ts" />
 /// <reference path="app/result/tripApi.service.ts" />
 /// <reference path="app/result/tripCache.service.ts" />
+/// <reference path="app/result/itineraryHelper.service.ts" />
 /// <reference path="app/result/tripSegment.directive.ts" />
 /// <reference path="app/result/tripSegmentContainer.directive.ts" />
 /// <reference path="app/result/tripMap.directive.ts" />

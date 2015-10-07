@@ -25,14 +25,15 @@ module Result {
 		public displayPath: google.maps.Polyline;
 
 		public static Factory(): any {
-			var directive = (browser: Common.Browser) => {
-				return new TripMap(browser);
+			var directive = (browser: Common.Browser, itineraryHelper: Result.ItineraryHelper) => {
+				return new TripMap(browser, itineraryHelper);
 			}
-			directive['$inject'] = ['browser'];
+			directive['$inject'] = ['browser', 'itineraryHelper'];
 			return directive;
 		}
 
-		constructor(public browser: Common.Browser) {
+		constructor(public browser: Common.Browser,
+								public itineraryHelper: Result.ItineraryHelper) {
 
 		}
 
@@ -82,8 +83,8 @@ module Result {
 		 * Draw single segment
 		 */
 		drawSegment = (segment) => {
-			var latlngs = this.getSegmentsLocations([segment]);
-			this.applyLocationsToMap(latlngs);
+			var path = this.itineraryHelper.getSegmentsPath([segment]);
+			this.applyPathToMap(path);
 		}
 
 		/**
@@ -98,97 +99,24 @@ module Result {
 				this.initializeMap(itinerary);
 			}
 
-			var segments = this.getActiveSegmentFromItinerary(itinerary, this.scopeService.selection);
-			var latlngs = this.getSegmentsLocations(segments);
-			this.applyLocationsToMap(latlngs);
+			var segments = this.itineraryHelper.getActiveSegmentFromItinerary(itinerary, this.scopeService.selection);
+			var path = this.itineraryHelper.getSegmentsPath(segments);
+			this.applyPathToMap(path);
 		}
 
 		/**
 		 * Draw path and set bounds
 		 */
-		applyLocationsToMap = (locations) => {
-			this.displayPath.setPath(locations);
+		applyPathToMap = (decodedPath) => {
+			this.displayPath.setPath(decodedPath);
 			var mapBounds = new google.maps.LatLngBounds();
-			for (var i = 0; i < locations.getLength(); i++) {
-				mapBounds.extend(locations.getAt(i));
+			for (var i = 0; i < decodedPath.getLength(); i++) {
+				mapBounds.extend(decodedPath.getAt(i));
 			}
 			this.map.fitBounds(mapBounds);
 			setTimeout(() => {
 				google.maps.event.trigger(this.map, 'resize');
 			}, 100);
 		}
-
-		/**
-		 * Get all location from segments
-		 */
-		getSegmentsLocations = (segments: Array<any>) => {
-			var latlngs = new google.maps.MVCArray();
-			for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
-				var segment = segments[segmentIndex];
-				var path = this.getSegmentPath(segment);
-				if (path) {
-					var encodedPath = google.maps.geometry.encoding.decodePath(path);
-					for (var pathIndex = 0; pathIndex < encodedPath.length; pathIndex++) {
-						latlngs.push(encodedPath[pathIndex]);
-					}
-				} else {
-					latlngs.push(new google.maps.LatLng(segment.start.location.latitude, segment.start.location.longitude));
-					latlngs.push(new google.maps.LatLng(segment.end.location.latitude, segment.end.location.longitude));
-				}
-			}
-			return latlngs;
-		}
-
-		/**
-		 * Get active segments from selection
-		 */
-		getActiveSegmentFromItinerary = (itinerary, selection) => {
-			var segments = [];
-			for (var containerIndex = 0; containerIndex < itinerary.segmentsContainer.length; containerIndex++) {
-				var container = itinerary.segmentsContainer[containerIndex];
-				segments = segments.concat(this.getSegmentsFromContainer(containerIndex, container));
-			}
-			return segments;
-		}
-
-		/**
-		 * Get active segment from container and selection
-		 */
-		getSegmentsFromContainer = (containerIndex, container) => {
-			for (var alternativeIndex = 0; alternativeIndex < container.alternatives.length; alternativeIndex++) {
-        if (this.segmentInSelection(containerIndex, alternativeIndex)) {
-          return container.alternatives[alternativeIndex];
-        }
-      }
-      return container.alternatives[0];
-		}
-
-		/**
-		 * Check if segment in selection
-		 */
-		segmentInSelection = (containerIndex, segmentIndex) => {
-      var key = '0-' + containerIndex + '-' + segmentIndex;
-      return this.scopeService.selection.hasOwnProperty(key);
-    }
-
-		/**
-		 * Get segment 's path
-		 */
-		getSegmentPath = (segment) => {
-			if (_.isEmpty(segment.path)) {
-        return null;
-      }
-
-      if (_.isString(segment.path) || _.isString(segment.path)) {
-        return segment.path;
-      }
-
-      if (_.isObject(segment.path) || segment.path.points) {
-        return segment.path.points;
-      }
-
-      return null;
-		}
-
 	}
 }
