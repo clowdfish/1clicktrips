@@ -54,6 +54,7 @@ module Booking {
       $scope.getActionVerbBySegmentType = this.getActionVerbBySegmentType;
 
       $scope.printPage = this.printPage;
+
 		}
 
     public printPage = ($event) => {

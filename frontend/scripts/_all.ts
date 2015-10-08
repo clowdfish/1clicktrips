@@ -15,6 +15,7 @@
 /// <reference path="app/common/services/language.service.ts" />
 /// <reference path="app/common/services/browser.service.ts" />
 /// <reference path="app/common/services/currency.service.ts" />
+/// <reference path="app/common/services/inactivityDetector.service.ts" />
 /// <reference path="app/common/_common.ts" />
 
 /// -----------Index Module ------------

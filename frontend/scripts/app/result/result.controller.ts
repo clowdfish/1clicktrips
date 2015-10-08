@@ -6,6 +6,8 @@ module Result {
 
   export class ResultCtrl {
 
+    private _inactivityOptions: Common.InactivityDetectorOptions;
+
     constructor(public $scope,
                 public $state,
                 public $stateParams,
@@ -18,7 +20,15 @@ module Result {
                 public searchObject,
                 public language,
                 public currency,
-                public bookingApi) {
+                public bookingApi,
+                public inactivityDetector: Common.InactivityDetector) {
+
+      this._inactivityOptions = {
+        maxTimeAllow: 10000, // 10 seconds
+        onTimeout: function() {
+          console.log('Your session has been expired, please refresh website.');
+        }
+      }
 
       $scope.searchData = {
         originDescription: searchObject['originDescription'],
@@ -59,6 +69,7 @@ module Result {
       else if(resultState == RESULT_STATE.hotels) {
         this.getHotels();
       }
+
     }
 
     /**
@@ -74,6 +85,7 @@ module Result {
         this.$scope.timing['targetDate'] = this.searchObject.targetDate;
 
         this.$scope.itineraries = cachedSearchResult;
+        this.inactivityDetector.start(this._inactivityOptions);
       }
       else {
         this.tripApi
@@ -86,6 +98,7 @@ module Result {
             this.$scope.timing['targetDate'] = this.searchObject.targetDate;
 
             this.$scope.itineraries = itineraries;
+            this.inactivityDetector.start(this._inactivityOptions);
           }, (err) => {
             this.$scope.errorState = { message: err }
           });
@@ -141,6 +154,7 @@ module Result {
         this.$scope.timing['targetDate'] = this.searchObject.targetDate;
 
         this.$scope.itinerary = cachedTripDetails;
+        this.inactivityDetector.start(this._inactivityOptions);
       }
       else {
         this.tripApi
@@ -152,6 +166,7 @@ module Result {
 
             this.tripCache.storeTrip(itinerary);
             this.$scope.itinerary = itinerary;
+            this.inactivityDetector.start(this._inactivityOptions);
           }, (err) => {
             this.$scope.errorState = { message: err }
           });

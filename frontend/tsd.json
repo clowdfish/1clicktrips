@@ -12,7 +12,7 @@
       "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
     },
     "jquery/jquery.d.ts": {
-      "commit": "386e1708b9e5cb0d798c63ac43b5d0fc8d0f9bfd"
+      "commit": "d6c98baa7fd703e449cf37f3ec39ed3bd92cfd35"
     },
     "moment/moment.d.ts": {
       "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
@@ -27,13 +27,16 @@
       "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
     },
     "jasmine/jasmine.d.ts": {
-      "commit": "386e1708b9e5cb0d798c63ac43b5d0fc8d0f9bfd"
+      "commit": "d6c98baa7fd703e449cf37f3ec39ed3bd92cfd35"
     },
     "angularjs/angular-mocks.d.ts": {
       "commit": "386e1708b9e5cb0d798c63ac43b5d0fc8d0f9bfd"
     },
     "node/node.d.ts": {
       "commit": "98d3168c2c570352a3a7393788e2ec9fbb08ade6"
+    },
+    "jasmine-jquery/jasmine-jquery.d.ts": {
+      "commit": "d6c98baa7fd703e449cf37f3ec39ed3bd92cfd35"
     }
   }
 }

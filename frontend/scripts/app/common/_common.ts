@@ -9,7 +9,7 @@ module Common {
 
   angular
     .module('app.common', ['ngFileUpload'])
-    .constant('requestSpinnerEvents', { 
+    .constant('requestSpinnerEvents', {
       show: 'showRequestSpinner',
       hide: 'hideRequestSpinner'
     })
@@ -25,7 +25,8 @@ module Common {
     .service('browser', Browser)
     .service('currency', Currency)
     .service('googleMap', GoogleMap)
-    .service('language', Language)   
+    .service('language', Language)
+    .service('inactivityDetector', InactivityDetector)
     .config(httpConfig)
     .run(run);
 

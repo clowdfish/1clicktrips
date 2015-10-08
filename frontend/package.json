@@ -5,7 +5,8 @@
   "main": "gulpfile.js",
   "dependencies": {
     "gulp-sequence": "^0.4.1",
-    "gulp-typescript": "^2.9.0"
+    "gulp-typescript": "^2.9.0",
+    "jasmine-jquery": "^2.1.1"
   },
   "devDependencies": {
     "gulp": "^3.8.7",
