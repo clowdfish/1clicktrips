@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY',
       'build/scripts/vendor.js',
+      'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'build/scripts/script.js',
       'build/scripts/test.js'
     ],

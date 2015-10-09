@@ -18,11 +18,17 @@ module Common {
 		}
 
 		start(options: InactivityDetectorOptions) {
+			this.resetTimer(options);
+
 			document.onmousemove = () => {
 				this.resetTimer(options);
 			}
 
 			document.onkeypress = () => {
+				this.resetTimer(options);
+			}
+
+			document.onclick = () => {
 				this.resetTimer(options);
 			}
 
@@ -34,8 +40,9 @@ module Common {
 		stop() {
 			document.onmousemove = null;
 			document.onkeypress = null;
+			document.onclick = null;
 		}
-				
+
 		resetTimer(options: InactivityDetectorOptions) {
 			clearTimeout(this._timer);
 			this._timer = setTimeout(() => {

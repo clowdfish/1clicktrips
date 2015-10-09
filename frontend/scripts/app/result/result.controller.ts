@@ -24,7 +24,7 @@ module Result {
                 public inactivityDetector: Common.InactivityDetector) {
 
       this._inactivityOptions = {
-        maxTimeAllow: 10000, // 10 seconds
+        maxTimeAllow: 3000,
         onTimeout: function() {
           console.log('Your session has been expired, please refresh website.');
         }
