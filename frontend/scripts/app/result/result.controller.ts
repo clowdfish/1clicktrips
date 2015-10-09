@@ -15,20 +15,21 @@ module Result {
                 public $q: ng.IQService,
                 public resultState,
                 public RESULT_STATE,
-                public tripCache,
-                public tripApi,
+                public tripCache: Result.TripCache,
+                public tripApi: Result.TripApi,
                 public searchObject,
                 public language,
                 public currency,
                 public bookingApi,
                 public inactivityDetector: Common.InactivityDetector) {
-
+      window['SCOPE'] = $scope;
       $scope.timeOut = false;
       this._inactivityOptions = {
-        maxTimeAllow: 5000,
+        maxTimeAllow: 1000 * 60 * 30, //30 minutes
         onTimeout: () => {
           console.log('Your session has been expired, please refresh website.');
           $scope.timeOut = true;
+          tripCache.clearCache();
         }
       }
 

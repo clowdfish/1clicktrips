@@ -51,5 +51,10 @@ module Result {
     makeKey(locationString) {
       return 'trip_cache_' + locationString;
     }
+
+    clearCache() {
+      var key = this.makeKey(this.$location.url());
+      delete this.$sessionStorage[key];
+    }
   }
 }
