@@ -1,12 +1,15 @@
-<section class="result container" ng-show='hotels == null'>
+<section class="result container" ng-show='hotels == null || timeOut === true'>
   <!-- error message -->
   <span class="result-details-error" ng-show="errorState != null">
     There was a problem on the server: <br /><br />
     {[ errorState.message ]}
   </span>
+  <span class="result-details-error" ng-show="timeOut === true">
+    Your session has been expired, please refresh website.
+  </span>
 </section>
 
-<section class="result container" ng-show='hotels != null'>
+<section class="result container" ng-show='hotels != null && false === timeOut'>
   <h2 class="result-details-title">Available hotels</h2>
 
   <ul class="result-hotels-list">

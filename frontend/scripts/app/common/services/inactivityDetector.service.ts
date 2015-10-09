@@ -10,26 +10,29 @@ module Common {
 	}
 
 	export class InactivityDetector {
-		private _idleTime = 0;
+		/**
+		 * setTimeout object
+		 */
 		private _timer;
 
-		constructor(private $rootScope) {
+		constructor(private $rootScope,
+								private $timeout) {
 
 		}
 
-		start(options: InactivityDetectorOptions) {
-			this.resetTimer(options);
+		public start(options: InactivityDetectorOptions) {
+			this._resetTimer(options);
 
 			document.onmousemove = () => {
-				this.resetTimer(options);
+				this._resetTimer(options);
 			}
 
 			document.onkeypress = () => {
-				this.resetTimer(options);
+				this._resetTimer(options);
 			}
 
 			document.onclick = () => {
-				this.resetTimer(options);
+				this._resetTimer(options);
 			}
 
 			this.$rootScope.$on('$stateChangeSuccess', () => {
@@ -37,15 +40,15 @@ module Common {
 			});
 		}
 
-		stop() {
+		public stop() {
 			document.onmousemove = null;
 			document.onkeypress = null;
 			document.onclick = null;
 		}
 
-		resetTimer(options: InactivityDetectorOptions) {
-			clearTimeout(this._timer);
-			this._timer = setTimeout(() => {
+		private _resetTimer(options: InactivityDetectorOptions) {
+			this.$timeout.cancel(this._timer);
+			this._timer = this.$timeout(() => {
 				options.onTimeout();
 			}, options.maxTimeAllow);
 		}

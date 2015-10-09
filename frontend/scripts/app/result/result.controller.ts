@@ -23,10 +23,12 @@ module Result {
                 public bookingApi,
                 public inactivityDetector: Common.InactivityDetector) {
 
+      $scope.timeOut = false;
       this._inactivityOptions = {
-        maxTimeAllow: 3000,
-        onTimeout: function() {
+        maxTimeAllow: 5000,
+        onTimeout: () => {
           console.log('Your session has been expired, please refresh website.');
+          $scope.timeOut = true;
         }
       }
 
@@ -69,6 +71,10 @@ module Result {
       else if(resultState == RESULT_STATE.hotels) {
         this.getHotels();
       }
+
+      $scope.$on('$destroy', () => {
+        inactivityDetector.stop();
+      });
 
     }
 
