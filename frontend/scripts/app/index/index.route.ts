@@ -4,16 +4,20 @@ module Index {
 
   'use strict';
 
+
   export function routerConfig($stateProvider: angular.ui.IStateProvider) {
+    var browser = new Common.Browser();
+    var isMobileDevice = browser.isMobileDevice();
 
     $stateProvider.state('index', {
       abstract: true,
       parent: 'root',
+      controller: 'indexCtrl',
       templateUrl: 'scripts/app/templates/index/index.html'
     });
 
     $stateProvider.state('index.form', {
-      url: '/search',
+      url: isMobileDevice ? '/' : '/search',
       templateUrl: 'scripts/app/templates/search/form.html',
       controller: 'searchCtrl',
       resolve: {
@@ -21,14 +25,16 @@ module Index {
       }
     });
 
-    $stateProvider.state('index.file', {
-      url: '/',
-      templateUrl: 'scripts/app/templates/search/file.html',
-      controller: 'searchCtrl',
-      resolve: {
-        searchFormData: getDefaultSearchFormData
-      }
-    });
+    if (false === isMobileDevice) {
+      $stateProvider.state('index.file', {
+        url: '/',
+        templateUrl: 'scripts/app/templates/search/file.html',
+        controller: 'searchCtrl',
+        resolve: {
+          searchFormData: getDefaultSearchFormData
+        }
+      });
+    }
   }
 
   /**

@@ -13,6 +13,6 @@ module Index {
       form: 0,
       file: 1
     })
-    //.controller('indexCtrl', IndexCtrl)
+    .controller('indexCtrl', IndexCtrl)
     .config(routerConfig);
 }

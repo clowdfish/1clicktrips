@@ -6,8 +6,7 @@ module Common {
 
   export class Browser {
 
-    constructor(private $document, 
-                private $window) {        
+    constructor() {
     }
 
     /**
@@ -26,11 +25,11 @@ module Common {
      * Get the resolution of the browser window.
      */
     public getViewport() {
-      var e = this.$window,
+      var e: any = window,
           a = 'inner';
-      if ( !( 'innerWidth' in this.$window ) ) {
+      if ( !( 'innerWidth' in window ) ) {
         a = 'client';
-        e = this.$document.documentElement || this.$document.body;
+        e = document.documentElement || document.body;
       }
       return {
         width : e[ a + 'Width' ] ,

@@ -8,9 +8,11 @@ module Index {
 
     constructor(private $scope,
                 private $state: angular.ui.IState,
-                private INDEX_STATE) {
+                private INDEX_STATE,
+                private browser: Common.Browser) {
 
-      $scope.indexState = INDEX_STATE.file;                   
-    }    
+      $scope.indexState = INDEX_STATE.file;
+      $scope.isMobile = browser.isMobileDevice();
+    }
   }
 }
