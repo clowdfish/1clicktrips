@@ -1,6 +1,6 @@
 {
-  "name": "ttg_test_ui",
-  "version": "0.1.0",
+  "name": "ttg_frontend",
+  "version": "0.3.0",
   "description": "A business traveler platform offering end to end trip management.",
   "main": "gulpfile.js",
   "dependencies": {
