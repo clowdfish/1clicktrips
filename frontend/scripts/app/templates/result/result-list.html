@@ -1,26 +1,26 @@
 <section class="result" ng-show='errorState !== null || timeOut === true'>
   <!-- error message -->
   <span class="result-details-error" ng-show="errorState !== null">
-    There was a problem on the server: <br /><br />
+    {{ 'result.error' | translate }}: <br /><br />
     {{ errorState.message }}
   </span>
   <span class="result-details-error" ng-show="timeOut === true">
-    Your session has been expired, please refresh website.
+    {{ 'result.sessionexpire' | translate }}
   </span>
 </section>
 
 <section class="result" ng-show='itineraries !== null && false === (errorState != null || timeOut == true)'>
-  <h1 class="result-title">Results</h1>
+  <h1 class="result-title">{{ 'result.listpage.title' | translate }}</h1>
   <div class="result-search-details">
-    <h2 class="result-search-details-title">Search details</h2>
-    (<a href="#">change</a>)
+    <h2 class="result-search-details-title">{{ 'result.searchdetails.title' | translate }}</h2>
+    (<a href="#">{{ 'result.searchdetails.change' | translate }}</a>)
 
     <span class="result-search-details-data table">
       <span class="row">
-        <span class="cell">From</span><span class="cell">{{ searchData['originDescription'] }}</span>
+        <span class="cell">{{ 'result.searchdetails.from' | translate }}</span><span class="cell">{{ searchData['originDescription'] }}</span>
       </span>
       <span class="row">
-        <span class="cell">To</span><span class="cell">{{ searchData['destinationDescription'] }}</span>
+        <span class="cell">{{ 'result.searchdetails.to' | translate }}</span><span class="cell">{{ searchData['destinationDescription'] }}</span>
       </span>
       <span class="row">
         <span class="cell"></span><span class="cell">{{ timing['value'] | dateFormatter }}</span>
@@ -28,7 +28,7 @@
     </span>
   </div>
   <div class="result-instructions">
-    You can now select your favorite trip to get the detailed trip plan.
+    {{ 'result.listpage.instructions' | translate }}
   </div>
 
   <trip-segment-container itineraries="itineraries"

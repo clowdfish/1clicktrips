@@ -4,12 +4,14 @@
      ngf-multiple="false">
 
   <div ng-hide="schedule">
-    <span class="dropzone-title">Drag your .ics file here</span>
-    <span class="dropzone-error" ngf-no-file-drop>File Drag/Drop is not supported for this browser</span>
+    <span class="dropzone-title">{{ 'common.dropzone.title' | translate }}</span>
+    <span class="dropzone-error" ngf-no-file-drop>{{ 'common.dropzone.error' | translate }}</span>
     <span class="dropzone-link">
-      or <a ngf-select="processFile($file)"
+      {{ 'general.or' | translate }} <a ngf-select="processFile($file)"
             ngf-multiple="false"
-            accept=".ics">select from your computer</a>
+            accept=".ics">
+            {{ 'common.dropzone.alternative' | translate }}
+            </a>
     </span>
     <span class="dropzone-error" ng-if="error != null">{{ error.message }}</span>
   </div>
@@ -26,12 +28,12 @@
     </span>
 
     <span class="dropzone-form" ng-controller='searchOriginCtrl'>
-      <label for="origin" class="dropzone-form-title">Where do you want to start?</label>
+      <label for="origin" class="dropzone-form-title">{{ 'common.dropzone.form.title' | translate }}</label>
       <input
         type="text"
         id="origin"
         class="dropzone-input"
-        placeholder='Origin location'
+        placeholder='{{ "common.dropzone.form.originplaceholder" | translate }}'
         name='origin'
         tabindex="1"
         ng-model='origin'
@@ -43,6 +45,6 @@
        class="button"
        ng-keypress="($event.which === 13) ? startSearch() : 0"
        class="button"
-       tabindex="2">Start search</a>
+       tabindex="2">{{ 'common.dropzone.form.start' | translate }}</a>
   </div>
 </div>

@@ -1,14 +1,14 @@
 <section class="index">
 
-  <h1 class="index-title">Get the perfect trip for your appointment.</h1>
+  <h1 class="index-title">{{ 'index.title' | translate }}</h1>
 
   <div class="index-input" ui-view>
     <!-- content in here will be overwritten when dynamic part is loaded -->
   </div>
 
   <span class="index-state-selector" ng-show="false == isMobile">
-    <a ui-sref="index.file" ui-sref-active="active">file upload</a>
+    <a ui-sref="index.file" ui-sref-active="active">{{ 'index.file.upload' | translate }}</a>
     <span class="index-state-separator">|</span>
-    <a ui-sref="index.form" ui-sref-active="active">search form</a>
+    <a ui-sref="index.form" ui-sref-active="active">{{ 'index.search.form' | translate }}</a>
   </span>
 </section>

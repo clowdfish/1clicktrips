@@ -15,6 +15,7 @@ var concat 		  = require('gulp-concat'),
     webserver   = require('gulp-webserver'),
     declare     = require('gulp-declare'),
     yml         = require('js-yaml'),
+    yaml        = require('gulp-yaml'),
     data        = require('gulp-data'),
     ngAnnotate  = require('gulp-ng-annotate'),
     merge       = require('gulp-merge'),
@@ -113,7 +114,8 @@ gulp.task('vendor-scripts', function(done) {
     'bower_components/angular-ui-sortable/sortable.js',
     'bower_components/ngDialog/js/ngDialog.js',
     'bower_components/ngstorage/ngStorage.js',
-    'bower_components/fastclick/lib/fastclick.js'
+    'bower_components/fastclick/lib/fastclick.js',
+    'bower_components/angular-translate/angular-translate.min.js'
   ])
   .pipe(plumber(plumberErrorHandler))
   .pipe(concat('vendor.js'))
@@ -177,6 +179,19 @@ gulp.task('preprocess', function() {
     .pipe(gulp.dest('build/'));
 });
 
+gulp.task('i18n', function() {
+  return gulp.src('i18n/*.yaml')
+    .pipe(plumber(plumberErrorHandler))
+    .pipe(yaml().on( "error", console.error ))
+    .pipe(declare({
+      namespace: 'Locales',
+      noRedeclare: false,
+      root: 'window'
+    }))
+    .pipe(concat('locales.js'))
+    .pipe(gulp.dest('build/scripts/'));
+});
+
 gulp.task('app-data', function() {
   gulp
     .src("../config/currencies.json")
@@ -226,16 +241,18 @@ gulp.task('runTest', function (done) {
 gulp.task('test', gulpSequence('scripts', 'compileTest', 'runTest'));
 
 // gulp task suite
-gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data'], function() {
+gulp.task('live', gulpSequence(['i18n', 'scripts'], 'styles', 'images', 'preprocess', 'webserver', 'app-data'));
 
-  gulp.watch('styles/**/*.scss', ['styles']);
-  gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
-  gulp.watch(['*.html'], ['preprocess', 'scripts']);
-  gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
-  gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
-});
+// gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data'], function() {
 
-gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data'], function() {});
+//   gulp.watch('styles/**/*.scss', ['styles']);
+//   gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
+//   gulp.watch(['*.html'], ['preprocess', 'scripts']);
+//   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
+//   gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
+// });
+
+gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data', 'i18n'], function() {});
 
 function compileScript() {
 

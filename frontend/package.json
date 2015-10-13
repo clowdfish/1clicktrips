@@ -5,7 +5,9 @@
   "main": "gulpfile.js",
   "dependencies": {
     "gulp-sequence": "^0.4.1",
-    "gulp-typescript": "^2.9.0"
+    "gulp-typescript": "^2.9.0",
+    "gulp-yaml": "^0.2.4",
+    "gulp-yml": "^0.1.1"
   },
   "devDependencies": {
     "gulp": "^3.8.7",

@@ -20,6 +20,7 @@
     "angular-local-storage": "0.1.5",
     "angular-mocks": "*",
     "angular-sanitize": "*",
+    "angular-translate": "~2.8.1",
     "angular-ui-bootstrap-bower": "*",
     "angular-ui-router": "*",
     "angular-ui-sortable": "0.13.3",

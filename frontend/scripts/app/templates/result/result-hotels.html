@@ -1,43 +1,43 @@
 <section class="result container" ng-show='hotels == null || timeOut === true'>
   <!-- error message -->
   <span class="result-details-error" ng-show="errorState != null">
-    There was a problem on the server: <br /><br />
+    {{ 'result.error' | translate }}: <br /><br />
     {[ errorState.message ]}
   </span>
   <span class="result-details-error" ng-show="timeOut === true">
-    Your session has been expired, please refresh website.
+    {{ 'result.sessionexpire' | translate }}
   </span>
 </section>
 
 <section class="result container" ng-show='hotels != null && false === timeOut'>
-  <h2 class="result-details-title">Available hotels</h2>
+  <h2 class="result-details-title">{{ 'result.hotelspage.title' | translate }}</h2>
 
   <ul class="result-hotels-list">
     <li class="result-hotels-list-item" ng-repeat="hotel in hotels">
       <span class="result-details-table">
         <span class="result-details-row">
-          <span class="result-details-cell">Hotel name</span>
+          <span class="result-details-cell">{{ 'result.hotelspage.list.name' | translate }}</span>
           <span class="result-details-cell">{[ hotel.name ]}</span>
         </span>
         <span class="result-details-row">
-          <span class="result-details-cell">Hotel address</span>
+          <span class="result-details-cell">{{ 'result.hotelspage.list.address' | translate }}</span>
           <span class="result-details-cell">{[ hotel.address + ", " + hotel.postalCode + " " + hotel.city ]}</span>
         </span>
         <span class="result-details-row">
-          <span class="result-details-cell">Preis</span>
+          <span class="result-details-cell">{{ 'result.hotelspage.list.price' | translate }}</span>
           <span class="result-details-cell">{[ hotel.price + " " + hotel.currency ]}</span>
         </span>
         <span class="result-details-row">
-          <span class="result-details-cell">Hotel url</span>
+          <span class="result-details-cell">{{ 'result.hotelspage.list.url' | translate }}</span>
           <span class="result-details-cell"><a href="{[ hotel.deepLink ]}">Link</a></span>
         </span>
         <span class="result-details-row">
-          <span class="result-details-cell">Distance from destination</span>
+          <span class="result-details-cell">{{ 'result.hotelspage.list.distance' | translate }}</span>
           <span class="result-details-cell">{[ hotel.distance.toFixed(2) + " " + hotel.distanceUnit ]}</span>
         </span>
       </span>
     </li>
   </ul>
 
-  <a ng-click="goBack()" class="button--light">Go back</a>
+  <a ng-click="goBack()" class="button--light">{{ 'result.hotelspage.back' | translate }}</a>
 </section>

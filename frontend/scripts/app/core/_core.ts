@@ -10,6 +10,7 @@ module Core {
       'ngStorage',
       'ui.bootstrap',
       'ngSanitize',
-      'ui.sortable'
+      'ui.sortable',
+      'pascalprecht.translate'
     ]);
 }

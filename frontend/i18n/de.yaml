@@ -1,0 +1,14 @@
+index:
+  title: Get the perfect trip for your appointment.
+  file.upload: file upload
+  search.form: search form
+search:
+  file.upload:
+    title: Drag your .ics file here
+    alternative: or select from your computer
+  search.form:
+    origin.location: Origin location
+    destination.location: Destination location
+    date: Appointment date
+    time: Appointment time
+  start: Start search

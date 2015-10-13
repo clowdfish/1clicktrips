@@ -1,27 +1,27 @@
 <section class="result container" ng-show='errorState !== null || timeOut === true'>
 	<!-- error message -->
 	<span class="result-details-error" ng-show="errorState !== null">
-		There was a problem on the server: <br /><br />
+		{{ 'result.error' | translate }}: <br /><br />
 		{[ errorState.message ]}
 	</span>
 	<span class="result-details-error" ng-show="timeOut === true">
-    Your session has been expired, please refresh website.
+    {{ 'result.sessinexpire' | translate }}
   </span>
 </section>
 
 <section class="result container" ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
-	<h1 class="result-title">Itinerary details</h1>
+	<h1 class="result-title">{{ 'result.detailspage.title' | translate }}</h1>
 		<div class="result-summary clearfix">
 			<div class="result-details">
 				<div class="result-search-details">
-					<h2 class="result-search-details-title">Search details</h2>
-					(<a href="#">change</a>)
+					<h2 class="result-search-details-title">{{ 'result.searchdetails.title' | translate }}</h2>
+					(<a href="#">{{ 'result.searchdetails.change' | translate }}</a>)
 					<span class="result-search-details-data table">
 						<span class="row">
-							<span class="cell">From</span><span class="cell">{{ searchData['originDescription'] }}</span>
+							<span class="cell">{{ 'result.searchdetails.from' | translate }}</span><span class="cell">{{ searchData['originDescription'] }}</span>
 						</span>
 						<span class="row">
-							<span class="cell">To</span><span class="cell">{{ searchData['destinationDescription'] }}</span>
+							<span class="cell">{{ 'result.searchdetails.to' | translate }}</span><span class="cell">{{ searchData['destinationDescription'] }}</span>
 						</span>
 						<span class="row">
 							<span class="cell"></span><span class="cell">{{ timing['value'] | dateFormatter }}</span>
@@ -30,30 +30,29 @@
 				</div>
 
 				<div class="result-trip-details">
-					<h2 class="result-trip-details-title">Trip overview</h2>
+					<h2 class="result-trip-details-title">{{ 'result.detailspage.tripoverview.title' | translate }}</h2>
 
 					<span class="result-trip-details-data table">
 						<span class="row">
-							<span class="cell">Price</span><span class="cell">{{ itinerary['price'] }} {{ itinerary['currency'] | uppercase }}</span>
+							<span class="cell">{{ 'result.detailspage.tripoverview.price' | translate }}</span><span class="cell">{{ itinerary['price'] }} {{ itinerary['currency'] | uppercase }}</span>
 						</span>
 						<span class="row">
-							<span class="cell">Duration</span><span class="cell">{{ itinerary['duration'] | durationFormatter }} </span>
+							<span class="cell">{{ 'result.detailspage.tripoverview.duration' | translate }}</span><span class="cell">{{ itinerary['duration'] | durationFormatter }} </span>
 						</span>
 						<span class="row">
-							<span class="cell">Departure time</span><span class="cell">{{ itinerary['departureTime'] | dateFormatter }}</span>
+							<span class="cell">{{ 'result.detailspage.tripoverview.departuretime' | translate }}</span><span class="cell">{{ itinerary['departureTime'] | dateFormatter }}</span>
 						</span>
 						<span class="row">
-							<span class="cell">Arrival time</span><span class="cell">{{ itinerary['arrivalTime'] | dateFormatter }}</span>
+							<span class="cell">{{ 'result.detailspage.tripoverview.arrivaltime' | translate }}</span><span class="cell">{{ itinerary['arrivalTime'] | dateFormatter }}</span>
 						</span>
 					</span>
 				</div>
 
 				<div class="result-instructions">
-					Please check the trip details before proceeding to booking.
+					{{ 'result.detailspage.instructions.text' | translate }}
 
 					<div class="result-instructions-overnight" ng-if="false">
-						Your trip requires an overnight stay. You can easily book the hotel proposal, select a
-						different hotel or deselect the hotel option.
+						{{ 'result.detailspage.instructions.overnight' | translate }}
 					</div>
 				</div>
 		</div>
@@ -71,7 +70,7 @@
 
 	</trip-segment-container>
 
-	<a ng-click="goToOverview()" class="button--light">Back to overview</a>
-	<a ng-click="booking(searchData, itinerary)" class="button--light">Booking</a>
+	<a ng-click="goToOverview()" class="button--light">{{ 'result.detailspage.back' | translate }}</a>
+	<a ng-click="booking(searchData, itinerary)" class="button--light">{{ 'result.detailspage.booking' | translate }}</a>
 	<!--<a ng-click="goToHotels()" class="button">Get available hotels</a>-->
 </section>
