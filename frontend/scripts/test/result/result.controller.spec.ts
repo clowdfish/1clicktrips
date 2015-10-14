@@ -18,7 +18,9 @@ describe('controller: resultCtrl', () => {
 			language: Common.Language,
 			currency: Common.Currency,
 			bookingApi: Booking.BookingApi,
-			searchObject;
+			searchObject,
+      inactivityDetector: Common.InactivityDetector
+      ;
 
 
 	beforeEach(angular.mock.module([
@@ -35,7 +37,10 @@ describe('controller: resultCtrl', () => {
 										 _$sessionStorage_,
 										 _$location_,
 										 _$http_,
-										 _mockTrip_) => {
+										 _mockTrip_,
+                     _$localStorage_,
+                     _$translate_,
+                     _$timeout_) => {
 		$scope = _$rootScope_.$new();
 		$state = _$state_;
 		$stateParams = _$stateParams_;
@@ -44,11 +49,11 @@ describe('controller: resultCtrl', () => {
 		RESULT_STATE = _RESULT_STATE_;
 		tripCache = new Result.TripCache(_$sessionStorage_, _$location_);
 		tripApi = new Result.TripApi(_$http_, $q);
-		language = new Common.Language();
+		language = new Common.Language(_$localStorage_, _$translate_, _$q_);
 		currency = new Common.Currency();
 		bookingApi = new Booking.BookingApi(_$http_, $q, _$sessionStorage_);
 		searchObject = {};
-
+    inactivityDetector = new Common.InactivityDetector(_$rootScope_, _$timeout_);
 		resultCtrl = createResultCtrl(RESULT_STATE.overview);
 
     var deferred = $q.defer();
@@ -73,7 +78,9 @@ describe('controller: resultCtrl', () => {
 																 searchObject,
 																 language,
 																 currency,
-																 bookingApi);
+																 bookingApi,
+                                 inactivityDetector
+                                 );
 	}
 
 	function getDefaultSearchObject() {
@@ -89,7 +96,7 @@ describe('controller: resultCtrl', () => {
       },
       destinationDescription: 'New York',
       timing: [ moment().format('YYYY-MM-DDTHH:mm:ss') ],
-      locale: language.get().locale,
+      locale: language.getActiveLanguage().locale,
       currency: currency.get().code,
       targetDate: moment().add(1, 'days').format('YYYY-MM-DDTHH:mm:ss')
     };

@@ -15,6 +15,7 @@ module Index {
       $scope.indexState = INDEX_STATE.file;
       $scope.isMobile = browser.isMobileDevice();
       language.initialize();
+      console.log('initilize indexCtrl');
     }
   }
 }

@@ -18,7 +18,7 @@ describe('controller: searchCtrl', () => {
 		searchCtrl = new Search.SearchCtrl($scope, $state, getDefaultSearchFormData());
 		searchCtrl.$scope.schedule.origin = 'New York';
 		searchCtrl.$scope.schedule.destination = 'San Diego';
-		searchCtrl.$scope.startDateString = '10/10/2015';
+		searchCtrl.$scope.startDateString = '10/10/2030';
 		searchCtrl.$scope.startTimeString = '10:10';
 	}));
 
@@ -35,12 +35,12 @@ describe('controller: searchCtrl', () => {
 	});
 
 	it('validate start date and time', () => {
-		searchCtrl.$scope.startDateString = '1/1/2015';
+		searchCtrl.$scope.startDateString = '1/1/2030';
 		searchCtrl.$scope.startTimeString = '10:10';
 		var validate = searchCtrl.validateFormInput();
 		expect(validate).toEqual(false);
 
-		searchCtrl.$scope.startDateString = '10/10/2015';
+		searchCtrl.$scope.startDateString = '10/10/2030';
 		searchCtrl.$scope.startTimeString = '10';
 		var validate = searchCtrl.validateFormInput();
 		expect(validate).toEqual(false);

@@ -25,8 +25,15 @@ module app {
 
     $stateProvider.state('root', {
       abstract: true,
-      template: '<div ui-view></div>'
+      template: '<div ui-view></div>',
+      resolve: {
+        initLanguage: initLanguage
+      }
     });
+  }
+
+  function initLanguage(language: Common.Language) {
+    language.initialize();
   }
 
   /**

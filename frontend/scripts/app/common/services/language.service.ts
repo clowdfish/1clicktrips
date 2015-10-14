@@ -34,7 +34,7 @@ module Common {
       });
 
       if (false === _.isEmpty(this.$localStorage['language'])) {
-        this._activeLanguage = this.$localStorage['language'];
+        this._activeLanguage = this.getLanguageByCode(this.$localStorage['language']);
       } else {
         this._activeLanguage = _.find(languages, (language: LanguageItem) => {
           return language.isDefault === true;

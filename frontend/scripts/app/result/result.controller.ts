@@ -18,9 +18,9 @@ module Result {
                 public tripCache: Result.TripCache,
                 public tripApi: Result.TripApi,
                 public searchObject,
-                public language,
-                public currency,
-                public bookingApi,
+                public language: Common.Language,
+                public currency: Common.Currency,
+                public bookingApi: Booking.BookingApi,
                 public inactivityDetector: Common.InactivityDetector) {
       window['SCOPE'] = $scope;
       $scope.timeOut = false;
@@ -127,7 +127,7 @@ module Result {
           timing: [ this.$stateParams.startDate ],
           targetDate: this.$stateParams.targetDate,
           selectedAlternatives: this.createAlternativeKeys(itineraryIndex),
-          locale: this.language.get().locale,
+          locale: this.language.getActiveLanguage().locale,
           currency: this.currency.get().code
         };
 
