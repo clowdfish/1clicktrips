@@ -9,6 +9,7 @@
     "code": "en",
     "name": "English",
     "locale": "en-US",
-    "defaultCurrency": "usd"
+    "defaultCurrency": "usd",
+    "isDefault": true
   }
 ]

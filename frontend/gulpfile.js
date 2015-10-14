@@ -215,7 +215,7 @@ gulp.task('app-data', function() {
       root: 'window'
     }))
     .pipe(concat('languages.js'))
-    .pipe(gulp.dest('scripts/data'));
+    .pipe(gulp.dest('build/data'));
 });
 
 gulp.task('compileTest', function(done) {
@@ -241,8 +241,15 @@ gulp.task('runTest', function (done) {
 gulp.task('test', gulpSequence('scripts', 'compileTest', 'runTest'));
 
 // gulp task suite
-gulp.task('live', gulpSequence(['i18n', 'scripts'], 'styles', 'images', 'preprocess', 'webserver', 'app-data'));
+gulp.task('build', gulpSequence(['i18n', 'scripts'], 'styles', 'images', 'preprocess', 'webserver', 'app-data'));
 
+gulp.task('live', ['build'], function() {
+  gulp.watch('styles/**/*.scss', ['styles']);
+  gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
+  gulp.watch(['*.html'], ['preprocess', 'scripts']);
+  gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
+  gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
+});
 // gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data'], function() {
 
 //   gulp.watch('styles/**/*.scss', ['styles']);
@@ -252,7 +259,7 @@ gulp.task('live', gulpSequence(['i18n', 'scripts'], 'styles', 'images', 'preproc
 //   gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
 // });
 
-gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data', 'i18n'], function() {});
+//gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data', 'i18n'], function() {});
 
 function compileScript() {
 

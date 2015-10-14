@@ -29,15 +29,45 @@ module app {
     });
   }
 
+  /**
+   * Setup language data for angular-translate
+   */
   function i18nConfig($translateProvider) {
+    if (_.isEmpty(window['Locales']) ||
+        _.isEmpty(window['AppData']) ||
+        _.isEmpty(window['AppData']['languages'])) {
+      return false;
+    }
+
     var Locales = window['Locales'];
-    var en = formatLanguageObject(Locales.en);
-    var de = formatLanguageObject(Locales.de);
+    var languages = window['AppData']['languages'];
+    var hasSetDefault = false;
 
-    $translateProvider.translations('en', en);
-    $translateProvider.translations('de', de);
+    /**
+     * Load any lanaguage availabel from language.js
+     */
+    for (var languageIndex = 0; languageIndex < languages.length; languageIndex++) {
 
-    $translateProvider.preferredLanguage('en');
+      var language = languages[languageIndex];
+
+      if (Locales[language.code]) {
+
+        var formattedLocale = formatLanguageObject(Locales[language.code]);
+        $translateProvider.translations(language.code,formattedLocale);
+
+        if (language.isDefault) {
+          hasSetDefault = true;
+          $translateProvider.preferredLanguage(language.code);
+        }
+      }
+    }
+
+    /**
+     * If there is no default language, use first language as default
+     */
+    if (!hasSetDefault) {
+      $translateProvider.preferredLanguage(languages[0].code);
+    }
   }
 
   function formatLanguageObject(object, prefix?) {
@@ -62,4 +92,3 @@ module app {
     console.log("App started...");
   }
 }
-
