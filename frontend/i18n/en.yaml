@@ -62,3 +62,14 @@ result:
       url: Hotel url
       distance: Distance from destination
     back: Go back
+booking:
+  title: Booking overview
+  print: Print travel plan
+  from: from
+  to: to
+  time: time
+  price: price
+  duration: duration
+  details:
+    title: Booking details
+

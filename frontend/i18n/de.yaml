@@ -1,14 +1,75 @@
+general:
+  or: or 11
+common:
+  dropzone:
+    title: Drag your .ics file here 1
+    error: File Drag/Drop is not supported for this browser 1
+    alternative: select from your computer 1
+    form:
+      title: Where do you want to start? 1
+      originplaceholder: Origin location 1
+      start: Start search 1
 index:
-  title: Get the perfect trip for your appointment.
-  file.upload: file upload
-  search.form: search form
+  title: Get the perfect trip for your appointment. 1
+  file.upload: file upload 1
+  search.form: search form 1
 search:
-  file.upload:
-    title: Drag your .ics file here
-    alternative: or select from your computer
-  search.form:
-    origin.location: Origin location
-    destination.location: Destination location
-    date: Appointment date
-    time: Appointment time
-  start: Start search
+  form:
+    origin: Origin location
+    destination: Destination location
+    date:
+      label: Appointment date
+      placeholder: Appointment start date (DD.MM.YYYY)
+    time:
+      label: Appointment time
+      placeholder: Appointment start time (hh:mm
+    start: Start search
+result:
+  error: There was a problem on the server
+  sessionexpire: Your session has been expired, please refresh website.
+  searchdetails:
+    title: Search details
+    change: change
+    from: From
+    to: To
+  listpage:
+    title: Results
+    instructions: You can now select your favorite trip to get the detailed trip plan.
+  detailspage:
+    title: Itinerary details
+    tripoverview:
+      title: Trip overview
+      price: Price
+      duration: Duration
+      departuretime: Departure time
+      arrivaltime: Arrival time
+    instructions:
+      text: Please check the trip details before proceeding to booking.
+      overnight: Your trip requires an overnight stay. You can easily book the hotel proposal, select a different hotel or deselect the hotel option.
+    back: Back to overview
+    booking: Booking
+    hotels: Get available hotels
+  tripsegmentcontainer:
+    select: Select
+  tripsegment:
+    flight: flight
+  hotelspage:
+    title: Availabel hotels
+    list:
+      name: Hotel name
+      address: Hotel address
+      price: Price
+      url: Hotel url
+      distance: Distance from destination
+    back: Go back
+booking:
+  title: Booking overview
+  print: Print travel plan
+  from: from
+  to: to
+  time: time
+  price: price
+  duration: duration
+  details:
+    title: Booking details
+

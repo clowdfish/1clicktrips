@@ -1,13 +1,13 @@
 <section class="booking container">
 
-	<h1 class="booking-title">Booking overview</h1>
+	<h1 class="booking-title">{{ 'booking.title' | translate }}</h1>
 
-	<a href="#" class="button--light" ng-click="printPage($event)">Print travel plan</a>
+	<a href="#" class="button--light" ng-click="printPage($event)">{{ 'booking.print' | translate | uppercase }}</a>
 
 	<div class="booking-summary clearfix">
 		<div class="booking-summary-item">
 			<div class="booking-summary-item-header">
-				From
+				{{ 'booking.from' | translate | uppercase }}
 			</div>
 			<div class="booking-summary-item-content">
 			{{searchParams.originDescription}}
@@ -15,7 +15,7 @@
 		</div>
 		<div class="booking-summary-item">
 			<div class="booking-summary-item-header">
-				To
+				{{ 'booking.to' | translate | uppercase }}
 			</div>
 			<div class="booking-summary-item-content">
 				{{searchParams.destinationDescription}}
@@ -23,7 +23,7 @@
 		</div>
 		<div class="booking-summary-item">
 			<div class="booking-summary-item-header">
-				Time
+				{{ 'booking.time' | translate | uppercase }}
 			</div>
 			<div class="booking-summary-item-content">
 				{{searchParams.timing}}
@@ -31,7 +31,7 @@
 		</div>
 		<div class="booking-summary-item">
 			<div class="booking-summary-item-header">
-			Price
+			{{ 'booking.price' | translate | uppercase }}
 			</div>
 			<div class="booking-summary-item-content">
 			{{tripDetails.price | currency: tripDetails.currency}}
@@ -39,7 +39,7 @@
 		</div>
 		<div class="booking-summary-item">
 			<div class="booking-summary-item-header">
-			Duration
+			{{ 'booking.duration' | translate | uppercase }}
 			</div>
 			<div class="booking-summary-item-content">
 			{{tripDetails.duration | durationFormatter}}
@@ -48,7 +48,7 @@
 	</div>
 
 	<div class="booking-segment-container">
-		<div class="booking-detail-title">Booking details</div>
+		<div class="booking-detail-title">{{ 'booking.details.title' | translate }}</div>
 
 		<div class="booking-container"
 					ng-repeat="container in tripDetails.segmentsContainer"
@@ -57,11 +57,15 @@
 					ng-repeat="segment in getSegments(containerIndex, container)">
 				<div class="booking-segment-info">
 					<div class="booking-segment-title">
-						{{ getActionVerbBySegmentType(segment) }} from {{ segment.start.description }} to {{ segment.end.description }}
+						{{ getActionVerbBySegmentType(segment) }}
+            {{ 'booking.from' | translate }}
+            {{ segment.start.description }}
+            {{ 'booking.to' | translate }}
+            {{ segment.end.description }}
 					</div>
 					<div class="booking-segment-info-item">
 						<div class="booking-segment-info-item-title">
-							From
+							{{ 'booking.from' | translate | uppercase }}
 						</div>
 						<div class="booking-segment-info-item-description">
 							{{segment.start.description}}
@@ -69,7 +73,7 @@
 					</div>
 					<div class="booking-segment-info-item">
 						<div class="booking-segment-info-item-title">
-							To
+							{{ 'booking.to' | translate | uppercase }}
 						</div>
 						<div class="booking-segment-info-item-description">
 							{{segment.end.description}}
@@ -77,7 +81,7 @@
 					</div>
 					<div class="booking-segment-info-item">
 						<div class="booking-segment-info-item-title">
-							Price
+							{{ 'booking.price' | translate | uppercase }}
 						</div>
 						<div class="booking-segment-info-item-description">
 							{{segment.price.amount | currency:segment.price.currency}}
@@ -85,7 +89,7 @@
 					</div>
 					<div class="booking-segment-info-item">
 						<div class="booking-segment-info-item-title">
-							Duration
+							{{ 'booking.duration' | translate | uppercase }}
 						</div>
 						<div class="booking-segment-info-item-description">
 							{{segment.duration | durationFormatter}}

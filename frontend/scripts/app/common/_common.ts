@@ -25,7 +25,7 @@ module Common {
     .service('browser', Browser)
     .service('currency', Currency)
     .service('googleMap', GoogleMap)
-    .service('language', Language)
+    .factory('language', Language.Factory())
     .service('inactivityDetector', InactivityDetector)
     .config(httpConfig)
     .run(run);
