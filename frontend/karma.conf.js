@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'build/data/languages.js',
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY',
       'build/scripts/vendor.js',
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js',

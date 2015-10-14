@@ -4,6 +4,14 @@ module Common {
 
   'use strict';
 
+  export interface LanguageItem {
+    code: string;
+    name: string;
+    locale: string;
+    defaultCurrency: string;
+    isDefault?: boolean;
+  }
+
   /**
    * Switch and store app language
    */
@@ -18,29 +26,29 @@ module Common {
 
     }
 
-    public initialize() {
+    public initialize(): void {
       var languages = window['AppData']['languages'];
 
-      languages.map((language) => {
+      languages.map((language: LanguageItem) => {
         this._data[language.code] = language;
       });
 
       if (false === _.isEmpty(this.$localStorage['language'])) {
         this._activeLanguage = this.$localStorage['language'];
       } else {
-        this._activeLanguage = _.find(languages, (language) => {
-          return language['isDefault'] === true;
+        this._activeLanguage = _.find(languages, (language: LanguageItem) => {
+          return language.isDefault === true;
         });
       }
 
-      this.changeLanguage(this._activeLanguage);
+      this.changeLanguage(this._activeLanguage.code);
     }
 
-    public getActiveLanguage() {
+    public getActiveLanguage(): LanguageItem {
       return this._activeLanguage;
     }
 
-    public getLanguageByCode(code) {
+    public getLanguageByCode(code): LanguageItem {
       if (this._data[code]) {
         return this._data[code];
       }
@@ -65,7 +73,7 @@ module Common {
 
     }
 
-    public static Factory() {
+    public static Factory(): any {
       var service = ($localStorage, $translate, $q) => {
          return new Language($localStorage, $translate, $q);
       }
