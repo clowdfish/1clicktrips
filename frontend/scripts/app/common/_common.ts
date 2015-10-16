@@ -27,6 +27,7 @@ module Common {
     .service('googleMap', GoogleMap)
     .factory('language', Language.Factory())
     .service('inactivityDetector', InactivityDetector)
+    .service('compatibilityChecker', CompatibilityChecker.Factory())
     .config(httpConfig)
     .run(run);
 

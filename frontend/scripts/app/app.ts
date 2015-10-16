@@ -27,6 +27,7 @@ module app {
       abstract: true,
       template: '<div ui-view></div>',
       resolve: {
+        isOldBrowser: isOldBrowser,
         initLanguage: initLanguage
       }
     });
@@ -34,6 +35,17 @@ module app {
 
   function initLanguage(language: Common.Language) {
     language.initialize();
+  }
+
+  function isOldBrowser(compatibilityChecker: Common.CompatibilityChecker, $q) {
+    return $q((resolve, reject) => {
+      return compatibilityChecker.isOldBrowser().then((result) => {
+        resolve(result);
+      }, () => {
+        resolve(true);
+      });
+    });
+
   }
 
   /**
