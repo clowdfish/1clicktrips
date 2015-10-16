@@ -27,9 +27,11 @@ module Result {
       this._inactivityOptions = {
         maxTimeAllow: 1000 * 60 * 30, //30 minutes
         onTimeout: () => {
-          console.log('Your session has been expired, please refresh website.');
-          $scope.timeOut = true;
-          tripCache.clearCache();
+          $scope.$apply(() => {
+            console.log('Your session has been expired, please refresh website.');
+            $scope.timeOut = true;
+            tripCache.clearCache();
+          });
         }
       }
 

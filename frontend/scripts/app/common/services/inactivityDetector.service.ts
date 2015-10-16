@@ -47,8 +47,9 @@ module Common {
 		}
 
 		private _resetTimer(options: InactivityDetectorOptions) {
-			this.$timeout.cancel(this._timer);
-			this._timer = this.$timeout(() => {
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+        console.log('hello');
 				options.onTimeout();
 			}, options.maxTimeAllow);
 		}
