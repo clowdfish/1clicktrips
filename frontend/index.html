@@ -6,28 +6,70 @@
   <title>TTG Search Engine Test UI</title>
   <link rel="stylesheet" type="text/css" href="../styles/vendor.css">
   <link rel="stylesheet" type="text/css" href="../styles/style.css">
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,800">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,600,800|Helvetica:200,400,600,800">
 </head>
 <body>
   <waiting-animation></waiting-animation>
+  <div class="wrapper">
+    <header class="header">
+      <span class="header-menu-toggle">
+        <i class="fa fa-bars"></i>
+      </span>
+    </header>
 
-  <header class="header">
-    <div class="header-logo">
-      <a ui-sref="index.file" href="/">
-        <img src="images/logo.png" alt="1ClickTrips">
-      </a>
+    <!-- holds the dynamic part of the application -->
+    <div class="content" ui-view>
+      <!-- content in here will be overwritten when dynamic part is loaded -->
     </div>
-  </header>
-
-  <!-- holds the dynamic part of the application -->
-  <div class="content" ui-view>
-    <!-- content in here will be overwritten when dynamic part is loaded -->
   </div>
 
   <footer class="footer">
-    <span class="footer-copyright">
-      &copy; 2015 1ClickTrips. All rights reserved.
-    </span>
+    <div class="footer-information">
+      <div class="footer-about">
+        <h2 class="footer-title">About</h2>
+        <p class="footer-about-text">
+          1ClickTrips is a startup changing the way business trips are searched,
+          booked and integrated into daily work routines.
+        </p>
+      </div>
+      <div class="footer-contact">
+        <h2 class="footer-title">Contact</h2>
+        <ul class="footer-contact-list">
+          <li>
+            <i class="fa fa-twitter"></i>
+            Follow us on <a href="#">Twitter</a>
+          </li>
+          <li>
+            <i class="fa fa-skype"></i>
+            Chat with us on <a href="#">Skype</a>
+          </li>
+          <li>
+            <i class="fa fa-envelope"></i>
+            Be old-school and drop us a <a href="#">mail</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-navigation">
+        <h2 class="footer-title">Navigation</h2>
+        <ul class="footer-navigation-list">
+          <li>
+            <i class="fa fa-long-arrow-right"></i>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <i class="fa fa-long-arrow-right"></i>
+            <a href="#">Jobs</a>
+          </li>
+          <li>
+            <i class="fa fa-long-arrow-right"></i>
+            <a href="#">Public Relations</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      &copy; 2015 <a href="#">1ClickTrips</a>. All rights reserved.
+    </div>
   </footer>
 
   <script type="text/javascript"

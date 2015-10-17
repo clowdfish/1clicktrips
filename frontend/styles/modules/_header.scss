@@ -4,27 +4,12 @@
   right: 0;
   left: 0;
   z-index: 100;
+  text-align: right;
+  margin: 0.5em 1em;
 
-  .header-logo {
-    position: absolute;
-    width: $logo-container-width;
-    height: $logo-container-height;
-    background: rgba(255, 255, 255, .6);
-    border-radius: 9em / 5em;
-    top: 0;
-    left: 50%;
-    margin-left: -$logo-container-width/2;
-    margin-top: -$logo-container-height/2 - 0.5em;
-    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.3);
-
-    img {
-      position: absolute;
-      top: $logo-container-height/2 + 1em;
-      left: 50%;
-      margin-left: -$logo-width/2;
-      width: $logo-width;
-      height: auto;
-    }
+  .header-menu-toggle {
+    font-size: $fs-largest;
+    cursor: pointer;
   }
 
   @include respond-above("medium") {

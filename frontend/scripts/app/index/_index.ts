@@ -9,10 +9,6 @@ module Index {
       'app.common',
       'app.core'
     ])
-    .constant('INDEX_STATE', {
-      form: 0,
-      file: 1
-    })
     .controller('indexCtrl', IndexCtrl)
     .config(routerConfig);
 }

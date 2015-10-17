@@ -1,5 +1,5 @@
-$ff-body: 'Source Sans Pro', sans-serif;
-$ff-headline: $ff-body;
+$ff-body: 'Helvetica', sans-serif;
+$ff-headline: 'Roboto', sans-serif;
 
 $fs-smallest: 0.65em;
 $fs-smaller: 0.75em;
@@ -35,16 +35,17 @@ h1, h2, h3, h4, h5 {
 h1 {
   font-size: $fs-largest;
   line-height: 1em;
-  font-weight: 600;
+  font-weight: normal;
+
 }
 
 h2 {
   font-size: $fs-large;
-  font-weight: 600;
+  font-weight: normal;
 }
 
 h4 {
-  font-weight: 600;
+  font-weight: normal;
 }
 
 p {

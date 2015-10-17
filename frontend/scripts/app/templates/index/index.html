@@ -1,16 +1,5 @@
 <div ng-show="isOldBrowser">
   Your browser is outdated, please upgrade to a modern browser.
 </div>
-<section class="index">
-  <h1 class="index-title">{{ 'index.title' | translate }}</h1>
 
-  <div class="index-input" ui-view>
-    <!-- content in here will be overwritten when dynamic part is loaded -->
-  </div>
-
-  <span class="index-state-selector" ng-show="false == isMobile">
-    <a ui-sref="index.file" ui-sref-active="active">{{ 'index.file.upload' | translate }}</a>
-    <span class="index-state-separator">|</span>
-    <a ui-sref="index.form" ui-sref-active="active">{{ 'index.search.form' | translate }}</a>
-  </span>
-</section>
+<section class="index" ui-view></section>

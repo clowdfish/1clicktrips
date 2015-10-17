@@ -1,19 +1,81 @@
 %search {
   @include clearfix;
 
+  width: 95%;
+  margin: 3.5em auto 0 auto;
+  background-color: $c-white;
+  border-radius: 6px;
+
+  -webkit-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
+  box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
+
+  @include respond-above("medium") {
+    width: 70%;
+  }
+
+  @include respond-above("large") {
+    width: 60%;
+  }
+
+  @include respond-above("x-large") {
+    width: 50%;
+  }
+
   .search-form {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    padding: 1.2em;
+
+    @include respond-above("medium") {
+      padding-bottom: 2.6em;
+    }
   }
 
   .search-form-title {
-    margin-bottom: 1em;
+    margin-bottom: 1.2em;
+
+    & > h1 {
+      display: inline;
+      font-size: $fs-normal;
+      font-weight: 800;
+      line-height: 1.6em;
+    }
+
+    & > img {
+      display: inline-block;
+      width: 6.3em;
+      height: auto;
+      margin-top: -0.2em;
+      margin-left: 0.3em;
+      vertical-align: middle;
+    }
   }
 
   .search-form-item {
     position: relative;
     text-align: left;
-    margin-bottom: 0.8em;
+    margin-bottom: 0.6em;
+
+    & > label {
+      display: none;
+    }
+
+    &.location {
+
+      &:after {
+        font-family: 'FontAwesome';
+        position: absolute;
+        right: 0.6em;
+        top: $input-height-mobile / 2 - 0.5rem;
+        color: lighten($c-text-light, 15%);
+        content: "\f041";
+      }
+    }
+
+    &.timing {
+      @include respond-above("medium") {
+        display: inline;
+      }
+    }
 
     &.small {
       display: inline-block;
@@ -21,102 +83,81 @@
 
       &:last-of-type {
         float: right;
+        text-align: right;
       }
-    }
 
-    & .fa {
-      display: inline-block;
-      margin-right: 0.3em;
+      & > input {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        vertical-align: top;
+        margin-right: -1px;
+        border-radius: 4px;
+        border-right: none;
+      }
+
+      @include respond-above("medium") {
+        width: 30%;
+
+        &:last-of-type {
+          float: none;
+          margin-left: 0.5em;
+        }
+      }
     }
   }
 
-  .search-form-item-label {
+  .search-form-input-label {
     display: inline-block;
-    margin-bottom: 0.2em;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    width: 2em;
+    height: $input-height-mobile;
+    background-color: $c-primary;
+    color: $c-white;
+    vertical-align: top;
+    padding-top: 0.5em;
+    text-align: center;
+    margin-left: -4px;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid $c-primary;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($c-primary, 5%);
+    }
+
+    @include respond-above("medium") {
+      height: $input-height;
+    }
   }
 
   .button {
     width: 100%;
+
+    @include respond-above("medium") {
+      display: inline-block;
+      float: right;
+      width: auto;
+    }
+  }
+
+  .search-form-map {
+    display: none;
+
+    @include respond-above("medium") {
+      display: block;
+      width: 100%;
+      height: 5em;
+      background-color: #8c8c8c;
+      border-radius: 0 0 6px 6px;
+    }
   }
 
   @include respond-above("medium") {
-
-    .search-form-title {
-      margin-bottom: 1em;
-    }
-
-    .search-form-item {
-
-      &.small {
-        width: 37%;
-
-        &:first-of-type {
-          margin-left: 12.5%;
-        }
-
-        &:last-of-type {
-          margin-right: 12.5%;
-          float: right;
-        }
-      }
-    }
-
-    .search-form-item-icon {
-      margin-left: 12.5%;
-    }
-
-    .search-form-item-container {
-      position: relative;
-      text-align: left;
-    }
-
-    .search-form-item-input {
-      width: 75%;
-      margin-left: 12.5%;
-    }
-
-    .button {
-      width: 75%;
-      margin-left: 12.5%;
-    }
-  }
-
-  @include respond-above("large") {
-
-    .search-form-title {
-      margin-bottom: 2em;
-    }
-
-    .search-form-item {
-      &.small {
-        width: 24%;
-
-        &:first-of-type {
-          margin-left: 25%;
-        }
-
-        &:last-of-type {
-          margin-right: 25%;
-          float: right;
-        }
-      }
-    }
-
-    .search-form-item-icon {
-      display: inline-block;
-      margin-left: 25%;
-      margin-right: 0.3em;
-    }
-
-    .search-form-item-input {
-      width: 50%;
-      margin-left: 25%;
-    }
-
-    .button {
-      width: 50%;
-      margin-left: 25%;
-    }
+    margin-top: 6em;
   }
 }
 
