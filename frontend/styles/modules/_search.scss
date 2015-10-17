@@ -26,7 +26,7 @@
     padding: 1.2em;
 
     @include respond-above("medium") {
-      padding-bottom: 2.6em;
+      padding-bottom: 2.8em;
     }
   }
 
@@ -148,11 +148,54 @@
     display: none;
 
     @include respond-above("medium") {
+      position: relative;
       display: block;
       width: 100%;
       height: 5em;
       background-color: #8c8c8c;
       border-radius: 0 0 6px 6px;
+
+      .magnifier {
+        $radius: 4em;
+
+        width: 2* $radius;
+        height: 2* $radius;
+        border-radius: $radius;
+        background-color: $c-white;
+
+        position: absolute;
+        top: -2em;
+        left: 7%;
+
+        -webkit-box-shadow: 1px 0 4px 2px rgba(0,0,0,0.2);
+        -moz-box-shadow: 1px 0 4px 2px rgba(0,0,0,0.2);
+        box-shadow: 1px 0 4px 2px rgba(0,0,0,0.2);
+
+        .inner-circle {
+          width: 2* $radius - 1em;
+          height: 2* $radius - 1em;
+          border-radius: $radius;
+          margin: 0.5em;
+
+          -webkit-box-shadow: inset 2px 0 8px 4px rgba(0,0,0,0.2);
+          -moz-box-shadow: inset 2px 0 8px 4px rgba(0,0,0,0.2);
+          box-shadow: inset 2px 0 8px 4px rgba(0,0,0,0.2);
+        }
+
+        .handle {
+          position: absolute;
+          left:  2* $radius - 1em;
+          top: 1.65 * $radius;
+          width: 5.3em;
+          height: 1.1em;
+          background-color: $c-white;
+          transform: rotate(30deg);
+
+          -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.2);
+          -moz-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.2);
+          box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.2);
+        }
+      }
     }
   }
 
