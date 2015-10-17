@@ -11,10 +11,13 @@ module Search {
     ];
     
     private suggestionAdapter: SuggestionAdapter;
-    
+
     constructor(private $scope,
                 suggestionAdapter: SuggestionAdapter,
                 private googleMap) {
+
+      this.$scope = $scope;
+
       $scope.getAddressSuggestion = this.getAddressSuggestion;
       $scope.selectOriginSuggestion = this.selectOriginSuggestion;
       this.suggestionAdapter = suggestionAdapter;      
@@ -40,7 +43,7 @@ module Search {
         this.$scope.$parent.schedule.originAddress = options.address;
         this.$scope.$parent.schedule.origin = options.location;
       }
-    }
+    };
 
     /**
      * Get suggestion for address

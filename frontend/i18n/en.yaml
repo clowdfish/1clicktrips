@@ -2,13 +2,8 @@ general:
   or: or
 common:
   dropzone:
-    title: Drag your .ics file here
+    text: or drop your .ics file here
     error: File Drag/Drop is not supported for this browser
-    alternative: select from your computer
-    form:
-      title: Where do you want to start?
-      originplaceholder: Origin location
-      start: Start search
 index:
   title: Get the perfect trip for your appointment.
   file.upload: file upload

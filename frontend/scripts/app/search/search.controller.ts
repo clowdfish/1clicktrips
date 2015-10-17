@@ -9,6 +9,7 @@ module Search {
     constructor(public $scope,
                 public $state,
                 public searchFormData) {
+
       // optimize forward or backward
       $scope.targetDate = searchFormData.targetDate;
 

@@ -16,22 +16,20 @@ module Common {
 		public templateUrl = 'scripts/app/templates/directives/dropzone.html';
 		public scope = {
 			schedule: '=',
-			startSearch: '&'
 		};
 
 		public scopeService: IDropzoneScope;
 
 		constructor(public googleMap: Common.GoogleMap,
-			public $q: ng.IQService) {
+								public $q: ng.IQService) {
 
 		}
 
 		public link = (scope: IDropzoneScope, element, attrs) => {
 			this.scopeService = scope;
-			this.scopeService.schedule = null;
 			this.scopeService.error = null;
 			this.scopeService.processFile = this.processFile;
-		}
+		};
 
 		processFile = (fileObj) => {
 			if (fileObj) {
@@ -46,7 +44,6 @@ module Common {
 						this.scopeService.$apply(() => {
 							this.parseIcsFile(this.scopeService, reader.result)
 								.then((parseResult) => {
-									console.log(parseResult);
 									this.scopeService.schedule = parseResult;
 								}, (err) => {
 									this.scopeService.error = err;
@@ -61,7 +58,7 @@ module Common {
 			}
 			else
 				console.warn('The file is null.');
-		}
+		};
 
 		errorHandler = (evt) => {
 			switch(evt.target.error.code) {
@@ -135,8 +132,6 @@ module Common {
 
 				if (!appointmentObject.hasOwnProperty('title'))
 					appointmentObject['title'] = 'Your appointment data';
-
-
 
 				var complete =
 					appointmentObject.hasOwnProperty('destination') &&

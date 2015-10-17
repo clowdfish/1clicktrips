@@ -3,48 +3,13 @@
      ngf-drag-over-class="dragover"
      ngf-multiple="false">
 
-  <div ng-hide="schedule">
-    <span class="dropzone-title">{{ 'common.dropzone.title' | translate }}</span>
-    <span class="dropzone-error" ngf-no-file-drop>{{ 'common.dropzone.error' | translate }}</span>
-    <span class="dropzone-link">
-      {{ 'general.or' | translate }} <a ngf-select="processFile($file)"
-            ngf-multiple="false"
-            accept=".ics">
-            {{ 'common.dropzone.alternative' | translate }}
-            </a>
-    </span>
-    <span class="dropzone-error" ng-if="error != null">{{ error.message }}</span>
-  </div>
-
-  <div ng-if="schedule">
-    <span class="dropzone-summary-title">{{ schedule.title }}</span>
-    <span class="dropzone-summary-value">
-      <i class="fa fa-map-marker"></i>
-      {{ schedule.destinationAddress }}
-    </span>
-    <span class="dropzone-summary-value">
-      <i class="fa fa-calendar"></i>
-      {{ schedule.time | dateFormatter }}
-    </span>
-
-    <span class="dropzone-form" ng-controller='searchOriginCtrl'>
-      <label for="origin" class="dropzone-form-title">{{ 'common.dropzone.form.title' | translate }}</label>
-      <input
-        type="text"
-        id="origin"
-        class="dropzone-input"
-        placeholder='{{ "common.dropzone.form.originplaceholder" | translate }}'
-        name='origin'
-        tabindex="1"
-        ng-model='origin'
-        typeahead="address.description for address in getAddressSuggestion($viewValue)"
-        typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
-    </span>
-
-    <a ng-click="startSearch()"
-       class="button"
-       ng-keypress="($event.which === 13) ? startSearch() : 0"
-       class="button"
-       tabindex="2">{{ 'common.dropzone.form.start' | translate }}</a>
-  </div>
+  <span class="dropzone-error" ngf-no-file-drop>{{ 'common.dropzone.error' | translate }}</span>
+  <span class="dropzone-text">
+    {{ 'general.or' | translate }} <a ngf-select="processFile($file)"
+          ngf-multiple="false"
+          accept=".ics">
+          {{ 'common.dropzone.text' | translate }}
+          </a>
+  </span>
+  <span class="dropzone-error" ng-if="error != null">{{ error.message }}</span>
 </div>
