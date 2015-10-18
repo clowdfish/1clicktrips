@@ -5,11 +5,12 @@
   left: 0;
   z-index: 100;
   text-align: right;
-  margin: 0.5em 1em;
 
   .header-menu-toggle {
     font-size: $fs-largest;
     cursor: pointer;
+
+    display: none;
   }
 
   @include respond-above("medium") {

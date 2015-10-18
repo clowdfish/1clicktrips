@@ -2,7 +2,7 @@
   @include clearfix;
 
   width: 95%;
-  margin: 3.5em auto 0 auto;
+  margin: 0 auto;
   background-color: $c-white;
   border-radius: 6px;
 
@@ -35,7 +35,7 @@
 
     & > h1 {
       display: inline;
-      font-size: $fs-normal;
+      font-size: $fs-large;
       font-weight: 800;
       line-height: 1.6em;
     }
@@ -197,10 +197,6 @@
         }
       }
     }
-  }
-
-  @include respond-above("medium") {
-    margin-top: 6em;
   }
 }
 

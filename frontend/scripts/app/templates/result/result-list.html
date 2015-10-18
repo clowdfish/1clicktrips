@@ -10,7 +10,7 @@
 </section>
 
 <section class="result" ng-show='itineraries !== null && false === (errorState != null || timeOut == true)'>
-  <h1 class="result-title">{{ 'result.listpage.title' | translate }}</h1>
+  <h1 class="result-title">{{ 'result.list.title' | translate }}</h1>
   <div class="result-search-details">
     <h2 class="result-search-details-title">{{ 'result.searchdetails.title' | translate }}</h2>
     (<a href="#">{{ 'result.searchdetails.change' | translate }}</a>)
@@ -28,7 +28,7 @@
     </span>
   </div>
   <div class="result-instructions">
-    {{ 'result.listpage.instructions' | translate }}
+    {{ 'result.list.instructions' | translate }}
   </div>
 
   <trip-segment-container itineraries="itineraries"

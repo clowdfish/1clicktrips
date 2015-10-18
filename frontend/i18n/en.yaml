@@ -17,8 +17,8 @@ search:
       placeholder: Appointment start date (DD.MM.YYYY)
     time:
       label: Appointment time
-      placeholder: Appointment start time (hh:mm
-    start: Start search
+      placeholder: Appointment start time (hh:mm)
+    start: Search trips
 result:
   error: There was a problem on the server
   sessionexpire: Your session has been expired, please refresh website.
@@ -27,10 +27,11 @@ result:
     change: change
     from: From
     to: To
-  listpage:
+  list:
     title: Results
     instructions: You can now select your favorite trip to get the detailed trip plan.
-  detailspage:
+    select: Select
+  details:
     title: Itinerary details
     tripoverview:
       title: Trip overview
@@ -44,8 +45,6 @@ result:
     back: Back to overview
     booking: Booking
     hotels: Get available hotels
-  tripsegmentcontainer:
-    select: Select
   tripsegment:
     flight: flight
   hotelspage:

@@ -2,11 +2,10 @@
   $result-list-item-height: 5rem;
 
   @include container;
+
   width: 95%;
   background-color: rgba(255, 255, 255, 0.6);
   padding: 1em 0.8em;
-  margin-top: $logo-container-height / 2 + 1em;
-  margin-bottom: 4em;
   border-radius: 6px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 
@@ -34,12 +33,10 @@
       float: left;
 
       #itinerary-map {
-        height: 500px;
-        width: 500px;
+        height: 300px;
+        width: 300px;
       }
     }
-
-
   }
 
   .result-search-details {

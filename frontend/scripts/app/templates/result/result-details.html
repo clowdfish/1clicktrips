@@ -10,7 +10,7 @@
 </section>
 
 <section class="result container" ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
-	<h1 class="result-title">{{ 'result.detailspage.title' | translate }}</h1>
+	<h1 class="result-title">{{ 'result.details.title' | translate }}</h1>
 		<div class="result-summary clearfix">
 			<div class="result-details">
 				<div class="result-search-details">
@@ -30,29 +30,29 @@
 				</div>
 
 				<div class="result-trip-details">
-					<h2 class="result-trip-details-title">{{ 'result.detailspage.tripoverview.title' | translate }}</h2>
+					<h2 class="result-trip-details-title">{{ 'result.details.tripoverview.title' | translate }}</h2>
 
 					<span class="result-trip-details-data table">
 						<span class="row">
-							<span class="cell">{{ 'result.detailspage.tripoverview.price' | translate }}</span><span class="cell">{{ itinerary['price'] }} {{ itinerary['currency'] | uppercase }}</span>
+							<span class="cell">{{ 'result.detailse.tripoverview.price' | translate }}</span><span class="cell">{{ itinerary['price'] }} {{ itinerary['currency'] | uppercase }}</span>
 						</span>
 						<span class="row">
-							<span class="cell">{{ 'result.detailspage.tripoverview.duration' | translate }}</span><span class="cell">{{ itinerary['duration'] | durationFormatter }} </span>
+							<span class="cell">{{ 'result.details.tripoverview.duration' | translate }}</span><span class="cell">{{ itinerary['duration'] | durationFormatter }} </span>
 						</span>
 						<span class="row">
-							<span class="cell">{{ 'result.detailspage.tripoverview.departuretime' | translate }}</span><span class="cell">{{ itinerary['departureTime'] | dateFormatter }}</span>
+							<span class="cell">{{ 'result.details.tripoverview.departuretime' | translate }}</span><span class="cell">{{ itinerary['departureTime'] | dateFormatter }}</span>
 						</span>
 						<span class="row">
-							<span class="cell">{{ 'result.detailspage.tripoverview.arrivaltime' | translate }}</span><span class="cell">{{ itinerary['arrivalTime'] | dateFormatter }}</span>
+							<span class="cell">{{ 'result.details.tripoverview.arrivaltime' | translate }}</span><span class="cell">{{ itinerary['arrivalTime'] | dateFormatter }}</span>
 						</span>
 					</span>
 				</div>
 
 				<div class="result-instructions">
-					{{ 'result.detailspage.instructions.text' | translate }}
+					{{ 'result.details.instructions.text' | translate }}
 
 					<div class="result-instructions-overnight" ng-if="false">
-						{{ 'result.detailspage.instructions.overnight' | translate }}
+						{{ 'result.details.instructions.overnight' | translate }}
 					</div>
 				</div>
 		</div>
@@ -70,7 +70,7 @@
 
 	</trip-segment-container>
 
-	<a ng-click="goToOverview()" class="button--light">{{ 'result.detailspage.back' | translate }}</a>
-	<a ng-click="booking(searchData, itinerary)" class="button--light">{{ 'result.detailspage.booking' | translate }}</a>
+	<a ng-click="goToOverview()" class="button--light">{{ 'result.details.back' | translate }}</a>
+	<a ng-click="booking(searchData, itinerary)" class="button--light">{{ 'result.details.booking' | translate }}</a>
 	<!--<a ng-click="goToHotels()" class="button">Get available hotels</a>-->
 </section>
