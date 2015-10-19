@@ -1,24 +1,14 @@
 <span class="result-segment">
-  <span class="result-segment-location segment-transition"
-        ng-class="{ hidden: width < 20 }"
-        ng-style="{ 'left': marginLeft + '%', 'max-width': width/2 + '%' }">
-    {{ segment['start']['description'] }}
-  </span>
-  <span class="result-segment-location segment-transition"
-        ng-class="{ hidden: width < 20 }"
-        ng-style="{ 'right': 100 - (marginLeft + width) + '%', 'max-width': width/2 + '%' }">
-    {{ segment['end']['description'] }}
-  </span>
 
   <span class="result-segment-timing segment-transition"
         ng-class="{ hidden: width < 20 }"
         ng-style="{ 'left': marginLeft + '%' }">
-    {{ segment['departureTime'] | dateFormatter : 'HH:mm' }}
+    {{ segment['departureTime'] | dateFormatter : 'H:mm' }}
   </span>
   <span class="result-segment-timing segment-transition"
         ng-class="{ hidden: width < 20 }"
         ng-style="{ 'right': 100 - (marginLeft + width) + '%' }">
-    {{ segment['arrivalTime'] | dateFormatter : 'HH:mm' }}
+    {{ segment['arrivalTime'] | dateFormatter : 'H:mm' }}
   </span>
 
   <span class="result-segment-block segment-transition"
@@ -26,28 +16,9 @@
         ng-style="{ 'width': width + '%', 'left': marginLeft + '%' }"
         ng-click="zoomToSegment()"
         ng-mouseleave="zoomOut()">
-
-    <i class="fa {{ segment['type'] | vehicleTypeToIcon }} segment-transition"
-       ng-class="{ hidden: width < 5 }"></i>
-
-    <span class="result-segment-duration segment-transition"
-          ng-class="{ hidden: width < 10 }">{{ segment['duration'] | durationFormatter }}</span>
-
-    <span class="result-segment-alternatives"
-          ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
-
-      <!-- alternative selection -->
-      <select ng-model="timingSelection"
-              ng-change="alternativeChange(timingSelection, undefined)"
-              class="result-segment-alternatives">
-        <option value=""></option>
-        <option ng-repeat="alternative in segment['alternatives']" value="{{ $index }}">
-          {{ alternative['departureTime'] | dateFormatter }} - {{ alternative['arrivalTime'] | dateFormatter }} ->
-          <span ng-if="alternative['price']">{{ alternative['price']['amount'].toFixed(2) }} {{ alternative['price']['currency'] | uppercase }}</span>
-        </option>
-      </select>
-    </span>
   </span>
+  <!--<i class="fa {{ segment['type'] | vehicleTypeToIcon }} segment-transition"
+    ng-class="{ hidden: width < 5 }"></i>-->
 
   <span class="result-segment-details segment-transition"
         ng-class="{ hidden: width < 20 }"
@@ -59,5 +30,20 @@
 
     <!-- TODO include details of other means of travel -->
   </span>
-</span>
 
+  <!--
+  <span class="result-segment-alternatives"
+        ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
+
+    <select ng-model="timingSelection"
+            ng-change="alternativeChange(timingSelection, undefined)"
+            class="result-segment-alternatives">
+      <option value=""></option>
+      <option ng-repeat="alternative in segment['alternatives']" value="{{ $index }}">
+        {{ alternative['departureTime'] | dateFormatter }} - {{ alternative['arrivalTime'] | dateFormatter }} ->
+        <span ng-if="alternative['price']">{{ alternative['price']['amount'].toFixed(2) }} {{ alternative['price']['currency'] | uppercase }}</span>
+      </option>
+    </select>
+  </span>
+  -->
+</span>

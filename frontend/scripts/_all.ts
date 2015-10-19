@@ -10,6 +10,7 @@
 /// <reference path="app/common/filters/currencyFormatter.filter.ts" />
 /// <reference path="app/common/filters/dateFormatter.filter.ts" />
 /// <reference path="app/common/filters/durationFormatter.filter.ts" />
+/// <reference path="app/common/filters/titleExtractor.filter.ts" />
 /// <reference path="app/common/filters/vehicleTypeToIcon.filter.ts" />
 /// <reference path="app/common/services/googleMap.service.ts" />
 /// <reference path="app/common/services/language.service.ts" />

@@ -2,6 +2,16 @@
   width: 100%;
   color: $c-text-dark-bg;
 
+  a, a:visited {
+    color: $c-primary;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $c-primary;
+    text-decoration: underline;
+  }
+
   .footer-information {
     @include clearfix;
     width: 100%;

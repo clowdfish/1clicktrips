@@ -10,7 +10,7 @@
 
   /* Looks */
   background: $c-primary;
-  color: #fff;
+  color: $c-white;
   text-decoration: none;
   text-align: center;
   border: 1px solid $c-primary;
@@ -40,6 +40,7 @@
   &:hover, &:focus {
     background: darken($c-primary, 5%);
     text-decoration: none;
+    color: $c-white;
   }
 }
 

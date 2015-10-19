@@ -21,6 +21,7 @@ module Common {
     .filter('currencyFormatter', currencyFormatter)
     .filter('dateFormatter', dateFormatter)
     .filter('durationFormatter', durationFormatter)
+    .filter('titleExtractor', titleExtractor)
     .filter('vehicleTypeToIcon', vehicleTypeToIcon)
     .service('browser', Browser)
     .service('currency', Currency)

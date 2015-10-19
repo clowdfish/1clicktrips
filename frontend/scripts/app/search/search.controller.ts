@@ -161,7 +161,7 @@ module Search {
           this.$scope.schedule.origin = null;
           this.$scope.schedule.originAddress = null;
         });
-    }
+    };
 
     selectDestinationSuggestion = ($item) => {
       return this.selectSuggestion($item)

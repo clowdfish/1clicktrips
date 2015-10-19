@@ -25,7 +25,14 @@ module Common {
           case 'hours':
             var durationString = fullHours + ':';
             if(fullMinutes < 10) durationString += '0';
-            return durationString + fullMinutes;
+            return durationString + fullMinutes + '';
+          case 'full':
+            var durationString = fullHours + ' hour';
+            durationString += fullHours != 1 ? 's ' : ' ';
+            if(fullMinutes < 10) durationString += '0';
+            durationString += fullMinutes + ' minute';
+            if(fullMinutes != 1) durationString += 's';
+            return durationString;
           default:
             return '';
         }

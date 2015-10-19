@@ -29,7 +29,7 @@ result:
     to: To
   list:
     title: Results
-    instructions: You can now select your favorite trip to get the detailed trip plan.
+    subtitle: Time to pick a trip.
     select: Select
   details:
     title: Itinerary details

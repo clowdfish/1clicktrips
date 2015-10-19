@@ -28,8 +28,8 @@ result:
     from: From
     to: To
   list:
-    title: Results
-    instructions: You can now select your favorite trip to get the detailed trip plan.
+    title: Search results
+    subtitle: Time to pick a trip.
     select: Select
   details:
     title: Itinerary details

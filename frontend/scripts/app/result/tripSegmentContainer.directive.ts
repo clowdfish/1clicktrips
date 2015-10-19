@@ -84,9 +84,8 @@ module Result {
             });
           }
         });
+      };
 
-
-      }
       /**
         * Will be called to zoom within the segment container.
         *
@@ -120,7 +119,7 @@ module Result {
         this.scopeService.$broadcast('dimensionChange', {
           ratio: this.scopeService.dimensions.ratio
         });
-      }
+      };
 
       /**
         *
@@ -153,7 +152,7 @@ module Result {
             }
           });
         }
-      }
+      };
 
       /**
         *
@@ -190,7 +189,7 @@ module Result {
           else if (this.scopeService.earliestDeparture == undefined || intervalStart.isBefore(this.scopeService.earliestDeparture))
             this.scopeService.earliestDeparture = intervalStart.clone();
         }
-      }
+      };
 
 
       /**
@@ -206,7 +205,7 @@ module Result {
             ratio: 100 / tripDuration
           };
         }
-      }
+      };
 
       /**
         *
@@ -226,7 +225,7 @@ module Result {
         }
 
         return margin;
-      }
+      };
 
       /**
         * Checks if an alternative for a segment was selected and returns the
@@ -259,7 +258,7 @@ module Result {
         }
 
         return 0;
-      }
+      };
 
       /**
         * Checks if an alternative timing for a segment was selected and returns
@@ -289,7 +288,7 @@ module Result {
         }
 
         return -1;
-      }
+      };
 
       /**
         *
@@ -401,7 +400,7 @@ module Result {
           // no matter what happened, the time line should be refreshed
           this.renderTimeLine();
         });
-      }
+      };
 
       /**
         * Overwrites the segment's data with the data from the alternative.
@@ -417,7 +416,7 @@ module Result {
 
         if(alternative['price'])
           segment['price'] = alternative['price'];
-      }
+      };
 
       /**
         * Adapts the timings of all segments based on the segment given by the
@@ -479,7 +478,7 @@ module Result {
             segmentsList[i]['arrivalTime'] = arrivalTime.format(timeFormat);
           }
         }
-      }
+      };
 
       /**
         * Updates itinerary data after changes to the underlying segments have
@@ -568,7 +567,7 @@ module Result {
         itinerary['arrivalTime'] = arrivalTime.format('YYYY-MM-DDTHH:mm:ss');
         itinerary['duration'] = arrivalTime.diff(departureTime, 'minutes');
         itinerary['price'] = totalPrice;
-      }
+      };
 
       /**
         * Re-renders the time line.
@@ -583,7 +582,6 @@ module Result {
         this.scopeService.$broadcast('dimensionChange', {
           ratio: this.scopeService.dimensions.ratio
         });
-      }
-
+      };
     }
  }

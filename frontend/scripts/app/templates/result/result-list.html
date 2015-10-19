@@ -10,32 +10,27 @@
 </section>
 
 <section class="result" ng-show='itineraries !== null && false === (errorState != null || timeOut == true)'>
-  <h1 class="result-title">{{ 'result.list.title' | translate }}</h1>
-  <div class="result-search-details">
-    <h2 class="result-search-details-title">{{ 'result.searchdetails.title' | translate }}</h2>
-    (<a href="#">{{ 'result.searchdetails.change' | translate }}</a>)
+  <div class="result-map">
+    <!-- include google maps here -->
+  </div>
 
-    <span class="result-search-details-data table">
-      <span class="row">
-        <span class="cell">{{ 'result.searchdetails.from' | translate }}</span><span class="cell">{{ searchData['originDescription'] }}</span>
-      </span>
-      <span class="row">
-        <span class="cell">{{ 'result.searchdetails.to' | translate }}</span><span class="cell">{{ searchData['destinationDescription'] }}</span>
-      </span>
-      <span class="row">
-        <span class="cell"></span><span class="cell">{{ timing['value'] | dateFormatter }}</span>
-      </span>
-    </span>
-  </div>
-  <div class="result-instructions">
-    {{ 'result.list.instructions' | translate }}
-  </div>
+  <h1 class="result-title">{{ 'result.list.title' | translate }}</h1>
+  <span class="result-title-sub">Time to pick a trip.</span>
 
   <trip-segment-container itineraries="itineraries"
                           timing="timing"
                           selection="selection"
                           select-itinerary="goToItinerary(index)"
-                          update-itinerary="updateItinerary(index)">
-
+                          update-itinerary="updateItinerary(index)"
+                          class="result-container">
   </trip-segment-container>
 </section>
+
+
+<!--
+
+searchData['originDescription']
+searchData['destinationDescription']
+timing['value'] | dateFormatter
+
+-->
