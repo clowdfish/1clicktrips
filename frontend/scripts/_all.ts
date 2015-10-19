@@ -42,9 +42,6 @@
 
 /// -----------Search Module ------------
 /// <reference path="app/search/search.controller.ts" />
-/// <reference path="app/search/searchDateTimeSelect.controller.ts" />
-/// <reference path="app/search/searchDestination.controller.ts" />
-/// <reference path="app/search/searchOrigin.controller.ts" />
 /// <reference path="app/search/suggestionAdapter.factory.ts" />
 /// <reference path="app/search/_search.ts" />
 
