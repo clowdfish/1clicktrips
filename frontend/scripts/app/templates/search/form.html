@@ -6,7 +6,7 @@
     </div>
 
     <!-- ORIGIN FORM -->
-    <div class="search-form-item location" ng-controller='searchOriginCtrl'>
+    <div class="search-form-item location">
       <label for="origin" class="search-form-item-label">{{ 'search.form.origin' | translate }}</label>
       <input
         type="text"
@@ -15,13 +15,13 @@
         placeholder='{{ "search.form.origin" | translate }}'
         name='origin'
         tabindex="1"
-        ng-model='origin'
+        ng-model='schedule.originAddress'
         typeahead="address.description for address in getAddressSuggestion($viewValue)"
         typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
     </div>
 
     <!-- DESTINATION FORM -->
-    <div class="search-form-item location" ng-controller='searchDestinationFormCtrl'>
+    <div class="search-form-item location">
       <label for="destination" class="search-form-item-label">{{ 'search.form.destination' | translate }}</label>
       <input
         type="text"
@@ -30,13 +30,13 @@
         placeholder='{{ "search.form.destination" | translate }}'
         name='destination'
         tabindex="2"
-        ng-model='destination'
-        typeahead="address.description for address in getSuggestion($viewValue)"
+        ng-model='schedule.destinationAddress'
+        typeahead="address.description for address in getAddressSuggestion($viewValue)"
         typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
     </div>
 
     <!-- SCHEDULE FORM -->
-    <div class="search-form-item timing" ng-controller='searchDateTimeSelectCtrl'>
+    <div class="search-form-item timing">
 
       <div class='search-form-item small'>
         <label for="date_start" class="search-form-item-label">{{ 'search.form.date.label' | translate }}</label>
@@ -44,7 +44,7 @@
           type="text"
           id="date_start"
           tabindex="3"
-          ng-model="$parent.startDateString"
+          ng-model="startDateString"
           placeholder="{{ 'search.form.date.placeholder' | translate }}"
           required />
         <span class="search-form-input-label">
@@ -58,7 +58,7 @@
           type="text"
           id="time_start"
           tabindex="4"
-          ng-model="$parent.startTimeString"
+          ng-model="startTimeString"
           placeholder="{{ 'search.form.time.placehoder' | translate }}"
           required />
         <span class="search-form-input-label">

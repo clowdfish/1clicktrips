@@ -8,7 +8,10 @@ module Search {
 
     constructor(public $scope,
                 public $state,
-                public searchFormData) {
+                public searchFormData,
+                public suggestionAdapter: SuggestionAdapter,
+                public googleMap: Common.GoogleMap,
+                public $q) {
 
       // optimize forward or backward
       $scope.targetDate = searchFormData.targetDate;
@@ -33,6 +36,12 @@ module Search {
       $scope.resetTabIndex = function() {
         $('#origin').focus();
       };
+
+      $scope.getAddressSuggestion = this.getAddressSuggestion;
+      $scope.selectOriginSuggestion = this.selectOriginSuggestion;
+      $scope.selectDestinationSuggestion = this.selectDestinationSuggestion;
+
+
     }
 
     /**
@@ -133,6 +142,54 @@ module Search {
      */
     formatDate = (date) => {
       return moment(date).format('YYYY-MM-DDTHH:mm:ss');
+    };
+
+    /**
+      * Get suggestion for address
+      * @param {string} val - input
+      * @return {promise} - return a promise for typeahead
+    */
+    getAddressSuggestion = (val) => {
+      return this.suggestionAdapter.getAddressSuggestion(val);
+    };
+
+    selectOriginSuggestion = ($item) => {
+      return this.selectSuggestion($item)
+        .then((location) => {
+          this.$scope.schedule.origin = location;
+        }, () => {
+          this.$scope.schedule.origin = null;
+          this.$scope.schedule.originAddress = null;
+        });
+    }
+
+    selectDestinationSuggestion = ($item) => {
+      return this.selectSuggestion($item)
+        .then((location) => {
+          this.$scope.schedule.destination = location;
+        }, () => {
+          this.$scope.schedule.destination = null;
+          this.$scope.schedule.destinationAddress = null;
+        });
+    }
+
+    /**
+     * Select suggestion and display on map.
+     *
+     * @param {object|string} $item - Suggestion object
+     */
+    selectSuggestion = ($item) => {
+
+      var deferred = this.$q.defer();
+
+      this
+        .googleMap
+        .geocode($item.description)
+        .then((location) => {
+          deferred.resolve(location);
+        });
+
+      return deferred.promise;
     };
   }
 }

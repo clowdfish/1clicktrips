@@ -44,6 +44,7 @@ module Common {
 						this.scopeService.$apply(() => {
 							this.parseIcsFile(this.scopeService, reader.result)
 								.then((parseResult) => {
+                  console.log(parseResult);
 									this.scopeService.schedule = parseResult;
 								}, (err) => {
 									this.scopeService.error = err;
