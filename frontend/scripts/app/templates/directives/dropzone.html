@@ -5,11 +5,11 @@
 
   <span class="dropzone-error" ngf-no-file-drop>{{ 'common.dropzone.error' | translate }}</span>
   <span class="dropzone-text">
-    {{ 'general.or' | translate }} <a ngf-select="processFile($file)"
-          ngf-multiple="false"
-          accept=".ics">
-          {{ 'common.dropzone.text' | translate }}
-          </a>
+    <a ngf-select="processFile($file)"
+       ngf-multiple="false"
+       accept=".ics">
+      {{ 'common.dropzone.text' | translate }}
+    </a>
   </span>
   <span class="dropzone-error" ng-if="error != null">{{ error.message }}</span>
 </div>

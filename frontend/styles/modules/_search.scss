@@ -20,6 +20,7 @@
 
   @include respond-above("x-large") {
     width: 50%;
+    max-width: 880px;
   }
 
   .search-form {

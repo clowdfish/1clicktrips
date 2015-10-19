@@ -47,11 +47,11 @@
           show-weeks="false"
           ng-model="startDate"
           datepicker-options="dateOptions"
-          datepicker-popup="{{format}}"
+          datepicker-popup="{{ format }}"
           ng-required="true"
           show-button-bar="false"
           minDate="now"
-          is-open="isOpenStartDatePicker"
+          is-open="isOpenDatePicker"
           required />
         <span class="search-form-input-label" ng-click="toggleStartDatePicker($event)">
           <i class="fa fa-calendar"></i>
@@ -67,7 +67,7 @@
           time="startDate"
           placeholder="{{ 'search.form.time.placehoder' | translate }}"
           popup-time-picker
-          is-open="isOpenStartTimePicker"
+          is-open="isOpenTimePicker"
           required />
         <span class="search-form-input-label" ng-click="toggleStartTimePicker()">
           <i class="fa fa-clock-o"></i>

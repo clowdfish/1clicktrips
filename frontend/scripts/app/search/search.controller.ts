@@ -16,9 +16,6 @@ module Search {
       // optimize forward or backward
       $scope.targetDate = searchFormData.targetDate;
 
-      $scope.startDateString = searchFormData.startDate.format("DD.MM.YYYY");
-      $scope.startTimeString = searchFormData.startTimeString;
-
       $scope.schedule = {
         title: "",
         origin: searchFormData.originLocation,
@@ -44,8 +41,8 @@ module Search {
       /**
       * Date time picker open status
       */
-      $scope.isOpenStartDatePicker = false;
-      $scope.isOpenStartTimePicker = false;
+      $scope.isOpenDatePicker = false;
+      $scope.isOpenTimePicker = false;
 
       // configure date picker
       $scope.dateOptions = {
@@ -59,6 +56,7 @@ module Search {
       $scope.now = new Date();
       $scope.toggleStartDatePicker = this.toggleStartDatePicker;
       $scope.toggleStartTimePicker = this.toggleStartTimePicker;
+
       $scope.startDate = searchFormData.startDate.toDate();
 
       $scope.$watch('startDate', () => {
@@ -66,24 +64,24 @@ module Search {
       })
     }
 
-    toggleStartDatePicker = () => {
-      if (this.$scope.isOpenStartDatePicker) {
-        this.$scope.isOpenStartDatePicker = false;
-      } else {
-        this.$scope.isOpenStartDatePicker = true;
-        this.$scope.isOpenStartTimePicker = false;
+    toggleStartDatePicker = (event) => {
+      event.stopPropagation();
+
+      if (!this.$scope.isOpenDatePicker) {
+        this.$scope.isOpenTimePicker = false;
       }
-      this.$scope.isOpenStartDatePicker = true;
-    }
+
+      this.$scope.isOpenDatePicker = !this.$scope.isOpenDatePicker;
+    };
 
     toggleStartTimePicker = () => {
-      if (this.$scope.isOpenStartTimePicker) {
-        this.$scope.isOpenStartTimePicker = false;
-        this.$scope.isOpenStartDatePicker = false;
-      } else {
-        this.$scope.isOpenStartTimePicker = true;
+
+      if (this.$scope.isOpenTimePicker) {
+        this.$scope.isOpenDatePicker = false;
       }
-    }
+
+      this.$scope.isOpenTimePicker = !this.$scope.isOpenTimePicker;
+    };
 
     /**
      *
@@ -180,7 +178,7 @@ module Search {
           this.$scope.schedule.destination = null;
           this.$scope.schedule.destinationAddress = null;
         });
-    }
+    };
 
     /**
      * Select suggestion and display on map.
