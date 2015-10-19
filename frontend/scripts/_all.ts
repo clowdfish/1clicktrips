@@ -44,6 +44,7 @@
 /// -----------Search Module ------------
 /// <reference path="app/search/search.controller.ts" />
 /// <reference path="app/search/suggestionAdapter.factory.ts" />
+/// <reference path="app/search/popupTimePicker.directive.ts" />
 /// <reference path="app/search/_search.ts" />
 
 /// -----------Booking Module ------------

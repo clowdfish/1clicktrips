@@ -41,7 +41,48 @@ module Search {
       $scope.selectOriginSuggestion = this.selectOriginSuggestion;
       $scope.selectDestinationSuggestion = this.selectDestinationSuggestion;
 
+      /**
+      * Date time picker open status
+      */
+      $scope.isOpenStartDatePicker = false;
+      $scope.isOpenStartTimePicker = false;
 
+      // configure date picker
+      $scope.dateOptions = {
+        formatYear: 'yyyy',
+        startingDay: 0
+      };
+
+      //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+      $scope.format = 'dd-MM-yyyy';
+
+      $scope.now = new Date();
+      $scope.toggleStartDatePicker = this.toggleStartDatePicker;
+      $scope.toggleStartTimePicker = this.toggleStartTimePicker;
+      $scope.startDate = searchFormData.startDate.toDate();
+
+      $scope.$watch('startDate', () => {
+        console.log($scope.startDate);
+      })
+    }
+
+    toggleStartDatePicker = () => {
+      if (this.$scope.isOpenStartDatePicker) {
+        this.$scope.isOpenStartDatePicker = false;
+      } else {
+        this.$scope.isOpenStartDatePicker = true;
+        this.$scope.isOpenStartTimePicker = false;
+      }
+      this.$scope.isOpenStartDatePicker = true;
+    }
+
+    toggleStartTimePicker = () => {
+      if (this.$scope.isOpenStartTimePicker) {
+        this.$scope.isOpenStartTimePicker = false;
+        this.$scope.isOpenStartDatePicker = false;
+      } else {
+        this.$scope.isOpenStartTimePicker = true;
+      }
     }
 
     /**
@@ -57,57 +98,25 @@ module Search {
         return false;
       }
 
-      if(this.$scope.startDateString == null || this.$scope.startTimeString == null) {
+      if(this.$scope.startDate == null) {
         alert("Date and time fields must be filled.");
         return false;
       }
 
       // check if date and time format is correct
-      if(dateIsValid(this.$scope.startDateString) && timeIsValid(this.$scope.startTimeString)) {
-
-        var timeString = this.$scope.startTimeString;
-
-        if(timeString.indexOf(":") == 1)
-          timeString = "0".concat(timeString);
-
-        var dateTimeString = this.$scope.startDateString + " " + timeString;
-
-        this.$scope.schedule.time = moment(dateTimeString, "DD.MM.YYYY HH:mm");
-      }
-      else {
+      var startDate = moment(this.$scope.startDate);
+      if (!startDate.isValid()) {
         alert("Date or time is not valid (must be DD.MM.YYYY and HH:mm).");
         return false;
       }
 
       // check if date is in the future
-      if (this.$scope.schedule.time.isBefore(moment(new Date()))) {
+      if (startDate.isBefore(moment(new Date()))) {
         alert("Date must be in the future.");
         return false;
       }
 
       return true;
-
-      /**
-       *
-       *
-       * @param time
-       * @returns {boolean}
-       */
-      function timeIsValid(time) {
-        return new RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
-          .test(time);
-      }
-
-      /**
-       *
-       *
-       * @param date
-       * @returns {boolean}
-       */
-      function dateIsValid(date) {
-        return new RegExp("^[0-9]{2}.[0-9]{2}.[0-9]{4}$")
-          .test(date);
-      }
     };
 
     /**

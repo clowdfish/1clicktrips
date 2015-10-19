@@ -10,6 +10,8 @@ module Search {
     ])
     .service('suggestionAdapter', SuggestionAdapter.Factory())
     .controller('searchCtrl', SearchCtrl)
+    .directive('popupTimePicker', popupTimePicker)
+    .directive('popupTimePickerWrapper', popupTimePickerWrapper)
     .config(decorateDatePicker)
     .config(decoratePopupDatePicker);
 

@@ -56,7 +56,8 @@ var testFiles = [
 gulp.task('styles', function() {
 
   gulp.src([
-    'bower_components/font-awesome/fonts/*'
+    'bower_components/font-awesome/fonts/*',
+    'bower_components/bootstrap/dist/fonts/*'
   ])
   .pipe(gulp.dest("build/fonts"));
 
