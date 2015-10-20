@@ -44,7 +44,6 @@ module Common {
 						this.scopeService.$apply(() => {
 							this.parseIcsFile(this.scopeService, reader.result)
 								.then((parseResult) => {
-                  console.log(parseResult);
 									this.scopeService.schedule = parseResult;
 								}, (err) => {
 									this.scopeService.error = err;
@@ -175,7 +174,7 @@ module Common {
 		 * @returns {*}
 		 */
 		formatTiming = (text) => {
-			return moment(text, 'YYYYMMDDTHHmmss');
+			return moment(text, 'YYYYMMDDTHHmmss').toDate();
 		};
 
 		/**

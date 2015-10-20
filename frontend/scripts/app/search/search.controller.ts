@@ -22,9 +22,9 @@ module Search {
         originAddress: searchFormData.origin,
         destination: searchFormData.destinationLocation,
         destinationAddress: searchFormData.destination,
-        time: searchFormData.startDate // moment object
+        time: searchFormData.startDate // datetime object
       };
-
+      
       /**
        * scope functions
        */
@@ -56,12 +56,6 @@ module Search {
       $scope.now = new Date();
       $scope.toggleStartDatePicker = this.toggleStartDatePicker;
       $scope.toggleStartTimePicker = this.toggleStartTimePicker;
-
-      $scope.startDate = searchFormData.startDate.toDate();
-
-      $scope.$watch('startDate', () => {
-        console.log($scope.startDate);
-      })
     }
 
     toggleStartDatePicker = (event) => {
@@ -96,20 +90,20 @@ module Search {
         return false;
       }
 
-      if(this.$scope.startDate == null) {
+      if(this.$scope.schedule.time == null) {
         alert("Date and time fields must be filled.");
         return false;
       }
 
       // check if date and time format is correct
-      var startDate = moment(this.$scope.startDate);
-      if (!startDate.isValid()) {
+      var time = moment(this.$scope.schedule.time);
+      if (!time.isValid()) {
         alert("Date or time is not valid (must be DD.MM.YYYY and HH:mm).");
         return false;
       }
 
       // check if date is in the future
-      if (startDate.isBefore(moment(new Date()))) {
+      if (time.isBefore(moment(new Date()))) {
         alert("Date must be in the future.");
         return false;
       }

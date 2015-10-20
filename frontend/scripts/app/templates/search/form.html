@@ -45,7 +45,7 @@
           id="date_start"
           tabindex="3"
           show-weeks="false"
-          ng-model="startDate"
+          ng-model="schedule.time"
           datepicker-options="dateOptions"
           datepicker-popup="{{ format }}"
           ng-required="true"
@@ -65,7 +65,7 @@
           type="text"
           id="time_start"
           tabindex="4"
-          time="startDate"
+          time="schedule.time"
           placeholder="{{ 'search.form.time.placehoder' | translate }}"
           popup-time-picker
           is-open="isOpenTimePicker"

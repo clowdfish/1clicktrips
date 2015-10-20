@@ -34,17 +34,14 @@ module Index {
 
     var startDate = new Date();
     startDate.setDate(startDate.getDate() + 10);
-
-    var startDateObject = moment(startDate);
-    var startTimeString = "14:00";
+    startDate.setHours(14,0);
 
     return {
       originLocation: null,  // the location data
       destinationLocation: null,  // the location data
-      startDate: startDateObject,
+      startDate: startDate,
       origin: null, // the location description
       destination: null, // the location description
-      startTimeString: startTimeString,
       targetDate: true
     };
   }
