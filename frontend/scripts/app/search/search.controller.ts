@@ -58,12 +58,8 @@ module Search {
       //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
       $scope.format = 'dd-MM-yyyy';
 
-<<<<<<< HEAD
       $scope.toggleDatePicker = this.toggleDatePicker;
       $scope.toggleTimePicker = this.toggleTimePicker;
-=======
-      $scope.toggleStartDatePicker = this.toggleStartDatePicker;
-      $scope.toggleStartTimePicker = this.toggleStartTimePicker;
 
       $scope.timeString = moment($scope.schedule.time).format('HH:mm');
       $scope.isValidTimeString = false;
@@ -98,7 +94,6 @@ module Search {
         hours: hours,
         minutes: minutes
       });
->>>>>>> dffadd2... #280 show magnifier image
     }
 
     toggleDatePicker = (event) => {
