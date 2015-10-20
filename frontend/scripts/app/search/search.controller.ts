@@ -50,6 +50,11 @@ module Search {
         startingDay: 0
       };
 
+      // Disable weekend selection
+      $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && ( date < new Date() ) );
+      };
+
       //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
       $scope.format = 'dd-MM-yyyy';
 

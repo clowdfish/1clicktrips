@@ -1,0 +1,57 @@
+.dropdown-menu.ttg-calendar {
+  background-color: $c-white;
+  border: none;
+  padding: 0.2em;
+
+  -webkit-box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
+}
+
+
+.ttg-calendar {
+  width: 100%;
+  background-color: $c-white; //$c-background;
+
+  &:focus {
+    outline: none; // for OS X
+  }
+
+  thead {
+    .fa {
+      color: $c-primary;
+
+      &:hover {
+        color: darken($c-primary, 10%);
+      }
+    }
+
+    a:focus {
+      outline: none;
+    }
+  }
+
+  tbody {
+
+    a {
+      text-decoration: none;
+    }
+
+    a.active {
+      background-color: $c-primary; // selected day
+    }
+
+    span.disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    span.text-info { // current day
+      font-weight: bold;
+    }
+
+    span.text-muted { // month before / after
+      color: $c-primary;
+    }
+  }
+}

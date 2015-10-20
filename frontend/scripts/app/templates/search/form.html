@@ -39,19 +39,20 @@
     <div class="search-form-item timing">
 
       <div class='search-form-item small'>
-        <label for="date_start" class="search-form-item-label">{{ 'search.form.date.label' | translate }}</label>
+        <label for="date" class="search-form-item-label">{{ 'search.form.date.label' | translate }}</label>
         <input
           type="text"
-          id="date_start"
+          id="date"
           tabindex="3"
           show-weeks="false"
+          date-disabled="disabled(date, mode)"
           ng-model="schedule.time"
           datepicker-options="dateOptions"
           datepicker-popup="{{ format }}"
           ng-required="true"
           show-button-bar="false"
-          minDate="now"
           is-open="isOpenDatePicker"
+
           readonly
           required />
         <span class="search-form-input-label" ng-click="toggleStartDatePicker($event)">
