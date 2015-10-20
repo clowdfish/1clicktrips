@@ -61,16 +61,15 @@
       </div>
 
       <div class='search-form-item small'>
-        <label for="time_start" class="search-form-item-label">{{ 'search.form.time.label' | translate }}</label>
+        <label for="time" class="search-form-item-label">{{ 'search.form.time.label' | translate }}</label>
         <input
           type="text"
-          id="time_start"
+          id="time"
           tabindex="4"
           time="schedule.time"
           placeholder="{{ 'search.form.time.placehoder' | translate }}"
           popup-time-picker
           is-open="isOpenTimePicker"
-          readonly
           required />
         <span class="search-form-input-label" ng-click="toggleStartTimePicker()">
           <i class="fa fa-clock-o"></i>

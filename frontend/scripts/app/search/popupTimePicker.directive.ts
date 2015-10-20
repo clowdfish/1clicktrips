@@ -7,7 +7,7 @@ module Search {
   export function popupTimePickerWrapper() {
     return {
       restrict: 'EA',
-      templateUrl: 'scripts/app/templates/search/popup-time-picker.html',
+      templateUrl: 'scripts/app/templates/search/timepicker/popup.html',
       replace: true
     }
   }
@@ -21,15 +21,13 @@ module Search {
         onClick: '&'
       },
       link: link
-    }
+    };
 
     function link(scope, element, attrs) {
 
       scope.hstep = 1;
-      scope.mstep = 1;
       scope.ismeridian = false;
       scope.changed = changed;
-      scope.showSpinners = true;
 
       var $element = $(element);
       

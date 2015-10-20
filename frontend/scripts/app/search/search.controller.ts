@@ -58,7 +58,6 @@ module Search {
       //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
       $scope.format = 'dd-MM-yyyy';
 
-      $scope.now = new Date();
       $scope.toggleStartDatePicker = this.toggleStartDatePicker;
       $scope.toggleStartTimePicker = this.toggleStartTimePicker;
     }

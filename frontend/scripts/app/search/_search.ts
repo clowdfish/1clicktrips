@@ -35,7 +35,7 @@ module Search {
   function decorateTimePicker($provide) {
     $provide.decorator('timepickerDirective', function($delegate) {
       var directive = $delegate[0];
-      directive.templateUrl = 'scripts/app/templates/search/timepicker.html';
+      directive.templateUrl = 'scripts/app/templates/search/timepicker/time.html';
       return $delegate;
     });
   }
