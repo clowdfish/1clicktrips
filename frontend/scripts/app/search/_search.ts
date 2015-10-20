@@ -12,6 +12,7 @@ module Search {
     .controller('searchCtrl', SearchCtrl)
     .directive('popupTimePicker', popupTimePicker)
     .directive('popupTimePickerWrapper', popupTimePickerWrapper)
+    .directive('searchMap', searchMap)
     .config(decorateDatePicker)
     .config(decoratePopupDatePicker)
     .config(decorateTimePicker);
