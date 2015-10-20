@@ -1,9 +1,9 @@
 <table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}" class="ttg-calendar">
   <thead>
     <tr>
-      <th><a class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="fa fa-arrow-circle-o-left"></i></a></th>
+      <th><a class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="fa fa-chevron-left"></i></a></th>
       <th colspan="5"><strong>{{title}}</strong></th>
-      <th><a class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="fa fa-arrow-circle-o-right"></i></a></th>
+      <th><a class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="fa fa-chevron-right"></i></a></th>
     </tr>
     <tr>
       <th ng-repeat="label in labels track by $index" class="text-center"><small aria-label="{{label.full}}">{{label.abbr | limitTo: 1}}</small></th>

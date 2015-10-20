@@ -80,12 +80,7 @@
 
     &.small {
       display: inline-block;
-      width: 47%;
-
-      &:last-of-type {
-        float: right;
-        text-align: right;
-      }
+      width: 100%;
 
       & > input {
         display: inline-block;
@@ -98,12 +93,16 @@
       }
 
       @include respond-above("medium") {
-        width: 30%;
+        width: 35%;
 
         &:last-of-type {
           float: none;
           margin-left: 0.5em;
         }
+      }
+
+      @include respond-above("large") {
+        width: 32%;
       }
     }
   }
@@ -137,11 +136,19 @@
 
   .button {
     width: 100%;
+    margin-top: 2em;
+
+    @include respond-above("small") {
+      display: block;
+      width: 40%;
+      margin: 2em auto 0 auto;
+    }
 
     @include respond-above("medium") {
       display: inline-block;
       float: right;
       width: auto;
+      margin-top: 0;
     }
   }
 

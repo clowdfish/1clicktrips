@@ -6,18 +6,51 @@
   -webkit-box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
   -moz-box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
   box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
+
+  &>li {
+    padding: 0;
+  }
 }
 
 
 .ttg-calendar {
   width: 100%;
-  background-color: $c-white; //$c-background;
+  margin-top: 0.2em;
+  padding-top: 0.5em;
+  background-color: $c-white;
+  border: 1px solid $c-border;
+
+  @include respond-above("medium") {
+    margin-top: 0;
+  }
 
   &:focus {
     outline: none; // for OS X
   }
 
+  .pull-right {
+    float: none;
+
+    @include respond-above("medium") {
+      float: right;
+    }
+  }
+
+  .pull-left {
+    float: none;
+
+    @include respond-above("medium") {
+      float: left;
+    }
+  }
+
   thead {
+    text-align: center;
+
+    th {
+      padding-bottom: 0.3em;
+    }
+
     .fa {
       color: $c-primary;
 
@@ -32,6 +65,7 @@
   }
 
   tbody {
+    text-align: center;
 
     a {
       text-decoration: none;
@@ -39,6 +73,18 @@
 
     a.active {
       background-color: $c-primary; // selected day
+    }
+
+    td {
+      padding: 0.5em 0;
+
+      @include respond-above("medium") {
+        padding: 0.3em 0;
+      }
+
+      @include respond-above("large") {
+        padding: 0.1em 0;
+      }
     }
 
     span.disabled {
