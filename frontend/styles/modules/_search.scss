@@ -178,7 +178,7 @@
       border-radius: 0 0 6px 6px;
 
       img {
-        margin-top: -17px;
+        margin-top: -1em;
       }
     }
 
@@ -186,11 +186,11 @@
       position: relative;
       display: block;
       width: 100%;
-      height: 5em;
+      height: 120px;
       border-radius: 0 0 6px 6px;
 
       .magnifier {
-        $radius: 4em;
+        $radius: 5em;
 
         width: 2* $radius;
         height: 2* $radius;
@@ -198,7 +198,7 @@
         background-color: $c-white;
 
         position: absolute;
-        top: -2em;
+        top: -1.2em;
         left: 7%;
         z-index: 10;
 
@@ -207,17 +207,15 @@
         box-shadow: 1px 0 4px 2px rgba(0,0,0,0.2);
 
         .inner-circle {
+          position: relative;
           width: 2* $radius - 1em;
           height: 2* $radius - 1em;
           border-radius: $radius;
           margin: 0.5em;
-
-          -webkit-box-shadow: inset 2px 0 8px 4px rgba(0,0,0,0.2);
-          -moz-box-shadow: inset 2px 0 8px 4px rgba(0,0,0,0.2);
-          box-shadow: inset 2px 0 8px 4px rgba(0,0,0,0.2);
         }
 
-        .handle {
+        &:after {
+          content: "";
           position: absolute;
           left:  2* $radius - 1em;
           top: 1.65 * $radius;

@@ -8,6 +8,10 @@ module Search {
     .module('app.search', [
       'app.core'
     ])
+    .constant('DEFAULT_LOCATION', {
+      longitude: 9.456449,
+      latitude: 48.709067
+    })
     .service('suggestionAdapter', SuggestionAdapter.Factory())
     .controller('searchCtrl', SearchCtrl)
     .directive('popupTimePicker', popupTimePicker)
