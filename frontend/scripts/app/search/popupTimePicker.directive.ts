@@ -30,7 +30,7 @@ module Search {
       scope.changed = changed;
 
       var $element = $(element);
-      
+
       var wrapperEl = angular.element('<div popup-time-picker-wrapper><timepicker></timepicker></div>');
 
       var $wrapperEl = $compile(wrapperEl)(scope);
@@ -53,7 +53,7 @@ module Search {
 
       scope.$watch('time', () => {
         changed();
-      });
+      }, true);
 
       function changed() {
         var timeMoment = moment(scope.time);

@@ -65,9 +65,11 @@
           id="time"
           tabindex="4"
           time="schedule.time"
+          ng-model="timeString"
           placeholder="{{ 'search.form.time.placehoder' | translate }}"
           popup-time-picker
           is-open="isOpenTimePicker"
+          ng-class="{invalid: false == isValidTimeString}"
           required />
         <span class="search-form-input-label" ng-click="toggleTimePicker()">
           <i class="fa fa-clock-o"></i>
@@ -82,7 +84,7 @@
   </form>
   <div class="search-form-map">
     <!-- add map view here -->
-    <search-map location="schedule.destination" style="width:720px;height:80px"></search-map>
+    <search-map location="schedule.destination"></search-map>
 
     <div class="search-dropzone">
       <dropzone schedule="schedule"></dropzone>

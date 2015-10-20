@@ -117,6 +117,10 @@
         width: 32%;
       }
     }
+
+    .invalid {
+      border: 1px solid $c-red;
+    }
   }
 
   .search-form-input-label {
@@ -166,6 +170,16 @@
 
   .search-form-map {
     display: none;
+
+    .search-map-container {
+      display: block;
+      height: 100%;
+      overflow: hidden;
+
+      img {
+        margin-top: -35px;
+      }
+    }
 
     @include respond-above("medium") {
       position: relative;

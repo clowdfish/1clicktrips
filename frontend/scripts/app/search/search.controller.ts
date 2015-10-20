@@ -5,7 +5,7 @@ module Search {
   'use strict';
 
   export class SearchCtrl {
-
+    private timePattern = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
     constructor(public $scope,
                 public $state,
                 public searchFormData,
@@ -24,7 +24,7 @@ module Search {
         destinationAddress: searchFormData.destination,
         time: searchFormData.startDate // datetime object
       };
-      
+
       /**
        * scope functions
        */
@@ -58,8 +58,47 @@ module Search {
       //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
       $scope.format = 'dd-MM-yyyy';
 
+<<<<<<< HEAD
       $scope.toggleDatePicker = this.toggleDatePicker;
       $scope.toggleTimePicker = this.toggleTimePicker;
+=======
+      $scope.toggleStartDatePicker = this.toggleStartDatePicker;
+      $scope.toggleStartTimePicker = this.toggleStartTimePicker;
+
+      $scope.timeString = moment($scope.schedule.time).format('HH:mm');
+      $scope.isValidTimeString = false;
+      $scope.$watch('timeString', () => {
+        this.validateTimeString((result, values) => {
+          if (result) {
+            $scope.isValidTimeString = true;
+            this.$scope.schedule.time.setHours(values.hours);
+            this.$scope.schedule.time.setMinutes(values.minutes);
+          } else {
+            $scope.isValidTimeString = false;
+          }
+        });
+      });
+    }
+
+    validateTimeString = (callback) => {
+      var matches = this.$scope.timeString.match(this.timePattern);
+      if (matches === null) {
+        return callback(false);
+      }
+      if (this.$scope.timeString.length > 5) {
+        return callback(false);
+      }
+      var timeArray = matches[0].split(':');
+      var hours = parseInt(timeArray[0]);
+      var minutes = parseInt(timeArray[1]);
+      if (hours < 0 || hours > 23 || minutes < 0 || minutes > 23) {
+         return callback(false);
+      }
+      return callback(true, {
+        hours: hours,
+        minutes: minutes
+      });
+>>>>>>> dffadd2... #280 show magnifier image
     }
 
     toggleDatePicker = (event) => {
