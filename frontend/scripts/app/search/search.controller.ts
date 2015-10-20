@@ -58,11 +58,11 @@ module Search {
       //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
       $scope.format = 'dd-MM-yyyy';
 
-      $scope.toggleStartDatePicker = this.toggleStartDatePicker;
-      $scope.toggleStartTimePicker = this.toggleStartTimePicker;
+      $scope.toggleDatePicker = this.toggleDatePicker;
+      $scope.toggleTimePicker = this.toggleTimePicker;
     }
 
-    toggleStartDatePicker = (event) => {
+    toggleDatePicker = (event) => {
       event.stopPropagation();
 
       if (!this.$scope.isOpenDatePicker) {
@@ -72,7 +72,7 @@ module Search {
       this.$scope.isOpenDatePicker = !this.$scope.isOpenDatePicker;
     };
 
-    toggleStartTimePicker = () => {
+    toggleTimePicker = () => {
 
       if (this.$scope.isOpenTimePicker) {
         this.$scope.isOpenDatePicker = false;

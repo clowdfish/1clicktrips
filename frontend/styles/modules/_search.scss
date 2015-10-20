@@ -31,23 +31,35 @@
     }
   }
 
-  .search-form-title {
-    margin-bottom: 1.2em;
+  .search-form-logo {
+    display: block;
+    width: 40%;
+    height: auto;
+    margin: 1em auto 1.5em auto;
 
-    & > h1 {
-      display: inline;
-      font-size: $fs-large;
-      font-weight: 800;
-      line-height: 1.6em;
+    @include respond-above("small") {
+      width: 30%;
     }
 
-    & > img {
-      display: inline-block;
+    @include respond-above("medium") {
       width: 6.3em;
       height: auto;
-      margin-top: -0.2em;
-      margin-left: 0.3em;
-      vertical-align: middle;
+      float: right;
+      margin: 0;
+    }
+  }
+
+  .search-form-title {
+    display: block;
+    font-size: $fs-large;
+    font-weight: 800;
+    line-height: 1.6em;
+    margin-bottom: 0.8em;
+    text-align: center;
+
+    @include respond-above("medium") {
+      text-align: left;
+      margin-bottom: 1em;
     }
   }
 

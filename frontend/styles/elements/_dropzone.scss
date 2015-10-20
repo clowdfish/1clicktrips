@@ -8,15 +8,16 @@
   background: rgba(0, 0, 0, 0.2);
   border-radius: 0 0 6px 6px;
   text-align: right;
-  padding: 2.1em 4em;
+  padding: 2em 4em;
 
   .dropzone-text {
     display: block;
-    margin-bottom: 0.3em;
+    position: relative;
     color: $c-white;
 
     & > a {
       color: $c-white;
+      text-decoration: none;
     }
   }
 
@@ -25,13 +26,6 @@
     margin-top: 0.5em;
     color: $c-red;
     font-size: $fs-small;
-  }
-
-  .dropzone-text {
-    display: block;
-    position: relative;
-    font-size: $fs-small;
-    font-weight: 600;
   }
 
   &.dragover {

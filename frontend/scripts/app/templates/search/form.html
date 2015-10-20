@@ -1,9 +1,7 @@
 <div class="search">
   <form class="search-form">
-    <div class="search-form-title">
-      <h1>Get the perfect trip for your appointment with</h1>
-      <img src="./images/logo.png" alt="1ClickTrips Logo" />
-    </div>
+    <img class="search-form-logo" src="./images/logo.png" alt="1ClickTrips Logo" />
+    <h1 class="search-form-title">Get the perfect trip for your appointment</h1>
 
     <!-- ORIGIN FORM -->
     <div class="search-form-item location">
@@ -52,10 +50,10 @@
           ng-required="true"
           show-button-bar="false"
           is-open="isOpenDatePicker"
-
+          ng-click="toggleDatePicker($event)"
           readonly
           required />
-        <span class="search-form-input-label" ng-click="toggleStartDatePicker($event)">
+        <span class="search-form-input-label" ng-click="toggleDatePicker($event)">
           <i class="fa fa-calendar"></i>
         </span>
       </div>
@@ -71,7 +69,7 @@
           popup-time-picker
           is-open="isOpenTimePicker"
           required />
-        <span class="search-form-input-label" ng-click="toggleStartTimePicker()">
+        <span class="search-form-input-label" ng-click="toggleTimePicker()">
           <i class="fa fa-clock-o"></i>
         </span>
       </div>
