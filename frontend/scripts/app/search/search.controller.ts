@@ -5,14 +5,14 @@ module Search {
   'use strict';
 
   export class SearchCtrl {
-    private timePattern = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
+    private timePattern = /([01]?[0-9]|2[0-3])(:?)[0-5][0-9]$/;
     constructor(public $scope,
                 public $state,
                 public searchFormData,
                 public suggestionAdapter: SuggestionAdapter,
                 public googleMap: Common.GoogleMap,
                 public $q) {
-
+      window['SCOPE'] = $scope;
       // optimize forward or backward
       $scope.targetDate = searchFormData.targetDate;
 
@@ -62,13 +62,16 @@ module Search {
       $scope.toggleTimePicker = this.toggleTimePicker;
 
       $scope.timeString = moment($scope.schedule.time).format('HH:mm');
-      $scope.isValidTimeString = false;
+      $scope.isValidTimeString = true;
       $scope.$watch('timeString', () => {
         this.validateTimeString((result, values) => {
+
           if (result) {
             $scope.isValidTimeString = true;
-            this.$scope.schedule.time.setHours(values.hours);
-            this.$scope.schedule.time.setMinutes(values.minutes);
+            var date = _.clone(this.$scope.schedule.time);
+            date.setHours(values.hours);
+            date.setMinutes(values.minutes);
+            this.$scope.schedule.time = date;
           } else {
             $scope.isValidTimeString = false;
           }
@@ -78,18 +81,33 @@ module Search {
 
     validateTimeString = (callback) => {
       var matches = this.$scope.timeString.match(this.timePattern);
+
       if (matches === null) {
         return callback(false);
       }
+
       if (this.$scope.timeString.length > 5) {
         return callback(false);
       }
-      var timeArray = matches[0].split(':');
-      var hours = parseInt(timeArray[0]);
-      var minutes = parseInt(timeArray[1]);
-      if (hours < 0 || hours > 23 || minutes < 0 || minutes > 23) {
+
+      var hours: number,
+          minutes: number;
+
+      if (matches[0].length === 5) {
+        var timeArray = matches[0].split(':');
+        hours = parseInt(timeArray[0]);
+        minutes = parseInt(timeArray[1]);
+      } else if (matches[0].length === 4 || matches[0].length === 3) {
+        hours = parseInt(matches[0].substr(0,2));
+        minutes = parseInt(matches[0].substr(2,2));
+      } else {
+        return callback(false);
+      }
+
+      if (_.isNaN(hours) || _.isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
          return callback(false);
       }
+
       return callback(true, {
         hours: hours,
         minutes: minutes
@@ -126,6 +144,10 @@ module Search {
       if (this.$scope.schedule.origin == null || this.$scope.schedule.destination == null) {
         alert("All location fields must be filled.");
         return false;
+      }
+
+      if (false === this.$scope.isValidTimeString) {
+        alert('Time format is not valid');
       }
 
       if(this.$scope.schedule.time == null) {
