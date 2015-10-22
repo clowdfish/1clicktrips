@@ -20,7 +20,7 @@ module Common {
 
     private _data = {};
     public _activeLanguage;
-
+    private _isInitiaize = false;
     constructor(private $localStorage,
                 private $translate,
                 private $q) {
@@ -28,6 +28,7 @@ module Common {
     }
 
     public initialize(): void {
+      if (this._isInitiaize) return;
       var languages = window['AppData']['languages'];
 
       console.log(JSON.stringify(languages, null, 2));
@@ -35,10 +36,7 @@ module Common {
       languages.map((language: LanguageItem) => {
         this._data[language.code] = language;
       });
-
-      console.log("Filled object: ");
-      console.log(JSON.stringify(this._data, null, 2));
-
+            
       if (false === _.isEmpty(this.$localStorage['language'])) {
         this._activeLanguage = this.getLanguageByCode(this.$localStorage['language']);
       } else {
@@ -48,6 +46,7 @@ module Common {
       }
 
       this.changeLanguage(this._activeLanguage.code);
+      this._isInitiaize = true;
     }
 
     public getActiveLanguage(): LanguageItem {

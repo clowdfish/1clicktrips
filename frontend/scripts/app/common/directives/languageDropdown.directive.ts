@@ -17,6 +17,7 @@ module Common {
     };
 
     function link(scope, element, attrs) {
+      language.initialize();
       /**
        * Language list
        */

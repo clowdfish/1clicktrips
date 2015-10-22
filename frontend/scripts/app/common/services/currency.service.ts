@@ -20,12 +20,13 @@ module Common {
 
     private _data;
     public selectedCurrency;
-
+    private _isInitialize = false;
     constructor(private $localStorage) {
 
     }
 
     public initialize() {
+      if (this._isInitialize) return;
       this._data = {};
       var currencies = window['AppData']['currencies'];
 
@@ -40,6 +41,7 @@ module Common {
           return currencyItem.isDefault == true;
         });
       }
+      this._isInitialize = true;
     }
 
     public getCurrencyByCode(code: string): CurrencyItem {

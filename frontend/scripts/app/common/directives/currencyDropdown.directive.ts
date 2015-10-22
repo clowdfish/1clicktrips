@@ -13,6 +13,7 @@ module Common {
     };
 
     function link(scope, element, attrs) {
+      currency.initialize();
       scope.currencies = currency.getAvailableCurrencies();
       scope.selectedCurrency = currency.getSelectedCurrency();
       scope.isShowCurrencyList = false;
