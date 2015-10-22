@@ -1,0 +1,8 @@
+<div class="language-dropdown" ng-mouseenter="isShowLanguageList = true" ng-mouseleave="isShowLanguageList = false">
+  <div class="selected-language">
+    {{selectedLanguage.name}}
+  </div>
+  <ul ng-show="isShowLanguageList">
+    <li ng-repeat="(code, language) in languages" ng-click="selectLanguage(language)">{{language.name}}</li>
+  </ul>
+</div>

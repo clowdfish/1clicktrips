@@ -23,6 +23,7 @@
 /// -----------Index Module ------------
 /// <reference path="app/index/index.controller.ts" />
 /// <reference path="app/index/index.route.ts" />
+/// <reference path="app/index/languageDropdown.directive.ts" />
 /// <reference path="app/index/_index.ts" />
 
 /// -----------Info Module -------------

@@ -73,6 +73,10 @@ module Common {
 
     }
 
+    public getAvailableLanguages() {
+      return this._data;
+    }
+
     public static Factory(): any {
       var service = ($localStorage, $translate, $q) => {
          return new Language($localStorage, $translate, $q);
