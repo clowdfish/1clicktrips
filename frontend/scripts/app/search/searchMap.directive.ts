@@ -109,9 +109,9 @@ module Search {
         if (location && location.longitude && location.latitude) {
           var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?';
           mapUrl += 'center=' + location.latitude + ',' + location.longitude;
-          mapUrl += '&size=880x120';
-          mapUrl += '&zoom=10'; // 15
-          mapUrl += '&scale=2'; // 2
+          mapUrl += '&size=880x100';
+          mapUrl += '&zoom=12';
+          mapUrl += '&scale=2';
 
           mapImage.attr('src', mapUrl);
           mapImage.load(() => {
@@ -133,15 +133,14 @@ module Search {
        * @param context
        */
       function drawMiniMap(positionX, positionY, mapImage, context) {
-        //var sy = 20;
-        var sw = 310;
-        var sh = 310;
+        var sw = 100;
+        var sh = 120;
         var dx = 0;
         var dy = 0;
-        var dw = 510;
-        var dh = 410;
+        var canvasWidth = 300;
+        var canvasHeight = 160;
 
-        context.drawImage(mapImage[0], positionX, positionY, sw, sh, dx, dy, dw, dh);
+        context.drawImage(mapImage[0], positionX, positionY, sw, sh, dx, dy, canvasWidth, canvasHeight);
       }
     }
   }

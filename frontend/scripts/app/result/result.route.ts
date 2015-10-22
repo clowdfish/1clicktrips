@@ -65,8 +65,8 @@ module Result {
    * @param currency
    * @returns {*}
    */
-  function getTripSearchObject($stateParams, language: Common.Language, currency) {
-    console.log('getTripSearchObject');
+  function getTripSearchObject($stateParams, language: Common.Language, currency:Common.Currency) {
+
     var searchObject = {
       origin: {
         latitude: parseFloat($stateParams.originLatitude),
@@ -80,7 +80,7 @@ module Result {
       destinationDescription: $stateParams.destination,
       timing: [ $stateParams.startDate ],
       locale: language.getActiveLanguage().locale,
-      currency: currency.get().code,
+      currency: currency.getSelectedCurrency().code,
       targetDate: $stateParams.targetDate
     };
 
