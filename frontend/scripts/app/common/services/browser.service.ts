@@ -7,6 +7,7 @@ module Common {
   export class Browser {
 
     constructor() {
+
     }
 
     /**
@@ -17,7 +18,8 @@ module Common {
       if (this.getViewport().width <= 480)
         return true;
 
-      return !!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      return !!/Android|webOS|CriOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+        .test(navigator.userAgent);
     }
 
     /**

@@ -14,10 +14,10 @@ module Common {
     }
 
     isOldBrowser() {
-      if(this.browser.isMobileDevice())
-        return false;
+      return this.$q((resolve) => {
+        if(this.browser.isMobileDevice())
+          resolve(false);
 
-      return this.$q((resolve, reject) => {
         var supportsFile = (window['File'] && window['FileReader'] && window['FileList'] && window['Blob']);
 
         var url = window['webkitURL'] || window['URL']; // Safari 6 uses "webkitURL".

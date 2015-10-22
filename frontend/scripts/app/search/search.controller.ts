@@ -7,11 +7,14 @@ module Search {
   export class SearchCtrl {
     constructor(public $scope,
                 public $state,
+                public isMobileBrowser,
                 public searchFormData,
                 public suggestionAdapter: SuggestionAdapter,
                 public googleMap: Common.GoogleMap,
                 public language: Common.Language,
                 public $q) {
+
+      $scope.isMobileBrowser = isMobileBrowser;
 
       // optimize forward or backward
       $scope.targetDate = searchFormData.targetDate;

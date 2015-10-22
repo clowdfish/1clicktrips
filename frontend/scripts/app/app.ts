@@ -25,20 +25,40 @@ module app {
       abstract: true,
       template: '<div ui-view></div>',
       resolve: {
-        isOldBrowser: isOldBrowser
+        isOldBrowser: isOldBrowser,
+        isMobileBrowser: isMobileBrowser
       }
     });
   }
 
+  /**
+   *
+   *
+   * @param compatibilityChecker
+   * @param $q
+   * @returns {any}
+   */
   function isOldBrowser(compatibilityChecker: Common.CompatibilityChecker, $q) {
-    return $q((resolve, reject) => {
+    return $q((resolve) => {
       return compatibilityChecker.isOldBrowser().then((result) => {
         resolve(result);
       }, () => {
         resolve(true);
       });
     });
+  }
 
+  /**
+   *
+   *
+   * @param browser
+   * @param $q
+   * @returns {any}
+   */
+  function isMobileBrowser(browser: Common.Browser, $q) {
+    return $q((resolve) => {
+      resolve(browser.isMobileDevice());
+    });
   }
 
   /**
