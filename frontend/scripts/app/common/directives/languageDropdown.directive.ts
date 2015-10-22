@@ -1,6 +1,6 @@
-/// <reference path="../../_all.ts" />
+/// <reference path="../../../_all.ts" />
 
-module Index {
+module Common {
 
   'use strict';
 
@@ -11,7 +11,7 @@ module Index {
                                    currency: Common.Currency) {
     return {
       restrict: 'E',
-      templateUrl: 'scripts/app/templates/index/language-dropdown.html',
+      templateUrl: 'scripts/app/templates/directives/language-dropdown.html',
       link: link,
       scope: {}
     };
@@ -20,6 +20,7 @@ module Index {
       /**
        * Language list
        */
+      console.log("Asking for languages now.");
       scope.languages = language.getAvailableLanguages();
 
       /**

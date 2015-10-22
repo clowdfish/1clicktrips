@@ -3,6 +3,8 @@
 /// -----------Common module-----------
 /// <reference path="app/app.ts" />
 /// <reference path="app/common/directives/button.directive.ts" />
+/// <reference path="app/common/directives/languageDropdown.directive.ts" />
+/// <reference path="app/common/directives/currencyDropdown.directive.ts" />
 /// <reference path="app/common/directives/dropzone.directive.ts" />
 /// <reference path="app/common/directives/mapMarker.directive.ts" />
 /// <reference path="app/common/directives/waitingAnimation.directive.ts" />
@@ -23,8 +25,6 @@
 /// -----------Index Module ------------
 /// <reference path="app/index/index.controller.ts" />
 /// <reference path="app/index/index.route.ts" />
-/// <reference path="app/index/languageDropdown.directive.ts" />
-/// <reference path="app/index/currencyDropdown.directive.ts" />
 /// <reference path="app/index/_index.ts" />
 
 /// -----------Info Module -------------

@@ -1,6 +1,6 @@
-/// <reference path="../../_all.ts" />
+/// <reference path="../../../_all.ts" />
 
-module Index {
+module Common {
 
   'use strict';
 
@@ -8,7 +8,7 @@ module Index {
     return {
       restrict: 'E',
       scope: {},
-      templateUrl: 'scripts/app/templates/index/currency-dropdown.html',
+      templateUrl: 'scripts/app/templates/directives/currency-dropdown.html',
       link: link
     };
 

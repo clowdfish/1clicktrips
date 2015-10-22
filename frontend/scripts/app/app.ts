@@ -68,7 +68,7 @@ module app {
     var hasSetDefault = false;
 
     /**
-     * Load any lanaguage availabel from language.js
+     * Load any language available from language.js
      */
     for (var languageIndex = 0; languageIndex < languages.length; languageIndex++) {
 

@@ -30,9 +30,14 @@ module Common {
     public initialize(): void {
       var languages = window['AppData']['languages'];
 
+      console.log(JSON.stringify(languages, null, 2));
+
       languages.map((language: LanguageItem) => {
         this._data[language.code] = language;
       });
+
+      console.log("Filled object: ");
+      console.log(JSON.stringify(this._data, null, 2));
 
       if (false === _.isEmpty(this.$localStorage['language'])) {
         this._activeLanguage = this.getLanguageByCode(this.$localStorage['language']);
@@ -81,7 +86,8 @@ module Common {
     public static Factory(): any {
       var service = ($localStorage, $translate, $q) => {
          return new Language($localStorage, $translate, $q);
-      }
+      };
+
       service['$inject'] = ['$localStorage', '$translate', '$q'];
       return service;
     }
