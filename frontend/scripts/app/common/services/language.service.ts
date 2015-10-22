@@ -18,22 +18,25 @@ module Common {
    */
   export class Language {
 
-    private _data = {};
+    private _data = null;
     public _activeLanguage;
-    private _isInitiaize = false;
+    private _isInitialize = false;
+
     constructor(private $localStorage,
                 private $translate,
                 private $q) {
 
     }
 
+    /**
+     *
+     */
     public initialize(): void {
-      if (this._isInitiaize) return;
+      if (this._isInitialize) return;
       var languages = window['AppData']['languages'];
 
-      console.log(JSON.stringify(languages, null, 2));
-
-      languages.map((language: LanguageItem) => {
+      this._data = {};
+      languages.forEach((language: LanguageItem) => {
         this._data[language.code] = language;
       });
             
@@ -46,23 +49,47 @@ module Common {
       }
 
       this.changeLanguage(this._activeLanguage.code);
-      this._isInitiaize = true;
+      this._isInitialize = true;
     }
 
+    /**
+     *
+     *
+     * @returns {any}
+     */
     public getActiveLanguage(): LanguageItem {
+      if(!this._data)
+        this.initialize();
+
       return this._activeLanguage;
     }
 
+    /**
+     *
+     *
+     * @param code
+     * @returns {any}
+     */
     public getLanguageByCode(code): LanguageItem {
+      if(!this._data)
+        this.initialize();
+
       if (this._data[code]) {
         return this._data[code];
       }
       return null;
     }
 
+    /**
+     *
+     *
+     * @param code
+     * @returns {any}
+     */
     public changeLanguage(code) {
       return this.$q((resolve, reject) => {
         var language = this.getLanguageByCode(code);
+
         if (language) {
           this.$localStorage['language'] = code;
           this._activeLanguage = language;
@@ -78,7 +105,15 @@ module Common {
 
     }
 
+    /**
+     *
+     *
+     * @returns {null}
+     */
     public getAvailableLanguages() {
+      if(!this._data)
+        this.initialize();
+
       return this._data;
     }
 

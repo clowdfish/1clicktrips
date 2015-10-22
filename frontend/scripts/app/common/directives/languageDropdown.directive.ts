@@ -11,40 +11,29 @@ module Common {
                                    currency: Common.Currency) {
     return {
       restrict: 'E',
+      replace: true,
       templateUrl: 'scripts/app/templates/directives/language-dropdown.html',
       link: link,
       scope: {}
     };
 
     function link(scope, element, attrs) {
-      language.initialize();
-      /**
-       * Language list
-       */
-      console.log("Asking for languages now.");
+
+      scope.showLanguageList = false;
+
       scope.languages = language.getAvailableLanguages();
-
-      /**
-       * Selected language
-       */
       scope.selectedLanguage = language.getActiveLanguage();
-
-      /**
-       * Method to select language
-       */
       scope.selectLanguage = selectLanguage;
 
       /**
-       * Language list visibility
-       */
-      scope.isShowLanguageList = false;
-
-      /**
-       * Set selected language
+       * Set selected language.
+       *
+       * @param languageItem
        */
       function selectLanguage(languageItem: Common.LanguageItem) {
-        language.changeLanguage(languageItem.code);
         scope.selectedLanguage = languageItem;
+
+        language.changeLanguage(languageItem.code);
         currency.setSelectedCurrency(languageItem.defaultCurrency);
       }
     }

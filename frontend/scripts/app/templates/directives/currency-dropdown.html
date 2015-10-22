@@ -1,8 +1,13 @@
-<div class="currency-dropdown" ng-mouseenter="isShowCurrencyList = true" ng-mouseleave="isShowCurrencyList = false">
-  <div class="selected-currency">
-    {{selectedCurrency.code}}
-  </div>
-  <ul ng-show="isShowCurrencyList">
-    <li ng-repeat="(code, currency) in currencies" ng-click="selectCurrency(currency)">{{currency.code}}</li>
+<div class="currency-dropdown dropdown"
+     ng-class="{ active: showCurrencyList }"
+     ng-click="showCurrencyList = !showCurrencyList"
+     ng-mouseenter="showCurrencyList = true"
+     ng-mouseleave="showCurrencyList = false">
+
+  <span class="dropdown-label">
+    {{ selectedCurrency.code }}
+  </span>
+  <ul ng-show="showCurrencyList">
+    <li ng-repeat="(code, currency) in currencies" ng-show="currency !== selectedCurrency" ng-click="selectCurrency(currency)">{{ currency.code }}</li>
   </ul>
 </div>

@@ -18,15 +18,20 @@ module Common {
 
   export class Currency {
 
-    private _data;
+    private _data = null;
     public selectedCurrency;
     private _isInitialize = false;
+
     constructor(private $localStorage) {
 
     }
 
+    /**
+     *
+     */
     public initialize() {
       if (this._isInitialize) return;
+
       this._data = {};
       var currencies = window['AppData']['currencies'];
 
@@ -44,25 +49,55 @@ module Common {
       this._isInitialize = true;
     }
 
+    /**
+     *
+     *
+     * @param code
+     * @returns {any}
+     */
     public getCurrencyByCode(code: string): CurrencyItem {
+      if(!this._data)
+        this.initialize();
+
       if (this._data[code]) {
         return this._data[code];
       }
       return null;
     }
 
+    /**
+     *
+     *
+     * @returns {null}
+     */
     public getAvailableCurrencies() {
+      if(!this._data)
+        this.initialize();
+
       return this._data;
     }
 
+    /**
+     *
+     *
+     * @returns {any}
+     */
     public getSelectedCurrency(): CurrencyItem {
+      if(!this._data)
+        this.initialize();
+
       return this.selectedCurrency;
     }
 
+    /**
+     *
+     *
+     * @param code
+     * @returns {boolean}
+     */
     public setSelectedCurrency(code) {
-      console.log(this._data);
       var currency = this.getCurrencyByCode(code);
-      console.log(currency);
+
       if (currency) {
         this.selectedCurrency = currency;
         this.$localStorage['selectedCurrency'] = code;
@@ -73,10 +108,17 @@ module Common {
 
     }
 
+    /**
+     *
+     *
+     * @returns {function(any): Common.Currency}
+     * @constructor
+     */
     public static Factory(): any {
       var service = ($localStorage) => {
         return new Currency($localStorage);
-      }
+      };
+
       service['$inject'] = ['$localStorage'];
       return service;
     }

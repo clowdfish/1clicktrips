@@ -4,7 +4,7 @@
     "name": "Deutsch",
     "locale": "de-DE",
     "defaultCurrency": "eur",
-    "startingDay": 0 // Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).
+    "startingDay": 0
   },
   {
     "code": "en",

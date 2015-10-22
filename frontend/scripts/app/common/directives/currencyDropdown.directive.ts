@@ -7,24 +7,28 @@ module Common {
   export function currencyDropdown(currency: Common.Currency) {
     return {
       restrict: 'E',
+      replace: true,
       scope: {},
       templateUrl: 'scripts/app/templates/directives/currency-dropdown.html',
       link: link
     };
 
     function link(scope, element, attrs) {
-      currency.initialize();
+
+      scope.showCurrencyList = false;
+
       scope.currencies = currency.getAvailableCurrencies();
       scope.selectedCurrency = currency.getSelectedCurrency();
-      scope.isShowCurrencyList = false;
       scope.selectCurrency = selectCurrency;
 
-      scope.$watch(currency.selectedCurrency, () => {
-        scope.selectedCurrency = currency.selectedCurrency;
-      });
-
+      /**
+       * Set selected currency.
+       *
+       * @param currencyItem
+       */
       function selectCurrency(currencyItem: Common.CurrencyItem) {
         scope.selectedCurrency = currencyItem;
+
         currency.setSelectedCurrency(currencyItem.code);
       }
     }

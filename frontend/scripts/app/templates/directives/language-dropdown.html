@@ -1,8 +1,13 @@
-<div class="language-dropdown" ng-mouseenter="isShowLanguageList = true" ng-mouseleave="isShowLanguageList = false">
-  <div class="selected-language">
-    {{selectedLanguage.name}}
-  </div>
-  <ul ng-show="isShowLanguageList">
-    <li ng-repeat="(code, language) in languages" ng-click="selectLanguage(language)">{{language.name}}</li>
+<div class="language-dropdown dropdown"
+     ng-class="{ active: showLanguageList }"
+     ng-click="showLanguageList = !showLanguageList"
+     ng-mouseenter="showLanguageList = true"
+     ng-mouseleave="showLanguageList = false">
+
+  <span class="dropdown-label">
+    {{ selectedLanguage.name }}
+  </span>
+  <ul ng-show="showLanguageList">
+    <li ng-repeat="(code, language) in languages" ng-show="language !== selectedLanguage" ng-click="selectLanguage(language)">{{ language.name }}</li>
   </ul>
 </div>
