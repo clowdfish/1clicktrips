@@ -17,6 +17,8 @@ module Common {
     .directive('mapMarker', MapMarker.Factory())
     .directive('waitingAnimation', WaitingAnimation.Factory())
     .directive('dropzone', Dropzone.Factory())
+    .directive('languageDropdown', languageDropdown)
+    .directive('currencyDropdown', currencyDropdown)
     .service('spinnerInterceptor', SpinnerIntercepter.Factory())
     .filter('currencyFormatter', currencyFormatter)
     .filter('dateFormatter', dateFormatter)
