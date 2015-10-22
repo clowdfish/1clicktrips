@@ -15,67 +15,96 @@ module Search {
     };
 
     function link(scope, element, attrs) {
-      var $element = $(element);
-      var context = null;
-      var mapImage:any = null;
-      initializeStaticMap();
-      initializeMagnifierDragAndDrop();
 
-      function initializeStaticMap() {
-        mapImage =
-          $('<img />').attr('src', null);
+      var mapImage = $('<img />').attr('src', null);
+      var context = element.find('.inner-circle')[0].getContext("2d");
+      var hoverActive = true;
 
-        $element.find('.map-view').append(mapImage);
+      initializeStaticMap($(element), mapImage, context);
+      initializeMagnifierDragAndDrop($(element), mapImage, context);
 
-        var innerCircle:any = $element.find('.inner-circle')[0];
-        context = innerCircle.getContext("2d");
+      /**
+       * Initialize the static map and add a watch to the location property.
+       *
+       * @param element
+       * @param mapImage
+       * @param context
+       */
+      function initializeStaticMap(element, mapImage, context) {
+
+        element.find('.map-view').append(mapImage);
 
         // render default location
-        drawMap($element, mapImage, DEFAULT_LOCATION, context);
+        drawMap(element, mapImage, DEFAULT_LOCATION, context);
 
         scope.$watch('location', () => {
-          drawMap($element, mapImage, scope.location, context);
+          drawMap(element, mapImage, scope.location, context);
         });
       }
 
-      function initializeMagnifierDragAndDrop() {
-        var $magnifier = $element.find('.magnifier');
-
+      /**
+       * Make the magnifier move according to the mouse pointer's position.
+       *
+       * @param element
+       * @param mapImage
+       * @param context
+       */
+      function initializeMagnifierDragAndDrop(element, mapImage, context) {
+        var $magnifier = element.find('.magnifier');
         var $container = $('.search-map-container');
-        var startDragAndDrop = false;
-        var startX = null;
+
+        $magnifier.click(() => {
+          hoverActive = !hoverActive;
+        });
 
         $container.mousemove((e) => {
-          var magnifierWidth = $magnifier.width();
-          var magnifierPosition = $magnifier.position();
-          var containerWidth = $container.width()
-          var pos = e.clientX - $container.offset().left - magnifierWidth / 2;
 
-          if (pos <= 0) {
-            pos = 0;
-          }
-          if (pos + magnifierWidth > containerWidth) {
-            pos = containerWidth - magnifierWidth;
-          }
+          if(hoverActive) {
+            var magnifierWidth = $magnifier.width();
+            var containerWidth = $container.width();
+            var containerHeight = $container.height();
 
-          $magnifier.css({
-            left: pos
-          });
-          drawMiniMap(pos);
+            var xPos = e.clientX - $container.offset().left;
+            var yPos = e.clientY - $container.offset().top;
+
+            // check borders for horizontal movement
+            if (xPos <= magnifierWidth / 3) {
+              xPos = magnifierWidth / 3;
+            }
+            else if (xPos > containerWidth - magnifierWidth / 3) {
+              xPos = containerWidth - magnifierWidth / 3;
+            }
+
+            // check borders for vertical movement
+            if (yPos <= magnifierWidth / 4) {
+              yPos = magnifierWidth / 4;
+            }
+            else if (yPos > containerHeight - magnifierWidth / 4) {
+              yPos = containerHeight - magnifierWidth / 4;
+            }
+
+            $magnifier.css({
+              left: xPos - magnifierWidth / 2,
+              top: yPos - magnifierWidth / 2
+            });
+
+            drawMiniMap(xPos, yPos, mapImage, context);
+          }
         });
       }
 
       /**
       * Draw static Google Maps image.
       *
+      * @param element
       * @param mapImage
       * @param location
       * @param context
       */
-      function drawMap($element,
-                      mapImage,
-                      location:any,
-                      context) {
+      function drawMap(element,
+                       mapImage,
+                       location:any,
+                       context) {
 
         if (location && location.longitude && location.latitude) {
           var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?';
@@ -86,24 +115,34 @@ module Search {
 
           mapImage.attr('src', mapUrl);
           mapImage.load(() => {
-            var left = $element.find('.magnifier').position().left;
-            drawMiniMap(left);
+            var magnifier = element.find('.magnifier');
+            var left = magnifier.position().left;
+            var top = magnifier.position().top + magnifier.width() / 2;
+
+            drawMiniMap(left, top, mapImage, context);
           });
         }
       }
 
-      function drawMiniMap(positionX) {
-        var sy = 20;
+      /**
+       * Draw the map within the magnifier.
+       *
+       * @param positionX
+       * @param positionY
+       * @param mapImage
+       * @param context
+       */
+      function drawMiniMap(positionX, positionY, mapImage, context) {
+        //var sy = 20;
         var sw = 310;
         var sh = 310;
         var dx = 0;
         var dy = 0;
         var dw = 510;
         var dh = 410;
-        context.drawImage(mapImage[0], positionX, sy, sw, sh, dx, dy, dw, dh);
+
+        context.drawImage(mapImage[0], positionX, positionY, sw, sh, dx, dy, dw, dh);
       }
     }
-
-
   }
 }

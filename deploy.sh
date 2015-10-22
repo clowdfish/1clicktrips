@@ -3,7 +3,7 @@
 deployment_profile=$1
 base_directory="~/1clicktrips"
 user="sascha"
-domain="192.168.178.100"
+domain="config.1clicktrips.com"
 
 if [ $# -eq 1 ] || [ $# -eq 2 ] ; then
 	if [ "$deployment_profile" == "dev" ] ; then
@@ -14,7 +14,7 @@ if [ $# -eq 1 ] || [ $# -eq 2 ] ; then
 			echo "Synchronizing files to server"
 			echo "..."
 			#rsync -arv --exclude='.git*' --exclude='node_modules' --exclude='config' --exclude='test' --exclude='documentation' --exclude='deploy.sh' --exclude='*~' -e ssh ./ $user@$domain:$base_directory
-			rsync -arv --include='app/***' --include='node_modules' --include='node_modules/ttg-search/***' --include='gulpfile.js' --include='server.js' --include='setup.sh' --include='package.json' --include='frontend' --include='frontend/build/***' --exclude='*' -e ssh ./ $user@$domain:$base_directory
+			rsync -arv --include='app/***' --include='config/***' --include='node_modules' --include='node_modules/ttg-search/***' --include='gulpfile.js' --include='server.js' --include='setup.sh' --include='package.json' --include='frontend' --include='frontend/build/***' --exclude='*' -e ssh ./ $user@$domain:$base_directory
 
 			echo "Preparing server"
 			echo "..."
