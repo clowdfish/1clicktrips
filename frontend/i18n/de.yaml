@@ -1,6 +1,7 @@
 general:
   or: oder
 common:
+  outdated: Dein Browser ist veraltet und wird nicht alle Funktionalitäten unterstützen.
   dropzone:
     text: oder ziehe deine .ics Datei hier her
     error: Drag/Drop wird von deinem Browser nicht unterstützt

@@ -23,6 +23,15 @@ body {
   display: none !important;
 }
 
+.old-browser-warning {
+  display: block;
+  padding: 0.8em 0.5em;
+  text-align: center;
+  color: $c-status-error;
+  font-style: italic;
+  font-size: $fs-small;
+}
+
 /*
  The following part should be removed after the new
  styling is applied.

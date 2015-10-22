@@ -17,11 +17,7 @@ module Common {
       if (this.getViewport().width <= 480)
         return true;
 
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        return true;
-      }
-
-      return false;
+      return !!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     /**

@@ -19,7 +19,8 @@ module Search {
     .directive('searchMap', searchMap)
     .config(decorateDatePicker)
     .config(decoratePopupDatePicker)
-    .config(decorateTimePicker);
+    .config(decorateTimePicker)
+    .config(routerConfig);
 
   function decorateDatePicker($provide) {
     $provide.decorator('daypickerDirective', function($delegate) {

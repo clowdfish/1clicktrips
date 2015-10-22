@@ -22,11 +22,6 @@
 /// <reference path="app/common/services/compatibilityChecker.service.ts" />
 /// <reference path="app/common/_common.ts" />
 
-/// -----------Index Module ------------
-/// <reference path="app/index/index.controller.ts" />
-/// <reference path="app/index/index.route.ts" />
-/// <reference path="app/index/_index.ts" />
-
 /// -----------Info Module -------------
 /// <reference path="app/info/info.controller.ts" />
 /// <reference path="app/info/info.route.ts" />
@@ -45,6 +40,7 @@
 
 /// -----------Search Module ------------
 /// <reference path="app/search/search.controller.ts" />
+/// <reference path="app/search/search.route.ts" />
 /// <reference path="app/search/suggestionAdapter.factory.ts" />
 /// <reference path="app/search/popupTimePicker.directive.ts" />
 /// <reference path="app/search/searchMap.directive.ts" />

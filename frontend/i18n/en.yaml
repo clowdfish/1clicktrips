@@ -1,6 +1,7 @@
 general:
   or: or
 common:
+  outdated: Your browser is outdated and will not support all features, please upgrade to a modern browser.
   dropzone:
     text: or drop your .ics file here
     error: File Drag/Drop is not supported for this browser

@@ -9,11 +9,14 @@ module Common {
    *
    */
   export class CompatibilityChecker {
-    constructor(public $q) {
+    constructor(public $q, public browser) {
 
     }
 
     isOldBrowser() {
+      if(this.browser.isMobileDevice())
+        return false;
+
       return this.$q((resolve, reject) => {
         var supportsFile = (window['File'] && window['FileReader'] && window['FileList'] && window['Blob']);
 
@@ -44,10 +47,11 @@ module Common {
     }
 
     public static Factory() {
-      var service = ($q) => {
-        return new CompatibilityChecker($q);
-      }
-      service['$inject'] = ['$q'];
+      var service = ($q, browser) => {
+        return new CompatibilityChecker($q, browser);
+      };
+
+      service['$inject'] = ['$q', 'browser'];
       return service;
     }
   }

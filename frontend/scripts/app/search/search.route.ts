@@ -1,21 +1,12 @@
 /// <reference path="../../_all.ts" />
 
-module Index {
+module Search {
 
   'use strict';
 
   export function routerConfig($stateProvider: angular.ui.IStateProvider) {
-    var browser = new Common.Browser();
-    var isMobileDevice = browser.isMobileDevice();
 
-    $stateProvider.state('index', {
-      abstract: true,
-      parent: 'root',
-      controller: 'indexCtrl',
-      templateUrl: 'scripts/app/templates/index/index.html'
-    });
-
-    $stateProvider.state('index.form', {
+    $stateProvider.state('search', {
       url: '/',
       parent: 'root',
       templateUrl: 'scripts/app/templates/search/form.html',

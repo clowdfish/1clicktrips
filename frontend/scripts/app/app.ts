@@ -8,7 +8,6 @@ module app {
     .module('app', [
       'app.common',
       'app.booking',
-      'app.index',
       'app.search',
       'app.result',
       'app.info',
