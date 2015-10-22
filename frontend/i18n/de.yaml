@@ -5,12 +5,12 @@ common:
     text: or drop your .ics file here
     error: File Drag/Drop is not supported for this browser
 index:
-  title: Get the perfect trip for your appointment.
+  title: Get the perfect trip for your appointment
   file.upload: file upload
   search.form: search form
 search:
   form:
-    origin: Origin location
+    origin: Origin location 1
     destination: Destination location
     date:
       label: Appointment date

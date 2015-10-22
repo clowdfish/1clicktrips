@@ -203,7 +203,7 @@ gulp.task('app-data', function() {
       root: 'window'
     }))
     .pipe(concat('currencies.js'))
-    .pipe(gulp.dest('scripts/data'));
+    .pipe(gulp.dest('build/data'));
 
   gulp
     .src("../config/languages.json")
@@ -250,17 +250,3 @@ gulp.task('live', ['build'], function() {
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
   gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
 });
-// gulp.task('live', ['styles', 'scripts', 'images', 'preprocess', 'webserver', 'app-data'], function() {
-
-//   gulp.watch('styles/**/*.scss', ['styles']);
-//   gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
-//   gulp.watch(['*.html'], ['preprocess', 'scripts']);
-//   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
-//   gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
-// });
-
-//gulp.task('build', ['styles', 'scripts', 'images', 'preprocess', 'app-data', 'i18n'], function() {});
-
-function compileScript() {
-
-}

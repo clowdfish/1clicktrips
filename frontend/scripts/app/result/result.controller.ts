@@ -130,7 +130,7 @@ module Result {
           targetDate: this.$stateParams.targetDate,
           selectedAlternatives: this.createAlternativeKeys(itineraryIndex),
           locale: this.language.getActiveLanguage().locale,
-          currency: this.currency.get().code
+          currency: this.currency.getSelectedCurrency().code
         };
 
         if (this.$stateParams.sessionId)

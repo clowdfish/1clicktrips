@@ -1,0 +1,8 @@
+<div class="currency-dropdown" ng-mouseenter="isShowCurrencyList = true" ng-mouseleave="isShowCurrencyList = false">
+  <div class="selected-currency">
+    {{selectedCurrency.code}}
+  </div>
+  <ul ng-show="isShowCurrencyList">
+    <li ng-repeat="(code, currency) in currencies" ng-click="selectCurrency(currency)">{{currency.code}}</li>
+  </ul>
+</div>

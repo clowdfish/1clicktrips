@@ -28,13 +28,18 @@ module app {
       template: '<div ui-view></div>',
       resolve: {
         isOldBrowser: isOldBrowser,
-        initLanguage: initLanguage
+        initLanguage: initLanguage,
+        initCurrency: initCurrency
       }
     });
   }
 
   function initLanguage(language: Common.Language) {
     language.initialize();
+  }
+
+  function initCurrency(currency: Common.Currency) {
+    currency.initialize();
   }
 
   function isOldBrowser(compatibilityChecker: Common.CompatibilityChecker, $q) {

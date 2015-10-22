@@ -11,5 +11,6 @@ module Index {
     ])
     .controller('indexCtrl', IndexCtrl)
     .directive('languageDropdown', languageDropdown)
+    .directive('currencyDropdown', currencyDropdown)
     .config(routerConfig);
 }

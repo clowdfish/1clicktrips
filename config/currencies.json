@@ -1,6 +1,6 @@
 [
   {
-    "code": "EUR",
+    "code": "eur",
     "symbol": "€",
     "thousandsSeparator": ".",
     "decimalSeparator": ",",
@@ -10,7 +10,7 @@
     "decimalDigits": 2
   },
   {
-    "code": "USD",
+    "code": "usd",
     "symbol": "$",
     "thousandsSeparator": ",",
     "decimalSeparator": ".",

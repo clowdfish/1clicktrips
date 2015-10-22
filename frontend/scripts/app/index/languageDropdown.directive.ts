@@ -7,7 +7,8 @@ module Index {
   /**
    * Language dropdown
    */
-  export function languageDropdown(language: Common.Language) {
+  export function languageDropdown(language: Common.Language,
+                                   currency: Common.Currency) {
     return {
       restrict: 'E',
       templateUrl: 'scripts/app/templates/index/language-dropdown.html',
@@ -42,6 +43,7 @@ module Index {
       function selectLanguage(languageItem: Common.LanguageItem) {
         language.changeLanguage(languageItem.code);
         scope.selectedLanguage = languageItem;
+        currency.setSelectedCurrency(languageItem.defaultCurrency);
       }
     }
   }
