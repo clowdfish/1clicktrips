@@ -11,6 +11,7 @@ module Search {
                 public searchFormData,
                 public suggestionAdapter: SuggestionAdapter,
                 public googleMap: Common.GoogleMap,
+                public language: Common.Language,
                 public $q) {
       window['SCOPE'] = $scope;
       // optimize forward or backward
@@ -63,6 +64,11 @@ module Search {
 
       $scope.timeString = moment($scope.schedule.time).format('HH:mm');
       $scope.isValidTimeString = true;
+
+      $scope.$watch(language._activeLanguage, () => {
+        $scope.startingDay = language.getActiveLanguage().startingDay;
+      });
+
       $scope.$watch('timeString', () => {
         this.validateTimeString((result, values) => {
 

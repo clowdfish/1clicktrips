@@ -9,6 +9,7 @@ module Common {
     name: string;
     locale: string;
     defaultCurrency: string;
+    startingDay: number; // Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).
     isDefault?: boolean;
   }
 
@@ -18,7 +19,7 @@ module Common {
   export class Language {
 
     private _data = {};
-    private _activeLanguage;
+    public _activeLanguage;
 
     constructor(private $localStorage,
                 private $translate,
@@ -62,13 +63,13 @@ module Common {
           this.$localStorage['language'] = code;
           this._activeLanguage = language;
           this.$translate.use(code).then(function() {
-            resolve();
+            return resolve();
           }, function(err) {
-            reject(err);
+            return reject(err);
           });
-          return true;
+          return resolve();
         }
-        return false;
+        return reject();
       });
 
     }

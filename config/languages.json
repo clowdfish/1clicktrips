@@ -3,13 +3,15 @@
     "code": "de",
     "name": "Deutsch",
     "locale": "de-DE",
-    "defaultCurrency": "eur"
+    "defaultCurrency": "eur",
+    "startingDay": 0 // Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).
   },
   {
     "code": "en",
     "name": "English",
     "locale": "en-US",
     "defaultCurrency": "usd",
-    "isDefault": true
+    "isDefault": true,
+    "startingDay": 1
   }
 ]

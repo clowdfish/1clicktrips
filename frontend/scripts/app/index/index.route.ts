@@ -17,6 +17,7 @@ module Index {
 
     $stateProvider.state('index.form', {
       url: '/',
+      parent: 'root',
       templateUrl: 'scripts/app/templates/search/form.html',
       controller: 'searchCtrl',
       resolve: {
