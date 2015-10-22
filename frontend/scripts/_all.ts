@@ -22,11 +22,6 @@
 /// <reference path="app/common/services/compatibilityChecker.service.ts" />
 /// <reference path="app/common/_common.ts" />
 
-/// -----------Info Module -------------
-/// <reference path="app/info/info.controller.ts" />
-/// <reference path="app/info/info.route.ts" />
-/// <reference path="app/info/_info.ts" />
-
 /// -----------Result Module -----------
 /// <reference path="app/result/result.controller.ts" />
 /// <reference path="app/result/result.route.ts" />

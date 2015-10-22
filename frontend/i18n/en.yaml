@@ -28,7 +28,6 @@ search:
     destination: Destination location
     date:
       label: Appointment date
-      placeholder: Appointment date
     time:
       label: Appointment time
       placeholder: Appointment start time

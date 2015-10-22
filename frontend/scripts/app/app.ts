@@ -10,7 +10,6 @@ module app {
       'app.booking',
       'app.search',
       'app.result',
-      'app.info',
       'app.templates'
     ])
     .config(routeConfig)

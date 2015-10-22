@@ -28,7 +28,6 @@ search:
     destination: Zielort
     date:
       label: Datum deines Termin
-      placeholder: Datum deines Termin
     time:
       label: Uhrzeit deines Termin
       placeholder: Uhrzeit deines Termin

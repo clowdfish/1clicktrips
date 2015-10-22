@@ -5,7 +5,6 @@ module Search {
   'use strict';
 
   export class SearchCtrl {
-    private timePattern = /([01]?[0-9]|2[0-3])(:?)[0-5][0-9]$/;
     constructor(public $scope,
                 public $state,
                 public searchFormData,
@@ -13,7 +12,7 @@ module Search {
                 public googleMap: Common.GoogleMap,
                 public language: Common.Language,
                 public $q) {
-      window['SCOPE'] = $scope;
+
       // optimize forward or backward
       $scope.targetDate = searchFormData.targetDate;
 
@@ -86,7 +85,8 @@ module Search {
     }
 
     validateTimeString = (callback) => {
-      var matches = this.$scope.timeString.match(this.timePattern);
+      var timePattern = /([01]?[0-9]|2[0-3])(:?)[0-5][0-9]$/;
+      var matches = this.$scope.timeString.match(timePattern);
 
       if (matches === null) {
         return callback(false);
@@ -118,7 +118,7 @@ module Search {
         hours: hours,
         minutes: minutes
       });
-    }
+    };
 
     toggleDatePicker = (event) => {
       event.stopPropagation();
