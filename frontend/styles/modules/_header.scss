@@ -15,7 +15,6 @@
 
   .dropdown {
     display: inline-block;
-    margin-right: 0.3em;
     vertical-align: top;
 
     &.active {
@@ -56,10 +55,7 @@
 
   .currency-dropdown {
     text-transform: uppercase;
-  }
-
-  .language-dropdown {
-
+    margin-right: 0.3em;
   }
 
   @include respond-above("medium") {

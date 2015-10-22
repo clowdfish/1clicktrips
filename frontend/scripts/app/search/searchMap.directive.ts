@@ -88,7 +88,7 @@ module Search {
               top: yPos - magnifierWidth / 2
             });
 
-            drawMiniMap(xPos, yPos, mapImage, context);
+            drawMiniMap(xPos - magnifierWidth / 3, yPos - magnifierWidth / 4, mapImage, context);
           }
         });
       }

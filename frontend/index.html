@@ -11,7 +11,7 @@
 <body>
   <waiting-animation></waiting-animation>
   <div class="wrapper">
-    <header class="header">
+    <header class="header ng-cloak" ng-cloak>
       <language-dropdown></language-dropdown>
       <currency-dropdown></currency-dropdown>
       <span class="header-menu-toggle">
@@ -25,52 +25,51 @@
     </div>
   </div>
 
-  <footer class="footer">
+  <footer class="footer ng-cloak" ng-cloak>
     <div class="footer-information">
       <div class="footer-about">
-        <h2 class="footer-title">About</h2>
+        <h2 class="footer-title">{{ 'footer.about.title' | translate }}</h2>
         <p class="footer-about-text">
-          1ClickTrips is a startup changing the way business trips are searched,
-          booked and integrated into daily work routines.
+          {{ 'footer.about.text' | translate }}
         </p>
       </div>
       <div class="footer-contact">
-        <h2 class="footer-title">Contact</h2>
+        <h2 class="footer-title">{{ 'footer.contact.title' | translate }}</h2>
         <ul class="footer-contact-list">
           <li>
             <i class="fa fa-twitter"></i>
-            Follow us on <a href="#">Twitter</a>
+            {{ 'footer.contact.twitter' | translate }} <a href="#">Twitter</a>
           </li>
           <li>
             <i class="fa fa-skype"></i>
-            Chat with us on <a href="#">Skype</a>
+            {{ 'footer.contact.skype' | translate }} <a href="#">Skype</a>
           </li>
           <li>
             <i class="fa fa-envelope"></i>
-            Be old-school and drop us a <a href="#">mail</a>
+            {{ 'footer.contact.mail' | translate }} <a href="#">{{ 'footer.contact.mailitem' | translate }}</a>
           </li>
         </ul>
       </div>
       <div class="footer-navigation">
-        <h2 class="footer-title">Navigation</h2>
+        <h2 class="footer-title">{{ 'footer.navigation.title' | translate }}</h2>
         <ul class="footer-navigation-list">
           <li>
             <i class="fa fa-long-arrow-right"></i>
-            <a href="#">Home</a>
+            <a href="#">{{ 'footer.navigation.home' | translate }}</a>
           </li>
           <li>
             <i class="fa fa-long-arrow-right"></i>
-            <a href="#">Jobs</a>
+            <a href="#">{{ 'footer.navigation.jobs' | translate }}</a>
           </li>
           <li>
             <i class="fa fa-long-arrow-right"></i>
-            <a href="#">Public Relations</a>
+            <a href="#">{{ 'footer.navigation.publicrelation' | translate }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="footer-copyright">
-      &copy; 2015 <a href="#">1ClickTrips</a>. All rights reserved.
+      &copy; 2015 <a href="#">1ClickTrips</a>. {{ 'footer.copyright' | translate }}
     </div>
   </footer>
 

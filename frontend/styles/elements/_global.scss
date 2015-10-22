@@ -19,6 +19,10 @@ body {
   min-height: 100%;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 /*
  The following part should be removed after the new
  styling is applied.

@@ -1,26 +1,39 @@
 general:
-  or: or
+  or: oder
 common:
   dropzone:
-    text: or drop your .ics file here
-    error: File Drag/Drop is not supported for this browser
-index:
-  title: Get the perfect trip for your appointment
-  file.upload: file upload
-  search.form: search form
+    text: oder ziehe deine .ics Datei hier her
+    error: Drag/Drop wird von deinem Browser nicht unterstützt
+footer:
+  about:
+    title: Über uns
+    text: 1ClickTrips wird das Suchen und Buchen von Geschäftsreisen einfacher machen denn je.
+  contact:
+    title: Kontakt
+    twitter: Folge uns auf
+    skype: Sprich mit uns in
+    mail: Vom alten Schlag? Schreibe uns eine
+    mailitem: Mail
+  navigation:
+    title: Navigation
+    home: Home
+    jobs: Jobs
+    publicrelation: Öffentlichkeitsarbeit
+  copyright: Alle Rechte vorbehalten.
 search:
   form:
-    origin: Origin location 1
-    destination: Destination location
+    title: Finde den perfekten Trip für deinen Termin
+    origin: Startort
+    destination: Zielort
     date:
-      label: Appointment date
-      placeholder: Appointment start date (DD.MM.YYYY)
+      label: Datum deines Termin
+      placeholder: Datum deines Termin
     time:
-      label: Appointment time
-      placeholder: Appointment start time (hh:mm)
-    start: Search trips
+      label: Uhrzeit deines Termin
+      placeholder: Uhrzeit deines Termin
+    start: Suchen
 result:
-  error: There was a problem on the server
+  error: Es gab ein Problem mit dem Server
   sessionexpire: Your session has been expired, please refresh website.
   searchdetails:
     title: Search details
@@ -28,7 +41,7 @@ result:
     from: From
     to: To
   list:
-    title: Results
+    title: Search results
     subtitle: Time to pick a trip.
     select: Select
   details:

@@ -4,20 +4,33 @@ common:
   dropzone:
     text: or drop your .ics file here
     error: File Drag/Drop is not supported for this browser
-index:
-  title: Get the perfect trip for your appointment.
-  file.upload: file upload
-  search.form: search form
+footer:
+  about:
+    title: About
+    text: 1ClickTrips is a startup changing the way business trips are searched, booked and integrated into daily work routines.
+  contact:
+    title: Contact
+    twitter: Follow us on
+    skype: Chat with us on
+    mail: Be old-school and drop us a
+    mailitem: mail
+  navigation:
+    title: Navigation
+    home: Home
+    jobs: Jobs
+    publicrelation: Public Relations
+  copyright: All rights reserved.
 search:
   form:
+    title: Get the perfect trip for your appointment
     origin: Origin location
     destination: Destination location
     date:
       label: Appointment date
-      placeholder: Appointment start date (DD.MM.YYYY)
+      placeholder: Appointment date
     time:
       label: Appointment time
-      placeholder: Appointment start time (hh:mm)
+      placeholder: Appointment start time
     start: Search trips
 result:
   error: There was a problem on the server

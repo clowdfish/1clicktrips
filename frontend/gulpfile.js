@@ -249,4 +249,5 @@ gulp.task('live', ['build'], function() {
   gulp.watch(['*.html'], ['preprocess', 'scripts']);
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
   gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
+  gulp.watch(['i18n/*.yaml'], ['i18n']);
 });
