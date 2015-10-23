@@ -9,6 +9,7 @@ module Common {
     name: string;
     locale: string;
     defaultCurrency: string;
+    dateFormat: string;
     startingDay: number; // Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).
     isDefault?: boolean;
   }
@@ -46,7 +47,6 @@ module Common {
         this.currency.setSelectedCurrency(this._activeLanguage.defaultCurrency);
         this.changeLanguage(this._activeLanguage.code);
       }
-
 
       this._isInitialize = true;
     }
@@ -99,7 +99,6 @@ module Common {
         }
         return reject();
       });
-
     }
 
     /**

@@ -4,6 +4,7 @@
     "name": "Deutsch",
     "locale": "de-DE",
     "defaultCurrency": "eur",
+    "dateFormat": "dd.MM.yyyy",
     "startingDay": 1
   },
   {
@@ -11,7 +12,8 @@
     "name": "English",
     "locale": "en-US",
     "defaultCurrency": "usd",
-    "isDefault": true,
-    "startingDay": 0
+    "dateFormat": "MM/dd/yyyy",
+    "startingDay": 0,
+    "isDefault": true
   }
 ]

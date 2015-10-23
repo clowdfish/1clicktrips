@@ -59,7 +59,7 @@ module Search {
       };
 
       //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-      $scope.format = 'dd-MM-yyyy';
+      $scope.format = language._activeLanguage.dateFormat;
 
       $scope.toggleDatePicker = this.toggleDatePicker;
       $scope.toggleTimePicker = this.toggleTimePicker;
