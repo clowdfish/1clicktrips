@@ -34,14 +34,29 @@
                   ng-if="segment['departureTime'] && (!showDetails && segment['isMajor'] || showDetails)"
                   ng-init="segmentIndex = $index">
 
-              <trip-segment
-                segment="segment"
-                ratio="{{ dimensions.ratio }}"
-                show-details="{{ showDetails }}"
-                set-dimensions="setDimensions(data)"
-                define-left-margin="defineMarginLeft(time)"
-                select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">
-               </trip-segment>
+              <span ng-if="segment['alternatives'][getTimingIndex(itineraryIndex, containerIndex, segmentIndex)]['segments']">
+                <!-- do not show walking segments -->
+                <trip-segment
+                   ng-repeat="detailSegment in segment['alternatives'][getTimingIndex(itineraryIndex, containerIndex, segmentIndex)]['segments']"
+                   ng-if="detailSegment['type'] != 1"
+                   segment="detailSegment"
+                   ratio="{{ dimensions.ratio }}"
+                   show-details="{{ showDetails }}"
+                   set-dimensions="setDimensions(data)"
+                   define-left-margin="defineMarginLeft(time)"
+                   select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">
+                 </trip-segment>
+              </span>
+              <span ng-if="!segment['alternatives'][getTimingIndex(itineraryIndex, containerIndex, segmentIndex)]['segments']">
+                <trip-segment
+                  segment="segment"
+                  ratio="{{ dimensions.ratio }}"
+                  show-details="{{ showDetails }}"
+                  set-dimensions="setDimensions(data)"
+                  define-left-margin="defineMarginLeft(time)"
+                  select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">
+                </trip-segment>
+              </span>
             </span>
           </span>
         </span>

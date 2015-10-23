@@ -1,5 +1,17 @@
 general:
   or: oder
+  from: von
+  to: nach
+action:
+  overnight: Übernachtung
+  walk: Laufen
+  drive: Fahrt
+  bus: Bus
+  subway: Ubahn
+  train: Zug
+  flight: Flug
+  cab: Taxi
+  ship: Schiff
 common:
   outdated: Dein Browser ist veraltet und wird nicht alle Funktionalitäten unterstützen.
   dropzone:
@@ -40,6 +52,8 @@ result:
     change: change
     from: From
     to: To
+  connection:
+    towards: Richtung
   list:
     title: Search results
     subtitle: Time to pick a trip.

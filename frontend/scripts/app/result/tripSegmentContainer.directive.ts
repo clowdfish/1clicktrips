@@ -287,7 +287,7 @@ module Result {
           }
         }
 
-        return -1;
+        return 0;
       };
 
       /**

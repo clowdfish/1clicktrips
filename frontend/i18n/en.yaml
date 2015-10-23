@@ -1,5 +1,17 @@
 general:
   or: or
+  from: from
+  to: to
+action:
+  overnight: Overnight
+  walk: Walk
+  drive: Drive
+  bus: Bus
+  subway: Subway
+  train: Train
+  flight: Flight
+  cab: Taxi
+  ship: Ship
 common:
   outdated: Your browser is outdated and will not support all features, please upgrade to a modern browser.
   dropzone:
@@ -40,6 +52,8 @@ result:
     change: change
     from: From
     to: To
+  connection:
+    towards: towards
   list:
     title: Search results
     subtitle: Time to pick a trip.

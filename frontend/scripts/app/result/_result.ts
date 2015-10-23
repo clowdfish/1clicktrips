@@ -26,6 +26,7 @@ module Result {
       cab: 32,
       ship: 64
     })
+    .constant('TIMEOUT', 1000 * 60 * 120) // 120 minutes
     .constant('SEGMENT_ZOOM_THRESHOLD', 25) // up to which value to zoom the segment
     .constant('SEGMENT_ZOOM_WIDTH', 40) // size to zoom the segment to
     .constant('TRANSFER_TIME', 5) // how much time is added between trip segments

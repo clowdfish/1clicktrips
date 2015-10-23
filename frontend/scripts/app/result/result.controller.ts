@@ -6,12 +6,12 @@ module Result {
 
   export class ResultCtrl {
 
-    private _inactivityOptions: Common.InactivityDetectorOptions;
-
     constructor(public $scope,
                 public $state,
                 public $stateParams,
                 public $window,
+                public $timeout,
+                public TIMEOUT,
                 public $q: ng.IQService,
                 public resultState,
                 public RESULT_STATE,
@@ -20,20 +20,10 @@ module Result {
                 public searchObject,
                 public language: Common.Language,
                 public currency: Common.Currency,
-                public bookingApi: Booking.BookingApi,
-                public inactivityDetector: Common.InactivityDetector) {
-      window['SCOPE'] = $scope;
+                public bookingApi: Booking.BookingApi) {
+
+      $scope.timer = null;
       $scope.timeOut = false;
-      this._inactivityOptions = {
-        maxTimeAllow: 1000 * 60 * 30, //30 minutes
-        onTimeout: () => {
-          $scope.$apply(() => {
-            console.log('Your session has been expired, please refresh website.');
-            $scope.timeOut = true;
-            tripCache.clearCache();
-          });
-        }
-      }
 
       $scope.searchData = {
         originDescription: searchObject['originDescription'],
@@ -74,11 +64,6 @@ module Result {
       else if(resultState == RESULT_STATE.hotels) {
         this.getHotels();
       }
-
-      $scope.$on('$destroy', () => {
-        inactivityDetector.stop();
-      });
-
     }
 
     /**
@@ -86,15 +71,17 @@ module Result {
      */
     getItineraries = () => {
 
+      //var cachedSearchResult;
+      //if(this.$scope.timer !== null)
+
       var cachedSearchResult = this.tripCache.getCachedTrip();
-      console.log(cachedSearchResult);
+
       if(cachedSearchResult) {
         // store appointment timing data
         this.$scope.timing = cachedSearchResult[0]['timing'];
         this.$scope.timing['targetDate'] = this.searchObject.targetDate;
 
         this.$scope.itineraries = cachedSearchResult;
-        this.inactivityDetector.start(this._inactivityOptions);
       }
       else {
         this.tripApi
@@ -107,7 +94,7 @@ module Result {
             this.$scope.timing['targetDate'] = this.searchObject.targetDate;
 
             this.$scope.itineraries = itineraries;
-            this.inactivityDetector.start(this._inactivityOptions);
+            //this.activateTimer(this.$scope.TIMEOUT); // TODO fix error
           }, (err) => {
             this.$scope.errorState = { message: err }
           });
@@ -143,6 +130,8 @@ module Result {
             this.$scope.timing['targetDate'] =  this.searchObject.targetDate;
 
             this.$scope.itineraries[itineraryIndex] = trip;
+            //this.activateTimer(this.$scope.TIMEOUT);
+
             resolve();
           }, (err) => {
             reject(err);
@@ -155,15 +144,16 @@ module Result {
      */
     getItineraryDetails = () => {
 
+      //var cachedTripDetails;
+      //if(this.$scope.timer !== null)
       var cachedTripDetails = this.tripCache.getCachedTrip();
-      console.log(cachedTripDetails);
+
       if(cachedTripDetails) {
         // store appointment timing data
         this.$scope.timing = cachedTripDetails['timing'];
         this.$scope.timing['targetDate'] = this.searchObject.targetDate;
 
         this.$scope.itinerary = cachedTripDetails;
-        this.inactivityDetector.start(this._inactivityOptions);
       }
       else {
         this.tripApi
@@ -175,7 +165,6 @@ module Result {
 
             this.tripCache.storeTrip(itinerary);
             this.$scope.itinerary = itinerary;
-            this.inactivityDetector.start(this._inactivityOptions);
           }, (err) => {
             this.$scope.errorState = { message: err }
           });
@@ -305,11 +294,30 @@ module Result {
       }
 
       return resultArray.join('%');
-    }
+    };
 
     booking = (searchData, itinerary) => {
       this.bookingApi.setBookingData(searchData, this.$scope.selection, itinerary);
       return this.$state.go('booking');
-    }
+    };
+
+
+    /**
+     * TODO This one is not working yet
+     *
+     * @param time
+     */
+    activateTimer = (time) => {
+      if(this.$scope.timer !== null)
+        this.$timeout.cancel(this.$scope.timer);
+
+      this.$scope.timer = this.$timeout(() => {
+        console.log('Your session has been expired, please refresh website.');
+
+        this.$scope.timer = null;
+        this.$scope.timeOut = true;
+        this.tripCache.clearCache();
+      }, time);
+    };
   }
 }

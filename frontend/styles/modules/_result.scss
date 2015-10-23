@@ -13,6 +13,15 @@
   -moz-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
   box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
 
+  .hidden {
+    opacity: 0;
+  }
+
+  .segment-transition {
+    -webkit-transition: max-width 2s ease-in-out, left 2s ease-in-out, right 2s ease-in-out, opacity 1s linear .5s;
+    transition: max-width 2s ease-in-out, left 2s ease-in-out, right 2s ease-in-out, opacity 1s linear .5s;
+  }
+
   .result-map {
     width: 100%;
     height: 13em;
@@ -303,7 +312,7 @@
   .result-segment-details {
     display: block;
     position: absolute;
-    top: 4.7em;
+    top: 2.7em;
     left: 0;
     opacity: 1;
     font-size: $fs-small;
@@ -311,18 +320,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    &.hidden {
-      opacity: 0;
+    & > .fa {
+      margin-right: 0.3em;
     }
-  }
-
-  .hidden {
-    opacity: 0;
-  }
-
-  .segment-transition {
-    -webkit-transition: max-width 2s ease-in-out, left 2s ease-in-out, right 2s ease-in-out, opacity 1s linear .5s;
-    transition: max-width 2s ease-in-out, left 2s ease-in-out, right 2s ease-in-out, opacity 1s linear .5s;
   }
 
   .result-hotels-list {
