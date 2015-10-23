@@ -44,9 +44,10 @@ module Common {
       if (window['locale']) {
         this._activeLanguage = this.getLanguageByCode(window['locale']);
         this.currency.setSelectedCurrency(this._activeLanguage.defaultCurrency);
+        this.changeLanguage(this._activeLanguage.code);
       }
 
-      this.changeLanguage(this._activeLanguage.code);
+
       this._isInitialize = true;
     }
 

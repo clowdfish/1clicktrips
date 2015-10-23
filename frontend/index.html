@@ -79,30 +79,6 @@
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY&libraries=places,geometry&language=en"></script>
   <script src="/../data/languages.js"></script>
   <script src="/../data/currencies.js"></script>
-  <script type="text/javascript">
-  function setActiveLanguage() {
-    if (window['locale']) {
-      return true;
-    }
-
-    var localeMapping = {
-      de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
-      en: ['en-au', 'en-bz', 'en-ca', 'en-cb', 'en-gb', 'en-in', 'en-ie', 'en-jm', 'en-nz', 'en-ph', 'en-za', 'en-tt', 'en-us']
-    }
-
-    var browserLocale = navigator.language.toLowerCase();
-
-    angular.forEach(localeMapping, function(localeList, localeKey) {
-      if (localeList.indexOf(browserLocale) >= 0 || browserLocale === localeKey) {
-        var newHref = '/' + localeKey + '/#/';
-        location.href = newHref;
-      }
-    });
-
-    //Use English if doesn't match anything
-    location.href = '/en';
-  }
-  </script>
   <script src="/../scripts/vendor.js"></script>
   <script src="/../scripts/locales.js"></script>
   <script src="/../scripts/script.js"></script>

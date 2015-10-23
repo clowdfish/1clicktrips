@@ -121,7 +121,31 @@ module app {
     return result;
   }
 
+  function setActiveLanguage() {
+    if (window['locale']) {
+      return true;
+    }
+
+    var localeMapping = {
+      de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
+      en: ['en-au', 'en-bz', 'en-ca', 'en-cb', 'en-gb', 'en-in', 'en-ie', 'en-jm', 'en-nz', 'en-ph', 'en-za', 'en-tt', 'en-us']
+    }
+
+    var browserLocale = navigator.language.toLowerCase();
+
+    angular.forEach(localeMapping, function(localeList, localeKey) {
+      if (localeList.indexOf(browserLocale) >= 0 || browserLocale === localeKey) {
+        var newHref = '/' + localeKey + '/#/';
+        location.href = newHref;
+      }
+    });
+
+    //Use English if doesn't match anything
+    location.href = '/en';
+  }
+
   function run() {
+    setActiveLanguage();
     console.log("App started...");
   }
 }
