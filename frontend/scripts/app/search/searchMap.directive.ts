@@ -117,7 +117,7 @@ module Search {
           mapImage.load(() => {
             var magnifier = element.find('.magnifier');
             var left = magnifier.position().left;
-            var top = magnifier.position().top + magnifier.width() / 2;
+            var top = magnifier.position().top + magnifier.width() / 3;
 
             drawMiniMap(left, top, mapImage, context);
           });

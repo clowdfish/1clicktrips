@@ -4,7 +4,7 @@
     "name": "Deutsch",
     "locale": "de-DE",
     "defaultCurrency": "eur",
-    "startingDay": 0
+    "startingDay": 1
   },
   {
     "code": "en",
@@ -12,6 +12,6 @@
     "locale": "en-US",
     "defaultCurrency": "usd",
     "isDefault": true,
-    "startingDay": 1
+    "startingDay": 0
   }
 ]
