@@ -17,7 +17,8 @@
     "symbolOnLeft": true,
     "spaceBetweenAmountAndSymbol": false,
     "roundingCoefficient": 0,
-    "decimalDigits": 2
+    "decimalDigits": 2,
+    "isDefault": true
   }
 ]
 
