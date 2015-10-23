@@ -4,6 +4,7 @@ var karma = require('karma').server;
 
 // include core modules
 var path  = require("path");
+var fs = require('fs');
 
 // include gulp plug-ins
 var concat 		  = require('gulp-concat'),
@@ -21,7 +22,8 @@ var concat 		  = require('gulp-concat'),
     merge       = require('gulp-merge'),
     angularTemplateCache = require('gulp-angular-templatecache'),
     typescript  = require('gulp-typescript'),
-    gulpSequence = require('gulp-sequence');
+    gulpSequence = require('gulp-sequence'),
+    compile     = require('gulp-compile-handlebars');
 
 
 /****************************************************************************************************/
@@ -174,9 +176,18 @@ gulp.task('angular-templates', function() {
 
 // copy html files
 gulp.task('preprocess', function() {
-
-  gulp.src('index.html')
-    .pipe(gulp.dest('build/'));
+  var locales = getLocales();
+  locales.forEach(function(locale) {
+    var templateData = {
+      locale: locale,
+      T: yml.safeLoad(fs.readFileSync('./i18n/' + locale + '.yaml', 'utf8'))
+    };
+    gulp
+      .src('index.html')
+      .pipe(plumber(plumberErrorHandler))
+      .pipe(compile(templateData))
+      .pipe(gulp.dest(path.join('build/', locale)));
+  });
 });
 
 gulp.task('i18n', function() {
@@ -251,3 +262,12 @@ gulp.task('live', ['build'], function() {
   gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
   gulp.watch(['i18n/*.yaml'], ['i18n']);
 });
+
+function getLocales() {
+  var languages = require('../config/languages.json');
+  var result = [];
+  for (var i = 0; i < languages.length; i++) {
+    result.push(languages[i].code);
+  }
+  return result;
+}

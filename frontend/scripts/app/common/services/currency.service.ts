@@ -34,6 +34,9 @@ module Common {
 
       this._data = {};
       var currencies = window['AppData']['currencies'];
+      if (_.isEmpty(currencies)) {
+        return false;
+      }
 
       currencies.map((currencyItem: CurrencyItem) => {
         this._data[currencyItem.code.toLowerCase()] = currencyItem;
@@ -41,11 +44,15 @@ module Common {
 
       if (false === _.isEmpty(this.$localStorage['selectedCurrency'])) {
         this.selectedCurrency = this.getCurrencyByCode(this.$localStorage['selectedCurrency']);
-      } else {
+      }
+      if (this.selectedCurrency == null) {
         this.selectedCurrency = _.find(currencies, (currencyItem: CurrencyItem) => {
           return currencyItem.isDefault == true;
         });
+      } else {
+        this.selectedCurrency = currencies[0];
       }
+      this.setSelectedCurrency(this.selectedCurrency);
       this._isInitialize = true;
     }
 

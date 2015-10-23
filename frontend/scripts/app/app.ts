@@ -14,6 +14,7 @@ module app {
     ])
     .config(routeConfig)
     .config(i18nConfig)
+    //.config(bracketConfig)
     .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY')
     .run(run);
 

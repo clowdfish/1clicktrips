@@ -31,10 +31,13 @@ module Common {
        * @param languageItem
        */
       function selectLanguage(languageItem: Common.LanguageItem) {
-        scope.selectedLanguage = languageItem;
+        //Just redirect
+        var hrefArray = location.href.split('#');
+        var newHref = '/' + languageItem.code + '/#' + hrefArray[1];
 
-        language.changeLanguage(languageItem.code);
-        currency.setSelectedCurrency(languageItem.defaultCurrency);
+        if (location.href !== location.origin + newHref) {
+          location.href = newHref;
+        }
       }
     }
   }

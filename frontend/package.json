@@ -4,6 +4,7 @@
   "description": "A business traveler platform offering end to end trip management.",
   "main": "gulpfile.js",
   "dependencies": {
+    "gulp-compile-handlebars": "^0.5.0",
     "gulp-sequence": "^0.4.1",
     "gulp-typescript": "^2.9.0",
     "gulp-yaml": "^0.2.4",

@@ -14,7 +14,7 @@ module Common {
   }
 
   /**
-   * Switch and store app language
+   * Manage and set active language
    */
   export class Language {
 
@@ -24,7 +24,8 @@ module Common {
 
     constructor(private $localStorage,
                 private $translate,
-                private $q) {
+                private $q,
+                private currency: Common.Currency) {
 
     }
 
@@ -39,13 +40,10 @@ module Common {
       languages.forEach((language: LanguageItem) => {
         this._data[language.code] = language;
       });
-            
-      if (false === _.isEmpty(this.$localStorage['language'])) {
-        this._activeLanguage = this.getLanguageByCode(this.$localStorage['language']);
-      } else {
-        this._activeLanguage = _.find(languages, (language: LanguageItem) => {
-          return language.isDefault === true;
-        });
+
+      if (window['locale']) {
+        this._activeLanguage = this.getLanguageByCode(window['locale']);
+        this.currency.setSelectedCurrency(this._activeLanguage.defaultCurrency);
       }
 
       this.changeLanguage(this._activeLanguage.code);
@@ -91,8 +89,6 @@ module Common {
         var language = this.getLanguageByCode(code);
 
         if (language) {
-          this.$localStorage['language'] = code;
-          this._activeLanguage = language;
           this.$translate.use(code).then(function() {
             return resolve();
           }, function(err) {
@@ -118,11 +114,11 @@ module Common {
     }
 
     public static Factory(): any {
-      var service = ($localStorage, $translate, $q) => {
-         return new Language($localStorage, $translate, $q);
+      var service = ($localStorage, $translate, $q, currency: Common.Currency) => {
+         return new Language($localStorage, $translate, $q, currency);
       };
 
-      service['$inject'] = ['$localStorage', '$translate', '$q'];
+      service['$inject'] = ['$localStorage', '$translate', '$q', 'currency'];
       return service;
     }
   }

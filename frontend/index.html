@@ -28,57 +28,83 @@
   <footer class="footer ng-cloak" ng-cloak>
     <div class="footer-information">
       <div class="footer-about">
-        <h2 class="footer-title">{{ 'footer.about.title' | translate }}</h2>
+        <h2 class="footer-title">{{ T.footer.about.title }}</h2>
         <p class="footer-about-text">
-          {{ 'footer.about.text' | translate }}
+          {{ T.footer.about.text }}
         </p>
       </div>
       <div class="footer-contact">
-        <h2 class="footer-title">{{ 'footer.contact.title' | translate }}</h2>
+        <h2 class="footer-title">{{ T.footer.contact.title }}</h2>
         <ul class="footer-contact-list">
           <li>
             <i class="fa fa-twitter"></i>
-            {{ 'footer.contact.twitter' | translate }} <a href="#">Twitter</a>
+            {{ T.footer.contact.twitter }} <a href="#">Twitter</a>
           </li>
           <li>
             <i class="fa fa-skype"></i>
-            {{ 'footer.contact.skype' | translate }} <a href="#">Skype</a>
+            {{ T.footer.contact.skype }} <a href="#">Skype</a>
           </li>
           <li>
             <i class="fa fa-envelope"></i>
-            {{ 'footer.contact.mail' | translate }} <a href="#">{{ 'footer.contact.mailitem' | translate }}</a>
+            {{ T.footer.contact.mail }} <a href="#">{{ T.footer.contact.mailitem }}</a>
           </li>
         </ul>
       </div>
       <div class="footer-navigation">
-        <h2 class="footer-title">{{ 'footer.navigation.title' | translate }}</h2>
+        <h2 class="footer-title">{{ T.footer.navigation.title }}</h2>
         <ul class="footer-navigation-list">
           <li>
             <i class="fa fa-long-arrow-right"></i>
-            <a href="#">{{ 'footer.navigation.home' | translate }}</a>
+            <a href="#">{{ T.footer.navigation.home }}</a>
           </li>
           <li>
             <i class="fa fa-long-arrow-right"></i>
-            <a href="#">{{ 'footer.navigation.jobs' | translate }}</a>
+            <a href="#">{{ T.footer.navigation.jobs }}</a>
           </li>
           <li>
             <i class="fa fa-long-arrow-right"></i>
-            <a href="#">{{ 'footer.navigation.publicrelation' | translate }}</a>
+            <a href="#">{{ T.footer.navigation.publicrelation }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="footer-copyright">
-      &copy; 2015 <a href="#">1ClickTrips</a>. {{ 'footer.copyright' | translate }}
+      &copy; 2015 <a href="#">1ClickTrips</a>. {{ T.footer.copyright }}
     </div>
   </footer>
-
+  <script type="text/javascript">
+     var locale = "{{locale}}";
+  </script>
   <script type="text/javascript"
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY&libraries=places,geometry&language=en"></script>
-  <script src="../data/languages.js"></script>
-  <script src="../data/currencies.js"></script>
-  <script src="../scripts/vendor.js"></script>
-  <script src="../scripts/locales.js"></script>
-  <script src="../scripts/script.js"></script>
+  <script src="/../data/languages.js"></script>
+  <script src="/../data/currencies.js"></script>
+  <script type="text/javascript">
+  function setActiveLanguage() {
+    if (window['locale']) {
+      return true;
+    }
+
+    var localeMapping = {
+      de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
+      en: ['en-au', 'en-bz', 'en-ca', 'en-cb', 'en-gb', 'en-in', 'en-ie', 'en-jm', 'en-nz', 'en-ph', 'en-za', 'en-tt', 'en-us']
+    }
+
+    var browserLocale = navigator.language.toLowerCase();
+
+    angular.forEach(localeMapping, function(localeList, localeKey) {
+      if (localeList.indexOf(browserLocale) >= 0 || browserLocale === localeKey) {
+        var newHref = '/' + localeKey + '/#/';
+        location.href = newHref;
+      }
+    });
+
+    //Use English if doesn't match anything
+    location.href = '/en';
+  }
+  </script>
+  <script src="/../scripts/vendor.js"></script>
+  <script src="/../scripts/locales.js"></script>
+  <script src="/../scripts/script.js"></script>
 </body>
 </html>
