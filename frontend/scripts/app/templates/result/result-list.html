@@ -12,6 +12,7 @@
 <section class="result ng-cloak" ng-cloak ng-show='itineraries !== null && false === (errorState !== null || timeOut === true)'>
   <div class="result-map">
     <!-- include google maps here -->
+    <result-map itinerary="itineraries[0]"></result-map>
   </div>
 
   <h1 class="result-title">{{ 'result.list.title' | translate }}</h1>

@@ -2,6 +2,7 @@
 
 /// -----------Common module-----------
 /// <reference path="app/app.ts" />
+/// <reference path="app/common/customMarker.ts" />
 /// <reference path="app/common/directives/button.directive.ts" />
 /// <reference path="app/common/directives/languageDropdown.directive.ts" />
 /// <reference path="app/common/directives/currencyDropdown.directive.ts" />
@@ -31,6 +32,7 @@
 /// <reference path="app/result/tripSegment.directive.ts" />
 /// <reference path="app/result/tripSegmentContainer.directive.ts" />
 /// <reference path="app/result/tripMap.directive.ts" />
+/// <reference path="app/result/resultMap.directive.ts" />
 /// <reference path="app/result/_result.ts" />
 
 /// -----------Search Module ------------

@@ -37,5 +37,6 @@ module Result {
     .directive('tripSegment', TripSegment.Factory())
     .directive('tripSegmentContainer', TripSegmentContainer.Factory())
     .directive('tripMap', TripMap.Factory())
+    .directive('resultMap', resultMap)
     .config(routerConfig);
 }
