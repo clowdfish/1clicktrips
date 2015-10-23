@@ -1,5 +1,4 @@
 <span class="result-segment">
-
   <span class="result-segment-timing segment-transition"
         ng-class="{ hidden: width < 3 }"
         ng-style="{ 'left': marginLeft + '%' }">
@@ -40,20 +39,4 @@
 
     <!-- TODO include details of other means of travel -->
   </span>
-
-  <!--
-  <span class="result-segment-alternatives"
-        ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
-
-    <select ng-model="timingSelection"
-            ng-change="alternativeChange(timingSelection, undefined)"
-            class="result-segment-alternatives">
-      <option value=""></option>
-      <option ng-repeat="alternative in segment['alternatives']" value="{{ $index }}">
-        {{ alternative['departureTime'] | dateFormatter }} - {{ alternative['arrivalTime'] | dateFormatter }} ->
-        <span ng-if="alternative['price']">{{ alternative['price']['amount'].toFixed(2) }} {{ alternative['price']['currency'] | uppercase }}</span>
-      </option>
-    </select>
-  </span>
-  -->
 </span>

@@ -1,4 +1,4 @@
-<section class="result container" ng-show='errorState !== null || timeOut === true'>
+<section class="result ng-cloak" ng-cloak ng-show='errorState !== null || timeOut === true'>
 	<!-- error message -->
 	<span class="result-details-error" ng-show="errorState !== null">
 		{{ 'result.error' | translate }}: <br /><br />
@@ -9,7 +9,7 @@
   </span>
 </section>
 
-<section class="result container" ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
+<section class="result ng-cloak" ng-cloak ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
 	<h1 class="result-title">{{ 'result.details.title' | translate }}</h1>
 		<div class="result-summary clearfix">
 			<div class="result-details">

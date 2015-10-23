@@ -64,7 +64,20 @@
               ng-class="{ focus: timing['targetDate'] }"></span>
       </span>
 
-      <span class="result-list-item-footer">
+      <span class="result-list-item-alternatives" ng-if="showAlternatives(itineraryIndex)">
+
+
+
+        ALTERNATIVES
+
+
+
+        <span class="result-list-item-alternatives-footer">
+          <a class="result-list-item-footer-action-link" ng-click="toggleAlternatives(itineraryIndex)">hide alternatives</a>
+        </span>
+      </span>
+
+      <span class="result-list-item-footer" ng-hide="showAlternatives(itineraryIndex)">
         <span class="result-list-item-footer-details">
           <span class="result-list-item-price">
             {{ itinerary['price'].toFixed(2) }}
@@ -75,7 +88,7 @@
 
          <span class="result-list-item-footer-action">
           <a ng-click="selectTrip(itineraryIndex)" class="button">{{ 'result.list.select' | translate }}</a>
-          <a class="result-list-item-footer-action-link" href="">show timing alternatives</a>
+          <a class="result-list-item-footer-action-link" ng-click="toggleAlternatives(itineraryIndex)">show timing alternatives</a>
         </span>
 
         <span class="result-list-item-annotation"
@@ -85,4 +98,20 @@
       </span>
     </li>
   </ul>
+
+  <!--
+  <span class="result-segment-alternatives"
+        ng-if="segment['alternatives'] && segment['alternatives'].length && (segment['isMajor'] && majorAlternatives || !segment['isMajor'] && minorAlternatives)">
+
+    <select ng-model="timingSelection"
+            ng-change="alternativeChange(timingSelection, undefined)"
+            class="result-segment-alternatives">
+      <option value=""></option>
+      <option ng-repeat="alternative in segment['alternatives']" value="{{ $index }}">
+        {{ alternative['departureTime'] | dateFormatter }} - {{ alternative['arrivalTime'] | dateFormatter }} ->
+        <span ng-if="alternative['price']">{{ alternative['price']['amount'].toFixed(2) }} {{ alternative['price']['currency'] | uppercase }}</span>
+      </option>
+    </select>
+  </span>
+  -->
 </div>

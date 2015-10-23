@@ -33,555 +33,589 @@ module Result {
                 public TRANSFER_TIME,
                 public $q: ng.IQService) {
 
-      }
+    }
 
-      link = (scope, element, attrs) => {
-        this.scopeService = scope;
-        this.scopeService.showDetails = 'showDetails' in attrs;
+    link = (scope, element, attrs) => {
+      this.scopeService = scope;
+      this.scopeService.showDetails = 'showDetails' in attrs;
 
-        // how much percent per minute
-        this.scopeService.dimensions = {
-          ratio: 0
-        };
-
-        // the original ration to go back to after zooming
-        this.scopeService.originalRatio = 0;
-
-        // defining the latest/earliest point in time of the given itineraries
-        this.scopeService.earliestDeparture = undefined;
-        this.scopeService.latestArrival = undefined;
-
-        // functions for the segments to call
-        this.scopeService.defineMarginLeft = this.defineMarginLeft;
-        this.scopeService.setDimensions = this.setDimensions;
-
-        // the alternative rendering logic
-        this.scopeService.getAlternativeIndex = this.getAlternativeIndex;
-        this.scopeService.getTimingIndex = this.getTimingIndex;
-
-        // the alternatives selection logic
-        this.scopeService.selectAlternative = this.selectAlternative;
-        this.scopeService.renderTimeLine = this.renderTimeLine;
-
-        this.scopeService.selectTrip = (index) => {
-          // we must call the bound function with an object that has keys
-          // corresponding to the function parameters given in the binding
-          this.scopeService.selectItinerary({ index: index });
-        };
-
-        // only initialize the trip segment container, when itineraries are available
-        this.scopeService.$watch('itineraries', () => {
-
-          if(this.scopeService.itineraries != null) {
-            // initialize the boundaries for the segments
-            this.defineBoundaries();
-            this.calculateDimensions();
-
-            this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
-
-            this.scopeService.$broadcast('dimensionChange', {
-              ratio: this.scopeService.dimensions.ratio
-            });
-          }
-        });
+      // how much percent per minute
+      this.scopeService.dimensions = {
+        ratio: 0
       };
 
-      /**
-        * Will be called to zoom within the segment container.
-        *
-        * @param dimensionData
-        */
-      setDimensions = (dimensionData:any) => {
+      this.scopeService.showAlternatives = {};
 
-        if(!dimensionData) {
-          // set back to original dimensions
+      // the original ration to go back to after zooming
+      this.scopeService.originalRatio = 0;
+
+      // defining the latest/earliest point in time of the given itineraries
+      this.scopeService.earliestDeparture = undefined;
+      this.scopeService.latestArrival = undefined;
+
+      // functions for the segments to call
+      this.scopeService.defineMarginLeft = this.defineMarginLeft;
+      this.scopeService.setDimensions = this.setDimensions;
+
+      // the alternative rendering logic
+      this.scopeService.getAlternativeIndex = this.getAlternativeIndex;
+      this.scopeService.getTimingIndex = this.getTimingIndex;
+      this.scopeService.toggleAlternatives = this.toggleAlternatives;
+      this.scopeService.showAlternatives = this.showAlternatives;
+
+      // the alternatives selection logic
+      this.scopeService.selectAlternative = this.selectAlternative;
+      this.scopeService.renderTimeLine = this.renderTimeLine;
+
+      this.scopeService.selectTrip = (index) => {
+        // we must call the bound function with an object that has keys
+        // corresponding to the function parameters given in the binding
+        this.scopeService.selectItinerary({ index: index });
+      };
+
+      // only initialize the trip segment container, when itineraries are available
+      this.scopeService.$watch('itineraries', () => {
+
+        if(this.scopeService.itineraries != null) {
+          // initialize the boundaries for the segments
           this.defineBoundaries();
-
-          this.scopeService.dimensions = {
-            ratio: this.scopeService.originalRatio
-          };
-        }
-        else {
-          // set new dimensions
-          var boundaryData = {
-            start: dimensionData['interval']['start'],
-            end: dimensionData['interval']['end']
-          };
-
-          this.defineBoundaries(boundaryData);
+          this.calculateDimensions();
 
           this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
-          this.scopeService.dimensions = {
-            ratio: dimensionData['ratio']
-          };
-        }
 
-        this.scopeService.$broadcast('dimensionChange', {
-          ratio: this.scopeService.dimensions.ratio
-        });
-      };
-
-      /**
-        *
-        *
-        * @param boundaryData
-        */
-      defineBoundaries = (boundaryData?:any) => {
-
-        // reset boundaries
-        this.scopeService.earliestDeparture = undefined;
-        this.scopeService.latestArrival = undefined;
-
-        if(boundaryData) {
-          var intervalStart = boundaryData['start'];
-          var intervalEnd = boundaryData['end'];
-
-          this.setBoundaries(intervalStart, intervalEnd);
-        }
-        else {
-          this.scopeService.itineraries.forEach((itinerary) => {
-
-            if(itinerary) {
-              var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
-              var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
-
-              if(departureTime && arrivalTime)
-                this.setBoundaries(departureTime, arrivalTime);
-              else
-                console.error("Itinerary has no departure or arrival time defined.")
-            }
+          this.scopeService.$broadcast('dimensionChange', {
+            ratio: this.scopeService.dimensions.ratio
           });
         }
-      };
+      });
+    };
 
-      /**
-        *
-        *
-        * @param intervalStart
-        * @param intervalEnd
-        */
-      setBoundaries = (intervalStart: moment.Moment,
-                       intervalEnd: moment.Moment) => {
+    /**
+      * Will be called to zoom within the segment container.
+      *
+      * @param dimensionData
+      */
+    setDimensions = (dimensionData:any) => {
 
-        var appointmentTime =
-          moment(this.scopeService.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
-        var targetDate = this.scopeService.timing['targetDate'];
+      if(!dimensionData) {
+        // set back to original dimensions
+        this.defineBoundaries();
 
-        if (targetDate) {
-          // optimize towards target date
-          if (this.scopeService.earliestDeparture == undefined || intervalStart.isBefore(this.scopeService.earliestDeparture))
-            this.scopeService.earliestDeparture = intervalStart.clone();
+        this.scopeService.dimensions = {
+          ratio: this.scopeService.originalRatio
+        };
+      }
+      else {
+        // set new dimensions
+        var boundaryData = {
+          start: dimensionData['interval']['start'],
+          end: dimensionData['interval']['end']
+        };
 
-          // set latest arrival time
-          if(!this.scopeService.showDetails)
-            this.scopeService.latestArrival = appointmentTime;
-          else if (this.scopeService.latestArrival == undefined || intervalEnd.isAfter(this.scopeService.latestArrival))
-            this.scopeService.latestArrival = intervalEnd.clone();
-        }
-        else {
-          // optimize from given date
-          if (this.scopeService.latestArrival == undefined || intervalEnd.isAfter(this.scopeService.latestArrival))
-            this.scopeService.latestArrival = intervalEnd.clone();
+        this.defineBoundaries(boundaryData);
 
-          // set earliest departure time
-          if(!this.scopeService.showDetails)
-            this.scopeService.earliestDeparture = appointmentTime;
-          else if (this.scopeService.earliestDeparture == undefined || intervalStart.isBefore(this.scopeService.earliestDeparture))
-            this.scopeService.earliestDeparture = intervalStart.clone();
-        }
-      };
+        this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
+        this.scopeService.dimensions = {
+          ratio: dimensionData['ratio']
+        };
+      }
+
+      this.scopeService.$broadcast('dimensionChange', {
+        ratio: this.scopeService.dimensions.ratio
+      });
+    };
+
+    /**
+      *
+      *
+      * @param boundaryData
+      */
+    defineBoundaries = (boundaryData?:any) => {
+
+      // reset boundaries
+      this.scopeService.earliestDeparture = undefined;
+      this.scopeService.latestArrival = undefined;
+
+      if(boundaryData) {
+        var intervalStart = boundaryData['start'];
+        var intervalEnd = boundaryData['end'];
+
+        this.setBoundaries(intervalStart, intervalEnd);
+      }
+      else {
+        this.scopeService.itineraries.forEach((itinerary) => {
+
+          if(itinerary) {
+            var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
+            var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
+
+            if(departureTime && arrivalTime)
+              this.setBoundaries(departureTime, arrivalTime);
+            else
+              console.error("Itinerary has no departure or arrival time defined.")
+          }
+        });
+      }
+    };
+
+    /**
+      *
+      *
+      * @param intervalStart
+      * @param intervalEnd
+      */
+    setBoundaries = (intervalStart: moment.Moment,
+                     intervalEnd: moment.Moment) => {
+
+      var appointmentTime =
+        moment(this.scopeService.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
+      var targetDate = this.scopeService.timing['targetDate'];
+
+      if (targetDate) {
+        // optimize towards target date
+        if (this.scopeService.earliestDeparture == undefined || intervalStart.isBefore(this.scopeService.earliestDeparture))
+          this.scopeService.earliestDeparture = intervalStart.clone();
+
+        // set latest arrival time
+        if(!this.scopeService.showDetails)
+          this.scopeService.latestArrival = appointmentTime;
+        else if (this.scopeService.latestArrival == undefined || intervalEnd.isAfter(this.scopeService.latestArrival))
+          this.scopeService.latestArrival = intervalEnd.clone();
+      }
+      else {
+        // optimize from given date
+        if (this.scopeService.latestArrival == undefined || intervalEnd.isAfter(this.scopeService.latestArrival))
+          this.scopeService.latestArrival = intervalEnd.clone();
+
+        // set earliest departure time
+        if(!this.scopeService.showDetails)
+          this.scopeService.earliestDeparture = appointmentTime;
+        else if (this.scopeService.earliestDeparture == undefined || intervalStart.isBefore(this.scopeService.earliestDeparture))
+          this.scopeService.earliestDeparture = intervalStart.clone();
+      }
+    };
 
 
-      /**
-        * Sets the ratio for the trip time line.
-        */
-      calculateDimensions = () => {
+    /**
+      * Sets the ratio for the trip time line.
+      */
+    calculateDimensions = () => {
 
-        if(this.scopeService.latestArrival && this.scopeService.earliestDeparture) {
-          var tripDuration =
-            this.scopeService.latestArrival.diff(this.scopeService.earliestDeparture, 'minutes');
+      if(this.scopeService.latestArrival && this.scopeService.earliestDeparture) {
+        var tripDuration =
+          this.scopeService.latestArrival.diff(this.scopeService.earliestDeparture, 'minutes');
 
-          this.scopeService.dimensions = {
-            ratio: 100 / tripDuration
-          };
-        }
-      };
+        this.scopeService.dimensions = {
+          ratio: 100 / tripDuration
+        };
+      }
+    };
 
-      /**
-        *
-        *
-        * @param timeString
-        * @returns {number}
-        */
-      defineMarginLeft = (timeString:string) => {
+    /**
+      *
+      *
+      * @param timeString
+      * @returns {number}
+      */
+    defineMarginLeft = (timeString:string) => {
 
-        var time = moment(timeString, 'YYYY-MM-DDTHH:mm:ss');
+      var time = moment(timeString, 'YYYY-MM-DDTHH:mm:ss');
 
-        var margin = 0;
+      var margin = 0;
 
-        if(this.scopeService.earliestDeparture != undefined) {
-          margin = this.scopeService.dimensions.ratio *
-            time.diff(this.scopeService.earliestDeparture, 'minutes');
-        }
+      if(this.scopeService.earliestDeparture != undefined) {
+        margin = this.scopeService.dimensions.ratio *
+          time.diff(this.scopeService.earliestDeparture, 'minutes');
+      }
 
-        return margin;
-      };
+      return margin;
+    };
 
-      /**
-        * Checks if an alternative for a segment was selected and returns the
-        * index position in the given container.
-        *
-        * @param itineraryIndex
-        * @param containerIndex
-        * @returns {number}
-        */
-      getAlternativeIndex = (itineraryIndex:number,
-                             containerIndex:number) => {
+    /**
+      * Checks if an alternative for a segment was selected and returns the
+      * index position in the given container.
+      *
+      * @param itineraryIndex
+      * @param containerIndex
+      * @returns {number}
+      */
+    getAlternativeIndex = (itineraryIndex:number,
+                           containerIndex:number) => {
 
-        // check if selection has an entry matching the given arguments
-        var selectionKey = itineraryIndex + '-' + containerIndex;
+      // check if selection has an entry matching the given arguments
+      var selectionKey = itineraryIndex + '-' + containerIndex;
 
-        for(var key in this.scopeService.selection) {
-          if(this.scopeService.selection.hasOwnProperty(key)) {
+      for(var key in this.scopeService.selection) {
+        if(this.scopeService.selection.hasOwnProperty(key)) {
 
-            if(key.indexOf(selectionKey) == 0) {
-              // we have a match
-              var selection = this.scopeService.selection[key];
+          if(key.indexOf(selectionKey) == 0) {
+            // we have a match
+            var selection = this.scopeService.selection[key];
 
-              if(selection.hasOwnProperty('alternativeIndex') &&
-                 selection['alternativeIndex'] != undefined) {
+            if(selection.hasOwnProperty('alternativeIndex') &&
+               selection['alternativeIndex'] != undefined) {
 
-                return selection['alternativeIndex'];
-              }
+              return selection['alternativeIndex'];
             }
           }
         }
+      }
 
-        return 0;
+      return 0;
+    };
+
+    /**
+      * Checks if an alternative timing for a segment was selected and returns
+      * the index position in the given segment's timing alternatives array.
+      *
+      * @param itineraryIndex
+      * @param containerIndex
+      * @param segmentIndex
+      * @returns {number}
+      */
+    getTimingIndex = (itineraryIndex:number,
+                      containerIndex:number,
+                      segmentIndex:number) => {
+
+      // check if selection has an entry matching the given arguments
+      var selectionKey =
+        itineraryIndex + '-' + containerIndex + '-' + segmentIndex;
+
+      if(this.scopeService.selection.hasOwnProperty(selectionKey)) {
+
+        var selection = this.scopeService.selection[selectionKey];
+
+        if(selection.hasOwnProperty('timingIndex') &&
+          selection['timingIndex'] != undefined) {
+          return selection['timingIndex'];
+        }
+      }
+
+      return 0;
+    };
+
+    /**
+     *
+     *
+     * @param routeIndex
+     */
+    toggleAlternatives = (routeIndex:number) => {
+
+      // TODO implement
+      if(!this.scopeService.showAlternatives.hasOwnProperty(routeIndex))
+        this.scopeService.showAlternatives[routeIndex] = true;
+      else
+        this.scopeService.showAlternatives[routeIndex] =
+          !this.scopeService.showAlternatives[routeIndex];
+    }
+
+    /**
+     *
+     *
+     * @param routeIndex
+     */
+    showAlternatives = (routeIndex:number) => {
+
+      if(this.scopeService.showAlternatives.hasOwnProperty(routeIndex)) {
+        if(this.scopeService.showAlternatives[routeIndex] === true)
+          return true;
+      }
+
+      return false;
+    }
+
+    /**
+     *
+     *
+     * @param itineraryIndex
+     * @param containerIndex
+     * @param segmentIndex
+     * @param alternativeIndex
+     * @param timingIndex
+     */
+    selectAlternative = (itineraryIndex:number,
+                         containerIndex:number,
+                         segmentIndex:number,
+                         alternativeIndex:number,
+                         timingIndex:number) => {
+
+      // store alternative in selection data structure
+      var selectionKey =
+        itineraryIndex + '-' + containerIndex + '-' + segmentIndex;
+
+      this.scopeService.selection[selectionKey] = {
+        alternativeIndex: alternativeIndex,
+        timingIndex: timingIndex
       };
 
-      /**
-        * Checks if an alternative timing for a segment was selected and returns
-        * the index position in the given segment's timing alternatives array.
-        *
-        * @param itineraryIndex
-        * @param containerIndex
-        * @param segmentIndex
-        * @returns {number}
-        */
-      getTimingIndex = (itineraryIndex:number,
-                        containerIndex:number,
-                        segmentIndex:number) => {
+      this.$q((resolve, reject) => {
 
-        // check if selection has an entry matching the given arguments
-        var selectionKey =
-          itineraryIndex + '-' + containerIndex + '-' + segmentIndex;
-
-        if(this.scopeService.selection.hasOwnProperty(selectionKey)) {
-
-          var selection = this.scopeService.selection[selectionKey];
-
-          if(selection.hasOwnProperty('timingIndex') &&
-            selection['timingIndex'] != undefined) {
-            return selection['timingIndex'];
-          }
+        if(alternativeIndex != undefined) {
+          // the new segments are automatically replaced during the next
+          // rendering process. In the trip-segments-container template the
+          // getAlternativeIndex(...) function is called to get the selected
+          // alternatives.
         }
 
-        return 0;
-      };
+        if(timingIndex != undefined) {
+          // a different timing for the given segment index is selected, so
+          // the segment's size and position will change. The adjacent segments
+          // must be adapted or new timings must be retrieved from the back end
 
-      /**
-        *
-        *
-        * @param itineraryIndex
-        * @param containerIndex
-        * @param segmentIndex
-        * @param alternativeIndex
-        * @param timingIndex
-        */
-      selectAlternative = (itineraryIndex:number,
-                           containerIndex:number,
-                           segmentIndex:number,
-                           alternativeIndex:number,
-                           timingIndex:number) => {
+          var itinerary = this.scopeService.itineraries[itineraryIndex];
+          var container = itinerary['segmentsContainer'][containerIndex];
+          var segment = container['alternatives'][0][segmentIndex];
+          var alternative = segment['alternatives'][timingIndex];
 
-        // store alternative in selection data structure
-        var selectionKey =
-          itineraryIndex + '-' + containerIndex + '-' + segmentIndex;
+          if(container['isMajor']) {
 
-        this.scopeService.selection[selectionKey] = {
-          alternativeIndex: alternativeIndex,
-          timingIndex: timingIndex
-        };
+            var numberOfMajorContainers =
+              itinerary['segmentsContainer'].filter((containerItem) => {
+                return !!containerItem['isMajor'];
+            }).length;
 
-        this.$q((resolve, reject) => {
-
-          if(alternativeIndex != undefined) {
-            // the new segments are automatically replaced during the next
-            // rendering process. In the trip-segments-container template the
-            // getAlternativeIndex(...) function is called to get the selected
-            // alternatives.
+            if(numberOfMajorContainers > 1) {
+              // other major container is present
+              this.scopeService.updateItinerary({ index: itineraryIndex })
+                .then(resolve).catch(reject);
+            }
+            else {
+              // no other major container is present -> update segment data
+              this.overWriteSegment(segment, alternative);
+              this.updateItineraryData(itineraryIndex);
+              resolve();
+            }
           }
+          else {
+            // minor container
+            var numberOfSegmentsInContainer = container['alternatives'][0].length;
 
-          if(timingIndex != undefined) {
-            // a different timing for the given segment index is selected, so
-            // the segment's size and position will change. The adjacent segments
-            // must be adapted or new timings must be retrieved from the back end
+            if(numberOfSegmentsInContainer > 1) {
 
-            var itinerary = this.scopeService.itineraries[itineraryIndex];
-            var container = itinerary['segmentsContainer'][containerIndex];
-            var segment = container['alternatives'][0][segmentIndex];
-            var alternative = segment['alternatives'][timingIndex];
+              var otherPublicTransportSegments =
+                container['alternatives'][0].some((segmentItem, index) => {
+                  if(segmentItem['type'] == this.VEHICLE_TYPE.bus ||
+                    segmentItem['type'] == this.VEHICLE_TYPE.train ||
+                    segmentItem['type'] == this.VEHICLE_TYPE.subway) {
 
-            if(container['isMajor']) {
+                    // check if the segment is different from the one that
+                    // the alternative was selected for
+                    if(index != segmentIndex) return true;
+                  }
+                  return false;
+                });
 
-              var numberOfMajorContainers =
-                itinerary['segmentsContainer'].filter((containerItem) => {
-                  return !!containerItem['isMajor'];
-              }).length;
-
-              if(numberOfMajorContainers > 1) {
-                // other major container is present
+              if(otherPublicTransportSegments) {
+                // other segments are in the container with type public transport
                 this.scopeService.updateItinerary({ index: itineraryIndex })
                   .then(resolve).catch(reject);
               }
               else {
-                // no other major container is present -> update segment data
+                // only segments with type individual transport are in the container
                 this.overWriteSegment(segment, alternative);
+                this.adaptTimings(container, segmentIndex);
                 this.updateItineraryData(itineraryIndex);
                 resolve();
               }
             }
             else {
-              // minor container
-              var numberOfSegmentsInContainer = container['alternatives'][0].length;
-
-              if(numberOfSegmentsInContainer > 1) {
-
-                var otherPublicTransportSegments =
-                  container['alternatives'][0].some((segmentItem, index) => {
-                    if(segmentItem['type'] == this.VEHICLE_TYPE.bus ||
-                      segmentItem['type'] == this.VEHICLE_TYPE.train ||
-                      segmentItem['type'] == this.VEHICLE_TYPE.subway) {
-
-                      // check if the segment is different from the one that
-                      // the alternative was selected for
-                      if(index != segmentIndex) return true;
-                    }
-                    return false;
-                  });
-
-                if(otherPublicTransportSegments) {
-                  // other segments are in the container with type public transport
-                  this.scopeService.updateItinerary({ index: itineraryIndex })
-                    .then(resolve).catch(reject);
-                }
-                else {
-                  // only segments with type individual transport are in the container
-                  this.overWriteSegment(segment, alternative);
-                  this.adaptTimings(container, segmentIndex);
-                  this.updateItineraryData(itineraryIndex);
-                  resolve();
-                }
-              }
-              else {
-                // no other segment is in the container
-                this.overWriteSegment(segment, alternative);
-                this.updateItineraryData(itineraryIndex);
-                resolve();
-              }
+              // no other segment is in the container
+              this.overWriteSegment(segment, alternative);
+              this.updateItineraryData(itineraryIndex);
+              resolve();
             }
           }
-        })
-        .catch((err) => {
-          console.error("Could not select alternative: " + err);
-        })
-        .then(() => {
-          // no matter what happened, the time line should be refreshed
-          this.renderTimeLine();
-        });
-      };
-
-      /**
-        * Overwrites the segment's data with the data from the alternative.
-        *
-        * @param segment
-        * @param alternative
-        */
-      overWriteSegment = (segment, alternative) => {
-
-        segment['departureTime'] = alternative['departureTime'];
-        segment['arrivalTime'] = alternative['arrivalTime'];
-        segment['duration'] = alternative['duration'];
-
-        if(alternative['price'])
-          segment['price'] = alternative['price'];
-      };
-
-      /**
-        * Adapts the timings of all segments based on the segment given by the
-        * segmentIndex.
-        *
-        * @param container
-        * @param segmentIndex
-        */
-      adaptTimings = (container, segmentIndex) => {
-        // the idea is to adapt all timings starting from the segmentIndex
-        // so for all segments smaller than the segmentIndex and for all
-        // segments bigger than segmentIndex
-
-        var segment = container['alternatives'][0][segmentIndex];
-
-        var timeFormat = 'YYYY-MM-DDTHH:mm:ss';
-        var departureTime = moment(segment['departureTime'], timeFormat);
-        var arrivalTime = moment(segment['arrivalTime'], timeFormat);
-
-        var segmentsList = container['alternatives'][0];
-
-        var i;
-        for(i=segmentIndex + 1; i<segmentsList.length; i++) {
-
-          var subsequentDepartureTime =
-            moment(segmentsList[i]['departureTime'], timeFormat);
-          var subsequentDuration =
-            moment.duration(segmentsList[i]['duration'], 'minutes');
-
-          if(subsequentDepartureTime.isBefore(arrivalTime) ||
-            subsequentDepartureTime.diff(arrivalTime, 'minutes') > 10) {
-
-            departureTime = arrivalTime.clone().add(this.TRANSFER_TIME, 'minutes');
-            arrivalTime = departureTime.clone().add(subsequentDuration);
-
-            segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
-            segmentsList[i]['arrivalTime'] = arrivalTime.format(timeFormat);
-          }
         }
+      })
+      .catch((err) => {
+        console.error("Could not select alternative: " + err);
+      })
+      .then(() => {
+        // no matter what happened, the time line should be refreshed
+        this.renderTimeLine();
+      });
+    };
 
-        // now do the same for all segments smaller than the segmentIndex
-        departureTime = moment(segment['departureTime'], timeFormat);
-        arrivalTime = moment(segment['arrivalTime'], timeFormat);
+    /**
+      * Overwrites the segment's data with the data from the alternative.
+      *
+      * @param segment
+      * @param alternative
+      */
+    overWriteSegment = (segment, alternative) => {
 
-        for(i=segmentIndex - 1; i>=0; i--) {
+      segment['departureTime'] = alternative['departureTime'];
+      segment['arrivalTime'] = alternative['arrivalTime'];
+      segment['duration'] = alternative['duration'];
 
-          var previousArrivalTime =
-            moment(segmentsList[i]['arrivalTime'], timeFormat);
-          var previousDuration =
-            moment.duration(segmentsList[i]['duration'], 'minutes');
+      if(alternative['price'])
+        segment['price'] = alternative['price'];
+    };
 
-          if(previousArrivalTime.isAfter(departureTime) ||
-            departureTime.diff(previousArrivalTime, 'minutes') > 10) {
+    /**
+      * Adapts the timings of all segments based on the segment given by the
+      * segmentIndex.
+      *
+      * @param container
+      * @param segmentIndex
+      */
+    adaptTimings = (container, segmentIndex) => {
+      // the idea is to adapt all timings starting from the segmentIndex
+      // so for all segments smaller than the segmentIndex and for all
+      // segments bigger than segmentIndex
 
-            arrivalTime = departureTime.clone().subtract(this.TRANSFER_TIME, 'minutes');
-            departureTime = arrivalTime.clone().subtract(previousDuration);
+      var segment = container['alternatives'][0][segmentIndex];
 
-            segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
-            segmentsList[i]['arrivalTime'] = arrivalTime.format(timeFormat);
-          }
+      var timeFormat = 'YYYY-MM-DDTHH:mm:ss';
+      var departureTime = moment(segment['departureTime'], timeFormat);
+      var arrivalTime = moment(segment['arrivalTime'], timeFormat);
+
+      var segmentsList = container['alternatives'][0];
+
+      var i;
+      for(i=segmentIndex + 1; i<segmentsList.length; i++) {
+
+        var subsequentDepartureTime =
+          moment(segmentsList[i]['departureTime'], timeFormat);
+        var subsequentDuration =
+          moment.duration(segmentsList[i]['duration'], 'minutes');
+
+        if(subsequentDepartureTime.isBefore(arrivalTime) ||
+          subsequentDepartureTime.diff(arrivalTime, 'minutes') > 10) {
+
+          departureTime = arrivalTime.clone().add(this.TRANSFER_TIME, 'minutes');
+          arrivalTime = departureTime.clone().add(subsequentDuration);
+
+          segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
+          segmentsList[i]['arrivalTime'] = arrivalTime.format(timeFormat);
         }
-      };
+      }
 
-      /**
-        * Updates itinerary data after changes to the underlying segments have
-        * been made. The itinerary data to be updates is:
-        * Departure time, arrival time, duration and price
-        *
-        * @param itineraryIndex
-        */
-      updateItineraryData = (itineraryIndex) => {
+      // now do the same for all segments smaller than the segmentIndex
+      departureTime = moment(segment['departureTime'], timeFormat);
+      arrivalTime = moment(segment['arrivalTime'], timeFormat);
 
-        var itinerary = this.scopeService.itineraries[itineraryIndex];
+      for(i=segmentIndex - 1; i>=0; i--) {
 
-        // define itinerary price
-        var totalPrice =
-          itinerary['segmentsContainer'].map((container, containerIndex) => {
+        var previousArrivalTime =
+          moment(segmentsList[i]['arrivalTime'], timeFormat);
+        var previousDuration =
+          moment.duration(segmentsList[i]['duration'], 'minutes');
 
-            var alternativeIndex =
-              this.getAlternativeIndex(itineraryIndex, containerIndex);
+        if(previousArrivalTime.isAfter(departureTime) ||
+          departureTime.diff(previousArrivalTime, 'minutes') > 10) {
 
-            return container['alternatives'][alternativeIndex].map((segment) => {
-              return segment.hasOwnProperty('price') ? segment['price']['amount'] : 0;
-            }).reduce((previousValue, currentValue) => {
-              return previousValue + currentValue;
-            });
+          arrivalTime = departureTime.clone().subtract(this.TRANSFER_TIME, 'minutes');
+          departureTime = arrivalTime.clone().subtract(previousDuration);
+
+          segmentsList[i]['departureTime'] = departureTime.format(timeFormat);
+          segmentsList[i]['arrivalTime'] = arrivalTime.format(timeFormat);
+        }
+      }
+    };
+
+    /**
+      * Updates itinerary data after changes to the underlying segments have
+      * been made. The itinerary data to be updates is:
+      * Departure time, arrival time, duration and price
+      *
+      * @param itineraryIndex
+      */
+    updateItineraryData = (itineraryIndex) => {
+
+      var itinerary = this.scopeService.itineraries[itineraryIndex];
+
+      // define itinerary price
+      var totalPrice =
+        itinerary['segmentsContainer'].map((container, containerIndex) => {
+
+          var alternativeIndex =
+            this.getAlternativeIndex(itineraryIndex, containerIndex);
+
+          return container['alternatives'][alternativeIndex].map((segment) => {
+            return segment.hasOwnProperty('price') ? segment['price']['amount'] : 0;
           }).reduce((previousValue, currentValue) => {
             return previousValue + currentValue;
           });
+        }).reduce((previousValue, currentValue) => {
+          return previousValue + currentValue;
+        });
 
 
-        // define itinerary departure time
-        var departureTime:moment.Moment = null;
-        var startDuration = 0;
+      // define itinerary departure time
+      var departureTime:moment.Moment = null;
+      var startDuration = 0;
 
-        var i, j;
-        var container, alternativeIndex, segment;
+      var i, j;
+      var container, alternativeIndex, segment;
 
-        for(i=0; i<itinerary['segmentsContainer'].length; i++) {
+      for(i=0; i<itinerary['segmentsContainer'].length; i++) {
+        if(departureTime != null) break;
+
+        container = itinerary['segmentsContainer'][i];
+        alternativeIndex = this.getAlternativeIndex(itineraryIndex, i);
+
+        for(j=0; j<container['alternatives'][alternativeIndex].length; j++) {
           if(departureTime != null) break;
 
-          container = itinerary['segmentsContainer'][i];
-          alternativeIndex = this.getAlternativeIndex(itineraryIndex, i);
+          segment = container['alternatives'][alternativeIndex][j];
 
-          for(j=0; j<container['alternatives'][alternativeIndex].length; j++) {
-            if(departureTime != null) break;
-
-            segment = container['alternatives'][alternativeIndex][j];
-
-            if(segment.hasOwnProperty("departureTime") && segment['departureTime'] != "") {
-              departureTime =
-                moment(segment['departureTime'], 'YYYY-MM-DDTHH:mm:ss')
-                  .subtract(startDuration, 'minutes');
-            }
-            else {
-              startDuration += (segment['duration'] + this.TRANSFER_TIME);
-            }
+          if(segment.hasOwnProperty("departureTime") && segment['departureTime'] != "") {
+            departureTime =
+              moment(segment['departureTime'], 'YYYY-MM-DDTHH:mm:ss')
+                .subtract(startDuration, 'minutes');
+          }
+          else {
+            startDuration += (segment['duration'] + this.TRANSFER_TIME);
           }
         }
+      }
 
-        // define itinerary arrival time
-        var arrivalTime:moment.Moment = null;
-        var endDuration = 0;
+      // define itinerary arrival time
+      var arrivalTime:moment.Moment = null;
+      var endDuration = 0;
 
-        for(i=itinerary['segmentsContainer'].length - 1; i>=0; i--) {
+      for(i=itinerary['segmentsContainer'].length - 1; i>=0; i--) {
+        if(arrivalTime != null) break;
+
+        container = itinerary['segmentsContainer'][i];
+        alternativeIndex = this.getAlternativeIndex(itineraryIndex, i);
+
+        for(j=container['alternatives'][alternativeIndex].length - 1; j>=0; j--) {
           if(arrivalTime != null) break;
 
-          container = itinerary['segmentsContainer'][i];
-          alternativeIndex = this.getAlternativeIndex(itineraryIndex, i);
+          segment = container['alternatives'][alternativeIndex][j];
 
-          for(j=container['alternatives'][alternativeIndex].length - 1; j>=0; j--) {
-            if(arrivalTime != null) break;
-
-            segment = container['alternatives'][alternativeIndex][j];
-
-            if(segment.hasOwnProperty("arrivalTime") && segment['arrivalTime'] != "") {
-              arrivalTime =
-                moment(segment['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss')
-                  .add(endDuration, 'minutes');
-            }
-            else {
-              endDuration += (segment['duration'] + this.TRANSFER_TIME);
-            }
+          if(segment.hasOwnProperty("arrivalTime") && segment['arrivalTime'] != "") {
+            arrivalTime =
+              moment(segment['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss')
+                .add(endDuration, 'minutes');
+          }
+          else {
+            endDuration += (segment['duration'] + this.TRANSFER_TIME);
           }
         }
+      }
 
-        itinerary['departureTime'] = departureTime.format('YYYY-MM-DDTHH:mm:ss');
-        itinerary['arrivalTime'] = arrivalTime.format('YYYY-MM-DDTHH:mm:ss');
-        itinerary['duration'] = arrivalTime.diff(departureTime, 'minutes');
-        itinerary['price'] = totalPrice;
-      };
+      itinerary['departureTime'] = departureTime.format('YYYY-MM-DDTHH:mm:ss');
+      itinerary['arrivalTime'] = arrivalTime.format('YYYY-MM-DDTHH:mm:ss');
+      itinerary['duration'] = arrivalTime.diff(departureTime, 'minutes');
+      itinerary['price'] = totalPrice;
+    };
 
-      /**
-        * Re-renders the time line.
-        */
-      renderTimeLine = () => {
+    /**
+      * Re-renders the time line.
+      */
+    renderTimeLine = () => {
 
-        this.defineBoundaries();
-        this.calculateDimensions();
+      this.defineBoundaries();
+      this.calculateDimensions();
 
-        this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
+      this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
 
-        this.scopeService.$broadcast('dimensionChange', {
-          ratio: this.scopeService.dimensions.ratio
-        });
-      };
-    }
- }
+      this.scopeService.$broadcast('dimensionChange', {
+        ratio: this.scopeService.dimensions.ratio
+      });
+    };
+  }
+}
