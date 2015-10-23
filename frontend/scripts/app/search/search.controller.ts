@@ -50,7 +50,7 @@ module Search {
       // configure date picker
       $scope.dateOptions = {
         formatYear: 'yyyy',
-        startingDay: 0
+        startingDay: language._activeLanguage.startingDay
       };
 
       // Disable weekend selection
@@ -66,10 +66,6 @@ module Search {
 
       $scope.timeString = moment($scope.schedule.time).format('HH:mm');
       $scope.isValidTimeString = true;
-
-      $scope.$watch(language._activeLanguage, () => {
-        $scope.startingDay = language.getActiveLanguage().startingDay;
-      });
 
       $scope.$watch('timeString', () => {
         this.validateTimeString((result, values) => {

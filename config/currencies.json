@@ -7,7 +7,8 @@
     "symbolOnLeft": false,
     "spaceBetweenAmountAndSymbol": true,
     "roundingCoefficient": 0,
-    "decimalDigits": 2
+    "decimalDigits": 2,
+    "isDefault": true
   },
   {
     "code": "usd",
