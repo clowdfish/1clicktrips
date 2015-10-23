@@ -60,6 +60,7 @@ module Result {
       // the alternative rendering logic
       this.scopeService.getAlternativeIndex = this.getAlternativeIndex;
       this.scopeService.getTimingIndex = this.getTimingIndex;
+      this.scopeService.isPrioritySegment = this.isPrioritySegment;
       this.scopeService.toggleAlternatives = this.toggleAlternatives;
       this.scopeService.showAlternatives = this.showAlternatives;
 
@@ -307,7 +308,7 @@ module Result {
       else
         this.scopeService.showAlternatives[routeIndex] =
           !this.scopeService.showAlternatives[routeIndex];
-    }
+    };
 
     /**
      *
@@ -322,7 +323,48 @@ module Result {
       }
 
       return false;
-    }
+    };
+
+    /**
+     *
+     *
+     * @param itineraryIndex
+     * @param containerIndex
+     * @param segmentIndex
+     * @returns {boolean}
+     */
+    isPrioritySegment = (itineraryIndex, containerIndex, segmentIndex) => {
+
+      var majorSegments = [];
+      var self = this;
+
+      this.scopeService.itineraries[itineraryIndex]['segmentsContainer'].forEach(function(container, containerIndex) {
+        container['alternatives'][self.getAlternativeIndex(itineraryIndex, containerIndex)].forEach(function(segment) {
+          if(segment['isMajor']) {
+            majorSegments.push({
+              index: containerIndex,
+              segment: segment
+            });
+          }
+        })
+      });
+
+      if(majorSegments.length === 1) {
+        return true;
+      }
+      else {
+        var isPriority = false;
+
+        majorSegments.forEach(function(majorSegment) {
+          if(majorSegment.segment['type'] == self.VEHICLE_TYPE.plane) {
+            if(majorSegment.index == containerIndex)
+              isPriority = true;
+          }
+        });
+
+        return isPriority;
+      }
+    };
 
     /**
      *

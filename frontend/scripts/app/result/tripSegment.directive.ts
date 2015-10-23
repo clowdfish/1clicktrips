@@ -104,6 +104,11 @@ module Result {
          */
         function zoomToSegment() {
 
+          if(scope.zoomState === 1) {
+            zoomOut();
+            return;
+          }
+
           if (scope.width < SEGMENT_ZOOM_THRESHOLD) {
             scope.zoomState = 1;
 
