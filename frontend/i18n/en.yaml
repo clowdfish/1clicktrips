@@ -35,6 +35,8 @@ common:
   dropzone:
     text: or drop your .ics file here
     error: File Drag/Drop is not supported for this browser
+  waiting:
+    reference: Dozing Bird based on
 footer:
   about:
     title: About

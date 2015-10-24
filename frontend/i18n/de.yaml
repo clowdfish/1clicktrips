@@ -35,6 +35,8 @@ common:
   dropzone:
     text: oder ziehe deine .ics Datei hier her
     error: Drag/Drop wird von deinem Browser nicht unterstützt
+  waiting:
+    reference: Dozing Bird basierend auf
 footer:
   about:
     title: Über uns

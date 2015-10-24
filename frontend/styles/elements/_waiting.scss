@@ -105,6 +105,11 @@ $timelineAccumulated: ();
     color: $c-text-waiting;
     display: inline-block;
     margin-bottom: 0.6em;
+    margin-top: 3em;
+
+    @include respond-above("x-small") {
+      margin-top: 0;
+    }
   }
 
   .waiting-message {
@@ -114,16 +119,27 @@ $timelineAccumulated: ();
   }
 
   .waiting-reference {
+    display: none;
     color: darken($c-text-waiting, 5%);
-    display: block;
     margin-top: 15em;
     font-weight: 200;
+
+    & > a {
+      color: $c-primary;
+    }
+
+    @include respond-above("x-small") {
+      display: block;
+    }
   }
 
   .globe {
+    display: none;
+    @include respond-above("x-small") {
+      display: block;
+    }
     margin: 3em auto;
     position: relative;
-    display: block;
     text-align: left;
     width: $bird-size;
     height: $bird-size;
@@ -401,9 +417,4 @@ $timelineAccumulated: ();
       }
     }
   }
-}
-
-
-@include respond-above("medium") {
-  $bird-size: 400px;
 }
