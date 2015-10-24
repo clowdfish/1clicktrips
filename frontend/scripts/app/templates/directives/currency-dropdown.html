@@ -1,5 +1,5 @@
 <div class="currency-dropdown dropdown"
-     ng-class="{ active: showCurrencyList }"
+     ng-class="{ active: showCurrencyList && !hideCurrencySelection(), invalid: hideCurrencySelection() }"
      ng-click="showCurrencyList = !showCurrencyList"
      ng-mouseenter="showCurrencyList = true"
      ng-mouseleave="showCurrencyList = false">
@@ -7,7 +7,7 @@
   <span class="dropdown-label">
     {{ selectedCurrency.code }}
   </span>
-  <ul ng-show="showCurrencyList">
+  <ul ng-show="showCurrencyList && !hideCurrencySelection()">
     <li ng-repeat="(code, currency) in currencies" ng-show="currency !== selectedCurrency" ng-click="selectCurrency(currency)">{{ currency.code }}</li>
   </ul>
 </div>

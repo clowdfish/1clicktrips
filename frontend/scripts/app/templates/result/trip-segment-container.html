@@ -60,13 +60,18 @@
               ng-class="{ focus: timing['targetDate'] }"></span>
       </span>
 
-      <span class="result-list-item-alternatives" ng-if="showAlternatives(itineraryIndex)">
+      <h2 class="result-list-alternatives-title"
+          ng-if="showAlternatives(itineraryIndex)">Timing alternatives</h2>
+      <a class="result-list-alternatives-hide"
+         ng-if="showAlternatives(itineraryIndex)"
+         ng-click="toggleAlternatives(itineraryIndex)">hide</a>
 
+      <span class="result-list-item-alternatives" ng-if="showAlternatives(itineraryIndex)">
         <span ng-repeat="container in itineraries[itineraryIndex]['segmentsContainer']"
               ng-init="containerIndex = $index">
           <span ng-repeat="segment in container['alternatives'][getAlternativeIndex(itineraryIndex, containerIndex)]"
                 ng-init="segmentIndex = $index"
-                ng-if="segment['departureTime'] && !showDetails && segment['isMajor'] && isPrioritySegment(itineraryIndex, containerIndex, $index)">
+                ng-if="segment['departureTime'] && !showDetails && segment['isMajor'] && isPrioritySegment(itineraryIndex, containerIndex)">
 
             <span ng-repeat="alternative in segment['alternatives']"
                   ng-init="timingIndex = $index"
@@ -104,16 +109,14 @@
                     ng-class="{ focus: timing['targetDate'] }"></span>
               </span>
               <span class="result-list-alternative-selection">
-                <span>{{ segment['alternatives'][timingIndex]['price']['amount'].toFixed(2) }}</span>
-                <i class="fa {{ segment['alternatives'][timingIndex]['price']['currency'] | currencyFormatter }}"></i>
+                <span class="result-list-alternative-pricing">
+                  <span>{{ segment['alternatives'][timingIndex]['price']['amount'].toFixed(2) }}</span>
+                  <i class="fa {{ segment['alternatives'][timingIndex]['price']['currency'] | currencyFormatter }}"></i>
+                </span>
                 <a class="button" ng-click="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">Select</a>
               </span>
             </span>
           </span>
-        </span>
-
-        <span class="result-list-item-alternatives-footer">
-          <a class="result-list-item-footer-action-link" ng-click="toggleAlternatives(itineraryIndex)">hide alternatives</a>
         </span>
       </span>
 
@@ -132,8 +135,8 @@
         </span>
 
         <span class="result-list-item-annotation"
-               ng-if="!annotation">
-          <span>*</span> {{ "Test to show some annotation" }}
+               ng-if="getAnnotation(itineraryIndex)">
+          <span>*</span> {{ getAnnotation(itineraryIndex) }}
         </span>
       </span>
     </li>

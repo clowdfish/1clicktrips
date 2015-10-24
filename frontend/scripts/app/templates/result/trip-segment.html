@@ -21,20 +21,22 @@
         ng-style="{ 'left': marginLeft + '%', 'max-width': width + '%' }">
     <i class="fa {{ segment['type'] | vehicleTypeToIcon }}"></i>
 
-    <span ng-if="segment['type'] == 16">
-      {{ segment['details']['carriers'][0]['name'] }}
-      {{ 'action.flight' | translate }}
-      {{ segment['details']['flightNumbers'][0]['flightNumber'] }}
-    </span>
+    <span ng-if="width > 3">
+       <span ng-if="segment['type'] == 16">
+        {{ segment['details']['carriers'][0]['name'] }}
+        {{ 'action.flight' | translate }}
+        {{ segment['details']['flightNumbers'][0]['flightNumber'] }}
+      </span>
 
-     <span ng-if="segment['type'] == 8 || segment['type'] == 4">
-      {{ segment['details']['line']['name'] }}
-      {{ 'result.connection.towards' | translate }}
-      {{ segment['details']['line']['headSign'] }}
-    </span>
+       <span ng-if="segment['type'] == 8 || segment['type'] == 4">
+        {{ segment['details']['line']['name'] }}
+        {{ 'result.connection.towards' | translate }}
+        {{ segment['details']['line']['headSign'] }}
+      </span>
 
-    <span ng-if="segment['type'] == 2">
-      {{ 'action.drive' | translate }}
+      <span ng-if="segment['type'] == 2">
+        {{ 'action.drive' | translate }}
+      </span>
     </span>
   </span>
 </span>

@@ -4,7 +4,7 @@ module Common {
 
   'use strict';
 
-  export function currencyDropdown(currency: Common.Currency) {
+  export function currencyDropdown(currency: Common.Currency, $state) {
     return {
       restrict: 'E',
       replace: true,
@@ -20,6 +20,15 @@ module Common {
       scope.currencies = currency.getAvailableCurrencies();
       scope.selectedCurrency = currency.getSelectedCurrency();
       scope.selectCurrency = selectCurrency;
+
+      /**
+       * Do not allow a change of currency in the result screen.
+       *
+       * @returns {boolean}
+       */
+      scope.hideCurrencySelection = function() {
+        return $state.includes('result');
+      };
 
       /**
        * Set selected currency.

@@ -54,12 +54,8 @@ module Result {
 
           scope.width = defineWidth(scope.segment, ratio);
 
-          //var oldMargin = scope.marginLeft;
-
           scope.marginLeft = scope.segment['departureTime'] ?
             scope.defineLeftMargin({time: scope.segment['departureTime']}) : 0;
-
-          //console.log("Old margin/new margin: " + oldMargin + "/" + scope.marginLeft);
         }
 
         /**

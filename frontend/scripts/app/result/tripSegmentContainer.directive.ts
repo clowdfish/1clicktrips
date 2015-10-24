@@ -64,6 +64,7 @@ module Result {
       this.scopeService.hasAlternatives = this.hasAlternatives;
       this.scopeService.toggleAlternatives = this.toggleAlternatives;
       this.scopeService.showAlternatives = this.showAlternatives;
+      this.scopeService.getAnnotation = this.getAnnotation;
 
       // the alternatives selection logic
       this.scopeService.selectAlternative = this.selectAlternative;
@@ -311,12 +312,12 @@ module Result {
     /**
      *
      *
-     * @param routeIndex
+     * @param itineraryIndex
      */
-    showAlternatives = (routeIndex:number) => {
+    showAlternatives = (itineraryIndex:number) => {
 
-      if(this.scopeService.showAlternatives.hasOwnProperty(routeIndex)) {
-        if(this.scopeService.showAlternatives[routeIndex] === true)
+      if(this.scopeService.showAlternatives.hasOwnProperty(itineraryIndex)) {
+        if(this.scopeService.showAlternatives[itineraryIndex] === true)
           return true;
       }
 
@@ -327,14 +328,37 @@ module Result {
      *
      *
      * @param itineraryIndex
+     * @returns {string}
+     */
+    getAnnotation = (itineraryIndex:number) => {
+
+      var self = this;
+      var annotationText = "";
+
+      this.scopeService.itineraries[itineraryIndex]['segmentsContainer'].forEach(function(container, containerIndex) {
+        container['alternatives'][self.getAlternativeIndex(itineraryIndex, containerIndex)].forEach(function(segment) {
+          if(segment['isMajor']) {
+            // handle annotations here
+            if(segment['type'] == self.VEHICLE_TYPE.car)
+              annotationText += segment['information'];
+          }
+        })
+      });
+
+      return annotationText;
+    };
+
+    /**
+     *
+     *
+     * @param itineraryIndex
      * @param containerIndex
-     * @param segmentIndex
      * @returns {boolean}
      */
-    isPrioritySegment = (itineraryIndex, containerIndex, segmentIndex) => {
+    isPrioritySegment = (itineraryIndex, containerIndex) => {
 
-      var majorSegments = [];
       var self = this;
+      var majorSegments = [];
 
       this.scopeService.itineraries[itineraryIndex]['segmentsContainer'].forEach(function(container, containerIndex) {
         container['alternatives'][self.getAlternativeIndex(itineraryIndex, containerIndex)].forEach(function(segment) {

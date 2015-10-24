@@ -38,6 +38,18 @@
         }
       }
     }
+
+    &.invalid {
+      color: $c-text-light;
+
+      &>.dropdown-label {
+        cursor: default;
+
+        &:after {
+          content: "";
+        }
+      }
+    }
   }
 
   .dropdown-label {
