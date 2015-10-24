@@ -7,7 +7,7 @@ module Common {
   /**
   * Convert a string to a duration format
   */
-  export function durationFormatter() {
+  export function durationFormatter($translate) {
 
     return function(duration, format) {
 
@@ -27,11 +27,22 @@ module Common {
             if(fullMinutes < 10) durationString += '0';
             return durationString + fullMinutes + '';
           case 'full':
-            var durationString = fullHours + ' hour';
-            durationString += fullHours != 1 ? 's ' : ' ';
+            var durationString = fullHours + " ";
+
+            if(fullHours != 1)
+              durationString += $translate.instant('general.time.hour.plural');
+            else
+              durationString += $translate.instant('general.time.hour.singular');
+
+            durationString += " ";
             if(fullMinutes < 10) durationString += '0';
-            durationString += fullMinutes + ' minute';
-            if(fullMinutes != 1) durationString += 's';
+            durationString += fullMinutes + ' ';
+
+            if(fullMinutes != 1)
+              durationString += $translate.instant('general.time.minute.plural');
+            else
+              durationString += $translate.instant('general.time.minute.singular');
+
             return durationString;
           default:
             return '';

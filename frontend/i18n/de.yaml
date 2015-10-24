@@ -2,6 +2,13 @@ general:
   or: oder
   from: von
   to: nach
+  time:
+    minute:
+      singular: Minute
+      plural: Minuten
+    hour:
+      singular: Stunde
+      plural: Stunden
 action:
   overnight: Übernachtung
   walk: Laufen
@@ -47,6 +54,15 @@ search:
 result:
   error: Es gab ein Problem mit dem Server
   sessionexpire: Your session has been expired, please refresh website.
+  list:
+    title: Suchergebnisse
+    subtitle: Wähle einen Trip.
+    select: Auswählen
+    showonmap: auf Karte anzeigen
+    timings:
+      show: Alternative Zeiten anzeigen
+      hide: ausblenden
+      title: Zeitalternativen
   searchdetails:
     title: Search details
     change: change
@@ -54,10 +70,6 @@ result:
     to: To
   connection:
     towards: Richtung
-  list:
-    title: Search results
-    subtitle: Time to pick a trip.
-    select: Select
   details:
     title: Itinerary details
     tripoverview:

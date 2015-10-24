@@ -2,6 +2,13 @@ general:
   or: or
   from: from
   to: to
+  time:
+    minute:
+      singular: minute
+      plural: minutes
+    hour:
+      singular: hour
+      plural: hours
 action:
   overnight: Overnight
   walk: Walk
@@ -45,8 +52,17 @@ search:
       placeholder: Appointment start time
     start: Search trips
 result:
-  error: There was a problem on the server
-  sessionexpire: Your session has been expired, please refresh website.
+  error: There was a problem on the server.
+  sessionexpire: Your session has expired, please refresh website.
+  list:
+    title: Search results
+    subtitle: Time to pick a trip.
+    select: Select
+    showonmap: show on map
+    timings:
+      show: show alternative timings
+      hide: hide
+      title: Timing alternatives
   searchdetails:
     title: Search details
     change: change
@@ -54,10 +70,6 @@ result:
     to: To
   connection:
     towards: towards
-  list:
-    title: Search results
-    subtitle: Time to pick a trip.
-    select: Select
   details:
     title: Itinerary details
     tripoverview:

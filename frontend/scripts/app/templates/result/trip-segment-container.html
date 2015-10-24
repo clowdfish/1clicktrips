@@ -8,7 +8,7 @@
         <h2>
           <span>Route {{ itineraryIndex + 1 }}</span>
           <span>{{ itinerary | titleExtractor }}</span>
-          <a href="#">show on map</a>
+          <a href="#">{{ 'result.list.showonmap' | translate }}</a>
         </h2>
 
         <span class="result-list-item-title-details">
@@ -61,10 +61,10 @@
       </span>
 
       <h2 class="result-list-alternatives-title"
-          ng-if="showAlternatives(itineraryIndex)">Timing alternatives</h2>
+          ng-if="showAlternatives(itineraryIndex)">{{ 'result.list.timings.title' | translate }}</h2>
       <a class="result-list-alternatives-hide"
          ng-if="showAlternatives(itineraryIndex)"
-         ng-click="toggleAlternatives(itineraryIndex)">hide</a>
+         ng-click="toggleAlternatives(itineraryIndex)">{{ 'result.list.timings.hide' | translate }}</a>
 
       <span class="result-list-item-alternatives" ng-if="showAlternatives(itineraryIndex)">
         <span ng-repeat="container in itineraries[itineraryIndex]['segmentsContainer']"
@@ -113,7 +113,7 @@
                   <span>{{ segment['alternatives'][timingIndex]['price']['amount'].toFixed(2) }}</span>
                   <i class="fa {{ segment['alternatives'][timingIndex]['price']['currency'] | currencyFormatter }}"></i>
                 </span>
-                <a class="button" ng-click="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">Select</a>
+                <a class="button" ng-click="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">{{ 'result.list.select' | translate }}</a>
               </span>
             </span>
           </span>
@@ -131,7 +131,7 @@
 
          <span class="result-list-item-footer-action">
           <a ng-click="selectTrip(itineraryIndex)" class="button">{{ 'result.list.select' | translate }}</a>
-          <a class="result-list-item-footer-action-link" ng-if="hasAlternatives(itineraryIndex)" ng-click="toggleAlternatives(itineraryIndex)">show timing alternatives</a>
+          <a class="result-list-item-footer-action-link" ng-if="hasAlternatives(itineraryIndex)" ng-click="toggleAlternatives(itineraryIndex)">{{ 'result.list.timings.show' | translate }}</a>
         </span>
 
         <span class="result-list-item-annotation"
