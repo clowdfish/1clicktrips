@@ -32,8 +32,12 @@
 
   .result-title {
     display: inline-block;
-    margin: 0 0.5em 1.5em 0.6em;
+    margin: 0 0 .5em 0.6em;
     font-weight: 800;
+
+    @include respond-above("medium") {
+      margin-bottom: 1.5em;
+    }
   }
 
   .result-title-sub {
@@ -41,7 +45,12 @@
     font-size: $fs-largest;
     font-family: $ff-headline;
     font-weight: 200;
+    margin: 0 0 0.5em 0.6em;
     color: $c-text-light;
+
+    @include respond-above("medium") {
+      margin-bottom: 1.5em;
+    }
   }
 
   .result-container {

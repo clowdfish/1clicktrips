@@ -13,7 +13,6 @@ module Common {
       show: 'showRequestSpinner',
       hide: 'hideRequestSpinner'
     })
-    .directive('button', Button.Factory())
     .directive('mapMarker', MapMarker.Factory())
     .directive('waitingAnimation', WaitingAnimation.Factory())
     .directive('dropzone', Dropzone.Factory())

@@ -3,7 +3,6 @@
 /// -----------Common module-----------
 /// <reference path="app/app.ts" />
 /// <reference path="app/common/customMarker.ts" />
-/// <reference path="app/common/directives/button.directive.ts" />
 /// <reference path="app/common/directives/languageDropdown.directive.ts" />
 /// <reference path="app/common/directives/currencyDropdown.directive.ts" />
 /// <reference path="app/common/directives/dropzone.directive.ts" />

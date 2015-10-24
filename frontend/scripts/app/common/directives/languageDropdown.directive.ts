@@ -7,8 +7,7 @@ module Common {
   /**
    * Language dropdown
    */
-  export function languageDropdown(language: Common.Language,
-                                   currency: Common.Currency) {
+  export function languageDropdown(language: Common.Language) {
     return {
       restrict: 'E',
       replace: true,

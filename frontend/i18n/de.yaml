@@ -9,6 +9,17 @@ general:
     hour:
       singular: Stunde
       plural: Stunden
+  api:
+    search:
+      alternative: Suche nach Alternativen...
+      routes: Erstelle Routen...
+      flights: Suche nach Flügen...
+      pricing: Preisinformationen werden hinzugefügt...
+      timing: Zeitinformationen werden hinzugefügt...
+      optimizing: Optimiere Routen...
+      data: Empfange Daten von externen Datenquellen...
+      hotel: Empfamge Hoteldaten...
+      filterhotel: Filtere und priorisiere Hotels...
 action:
   overnight: Übernachtung
   walk: Laufen
@@ -64,18 +75,18 @@ result:
       hide: ausblenden
       title: Zeitalternativen
   searchdetails:
-    title: Search details
-    change: change
-    from: From
-    to: To
+    title: Suchdetails
+    change: ändern
+    from: Von
+    to: Nach
   connection:
     towards: Richtung
   details:
-    title: Itinerary details
+    title: Reisedetails
     tripoverview:
-      title: Trip overview
-      price: Price
-      duration: Duration
+      title: Reiseübersicht
+      price: Preis
+      duration: Dauer
       departuretime: Departure time
       arrivaltime: Arrival time
     instructions:

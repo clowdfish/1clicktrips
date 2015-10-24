@@ -44,7 +44,9 @@ module Common {
 
       if (window['locale']) {
         this._activeLanguage = this.getLanguageByCode(window['locale']);
-        this.currency.setSelectedCurrency(this._activeLanguage.defaultCurrency);
+        // this part is dangerous because we should not be able to change
+        // the currency in a result screen
+        //this.currency.setSelectedCurrency(this._activeLanguage.defaultCurrency);
         this.changeLanguage(this._activeLanguage.code);
       }
 

@@ -402,3 +402,8 @@ $timelineAccumulated: ();
     }
   }
 }
+
+
+@include respond-above("medium") {
+  $bird-size: 400px;
+}

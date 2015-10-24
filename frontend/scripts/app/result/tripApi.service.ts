@@ -7,7 +7,8 @@ module Result {
   export class TripApi {
 
     constructor(private $http,
-                private $q: ng.IQService) {
+                private $q: ng.IQService,
+                private $translate) {
 
     }
 
@@ -24,27 +25,27 @@ module Result {
         .post('/api/search/trips', searchObject, {
           activeMessages: [
             {
-              title: "Searching for alternatives...",
+              title: this.$translate.instant("general.api.search.alternative"),
               time: 3000
             },
             {
-              title: "Creating routes...",
+              title: this.$translate.instant("general.api.search.routes"),
               time: 3000
             },
             {
-              title: "Searching for flights...",
+              title: this.$translate.instant("general.api.search.flights"),
               time: 10000
             },
             {
-              title: "Adding pricing information...",
+              title: this.$translate.instant("general.api.search.pricing"),
               time: 3000
             },
             {
-              title: "Adding timing information...",
+              title: this.$translate.instant("general.api.search.timing"),
               time: 3000
             },
             {
-              title: "Optimizing routes...",
+              title: this.$translate.instant("general.api.search.optimizing"),
               time: 8000
             }
           ]
@@ -62,7 +63,7 @@ module Result {
         });
 
       return deferred.promise;
-    }
+    };
 
     /**
      *
@@ -78,19 +79,19 @@ module Result {
         .post('/api/search/trip-update', searchObject, {
           activeMessages: [
             {
-              title: "Getting data from external resources...",
+              title: this.$translate.instant("general.api.search.data"),
               time: 6000
             },
             {
-              title: "Adding pricing information...",
+              title: this.$translate.instant("general.api.search.pricing"),
               time: 2000
             },
             {
-              title: "Adding timing information...",
+              title: this.$translate.instant("general.api.search.timing"),
               time: 2000
             },
             {
-              title: "Optimizing routes...",
+              title: this.$translate.instant("general.api.search.optimizing"),
               time: 8000
             }
           ]
@@ -104,7 +105,7 @@ module Result {
         });
 
       return deferred.promise;
-    }
+    };
 
     /**
      * Calls the REST API to get the details for one specific itinerary.
@@ -119,19 +120,19 @@ module Result {
         .post('/api/search/trip-details', searchObject, {
           activeMessages: [
             {
-              title: "Getting data from external resources...",
+              title: this.$translate.instant("general.api.search.data"),
               time: 6000
             },
             {
-              title: "Adding pricing information...",
+              title: this.$translate.instant("general.api.search.pricing"),
               time: 2000
             },
             {
-              title: "Adding timing information...",
+              title: this.$translate.instant("general.api.search.timing"),
               time: 2000
             },
             {
-              title: "Optimizing routes...",
+              title: this.$translate.instant("general.api.search.optimizing"),
               time: 8000
             }
           ]
@@ -145,7 +146,7 @@ module Result {
         });
 
       return deferred.promise;
-    }
+    };
 
     /**
      * Calls the REST API to get all available hotels.
@@ -157,11 +158,11 @@ module Result {
         .post('/api/search/hotels', searchObject, {
           activeMessages: [
             {
-              title: "Getting hotel data...",
+              title: this.$translate.instant("general.api.search.hotel"),
               time: 3000
             },
             {
-              title: "Filtering and prioritizing hotels...",
+              title: this.$translate.instant("general.api.search.filterhotel"),
               time: 5000
             }
           ]
@@ -174,6 +175,6 @@ module Result {
         });
 
       return deferred.promise;
-    }
+    };
   }
 }
