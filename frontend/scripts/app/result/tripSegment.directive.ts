@@ -12,10 +12,8 @@ module Result {
     public scope = {
       segment: '=',
       ratio: '@',
-      showDetails: '@',
       setDimensions: '&',
-      defineLeftMargin: '&',
-      selectAlternative: '&'
+      defineLeftMargin: '&'
     };
     public link: (scope, element, attrs) => void;
 
@@ -35,18 +33,10 @@ module Result {
 
       TripSegment.prototype.link = (scope, element, attrs) => {
 
-        scope.majorAlternatives = scope.showDetails == 'false';
-        scope.minorAlternatives = scope.showDetails == 'true';
-
-        // used as reference for the selection model in the UI
-        scope.timingSelection = undefined;
-        scope.alternativeSelection = undefined;
-
         scope.zoomState = 0;
 
         scope.zoomToSegment = zoomToSegment;
         scope.zoomOut = zoomOut;
-        scope.alternativeChange = alternativeChange;
 
         initialize();
 
@@ -64,25 +54,12 @@ module Result {
 
           scope.width = defineWidth(scope.segment, ratio);
 
+          //var oldMargin = scope.marginLeft;
+
           scope.marginLeft = scope.segment['departureTime'] ?
             scope.defineLeftMargin({time: scope.segment['departureTime']}) : 0;
-        }
 
-        /**
-         * Once a user selects an alternative for a segment, this function will be
-         * responsible to call the selectAlternative function in the
-         * tripSegmentContainer controller.
-         *
-         * @param timingSelection is set if a timing alternative was selected
-         * @param alternativeSelection is set if a segment alternative was selected
-         */
-        function alternativeChange(timingSelection:number,
-                                   alternativeSelection:number) {
-
-          scope.selectAlternative({
-            timingIndex: timingSelection,
-            alternativeIndex: alternativeSelection
-          });
+          //console.log("Old margin/new margin: " + oldMargin + "/" + scope.marginLeft);
         }
 
         /**
@@ -93,6 +70,7 @@ module Result {
          */
         function defineWidth(segment:any,
                              ratio:number) {
+
           // do not show segments without concrete timings
           return segment['departureTime'] ?
           segment['duration'] * ratio : 0;

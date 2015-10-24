@@ -41,20 +41,16 @@
                    ng-if="detailSegment['type'] != 1"
                    segment="detailSegment"
                    ratio="{{ dimensions.ratio }}"
-                   show-details="{{ showDetails }}"
                    set-dimensions="setDimensions(data)"
-                   define-left-margin="defineMarginLeft(time)"
-                   select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">
+                   define-left-margin="defineMarginLeft(time)">
                  </trip-segment>
               </span>
               <span ng-if="!segment['alternatives'][getTimingIndex(itineraryIndex, containerIndex, segmentIndex)]['segments']">
                 <trip-segment
                   segment="segment"
                   ratio="{{ dimensions.ratio }}"
-                  show-details="{{ showDetails }}"
                   set-dimensions="setDimensions(data)"
-                  define-left-margin="defineMarginLeft(time)"
-                  select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">
+                  define-left-margin="defineMarginLeft(time)">
                 </trip-segment>
               </span>
             </span>
@@ -73,8 +69,8 @@
                 ng-if="segment['departureTime'] && !showDetails && segment['isMajor'] && isPrioritySegment(itineraryIndex, containerIndex, $index)">
 
             <span ng-repeat="alternative in segment['alternatives']"
-                  ng-init="alternativeIndex = $index"
-                  ng-if="$index !== getAlternativeIndex(itineraryIndex, containerIndex)">
+                  ng-init="timingIndex = $index"
+                  ng-if="$index !== getTimingIndex(itineraryIndex, containerIndex, segmentIndex)">
 
               <span class="result-list-item-timeline">
               <span class="result-list-item-start"
@@ -83,33 +79,34 @@
                 <span class="result-list-item">
                   <span class="result-list-item-line"></span>
 
-                  <span ng-if="segment['alternatives'][alternativeIndex]['segments']">
+                  <span ng-if="segment['alternatives'][timingIndex]['segments']">
                   <!-- do not show walking segments -->
                     <trip-segment
-                      ng-repeat="detailSegment in segment['alternatives'][alternativeIndex]['segments']"
+                      ng-repeat="detailSegment in segment['alternatives'][timingIndex]['segments']"
                       ng-if="detailSegment['type'] != 1"
                       segment="detailSegment"
                       ratio="{{ dimensions.ratio }}"
-                      show-details="{{ showDetails }}"
                       set-dimensions="setDimensions(data)"
-                      define-left-margin="defineMarginLeft(time)"
-                      select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">
+                      define-left-margin="defineMarginLeft(time)">
                     </trip-segment>
                   </span>
-                  <span ng-if="!segment['alternatives'][alternativeIndex]['segments']">
+                  <span ng-if="!segment['alternatives'][timingIndex]['segments']">
                     <trip-segment
                       segment="segment"
                       ratio="{{ dimensions.ratio }}"
-                      show-details="{{ showDetails }}"
                       set-dimensions="setDimensions(data)"
-                      define-left-margin="defineMarginLeft(time)"
-                      select-alternative="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">
+                      define-left-margin="defineMarginLeft(time)">
                     </trip-segment>
                   </span>
               </span>
 
               <span class="result-list-item-end"
                     ng-class="{ focus: timing['targetDate'] }"></span>
+              </span>
+              <span class="result-list-alternative-selection">
+                <span>{{ segment['alternatives'][timingIndex]['price']['amount'].toFixed(2) }}</span>
+                <i class="fa {{ segment['alternatives'][timingIndex]['price']['currency'] | currencyFormatter }}"></i>
+                <a class="button" ng-click="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">Select</a>
               </span>
             </span>
           </span>
@@ -131,7 +128,7 @@
 
          <span class="result-list-item-footer-action">
           <a ng-click="selectTrip(itineraryIndex)" class="button">{{ 'result.list.select' | translate }}</a>
-          <a class="result-list-item-footer-action-link" ng-click="toggleAlternatives(itineraryIndex)">show timing alternatives</a>
+          <a class="result-list-item-footer-action-link" ng-if="hasAlternatives(itineraryIndex)" ng-click="toggleAlternatives(itineraryIndex)">show timing alternatives</a>
         </span>
 
         <span class="result-list-item-annotation"

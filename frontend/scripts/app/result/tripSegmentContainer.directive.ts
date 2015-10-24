@@ -61,6 +61,7 @@ module Result {
       this.scopeService.getAlternativeIndex = this.getAlternativeIndex;
       this.scopeService.getTimingIndex = this.getTimingIndex;
       this.scopeService.isPrioritySegment = this.isPrioritySegment;
+      this.scopeService.hasAlternatives = this.hasAlternatives;
       this.scopeService.toggleAlternatives = this.toggleAlternatives;
       this.scopeService.showAlternatives = this.showAlternatives;
 
@@ -196,7 +197,6 @@ module Result {
       }
     };
 
-
     /**
       * Sets the ratio for the trip time line.
       */
@@ -283,7 +283,6 @@ module Result {
         itineraryIndex + '-' + containerIndex + '-' + segmentIndex;
 
       if(this.scopeService.selection.hasOwnProperty(selectionKey)) {
-
         var selection = this.scopeService.selection[selectionKey];
 
         if(selection.hasOwnProperty('timingIndex') &&
@@ -302,7 +301,6 @@ module Result {
      */
     toggleAlternatives = (routeIndex:number) => {
 
-      // TODO implement
       if(!this.scopeService.showAlternatives.hasOwnProperty(routeIndex))
         this.scopeService.showAlternatives[routeIndex] = true;
       else
@@ -370,6 +368,41 @@ module Result {
      *
      *
      * @param itineraryIndex
+     * @returns {boolean}
+     */
+    hasAlternatives = (itineraryIndex:number) => {
+
+      var self = this;
+
+      var majorSegments = [];
+
+      this.scopeService.itineraries[itineraryIndex]['segmentsContainer'].forEach(function(container, containerIndex) {
+        container['alternatives'][self.getAlternativeIndex(itineraryIndex, containerIndex)].forEach(function(segment) {
+          if(segment['isMajor']) {
+            majorSegments.push({
+              index: containerIndex,
+              segment: segment
+            });
+          }
+        })
+      });
+
+      // temp solution as long as we cannot update a route with two major segments
+      if(majorSegments.length > 1) {
+        return false;
+      }
+
+      return majorSegments.some(function(segment) {
+        if(segment.segment['alternatives'] && segment.segment['alternatives'].length > 1) {
+          return true;
+        }
+      });
+    };
+
+    /**
+     *
+     *
+     * @param itineraryIndex
      * @param containerIndex
      * @param segmentIndex
      * @param alternativeIndex
@@ -380,6 +413,13 @@ module Result {
                          segmentIndex:number,
                          alternativeIndex:number,
                          timingIndex:number) => {
+      /*
+      console.log("Itinerary: " + itineraryIndex);
+      console.log("Container: " + containerIndex);
+      console.log("Segment: " + segmentIndex);
+      console.log("Alternative: " + alternativeIndex);
+      console.log("Timing: " + timingIndex);
+      */
 
       // store alternative in selection data structure
       var selectionKey =
@@ -418,13 +458,18 @@ module Result {
 
             if(numberOfMajorContainers > 1) {
               // other major container is present
+              console.log("Update multi segment itinerary.");
+
               this.scopeService.updateItinerary({ index: itineraryIndex })
                 .then(resolve).catch(reject);
             }
             else {
               // no other major container is present -> update segment data
+              console.log("Update single segment itinerary.");
+
               this.overWriteSegment(segment, alternative);
               this.updateItineraryData(itineraryIndex);
+
               resolve();
             }
           }
@@ -474,6 +519,7 @@ module Result {
       })
       .then(() => {
         // no matter what happened, the time line should be refreshed
+        this.toggleAlternatives(itineraryIndex);
         this.renderTimeLine();
       });
     };
@@ -485,6 +531,9 @@ module Result {
       * @param alternative
       */
     overWriteSegment = (segment, alternative) => {
+
+      //console.log("Segment: " + JSON.stringify(segment, null, 2));
+      //console.log("Alternative: " + JSON.stringify(alternative, null, 2));
 
       segment['departureTime'] = alternative['departureTime'];
       segment['arrivalTime'] = alternative['arrivalTime'];
