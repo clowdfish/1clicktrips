@@ -9,8 +9,8 @@ module Search {
       'app.core'
     ])
     .constant('DEFAULT_LOCATION', {
-      longitude: 9.456449,
-      latitude: 48.709067
+      latitude: 52.515107, //48.709067
+      longitude: 13.389585 //9.456449
     })
     .service('suggestionAdapter', SuggestionAdapter.Factory())
     .controller('searchCtrl', SearchCtrl)
