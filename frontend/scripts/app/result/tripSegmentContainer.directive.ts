@@ -110,9 +110,9 @@ module Result {
     /**
      * Hide itinerary and show destination
      */
-    triggerHideMap = () => {
+    triggerHideMap = (itinerary) => {
       this.scopeService.isShowMap = false;
-      this.scopeService.hideMap();
+      this.scopeService.hideMap(itinerary);
     }
 
     /**

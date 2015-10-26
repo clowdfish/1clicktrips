@@ -83,8 +83,8 @@ module Result {
     /**
      * Tell result map directive to hide itinerary
      */
-    onHideMap = () => {
-      this._hideMapHandler();
+    onHideMap = (itinerary) => {
+      this._hideMapHandler(itinerary);
     }
 
     /**

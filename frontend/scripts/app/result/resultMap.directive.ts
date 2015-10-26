@@ -39,23 +39,21 @@ module Result {
        */
       scope.toggleMap((itinerary) => {
         drawItinerary(itinerary, {});
-      }, () => {
-        drawCustomMarkerAtSegment(destination);
+      }, (itinerary) => {
+        drawDestinationMarker(itinerary);
       });
 
       /**
       * Setup google map object
       */
 		  function initializeMap(itinerary) {
+        console.log(itinerary);
         if (true === isInitialize) {
           return;
         }
         isInitialize =  true;
-        destination = getDestination(itinerary);
-        var center = new google.maps.LatLng(destination.end.location.latitude, destination.end.location.longitude);
 
         map = new google.maps.Map($element.find('#itinerary-map')[0], {
-          center: center,
           zoom: DEFAULT_ZOOM_LEVEL,
           scrollwheel: browser.isMobileDevice(),
           panControl: false,
@@ -73,7 +71,7 @@ module Result {
           map: null
         });
 
-        drawCustomMarkerAtSegment(destination);
+        drawDestinationMarker(itinerary);
 
         google.maps.event.trigger(map, 'resize');
       }
@@ -108,8 +106,9 @@ module Result {
         return segments[segments.length - 1];
       }
 
-      function drawCustomMarkerAtSegment(segment) {
-        var destinationImage = getStreetViewAtLocation(segment.start.location);
+      function drawDestinationMarker(itinerary) {
+        destination = getDestination(itinerary);
+        var destinationImage = getStreetViewAtLocation(destination.start.location);
         var html = [
           '<div class="marker-wrapper">',
             '<img class="marker-image" src="../images/marker.png"/>',
@@ -131,7 +130,7 @@ module Result {
             '</div>',
           '</div>'
         ].join('');
-        var location = new google.maps.LatLng(segment.end.location.latitude, segment.end.location.longitude);
+        var location = new google.maps.LatLng(destination.end.location.latitude, destination.end.location.longitude);
         destinationMaker = new CustomMarker(map, location, {
           htmlContent: html
         });
