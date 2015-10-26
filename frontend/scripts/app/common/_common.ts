@@ -16,6 +16,8 @@ module Common {
     .directive('mapMarker', MapMarker.Factory())
     .directive('waitingAnimation', WaitingAnimation.Factory())
     .directive('dropzone', Dropzone.Factory())
+    .directive('timeline', Timeline.Factory())
+    .directive('timelineSegment', TimelineSegment.Factory())
     .directive('languageDropdown', languageDropdown)
     .directive('currencyDropdown', currencyDropdown)
     .service('spinnerInterceptor', SpinnerIntercepter.Factory())

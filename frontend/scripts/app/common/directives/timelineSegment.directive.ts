@@ -1,17 +1,18 @@
-/// <reference path="../../_all.ts" />
+/// <reference path="../../../_all.ts" />
 
-module Result {
+module Common {
 
   'use strict';
 
-  export class TripSegment {
+  export class TimelineSegment {
 
     public restrict = 'E';
-    public templateUrl = 'scripts/app/templates/result/trip-segment.html';
+    public templateUrl = 'scripts/app/templates/directives/timeline-segment.html';
     public replace = true;
     public scope = {
       segment: '=',
       ratio: '@',
+      itineraryIndex: '@',
       setDimensions: '&',
       defineLeftMargin: '&'
     };
@@ -19,19 +20,18 @@ module Result {
 
     public static Factory() {
 
-      var directive = ($rootScope, SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH): any => {
-        return new TripSegment($rootScope, SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH);
+      var directive = (SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH): any => {
+        return new TimelineSegment(SEGMENT_ZOOM_THRESHOLD, SEGMENT_ZOOM_WIDTH);
       };
 
-      directive['$inject'] = ['$rootScope', 'SEGMENT_ZOOM_THRESHOLD', 'SEGMENT_ZOOM_WIDTH'];
+      directive['$inject'] = ['SEGMENT_ZOOM_THRESHOLD', 'SEGMENT_ZOOM_WIDTH'];
       return directive;
     }
 
-    constructor($rootScope,
-                SEGMENT_ZOOM_THRESHOLD,
+    constructor(SEGMENT_ZOOM_THRESHOLD,
                 SEGMENT_ZOOM_WIDTH) {
 
-      TripSegment.prototype.link = (scope, element, attrs) => {
+      TimelineSegment.prototype.link = (scope, element, attrs) => {
 
         scope.zoomState = 0;
 
@@ -104,8 +104,6 @@ module Result {
               }
             });
           }
-
-          $rootScope.$broadcast('zoomSegment', scope.segment);
         }
 
         /**
@@ -118,8 +116,6 @@ module Result {
             scope.setDimensions();
             scope.zoomState = 0;
           }
-
-          $rootScope.$broadcast('unzoomSegment');
         }
 
 

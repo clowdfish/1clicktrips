@@ -20,10 +20,12 @@ $fa-font-path: "../fonts";
 @import "elements/spinner";
 @import "elements/dropzone";
 @import "elements/waiting";
+@import "elements/timeline";
 
 @import "modules/header";
 @import "modules/search";
 @import "modules/result";
+@import "modules/result_details";
 @import "modules/alternatives";
 @import "modules/booking";
 @import "modules/footer";

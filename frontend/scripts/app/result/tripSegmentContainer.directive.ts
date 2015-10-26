@@ -38,13 +38,9 @@ module Result {
 
     link = (scope, element, attrs) => {
       this.scopeService = scope;
+
       this.scopeService.showDetails = 'showDetails' in attrs;
       this.scopeService.isShowMap = false;
-
-      // how much percent per minute
-      this.scopeService.dimensions = {
-        ratio: 0
-      };
 
       this.scopeService.showAlternatives = {};
 
@@ -54,10 +50,6 @@ module Result {
       // defining the latest/earliest point in time of the given itineraries
       this.scopeService.earliestDeparture = undefined;
       this.scopeService.latestArrival = undefined;
-
-      // functions for the segments to call
-      this.scopeService.defineMarginLeft = this.defineMarginLeft;
-      this.scopeService.setDimensions = this.setDimensions;
 
       // the alternative rendering logic
       this.scopeService.getAlternativeIndex = this.getAlternativeIndex;
@@ -70,7 +62,6 @@ module Result {
 
       // the alternatives selection logic
       this.scopeService.selectAlternative = this.selectAlternative;
-      this.scopeService.renderTimeLine = this.renderTimeLine;
 
       this.scopeService.selectTrip = (index) => {
         // we must call the bound function with an object that has keys
@@ -81,159 +72,10 @@ module Result {
       // only initialize the trip segment container, when itineraries are available
       this.scopeService.$watch('itineraries', () => {
 
-        if(this.scopeService.itineraries != null) {
-          // initialize the boundaries for the segments
-          this.defineBoundaries();
-          this.calculateDimensions();
-
-          this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
-
-          this.scopeService.$broadcast('dimensionChange', {
-            ratio: this.scopeService.dimensions.ratio
-          });
+        if(this.scopeService.itinerary != null) {
+          this.scopeService.$broadcast('renderTimeline');
         }
       });
-
-    };
-
-    /**
-      * Will be called to zoom within the segment container.
-      *
-      * @param dimensionData
-      */
-    setDimensions = (dimensionData:any) => {
-
-      if(!dimensionData) {
-        // set back to original dimensions
-        this.defineBoundaries();
-
-        this.scopeService.dimensions = {
-          ratio: this.scopeService.originalRatio
-        };
-      }
-      else {
-        // set new dimensions
-        var boundaryData = {
-          start: dimensionData['interval']['start'],
-          end: dimensionData['interval']['end']
-        };
-
-        this.defineBoundaries(boundaryData);
-
-        this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
-        this.scopeService.dimensions = {
-          ratio: dimensionData['ratio']
-        };
-      }
-
-      this.scopeService.$broadcast('dimensionChange', {
-        ratio: this.scopeService.dimensions.ratio
-      });
-    };
-
-    /**
-      *
-      *
-      * @param boundaryData
-      */
-    defineBoundaries = (boundaryData?:any) => {
-
-      // reset boundaries
-      this.scopeService.earliestDeparture = undefined;
-      this.scopeService.latestArrival = undefined;
-
-      if(boundaryData) {
-        var intervalStart = boundaryData['start'];
-        var intervalEnd = boundaryData['end'];
-
-        this.setBoundaries(intervalStart, intervalEnd);
-      }
-      else {
-        this.scopeService.itineraries.forEach((itinerary) => {
-
-          if(itinerary) {
-            var departureTime = moment(itinerary['departureTime'], 'YYYY-MM-DDTHH:mm:ss');
-            var arrivalTime = moment(itinerary['arrivalTime'], 'YYYY-MM-DDTHH:mm:ss');
-
-            if(departureTime && arrivalTime)
-              this.setBoundaries(departureTime, arrivalTime);
-            else
-              console.error("Itinerary has no departure or arrival time defined.")
-          }
-        });
-      }
-    };
-
-    /**
-      *
-      *
-      * @param intervalStart
-      * @param intervalEnd
-      */
-    setBoundaries = (intervalStart: moment.Moment,
-                     intervalEnd: moment.Moment) => {
-
-      var appointmentTime =
-        moment(this.scopeService.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
-      var targetDate = this.scopeService.timing['targetDate'];
-
-      if (targetDate) {
-        // optimize towards target date
-        if (this.scopeService.earliestDeparture == undefined || intervalStart.isBefore(this.scopeService.earliestDeparture))
-          this.scopeService.earliestDeparture = intervalStart.clone();
-
-        // set latest arrival time
-        if(!this.scopeService.showDetails)
-          this.scopeService.latestArrival = appointmentTime;
-        else if (this.scopeService.latestArrival == undefined || intervalEnd.isAfter(this.scopeService.latestArrival))
-          this.scopeService.latestArrival = intervalEnd.clone();
-      }
-      else {
-        // optimize from given date
-        if (this.scopeService.latestArrival == undefined || intervalEnd.isAfter(this.scopeService.latestArrival))
-          this.scopeService.latestArrival = intervalEnd.clone();
-
-        // set earliest departure time
-        if(!this.scopeService.showDetails)
-          this.scopeService.earliestDeparture = appointmentTime;
-        else if (this.scopeService.earliestDeparture == undefined || intervalStart.isBefore(this.scopeService.earliestDeparture))
-          this.scopeService.earliestDeparture = intervalStart.clone();
-      }
-    };
-
-    /**
-      * Sets the ratio for the trip time line.
-      */
-    calculateDimensions = () => {
-
-      if(this.scopeService.latestArrival && this.scopeService.earliestDeparture) {
-        var tripDuration =
-          this.scopeService.latestArrival.diff(this.scopeService.earliestDeparture, 'minutes');
-
-        this.scopeService.dimensions = {
-          ratio: 100 / tripDuration
-        };
-      }
-    };
-
-    /**
-      *
-      *
-      * @param timeString
-      * @returns {number}
-      */
-    defineMarginLeft = (timeString:string) => {
-
-      var time = moment(timeString, 'YYYY-MM-DDTHH:mm:ss');
-
-      var margin = 0;
-
-      if(this.scopeService.earliestDeparture != undefined) {
-        margin = this.scopeService.dimensions.ratio *
-          time.diff(this.scopeService.earliestDeparture, 'minutes');
-      }
-
-      return margin;
     };
 
     /**
@@ -634,7 +476,7 @@ module Result {
 
     /**
       * Updates itinerary data after changes to the underlying segments have
-      * been made. The itinerary data to be updates is:
+      * been made. The itinerary data to be updated is:
       * Departure time, arrival time, duration and price
       *
       * @param itineraryIndex
@@ -722,18 +564,11 @@ module Result {
     };
 
     /**
-      * Re-renders the time line.
-      */
+     *
+     *
+     */
     renderTimeLine = () => {
-
-      this.defineBoundaries();
-      this.calculateDimensions();
-
-      this.scopeService.originalRatio = this.scopeService.dimensions.ratio;
-
-      this.scopeService.$broadcast('dimensionChange', {
-        ratio: this.scopeService.dimensions.ratio
-      });
-    };
+      this.scopeService.$broadcast('renderTimeline');
+    }
   }
 }

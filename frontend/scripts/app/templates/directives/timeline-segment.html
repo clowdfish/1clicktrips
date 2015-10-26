@@ -1,23 +1,23 @@
-<span class="result-segment">
-  <span class="result-segment-timing segment-transition"
+<span class="ttg-timeline-segment">
+  <span class="ttg-timeline-segment-timing segment-transition"
         ng-class="{ hidden: width < 3 }"
         ng-style="{ 'left': marginLeft + '%' }">
     {{ segment['departureTime'] | dateFormatter : 'H:mm' }}
   </span>
-  <span class="result-segment-timing segment-transition"
+  <span class="ttg-timeline-segment-timing segment-transition"
         ng-class="{ hidden: width < 10 }"
         ng-style="{ 'right': 100 - (marginLeft + width) + '%' }">
     {{ segment['arrivalTime'] | dateFormatter : 'H:mm' }}
   </span>
 
-  <span class="result-segment-block segment-transition"
+  <span class="ttg-timeline-segment-block segment-transition"
         ng-class="{ help: width < 25 }"
         ng-style="{ 'width': width + '%', 'left': marginLeft + '%' }"
         ng-click="zoomToSegment()"
         ng-mouseleave="zoomOut()">
   </span>
 
-  <span class="result-segment-details segment-transition"
+  <span class="ttg-timeline-segment-details segment-transition"
         ng-style="{ 'left': marginLeft + '%', 'max-width': width + '%' }">
     <i class="fa {{ segment['type'] | vehicleTypeToIcon }}"></i>
 
