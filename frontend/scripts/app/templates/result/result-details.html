@@ -33,13 +33,17 @@
 <section class="result-details">
 	<h1 class="result-title">{{ 'result.details.title' | translate }}</h1>
 
-	<trip-segment-container itineraries="[itinerary]"
-													timing="timing"
-													selection="selection"
-													update-itinerary="updateItinerary(index)"
-													show-details>
-	</trip-segment-container>
+	<div class="result-details-timeline">
+		<timeline
+			itineraries="[itinerary]"
+			itinerary-index="{{ 0 }}"
+			timing="timing"
+			show-details="{{ true }}"
+			get-alternative-index="0"
+			get-timing-index="0">
+		</timeline>
+	</div>
 
 	<a ng-click="goToOverview()" class="button--light">{{ 'result.details.back' | translate }}</a>
-	<a ng-click="booking(searchData, itinerary)" class="button--light">{{ 'result.details.booking' | translate }}</a>
+	<a ng-click="booking(searchData, itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
 </section>

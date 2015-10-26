@@ -76,14 +76,14 @@ module Result {
      */
     onShowMap = (itinerary) => {
       this._showMapHandler(itinerary);
-    }
+    };
 
     /**
      * Bind show/hide map handler to controller
      */
     addToggleMapHandler = (showMapHandler) => {
       this._showMapHandler = showMapHandler;
-    }
+    };
 
     /**
      * Call the trip API to get all itinerary alternatives.

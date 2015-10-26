@@ -59,7 +59,7 @@ module Search {
       };
 
       //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-      $scope.format = language._activeLanguage.dateFormat;
+      $scope.format = this.formatDateFormatString(language._activeLanguage.dateFormat);
 
       $scope.toggleDatePicker = this.toggleDatePicker;
       $scope.toggleTimePicker = this.toggleTimePicker;
@@ -82,6 +82,16 @@ module Search {
         });
       });
     }
+
+    /**
+     *
+     *
+     * @param format
+     * @returns {string}
+     */
+    formatDateFormatString = (format:string) => {
+      return format.replace('DD', 'dd').replace('YYYY', 'yyyy');
+    };
 
     validateTimeString = (callback) => {
       var timePattern = /([01]?[0-9]|2[0-3])(:?)[0-5][0-9]$/;

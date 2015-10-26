@@ -96,7 +96,7 @@ result:
       text: Please check the trip details before proceeding to booking.
       overnight: Your trip requires an overnight stay. You can easily book the hotel proposal, select a different hotel or deselect the hotel option.
     back: Back to overview
-    booking: Booking
+    travelplan: Reiseplan
     hotels: Get available hotels
   tripsegment:
     flight: flight
