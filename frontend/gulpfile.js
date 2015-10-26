@@ -188,6 +188,19 @@ gulp.task('preprocess', function() {
       .pipe(compile(templateData))
       .pipe(gulp.dest(path.join('build/', locale)));
   });
+
+  /**
+   * En is default language when user visit "/"
+   */
+  gulp
+    .src('index.html')
+    .pipe(plumber(plumberErrorHandler))
+    .pipe(compile({
+      locale: null,
+      T: yml.safeLoad(fs.readFileSync('./i18n/en.yaml', 'utf8'))
+    }))
+    .pipe(gulp.dest('build/'));
+
 });
 
 gulp.task('i18n', function() {
