@@ -14,7 +14,9 @@ module Result {
       timing: '=',
       selection: '=',
       selectItinerary: '&',
-      updateItinerary: '&'
+      updateItinerary: '&',
+      showMap: '=',
+      hideMap: '='
     };
 
     public scopeService;
@@ -38,6 +40,7 @@ module Result {
     link = (scope, element, attrs) => {
       this.scopeService = scope;
       this.scopeService.showDetails = 'showDetails' in attrs;
+      this.scopeService.isShowMap = false;
 
       // how much percent per minute
       this.scopeService.dimensions = {
@@ -91,7 +94,26 @@ module Result {
           });
         }
       });
+
+      this.scopeService.triggerShowMap = this.triggerShowMap;
+      this.scopeService.triggerHideMap = this.triggerHideMap;
     };
+
+    /**
+     * Show itinerary on map
+     */
+    triggerShowMap = (itinerary) => {
+      this.scopeService.isShowMap = true;
+      this.scopeService.showMap(itinerary);
+    }
+
+    /**
+     * Hide itinerary and show destination
+     */
+    triggerHideMap = () => {
+      this.scopeService.isShowMap = false;
+      this.scopeService.hideMap();
+    }
 
     /**
       * Will be called to zoom within the segment container.

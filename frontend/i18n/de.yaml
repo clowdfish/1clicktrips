@@ -72,6 +72,7 @@ result:
     subtitle: Wähle einen Trip.
     select: Auswählen
     showonmap: auf Karte anzeigen
+    hideonmap: hide on map
     timings:
       show: Alternative Zeiten anzeigen
       hide: ausblenden

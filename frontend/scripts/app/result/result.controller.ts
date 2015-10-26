@@ -6,6 +6,9 @@ module Result {
 
   export class ResultCtrl {
 
+    private _showMapHandler;
+    private _hideMapHandler;
+
     constructor(public $scope,
                 public $state,
                 public $stateParams,
@@ -64,6 +67,32 @@ module Result {
       else if(resultState == RESULT_STATE.hotels) {
         this.getHotels();
       }
+
+      $scope.onShowMap = this.onShowMap;
+      $scope.onHideMap = this.onHideMap;
+      $scope.addToggleMapHandler = this.addToggleMapHandler;
+    }
+
+    /**
+     * Tell result map directive to show itinerary
+     */
+    onShowMap = (itinerary) => {
+      this._showMapHandler(itinerary);
+    }
+
+    /**
+     * Tell result map directive to hide itinerary
+     */
+    onHideMap = () => {
+      this._hideMapHandler();
+    }
+
+    /**
+     * Bind show/hide map handler to controller
+     */
+    addToggleMapHandler = (showMapHandler, hideMapHandler) => {
+      this._showMapHandler = showMapHandler;
+      this._hideMapHandler = hideMapHandler;
     }
 
     /**
@@ -319,5 +348,7 @@ module Result {
         this.tripCache.clearCache();
       }, time);
     };
+
+
   }
 }

@@ -72,6 +72,7 @@ result:
     subtitle: Time to pick a trip.
     select: Select
     showonmap: show on map
+    hideonmap: hide on map
     timings:
       show: show alternative timings
       hide: hide

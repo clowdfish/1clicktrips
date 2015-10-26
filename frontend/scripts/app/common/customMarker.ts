@@ -1,52 +1,54 @@
 /// <reference path="../../_all.ts" />
 
-function CustomMarker(map, latlng, args) {
-  this.setMap(map);
-  this.latlng = latlng;
-  this.args = args;
-}
 
-CustomMarker.prototype = new google.maps.OverlayView();
+  function CustomMarker(map, latlng, args) {
+    this.setMap(map);
+    this.latlng = latlng;
+    this.args = args;
+  }
 
-CustomMarker.prototype.draw = function() {
+  CustomMarker.prototype = new google.maps.OverlayView();
 
-  var self = this;
+  CustomMarker.prototype.draw = function() {
 
-  var div: HTMLElement = this.div;
+    var self = this;
 
-  if (!div) {
+    var div: HTMLElement = this.div;
 
-    div = this.div = document.createElement('div');
-    div.className = 'custom-marker';
+    if (!div) {
 
-    div.style.position = 'absolute';
-    div.style.cursor = 'pointer';
-    div.style.webkitTransform = 'translateZ(0px)';
+      div = this.div = document.createElement('div');
+      div.className = 'custom-marker';
 
-    if (typeof(self.args.htmlContent) !== 'undefined') {
-      div.innerHTML = self.args.htmlContent;
+      div.style.position = 'absolute';
+      div.style.cursor = 'pointer';
+      div.style.webkitTransform = 'translateZ(0px)';
+
+      if (typeof(self.args.htmlContent) !== 'undefined') {
+        div.innerHTML = self.args.htmlContent;
+      }
+
+      google.maps.event.addDomListener(div, "click", function(event) {
+        google.maps.event.trigger(self, "click");
+      });
+
+      var panes = this.getPanes();
+      panes.overlayImage.appendChild(div);
     }
 
-    google.maps.event.addDomListener(div, "click", function(event) {
-      google.maps.event.trigger(self, "click");
-    });
+    var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+    var $div = $(div);
+    console.log(point);
+    if (point) {
+      div.style.left = (point.x - 37) + 'px';
+      div.style.top = (point.y / 2 - 4) + 'px';
+    }
+  };
 
-    var panes = this.getPanes();
-    panes.overlayImage.appendChild(div);
-  }
+  CustomMarker.prototype.remove = function() {
+    if (this.div) {
+      this.div.parentNode.removeChild(this.div);
+      this.div = null;
+    }
+  };
 
-  var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
-  var $div = $(div);
-  console.log(point);
-  if (point) {
-    div.style.left = (point.x - 37) + 'px';
-    div.style.top = (point.y / 2 - 4) + 'px';
-  }
-};
-
-CustomMarker.prototype.remove = function() {
-  if (this.div) {
-    this.div.parentNode.removeChild(this.div);
-    this.div = null;
-  }
-};
