@@ -4,7 +4,9 @@ module Result {
 
   'use strict';
 
-  export function resultMap(browser: Common.Browser, itineraryHelper: Result.ItineraryHelper) {
+  export function resultMap(browser: Common.Browser,
+                            itineraryHelper: Result.ItineraryHelper,
+                            $anchorScroll) {
     return {
       restrict: 'E',
       templateUrl: 'scripts/app/templates/result/result-map.html',
@@ -23,6 +25,9 @@ module Result {
       var destination;
       var destinationMaker;
       var DEFAULT_ZOOM_LEVEL: number = 17;
+      var LARGE_MAP_HEIGHT: number = 28;
+      var isIncreasedMapSize: boolean = false;
+
 			$element.html('<div id="itinerary-map"></div>');
 
       if (scope.itinerary) {
@@ -41,6 +46,13 @@ module Result {
         drawItinerary(itinerary, {});
       }, (itinerary) => {
         drawDestinationMarker(itinerary);
+      });
+
+      /**
+       * Clean up
+       */
+      scope.$on('$destroy', () => {
+        destroyDirective();
       });
 
       /**
@@ -71,18 +83,24 @@ module Result {
           map: null
         });
 
-        drawDestinationMarker(itinerary);
+        destinationMaker = drawDestinationMarker(itinerary);
 
         google.maps.event.trigger(map, 'resize');
       }
 
       function drawItinerary(itinerary, selection) {
+        //Only increase map height at once
+        if (!isIncreasedMapSize) {
+          changeMapHeight(LARGE_MAP_HEIGHT);
+          isIncreasedMapSize = true;
+        }
+
         destinationMaker.setMap(null);
         destinationMaker.remove();
-        destinationMaker = null;
         var segments = itineraryHelper.getActiveSegmentFromItinerary(itinerary, selection);
         var path = itineraryHelper.getSegmentsPath(segments);
         applyPathToMap(path);
+        scrollTop();
       }
 
       /**
@@ -96,9 +114,6 @@ module Result {
           mapBounds.extend(decodedPath.getAt(i));
         }
         map.fitBounds(mapBounds);
-        setTimeout(() => {
-          google.maps.event.trigger(map, 'resize');
-        }, 100);
       }
 
       function getDestination(itinerary) {
@@ -106,6 +121,9 @@ module Result {
         return segments[segments.length - 1];
       }
 
+      /**
+       * Create a html marker
+       */
       function drawDestinationMarker(itinerary) {
         destination = getDestination(itinerary);
         var destinationImage = getStreetViewAtLocation(destination.start.location);
@@ -131,15 +149,19 @@ module Result {
           '</div>'
         ].join('');
         var location = new google.maps.LatLng(destination.end.location.latitude, destination.end.location.longitude);
-        destinationMaker = new CustomMarker(map, location, {
+        var marker = new CustomMarker(map, location, {
           htmlContent: html
         });
-        destinationMaker.setMap(map);
+        marker.setMap(map);
         map.setCenter(location);
         map.setZoom(DEFAULT_ZOOM_LEVEL);
         displayPath.setMap(null);
+        return marker;
       }
 
+      /**
+       * Get streetview image from location
+       */
       function getStreetViewAtLocation(location) {
         var imageUrl = 'https://maps.googleapis.com/maps/api/streetview?';
         imageUrl += 'location=' + location.latitude + ',' + location.longitude;
@@ -152,6 +174,28 @@ module Result {
         destinationMaker.setMap(null);
         destinationMaker.remove();
       }
+
+      /**
+       * Scroll to the map
+       */
+      function scrollTop() {
+        var top = $element.position().top - 5;
+        $('html, body').animate({
+          scrollTop: top
+        }, 500);
+      }
+
+      /**
+       * Change map height
+       */
+      function changeMapHeight(value: number) {
+        $element.parent('.result-map').animate({
+          height: value.toString() + 'em'
+        }, 500, () => {
+          google.maps.event.trigger(map, 'resize');
+        });
+      }
+
     }
   }
 }

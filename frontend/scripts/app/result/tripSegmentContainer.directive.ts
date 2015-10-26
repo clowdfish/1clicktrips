@@ -16,7 +16,6 @@ module Result {
       selectItinerary: '&',
       updateItinerary: '&',
       showMap: '=',
-      hideMap: '='
     };
 
     public scopeService;
@@ -95,25 +94,7 @@ module Result {
         }
       });
 
-      this.scopeService.triggerShowMap = this.triggerShowMap;
-      this.scopeService.triggerHideMap = this.triggerHideMap;
     };
-
-    /**
-     * Show itinerary on map
-     */
-    triggerShowMap = (itinerary) => {
-      this.scopeService.isShowMap = true;
-      this.scopeService.showMap(itinerary);
-    }
-
-    /**
-     * Hide itinerary and show destination
-     */
-    triggerHideMap = (itinerary) => {
-      this.scopeService.isShowMap = false;
-      this.scopeService.hideMap(itinerary);
-    }
 
     /**
       * Will be called to zoom within the segment container.

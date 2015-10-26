@@ -8,8 +8,7 @@
         <h2>
           <span>Route {{ itineraryIndex + 1 }}</span>
           <span>{{ itinerary | titleExtractor }}</span>
-          <a ng-click="triggerShowMap(itinerary)" ng-show="false === isShowMap">{{ 'result.list.showonmap' | translate }}</a>
-          <a ng-click="triggerHideMap(itinerary)" ng-show="true === isShowMap">{{ 'result.list.showdestination' | translate }}</a>
+          <a ng-click="showMap(itinerary)">{{ 'result.list.showonmap' | translate }}</a>
         </h2>
 
         <span class="result-list-item-title-details">

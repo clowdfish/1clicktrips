@@ -7,7 +7,6 @@ module Result {
   export class ResultCtrl {
 
     private _showMapHandler;
-    private _hideMapHandler;
 
     constructor(public $scope,
                 public $state,
@@ -69,7 +68,6 @@ module Result {
       }
 
       $scope.onShowMap = this.onShowMap;
-      $scope.onHideMap = this.onHideMap;
       $scope.addToggleMapHandler = this.addToggleMapHandler;
     }
 
@@ -81,18 +79,10 @@ module Result {
     }
 
     /**
-     * Tell result map directive to hide itinerary
-     */
-    onHideMap = (itinerary) => {
-      this._hideMapHandler(itinerary);
-    }
-
-    /**
      * Bind show/hide map handler to controller
      */
-    addToggleMapHandler = (showMapHandler, hideMapHandler) => {
+    addToggleMapHandler = (showMapHandler) => {
       this._showMapHandler = showMapHandler;
-      this._hideMapHandler = hideMapHandler;
     }
 
     /**
