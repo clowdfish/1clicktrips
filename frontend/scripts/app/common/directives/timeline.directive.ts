@@ -52,6 +52,15 @@ module Common {
         scope.defineMarginLeft = timelineHelper.defineMarginLeft;
         scope.setDimensions = timelineHelper.setDimensions;
 
+        // only initialize the trip segment container, when itineraries are available
+        scope.$watch('itineraries', () => {
+          scope.itinerary = scope.itineraries[scope.itineraryIndex];
+
+          if(scope.itinerary != null) {
+            timelineHelper.renderTimeLine();
+          }
+        });
+
         scope.$on('renderTimeline', () => {
           timelineHelper.renderTimeLine();
         });

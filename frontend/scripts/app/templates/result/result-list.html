@@ -18,12 +18,12 @@
   <h1 class="result-title">{{ 'result.list.title' | translate }}</h1>
   <span class="result-title-sub">{{ 'result.list.subtitle' | translate }}</span>
 
-  <trip-segment-container itineraries="itineraries"
-                          timing="timing"
-                          selection="selection"
-                          select-itinerary="goToItinerary(index)"
-                          update-itinerary="updateItinerary(index)"
-                          show-map="onShowMap"
-                          class="result-container">
-  </trip-segment-container>
+  <trip-container itineraries="itineraries"
+                  timing="timing"
+                  selection="selection"
+                  select-itinerary="goToItinerary(index)"
+                  update-itinerary="updateItinerary(index)"
+                  show-map="onShowMap"
+                  class="result-container">
+  </trip-container>
 </section>

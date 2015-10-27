@@ -4,10 +4,10 @@ module Result {
 
   'use strict';
 
-  export class TripSegmentContainer {
+  export class TripContainer {
 
     public restrict = 'E';
-    public templateUrl = 'scripts/app/templates/result/trip-segment-container.html';
+    public templateUrl = 'scripts/app/templates/result/trip-container.html';
     public replace = true;
     public scope = {
       itineraries: '=',
@@ -23,7 +23,7 @@ module Result {
     public static Factory() {
 
       var directive = (VEHICLE_TYPE, TRANSFER_TIME, $q):any => {
-        return new TripSegmentContainer(VEHICLE_TYPE, TRANSFER_TIME, $q);
+        return new TripContainer(VEHICLE_TYPE, TRANSFER_TIME, $q);
       };
 
       directive['$inject'] = ['VEHICLE_TYPE', 'TRANSFER_TIME', '$q'];
