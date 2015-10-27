@@ -6,37 +6,37 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "angularjs/angular.d.ts": {
-      "commit": "386e1708b9e5cb0d798c63ac43b5d0fc8d0f9bfd"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "angular-ui-router/angular-ui-router.d.ts": {
-      "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "jquery/jquery.d.ts": {
-      "commit": "d6c98baa7fd703e449cf37f3ec39ed3bd92cfd35"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "moment/moment.d.ts": {
-      "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "moment/moment-node.d.ts": {
-      "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "googlemaps/google.maps.d.ts": {
-      "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "lodash/lodash.d.ts": {
-      "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "jasmine/jasmine.d.ts": {
-      "commit": "d6c98baa7fd703e449cf37f3ec39ed3bd92cfd35"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "angularjs/angular-mocks.d.ts": {
-      "commit": "386e1708b9e5cb0d798c63ac43b5d0fc8d0f9bfd"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "node/node.d.ts": {
-      "commit": "98d3168c2c570352a3a7393788e2ec9fbb08ade6"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     },
     "jasmine-jquery/jasmine-jquery.d.ts": {
-      "commit": "d6c98baa7fd703e449cf37f3ec39ed3bd92cfd35"
+      "commit": "62eedc3121a5e28c50473d2e4a9cefbcb9c3957f"
     }
   }
 }

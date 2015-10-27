@@ -34,9 +34,7 @@ module Common {
             else
               durationString += $translate.instant('general.time.hour.singular');
 
-            durationString += " ";
-            if(fullMinutes < 10) durationString += '0';
-            durationString += fullMinutes + ' ';
+            durationString += " " + fullMinutes + ' ';
 
             if(fullMinutes != 1)
               durationString += $translate.instant('general.time.minute.plural');

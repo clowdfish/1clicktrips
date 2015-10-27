@@ -103,7 +103,7 @@ describe('controller: resultCtrl', () => {
       timing: [ moment().format('YYYY-MM-DDTHH:mm:ss') ],
       locale: language.getActiveLanguage().locale,
       currency: currency.getSelectedCurrency().code,
-      targetDate: moment().add(1, 'days').format('YYYY-MM-DDTHH:mm:ss')
+      targetDate: true
     };
 
     return searchObject;

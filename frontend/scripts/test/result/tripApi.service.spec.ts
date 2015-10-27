@@ -54,4 +54,4 @@ describe('service: tripApi', () => {
 		expect(itineraries).toEqual(result);
 		expect(showWaitingAnimation).toEqual(true);
 	});
-})
+});
