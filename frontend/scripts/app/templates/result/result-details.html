@@ -1,8 +1,8 @@
 <section class="result ng-cloak" ng-cloak ng-show='errorState !== null || timeOut === true'>
 	<!-- error message -->
 	<span class="result-details-error" ng-show="errorState !== null">
-		{{ 'result.error' | translate }}: <br /><br />
-		{[ errorState.message ]}
+		{{ 'result.error' | translate }}:
+		{{ errorState.message }}
 	</span>
 	<span class="result-details-error" ng-show="timeOut === true">
     {{ 'result.sessionexpire' | translate }}
@@ -30,8 +30,27 @@
 	</div>
 </section>
 
-<section class="result-details ng-cloak" ng-cloak>
-	<h1 class="result-title">{{ 'result.details.title' | translate }}</h1>
+<section class="result-details ng-cloak" ng-cloak ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
+	<h1 class="result-details-title">{{ 'result.details.title' | translate }}</h1>
+
+	<span class="result-details-info">
+		<span class="result-details-price">
+			{{ itinerary['price'].toFixed(2) }}
+			<i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
+		</span>
+		<span class="result-details-duration">
+			{{ itinerary['duration'] | durationFormatter : 'full' }}
+		</span>
+	</span>
+
+	<span class="result-details-timing">
+		<span>
+			<span class="fa fa-home"></span><span>{{ itinerary['departureTime'] | dateFormatter : null : "long" }}</span>
+		</span>
+		<span>
+			<span class="fa fa-flag-checkered"></span><span>{{ itinerary['arrivalTime'] | dateFormatter : null : "long" }}</span>
+		</span>
+	</span>
 
 	<div class="result-details-timeline">
 		<timeline
@@ -44,6 +63,8 @@
 		</timeline>
 	</div>
 
-	<a ng-click="goToOverview()" class="button--light">{{ 'result.details.back' | translate }}</a>
-	<a ng-click="booking(searchData, itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
+	<div class="result-details-action">
+		<a ng-click="goToOverview()" class="button--light">{{ 'result.details.back' | translate }}</a>
+		<a ng-click="booking(searchData, itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
+	</div>
 </section>

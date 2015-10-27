@@ -6,7 +6,7 @@
   margin-bottom: 2em;
   background-color: $c-white;
   border-radius: 3px;
-  border-top: 3px solid #ffc233;
+  border-top: 3px solid $c-primary;
 
   -webkit-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
   -moz-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
@@ -26,6 +26,20 @@
 
   .result-details-title {
     margin-bottom: 1em;
+    display: inline-block;
+  }
+
+  .result-map {
+    width: 100%;
+    height: 12em;
+    margin-top: 1.5em;
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.2);
+
+    @include respond-above("medium") {
+      width: 40%;
+      margin-top: 0;
+    }
   }
 
   .result-details-location {
@@ -61,20 +75,54 @@
     margin-top: 0.2em;
   }
 
-  .result-details-timeline {
-    margin-bottom: 2em;
+  /*
+   * Itinerary details
+   */
+
+  .result-details-info {
+    @include clearfix;
+
+    float: right;
+    text-align: right;
+    margin-bottom: 1em;
   }
 
-  .result-map {
-    width: 100%;
-    height: 12em;
-    margin-top: 1.5em;
-    border-radius: 3px;
-    background-color: rgba(0,0,0,0.2);
+  .result-details-price {
+    display: block;
+    font-size: $fs-larger;
+    font-weight: 800;
+  }
 
-    @include respond-above("medium") {
-      width: 40%;
-      margin-top: 0;
+  .result-details-duration {
+
+  }
+
+  .result-details-timing {
+    display: table;
+    margin-top: -0.5em;
+
+    &>span {
+      display: table-row;
+
+      &>span {
+        display: table-cell;
+        padding-bottom: 0.2em;
+      }
+
+      &>.fa {
+        padding-right: 1em;
+        color: $c-primary;
+      }
+    }
+  }
+
+  .result-details-timeline {
+    margin: 2em 0 3em 0;
+  }
+
+  .result-details-action {
+    .button {
+      float: right;
     }
   }
 }

@@ -19,7 +19,7 @@
     "spaceBetweenAmountAndSymbol": false,
     "roundingCoefficient": 0,
     "decimalDigits": 2,
-    "isDefault": true
+    "isDefault": false
   }
 ]
 

@@ -1,86 +1,109 @@
 %booking {
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
+  @include container;
+
   width: 95%;
-  background-color: rgba(255, 255, 255, 0.6);
   padding: 1em 0.8em;
-  margin-top: 6em;
-  margin-bottom: 4em;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+  background-color: $c-white;
+  margin-bottom: 2em;
+  border-radius: 3px;
+  border-top: 3px solid $c-primary;
+
+  -webkit-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
+  box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
 
   .booking-title {      
-      display: block;
-      margin-bottom: 0.7em;          
+    display: block;
+    margin-bottom: 0.7em;
+  }
+
+  .booking-sub-title {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+
+  .booking-summary {
+    margin-bottom: 1.5em;
   }
 
   .booking-summary-item {
-    float: left;
-    width: 20%;
-    box-sizing: border-box;
-    margin: 20px 0;
+    display: table-row;
+    margin-bottom: 0.2em;
 
-    .booking-summary-item-header {
-      font-weight: bold;
+    .fa {
+      display: table-cell;
+      color: $c-primary;
+      padding-right: 0.5em;
     }
   }
 
-  .booking-segment-container {
-
-    .booking-detail-title {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+  .booking-detail-title {
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+  
+  .booking-container {
 
     .booking-segment-item {
-      margin-bottom: 15px;
+      @include clearfix;
+      margin-bottom: 2em;
       padding-bottom: 15px;
       border-bottom: 1px black dotted;
-
-      .booking-segment-info {
-        float: left;
-        width: 60%;
-      }
-
-      .booking-segment-map {
-        float: left;
-
-        .static-map img{
-          width: 100%;
-        }
-      }
-
-      .booking-segment-info {
-
-        .booking-segment-title {
-          font-weight: bold;
-          margin-bottom: 15px;
-        }
-
-        .booking-segment-info-item {
-          float: left;
-          width: 50%;
-          box-sizing: border-box;
-          margin-bottom: 15px;
-
-          .booking-segment-info-item-title {
-            font-weight: bold;
-          }
-        }
-      }
     }
-    
-    
-    .booking-container:last-child {
-      
+
+    &:last-child {
+
       .booking-segment-item:last-child {
-        border-bottom: none;  
-        margin-bottom: 0;
+        border-bottom: none;
         padding-bottom: 0;
       }
-      
+    }
+  }
+
+  .booking-segment-title {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+
+  .booking-segment-info {
+    float: left;
+  }
+
+  .booking-segment-info-item {
+    margin-bottom: 0.6em;
+    color: $c-text-light;
+
+    &.duration {
+      text-align: right;
+
+      @include respond-above("medium") {
+        text-align: left;
+      }
+    }
+  }
+
+  .booking-segment-map {
+    float: left;
+
+    .static-map img {
+      width: 100%;
+    }
+
+    @include respond-above("medium") {
+      float: right;
+
+      .static-map img {
+        width: auto;
+        height: 20em;
+      }
+    }
+  }
+
+  .booking-action {
+
+    .button {
+      float: right;
+      margin-left: 0.3em;
     }
   }
 }

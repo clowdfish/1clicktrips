@@ -2,6 +2,7 @@ general:
   or: or
   from: from
   to: to
+  back: back
   time:
     minute:
       singular: minute
@@ -65,14 +66,13 @@ search:
       placeholder: Appointment start time
     start: Search trips
 result:
-  error: There was a problem on the server.
+  error: There was a problem on the server
   sessionexpire: Your session has expired, please refresh website.
   list:
     title: Search results
     subtitle: Time to pick a trip.
     select: Select
     showonmap: show on map
-    hideonmap: hide on map
     timings:
       show: show alternative timings
       hide: hide
@@ -110,13 +110,16 @@ result:
       distance: Distance from destination
     back: Go back
 booking:
-  title: Booking overview
-  print: Print travel plan
+  title: Trip overview
+  summary:
+    title: Trip summary
+  print: Print trip plan
+  download: Download .ics
   from: from
   to: to
   time: time
   price: price
   duration: duration
   details:
-    title: Booking details
+    title: Trip details
 

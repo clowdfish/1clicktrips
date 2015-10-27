@@ -11,6 +11,7 @@ module Booking {
 
 		constructor(private $scope,
 								private $state,
+                private $window,
                 private bookingApi: BookingApi,
                 private VEHICLE_TYPE) {
 
@@ -42,10 +43,10 @@ module Booking {
 	    * Initialize bookingData
 	    */
 
-
       $scope.tripDetails = this.bookingData['trip'];
       $scope.searchParams = this.bookingData.searchParams;
 	    $scope.mapView = this.mapView;
+	    $scope.goBack = this.goBack;
 
       $scope.segmentInSelection = this.segmentInSelection;
       $scope.getSegments = this.getSegments;
@@ -54,19 +55,33 @@ module Booking {
       $scope.getActionVerbBySegmentType = this.getActionVerbBySegmentType;
 
       $scope.printPage = this.printPage;
-
+      $scope.downloadIcsFile = this.downloadIcsFile;
 		}
 
+    /**
+     *
+     *
+     * @param $event
+     * @returns {boolean}
+     */
     public printPage = ($event) => {
       $event.preventDefault();
       print();
       return false;
-    }
+    };
+
+    /**
+     *
+     *
+     */
+    public downloadIcsFile = () => {
+      alert("Not yet available.")
+    };
 
     private segmentInSelection = (containerIndex, segmentIndex) => {
       var key = '0-' + containerIndex + '-' + segmentIndex;
       return this.bookingData.selection.hasOwnProperty(key);
-    }
+    };
 
     private getSegments = (containerIndex, container) => {
       for (var segmentIndex = 0; segmentIndex < container.alternatives.length; segmentIndex++) {
@@ -75,7 +90,7 @@ module Booking {
         }
       }
       return container.alternatives[0];
-    }
+    };
 
     private getSegmentPath = (segment) => {
       if (_.isEmpty(segment.path)) {
@@ -91,12 +106,15 @@ module Booking {
       }
 
       return null;
-
-    }
+    };
 
     public mapView = () => {
       this.$state.go('search_result', this.bookingData['searchParams'])
-    }
+    };
+
+    public goBack = () => {
+      this.$window.history.back();
+    };
 
     public getActionVerbBySegmentType = (segment) => {
       switch (segment.type) {
@@ -121,5 +139,4 @@ module Booking {
       }
     }
   }
-
-};
+}

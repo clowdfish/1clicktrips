@@ -14,12 +14,11 @@ module Booking {
   }
 
   /**
-  * Get booking data from session storage, include: itineraries, previous search params,
+  * Get booking data from session storage, include: itineraries, previous search params.
   */
   function getBookingData(bookingApi: BookingApi) {
-    var bookingData = bookingApi.getBookingData()
+    var bookingData = bookingApi.getBookingData();
     console.log(bookingData);
     return bookingData;
   }
-
-};
+}

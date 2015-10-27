@@ -2,6 +2,7 @@ general:
   or: oder
   from: von
   to: nach
+  back: zurückt
   time:
     minute:
       singular: Minute
@@ -66,13 +67,12 @@ search:
     start: Suchen
 result:
   error: Es gab ein Problem mit dem Server
-  sessionexpire: Your session has been expired, please refresh website.
+  sessionexpire: Deine Session ist abgelaufen.
   list:
     title: Suchergebnisse
     subtitle: Wähle einen Trip.
     select: Auswählen
     showonmap: auf Karte anzeigen
-    hideonmap: hide on map
     timings:
       show: Alternative Zeiten anzeigen
       hide: ausblenden
@@ -99,24 +99,27 @@ result:
     travelplan: Reiseplan
     hotels: Get available hotels
   tripsegment:
-    flight: flight
+    flight: Flug
   hotelspage:
     title: Availabel hotels
     list:
-      name: Hotel name
-      address: Hotel address
-      price: Price
-      url: Hotel url
-      distance: Distance from destination
-    back: Go back
+      name: Hotelname
+      address: Hoteladresse
+      price: Preis
+      url: Hotel Url
+      distance: Distanz vom Ziel
+    back: Zurück
 booking:
-  title: Booking overview
-  print: Print travel plan
-  from: from
-  to: to
-  time: time
-  price: price
-  duration: duration
+  title: Reiseübersicht
+  summary:
+    title: Zusammenfassung
+  print: Reisplan drucken
+  download: Download .ics
+  from: von
+  to: nach
+  time: Zeit
+  price: Preis
+  duration: Dauer
   details:
-    title: Booking details
+    title: Reisedetails
 
