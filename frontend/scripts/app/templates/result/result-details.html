@@ -20,7 +20,7 @@
 
 		<div class="result-details-appointment">
 			<i class="fa fa-calendar"></i><span class="result-details-appointment-title">Appointment time</span>
-			<span class="result-details-appointment-time">{{ timing['value'] | dateFormatter : null : "long" }}</span>
+			<span class="result-details-appointment-time">{{ timing['value'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
 		</div>
 	</div>
 
@@ -45,10 +45,10 @@
 
 	<span class="result-details-timing">
 		<span>
-			<span class="fa fa-home"></span><span>{{ itinerary['departureTime'] | dateFormatter : null : "long" }}</span>
+			<span class="fa fa-home"></span><span>{{ itinerary['departureTime'] | dateFormatter : itinerary['origin']['timeZone'] : null : "long" }}</span>
 		</span>
 		<span>
-			<span class="fa fa-flag-checkered"></span><span>{{ itinerary['arrivalTime'] | dateFormatter : null : "long" }}</span>
+			<span class="fa fa-flag-checkered"></span><span>{{ itinerary['arrivalTime'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
 		</span>
 	</span>
 

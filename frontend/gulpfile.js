@@ -102,6 +102,7 @@ gulp.task('vendor-scripts', function(done) {
   return gulp.src([
     'bower_components/jquery/dist/jquery.js',
     'bower_components/moment/moment.js',
+    'bower_components/moment-timezone/builds/moment-timezone-with-data.js',
     'bower_components/es6-promise/promise.js',
     'bower_components/lodash/lodash.js',
     'bower_components/angular/angular.js',

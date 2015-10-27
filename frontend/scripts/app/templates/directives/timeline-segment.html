@@ -2,12 +2,12 @@
   <span class="ttg-timeline-segment-timing segment-transition"
         ng-class="{ hidden: width < 3 }"
         ng-style="{ 'left': marginLeft + '%' }">
-    {{ segment['departureTime'] | dateFormatter : 'H:mm' }}
+    {{ segment['departureTime'] | dateFormatter : segment['start']['timeZone'] : 'H:mm' }}
   </span>
   <span class="ttg-timeline-segment-timing segment-transition"
         ng-class="{ hidden: width < 10 }"
         ng-style="{ 'right': 100 - (marginLeft + width) + '%' }">
-    {{ segment['arrivalTime'] | dateFormatter : 'H:mm' }}
+    {{ segment['arrivalTime'] | dateFormatter : segment['end']['timeZone'] : 'H:mm' }}
   </span>
 
   <span class="ttg-timeline-segment-block segment-transition"

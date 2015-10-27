@@ -10,10 +10,11 @@ module Common {
   export function dateFormatter(language) {
 
     return function(date:any,
+                    timezone:string,
                     format?:string,
                     style?:string) {
 
-      if (date == null) return "";
+      if (date == null || !timezone) return "";
 
       if(!format)
         format = language.getActiveLanguage().dateFormat + " HH:mm";
@@ -24,11 +25,11 @@ module Common {
       }
 
       if (typeof(date) == "string" && date.trim() != '') {
-        return moment(date, 'YYYY-MM-DDTHH:mm:ss').format(format);
+        date =  moment.utc(date, 'YYYY-MM-DDTHH:mm:ss');
       }
 
       try {
-        return date.format(format);
+        return date.tz(timezone).format(format);
       }
       catch(ex) {
         return "";
