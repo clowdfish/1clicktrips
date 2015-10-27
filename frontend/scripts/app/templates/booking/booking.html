@@ -49,11 +49,14 @@
             {{ segment.end.description }}
 					</div>
 					<div class="booking-segment-info-item">
-						{{ segment.departureTime | dateFormatter : null : 'long' }} -
-						{{ segment.arrivalTime | dateFormatter : 'HH:mm' }}
+						{{ segment.departureTime | dateFormatter : segment['start']['timeZone'] : null : 'long' }} -
+						{{ segment.arrivalTime | dateFormatter : segment['end']['timeZone'] : 'HH:mm' }}
 					</div>
 					<div class="booking-segment-info-item duration">
 						{{ segment.duration | durationFormatter : 'full' }}
+					</div>
+					<div class="booking-segment-info-item link" ng-if="segment['bookingLink']">
+						<a href="{{ segment['bookingLink'] }}" target="_blank">{{ 'booking.details.goto' | translate }}</a>
 					</div>
 				</div>
 				<div class="booking-segment-map">

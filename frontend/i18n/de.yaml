@@ -122,4 +122,5 @@ booking:
   duration: Dauer
   details:
     title: Reisedetails
+    goto: Zur Buchung
 

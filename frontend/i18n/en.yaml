@@ -122,4 +122,5 @@ booking:
   duration: duration
   details:
     title: Trip details
+    goto: Go to booking
 
