@@ -5,7 +5,8 @@
 describe('service: compatibilityChecker', () => {
   var compatibilityChecker: Common.CompatibilityChecker,
       $q: ng.IQService,
-      $scope;
+      $scope,
+      browser: Common.Browser;
 
   beforeEach(angular.mock.module('app'));
 
@@ -13,7 +14,8 @@ describe('service: compatibilityChecker', () => {
                      _$rootScope_) => {
    $q = _$q_;
    $scope = _$rootScope_.$new();
-   compatibilityChecker = new Common.CompatibilityChecker($q);
+   browser = new Common.Browser();
+   compatibilityChecker = new Common.CompatibilityChecker($q, browser);
   }));
 
   /**

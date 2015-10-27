@@ -17,13 +17,14 @@ describe('service: tripApi', () => {
 										 _$q_,
 										 _$httpBackend_,
 										 _$http_,
+                     _$translate_,
 										 _requestSpinnerEvents_) => {
 		$q = _$q_;
 		$scope = _$rootScope_.$new();
 		$http = _$http_;
 		$httpBackend = _$httpBackend_;
 		requestSpinnerEvents = _requestSpinnerEvents_;
-		var tripApi = new Result.TripApi($http, $q);
+		var tripApi = new Result.TripApi($http, $q, _$translate_)
 	}));
 
 	it('getAvailableItineraries', () => {

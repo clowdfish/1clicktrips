@@ -52,6 +52,7 @@ module Common {
       } else {
         this.selectedCurrency = currencies[0];
       }
+        
       this.setSelectedCurrency(this.selectedCurrency);
       this._isInitialize = true;
     }

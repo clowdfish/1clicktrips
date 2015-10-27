@@ -92,6 +92,7 @@ module Common {
         var language = this.getLanguageByCode(code);
 
         if (language) {
+          this._activeLanguage = language;
           this.$translate.use(code).then(function() {
             return resolve();
           }, function(err) {

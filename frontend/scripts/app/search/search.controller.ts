@@ -94,6 +94,9 @@ module Search {
     };
 
     validateTimeString = (callback) => {
+      if (_.isEmpty(this.$scope.timeString)) {
+        return callback(false);
+      }
       var timePattern = /([01]?[0-9]|2[0-3])(:?)[0-5][0-9]$/;
       var matches = this.$scope.timeString.match(timePattern);
 
@@ -163,6 +166,7 @@ module Search {
 
       if (false === this.$scope.isValidTimeString) {
         alert('Time format is not valid');
+        return false;
       }
 
       if(this.$scope.schedule.time == null) {
@@ -192,7 +196,6 @@ module Search {
     startSearch = () => {
 
       var formValid = this.validateFormInput();
-
       if(formValid) {
         var startDate = this.formatDate(this.$scope.schedule.time);
 

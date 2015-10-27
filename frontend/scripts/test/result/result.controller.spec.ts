@@ -10,6 +10,7 @@ describe('controller: resultCtrl', () => {
 			$stateParams,
 			$window,
 			$q,
+      $timeout,
 			resultState,
 			RESULT_STATE,
 			tripCache: Result.TripCache,
@@ -40,17 +41,20 @@ describe('controller: resultCtrl', () => {
 										 _mockTrip_,
                      _$localStorage_,
                      _$translate_,
-                     _$timeout_) => {
+                     _$timeout_,
+                     _currency_,
+                     _language_) => {
 		$scope = _$rootScope_.$new();
 		$state = _$state_;
 		$stateParams = _$stateParams_;
 		$window = _$window_;
 		$q = _$q_;
+    $timeout = _$timeout_;
 		RESULT_STATE = _RESULT_STATE_;
 		tripCache = new Result.TripCache(_$sessionStorage_, _$location_);
-		tripApi = new Result.TripApi(_$http_, $q);
-		language = new Common.Language(_$localStorage_, _$translate_, _$q_);
-		currency = new Common.Currency();
+		tripApi = new Result.TripApi(_$http_, $q, _$translate_);
+		language = _language_;
+    currency = _currency_;
 		bookingApi = new Booking.BookingApi(_$http_, $q, _$sessionStorage_);
 		searchObject = {};
     inactivityDetector = new Common.InactivityDetector(_$rootScope_, _$timeout_);
@@ -67,20 +71,21 @@ describe('controller: resultCtrl', () => {
 
 	function createResultCtrl(state): Result.ResultCtrl {
 		return new Result.ResultCtrl($scope,
-																 $state,
-																 $stateParams,
-																 $window,
-																 $q,
-																 state,
-																 RESULT_STATE,
-																 tripCache,
-																 tripApi,
-																 searchObject,
-																 language,
-																 currency,
-																 bookingApi,
-                                 inactivityDetector
-                                 );
+                                 $state,
+                                 $stateParams,
+                                 $window,
+                                 $timeout,
+                                 3000,
+                                 $q,
+                                 state,
+                                 RESULT_STATE,
+                                 tripCache,
+                                 tripApi,
+                                 searchObject,
+                                 language,
+                                 currency,
+                                 bookingApi);
+
 	}
 
 	function getDefaultSearchObject() {
@@ -97,7 +102,7 @@ describe('controller: resultCtrl', () => {
       destinationDescription: 'New York',
       timing: [ moment().format('YYYY-MM-DDTHH:mm:ss') ],
       locale: language.getActiveLanguage().locale,
-      currency: currency.get().code,
+      currency: currency.getSelectedCurrency().code,
       targetDate: moment().add(1, 'days').format('YYYY-MM-DDTHH:mm:ss')
     };
 

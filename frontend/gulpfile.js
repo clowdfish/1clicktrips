@@ -23,7 +23,8 @@ var concat 		  = require('gulp-concat'),
     angularTemplateCache = require('gulp-angular-templatecache'),
     typescript  = require('gulp-typescript'),
     gulpSequence = require('gulp-sequence'),
-    compile     = require('gulp-compile-handlebars');
+    compile     = require('gulp-compile-handlebars'),
+    insert      = require('gulp-insert');
 
 
 /****************************************************************************************************/
@@ -250,6 +251,7 @@ gulp.task('compileTest', function(done) {
       out: 'typscript.js',
       removeComments: true
     }))
+    .pipe(insert.prepend('var locale = "en";')) //Prevent language redirect
     .pipe(plumber(plumberErrorHandler))
     .pipe(concat('test.js'))
     .pipe(gulp.dest('build/scripts'));

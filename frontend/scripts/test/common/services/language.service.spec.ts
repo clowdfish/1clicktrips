@@ -8,7 +8,9 @@ describe('service: language', () => {
       $localStorage,
       $translate,
       $scope,
-      languages: Array<Common.LanguageItem>;
+      languages: Array<Common.LanguageItem>,
+      currency: Common.Currency,
+      locale;
 
   beforeEach(angular.mock.module('app'));
 
@@ -23,10 +25,10 @@ describe('service: language', () => {
     if ($localStorage['language']) {
       $localStorage['language'] = null;
     }
-
+    window['locale'] = 'en';
     $scope = _$rootScope_.$new();
-
-    language = new Common.Language($localStorage, $translate, $q);
+    currency = new Common.Currency($localStorage);
+    language = new Common.Language($localStorage, $translate, $q, currency);
     languages = window['AppData']['languages'];
     language.initialize();
   }));
