@@ -18,7 +18,7 @@ module Result {
     };
 
     function link(scope, element, attrs) {
-      var isInitialize: boolean = false;
+      var isInitialized: boolean = false;
       var map: google.maps.Map;
       var displayPath: google.maps.Polyline;
       var $element = $(element);
@@ -28,13 +28,11 @@ module Result {
       var LARGE_MAP_HEIGHT: number = 28;
       var isIncreasedMapSize: boolean = false;
 
-			$element.html('<div id="itinerary-map"></div>');
-
       if (scope.itinerary) {
         initializeMap(scope.itinerary);
       }
 
-      scope.$watch(scope.itinerary, () => {
+      scope.$watch('itinerary', () => {
         if (!scope.itinerary) return;
         initializeMap(scope.itinerary);
       });
@@ -60,12 +58,12 @@ module Result {
       */
 		  function initializeMap(itinerary) {
         console.log(itinerary);
-        if (true === isInitialize) {
+        if (true === isInitialized) {
           return;
         }
-        isInitialize =  true;
+        isInitialized =  true;
 
-        map = new google.maps.Map($element.find('#itinerary-map')[0], {
+        map = new google.maps.Map($('#itinerary-map')[0], {
           zoom: DEFAULT_ZOOM_LEVEL,
           scrollwheel: browser.isMobileDevice(),
           panControl: false,
@@ -114,6 +112,7 @@ module Result {
           mapBounds.extend(decodedPath.getAt(i));
         }
         map.fitBounds(mapBounds);
+
       }
 
       function getDestination(itinerary) {
@@ -170,9 +169,11 @@ module Result {
       }
 
       function destroyDirective() {
-        displayPath.setMap(null);
-        destinationMaker.setMap(null);
-        destinationMaker.remove();
+        if (isInitialized) {
+          displayPath.setMap(null);
+          destinationMaker.setMap(null);
+          destinationMaker.remove();
+        }
       }
 
       /**
@@ -182,7 +183,9 @@ module Result {
         var top = $element.position().top - 5;
         $('html, body').animate({
           scrollTop: top
-        }, 500);
+        }, 500, () => {
+          google.maps.event.trigger(map, 'resize');
+        });
       }
 
       /**
