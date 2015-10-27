@@ -12,8 +12,8 @@
         </h2>
 
         <span class="result-list-item-title-details">
-          <span class="result-list-item-price">{{ itinerary['price'].toFixed(2) }}
-            <i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
+          <span class="result-list-item-price">
+            {{ itinerary['price'] | priceFormatter : itinerary['currency'] }}
           </span>
           <span class="result-list-item-duration">{{ itinerary['duration'] | durationFormatter : 'full' }}</span>
         </span>
@@ -69,7 +69,7 @@
       <span class="result-list-item-footer" ng-hide="showAlternatives(itineraryIndex)">
         <span class="result-list-item-footer-details">
           <span class="result-list-item-price">
-            {{ itinerary['price'].toFixed(2) }}
+            {{ itinerary['price'] | priceFormatter : itinerary['currency'] }}
             <i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
           </span>
           <span class="result-list-item-duration">{{ itinerary['duration'] | durationFormatter : 'full' }}</span>

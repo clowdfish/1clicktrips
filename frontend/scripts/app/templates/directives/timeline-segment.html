@@ -11,10 +11,9 @@
   </span>
 
   <span class="ttg-timeline-segment-block segment-transition"
-        ng-class="{ help: width < 25 }"
+        ng-class="{ 'zoom-in': width < 25, 'zoom-out': zoomState === 1 }"
         ng-style="{ 'width': width + '%', 'left': marginLeft + '%' }"
-        ng-click="zoomToSegment()"
-        ng-mouseleave="zoomOut()">
+        ng-click="zoomToSegment()"><!-- ng-mouseleave="zoomOut()" -->
   </span>
 
   <span class="ttg-timeline-segment-details segment-transition"

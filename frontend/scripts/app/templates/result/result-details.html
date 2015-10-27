@@ -37,8 +37,7 @@
 
 	<span class="result-details-info">
 		<span class="result-details-price">
-			{{ itinerary['price'].toFixed(2) }}
-			<i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
+			{{ itinerary['price'] | priceFormatter : itinerary['currency'] }}
 		</span>
 		<span class="result-details-duration">
 			{{ itinerary['duration'] | durationFormatter : 'full' }}

@@ -23,10 +23,10 @@ module Common {
           if(currencyObject.spaceBetweenAmountAndSymbol)
             priceString += " ";
 
-          priceString += price;
+          priceString += price.toFixed(currencyObject.decimalDigits);
         }
         else {
-          priceString += price;
+          priceString += price.toFixed(currencyObject.decimalDigits);
 
           if(currencyObject.spaceBetweenAmountAndSymbol)
             priceString += " ";

@@ -25,7 +25,7 @@
         </span>
         <span class="result-details-row">
           <span class="result-details-cell">{{ 'result.hotelspage.list.price' | translate }}</span>
-          <span class="result-details-cell">{[ hotel.price + " " + hotel.currency ]}</span>
+          <span class="result-details-cell">{{ hotel['price'] | priceFormatter : hotel['currency'] }}</span>
         </span>
         <span class="result-details-row">
           <span class="result-details-cell">{{ 'result.hotelspage.list.url' | translate }}</span>
