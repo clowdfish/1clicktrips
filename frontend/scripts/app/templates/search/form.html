@@ -17,7 +17,7 @@
         name='origin'
         tabindex="1"
         ng-model='schedule.originAddress'
-        typeahead="address.description for address in getAddressSuggestion($viewValue)"
+        uib-typeahead="address.description for address in getAddressSuggestion($viewValue)"
         typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
     </div>
 
@@ -32,7 +32,7 @@
         name='destination'
         tabindex="2"
         ng-model='schedule.destinationAddress'
-        typeahead="address.description for address in getAddressSuggestion($viewValue)"
+        uib-typeahead="address.description for address in getAddressSuggestion($viewValue)"
         typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
     </div>
 
@@ -50,7 +50,7 @@
           date-disabled="disabled(date, mode)"
           ng-model="schedule.time"
           datepicker-options="dateOptions"
-          datepicker-popup="{{ format }}"
+          uib-datepicker-popup="{{ format }}"
           ng-required="true"
           show-button-bar="false"
           is-open="isOpenDatePicker"

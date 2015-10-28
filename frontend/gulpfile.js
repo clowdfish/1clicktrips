@@ -108,7 +108,6 @@ gulp.task('vendor-scripts', function(done) {
     'bower_components/lodash/lodash.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
-    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
     'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
     'bower_components/ng-file-upload/ng-file-upload-shim.js',
     'bower_components/ng-file-upload/ng-file-upload.js',
@@ -189,6 +188,11 @@ gulp.task('preprocess', function() {
       .pipe(plumber(plumberErrorHandler))
       .pipe(compile(templateData))
       .pipe(gulp.dest(path.join('build/', locale)));
+
+    gulp
+      .src('bower_components/angular-i18n/angular-locale_' + locale + '.js')
+      .pipe(plumber(plumberErrorHandler))
+      .pipe(gulp.dest('build/scripts'));
   });
 
   /**
@@ -268,9 +272,9 @@ gulp.task('runTest', function (done) {
 gulp.task('test', gulpSequence('scripts', 'compileTest', 'runTest'));
 
 // gulp task suite
-gulp.task('build', gulpSequence(['i18n', 'scripts'], 'styles', 'images', 'preprocess', 'webserver', 'app-data'));
+gulp.task('build', gulpSequence(['i18n', 'scripts'], 'styles', 'images', 'preprocess', 'app-data'));
 
-gulp.task('live', ['build'], function() {
+gulp.task('live', ['build', 'webserver'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
   gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
   gulp.watch(['*.html'], ['preprocess', 'scripts']);

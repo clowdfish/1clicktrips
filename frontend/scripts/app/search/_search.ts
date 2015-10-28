@@ -23,7 +23,7 @@ module Search {
     .config(routerConfig);
 
   function decorateDatePicker($provide) {
-    $provide.decorator('daypickerDirective', function($delegate) {
+    $provide.decorator('uibDaypickerDirective', function($delegate) {
       var directive = $delegate[0];
       directive.templateUrl = 'scripts/app/templates/search/datepicker/day.html';
       return $delegate;
@@ -31,7 +31,7 @@ module Search {
   }
 
   function decoratePopupDatePicker($provide) {
-    $provide.decorator('datepickerPopupWrapDirective', function($delegate) {
+    $provide.decorator('uibDatepickerPopupWrapDirective', function($delegate) {
       var directive = $delegate[0];
       directive.templateUrl = 'scripts/app/templates/search/datepicker/popup.html';
       return $delegate;
@@ -39,7 +39,7 @@ module Search {
   }
 
   function decorateTimePicker($provide) {
-    $provide.decorator('timepickerDirective', function($delegate) {
+    $provide.decorator('uibTimepickerDirective', function($delegate) {
       var directive = $delegate[0];
       directive.templateUrl = 'scripts/app/templates/search/timepicker/time.html';
       return $delegate;
