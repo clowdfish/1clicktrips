@@ -51,6 +51,10 @@ module Result {
           ]
         })
         .success((response: any) => {
+          if (_.isEmpty(response)) {
+            deferred.reject('Empty response');
+          }
+
           // returns an array of trips
           var result = response.map((itinerary) => {
             return itinerary;
@@ -97,6 +101,10 @@ module Result {
           ]
         })
         .success((response) => {
+          if (_.isEmpty(response)) {
+            deferred.reject('Empty response');
+          }
+
           // returns one trip object
           deferred.resolve(response);
         })
@@ -138,6 +146,10 @@ module Result {
           ]
         })
         .success((response) => {
+          if (_.isEmpty(response)) {
+            deferred.reject('Empty response');
+          }
+          
           // returns one trip object
           deferred.resolve(response);
         })
