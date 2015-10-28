@@ -83,7 +83,7 @@ module Result {
         });
 
         destinationMaker = drawDestinationMarker(itinerary);
-
+        map.panBy(0, -120);
         google.maps.event.trigger(map, 'resize');
       }
 
@@ -126,7 +126,7 @@ module Result {
        */
       function drawDestinationMarker(itinerary) {
         destination = getDestination(itinerary);
-        var destinationImage = getStreetViewAtLocation(destination.start.location);
+        var destinationImage = getStreetViewAtLocation(destination.end.location);
         var time = moment(itinerary.arrivalTime).format('YYYY/MM/DD hA');
         var html = [
           '<div class="marker-wrapper">',

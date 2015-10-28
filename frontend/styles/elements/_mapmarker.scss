@@ -1,22 +1,32 @@
 .marker-wrapper {
-  width: 250px;
+  width: 230px;
   position: relative;
 
   .marker-description {
     position: absolute;
     bottom: -16px;
     z-index: 10;
+    background-color: #F1F1F1;
+    box-shadow: 4px 3px 11px 1px rgba(0,0,0,0.3);
 
     .marker-location {
+      height: 85px;
 
       .marker-location-image {
-        width: 110px;
-        float: left;
         transform: rotate(-7deg);
+        position: absolute;
+        top: -7px;
+        left: -14px;
+
+        img {
+          border: 3px solid #EEEEEE;
+          box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
+        }
       }
 
       .marker-location-data {
-        float: left;
+        margin-left: 97px;
+        padding: 5px;
 
         .marker-location-data-title {
           font-weight: bold;
@@ -39,5 +49,8 @@
   .marker-time {
     width: 100%;
     background-color: white;
+    padding: 4px;
+    padding-left: 103px;
+    font-weight: bold;
   }
 }
