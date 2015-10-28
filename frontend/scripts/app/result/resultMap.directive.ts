@@ -26,12 +26,16 @@ module Result {
       var destination;
       var destinationMaker;
       var DEFAULT_ZOOM_LEVEL: number = 17;
+      var SMALL_MAP_HEIGHT: number = 18;
       var LARGE_MAP_HEIGHT: number = 28;
       var isIncreasedMapSize: boolean = false;
-
+      var $resultMap = $element.parent('.result-map');
+      var $window = $(window);
       if (scope.itinerary) {
         initializeMap(scope.itinerary);
       }
+
+      initializeScrollDetect();
 
       scope.$watch('itinerary', () => {
         if (!scope.itinerary) return;
@@ -53,6 +57,24 @@ module Result {
       scope.$on('$destroy', () => {
         destroyDirective();
       });
+
+      /**
+       * Reduce map height when user scroll down
+       */
+      function initializeScrollDetect() {
+        var _top = $window.scrollTop();
+        $(window).scroll((e) => {
+          var _curTop = $window.scrollTop();
+          if (_curTop > _top) {
+            var boundY = $resultMap.offset().top + $resultMap.height() * 2 / 3;
+            if (window.scrollY > boundY && isIncreasedMapSize) {
+              changeMapHeight(SMALL_MAP_HEIGHT);
+              isIncreasedMapSize = false;
+            }
+          }
+          _top = _curTop;
+        });
+      }
 
       /**
       * Setup google map object
@@ -88,7 +110,6 @@ module Result {
       }
 
       function drawItinerary(itinerary, selection) {
-        //Only increase map height at once
         if (!isIncreasedMapSize) {
           changeMapHeight(LARGE_MAP_HEIGHT);
           isIncreasedMapSize = true;
@@ -106,12 +127,14 @@ module Result {
       * Draw path and set bounds
       */
       function applyPathToMap(decodedPath) {
+
         displayPath.setMap(map);
         displayPath.setPath(decodedPath);
         var mapBounds = new google.maps.LatLngBounds();
         for (var i = 0; i < decodedPath.getLength(); i++) {
           mapBounds.extend(decodedPath.getAt(i));
         }
+        console.log(mapBounds);
         map.fitBounds(mapBounds);
 
       }
@@ -187,7 +210,7 @@ module Result {
         var top = $element.position().top - 5;
         $('html, body').animate({
           scrollTop: top
-        }, 500, () => {
+        }, 300, () => {
           google.maps.event.trigger(map, 'resize');
         });
       }
@@ -198,7 +221,7 @@ module Result {
       function changeMapHeight(value: number) {
         $element.parent('.result-map').animate({
           height: value.toString() + 'em'
-        }, 500, () => {
+        }, 300, () => {
           google.maps.event.trigger(map, 'resize');
         });
       }
