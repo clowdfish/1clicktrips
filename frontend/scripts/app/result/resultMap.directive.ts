@@ -12,7 +12,8 @@ module Result {
       templateUrl: 'scripts/app/templates/result/result-map.html',
       scope: {
         itinerary: '=',
-        toggleMap: '='
+        toggleMap: '=',
+        destinationDescription: '='
       },
       link: link
     };
@@ -61,7 +62,7 @@ module Result {
         if (true === isInitialized) {
           return;
         }
-        isInitialized =  true;
+        isInitialized = true;
 
         map = new google.maps.Map($('#itinerary-map')[0], {
           zoom: DEFAULT_ZOOM_LEVEL,
@@ -126,25 +127,28 @@ module Result {
       function drawDestinationMarker(itinerary) {
         destination = getDestination(itinerary);
         var destinationImage = getStreetViewAtLocation(destination.start.location);
+        var time = moment(itinerary.arrivalTime).format('YYYY/MM/DD hA');
         var html = [
           '<div class="marker-wrapper">',
-            '<img class="marker-image" src="../images/marker.png"/>',
-            '<div class="marker-destination-info clearfix">',
-              '<div class="marker-destination-image">',
-                '<img src="' + destinationImage + '" />',
+            '<div class="marker-description">',
+              '<div class="marker-location clearfix">',
+                '<div class="marker-location-image">',
+                  '<img src="' + destinationImage + '" />',
+                '</div>',
+                '<div class="marker-location-data">',
+                  '<div class="marker-location-data-title">',
+                    scope.destinationDescription,
+                  '</div>',
+                  '<div class="marker-location-data-address">',
+                    'Example Address',
+                  '</div>',
+                '</div>',
               '</div>',
-              '<div class="marker-destination-description">',
-                '<div class="marker-destination-description-title">',
-                  'Destination name',
-                '</div>',
-                '<div class="marker-destination-description-address">',
-                  'Example Address',
-                '</div>',
-                '<div class="marker-destination-description-time">',
-                  'Example time',
-                '</div>',
+              '<div class="marker-time">',
+                time,
               '</div>',
             '</div>',
+            '<img class="marker-image" src="../images/marker.png"/>',
           '</div>'
         ].join('');
         var location = new google.maps.LatLng(destination.end.location.latitude, destination.end.location.longitude);

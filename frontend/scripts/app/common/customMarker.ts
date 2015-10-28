@@ -38,7 +38,7 @@
 
     var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
     var $div = $(div);
-    console.log(point);
+    
     if (point) {
       div.style.left = (point.x - 37) + 'px';
       div.style.top = (point.y / 2 - 4) + 'px';
