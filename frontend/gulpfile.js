@@ -108,6 +108,7 @@ gulp.task('vendor-scripts', function(done) {
     'bower_components/lodash/lodash.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
     'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
     'bower_components/ng-file-upload/ng-file-upload-shim.js',
     'bower_components/ng-file-upload/ng-file-upload.js',
