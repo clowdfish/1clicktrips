@@ -118,7 +118,7 @@ module Result {
         destinationMaker.setMap(null);
         destinationMaker.remove();
         var segments = itineraryHelper.getActiveSegmentFromItinerary(itinerary, selection);
-        var path = itineraryHelper.getSegmentsPath(segments);
+        var path: google.maps.MVCArray = itineraryHelper.getSegmentsPath(segments);
         applyPathToMap(path);
         scrollTop();
       }
@@ -126,7 +126,7 @@ module Result {
       /**
       * Draw path and set bounds
       */
-      function applyPathToMap(decodedPath) {
+      function applyPathToMap(decodedPath: google.maps.MVCArray) {
 
         displayPath.setMap(map);
         displayPath.setPath(decodedPath);
@@ -134,9 +134,9 @@ module Result {
         for (var i = 0; i < decodedPath.getLength(); i++) {
           mapBounds.extend(decodedPath.getAt(i));
         }
-        console.log(mapBounds);
-        map.fitBounds(mapBounds);
 
+        map.fitBounds(mapBounds);
+        map.panToBounds(mapBounds);
       }
 
       function getDestination(itinerary) {
@@ -163,7 +163,7 @@ module Result {
                     scope.destinationDescription,
                   '</div>',
                   '<div class="marker-location-data-address">',
-                    'Example Address',
+                    destination.end.description,
                   '</div>',
                 '</div>',
               '</div>',

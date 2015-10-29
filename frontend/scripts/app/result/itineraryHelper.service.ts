@@ -8,7 +8,7 @@ module Result {
 		/**
 		 * Get all location from segments
 		 */
-		public getSegmentsPath = (segments: Array<any>) => {
+		public getSegmentsPath = (segments: Array<any>): google.maps.MVCArray => {
 			var latlngs = new google.maps.MVCArray();
 			for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
 				var segment = segments[segmentIndex];
