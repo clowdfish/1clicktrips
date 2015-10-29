@@ -257,9 +257,11 @@ module Result {
       });
 
       // temp solution as long as we cannot update a route with two major segments
+      /*
       if(majorSegments.length > 1) {
         return false;
       }
+      */
 
       return majorSegments.some(function(segment) {
         if(segment.segment['alternatives'] && segment.segment['alternatives'].length > 1) {
@@ -327,15 +329,11 @@ module Result {
 
             if(numberOfMajorContainers > 1) {
               // other major container is present
-              console.log("Update multi segment itinerary.");
-
               this.scopeService.updateItinerary({ index: itineraryIndex })
                 .then(resolve).catch(reject);
             }
             else {
               // no other major container is present -> update segment data
-              console.log("Update single segment itinerary.");
-
               this.overWriteSegment(segment, alternative);
               this.updateItineraryData(itineraryIndex);
 
@@ -493,7 +491,7 @@ module Result {
             this.getAlternativeIndex(itineraryIndex, containerIndex);
 
           return container['alternatives'][alternativeIndex].map((segment) => {
-            return segment.hasOwnProperty('price') ? segment['price']['amount'] : 0;
+            return segment.hasOwnProperty('price') && !segment['price']['estimate'] ? segment['price']['amount'] : 0;
           }).reduce((previousValue, currentValue) => {
             return previousValue + currentValue;
           });

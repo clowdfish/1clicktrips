@@ -129,18 +129,17 @@ module app {
     var localeMapping = {
       de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
       en: ['en-au', 'en-bz', 'en-ca', 'en-cb', 'en-gb', 'en-in', 'en-ie', 'en-jm', 'en-nz', 'en-ph', 'en-za', 'en-tt', 'en-us']
-    }
+    };
 
     var browserLocale = navigator.language.toLowerCase();
 
     angular.forEach(localeMapping, function(localeList, localeKey) {
       if (localeList.indexOf(browserLocale) >= 0 || browserLocale === localeKey) {
-        var newHref = '/' + localeKey + '/#/';
-        location.href = newHref;
+        location.href = '/' + localeKey + '/#/';
       }
     });
 
-    //Use English if doesn't match anything
+    // use English if doesn't match anything
     location.href = '/en';
   }
 

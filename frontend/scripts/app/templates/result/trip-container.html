@@ -23,9 +23,10 @@
         itineraries="itineraries"
         itinerary-index="{{ itineraryIndex }}"
         timing="timing"
-        show-details="{{ showDetails }}"
+        show-details="showDetails"
         get-alternative-index="getAlternativeIndex(itineraryIndex, containerIndex)"
-        get-timing-index="getTimingIndex(itineraryIndex, containerIndex, segmentIndex)">
+        get-timing-index="getTimingIndex(itineraryIndex, containerIndex, segmentIndex)"
+        segment-has-priority="true">
       </timeline>
 
       <h2 class="result-list-alternatives-title"
@@ -49,9 +50,10 @@
                 itineraries="itineraries"
                 itinerary-index="{{ itineraryIndex }}"
                 timing="timing"
-                show-details="{{ showDetails }}"
+                show-details="false"
                 get-alternative-index="0"
-                get-timing-index="timingIndex">
+                get-timing-index="timingIndex"
+                segment-has-priority="isPrioritySegment(itineraryIndex, containerIndex)">
               </timeline>
 
               <span class="result-list-alternative-selection">

@@ -80,7 +80,7 @@ module Result {
       * Setup google map object
       */
 		  function initializeMap(itinerary) {
-        console.log(itinerary);
+        //console.log(itinerary);
         if (true === isInitialized) {
           return;
         }
@@ -131,6 +131,7 @@ module Result {
         displayPath.setMap(map);
         displayPath.setPath(decodedPath);
         var mapBounds = new google.maps.LatLngBounds();
+        
         for (var i = 0; i < decodedPath.getLength(); i++) {
           mapBounds.extend(decodedPath.getAt(i));
         }

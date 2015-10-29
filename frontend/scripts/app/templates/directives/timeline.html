@@ -9,7 +9,7 @@
           ng-init="containerIndex = $index">
 
       <span ng-repeat="segment in container['alternatives'][alternativeIndex(containerIndex)]"
-            ng-if="segment['departureTime'] && (!showDetails && segment['isMajor'] || showDetails)"
+            ng-if="segment['departureTime'] && (!showDetails && segment['isMajor'] && isPrioritySegment(containerIndex) || showDetails)"
             ng-init="segmentIndex = $index">
 
         <span ng-if="segment['alternatives'][timingIndex(containerIndex, segmentIndex)]['segments']">
