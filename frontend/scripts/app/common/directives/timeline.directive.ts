@@ -12,10 +12,11 @@ module Common {
     public scope = {
       itineraries: '=',
       timing: '=',
+      showDetails: '=',
       itineraryIndex: '@',
-      showDetails: '@',
       getAlternativeIndex: '&',
-      getTimingIndex: '&'
+      getTimingIndex: '&',
+      segmentHasPriority: '&'
     };
     public link: (scope: any, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => void;
 
@@ -76,6 +77,13 @@ module Common {
           return scope.getTimingIndex({
             containerIndex: containerIndex,
             segmentIndex: segmentIndex
+          });
+        };
+
+        scope.isPrioritySegment = (containerIndex) => {
+          return scope.segmentHasPriority({
+            itineraryIndex: scope.itineraryIndex,
+            containerIndex: containerIndex
           });
         };
 

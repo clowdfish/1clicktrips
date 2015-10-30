@@ -129,15 +129,19 @@ module Result {
 
         var searchObject = {
           tripKey: this.$scope.itineraries[itineraryIndex]['tripKey'],
-          timing: [ this.$stateParams.startDate ],
-          targetDate: this.$stateParams.targetDate,
+          origin: this.searchObject.origin,
+          originDescription: this.searchObject.originDescription,
+          destination: this.searchObject.destination,
+          destinationDescription: this.searchObject.destinationDescription,
+          timing: this.searchObject.timing,
+          targetDate: this.searchObject.targetDate,
           selectedAlternatives: this.createAlternativeKeys(itineraryIndex),
           locale: this.language.getActiveLanguage().locale,
           currency: this.currency.getSelectedCurrency().code
         };
 
-        if (this.$stateParams.sessionId)
-          this.searchObject.sessionId = this.$stateParams.sessionId;
+        if (this.$scope.itineraries[itineraryIndex].sessionId)
+          searchObject['sessionId'] = this.$scope.itineraries[itineraryIndex].sessionId;
 
         this.tripApi.getTripUpdate(searchObject)
           .then((trip) => {
@@ -146,6 +150,7 @@ module Result {
             this.$scope.timing['targetDate'] =  this.searchObject.targetDate;
 
             this.$scope.itineraries[itineraryIndex] = trip;
+            this.tripCache.storeTrip(this.$scope.itineraries);
             //this.activateTimer(this.$scope.TIMEOUT);
 
             resolve();
@@ -312,11 +317,17 @@ module Result {
       return resultArray.join('%');
     };
 
+    /**
+     *
+     *
+     * @param searchData
+     * @param itinerary
+     * @returns {void|angular.IPromise<any>|IPromise<any>}
+     */
     booking = (itinerary) => {
       this.bookingApi.setBookingData(this.searchObject, this.$scope.selection, itinerary);
       return this.$state.go('booking');
     };
-
 
     /**
      * TODO This one is not working yet

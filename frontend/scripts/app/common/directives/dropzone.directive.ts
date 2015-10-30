@@ -8,6 +8,7 @@ module Common {
 		schedule: Object;
 		error: Object;
 		processFile: Function;
+    onParsedFile: Function;
 	}
 
 	export class Dropzone {
@@ -16,6 +17,7 @@ module Common {
 		public templateUrl = 'scripts/app/templates/directives/dropzone.html';
 		public scope = {
 			schedule: '=',
+      onParsedFile: '='
 		};
 
 		public scopeService: IDropzoneScope;
@@ -44,7 +46,9 @@ module Common {
 						this.scopeService.$apply(() => {
 							this.parseIcsFile(this.scopeService, reader.result)
 								.then((parseResult) => {
-									this.scopeService.schedule = parseResult;
+                  this.scopeService.onParsedFile(parseResult);
+									// this.scopeService.schedule = parseResult;
+                  // this.scopeService.schedule['time'] = parseResult['time'];
 								}, (err) => {
 									this.scopeService.error = err;
 								});
@@ -110,7 +114,6 @@ module Common {
 		 				}
 		 			}
 		 			else if (icsHierarchy[icsHierarchy.length - 1] == 'VEVENT') {
-
 		 				if (line.indexOf('DTSTART') == 0)
 		 					appointmentObject['time'] = this.formatTiming(line.split(':')[1]);
 

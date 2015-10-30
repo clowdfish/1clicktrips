@@ -81,6 +81,12 @@ module Search {
           }
         });
       });
+
+      $scope.onParsedFile = this.onParsedFile;
+    }
+
+    onParsedFile = (parseResult) => {
+      this.$scope.schedule = parseResult;
     }
 
     /**

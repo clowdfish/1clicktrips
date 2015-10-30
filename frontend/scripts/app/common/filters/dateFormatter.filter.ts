@@ -14,7 +14,7 @@ module Common {
                     format?:string,
                     style?:string) {
 
-      if (date == null || !timezone) return "";
+      if (!date || !timezone) return "";
 
       if(!format)
         format = language.getActiveLanguage().dateFormat + " HH:mm";
@@ -29,7 +29,7 @@ module Common {
       }
 
       try {
-        return date.tz(timezone).format(format);
+        return date.clone().tz(timezone).format(format);
       }
       catch(ex) {
         return "";
