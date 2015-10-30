@@ -5,6 +5,9 @@
 # WebStorm specific files
 .idea
 
+#VS Code specific files
+.vscode
+
 # build files
 node_modules/
 
