@@ -74,9 +74,11 @@ module.exports = {
     var tripPlanHelper = new TripPlanHelper();
     return new Promise(function(resolve, reject) {
       var trip = createMockTripResult()[0];
-      var tripPlan = tripPlanHelper.generateTripPlan(trip);
-      console.log(tripPlan);
-      return resolve(tripPlan);
+      var tripPlan = tripPlanHelper.generateTripPlan(searchObject, trip);
+      return resolve({
+        title: searchObject.destinationDescription,
+        content: tripPlan
+      });
 
     });
   }

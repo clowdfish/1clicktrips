@@ -5,7 +5,6 @@ module Common {
 	'use strict';
 
 	interface IDropzoneScope extends ng.IScope {
-		schedule: Object;
 		error: Object;
 		processFile: Function;
     onParsedFile: Function;
@@ -16,7 +15,6 @@ module Common {
 		public restrict = 'E';
 		public templateUrl = 'scripts/app/templates/directives/dropzone.html';
 		public scope = {
-			schedule: '=',
       onParsedFile: '='
 		};
 
@@ -47,8 +45,6 @@ module Common {
 							this.parseIcsFile(this.scopeService, reader.result)
 								.then((parseResult) => {
                   this.scopeService.onParsedFile(parseResult);
-									// this.scopeService.schedule = parseResult;
-                  // this.scopeService.schedule['time'] = parseResult['time'];
 								}, (err) => {
 									this.scopeService.error = err;
 								});

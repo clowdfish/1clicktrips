@@ -1,5 +1,5 @@
 // routes/search.js
-
+var _ = require('underscore');
 var Promise = require('es6-promise').Promise;
 
 module.exports = function (app, express, production) {
@@ -201,7 +201,7 @@ module.exports = function (app, express, production) {
               req.session.tripPlan = tripPlan;
               res.status(200).send();
             })
-            .catch(function() {
+            .catch(function(err) {
               res.status(500).json(err.message);
             });
         });
@@ -211,13 +211,13 @@ module.exports = function (app, express, production) {
   });
 
   searchApi.get('/trip-plan', function(req, res) {
-    if (req.session.bookingFile) {
-      var file = _.clone(req.session.bookingFile);
-      delete req.session['bookingFile'];
+    if (req.session.tripPlan) {
+      var file = _.clone(req.session.tripPlan);
+      delete req.session['tripPlan'];
       res.set('Content-Type', 'text/calendar');
-      res.set('Content-Length', file.fileContent.length);
-      res.set('Content-Disposition', 'attachment; filename="' + file.fileTitle + '.ics"');
-      res.send(file.fileContent);
+      res.set('Content-Length', file.content.length);
+      res.set('Content-Disposition', 'attachment; filename="' + file.title + '.ics"');
+      res.send(file.content);
     } else {
       res.status(500).send('status.error.file.not.available');
     }

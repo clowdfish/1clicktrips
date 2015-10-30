@@ -1,6 +1,7 @@
 var async = require('async');
 var Promise = require('es6-promise').Promise;
 var tzwhere = require('tzwhere');
+var moment = require('moment-timezone');
 
 var ICS_VERSION = 2;
 var PRODID = '-//1ClickTrips//EN';
@@ -10,28 +11,22 @@ function TripPlanHelper() {
 
 }
 
-TripPlanHelper.prototype.generateTripPlan = function(itinerary) {
-  var data = this.prepareData(itinerary);
+TripPlanHelper.prototype.generateTripPlan = function(searchObject, itinerary) {
+  console.log(searchObject);
+  console.log(itinerary);
+  var data = this.prepareData(searchObject, itinerary);
+  console.log(data);
   var iscArray = this.prepareIscContent(data);
   var content = this.mergeContentArray(iscArray);
   return content;
 }
 
 
-TripPlanHelper.prototype.prepareData = function(itinerary) {
-  var calendarData = {
-    version: ICS_VERSION,
-    prodid: PRODID,
-    calscale: CALSCALE,
-    method: 'PUBLISH'
-  };
-
+TripPlanHelper.prototype.prepareData = function(searchObject, itinerary) {
   var originTzName = tzwhere.tzNameAt(itinerary.origin.location.latitude, itinerary.origin.location.longitude);
   var originTzOffset = Math.round(tzwhere.tzOffsetAt(itinerary.origin.location.latitude, itinerary.origin.location.longitude) / 3600);
-
   var destinationTzName = tzwhere.tzNameAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude);
   var destinationTzOffset = Math.round(tzwhere.tzOffsetAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude) / 3600);
-
   var utcStartDate = moment.tz(itinerary.departureTime, originTzName).utc().format('YYYYMMDDTHHmmss') + 'Z';
   var startDate = moment(itinerary.departureTime).format('YYYYMMDDTHHmmss');
   var endDate = moment(itinerary.arrivalTime).format('YYYYMMDDTHHmmss');
@@ -39,11 +34,11 @@ TripPlanHelper.prototype.prepareData = function(itinerary) {
   var summary = this.getTripSubject(itinerary);
   var description = this.getTripDescription(itinerary);
   var created = moment().format('YYYYMMDDTHHmmss') + 'Z';
-  var location = itinerary.destination.location;
+  var location = searchObject.destinationDescription;
   var geo = itinerary.destination.location.latitude + ';' + itinerary.destination.location.longitude;
   var uid = itinerary.tripKey;
 
-  return calendarData = {
+  return {
     version: ICS_VERSION,
     prodid: PRODID,
     calscale: CALSCALE,
@@ -67,7 +62,7 @@ TripPlanHelper.prototype.prepareData = function(itinerary) {
 
 }
 
-TripPlanHelper.prototype.generateContentArray = function(calendarData) {
+TripPlanHelper.prototype.prepareIscContent = function(calendarData) {
   var contentArray = [
     'BEGIN:VCALENDAR',
       'VERSION:2.0',
@@ -102,10 +97,10 @@ TripPlanHelper.prototype.generateContentArray = function(calendarData) {
         'GEO:' + calendarData.geo,
         'LOCATION:' + this.escapeSpecialCharacter(calendarData.location),
         'UID:' + calendarData.uid,
+        'COORDINATES:' + calendarData.geo,
       'END:VEVENT',
     'END:VCALENDAR'
   ];
-
   return contentArray;
 }
 
@@ -120,7 +115,7 @@ TripPlanHelper.prototype.getTripDescription = function(itinerary) {
 TripPlanHelper.prototype.mergeContentArray = function(contentArray) {
   var content = '';
   for (var contentIndex = 0; contentIndex < contentArray.length; contentIndex++) {
-    content += foldLine(contentArray[contentIndex]) + '\n';
+    content += foldLine(contentArray[contentIndex]) + '\r\n';
   }
   return content;
 }

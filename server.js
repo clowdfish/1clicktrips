@@ -9,6 +9,8 @@ var express           = require('express'),
     bodyParser        = require('body-parser'),
     languageKeyParser = require('./app/i18n/i18n').languageKeyParser;
 
+var tzwhere = require('tzwhere');
+tzwhere.init();
 // initiate server instance
 var app = express();
 
