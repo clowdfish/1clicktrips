@@ -14,8 +14,8 @@
 		<h1 class="result-details-title">Search details</h1>
 
 		<div class="result-details-location">
-			<span class="result-details-location-start">{{ searchData['originDescription'] }}</span>
-			<i class="fa fa-long-arrow-right"></i><span>{{ searchData['destinationDescription'] }}</span>
+			<span class="result-details-location-start">{{ searchObject['originDescription'] }}</span>
+			<i class="fa fa-long-arrow-right"></i><span>{{ searchObject['destinationDescription'] }}</span>
 		</div>
 
 		<div class="result-details-appointment">
@@ -28,7 +28,7 @@
 		<result-map
 			itinerary="itinerary"
 			toggle-map="addToggleMapHandler"
-      destination-description="searchData.destinationDescription">
+      destination-description="searchObject.destinationDescription">
 		</result-map>
 	</div>
 </section>
@@ -67,6 +67,6 @@
 
 	<div class="result-details-action">
 		<a ng-click="goToOverview()" class="button--light">{{ 'result.details.back' | translate }}</a>
-		<a ng-click="booking(searchData, itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
+		<a ng-click="booking(itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
 	</div>
 </section>

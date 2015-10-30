@@ -41,61 +41,6 @@ module Booking {
     private static _makeStorageKey() {
       return 'bookingData';
     }
-
-
-    /**
-    * Real Booking. Non-deletable.
-    */
-    public requestRealBooking = (bookingData) => {
-      return this.$q((resolve, reject) => {
-        this
-          .$http
-          .post('/api/booking/request', bookingData, {
-            waitingMessage: 'Please wait'
-          })
-          .success(() => {
-            resolve();
-          })
-          .error((data, status) => {
-            reject({
-              data: data,
-              status: status
-            })
-          });
-      });
-    };
-
-    /**
-    * Just store the booking. Deletable.
-    */
-    public storeBooking(bookingData) {
-      return this.$q((resolve, reject) => {
-        this
-          .$http
-          .post('/api/booking/', bookingData, {
-            waitingMessage: 'Please wait'
-          })
-          .success(() => {
-            resolve();
-          })
-          .error((data, status) => {
-            reject({
-              data: data,
-              status: status
-            })
-          });
-      });
-    }
-
-    /**
-    * Create ics file from booking data.
-    */
-    public createCalendarFile = (booking) => {
-      return this
-        .$http
-        .post('/api/booking/' + booking.id + '/calendar', {}, {
-          waitingMessage: 'Downloading booking file'
-        });
-    }
+    
   }
 }

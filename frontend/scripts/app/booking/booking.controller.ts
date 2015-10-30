@@ -13,7 +13,8 @@ module Booking {
 								private $state,
                 private $window,
                 private bookingApi: BookingApi,
-                private VEHICLE_TYPE) {
+                private VEHICLE_TYPE,
+                private tripApi: Result.TripApi) {
 
       this.bookingData = bookingApi.getBookingData();
 
@@ -75,7 +76,9 @@ module Booking {
      *
      */
     public downloadIcsFile = () => {
-      alert("Not yet available.")
+      return this
+        .tripApi
+        .downloadTripPlan(this.bookingData.searchParams);
     };
 
     private segmentInSelection = (containerIndex, segmentIndex) => {

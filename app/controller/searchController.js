@@ -8,6 +8,8 @@ var SearchApi = SearchEngine.SearchApi;
 
 var MockController = require('../mocking/searchController');
 
+var tripPlanHelper = require('../helpers/tripPlanHelper');
+
 // handle different timezones?
 var disableTimezones = false;
 var searchApi = new SearchApi(disableTimezones, Config.logLocation);
@@ -90,6 +92,21 @@ module.exports = {
         })
         .catch(function(err) {
           reject(err);
+        });
+    });
+  },
+
+  getTripPlan: function(searchObject, userLicence) {
+    console.log('Generate trip plan.');
+
+    return new Promise(function(resolve, reject) {
+      return searchApi.getTripDetails(searchObject, userLicence)
+        .then(function(itinerary) {
+          var tripPlan = tripPlanHelper.generateTripPlan(itinerary);
+          return resolve(tripPlan);
+        })
+        .catch(function(err) {
+          return reject(err);
         });
     });
   }

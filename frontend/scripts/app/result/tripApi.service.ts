@@ -149,7 +149,7 @@ module Result {
           if (_.isEmpty(response)) {
             deferred.reject('Empty response');
           }
-          
+
           // returns one trip object
           deferred.resolve(response);
         })
@@ -188,5 +188,26 @@ module Result {
 
       return deferred.promise;
     };
+
+    /**
+    * Create ics file from booking data.
+    */
+    public downloadTripPlan = (searchObject) => {
+      return this.$q((resolve, reject) => {
+        return this
+          .$http
+          .post('/api/search/trip-plan', searchObject, {
+            activeMessages: 'Downloading booking file'
+          })
+          .then(() => {
+            location.href = '/api/search/trip-plan';
+            return resolve();
+          }, (err) => {
+            return reject(err);
+          })
+      });
+
+    }
   }
+
 }

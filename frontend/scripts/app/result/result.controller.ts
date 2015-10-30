@@ -27,15 +27,11 @@ module Result {
       $scope.timer = null;
       $scope.timeOut = false;
 
-      $scope.searchData = {
-        originDescription: searchObject['originDescription'],
-        destinationDescription: searchObject['destinationDescription'],
-        timing: searchObject['timing'][0]
-      };
-
       $scope.itineraries = null;
       $scope.itinerary = null;
       $scope.hotels = null;
+
+      $scope.searchObject = searchObject;
 
       $scope.errorState = null;
 
@@ -49,6 +45,7 @@ module Result {
       $scope.updateItinerary = this.updateItinerary;
 
       $scope.booking = this.booking;
+
 
       // timing is required for the trip segment container's formatting
       $scope.timing = { };
@@ -315,8 +312,8 @@ module Result {
       return resultArray.join('%');
     };
 
-    booking = (searchData, itinerary) => {
-      this.bookingApi.setBookingData(searchData, this.$scope.selection, itinerary);
+    booking = (itinerary) => {
+      this.bookingApi.setBookingData(this.searchObject, this.$scope.selection, itinerary);
       return this.$state.go('booking');
     };
 

@@ -174,6 +174,55 @@ module.exports = function (app, express, production) {
     }
   });
 
+
+  searchApi.post('/trip-plan', function(req, res) {
+    var secret = app.get('jwtTokenSecret');
+
+    console.log('Trip details request coming from the client:');
+    console.log(JSON.stringify(req.body, null, 2));
+
+    if(tripRequestIsValid(req, false)) {
+
+      if(!req.body['tripKey']) {
+        res.status(400).send('status.user.error.request.key.missing');
+        return;
+      }
+
+      var userLicence = null;
+      var userId = AuthController.getUserIdFromRequest(req, secret);
+
+      UserController.getUser(userId)
+        .then(function (user) {
+          userLicence = user.licence;
+
+          SearchController.getTripPlan(req.body, user.licence)
+            .then(function(tripPlan) {
+              console.log(tripPlan);
+              req.session.tripPlan = tripPlan;
+              res.status(200).send();
+            })
+            .catch(function() {
+              res.status(500).json(err.message);
+            });
+        });
+    } else {
+      res.status(400).send('status.user.error.request.malformed');
+    }
+  });
+
+  searchApi.get('/trip-plan', function(req, res) {
+    if (req.session.bookingFile) {
+      var file = _.clone(req.session.bookingFile);
+      delete req.session['bookingFile'];
+      res.set('Content-Type', 'text/calendar');
+      res.set('Content-Length', file.fileContent.length);
+      res.set('Content-Disposition', 'attachment; filename="' + file.fileTitle + '.ics"');
+      res.send(file.fileContent);
+    } else {
+      res.status(500).send('status.error.file.not.available');
+    }
+  });
+
   // ==========================================================================
   // EVENT API ================================================================
   // ==========================================================================

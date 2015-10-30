@@ -1,6 +1,7 @@
 // mocking/searchController.js
 
 var Promise = require('es6-promise').Promise;
+var TripPlanHelper = require('../helpers/tripPlanHelper');
 
 module.exports = {
 
@@ -64,7 +65,19 @@ module.exports = {
 
     return new Promise(function(resolve) {
 
-      resolve(createMockTripDetails());
+      resolve(createMockTripResult()[0]);
+    });
+  },
+
+  getTripPlan: function(searchObject, userLicence) {
+    console.log('Generate trip plan.');
+    var tripPlanHelper = new TripPlanHelper();
+    return new Promise(function(resolve, reject) {
+      var trip = createMockTripResult()[0];
+      var tripPlan = tripPlanHelper.generateTripPlan(trip);
+      console.log(tripPlan);
+      return resolve(tripPlan);
+
     });
   }
 };

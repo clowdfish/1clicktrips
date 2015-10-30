@@ -158,6 +158,7 @@ module.exports = function (app, express, production) {
         res.status(500).send(err.message);
       })
   });
+  
 };
 
 /**
