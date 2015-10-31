@@ -100,7 +100,7 @@ module Booking {
         return null;
       }
 
-      if (_.isString(segment.path) || _.isString(segment.path)) {
+      if (_.isString(segment.path)) {
         return segment.path;
       }
 

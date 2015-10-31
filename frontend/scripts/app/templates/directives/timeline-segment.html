@@ -27,10 +27,17 @@
         {{ segment['details']['flightNumbers'][0]['flightNumber'] }}
       </span>
 
-       <span ng-if="segment['type'] == 8 || segment['type'] == 4">
-        {{ segment['details']['line']['name'] }}
-        {{ 'result.connection.towards' | translate }}
-        {{ segment['details']['line']['headSign'] }}
+      <span ng-if="segment['type'] == 8 || segment['type'] == 6 || segment['type'] == 4">
+        <span ng-if="segment.hasOwnProperty('details')">
+          {{ segment['details']['line']['name'] }}
+          {{ 'result.connection.towards' | translate }}
+          {{ segment['details']['line']['headSign'] }}
+        </span>
+        <span ng-if="!segment.hasOwnProperty('details')">
+          {{ segment['type'] | vehicleTypeToAction }}
+          {{ 'result.connection.towards' | translate }}
+          {{ segment['end']['description'] }}
+        </span>
       </span>
 
       <span ng-if="segment['type'] == 2">

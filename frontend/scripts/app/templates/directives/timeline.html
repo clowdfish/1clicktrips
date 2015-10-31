@@ -15,7 +15,7 @@
         <span ng-if="segment['alternatives'][timingIndex(containerIndex, segmentIndex)]['segments']">
           <timeline-segment
             ng-repeat="detailSegment in segment['alternatives'][timingIndex(containerIndex, segmentIndex)]['segments']"
-            ng-if="detailSegment['type'] != 1"
+            ng-if="detailSegment['type'] !== 1 && detailSegment['duration'] !== 0"
             segment="detailSegment"
             ratio="{{ dimensions.ratio }}"
             set-dimensions="setDimensions(data)"
@@ -24,6 +24,7 @@
         </span>
         <span ng-if="!segment['alternatives'][timingIndex(containerIndex, segmentIndex)]['segments']">
           <timeline-segment
+            ng-if="segment['duration'] !== 0"
             segment="segment"
             ratio="{{ dimensions.ratio }}"
             set-dimensions="setDimensions(data)"

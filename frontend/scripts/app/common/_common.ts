@@ -27,6 +27,7 @@ module Common {
     .filter('durationFormatter', durationFormatter)
     .filter('priceFormatter', priceFormatter)
     .filter('titleExtractor', titleExtractor)
+    .filter('vehicleTypeToAction', vehicleTypeToAction)
     .filter('vehicleTypeToIcon', vehicleTypeToIcon)
     .service('browser', Browser)
     .service('googleMap', GoogleMap)

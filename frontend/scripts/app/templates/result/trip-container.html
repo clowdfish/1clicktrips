@@ -58,8 +58,12 @@
 
               <span class="result-list-alternative-selection">
                 <span class="result-list-alternative-pricing">
-                  <span>{{ segment['alternatives'][timingIndex]['price']['amount'].toFixed(2) }}</span>
-                  <i class="fa {{ segment['alternatives'][timingIndex]['price']['currency'] | currencyFormatter }}"></i>
+                  <span ng-if="!segment['alternatives'][timingIndex]['price']['estimate']">
+                    {{ segment['alternatives'][timingIndex]['price']['amount'] | priceFormatter : segment['alternatives'][timingIndex]['price']['currency'] }}
+                  </span>
+                  <span ng-if="segment['alternatives'][timingIndex]['price']['estimate']">
+                    {{ 0 | priceFormatter : segment['alternatives'][timingIndex]['price']['currency'] }}
+                  </span>
                 </span>
                 <a class="button" ng-click="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">{{ 'result.list.select' | translate }}</a>
               </span>
@@ -72,7 +76,6 @@
         <span class="result-list-item-footer-details">
           <span class="result-list-item-price">
             {{ itinerary['price'] | priceFormatter : itinerary['currency'] }}
-            <i class="fa {{ itinerary['currency'] | currencyFormatter }}"></i>
           </span>
           <span class="result-list-item-duration">{{ itinerary['duration'] | durationFormatter : 'full' }}</span>
         </span>
