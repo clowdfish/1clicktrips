@@ -2,13 +2,13 @@ var async = require('async');
 var Promise = require('es6-promise').Promise;
 var tzwhere = require('tzwhere');
 var moment = require('moment-timezone');
-
+var ItineraryHelper = require('./itineraryHelper');
 var ICS_VERSION = 2;
 var PRODID = '-//1ClickTrips//EN';
 var CALSCALE = 'GREGORIAN';
-
+var LINE_BREAK = '\n';
 function TripPlanHelper() {
-
+  this.itineraryHelper = new ItineraryHelper();
 }
 
 TripPlanHelper.prototype.generateTripPlan = function(searchObject, itinerary) {
@@ -25,14 +25,14 @@ TripPlanHelper.prototype.generateTripPlan = function(searchObject, itinerary) {
 TripPlanHelper.prototype.prepareData = function(searchObject, itinerary) {
   var originTzName = tzwhere.tzNameAt(itinerary.origin.location.latitude, itinerary.origin.location.longitude);
   var originTzOffset = Math.round(tzwhere.tzOffsetAt(itinerary.origin.location.latitude, itinerary.origin.location.longitude) / 3600);
-  var destinationTzName = tzwhere.tzNameAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude);
-  var destinationTzOffset = Math.round(tzwhere.tzOffsetAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude) / 3600);
+  var destinationTzName = this.getTimezoneOffsetString(tzwhere.tzNameAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude));
+  var destinationTzOffset = this.getTimezoneOffsetString(Math.round(tzwhere.tzOffsetAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude) / 3600));
   var utcStartDate = moment.tz(itinerary.departureTime, originTzName).utc().format('YYYYMMDDTHHmmss') + 'Z';
   var startDate = moment(itinerary.departureTime).format('YYYYMMDDTHHmmss');
   var endDate = moment(itinerary.arrivalTime).format('YYYYMMDDTHHmmss');
   var status = "CONFIRMED";
-  var summary = this.getTripSubject(itinerary);
-  var description = this.getTripDescription(itinerary);
+  var summary = this.getTripSubject(searchObject, itinerary);
+  var description = this.getTripDescription(searchObject, itinerary);
   var created = moment().format('YYYYMMDDTHHmmss') + 'Z';
   var location = searchObject.destinationDescription;
   var geo = itinerary.destination.location.latitude + ';' + itinerary.destination.location.longitude;
@@ -90,12 +90,12 @@ TripPlanHelper.prototype.prepareIscContent = function(calendarData) {
         'DTSTART;' + 'TZID=' + calendarData.originTzName + ':' + calendarData.startDate,
         'DTEND;' + 'TZID=' + calendarData.destinationTzName + ':' + calendarData.endDate,
         'STATUS:' + calendarData.status,
-        'SUMMARY:' + this.escapeSpecialCharacter(calendarData.summary),
-        'DESCRIPTION:' + this.escapeSpecialCharacter(calendarData.description),
+        'SUMMARY:' + calendarData.summary,
+        'DESCRIPTION:' + calendarData.description,
         'CLASS:' + calendarData.className,
         'CREATED:' + calendarData.created,
         'GEO:' + calendarData.geo,
-        'LOCATION:' + this.escapeSpecialCharacter(calendarData.location),
+        'LOCATION:' + calendarData.location,
         'UID:' + calendarData.uid,
         'COORDINATES:' + calendarData.geo,
       'END:VEVENT',
@@ -104,23 +104,74 @@ TripPlanHelper.prototype.prepareIscContent = function(calendarData) {
   return contentArray;
 }
 
-TripPlanHelper.prototype.getTripSubject = function(itinerary) {
-  return 'Sample subject';
+TripPlanHelper.prototype.getTripSubject = function(searchObject, itinerary) {
+  return searchObject.originDescription + ' to ' + searchObject.destinationDescription;
 }
 
-TripPlanHelper.prototype.getTripDescription = function(itinerary) {
-  return 'Sample description';
+TripPlanHelper.prototype.getTripDescription = function(searchObject, itinerary) {
+  var segments = this.itineraryHelper.getActiveSegmentFromItinerary(itinerary, {});
+  var description = '';
+  for (var i = 0; i < segments.length; i++) {
+    var segment = segments[i];
+    description += this.getVerbBySegmentType(segment.type) + ' to ' + segment.end.description + '\\n'
+                       + 'Depart at ' + this.formatSegmentTime(segment.departureTime) + ' from ' + segment.start.description + '\\n'
+                       + 'Arrive at ' + this.formatSegmentTime(segment.arrivalTime) + ' from ' + segment.end.description + '\\n';
+    if (i < segments.length - 1 ) {
+      description += '\\n';
+    }
+  }
+  return description;
+}
+
+TripPlanHelper.prototype.formatSegmentTime = function(segmentTime) {
+  return moment(segmentTime).format('HH:mm');
+}
+
+TripPlanHelper.prototype.getVerbBySegmentType = function(segmentType) {
+  switch (segmentType) {
+    case 0:
+      return 'Sleep';
+    case 1:
+      return 'Walk';
+    case 2:
+      return 'Drive';
+    case 4:
+      return 'Bus';
+    case 6:
+      return 'Drive';
+    case 8:
+      return 'Train';
+    case 16:
+      return 'Fly';
+    case 32:
+      return 'Cab';
+    case 64:
+      return 'Ship';
+  }
+}
+
+TripPlanHelper.prototype.getTimezoneOffsetByLocation = function(latitude, longitude) {
+
+}
+
+TripPlanHelper.prototype.getTimezoneOffsetString = function(totalMinutes) {
+  var hours = Math.round(totalMinutes / 60);
+  var minutes = totalMinutes - (hours * 60);
+  var hourStr = hours > 9 ? '0' + hours.toString() : hours.toString();
+  var minuteStr = minutes > 9 ? '0' + minutes.toString() : minutes.toString();
+  return hourStr + ':' + minuteStr;
 }
 
 TripPlanHelper.prototype.mergeContentArray = function(contentArray) {
-  var content = '';
+  var content = [];
   for (var contentIndex = 0; contentIndex < contentArray.length; contentIndex++) {
-    content += foldLine(contentArray[contentIndex]) + '\r\n';
+    content.push(foldLine(contentArray[contentIndex]));
   }
-  return content;
+  return content.join(LINE_BREAK);
 }
 
 TripPlanHelper.prototype.escapeSpecialCharacter = function(text) {
+  return text;
   return text.replace(/[\\;,]/g, function(character) {
     return '\\' + character;
   });
@@ -131,33 +182,33 @@ TripPlanHelper.prototype.escapeSpecialCharacter = function(text) {
 */
 function foldLine(line) {
   var originLineLength = byteLength(line);
-  if (originLineLength <= 74) {
+  if (originLineLength <= 75) {
     return line;
   }
   var foldedLength = 0;
   var lines = [];
   var cutIndex = 0;
-  var cutLength = 74; //equal 75 after include a line break
-  var spaceCount = 1;
+  var cutLength = 75; //equal 75 after include a line break
+  var spaceCount = 0;
   while (foldedLength < originLineLength) {
     var newline = line.substr(cutIndex, cutLength);
-    if (byteLength(newline) <= 74) {
+    if (byteLength(newline) <= 75) {
       lines.push(repeat(' ', spaceCount) + newline);
       cutIndex += cutLength;
-      cutLength = 74;
-      spaceCount++;
+      cutLength = 75;
+      spaceCount = 1;
       foldedLength += byteLength(newline);
     } else {
       cutLength--;
     }
   }
-  return lines.join('\n');
+  return lines.join(LINE_BREAK);
 }
 
 function repeat(character, count) {
   var result = '';
   for (var i = 0; i < count; i++) {
-    result+=character;
+    result += character;
   }
   return result;
 }

@@ -9,7 +9,6 @@ module Result {
                             $anchorScroll) {
     return {
       restrict: 'E',
-      templateUrl: 'scripts/app/templates/result/result-map.html',
       scope: {
         itinerary: '=',
         toggleMap: '=',
@@ -31,6 +30,8 @@ module Result {
       var isIncreasedMapSize: boolean = false;
       var $resultMap = $element.parent('.result-map');
       var $window = $(window);
+      var $child = $('<div class="itinerary-map" id="itinerary-map-' + Math.floor(Math.random() * 99999).toString() + '"></div>');
+      $element.append($child);
       if (scope.itinerary) {
         initializeMap(scope.itinerary);
       }
@@ -38,9 +39,9 @@ module Result {
       initializeScrollDetect();
 
       scope.$watch('itinerary', () => {
-        if (!scope.itinerary) return;
+        if (_.isEmpty(scope.itinerary)) return;
         initializeMap(scope.itinerary);
-      });
+      }, true);
 
       /**
        * Add show/hide map handler to controller
@@ -80,13 +81,13 @@ module Result {
       * Setup google map object
       */
 		  function initializeMap(itinerary) {
-        //console.log(itinerary);
+
         if (true === isInitialized) {
           return;
         }
         isInitialized = true;
-
-        map = new google.maps.Map($('#itinerary-map')[0], {
+        console.log(itinerary);
+        map = new google.maps.Map($child[0], {
           zoom: DEFAULT_ZOOM_LEVEL,
           scrollwheel: browser.isMobileDevice(),
           panControl: false,
@@ -106,7 +107,10 @@ module Result {
 
         destinationMaker = drawDestinationMarker(itinerary);
         map.panBy(0, -120);
-        google.maps.event.trigger(map, 'resize');
+        setTimeout(() => {
+          google.maps.event.trigger(map, 'resize');
+        }, 200);
+
       }
 
       function drawItinerary(itinerary, selection) {
@@ -131,7 +135,7 @@ module Result {
         displayPath.setMap(map);
         displayPath.setPath(decodedPath);
         var mapBounds = new google.maps.LatLngBounds();
-        
+
         for (var i = 0; i < decodedPath.getLength(); i++) {
           mapBounds.extend(decodedPath.getAt(i));
         }
@@ -202,6 +206,7 @@ module Result {
           destinationMaker.setMap(null);
           destinationMaker.remove();
         }
+        //$child.remove();
       }
 
       /**
