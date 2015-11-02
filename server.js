@@ -19,7 +19,7 @@ var configAuth = require('./config/auth');
 var port = process.env.PORT || 8080;
 
 // development/production flag
-var production = false;
+var production = true;
 
 require('./config/passport')(passport); // pass passport for configuration
 

@@ -25,8 +25,8 @@ TripPlanHelper.prototype.generateTripPlan = function(searchObject, itinerary) {
 TripPlanHelper.prototype.prepareData = function(searchObject, itinerary) {
   var originTzName = tzwhere.tzNameAt(itinerary.origin.location.latitude, itinerary.origin.location.longitude);
   var originTzOffset = Math.round(tzwhere.tzOffsetAt(itinerary.origin.location.latitude, itinerary.origin.location.longitude) / 3600);
-  var destinationTzName = this.getTimezoneOffsetString(tzwhere.tzNameAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude));
-  var destinationTzOffset = this.getTimezoneOffsetString(Math.round(tzwhere.tzOffsetAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude) / 3600));
+  var destinationTzName = tzwhere.tzNameAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude);
+  var destinationTzOffset = Math.round(tzwhere.tzOffsetAt(itinerary.destination.location.latitude, itinerary.destination.location.longitude) / 3600);
   var utcStartDate = moment.tz(itinerary.departureTime, originTzName).utc().format('YYYYMMDDTHHmmss') + 'Z';
   var startDate = moment(itinerary.departureTime).format('YYYYMMDDTHHmmss');
   var endDate = moment(itinerary.arrivalTime).format('YYYYMMDDTHHmmss');
@@ -148,18 +148,6 @@ TripPlanHelper.prototype.getVerbBySegmentType = function(segmentType) {
     case 64:
       return 'Ship';
   }
-}
-
-TripPlanHelper.prototype.getTimezoneOffsetByLocation = function(latitude, longitude) {
-
-}
-
-TripPlanHelper.prototype.getTimezoneOffsetString = function(totalMinutes) {
-  var hours = Math.round(totalMinutes / 60);
-  var minutes = totalMinutes - (hours * 60);
-  var hourStr = hours > 9 ? '0' + hours.toString() : hours.toString();
-  var minuteStr = minutes > 9 ? '0' + minutes.toString() : minutes.toString();
-  return hourStr + ':' + minuteStr;
 }
 
 TripPlanHelper.prototype.mergeContentArray = function(contentArray) {
