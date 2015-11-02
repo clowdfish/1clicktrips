@@ -197,7 +197,6 @@ module.exports = function (app, express, production) {
 
           SearchController.getTripPlan(req.body, user.licence)
             .then(function(tripPlan) {
-              console.log(tripPlan);
               req.session.tripPlan = tripPlan;
               res.status(200).send();
             })

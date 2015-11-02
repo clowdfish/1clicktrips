@@ -14,6 +14,7 @@ var tripPlanHelper = require('../helpers/tripPlanHelper');
 var disableTimezones = false;
 var searchApi = new SearchApi(disableTimezones, Config.logLocation);
 
+var TripPlanHelper = require('../helpers/tripPlanHelper');
 module.exports = {
 
   getEvents: function(filter, limit) {
@@ -98,12 +99,15 @@ module.exports = {
 
   getTripPlan: function(searchObject, userLicence) {
     console.log('Generate trip plan.');
-
+    var tripPlanHelper = new TripPlanHelper();
     return new Promise(function(resolve, reject) {
       return searchApi.getTripDetails(searchObject, userLicence)
         .then(function(itinerary) {
-          var tripPlan = tripPlanHelper.generateTripPlan(itinerary);
-          return resolve(tripPlan);
+          var tripPlan = tripPlanHelper.generateTripPlan(searchObject, itinerary);
+          return resolve({
+            title: searchObject.destinationDescription,
+            content: tripPlan
+          });
         })
         .catch(function(err) {
           return reject(err);
