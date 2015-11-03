@@ -6,7 +6,8 @@ module Result {
 
   export function resultMap(browser: Common.Browser,
                             itineraryHelper: Result.ItineraryHelper,
-                            $anchorScroll) {
+                            $anchorScroll,
+                            dateFormatterFilter) {
     return {
       restrict: 'E',
       scope: {
@@ -155,7 +156,7 @@ module Result {
       function drawDestinationMarker(itinerary) {
         destination = getDestination(itinerary);
         var destinationImage = getStreetViewAtLocation(destination.end.location);
-        var time = moment(itinerary.arrivalTime).format('YYYY/MM/DD hA');
+        var time = dateFormatterFilter(itinerary.arrivalTime, itinerary.destination.timeZone, null, 'short');
         var html = [
           '<div class="marker-wrapper">',
             '<div class="marker-description">',
