@@ -13,7 +13,8 @@ module Result {
       scope: {
         itinerary: '=',
         toggleMap: '=',
-        destinationDescription: '='
+        destinationDescription: '=',
+        appointmentTime: '='
       },
       link: link
     };
@@ -156,7 +157,7 @@ module Result {
       function drawDestinationMarker(itinerary) {
         destination = getDestination(itinerary);
         var destinationImage = getStreetViewAtLocation(destination.end.location);
-        var time = dateFormatterFilter(itinerary.arrivalTime, itinerary.destination.timeZone, null, 'short');
+        var time = dateFormatterFilter(scope.appointmentTime, itinerary.destination.timeZone, 'MM/DD/YYYY hA');
         var html = [
           '<div class="marker-wrapper">',
             '<div class="marker-description">',
