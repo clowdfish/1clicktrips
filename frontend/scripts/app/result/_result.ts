@@ -35,7 +35,6 @@ module Result {
     .service('tripCache', TripCache)
     .service('itineraryHelper', ItineraryHelper)
     .directive('tripContainer', TripContainer.Factory())
-    .directive('tripMap', TripMap.Factory())
     .directive('resultMap', resultMap)
     .config(routerConfig);
 }

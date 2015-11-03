@@ -34,7 +34,6 @@
 /// <reference path="app/result/tripCache.service.ts" />
 /// <reference path="app/result/itineraryHelper.service.ts" />
 /// <reference path="app/result/tripContainer.directive.ts" />
-/// <reference path="app/result/tripMap.directive.ts" />
 /// <reference path="app/result/resultMap.directive.ts" />
 /// <reference path="app/result/_result.ts" />
 
