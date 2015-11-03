@@ -22,7 +22,7 @@ module Result {
                 public searchObject,
                 public language: Common.Language,
                 public currency: Common.Currency,
-                public bookingApi: Booking.BookingApi) {
+                public printApi: Print.PrintApi) {
 
       $scope.timer = null;
       $scope.timeOut = false;
@@ -325,8 +325,8 @@ module Result {
      * @returns {void|angular.IPromise<any>|IPromise<any>}
      */
     booking = (itinerary) => {
-      this.bookingApi.setBookingData(this.searchObject, this.$scope.selection, itinerary);
-      return this.$state.go('booking');
+      this.printApi.setPrintData(this.searchObject, this.$scope.selection, itinerary);
+      return this.$state.go('print');
     };
 
     /**

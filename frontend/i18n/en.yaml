@@ -109,7 +109,7 @@ result:
       url: Hotel url
       distance: Distance from destination
     back: Go back
-booking:
+print:
   title: Trip overview
   summary:
     title: Trip summary
@@ -122,5 +122,5 @@ booking:
   duration: duration
   details:
     title: Trip details
-    goto: Go to booking
+    goto: Go to print
 

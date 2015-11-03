@@ -1,6 +1,6 @@
 /// <reference path="../../_all.ts" />
 
-module Booking {
+module Print {
 
 	'use strict';
 

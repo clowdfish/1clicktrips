@@ -1,55 +1,56 @@
 /// <reference path="../../_all.ts" />
 
-module Booking {
+module Print {
 
   'use strict';
 
-  export class BookingCtrl {
+  export class PrintCtrl {
 
-    private bookingData;
+    private printData;
     private selectionArray: Array<any>;
 
 		constructor(private $scope,
 								private $state,
                 private $window,
-                private bookingApi: BookingApi,
+                private printApi: PrintApi,
                 private VEHICLE_TYPE,
-                private tripApi: Result.TripApi) {
+                private tripApi: Result.TripApi,
+                private itineraryHelper: Result.ItineraryHelper) {
 
-      this.bookingData = bookingApi.getBookingData();
+      this.printData = printApi.getPrintData();
 
 			window['MY_SCOPE'] = $scope; // DEBUG FROM CONSOLE
 
 	    /**
-	    * Booking price before booking fee
+	    * Print price before Print fee
 	    */
-	    $scope.bookingPrice = 0;
+	    $scope.printPrice = 0;
 
 	    /**
-	    * Booking price after booking fee
+	    * Print price after Print fee
 	    */
-	    $scope.totalBookingPrice = 0;
+	    $scope.totalPrintPrice = 0;
 
 	    /**
-	    * Booking fee, calculate from booking rate and booking price
+	    * Print fee, calculate from Print rate and Print price
 	    */
-	    $scope.bookingFee = 0;
+	    $scope.printFee = 0;
 
 	    /**
-	    * Booking step ( total 3 steps )
+	    * Print step ( total 3 steps )
 	    */
 	    $scope.step = 1;
 
 	    /**
-	    * Initialize bookingData
+	    * Initialize PrintData
 	    */
 
-      $scope.tripDetails = this.bookingData['trip'];
-      $scope.searchParams = this.bookingData.searchParams;
+      $scope.tripDetails = this.printData['trip'];
+      $scope.searchParams = this.printData.searchParams;
+
 	    $scope.mapView = this.mapView;
 	    $scope.goBack = this.goBack;
 
-      $scope.segmentInSelection = this.segmentInSelection;
       $scope.getSegments = this.getSegments;
 
       $scope.getSegmentPath = this.getSegmentPath;
@@ -78,41 +79,19 @@ module Booking {
     public downloadIcsFile = () => {
       return this
         .tripApi
-        .downloadTripPlan(this.bookingData.searchParams);
+        .downloadTripPlan(this.printData.searchParams);
     };
 
-    private segmentInSelection = (containerIndex, segmentIndex) => {
-      var key = '0-' + containerIndex + '-' + segmentIndex;
-      return this.bookingData.selection.hasOwnProperty(key);
-    };
-
-    private getSegments = (containerIndex, container) => {
-      for (var segmentIndex = 0; segmentIndex < container.alternatives.length; segmentIndex++) {
-        if (this.segmentInSelection(containerIndex, segmentIndex)) {
-          return container.alternatives[segmentIndex];
-        }
-      }
-      return container.alternatives[0];
+    private getSegments = () => {
+      return this.itineraryHelper.getActiveSegmentFromItinerary(this.printData.trip, this.printData.selection);
     };
 
     private getSegmentPath = (segment) => {
-      if (_.isEmpty(segment.path)) {
-        return null;
-      }
-
-      if (_.isString(segment.path)) {
-        return segment.path;
-      }
-
-      if (_.isObject(segment.path) || segment.path.points) {
-        return segment.path.points;
-      }
-
-      return null;
+      return this.itineraryHelper.getEncodedPathFromSegment(segment);
     };
 
     public mapView = () => {
-      this.$state.go('search_result', this.bookingData['searchParams'])
+      this.$state.go('search_result', this.printData['searchParams'])
     };
 
     public goBack = () => {

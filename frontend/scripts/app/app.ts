@@ -7,7 +7,7 @@ module app {
   angular
     .module('app', [
       'app.common',
-      'app.booking',
+      'app.print',
       'app.search',
       'app.result',
       'app.templates'

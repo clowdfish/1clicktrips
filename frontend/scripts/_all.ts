@@ -47,7 +47,7 @@
 /// <reference path="app/search/_search.ts" />
 
 /// -----------Booking Module ------------
-/// <reference path="app/booking/booking.controller.ts" />
-/// <reference path="app/booking/booking.route.ts" />
-/// <reference path="app/booking/bookingApi.service.ts" />
-/// <reference path="app/booking/staticMap.directive.ts" />
+/// <reference path="app/print/print.controller.ts" />"
+/// <reference path="app/print/print.route.ts" />
+/// <reference path="app/print/printApi.service.ts" />
+/// <reference path="app/print/staticMap.directive.ts" />

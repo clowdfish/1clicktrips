@@ -109,7 +109,7 @@ result:
       url: Hotel Url
       distance: Distanz vom Ziel
     back: Zurück
-booking:
+print:
   title: Reiseübersicht
   summary:
     title: Zusammenfassung

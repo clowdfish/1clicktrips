@@ -1,4 +1,4 @@
-%booking {
+%print {
   @include container;
 
   width: 95%;
@@ -12,21 +12,21 @@
   -moz-box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
   box-shadow: 1px 0 10px 2px rgba(0,0,0,0.3);
 
-  .booking-title {
+  .print-title {
     display: block;
     margin-bottom: 0.7em;
   }
 
-  .booking-sub-title {
+  .print-sub-title {
     font-weight: bold;
     margin-bottom: 0.5em;
   }
 
-  .booking-summary {
+  .print-summary {
     margin-bottom: 1.5em;
   }
 
-  .booking-summary-item {
+  .print-summary-item {
     display: table-row;
     margin-bottom: 0.2em;
 
@@ -37,14 +37,14 @@
     }
   }
 
-  .booking-detail-title {
+  .print-detail-title {
     font-weight: bold;
     margin-bottom: 1em;
   }
 
-  .booking-container {
+  .print-container {
 
-    .booking-segment-item {
+    .print-segment-item {
       @include clearfix;
       margin-bottom: 2em;
       padding-bottom: 15px;
@@ -53,26 +53,26 @@
 
     &:last-child {
 
-      .booking-segment-item:last-child {
+      .print-segment-item:last-child {
         border-bottom: none;
         padding-bottom: 0;
       }
     }
   }
 
-  .booking-segment-title {
+  .print-segment-title {
     font-weight: bold;
     margin-bottom: 0.5em;
   }
 
-  .booking-segment-info {
+  .print-segment-info {
 
     @include respond-above("medium") {
       float: left;
     }
   }
 
-  .booking-segment-info-item {
+  .print-segment-info-item {
     margin-bottom: 0.6em;
     color: $c-text-light;
 
@@ -91,7 +91,7 @@
     }
   }
 
-  .booking-segment-map {
+  .print-segment-map {
     float: left;
 
     .static-map img {
@@ -108,7 +108,7 @@
     }
   }
 
-  .booking-action {
+  .print-action {
 
     .button {
       float: right;
@@ -117,7 +117,54 @@
   }
 }
 
-.booking {
-  @extend %booking;
+.print {
+  @extend %print;
 }
 
+
+
+@media print {
+  .header {
+    display: none;
+  }
+
+  .footer {
+    display: none;
+  }
+
+  .print {
+    border: none;
+
+    .print-container {
+
+      .print-segment-info {
+        float: left;
+        width: 60%;
+        box-sizing: border-box;
+
+        .print-segment-info-item {
+          text-align: left;
+        }
+
+        .print-segment-info-item.link {
+          display: none;
+        }
+      }
+
+      .print-segment-map {
+        float: right;
+        width: 40%;
+        box-sizing: border-box;
+
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+
+    .print-action {
+      display: none;
+    }
+
+  }
+}

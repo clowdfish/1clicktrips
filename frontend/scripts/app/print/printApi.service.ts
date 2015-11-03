@@ -1,10 +1,10 @@
 /// <reference path="../../_all.ts" />
 
-module Booking {
+module Print {
 
   'use strict';
 
-  export class BookingApi {
+  export class PrintApi {
 
 		constructor(private $http,
 								private $q,
@@ -14,8 +14,8 @@ module Booking {
     /**
     * Store trip data
     */
-    public setBookingData = (searchParams, selection, tripDetail) => {
-      var key = BookingApi._makeStorageKey();
+    public setPrintData = (searchParams, selection, tripDetail) => {
+      var key = PrintApi._makeStorageKey();
       this.$sessionStorage[key] = {};
       this.$sessionStorage[key]['trip'] = tripDetail;
       this.$sessionStorage[key]['searchParams'] = searchParams;
@@ -25,22 +25,22 @@ module Booking {
     /**
     * Get trip data from session storage
     */
-    public getBookingData = () => {
-      var key = BookingApi._makeStorageKey();
+    public getPrintData = () => {
+      var key = PrintApi._makeStorageKey();
       if (typeof(this.$sessionStorage[key]) !== 'undefined') {
         return this.$sessionStorage[key];
       }
       return null;
     };
 
-    public removeBookingData = () => {
-      var key = BookingApi._makeStorageKey();
+    public removePrintData = () => {
+      var key = PrintApi._makeStorageKey();
       delete this.$sessionStorage[key];
     };
 
     private static _makeStorageKey() {
-      return 'bookingData';
+      return 'PrintData';
     }
-    
+
   }
 }

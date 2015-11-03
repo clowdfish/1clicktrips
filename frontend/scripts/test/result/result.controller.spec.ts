@@ -18,7 +18,7 @@ describe('controller: resultCtrl', () => {
 			searchObject,
 			language: Common.Language,
 			currency: Common.Currency,
-			bookingApi: Booking.BookingApi,
+			printApi: Print.PrintApi,
 			searchObject,
       inactivityDetector: Common.InactivityDetector
       ;
@@ -55,7 +55,7 @@ describe('controller: resultCtrl', () => {
 		tripApi = new Result.TripApi(_$http_, $q, _$translate_);
 		language = _language_;
     currency = _currency_;
-		bookingApi = new Booking.BookingApi(_$http_, $q, _$sessionStorage_);
+		printApi = new Print.PrintApi(_$http_, $q, _$sessionStorage_);
 		searchObject = {};
     inactivityDetector = new Common.InactivityDetector(_$rootScope_, _$timeout_);
 		resultCtrl = createResultCtrl(RESULT_STATE.overview);
@@ -84,7 +84,7 @@ describe('controller: resultCtrl', () => {
                                  searchObject,
                                  language,
                                  currency,
-                                 bookingApi);
+                                 printApi);
 
 	}
 

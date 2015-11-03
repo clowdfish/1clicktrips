@@ -1,0 +1,76 @@
+<section class="print">
+	<h1 class="print-title">{{ 'print.title' | translate }}</h1>
+
+	<div class="print-summary">
+		<h2 class="print-sub-title">{{ 'print.summary.title' | translate }}</h2>
+
+		<div class="print-summary-item">
+			<i class="fa fa-home"></i>
+			<span class="print-summary-item-content">
+			{{searchParams.originDescription }}
+			</span>
+		</div>
+		<div class="print-summary-item">
+			<i class="fa fa-flag-checkered"></i>
+			<span class="print-summary-item-content">
+				{{searchParams.destinationDescription }}
+			</span>
+		</div>
+		<div class="print-summary-item">
+			<i class="fa fa-money"></i>
+			<span class="print-summary-item-content">
+				{{ tripDetails.price | priceFormatter : tripDetails.currency }}
+			</span>
+		</div>
+		<div class="print-summary-item">
+			<i class="fa fa-hourglass-half"></i>
+			<span class="print-summary-item-content">
+				{{ tripDetails.duration | durationFormatter : 'full' }}
+			</span>
+		</div>
+	</div>
+
+	<div class="print-details">
+		<h2 class="print-sub-title">{{ 'print.details.title' | translate }}</h2>
+
+		<div class="print-container">
+
+			<div class="print-segment-item clearfix"
+					 ng-repeat="segment in getSegments()">
+
+				<div class="print-segment-info">
+					<div class="print-segment-title">
+						{{ getActionVerbBySegmentType(segment) }}
+            {{ 'print.from' | translate }}
+            {{ segment.start.description }}
+            {{ 'print.to' | translate }}
+            {{ segment.end.description }}
+					</div>
+					<div class="print-segment-info-item">
+						{{ segment.departureTime | dateFormatter : segment['start']['timeZone'] : null : 'long' }} -
+						{{ segment.arrivalTime | dateFormatter : segment['end']['timeZone'] : 'HH:mm' }}
+					</div>
+					<div class="print-segment-info-item duration">
+						{{ segment.duration | durationFormatter : 'full' }}
+					</div>
+					<div class="print-segment-info-item link" ng-if="segment['bookingLink']">
+						<a href="{{ segment['bookingLink'] }}" target="_blank">{{ 'print.details.goto' | translate }}</a>
+					</div>
+				</div>
+				<div class="print-segment-map">
+					<static-map class="static-map"
+											path="getSegmentPath(segment)"
+											start="segment.start.location"
+											end="segment.end.location">
+					</static-map>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="print-action">
+		<a ng-click="goBack()" class="button--light">{{ 'general.back' | translate | capitalize }}</a>
+		<a class="button" ng-click="printPage($event)">{{ 'print.print' | translate }}</a>
+		<a class="button" ng-click="downloadIcsFile()">{{ 'print.download' | translate }}</a>
+	</div>
+</section>

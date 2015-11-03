@@ -12,7 +12,7 @@ module Result {
 			var latlngs = new google.maps.MVCArray();
 			for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
 				var segment = segments[segmentIndex];
-				var path = this._getEncodedPathFromSegment(segment);
+				var path = this.getEncodedPathFromSegment(segment);
 				if (path) {
 					var encodedPath = google.maps.geometry.encoding.decodePath(path);
 					for (var pathIndex = 0; pathIndex < encodedPath.length; pathIndex++) {
@@ -61,7 +61,7 @@ module Result {
 		/**
 		 * Get segment 's path
 		 */
-		private _getEncodedPathFromSegment = (segment) => {
+		public getEncodedPathFromSegment = (segment) => {
 			if (_.isEmpty(segment.path)) {
         return null;
       }
