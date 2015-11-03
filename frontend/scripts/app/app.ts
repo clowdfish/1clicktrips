@@ -121,30 +121,43 @@ module app {
     return result;
   }
 
-  function setActiveLanguage() {
-    if (window['locale']) {
-      return true;
-    }
-
+  function setActiveLanguage($localStorage) {
     var localeMapping = {
       de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
       en: ['en-au', 'en-bz', 'en-ca', 'en-cb', 'en-gb', 'en-in', 'en-ie', 'en-jm', 'en-nz', 'en-ph', 'en-za', 'en-tt', 'en-us']
     };
 
+    if (window['locale']) {
+      return true;
+    }
+    console.log($localStorage['selected_language']);
+    if (!_.isEmpty($localStorage['selected_language']) && localeMapping[$localStorage['selected_language']]) {
+      location.href = '/' + $localStorage['selected_language'] + '/#/';
+      return true;
+    }
+
     var browserLocale = navigator.language.toLowerCase();
 
-    angular.forEach(localeMapping, function(localeList, localeKey) {
+    var found = false;
+    for (var localeKey in localeMapping) {
+      var localeList = localeMapping[localeKey];
       if (localeList.indexOf(browserLocale) >= 0 || browserLocale === localeKey) {
         location.href = '/' + localeKey + '/#/';
+        found = true;
+        break;
       }
-    });
+    }
+
+    if (found) {
+      return true;
+    }
 
     // use English if doesn't match anything
     location.href = '/en';
   }
 
-  function run() {
-    setActiveLanguage();
+  function run($localStorage) {
+    setActiveLanguage($localStorage);
     console.log("App started...");
   }
 }

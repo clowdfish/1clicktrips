@@ -93,6 +93,7 @@ module Common {
 
         if (language) {
           this._activeLanguage = language;
+          this.$localStorage['selected_language'] = code;
           this.$translate.use(code).then(function() {
             return resolve();
           }, function(err) {
