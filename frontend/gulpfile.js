@@ -20,9 +20,11 @@ var concat 		  = require('gulp-concat'),
     data        = require('gulp-data'),
     ngAnnotate  = require('gulp-ng-annotate'),
     merge       = require('gulp-merge'),
-    angularTemplateCache = require('gulp-angular-templatecache'),
+    angularTemplateCache
+                = require('gulp-angular-templatecache'),
     typescript  = require('gulp-typescript'),
-    gulpSequence = require('gulp-sequence'),
+    gulpSequence
+                = require('gulp-sequence'),
     compile     = require('gulp-compile-handlebars'),
     insert      = require('gulp-insert');
 
@@ -154,7 +156,6 @@ gulp.task('client-scripts', function(done) {
   .pipe(gulp.dest('build/scripts'));
 });
 
-//gulp.task('scripts', gulpSequence('vendor-scripts', 'client-scripts'));
 gulp.task('scripts', function(done) {
   gulpSequence('vendor-scripts', 'client-scripts')(done);
 });

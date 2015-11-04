@@ -22,6 +22,8 @@
 			<i class="fa fa-calendar"></i><span class="result-details-appointment-title">Appointment time</span>
 			<span class="result-details-appointment-time">{{ timing['value'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
 		</div>
+
+		<a ng-click="showHotels()" style="display: block; margin-top: 1em;">show hotels</a>
 	</div>
 
 	<div class="result-map result-details-column">
@@ -69,6 +71,6 @@
 
 	<div class="result-details-action">
 		<a ng-click="goToOverview()" class="button--light">{{ 'result.details.back' | translate }}</a>
-		<a ng-click="booking(itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
+		<a ng-click="print(itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
 	</div>
 </section>

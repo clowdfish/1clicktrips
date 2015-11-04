@@ -14,6 +14,7 @@ module Result {
                 public $window,
                 public $timeout,
                 public TIMEOUT,
+                public ngDialog,
                 public $q: ng.IQService,
                 public resultState,
                 public RESULT_STATE,
@@ -37,15 +38,14 @@ module Result {
 
       $scope.goToOverview = this.goToOverview;
       $scope.goToItinerary = this.goToItinerary;
-      $scope.goToHotels = this.goToHotels;
       $scope.goBack = this.goBack;
 
       $scope.activeItinerary = 0;
       $scope.activateItinerary = this.activateItinerary;
       $scope.updateItinerary = this.updateItinerary;
 
-      $scope.booking = this.booking;
-
+      $scope.showHotels = this.showHotels;
+      $scope.print = this.print;
 
       // timing is required for the trip segment container's formatting
       $scope.timing = { };
@@ -59,9 +59,6 @@ module Result {
       }
       else if(resultState == RESULT_STATE.details) {
         this.getItineraryDetails();
-      }
-      else if(resultState == RESULT_STATE.hotels) {
-        this.getHotels();
       }
 
       $scope.onShowMap = this.onShowMap;
@@ -195,14 +192,52 @@ module Result {
     /**
      * Call the trip API to get all available hotels.
      */
-    getHotels = () => {
-      this.tripApi
-        .getAvailableHotels(this.searchObject)
+    getHotels = (searchObject) => {
+      return this.tripApi
+        .getAvailableHotels(searchObject)
         .then((hotels) => {
           this.$scope.hotels = hotels;
+          return hotels;
         }, (err) => {
-          this.$scope.errorState = { message: err }
+          this.$scope.errorState = { message: err };
+          return [];
         });
+    };
+
+    /**
+     *
+     */
+    showHotels = () => {
+      var self = this;
+
+      this.ngDialog.open({
+        template: 'scripts/app/templates/modals/result-hotels.html',
+        controller: function($scope, hotels) {
+          $scope.hotels = hotels;
+        },
+        resolve: {
+          hotels: function() {
+            if(self.$scope.hotels)
+              return self.$scope.hotels;
+
+            // set duration to 1 for testing purposes
+            var duration = 1;
+
+            var hotelSearchObject = {
+              tripKey: self.$scope.itinerary['tripKey'],
+              sessionId: self.searchObject.sessionId,
+              location: self.searchObject.destination,
+              dateString: self.searchObject.timing[0],
+              duration: duration,
+              locale: self.language._activeLanguage.locale,
+              currency: self.currency.getSelectedCurrency().code,
+              userAgent: navigator.userAgent
+            };
+
+            return self.getHotels(hotelSearchObject);
+          }
+        }
+      });
     };
 
     /**
@@ -258,30 +293,8 @@ module Result {
     };
 
     /**
-     * Transition to the state that provides the overview of all hotels.
+     *
      */
-    goToHotels = () =>{
-
-      if (this.$scope.itinerary == null) {
-        alert("There was no itinerary selected. Please try a");
-        return;
-      }
-
-      // set duration to 1 for testing purposes
-      var duration = 1;
-
-      var requestParameters = {
-        tripKey: this.$scope.itinerary['tripKey'],
-        sessionId: this.searchObject.sessionId,
-        latitude: this.searchObject.destination.latitude,
-        longitude: this.searchObject.destination.longitude,
-        date: this.searchObject.timing[0],
-        duration: duration
-      };
-
-      this.$state.go("result.hotels", requestParameters);
-    };
-
     goBack = () => {
       this.$window.history.back();
     };
@@ -320,11 +333,10 @@ module Result {
     /**
      *
      *
-     * @param searchData
      * @param itinerary
      * @returns {void|angular.IPromise<any>|IPromise<any>}
      */
-    booking = (itinerary) => {
+    print = (itinerary) => {
       this.printApi.setPrintData(this.searchObject, this.$scope.selection, itinerary);
       return this.$state.go('print');
     };
@@ -346,7 +358,5 @@ module Result {
         this.tripCache.clearCache();
       }, time);
     };
-
-
   }
 }

@@ -126,5 +126,5 @@ print:
   duration: duration
   details:
     title: Trip details
-    goto: Go to print
+    goto: Go to booking
 

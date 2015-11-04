@@ -33,16 +33,6 @@ module Result {
         searchObject: getTripSearchObject
       }
     });
-
-    $stateProvider.state('result.hotels', {
-      url: '/result/details/hotels?:tripKey,:sessionId,:latitude,:longitude,:date,:duration',
-      templateUrl: 'scripts/app/templates/result/result-hotels.html',
-      controller: 'resultCtrl',
-      resolve: {
-        resultState: getHotelState,
-        searchObject: getHotelSearchObject
-      }
-    });
   }
 
   function getOverviewState(RESULT_STATE) {
@@ -51,10 +41,6 @@ module Result {
 
   function getDetailsState(RESULT_STATE) {
     return RESULT_STATE.details;
-  }
-
-  function getHotelState(RESULT_STATE) {
-    return RESULT_STATE.hotels;
   }
 
   /**
@@ -94,30 +80,5 @@ module Result {
       searchObject['selectedAlternatives'] = $stateParams.selectedAlternatives;
 
     return searchObject;
-  }
-
-  /**
-   * Create a search object for the hotel API.
-   *
-   * @param $stateParams
-   * @param language
-   * @param currency
-   * @returns {*}
-   */
-  function getHotelSearchObject($stateParams, language, currency) {
-
-    return {
-      tripKey: $stateParams.tripKey,
-      sessionId: $stateParams.sessionId,
-      location: {
-        latitude: parseFloat($stateParams.latitude),
-        longitude: parseFloat($stateParams.longitude)
-      },
-      dateString: $stateParams.date,
-      duration: $stateParams.duration,
-      locale: language.get().locale,
-      currency: currency.get().code,
-      userAgent: navigator.userAgent
-    };
   }
 }

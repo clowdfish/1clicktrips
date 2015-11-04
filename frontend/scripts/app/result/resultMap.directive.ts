@@ -88,7 +88,7 @@ module Result {
           return;
         }
         isInitialized = true;
-        console.log(itinerary);
+
         map = new google.maps.Map($child[0], {
           zoom: DEFAULT_ZOOM_LEVEL,
           scrollwheel: browser.isMobileDevice(),
