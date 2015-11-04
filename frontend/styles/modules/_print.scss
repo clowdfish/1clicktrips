@@ -119,20 +119,8 @@
 
 .print {
   @extend %print;
-}
 
-
-
-@media print {
-  .header {
-    display: none;
-  }
-
-  .footer {
-    display: none;
-  }
-
-  .print {
+  @media print {
     border: none;
 
     .print-container {
@@ -165,6 +153,5 @@
     .print-action {
       display: none;
     }
-
   }
 }

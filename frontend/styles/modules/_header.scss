@@ -77,4 +77,8 @@
 
 .header {
   @extend %header;
+
+  @media print {
+    display: none;
+  }
 }
