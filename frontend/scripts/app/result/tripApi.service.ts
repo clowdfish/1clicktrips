@@ -52,7 +52,7 @@ module Result {
         })
         .success((response: any) => {
           if (_.isEmpty(response)) {
-            deferred.reject('Empty response');
+            deferred.reject(this.$translate.instant("general.api.error.empty"));
           }
 
           // returns an array of trips
@@ -102,7 +102,7 @@ module Result {
         })
         .success((response) => {
           if (_.isEmpty(response)) {
-            deferred.reject('Empty response');
+            deferred.reject(this.$translate.instant("general.api.error.empty"));
           }
 
           // returns one trip object
@@ -147,7 +147,7 @@ module Result {
         })
         .success((response) => {
           if (_.isEmpty(response)) {
-            deferred.reject('Empty response');
+            deferred.reject(this.$translate.instant("general.api.error.empty"));
           }
 
           // returns one trip object
@@ -197,7 +197,7 @@ module Result {
         return this
           .$http
           .post('/api/search/trip-plan', searchObject, {
-            activeMessages: 'Downloading booking file'
+            activeMessages: this.$translate.instant("general.api.download.calendarfile")
           })
           .then(() => {
             location.href = '/api/search/trip-plan';
@@ -206,8 +206,6 @@ module Result {
             return reject(err);
           })
       });
-
     }
   }
-
 }

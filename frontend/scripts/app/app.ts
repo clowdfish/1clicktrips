@@ -14,7 +14,6 @@ module app {
     ])
     .config(routeConfig)
     .config(i18nConfig)
-    //.config(bracketConfig)
     .value('googleApiKey', 'AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY')
     .run(run);
 
@@ -103,6 +102,13 @@ module app {
     }
   }
 
+  /**
+   *
+   *
+   * @param object
+   * @param prefix
+   * @returns {{}}
+   */
   function formatLanguageObject(object, prefix?) {
     prefix = prefix || "";
     var result = {};
@@ -121,43 +127,54 @@ module app {
     return result;
   }
 
+  /**
+   *
+   *
+   * @param $localStorage
+   * @returns {boolean}
+   */
   function setActiveLanguage($localStorage) {
+    // the locale property of window already set by gulp (based on url) has top priority
+    if (window['locale']) {
+      return;
+    }
+
+    // if no specific language url was requested, check a recent language selection
     var localeMapping = {
       de: ['de-de', 'de-at', 'de-li', 'de-lu', 'de-ch'],
       en: ['en-au', 'en-bz', 'en-ca', 'en-cb', 'en-gb', 'en-in', 'en-ie', 'en-jm', 'en-nz', 'en-ph', 'en-za', 'en-tt', 'en-us']
     };
 
-    if (window['locale']) {
-      return true;
-    }
-    console.log($localStorage['selected_language']);
     if (!_.isEmpty($localStorage['selected_language']) && localeMapping[$localStorage['selected_language']]) {
       location.href = '/' + $localStorage['selected_language'] + '/#/';
-      return true;
+      return;
     }
 
+    // if no language was selected recently, use the browser language
     var browserLocale = navigator.language.toLowerCase();
 
     var found = false;
     for (var localeKey in localeMapping) {
-      var localeList = localeMapping[localeKey];
-      if (localeList.indexOf(browserLocale) >= 0 || browserLocale === localeKey) {
-        location.href = '/' + localeKey + '/#/';
-        found = true;
-        break;
+      if(localeMapping.hasOwnProperty(localeKey)) {
+        var localeList = localeMapping[localeKey];
+
+        if (localeList.indexOf(browserLocale) >= 0 || browserLocale === localeKey) {
+          location.href = '/' + localeKey + '/#/';
+          found = true;
+          break;
+        }
       }
     }
 
-    if (found) {
-      return true;
-    }
+    if (found) return;
 
-    // use English if doesn't match anything
+    // use English as fallback language
     location.href = '/en';
   }
 
   function run($localStorage) {
     setActiveLanguage($localStorage);
+
     console.log("App started...");
   }
 }

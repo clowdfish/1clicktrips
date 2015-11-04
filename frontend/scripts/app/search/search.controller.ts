@@ -87,7 +87,7 @@ module Search {
 
     onParsedFile = (parseResult) => {
       this.$scope.schedule = parseResult;
-    }
+    };
 
     /**
      *
