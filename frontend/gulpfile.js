@@ -133,17 +133,17 @@ gulp.task('client-scripts', function(done) {
 
   return merge(
     gulp.src([
-      'scripts/app/templates/**/*'
+      'app/templates/**/*'
     ])
     .pipe(angularTemplateCache('templates.js', {
-      root: 'scripts/app/templates/',
+      root: 'app/templates/',
       module: 'app.templates',
       standalone: true
     })),
     gulp.src([
-      'scripts/_all.ts',
-      'scripts/app/**/*.ts',
-      '!scripts/app/**/*.spec.ts'
+      'app/scripts/_all.ts',
+      'app/scripts/**/*.ts',
+      '!app/test/**/*.spec.ts'
     ])
     .pipe(typescript({
       out: 'typscript.js',
@@ -165,15 +165,15 @@ gulp.task('angular-templates', function() {
 
   gulp
     .src([
-      'scripts/app/templates/**/*'
+      'app/templates/**/*'
     ])
     .pipe(angularTemplateCache('templates.js',{
-      root: 'scripts/app/templates/',
+      root: 'app/templates/',
       module: 'app.templates',
       standalone: true
     }))
     .pipe(ngAnnotate())
-    .pipe(gulp.dest('scripts/app/templates'));
+    .pipe(gulp.dest('app/templates'));
 });
 
 // copy html files

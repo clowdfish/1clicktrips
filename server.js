@@ -19,10 +19,9 @@ var configAuth = require('./config/auth');
 var port = process.env.PORT || 8080;
 
 // development/production flag
-var production = true;
+var production = false;
 
 require('./config/passport')(passport); // pass passport for configuration
-
 
 /**
  * General server setup is happening here. We are setting up the middleware
@@ -34,7 +33,7 @@ function setupServer() {
     app.use(bodyParser.urlencoded({ // parse application/x-www-form-urlencoded
       extended: false
     }));
-    app.use(bodyParser.json());     // parse application/json
+    app.use(bodyParser.json()); // parse application/json
     app.use(cookieParser());
     app.use(session({
       secret: 'errare humanum est',
