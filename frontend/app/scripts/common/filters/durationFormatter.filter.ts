@@ -26,6 +26,11 @@ module Common {
             var durationString = fullHours + ':';
             if(fullMinutes < 10) durationString += '0';
             return durationString + fullMinutes + '';
+          case 'semi':
+            var durationString = "";
+            if(fullHours > 0)
+              durationString += fullHours + 'h ';
+            return durationString + fullMinutes + 'min';
           case 'full':
             var durationString = fullHours + " ";
 

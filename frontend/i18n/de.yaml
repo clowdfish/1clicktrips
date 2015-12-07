@@ -89,21 +89,16 @@ result:
   connection:
     towards: Richtung
   details:
-    title: Reisedetails
-    tripoverview:
-      title: Reiseübersicht
-      price: Preis
-      duration: Dauer
-      departuretime: Departure time
-      arrivaltime: Arrival time
+    tripoverview: Reiseübersicht
+    itinerary: Reisedetails
     instructions:
-      text: Please check the trip details before proceeding to booking.
-      overnight: Your trip requires an overnight stay. You can easily book the hotel proposal, select a different hotel or deselect the hotel option.
-    back: Back to overview
-    travelplan: Reiseplan
-    hotels: Get available hotels
-  tripsegment:
-    flight: Flug
+      overnight: This trip requires an overnight stay. You can easily select from a list of suitable hotels that are located close to your travel route.
+    action:
+      hotels: Hotelauswahl öffnen
+      back: Zurück zur Übersicht
+      download: Download .ics
+      print: Drucken
+      booknow: Jetzt buchen
   hotelspage:
     title: Availabel hotels
     list:
@@ -112,7 +107,6 @@ result:
       price: Preis
       url: Hotel Url
       distance: Distanz vom Ziel
-    back: Zurück
 print:
   title: Reiseübersicht
   summary:

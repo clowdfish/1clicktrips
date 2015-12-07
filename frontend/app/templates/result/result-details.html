@@ -11,19 +11,26 @@
 
 <section class="result-details ng-cloak" ng-cloak ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
 	<div class="result-details-column">
-		<h1 class="result-details-title">Search details</h1>
+		<h1 class="result-details-title">{{ 'result.details.tripoverview' | translate }}</h1>
 
-		<div class="result-details-location">
-			<span class="result-details-location-start">{{ searchObject['originDescription'] }}</span>
-			<i class="fa fa-long-arrow-right"></i><span>{{ searchObject['destinationDescription'] }}</span>
+		<div class="result-details-summary">
+      <span class="result-details-summary-item start">
+        <span class="result-details-summary-location">{{ searchObject['originDescription'] }}</span>
+        <span class="result-details-summary-timing">{{ itinerary['departureTime'] | dateFormatter : itinerary['origin']['timeZone'] : null : "long" }}</span>
+		  </span>
+      <span class="result-details-summary-item end">
+        <span class="result-details-summary-location">{{ searchObject['destinationDescription'] }}</span>
+        <span class="result-details-summary-timing">{{ itinerary['arrivalTime'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
+      </span>
+      <span class="result-details-summary-item appointment">
+        <span class="result-details-summary-location">Appointment time</span>
+        <span class="result-details-summary-timing">{{ timing['value'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
+      </span>
 		</div>
 
-		<div class="result-details-appointment">
-			<i class="fa fa-calendar"></i><span class="result-details-appointment-title">Appointment time</span>
-			<span class="result-details-appointment-time">{{ timing['value'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
-		</div>
-
-		<a ng-click="showHotels()" style="display: block; margin-top: 1em;">show hotels</a>
+    <div class="result-detail-instructions">{{ 'result.details.instructions.overnight' | translate }}
+      <a ng-click="showHotels()">{{ 'result.details.action.hotels' | translate }}</a>
+    </div>
 	</div>
 
 	<div class="result-map result-details-column">
@@ -37,7 +44,7 @@
 </section>
 
 <section class="result-details ng-cloak" ng-cloak ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
-	<h1 class="result-details-title">{{ 'result.details.title' | translate }}</h1>
+	<h1 class="result-details-title">{{ 'result.details.itinerary' | translate }}</h1>
 
 	<span class="result-details-info">
 		<span class="result-details-price">
@@ -48,29 +55,53 @@
 		</span>
 	</span>
 
-	<span class="result-details-timing">
-		<span>
-			<span class="fa fa-home"></span><span>{{ itinerary['departureTime'] | dateFormatter : itinerary['origin']['timeZone'] : null : "long" }}</span>
-		</span>
-		<span>
-			<span class="fa fa-flag-checkered"></span><span>{{ itinerary['arrivalTime'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
-		</span>
-	</span>
+	<div class="result-details-segment-list">
+    <div class="result-details-segment-item"
+         ng-repeat="segment in getSegments()"
+         ng-init="segmentIndex = $index">
 
-	<div class="result-details-timeline">
-		<timeline
-			itineraries="[itinerary]"
-			itinerary-index="{{ 0 }}"
-			timing="timing"
-			show-details="true"
-			get-alternative-index="0"
-			get-timing-index="0"
-			segment-has-priority="true">
-		</timeline>
+      <div class="segment-timing">
+        <div class="segment-timeline"></div>
+        <span>{{ segment.departureTime | dateFormatter : segment['start']['timeZone'] : 'HH:mm' }}</span>
+        <i class="fa {{ segment.type | vehicleTypeToIcon }}"></i>
+
+        <span class="segment-arrival-time" ng-if="segment.type > 2">
+          {{ segment.arrivalTime | dateFormatter : segment['start']['timeZone'] : 'HH:mm' }}
+        </span>
+
+        <span class="segment-destination-time" ng-if="getSegments().length - 1== segmentIndex">
+          {{ segment.arrivalTime | dateFormatter : segment['start']['timeZone'] : 'HH:mm' }}
+        </span>
+      </div>
+
+      <div class="segment-location">
+        <span class="segment-location-title">{{ segment.start.description }}</span>
+
+        <span class="segment-location-details">
+          <span>{{ segment.type | vehicleTypeToAction }} {{ 'general.to' | translate }} {{ segment.end.description }} <a ng-if="segment['bookingLink']" href="{{ segment['bookingLink'] }}" target="_blank">{{ 'result.details.action.bookinglink' | translate }}</a></span>
+          <span>{{ segment.duration | durationFormatter : 'semi' }}, {{ segment.distance | distanceFormatter }}</span>
+        </span>
+
+        <span class="segment-destination" ng-if="getSegments().length - 1== segmentIndex">
+          {{ segment.end.description }}
+        </span>
+      </div>
+
+      <!--
+      <static-map class="static-map"
+                  path="getSegmentPath(segment)"
+                  start="segment.start.location"
+                  end="segment.end.location">
+      </static-map>
+      -->
+    </div>
 	</div>
 
 	<div class="result-details-action">
-		<a ng-click="goToOverview()" class="button--light">{{ 'result.details.back' | translate }}</a>
-		<a ng-click="print(itinerary)" class="button">{{ 'result.details.travelplan' | translate }}</a>
+		<a ng-click="goToOverview()" class="button--light">{{ 'result.details.action.back' | translate }}</a>
+
+    <a ng-click="" class="button inactive">{{ 'result.details.action.booknow' | translate }}</a>
+    <a ng-click="print($event)" class="button">{{ 'result.details.action.print' | translate }}</a>
+		<a ng-click="downloadIcsFile()" class="button">{{ 'result.details.action.download' | translate }}</a>
 	</div>
 </section>

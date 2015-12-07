@@ -14,6 +14,7 @@
 /// <reference path="common/filters/currencyFormatter.filter.ts" />
 /// <reference path="common/filters/capitalize.filter.ts" />
 /// <reference path="common/filters/dateFormatter.filter.ts" />
+/// <reference path="common/filters/distanceFormatter.filter.ts" />
 /// <reference path="common/filters/durationFormatter.filter.ts" />
 /// <reference path="common/filters/priceFormatter.filter.ts" />
 /// <reference path="common/filters/titleExtractor.filter.ts" />
@@ -29,6 +30,7 @@
 
 /// -----------Result Module -----------
 /// <reference path="result/result.controller.ts" />
+/// <reference path="result/resultDetails.controller.ts" />
 /// <reference path="result/result.route.ts" />
 /// <reference path="result/tripApi.service.ts" />
 /// <reference path="result/tripCache.service.ts" />

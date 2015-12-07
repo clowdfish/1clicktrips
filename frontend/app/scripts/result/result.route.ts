@@ -18,7 +18,6 @@ module Result {
       templateUrl: 'app/templates/result/result-list.html',
       controller: 'resultCtrl',
       resolve: {
-        resultState: getOverviewState,
         searchObject: getTripSearchObject
       }
     });
@@ -27,20 +26,11 @@ module Result {
       url: '/result/details?:tripKey,:sessionId,:originLatitude,:originLongitude,:destinationLatitude,' +
       ':destinationLongitude,:origin,:destination,:startDate,:targetDate,:selectedAlternatives',
       templateUrl: 'app/templates/result/result-details.html',
-      controller: 'resultCtrl',
+      controller: 'resultDetailsCtrl',
       resolve: {
-        resultState: getDetailsState,
         searchObject: getTripSearchObject
       }
     });
-  }
-
-  function getOverviewState(RESULT_STATE) {
-    return RESULT_STATE.overview;
-  }
-
-  function getDetailsState(RESULT_STATE) {
-    return RESULT_STATE.details;
   }
 
   /**

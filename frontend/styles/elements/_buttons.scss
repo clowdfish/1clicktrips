@@ -41,6 +41,11 @@
     text-decoration: none;
     color: $c-white;
   }
+
+  &.inactive {
+    @include opacity(0.5);
+    cursor: not-allowed;
+  }
 }
 
 .button--light {

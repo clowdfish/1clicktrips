@@ -277,10 +277,10 @@ gulp.task('build', gulpSequence(['i18n', 'scripts'], 'styles', 'images', 'prepro
 
 gulp.task('live', ['build', 'webserver'], function() {
   gulp.watch('styles/**/*.scss', ['styles']);
-  gulp.watch(["scripts/app/templates/**/*.html"], ['scripts']);
+  gulp.watch(['app/templates/**/*.html'], ['scripts']);
   gulp.watch(['*.html'], ['preprocess', 'scripts']);
   gulp.watch(["../config/currencies.json", "../config/languages.json"], ['app-data']);
-  gulp.watch(['scripts/app/**/*.ts'], ['scripts']);
+  gulp.watch(['app/scripts/**/*.ts'], ['scripts']);
   gulp.watch(['i18n/*.yaml'], ['i18n']);
 });
 

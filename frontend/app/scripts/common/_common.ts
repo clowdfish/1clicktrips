@@ -25,6 +25,7 @@ module Common {
     .filter('capitalize', capitalize)
     .filter('dateFormatter', dateFormatter)
     .filter('durationFormatter', durationFormatter)
+    .filter('distanceFormatter', distanceFormatter)
     .filter('priceFormatter', priceFormatter)
     .filter('titleExtractor', titleExtractor)
     .filter('vehicleTypeToAction', vehicleTypeToAction)

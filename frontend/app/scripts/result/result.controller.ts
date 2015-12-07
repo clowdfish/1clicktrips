@@ -1,4 +1,4 @@
-/// <reference path="../../_all.ts" />
+/// <reference path="../_all.ts" />
 
 module Result {
 
@@ -10,42 +10,29 @@ module Result {
 
     constructor(public $scope,
                 public $state,
-                public $stateParams,
-                public $window,
                 public $timeout,
                 public TIMEOUT,
-                public ngDialog,
                 public $q: ng.IQService,
-                public resultState,
-                public RESULT_STATE,
                 public tripCache: Result.TripCache,
                 public tripApi: Result.TripApi,
                 public searchObject,
                 public language: Common.Language,
-                public currency: Common.Currency,
-                public printApi: Print.PrintApi) {
+                public currency: Common.Currency) {
 
       $scope.timer = null;
       $scope.timeOut = false;
+      $scope.errorState = null;
 
       $scope.itineraries = null;
       $scope.itinerary = null;
-      $scope.hotels = null;
-
-      $scope.searchObject = searchObject;
-
-      $scope.errorState = null;
-
-      $scope.goToOverview = this.goToOverview;
-      $scope.goToItinerary = this.goToItinerary;
-      $scope.goBack = this.goBack;
-
       $scope.activeItinerary = 0;
+
+      $scope.goToItinerary = this.goToItinerary;
       $scope.activateItinerary = this.activateItinerary;
       $scope.updateItinerary = this.updateItinerary;
 
-      $scope.showHotels = this.showHotels;
-      $scope.print = this.print;
+      $scope.onShowMap = this.onShowMap;
+      $scope.addToggleMapHandler = this.addToggleMapHandler;
 
       // timing is required for the trip segment container's formatting
       $scope.timing = { };
@@ -54,15 +41,7 @@ module Result {
       // with a string key (eg. "1-2-1") and a timing alternative index (eg. 2).
       $scope.selection = { };
 
-      if(resultState == RESULT_STATE.overview) {
-        this.getItineraries();
-      }
-      else if(resultState == RESULT_STATE.details) {
-        this.getItineraryDetails();
-      }
-
-      $scope.onShowMap = this.onShowMap;
-      $scope.addToggleMapHandler = this.addToggleMapHandler;
+      this.getItineraries();
     }
 
     /**
@@ -158,114 +137,12 @@ module Result {
     };
 
     /**
-     * Call the trip API to get all itinerary details.
-     */
-    getItineraryDetails = () => {
-
-      //var cachedTripDetails;
-      //if(this.$scope.timer !== null)
-      var cachedTripDetails = this.tripCache.getCachedTrip();
-
-      if(cachedTripDetails) {
-        // store appointment timing data
-        this.$scope.timing = cachedTripDetails['timing'];
-        this.$scope.timing['targetDate'] = this.searchObject.targetDate;
-
-        this.$scope.itinerary = cachedTripDetails;
-      }
-      else {
-        this.tripApi
-          .getTripDetails(this.searchObject)
-          .then((itinerary) => {
-            // store appointment timing data
-            this.$scope.timing = itinerary['timing'];
-            this.$scope.timing['targetDate'] = this.searchObject.targetDate;
-
-            this.tripCache.storeTrip(itinerary);
-            this.$scope.itinerary = itinerary;
-          }, (err) => {
-            this.$scope.errorState = { message: err }
-          });
-      }
-    };
-
-    /**
-     * Call the trip API to get all available hotels.
-     */
-    getHotels = (searchObject) => {
-      return this.tripApi
-        .getAvailableHotels(searchObject)
-        .then((hotels) => {
-          this.$scope.hotels = hotels;
-          return hotels;
-        }, (err) => {
-          this.$scope.errorState = { message: err };
-          return [];
-        });
-    };
-
-    /**
-     *
-     */
-    showHotels = () => {
-      var self = this;
-
-      this.ngDialog.open({
-        template: 'scripts/app/templates/modals/result-hotels.html',
-        controller: function($scope, hotels) {
-          $scope.hotels = hotels;
-        },
-        resolve: {
-          hotels: function() {
-            if(self.$scope.hotels)
-              return self.$scope.hotels;
-
-            // set duration to 1 for testing purposes
-            var duration = 1;
-
-            var hotelSearchObject = {
-              tripKey: self.$scope.itinerary['tripKey'],
-              sessionId: self.searchObject.sessionId,
-              location: self.searchObject.destination,
-              dateString: self.searchObject.timing[0],
-              duration: duration,
-              locale: self.language._activeLanguage.locale,
-              currency: self.currency.getSelectedCurrency().code,
-              userAgent: navigator.userAgent
-            };
-
-            return self.getHotels(hotelSearchObject);
-          }
-        }
-      });
-    };
-
-    /**
      * Set the itinerary with the given index to active.
      *
      * @param index
      */
     activateItinerary = (index) => {
       this.$scope.activeItinerary = index;
-    };
-
-    /**
-     * Transition to the state that provides the overview of all itineraries.
-     */
-    goToOverview = () => {
-
-      var requestParameters = {
-        originLatitude: this.searchObject.origin.latitude,
-        originLongitude: this.searchObject.origin.longitude,
-        origin: this.searchObject.originDescription,
-        destinationLatitude: this.searchObject.destination.latitude,
-        destinationLongitude: this.searchObject.destination.longitude,
-        destination: this.searchObject.destinationDescription,
-        startDate: this.searchObject.timing[0],
-        targetDate: this.searchObject.targetDate
-      };
-
-      this.$state.go("result.list", requestParameters);
     };
 
     /**
@@ -290,13 +167,6 @@ module Result {
       };
 
       this.$state.go("result.details", requestParameters);
-    };
-
-    /**
-     *
-     */
-    goBack = () => {
-      this.$window.history.back();
     };
 
     /**
@@ -328,17 +198,6 @@ module Result {
       }
 
       return resultArray.join('%');
-    };
-
-    /**
-     *
-     *
-     * @param itinerary
-     * @returns {void|angular.IPromise<any>|IPromise<any>}
-     */
-    print = (itinerary) => {
-      this.printApi.setPrintData(this.searchObject, this.$scope.selection, itinerary);
-      return this.$state.go('print');
     };
 
     /**

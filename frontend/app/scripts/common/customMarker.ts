@@ -33,7 +33,7 @@
       });
 
       var panes = this.getPanes();
-      panes.overlayImage.appendChild(div);
+      panes.overlayLayer.appendChild(div);
     }
 
     var point = this.getProjection().fromLatLngToDivPixel(this.latlng);

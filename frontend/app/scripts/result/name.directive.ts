@@ -1,4 +1,4 @@
-/// <reference path="../../_all.ts" />
+/// <reference path="../_all.ts" />
 
 module Result {
 
@@ -19,7 +19,7 @@ module Result {
 		public static Factory(): any {
 			 var directive = () => {
 				 return new Name();
-			 }
+			 };
 			 return directive;
 		}
 
@@ -30,16 +30,15 @@ module Result {
 				this._scope = scope;
 				this._scope.yourName = this.getFullName();
 				this._scope.alertName = this.alertName;
-			}
+			};
 
 			Name.prototype.alertName = () => {
 				alert(this.getFullName());
-			}
+			};
 
 			Name.prototype.getFullName = () => {
 				return this._scope.first + ' ' + this._scope.last;
-			}
+			};
 		}
-
 	}
 }

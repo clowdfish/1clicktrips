@@ -16,6 +16,7 @@
     display: inline-block;
 
     @include respond-above("medium") {
+      max-width: 50%;
 
       &:last-of-type {
         float:right;
@@ -58,26 +59,60 @@
     }
   }
 
+  .result-details-summary {
+    margin-bottom: 1.5em;
+  }
+
+  .result-details-summary-item {
+    display: block;
+    margin-bottom: 0.5em;
+    margin-left: 2.2em;
+    position: relative;
+
+    .result-details-summary-timing:before {
+      position: absolute;
+      font-family: "FontAwesome";
+      font-size: 1.1em;
+      left: -1.7em;
+      top: 0.4em;
+      color: $c-primary;
+    }
+
+    &.start .result-details-summary-timing:before {
+      content: $fa-var-home;
+    }
+
+    &.end .result-details-summary-timing:before {
+      content: $fa-var-flag-checkered;
+    }
+
+    &.appointment .result-details-summary-timing:before {
+      content: $fa-var-calendar;
+    }
+  }
+
+  .result-details-summary-timing {
+    display: block;
+  }
+
+  .result-details-summary-location {
+    display: block;
+    font-weight: 800;
+    line-height: 1.2em;
+  }
+
   .result-details-location-start {
     display: block;
     margin-bottom: 0.1em;
   }
 
-  .result-details-appointment {
+  .result-detail-instructions {
+    line-height: 1.4em;
 
-    .fa {
-      color: $c-primary;
-      margin-right: 0.5em;
+    a {
+      display: block;
+      margin-top: 0.8em;
     }
-  }
-
-  .result-details-appointment-title {
-    font-weight: bold;
-  }
-
-  .result-details-appointment-time {
-    display: block;
-    margin-top: 0.2em;
   }
 
   /*
@@ -98,36 +133,110 @@
     font-weight: 800;
   }
 
-  .result-details-duration {
-
+  .result-details-segment-list {
+    display: table;
+    margin: 1em 0 4em 0;
   }
 
-  .result-details-timing {
-    display: table;
-    margin-top: -0.5em;
+  .result-details-segment-item {
+    display: table-row;
 
-    &>span {
-      display: table-row;
+    .segment-timeline {
+      position: absolute;
+      top: 1.6em;
+      right: 0;
+      bottom: 0;
+      border-right: 4px dotted transparent;
+      border-image: url('../../images/border-timeline-spacious.png') 4 repeat;
+    }
 
-      &>span {
-        display: table-cell;
-        padding-bottom: 0.2em;
+    .segment-timing {
+      position: relative;
+      display: table-cell;
+
+      span {
+        display: block;
+        padding: 0.3em 1em 0 0.3em;
+        font-weight: 800;
       }
 
-      &>.fa {
-        padding-right: 1em;
-        color: $c-primary;
+      i {
+        display: block;
+        padding: 1.3em 1.5em 1.5em 1.2em;
+      }
+
+      .segment-arrival-time {
+        font-size: $fs-small;
+        color: $c-text-light;
+        font-weight: normal;
       }
     }
-  }
 
-  .result-details-timeline {
-    margin: 2em 0 3em 0;
+    .segment-location {
+      position: relative;
+      display: table-cell;
+      padding: 0.3em 2em 0 0.3em;
+
+      span {
+        display: block;
+
+      }
+
+      .segment-location-title {
+        margin-bottom: 0.8em;
+
+        &:before {
+          display: inline-block;
+          content: $fa-var-circle-o;
+          font-family: "FontAwesome";
+          color: $c-primary;
+          background-color: $c-white;
+          margin-left: -0.85em;
+          padding-right: 0.4em;
+        }
+      }
+
+      .segment-location-details {
+        margin-left: 1em;
+
+        a {
+          margin-left: 1em;
+        }
+
+        span:last-of-type {
+          margin-top: 0.3em;
+          font-size: $fs-small;
+          color: $c-text-light;
+          margin-bottom: 1.5em;
+        }
+      }
+    }
+
+    .segment-destination-time {
+      position: absolute;
+      bottom: -1em;
+    }
+
+    .segment-destination {
+      position: absolute;
+      bottom: -1em;
+
+      &:before {
+        display: inline-block;
+        content: $fa-var-circle-o;
+        font-family: "FontAwesome";
+        color: $c-primary;
+        background-color: $c-white;
+        margin-left: -0.85em;
+        padding-right: 0.4em;
+      }
+    }
   }
 
   .result-details-action {
     .button {
       float: right;
+      margin-left: 0.5em;
     }
   }
 }

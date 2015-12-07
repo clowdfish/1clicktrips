@@ -1,10 +1,11 @@
-/// <reference path="../../_all.ts" />
+/// <reference path="../_all.ts" />
 
 module Result {
 
 	'use strict';
 
 	export class ItineraryHelper {
+
 		/**
 		 * Get all location from segments
 		 */
@@ -24,7 +25,7 @@ module Result {
 				}
 			}
 			return latlngs;
-		}
+		};
 
 		/**
 		 * Get active segments from selection
@@ -36,7 +37,7 @@ module Result {
 				segments = segments.concat(this.getSegmentsFromContainer(containerIndex, container, selection));
 			}
 			return segments;
-		}
+		};
 
 		/**
 		 * Get active segment from container and selection
@@ -48,7 +49,7 @@ module Result {
         }
       }
       return container.alternatives[0];
-		}
+		};
 
 		/**
 		 * Check if segment in selection
@@ -56,7 +57,7 @@ module Result {
 		private _segmentInSelection = (containerIndex, segmentIndex, selection) => {
       var key = '0-' + containerIndex + '-' + segmentIndex;
       return selection.hasOwnProperty(key);
-    }
+    };
 
 		/**
 		 * Get segment 's path
@@ -75,8 +76,6 @@ module Result {
       }
 
       return null;
-		}
-
-
+		};
 	}
 }
