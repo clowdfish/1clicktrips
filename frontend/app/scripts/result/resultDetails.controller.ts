@@ -32,7 +32,11 @@ module Result {
       $scope.hotels = null;
 
       $scope.goToOverview = this.goToOverview;
+
       $scope.getSegments = this.getSegments;
+      $scope.getAlternativeSegments = this.getAlternativeSegments;
+      $scope.getSegmentPath = this.getSegmentPath;
+
       $scope.showHotels = this.showHotels;
       $scope.print = this.print;
       $scope.downloadIcsFile = this.downloadIcsFile;
@@ -183,6 +187,44 @@ module Result {
         });
 
       return this.$scope.segments;
+    };
+
+    /**
+     *
+     *
+     * @param segmentIndex
+     * @returns {Array}
+     */
+    getAlternativeSegments = (segmentIndex) => {
+
+      if(!this.$scope.alternatives)
+        this.$scope.alternatives = [
+          { name: "Alternative 1" },
+          { name: "Alternative 2" },
+          { name: "Alternative 3" }
+        ];
+
+      return this.$scope.alternatives;
+    };
+
+    /**
+     *
+     *
+     * @param segment
+     * @returns {any}
+     */
+    getSegmentPath = (segment) => {
+      if (!segment.path) {
+        return null;
+      }
+
+      if (_.isString(segment.path)) {
+        return segment.path;
+      }
+
+      if (_.isObject(segment.path) || segment.path.points) {
+        return segment.path.points;
+      }
     };
 
     /**

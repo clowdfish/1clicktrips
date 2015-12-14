@@ -35,7 +35,7 @@ module Common {
 			var $element = $(element);
 
       var width = angular.element(document.getElementById('segment-details'))[0].clientWidth;
-      width -= 35;
+      width -= 30;
 
       scope.$watch('start', function() {
         var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?';
@@ -54,7 +54,7 @@ module Common {
         }
 
         $element.text("");
-        $element.append('<img src="' + mapUrl + '" />');
+        $element.append('<img width="100%" src="' + mapUrl + '" />');
       });
 		};
 

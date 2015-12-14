@@ -74,7 +74,7 @@
       font-family: "FontAwesome";
       font-size: 1.1em;
       left: -1.7em;
-      top: 0.4em;
+      //top: 0.4em;
       color: $c-primary;
     }
 
@@ -229,15 +229,9 @@
 
       &.active {
 
-        &:after {
-          font-family: "FontAwesome";
-          content: $fa-var-chevron-right;
-        }
-
-        &:hover {
-          .segment-details-trigger {
-            display: none;
-          }
+        .segment-details-trigger {
+          visibility: visible;
+          color: $c-text;
         }
       }
 
@@ -247,7 +241,7 @@
 
       &:hover {
         .segment-details-trigger {
-          display: table-cell;
+          visibility: visible;
         }
       }
     }
@@ -287,6 +281,7 @@
       position: relative;
       display: table-cell;
       padding: 0.3em 2em 0 0.3em;
+      width: 80%;
 
       span {
         display: block;
@@ -325,7 +320,7 @@
       cursor: pointer;
 
       @include respond-above("medium") {
-        display: none;
+        visibility: hidden;
       }
     }
 
@@ -348,6 +343,16 @@
         padding-right: 0.4em;
       }
     }
+  }
+
+  .segment-details-map {
+    display: block;
+    margin-bottom: 1.5em;
+  }
+
+  .segment-details-alternatives-list {
+    list-style: none;
+    margin: 0.8em 0;
   }
 
   .result-details-action {

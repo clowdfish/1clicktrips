@@ -84,7 +84,7 @@
           <span class="segment-location-title">{{ segment.start.description }}</span>
 
         <span class="segment-location-details">
-          <span>{{ segment.type | vehicleTypeToAction }} {{ 'general.to' | translate }} {{ segment.end.description }} <!--<a ng-if="segment['bookingLink']" href="{{ segment['bookingLink'] }}" target="_blank">{{ 'result.details.action.bookinglink' | translate }}</a>--></span>
+          <span>{{ segment.type | vehicleTypeToAction }} {{ 'general.to' | translate }} {{ segment.end.description }} </span>
           <span>{{ segment.duration | durationFormatter : 'semi' }}, {{ segment.distance | distanceFormatter }}</span>
         </span>
 
@@ -109,13 +109,25 @@
       </div>
 
       <div ng-if="selectedSegmentIndex != null">
-        <h2>Trip segment details</h2>
-        <p>Detail for segment id {{ selectedSegmentIndex }}</p>
+        <h2>Segment overview</h2>
 
-        <static-map path="getSegmentPath(getSegments()[selectedSegmentIndex])"
+        <static-map class="segment-details-map"
+                    path="getSegmentPath(getSegments()[selectedSegmentIndex])"
                     start="getSegments()[selectedSegmentIndex].start.location"
                     end="getSegments()[selectedSegmentIndex].end.location">
         </static-map>
+
+        <!--<a ng-if="segment['bookingLink']" href="{{ segment['bookingLink'] }}" target="_blank">{{ 'result.details.action.bookinglink' | translate }}</a>-->
+
+        <div class="segment-details-alternatives">
+          <h3>Alternatives</h3>
+          <ul class="segment-details-alternatives-list">
+            <li ng-repeat="alternative in getAlternativeSegments(selectedSegmentIndex)"
+                ng-init="alternativeIndex = $index">
+              {{ alternative.name }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
