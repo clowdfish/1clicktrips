@@ -133,13 +133,124 @@
     font-weight: 800;
   }
 
-  .result-details-segment-list {
-    display: table;
-    margin: 1em 0 4em 0;
+  .result-details-itinerary {
+    position: relative;
+    min-height: 20em;
+    width: 100%;
+    overflow: hidden;
+
+    /*******************************************************/
+    /* Result Itinerary Layout                             */
+    /*******************************************************/
+
+    $selection-toggle-size: 2em;
+
+    .result-details-segment-list {
+      display: table;
+      margin: 1em 0 4em 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 3;
+      background-color: $c-white;
+      transition: left 1s ease-out 0s;
+
+      &.hide {
+        left: -100%;
+      }
+    }
+
+    .segment-details {
+      display: block;
+      margin: 1em 0 4em 0;
+      position: absolute;
+      top: 0;
+      left:  0;
+      right: 0;
+      background-color: $c-white;
+      z-index: 1;
+    }
+
+    .segment-details-back {
+      display: block;
+      cursor: pointer;
+      margin-bottom: 1.5em;
+      text-decoration: none;
+      color: $c-text;
+      font-weight: bold;
+
+      &:before {
+        font-family: FontAwesome;
+        content: $fa-var-chevron-left;
+        color: $c-primary;
+        display: inline-block;
+        margin-right: 0.5em;
+      }
+
+      @include respond-above("medium") {
+        display: none;
+      }
+    }
+
+    @include respond-above("medium") {
+
+      .result-details-segment-list {
+        display: block;
+        position: relative;
+        float: left;
+        width: 50%;
+        transition: none;
+
+        &.hide {
+          left: auto;
+        }
+      }
+
+      .segment-details {
+        display: block;
+        position: relative;
+        float: left;
+
+        width: 50%;
+        height: 80%;
+        padding: 1em;
+        margin-top: 2em;
+        border: 2px dashed $c-border;
+      }
+    }
   }
 
   .result-details-segment-item {
     display: table-row;
+    cursor: pointer;
+
+    @include respond-above("medium") {
+
+      &.active {
+
+        &:after {
+          font-family: "FontAwesome";
+          content: $fa-var-chevron-right;
+        }
+
+        &:hover {
+          .segment-details-trigger {
+            display: none;
+          }
+        }
+      }
+
+      &.blurred {
+        opacity: 0.5;
+      }
+
+      &:hover {
+        .segment-details-trigger {
+          display: table-cell;
+        }
+      }
+    }
 
     .segment-timeline {
       position: absolute;
@@ -199,16 +310,22 @@
       .segment-location-details {
         margin-left: 1em;
 
-        a {
-          margin-left: 1em;
-        }
-
         span:last-of-type {
           margin-top: 0.3em;
           font-size: $fs-small;
           color: $c-text-light;
           margin-bottom: 1.5em;
         }
+      }
+    }
+
+    .segment-details-trigger {
+      display: table-cell;
+      color: $c-text-light;
+      cursor: pointer;
+
+      @include respond-above("medium") {
+        display: none;
       }
     }
 

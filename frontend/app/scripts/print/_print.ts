@@ -10,7 +10,6 @@ module Print {
 			'app.core'
 		])
 		.config(routeConfig)
-    .directive('staticMap', StaticMap.Factory())
 		.controller('printCtrl', PrintCtrl)
 		.service('printApi', PrintApi);
 

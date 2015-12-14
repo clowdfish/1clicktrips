@@ -9,6 +9,7 @@
 /// <reference path="common/directives/timelineSegment.directive.ts" />
 /// <reference path="common/directives/dropzone.directive.ts" />
 /// <reference path="common/directives/mapMarker.directive.ts" />
+/// <reference path="common/directives/staticMap.directive.ts" />
 /// <reference path="common/directives/waitingAnimation.directive.ts" />
 /// <reference path="common/factories/spinnerInterceptor.factory.ts" />
 /// <reference path="common/filters/currencyFormatter.filter.ts" />
@@ -47,8 +48,7 @@
 /// <reference path="search/searchMap.directive.ts" />
 /// <reference path="search/_search.ts" />
 
-/// -----------Booking Module ------------
+/// -----------Print Module ------------
 /// <reference path="print/print.controller.ts" />"
 /// <reference path="print/print.route.ts" />
 /// <reference path="print/printApi.service.ts" />
-/// <reference path="print/staticMap.directive.ts" />

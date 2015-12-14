@@ -18,6 +18,7 @@ module Common {
     .directive('dropzone', Dropzone.Factory())
     .directive('timeline', Timeline.Factory())
     .directive('timelineSegment', TimelineSegment.Factory())
+    .directive('staticMap', StaticMap.Factory())
     .directive('languageDropdown', languageDropdown)
     .directive('currencyDropdown', currencyDropdown)
     .service('spinnerInterceptor', SpinnerIntercepter.Factory())

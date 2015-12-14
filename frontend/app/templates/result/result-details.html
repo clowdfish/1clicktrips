@@ -55,53 +55,76 @@
 		</span>
 	</span>
 
-	<div class="result-details-segment-list">
-    <div class="result-details-segment-item"
-         ng-repeat="segment in getSegments()"
-         ng-init="segmentIndex = $index">
+  <div class="result-details-itinerary"
+       ng-style="{ 'height': (getSegments().length * 7.5) + 'em' }">
+    <div class="result-details-segment-list"
+         ng-class="{ hide: showSegmentDetails }">
+      <div class="result-details-segment-item"
+           ng-repeat="segment in getSegments()"
+           ng-init="segmentIndex = $index"
+           ng-click="triggerDetails(segmentIndex)"
+           ng-class="{ active : segmentIndex == selectedSegmentIndex,
+              blurred: selectedSegmentIndex != null && segmentIndex != selectedSegmentIndex }">
 
-      <div class="segment-timing">
-        <div class="segment-timeline"></div>
-        <span>{{ segment.departureTime | dateFormatter : segment['start']['timeZone'] : 'HH:mm' }}</span>
-        <i class="fa {{ segment.type | vehicleTypeToIcon }}"></i>
+        <div class="segment-timing">
+          <div class="segment-timeline"></div>
+          <span>{{ segment.departureTime | dateFormatter : segment['start']['timeZone'] : 'HH:mm' }}</span>
+          <i class="fa {{ segment.type | vehicleTypeToIcon }}"></i>
 
         <span class="segment-arrival-time" ng-if="segment.type > 2">
           {{ segment.arrivalTime | dateFormatter : segment['start']['timeZone'] : 'HH:mm' }}
         </span>
 
-        <span class="segment-destination-time" ng-if="getSegments().length - 1== segmentIndex">
+        <span class="segment-destination-time" ng-if="getSegments().length - 1 == segmentIndex">
           {{ segment.arrivalTime | dateFormatter : segment['start']['timeZone'] : 'HH:mm' }}
         </span>
-      </div>
+        </div>
 
-      <div class="segment-location">
-        <span class="segment-location-title">{{ segment.start.description }}</span>
+        <div class="segment-location">
+          <span class="segment-location-title">{{ segment.start.description }}</span>
 
         <span class="segment-location-details">
-          <span>{{ segment.type | vehicleTypeToAction }} {{ 'general.to' | translate }} {{ segment.end.description }} <a ng-if="segment['bookingLink']" href="{{ segment['bookingLink'] }}" target="_blank">{{ 'result.details.action.bookinglink' | translate }}</a></span>
+          <span>{{ segment.type | vehicleTypeToAction }} {{ 'general.to' | translate }} {{ segment.end.description }} <!--<a ng-if="segment['bookingLink']" href="{{ segment['bookingLink'] }}" target="_blank">{{ 'result.details.action.bookinglink' | translate }}</a>--></span>
           <span>{{ segment.duration | durationFormatter : 'semi' }}, {{ segment.distance | distanceFormatter }}</span>
         </span>
 
-        <span class="segment-destination" ng-if="getSegments().length - 1== segmentIndex">
+        <span class="segment-destination" ng-if="getSegments().length - 1 == segmentIndex">
           {{ segment.end.description }}
         </span>
+        </div>
+
+        <div class="segment-details-trigger">
+          <i class="fa fa-chevron-right"
+             ng-click="triggerDetails(segmentIndex)"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="segment-details" id="segment-details">
+      <a ng-click="triggerDetails()" class="segment-details-back">Back</a>
+
+      <div ng-if="selectedSegmentIndex == null">
+        <h2>Choose a trip segment</h2>
+        <p>To get details for this segment...</p>
       </div>
 
-      <!--
-      <static-map class="static-map"
-                  path="getSegmentPath(segment)"
-                  start="segment.start.location"
-                  end="segment.end.location">
-      </static-map>
-      -->
+      <div ng-if="selectedSegmentIndex != null">
+        <h2>Trip segment details</h2>
+        <p>Detail for segment id {{ selectedSegmentIndex }}</p>
+
+        <static-map path="getSegmentPath(getSegments()[selectedSegmentIndex])"
+                    start="getSegments()[selectedSegmentIndex].start.location"
+                    end="getSegments()[selectedSegmentIndex].end.location">
+        </static-map>
+      </div>
     </div>
-	</div>
+  </div>
 
 	<div class="result-details-action">
 		<a ng-click="goToOverview()" class="button--light">{{ 'result.details.action.back' | translate }}</a>
 
     <a ng-click="" class="button inactive">{{ 'result.details.action.booknow' | translate }}</a>
-    <a ng-click="print($event)" class="button">{{ 'result.details.action.print' | translate }}</a>
-		<a ng-click="downloadIcsFile()" class="button">{{ 'result.details.action.download' | translate }}</a>
+    <a ng-click="print($event)" class="button no-mobile">{{ 'result.details.action.print' | translate }}</a>
+		<a ng-click="downloadIcsFile()" class="button no-mobile">{{ 'result.details.action.download' | translate }}</a>
 	</div>
 </section>

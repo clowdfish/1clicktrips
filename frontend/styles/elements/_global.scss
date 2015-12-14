@@ -32,6 +32,14 @@ body {
   font-size: $fs-small;
 }
 
+.no-mobile {
+  display: none;
+
+  @include respond-above("medium") {
+    display: inherit;
+  }
+}
+
 /*
  The following part should be removed after the new
  styling is applied.

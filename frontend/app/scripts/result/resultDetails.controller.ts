@@ -23,16 +23,21 @@ module Result {
       $scope.timeOut = false;
       $scope.errorState = null;
 
+      $scope.showSegmentDetails = false;
+      $scope.selectedSegmentIndex = null;
+      $scope.segments = null;
+
       $scope.itineraries = null;
       $scope.itinerary = null;
       $scope.hotels = null;
 
       $scope.goToOverview = this.goToOverview;
-      $scope.getSegments = this.getStandardSegments;
+      $scope.getSegments = this.getSegments;
       $scope.showHotels = this.showHotels;
       $scope.print = this.print;
       $scope.downloadIcsFile = this.downloadIcsFile;
       $scope.addToggleMapHandler = this.addToggleMapHandler;
+      $scope.triggerDetails = this.triggerDetails;
 
       this.getItineraryDetails();
     }
@@ -128,6 +133,18 @@ module Result {
     };
 
     /**
+     *
+     *
+     * @param segmentIndex
+     */
+    triggerDetails = (segmentIndex) => {
+      this.$scope.showSegmentDetails = !this.$scope.showSegmentDetails;
+
+      if(segmentIndex != undefined)
+        this.$scope.selectedSegmentIndex = segmentIndex;
+    };
+
+    /**
      * Transition to the state that provides the overview of all itineraries.
      */
     goToOverview = () => {
@@ -151,14 +168,21 @@ module Result {
      *
      * @returns {Array}
      */
-    getStandardSegments = () => {
-      return this.$scope.itinerary.segmentsContainer.map(function(container) {
-        return container.alternatives[0].map(function(segment) {
-          return segment;
+    getSegments = () => {
+
+      if(this.$scope.segments)
+        return this.$scope.segments;
+
+      this.$scope.segments =
+        this.$scope.itinerary.segmentsContainer.map(function(container) {
+          return container.alternatives[0].map(function(segment) {
+            return segment;
+          });
+        }).reduce(function(previousSegmentArray, newSegmentArray) {
+          return previousSegmentArray.concat(newSegmentArray);
         });
-      }).reduce(function(previousSegmentArray, newSegmentArray) {
-        return previousSegmentArray.concat(newSegmentArray);
-      });
+
+      return this.$scope.segments;
     };
 
     /**
