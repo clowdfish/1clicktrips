@@ -99,7 +99,7 @@ result:
       download: Download .ics
       print: Print
       booknow: Book now
-      bookinglink: booking link
+      bookinglink: go to booking
   hotelspage:
     title: Availabel hotels
     list:

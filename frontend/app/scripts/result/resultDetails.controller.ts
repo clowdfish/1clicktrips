@@ -19,13 +19,16 @@ module Result {
                 public language: Common.Language,
                 public currency: Common.Currency) {
 
+      $scope.searchObject = searchObject;
+
       $scope.timer = null;
       $scope.timeOut = false;
       $scope.errorState = null;
 
       $scope.showSegmentDetails = false;
-      $scope.selectedSegmentIndex = null;
+      $scope.selectedSegmentIndex = 2; //null;
       $scope.segments = null;
+      $scope.showAlternatives = false;
 
       $scope.itineraries = null;
       $scope.itinerary = null;

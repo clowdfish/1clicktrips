@@ -69,13 +69,17 @@
     margin-left: 2.2em;
     position: relative;
 
-    .result-details-summary-timing:before {
-      position: absolute;
-      font-family: "FontAwesome";
-      font-size: 1.1em;
-      left: -1.7em;
-      //top: 0.4em;
-      color: $c-primary;
+    .result-details-summary-timing {
+      color: darken($c-text-light, 35%);
+
+      &:before {
+        position: absolute;
+        font-family: "FontAwesome";
+        font-size: 1.1em;
+        left: -1.7em;
+        top: 0.4em;
+        color: $c-primary;
+      }
     }
 
     &.start .result-details-summary-timing:before {
@@ -109,9 +113,14 @@
   .result-detail-instructions {
     line-height: 1.4em;
 
-    a {
+    p {
       display: block;
-      margin-top: 0.8em;
+      margin-bottom: 0.8em;
+    }
+
+    i {
+      display: inline-block;
+      margin-left: 0.4em;
     }
   }
 
@@ -170,6 +179,7 @@
       right: 0;
       background-color: $c-white;
       z-index: 1;
+      overflow-y: scroll;
     }
 
     .segment-details-back {
@@ -213,7 +223,7 @@
         float: left;
 
         width: 50%;
-        height: 80%;
+        min-height: 80%;
         padding: 1em;
         margin-top: 2em;
         border: 2px dashed $c-border;
@@ -350,10 +360,115 @@
     margin-bottom: 1.5em;
   }
 
+  .segment-details-provider {
+    margin-bottom: 1.5em;
+
+    p {
+      display: block;
+      margin-bottom: 0.5em;
+      color: darken($c-text-light, 35%);
+    }
+
+    i {
+      display: inline-block;
+      margin-left: 0.3em;
+    }
+  }
+
+  /*******************************************************/
+  /* Alternatives list                                   */
+  /*******************************************************/
+
+  .segment-details-alternatives-list-label {
+    display: block;
+    position: relative;
+    margin-top: 0.8em;
+    padding: 0.45em 0.7em;
+    width: 100%;
+    background-color: lighten($c-grey, 15%);
+    cursor: pointer;
+
+    &:after {
+      display: block;
+      content: $fa-var-caret-down;
+      font-family: "FontAwesome";
+      color: $c-text;
+      position: absolute;
+      right: 0.6em;
+      top: 0.5em;
+    }
+  }
+
   .segment-details-alternatives-list {
     list-style: none;
-    margin: 0.8em 0;
+    border: 1px solid $c-border;
+    border-top: none;
+
+    li {
+      background: lighten($c-grey, 25%);
+      cursor: pointer;
+
+      &:hover {
+        background: $c-background-light;
+      }
+    }
   }
+
+  .segment-details-alternatives-item {
+
+    .alternative-trip {
+      display: block;
+      font-size: $fs-small;
+      color: $c-text-light;
+      padding: 0.3em 0.3em 0 0.4em;
+    }
+
+    .alternative-trip-attributes {
+      display: block;
+
+      &>span {
+        display: inline-block;
+        padding: 0.3em 1em 0.2em 0.4em;
+        margin-bottom: 0.5em;
+
+        &:first-of-type {
+          width: 50%;
+        }
+      }
+    }
+
+    .alternative-trip-attributes-vehicle {
+
+      i {
+        display: inline-block;
+        margin-right: 0.3em;
+      }
+    }
+
+    .alternative-trip-attributes-tendency {
+
+      &.up:before {
+        display: inline-block;
+        content: $fa-var-long-arrow-up;
+        font-family: "FontAwesome";
+        color: $c-red;
+        margin-right: 0.3em;
+      }
+
+      &.down:before {
+        display: inline-block;
+        content: $fa-var-long-arrow-down;
+        font-family: "FontAwesome";
+        color: $c-green;
+        margin-right: 0.3em;
+      }
+    }
+  }
+
+
+  /*******************************************************/
+  /* Action bar                                          */
+  /*******************************************************/
 
   .result-details-action {
     .button {
@@ -361,6 +476,8 @@
       margin-left: 0.5em;
     }
   }
+
+
 }
 
 .result-details {

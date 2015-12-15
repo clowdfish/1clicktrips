@@ -9,7 +9,10 @@
   </span>
 </section>
 
-<section class="result-details ng-cloak" ng-cloak ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
+<section class="result-details ng-cloak"
+         ng-cloak
+         ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
+
 	<div class="result-details-column">
 		<h1 class="result-details-title">{{ 'result.details.tripoverview' | translate }}</h1>
 
@@ -22,14 +25,11 @@
         <span class="result-details-summary-location">{{ searchObject['destinationDescription'] }}</span>
         <span class="result-details-summary-timing">{{ itinerary['arrivalTime'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
       </span>
-      <span class="result-details-summary-item appointment">
-        <span class="result-details-summary-location">Appointment time</span>
-        <span class="result-details-summary-timing">{{ timing['value'] | dateFormatter : itinerary['destination']['timeZone'] : null : "long" }}</span>
-      </span>
 		</div>
 
-    <div class="result-detail-instructions">{{ 'result.details.instructions.overnight' | translate }}
-      <a ng-click="showHotels()">{{ 'result.details.action.hotels' | translate }}</a>
+    <div class="result-detail-instructions">
+      <p>{{ 'result.details.instructions.overnight' | translate }}</p>
+      <a ng-click="showHotels()">{{ 'result.details.action.hotels' | translate }}</a><i class="fa fa-search"></i>
     </div>
 	</div>
 
@@ -43,7 +43,10 @@
 	</div>
 </section>
 
-<section class="result-details ng-cloak" ng-cloak ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
+<section class="result-details ng-cloak"
+         ng-cloak
+         ng-show='itinerary !== null && false === (errorState !== null || timeOut === true)'>
+
 	<h1 class="result-details-title">{{ 'result.details.itinerary' | translate }}</h1>
 
 	<span class="result-details-info">
@@ -56,7 +59,7 @@
 	</span>
 
   <div class="result-details-itinerary"
-       ng-style="{ 'height': (getSegments().length * 7.5) + 'em' }">
+       ng-style="{ 'min-height': (getSegments().length * 7.5) + 'em' }">
     <div class="result-details-segment-list"
          ng-class="{ hide: showSegmentDetails }">
       <div class="result-details-segment-item"
@@ -100,7 +103,10 @@
       </div>
     </div>
 
-    <div class="segment-details" id="segment-details">
+    <div class="segment-details"
+         id="segment-details"
+         ng-style="{ 'height': (getSegments().length * 7.5 - 6) + 'em' }">
+
       <a ng-click="triggerDetails()" class="segment-details-back">Back</a>
 
       <div ng-if="selectedSegmentIndex == null">
@@ -117,14 +123,43 @@
                     end="getSegments()[selectedSegmentIndex].end.location">
         </static-map>
 
-        <!--<a ng-if="segment['bookingLink']" href="{{ segment['bookingLink'] }}" target="_blank">{{ 'result.details.action.bookinglink' | translate }}</a>-->
+        <div class="segment-details-provider">
+          <span ng-if="getSegments()[selectedSegmentIndex]['bookingLink']">
+            <h3>Booking provider</h3>
+            <p>Use the following booking link to get to the booking page of our partner provider.
+              A fully integrated booking solution will be provided soon.</p>
+            <a href="{{ getSegments()[selectedSegmentIndex]['bookingLink'] }}"
+               target="_blank">{{ 'result.details.action.bookinglink' | translate | capitalize }}</a>
+            <i class="fa fa-external-link"></i>
+          </span>
+          <span ng-if="getSegments()[selectedSegmentIndex]['type'] != 1 && !getSegments()[selectedSegmentIndex]['bookingLink']">
+            <h3>Booking provider</h3>
+            <p>We cannot provide a booking link for this segment.
+               A fully integrated booking solution will be provided soon.</p>
+          </span>
+        </div>
 
         <div class="segment-details-alternatives">
           <h3>Alternatives</h3>
-          <ul class="segment-details-alternatives-list">
+          <p>You can select from a list of alternatives for this trip segment.
+          Be aware that this could affect other trip segments as well.</p>
+
+          <div class="segment-details-alternatives-list-label"
+               ng-click="showAlternatives = !showAlternatives">
+            Choose from alternatives
+          </div>
+          <ul class="segment-details-alternatives-list"
+              ng-show="showAlternatives">
             <li ng-repeat="alternative in getAlternativeSegments(selectedSegmentIndex)"
-                ng-init="alternativeIndex = $index">
-              {{ alternative.name }}
+                ng-init="alternativeIndex = $index"
+                ng-click="selectAlternative(alternativeIndex)"
+                class="segment-details-alternatives-item">
+              <span class="alternative-trip">Dallaware Rd. 2 - Meewakee Station</span>
+                <span class="alternative-trip-attributes">
+                  <span class="alternative-trip-attributes-vehicle"><i class="fa fa-taxi"></i>Taxi (<a href="">my-taxi.com</a>)</span>
+                  <span class="alternative-trip-attributes-tendency up">20 €</span>
+                  <span class="alternative-trip-attributes-tendency down">10 min</span>
+                </span>
             </li>
           </ul>
         </div>
