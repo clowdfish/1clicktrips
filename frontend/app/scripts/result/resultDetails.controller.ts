@@ -16,10 +16,15 @@ module Result {
                 public tripCache: Result.TripCache,
                 public tripApi: Result.TripApi,
                 public searchObject,
+                public itinerary,
                 public language: Common.Language,
                 public currency: Common.Currency) {
 
       $scope.searchObject = searchObject;
+      $scope.itinerary = itinerary;
+
+      $scope.timing = itinerary['timing'];
+      $scope.timing['targetDate'] = searchObject.targetDate;
 
       $scope.timer = null;
       $scope.timeOut = false;
@@ -30,8 +35,6 @@ module Result {
       $scope.segments = null;
       $scope.showAlternatives = false;
 
-      $scope.itineraries = null;
-      $scope.itinerary = null;
       $scope.hotels = null;
 
       $scope.goToOverview = this.goToOverview;
@@ -45,8 +48,6 @@ module Result {
       $scope.downloadIcsFile = this.downloadIcsFile;
       $scope.addToggleMapHandler = this.addToggleMapHandler;
       $scope.triggerDetails = this.triggerDetails;
-
-      this.getItineraryDetails();
     }
 
     /**
@@ -54,38 +55,6 @@ module Result {
      */
     addToggleMapHandler = (showMapHandler) => {
       this._showMapHandler = showMapHandler;
-    };
-
-    /**
-     * Call the trip API to get all itinerary details.
-     */
-    getItineraryDetails = () => {
-
-      //var cachedTripDetails;
-      //if(this.$scope.timer !== null)
-      var cachedTripDetails = this.tripCache.getCachedTrip();
-
-      if(cachedTripDetails) {
-        // store appointment timing data
-        this.$scope.timing = cachedTripDetails['timing'];
-        this.$scope.timing['targetDate'] = this.searchObject.targetDate;
-
-        this.$scope.itinerary = cachedTripDetails;
-      }
-      else {
-        this.tripApi
-          .getTripDetails(this.searchObject)
-          .then((itinerary) => {
-            // store appointment timing data
-            this.$scope.timing = itinerary['timing'];
-            this.$scope.timing['targetDate'] = this.searchObject.targetDate;
-
-            this.tripCache.storeTrip(itinerary);
-            this.$scope.itinerary = itinerary;
-          }, (err) => {
-            this.$scope.errorState = { message: err }
-          });
-      }
     };
 
     /**
@@ -177,7 +146,7 @@ module Result {
      */
     getSegments = () => {
 
-      if(this.$scope.segments)
+      if (this.$scope.segments)
         return this.$scope.segments;
 
       this.$scope.segments =

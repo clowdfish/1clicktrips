@@ -41,7 +41,6 @@
           <span ng-repeat="segment in container['alternatives'][0]"
                 ng-init="segmentIndex = $index"
                 ng-if="segment['departureTime'] && !showDetails && segment['isMajor'] && isPrioritySegment(itineraryIndex, containerIndex)">
-
             <span ng-repeat="alternative in segment['alternatives']"
                   ng-init="timingIndex = $index"
                   ng-if="$index !== getTimingIndex(itineraryIndex, containerIndex, segmentIndex)">

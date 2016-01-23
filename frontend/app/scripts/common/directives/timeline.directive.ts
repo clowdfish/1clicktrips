@@ -198,6 +198,8 @@ module Common {
         moment(this._scope.timing['value'], 'YYYY-MM-DDTHH:mm:ss');
       var targetDate = this._scope.timing['targetDate'];
 
+      //console.log("Appointment Time: " + this._scope.timing['value']);
+
       if (targetDate) {
         // optimize towards target date
         if (this._scope.earliestDeparture == undefined || intervalStart.isBefore(this._scope.earliestDeparture))
@@ -228,6 +230,12 @@ module Common {
     calculateDimensions = () => {
 
       if(this._scope.latestArrival && this._scope.earliestDeparture) {
+
+        /*
+        console.log("Boundaries:");
+        console.log(this._scope.earliestDeparture.format('DD.MM.YYYY HH:mm'));
+        console.log(this._scope.latestArrival.format('DD.MM.YYYY HH:mm'));*/
+
         var tripDuration =
           this._scope.latestArrival.diff(this._scope.earliestDeparture, 'minutes');
 

@@ -18,7 +18,8 @@ module Result {
       templateUrl: 'app/templates/result/result-list.html',
       controller: 'resultCtrl',
       resolve: {
-        searchObject: getTripSearchObject
+        searchObject: getTripSearchObject,
+        itineraries: getItineraries
       }
     });
 
@@ -28,7 +29,8 @@ module Result {
       templateUrl: 'app/templates/result/result-details.html',
       controller: 'resultDetailsCtrl',
       resolve: {
-        searchObject: getTripSearchObject
+        searchObject: getTripSearchObject,
+        itinerary: getItineraryDetails
       }
     });
   }
@@ -41,7 +43,9 @@ module Result {
    * @param currency
    * @returns {*}
    */
-  function getTripSearchObject($stateParams, language: Common.Language, currency:Common.Currency) {
+  function getTripSearchObject($stateParams,
+                               language: Common.Language,
+                               currency:Common.Currency) {
 
     var searchObject = {
       origin: {
@@ -70,5 +74,85 @@ module Result {
       searchObject['selectedAlternatives'] = $stateParams.selectedAlternatives;
 
     return searchObject;
+  }
+
+  /**
+   * Call the trip API to get all itinerary alternatives.
+   *
+   * @param $q
+   * @param $stateParams
+   * @param language
+   * @param currency
+   * @param tripCache
+   * @param tripApi
+   * @returns {IPromise<T>}
+   */
+  function getItineraries($q,
+                          $stateParams,
+                          language:Common.Language,
+                          currency:Common.Currency,
+                          tripCache: Result.TripCache,
+                          tripApi: Result.TripApi) {
+
+    var deferred = $q.defer();
+
+    var searchObject = getTripSearchObject($stateParams, language, currency);
+    var cachedSearchResult = tripCache.getCachedTrip();
+
+    if(cachedSearchResult) {
+      deferred.resolve(cachedSearchResult);
+    }
+    else {
+      tripApi
+        .getAvailableItineraries(searchObject)
+        .then((itineraries) => {
+          tripCache.storeTrip(itineraries);
+          deferred.resolve(itineraries);
+        }, (err) => {
+          deferred.reject(err);
+        });
+    }
+
+    return deferred.promise;
+  }
+
+  /**
+   * Call the trip API to get all itinerary details.
+   *
+   * @param $q
+   * @param $stateParams
+   * @param language
+   * @param currency
+   * @param tripCache
+   * @param tripApi
+   * @returns {IPromise<T>}
+   */
+  function getItineraryDetails($q,
+                               $stateParams,
+                               language:Common.Language,
+                               currency:Common.Currency,
+                               tripCache: Result.TripCache,
+                               tripApi: Result.TripApi) {
+
+    var deferred = $q.defer();
+
+    var searchObject = getTripSearchObject($stateParams, language, currency);
+    var cachedTripDetails = tripCache.getCachedTrip(searchObject["tripKey"]);
+
+    if(cachedTripDetails) {
+      deferred.resolve(cachedTripDetails);
+    }
+    else {
+      tripApi
+        .getTripDetails(searchObject)
+        .then((itinerary) => {
+          tripCache.storeTrip(itinerary, searchObject["tripKey"]);
+          deferred.resolve(itinerary);
+        }, (err) => {
+          deferred.reject(err);
+        });
+    }
+
+    return deferred.promise;
   }
 }
