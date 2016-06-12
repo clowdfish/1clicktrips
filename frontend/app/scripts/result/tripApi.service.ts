@@ -18,7 +18,7 @@ module Result {
      * @param searchObject
      * @returns {*}
      */
-    getAvailableItineraries = (searchObject) => {
+    public getAvailableItineraries = (searchObject) => {
       var deferred = this.$q.defer();
 
       this.$http
@@ -75,7 +75,7 @@ module Result {
      * @param searchObject
      * @returns {*}
      */
-    getTripUpdate = (searchObject) => {
+    public getTripUpdate = (searchObject) => {
 
       var deferred = this.$q.defer();
 
@@ -121,7 +121,7 @@ module Result {
      * @param searchObject
      * @returns {*}
      */
-    getTripDetails = (searchObject) => {
+    public getTripDetails = (searchObject) => {
       var deferred = this.$q.defer();
 
       this.$http
@@ -163,7 +163,7 @@ module Result {
     /**
      * Calls the REST API to get all available hotels.
      */
-    getAvailableHotels = (searchObject) => {
+    public getAvailableHotels = (searchObject) => {
       var deferred = this.$q.defer();
 
       this.$http

@@ -13,7 +13,6 @@ module Result {
                 public $timeout,
                 public TIMEOUT,
                 public ngDialog,
-                public tripCache: Result.TripCache,
                 public tripApi: Result.TripApi,
                 public searchObject,
                 public itinerary,
@@ -31,7 +30,7 @@ module Result {
       $scope.errorState = null;
 
       $scope.showSegmentDetails = false;
-      $scope.selectedSegmentIndex = 2; //null;
+      $scope.selectedSegmentIndex = null;
       $scope.segments = null;
       $scope.showAlternatives = false;
 
@@ -145,7 +144,6 @@ module Result {
      * @returns {Array}
      */
     getSegments = () => {
-
       if (this.$scope.segments)
         return this.$scope.segments;
 
@@ -156,7 +154,7 @@ module Result {
           });
         }).reduce(function(previousSegmentArray, newSegmentArray) {
           return previousSegmentArray.concat(newSegmentArray);
-        });
+        }, []);
 
       return this.$scope.segments;
     };

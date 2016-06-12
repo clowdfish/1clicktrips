@@ -97,7 +97,9 @@ module Result {
     var deferred = $q.defer();
 
     var searchObject = getTripSearchObject($stateParams, language, currency);
-    var cachedSearchResult = tripCache.getCachedTrip();
+
+    var cacheKey = tripCache.getCacheKey($stateParams);
+    var cachedSearchResult = tripCache.getCachedTrip(cacheKey);
 
     if(cachedSearchResult) {
       deferred.resolve(cachedSearchResult);
@@ -106,7 +108,7 @@ module Result {
       tripApi
         .getAvailableItineraries(searchObject)
         .then((itineraries) => {
-          tripCache.storeTrip(itineraries);
+          tripCache.storeTrip(itineraries, cacheKey);
           deferred.resolve(itineraries);
         }, (err) => {
           deferred.reject(err);
@@ -137,7 +139,7 @@ module Result {
     var deferred = $q.defer();
 
     var searchObject = getTripSearchObject($stateParams, language, currency);
-    var cachedTripDetails = tripCache.getCachedTrip(searchObject["tripKey"]);
+    var cachedTripDetails = tripCache.getCachedTrip(searchObject['tripKey'] + '||' + $stateParams.selectedAlternatives);
 
     if(cachedTripDetails) {
       deferred.resolve(cachedTripDetails);
@@ -146,7 +148,7 @@ module Result {
       tripApi
         .getTripDetails(searchObject)
         .then((itinerary) => {
-          tripCache.storeTrip(itinerary, searchObject["tripKey"]);
+          tripCache.storeTrip(itinerary, searchObject['tripKey'] + '||' + $stateParams.selectedAlternatives);
           deferred.resolve(itinerary);
         }, (err) => {
           deferred.reject(err);

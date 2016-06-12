@@ -10,6 +10,7 @@ module Result {
 
     constructor(public $scope,
                 public $state,
+                public $stateParams,
                 public $timeout,
                 public TIMEOUT,
                 public $q: ng.IQService,
@@ -91,7 +92,8 @@ module Result {
             this.$scope.timing['targetDate'] =  this.searchObject.targetDate;
 
             this.$scope.itineraries[itineraryIndex] = trip;
-            this.tripCache.storeTrip(this.$scope.itineraries);
+            var cacheKey = this.tripCache.getCacheKey(this.$stateParams);
+            this.tripCache.storeTrip(this.$scope.itineraries, cacheKey);
             //this.activateTimer(this.$scope.TIMEOUT);
 
             resolve();

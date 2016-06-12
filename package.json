@@ -25,7 +25,7 @@
     "passport-twitter": "^1.0.2",
     "request": "^2.55.0",
     "sprintf-js": "^1.0.2",
-    "ttg-search": "git+ssh://git@github.com:clowdfish/publish.git#master",
+    "tz-lookup": "^6.0.2",
     "tzwhere": "^1.0.0",
     "underscore": "1.8.2",
     "yargs": "^3.7.0"
