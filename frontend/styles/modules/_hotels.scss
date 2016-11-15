@@ -1,0 +1,15 @@
+%hotels {
+  width: 100%;
+
+  .result-hotels-list {
+    list-style: none;
+  }
+
+  @include respond-above("medium") {
+
+  }
+}
+
+.result-hotels {
+  @extend %hotels;
+}

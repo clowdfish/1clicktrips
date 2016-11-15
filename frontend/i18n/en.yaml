@@ -1,0 +1,125 @@
+general:
+  or: or
+  from: from
+  to: to
+  back: back
+  time:
+    minute:
+      singular: minute
+      plural: minutes
+    hour:
+      singular: hour
+      plural: hours
+  api:
+    search:
+      alternative: Searching for alternatives...
+      routes: Creating routes...
+      flights: Searching for flights...
+      pricing: Adding pricing information...
+      timing: Adding timing information...
+      optimizing: Optimizing routes...
+      data: Getting data from external resources...
+      hotel: Getting hotel data...
+      filterhotel: Filtering and prioritizing hotels...
+    download:
+      calendarfile: Creating calendar file...
+    error:
+      empty: The server could not deliver any result data.
+action:
+  overnight: Overnight
+  walk: Walk
+  drive: Drive
+  bus: Bus
+  subway: Subway
+  train: Train
+  flight: Flight
+  cab: Taxi
+  ship: Ship
+common:
+  outdated: Your browser is outdated and will not support all features, please upgrade to a modern browser.
+  dropzone:
+    text: or drop your .ics file here
+    error: File Drag/Drop is not supported for this browser
+  waiting:
+    reference: Dozing Bird based on
+footer:
+  about:
+    title: About
+    text: 1ClickTrips is a startup changing the way business trips are searched, booked and integrated into daily work routines.
+  contact:
+    title: Contact
+    twitter: Follow us on
+    skype: Chat with us on
+    mail: Be old-school and drop us a
+    mailitem: mail
+  navigation:
+    title: Navigation
+    home: Home
+    jobs: Jobs
+    publicrelation: Public Relations
+  copyright: All rights reserved.
+search:
+  form:
+    title: Get the perfect trip for your appointment
+    origin: Origin location
+    destination: Destination location
+    date:
+      label: Appointment date
+    time:
+      label: Appointment time
+      placeholder: Appointment start time
+    start: Search trips
+result:
+  error: There was a problem on the server
+  sessionexpire: Your session has expired, please refresh website.
+  list:
+    title: Search results
+    subtitle: Time to pick a trip.
+    select: Select
+    showonmap: show on map
+    timings:
+      show: show alternative timings
+      hide: hide
+      title: Timing alternatives
+  searchdetails:
+    title: Search details
+    change: change
+    from: From
+    to: To
+  connection:
+    towards: towards
+  details:
+    tripoverview: Trip Overview
+    itinerary: Itinerary Details
+    instructions:
+      overnight: This trip requires an overnight stay. You can easily select from a list of suitable hotels that are located close to your travel route.
+    action:
+      hotels: Open hotel selection
+      back: Back to overview
+      download: Download .ics
+      print: Print
+      booknow: Book now
+      bookinglink: go to booking
+  hotelspage:
+    title: Availabel hotels
+    list:
+      name: Hotel name
+      address: Hotel address
+      price: Price
+      url: Hotel url
+      distance: Distance from destination
+print:
+  title: Trip overview
+  summary:
+    title: Trip summary
+  print: Print trip plan
+  download: Download .ics
+  from: from
+  to: to
+  time: time
+  price: price
+  duration: duration
+  details:
+    title: Trip details
+    goto: Go to booking
+

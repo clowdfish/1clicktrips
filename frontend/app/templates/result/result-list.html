@@ -1,0 +1,31 @@
+<section class="result ng-cloak" ng-cloak ng-show='errorState !== null || timeOut === true'>
+  <!-- error message -->
+  <span class="result-details-error" ng-show="errorState !== null">
+    {{ 'result.error' | translate }}: <br /><br />
+    {{ errorState.message }}
+  </span>
+  <span class="result-details-error" ng-show="timeOut === true">
+    {{ 'result.sessionexpire' | translate }}
+  </span>
+</section>
+
+<section class="result ng-cloak" ng-cloak ng-show='itineraries !== null && false === (errorState !== null || timeOut === true)'>
+  <div class="result-map">
+    <!-- include google maps here -->
+    <result-map itinerary="itineraries[0]"
+                toggle-map="addToggleMapHandler"
+                destination-description="searchObject.destinationDescription"></result-map>
+  </div>
+
+  <h1 class="result-title">{{ 'result.list.title' | translate }}</h1>
+  <span class="result-title-sub">{{ 'result.list.subtitle' | translate }}</span>
+
+  <trip-container itineraries="itineraries"
+                  timing="timing"
+                  selection="selection"
+                  select-itinerary="goToItinerary(index)"
+                  update-itinerary="updateItinerary(index)"
+                  show-map="onShowMap"
+                  class="result-container">
+  </trip-container>
+</section>

@@ -1,0 +1,34 @@
+.dropzone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 0 0 6px 6px;
+  text-align: right;
+  padding: 3em 4em;
+
+  .dropzone-text {
+    display: block;
+    position: relative;
+    color: $c-white;
+
+    & > a {
+      color: $c-white;
+      text-decoration: none;
+    }
+  }
+
+  .dropzone-error {
+    display: block;
+    margin-top: 0.5em;
+    color: $c-red;
+    font-size: $fs-small;
+  }
+
+  &.dragover {
+    background: rgba(0, 69, 255, 0.3);
+  }
+}

@@ -1,0 +1,58 @@
+html {
+  background: url('../images/background.jpg') no-repeat center center fixed;
+  background-position: 50% 50%;
+  background-size: cover;
+  position: relative;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  padding-top: 3.5em;
+
+  @include respond-above("medium") {
+    padding-top: 6em;
+  }
+}
+
+.wrapper {
+  min-height: 100%;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.old-browser-warning {
+  display: block;
+  padding: 0.8em 0.5em;
+  text-align: center;
+  color: $c-status-error;
+  font-style: italic;
+  font-size: $fs-small;
+}
+
+.no-mobile {
+  display: none;
+
+  @include respond-above("medium") {
+    display: inherit;
+  }
+}
+
+/*
+ The following part should be removed after the new
+ styling is applied.
+*/
+
+.table {
+  display: table;
+}
+
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+}

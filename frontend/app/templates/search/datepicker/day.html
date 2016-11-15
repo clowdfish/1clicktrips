@@ -1,0 +1,20 @@
+<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}" class="ttg-calendar">
+  <thead>
+    <tr>
+      <th><a class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="fa fa-chevron-left"></i></a></th>
+      <th colspan="5"><strong>{{title}}</strong></th>
+      <th><a class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="fa fa-chevron-right"></i></a></th>
+    </tr>
+    <tr>
+      <th ng-repeat="label in labels track by $index" class="text-center"><small aria-label="{{label.full}}">{{label.abbr | limitTo: 1}}</small></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in rows track by $index">
+      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">
+        <a ng-if="!dt.disabled" style="width:100%;" class="btn btn-default btn-sm" ng-class="{'btn-info': dt.selected, 'active': isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="{'text-muted': dt.secondary, 'text-info': dt.current}">{{dt.label}}</span></a>
+        <span ng-if="dt.disabled" style="width:100%;" class="disabled" ng-class="{'text-muted': dt.secondary, 'text-info': dt.current}">{{dt.label}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

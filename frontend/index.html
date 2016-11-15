@@ -1,0 +1,89 @@
+<!doctype html>
+<html ng-app='app'>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TTG Search Engine Test UI</title>
+  <link rel="stylesheet" type="text/css" href="../styles/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../styles/style.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,600,800|Helvetica:200,400,600,800">
+</head>
+<body>
+  <waiting-animation></waiting-animation>
+  <div class="wrapper">
+    <header class="header ng-cloak" ng-cloak>
+      <language-dropdown></language-dropdown>
+      <currency-dropdown></currency-dropdown>
+      <span class="header-menu-toggle">
+        <i class="fa fa-bars"></i>
+      </span>
+    </header>
+
+    <!-- holds the dynamic part of the application -->
+    <div ui-view>
+      <!-- content in here will be overwritten when dynamic part is loaded -->
+    </div>
+  </div>
+
+  <footer class="footer ng-cloak" ng-cloak>
+    <div class="footer-information">
+      <div class="footer-about">
+        <h2 class="footer-title">{{ T.footer.about.title }}</h2>
+        <p class="footer-about-text">
+          {{ T.footer.about.text }}
+        </p>
+      </div>
+      <div class="footer-contact">
+        <h2 class="footer-title">{{ T.footer.contact.title }}</h2>
+        <ul class="footer-contact-list">
+          <li>
+            <i class="fa fa-twitter"></i>
+            {{ T.footer.contact.twitter }} <a href="https://twitter.com/1clicktrips" target="_blank">Twitter</a>
+          </li>
+          <li>
+            <i class="fa fa-skype"></i>
+            {{ T.footer.contact.skype }} <a href="skype:rudiger.gros?call">Skype</a>
+          </li>
+          <li>
+            <i class="fa fa-envelope"></i>
+            {{ T.footer.contact.mail }} <a href="mailto:info@1clicktrips.com">{{ T.footer.contact.mailitem }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-navigation">
+        <h2 class="footer-title">{{ T.footer.navigation.title }}</h2>
+        <ul class="footer-navigation-list">
+          <li>
+            <i class="fa fa-long-arrow-right"></i>
+            <a href="http://app.1clicktrips.com">{{ T.footer.navigation.home }}</a>
+          </li>
+          <li>
+            <i class="fa fa-long-arrow-right"></i>
+            <a href="http://1clicktrips.com/index.php/careers/" target="_blank">{{ T.footer.navigation.jobs }}</a>
+          </li>
+          <li>
+            <i class="fa fa-long-arrow-right"></i>
+            <a href="http://1clicktrips.com/index.php/contact-us/" target="_blank">{{ T.footer.navigation.publicrelation }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      &copy; 2015 <a href="http://www.1clicktrips.com" target="_blank">1ClickTrips</a>. {{ T.footer.copyright }}
+    </div>
+  </footer>
+  <script type="text/javascript">
+     var locale = "{{ locale }}";
+  </script>
+  <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-ZIG4bma6FIUumqPyYwWTlU-Gc5QnMY&libraries=places,geometry&language=en"></script>
+  <script src="/../data/languages.js"></script>
+  <script src="/../data/currencies.js"></script>
+  <script src="/../scripts/vendor.js"></script>
+  {{#if locale}}
+    <script src="/../scripts/angular-locale_{{ locale }}.js"></script>
+  {{/if}}
+  <script src="/../scripts/locales.js"></script>
+  <script src="/../scripts/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<div>
+  <ul class="result-list" ng-if="itineraries">
+    <li class="result-list-item-container"
+        ng-repeat="itinerary in itineraries"
+        ng-init="itineraryIndex = $index">
+
+      <span class="result-list-item-title">
+        <h2>
+          <span ng-if="!showDetails">Route {{ itineraryIndex + 1 }}</span>
+          <span>{{ itinerary | titleExtractor }}</span>
+          <a ng-click="showMap(itinerary)">{{ 'result.list.showonmap' | translate }}</a>
+        </h2>
+
+        <span class="result-list-item-title-details">
+          <span class="result-list-item-price">
+            {{ itinerary['price'] | priceFormatter : itinerary['currency'] }}
+          </span>
+          <span class="result-list-item-duration">{{ itinerary['duration'] | durationFormatter : 'full' }}</span>
+        </span>
+      </span>
+
+      <timeline
+        itineraries="itineraries"
+        itinerary-index="{{ itineraryIndex }}"
+        timing="timing"
+        show-details="showDetails"
+        get-alternative-index="getAlternativeIndex(itineraryIndex, containerIndex)"
+        get-timing-index="getTimingIndex(itineraryIndex, containerIndex, segmentIndex)"
+        segment-has-priority="true">
+      </timeline>
+
+      <h2 class="result-list-alternatives-title"
+          ng-if="showAlternatives(itineraryIndex)">{{ 'result.list.timings.title' | translate }}</h2>
+      <a class="result-list-alternatives-hide"
+         ng-if="showAlternatives(itineraryIndex)"
+         ng-click="toggleAlternatives(itineraryIndex)">{{ 'result.list.timings.hide' | translate }}</a>
+
+      <span class="result-list-item-alternatives" ng-if="showAlternatives(itineraryIndex)">
+        <span ng-repeat="container in itineraries[itineraryIndex]['segmentsContainer']"
+              ng-init="containerIndex = $index">
+          <span ng-repeat="segment in container['alternatives'][0]"
+                ng-init="segmentIndex = $index"
+                ng-if="segment['departureTime'] && !showDetails && segment['isMajor'] && isPrioritySegment(itineraryIndex, containerIndex)">
+            <span ng-repeat="alternative in segment['alternatives']"
+                  ng-init="timingIndex = $index"
+                  ng-if="$index !== getTimingIndex(itineraryIndex, containerIndex, segmentIndex)">
+
+              <timeline
+                itineraries="itineraries"
+                itinerary-index="{{ itineraryIndex }}"
+                timing="timing"
+                show-details="false"
+                get-alternative-index="0"
+                get-timing-index="timingIndex"
+                segment-has-priority="isPrioritySegment(itineraryIndex, containerIndex)">
+              </timeline>
+
+              <span class="result-list-alternative-selection">
+                <span class="result-list-alternative-pricing">
+                  <span ng-if="!segment['alternatives'][timingIndex]['price']['estimate']">
+                    {{ segment['alternatives'][timingIndex]['price']['amount'] | priceFormatter : segment['alternatives'][timingIndex]['price']['currency'] }}
+                  </span>
+                  <span ng-if="segment['alternatives'][timingIndex]['price']['estimate']">
+                    {{ 0 | priceFormatter : segment['alternatives'][timingIndex]['price']['currency'] }}
+                  </span>
+                </span>
+                <a class="button" ng-click="selectAlternative(itineraryIndex, containerIndex, segmentIndex, alternativeIndex, timingIndex)">{{ 'result.list.select' | translate }}</a>
+              </span>
+            </span>
+          </span>
+        </span>
+      </span>
+
+      <span class="result-list-item-footer" ng-hide="showAlternatives(itineraryIndex)">
+        <span class="result-list-item-footer-details">
+          <span class="result-list-item-price">
+            {{ itinerary['price'] | priceFormatter : itinerary['currency'] }}
+          </span>
+          <span class="result-list-item-duration">{{ itinerary['duration'] | durationFormatter : 'full' }}</span>
+        </span>
+
+         <span class="result-list-item-footer-action">
+          <a ng-click="selectTrip(itineraryIndex)" class="button">{{ 'result.list.select' | translate }}</a>
+          <a class="result-list-item-footer-action-link" ng-if="hasAlternatives(itineraryIndex)" ng-click="toggleAlternatives(itineraryIndex)">{{ 'result.list.timings.show' | translate }}</a>
+        </span>
+
+        <span class="result-list-item-annotation"
+               ng-if="getAnnotation(itineraryIndex)">
+          <span>*</span> {{ getAnnotation(itineraryIndex) }}
+        </span>
+      </span>
+    </li>
+  </ul>
+</div>

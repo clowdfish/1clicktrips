@@ -1,0 +1,48 @@
+<span class="ttg-timeline-segment">
+  <span class="ttg-timeline-segment-timing segment-transition"
+        ng-class="{ hidden: width < 3 }"
+        ng-style="{ 'left': marginLeft + '%' }">
+    {{ segment['departureTime'] | dateFormatter : segment['start']['timeZone'] : 'H:mm' }}
+  </span>
+  <span class="ttg-timeline-segment-timing segment-transition"
+        ng-class="{ hidden: width < 10 }"
+        ng-style="{ 'right': 100 - (marginLeft + width) + '%' }">
+    {{ segment['arrivalTime'] | dateFormatter : segment['end']['timeZone'] : 'H:mm' }}
+  </span>
+
+  <span class="ttg-timeline-segment-block segment-transition"
+        ng-class="{ 'zoom-in': width < 25, 'zoom-out': zoomState === 1 }"
+        ng-style="{ 'width': width + '%', 'left': marginLeft + '%' }"
+        ng-click="zoomToSegment()"><!-- ng-mouseleave="zoomOut()" -->
+  </span>
+
+  <span class="ttg-timeline-segment-details segment-transition"
+        ng-style="{ 'left': marginLeft + '%', 'max-width': width + '%' }">
+    <i class="fa {{ segment['type'] | vehicleTypeToIcon }}"></i>
+
+    <span ng-if="width > 3">
+       <span ng-if="segment['type'] == 16">
+        {{ segment['details']['carriers'][0]['name'] }}
+        {{ 'action.flight' | translate }}
+        {{ segment['details']['flightNumbers'][0]['flightNumber'] }}
+      </span>
+
+      <span ng-if="segment['type'] == 8 || segment['type'] == 6 || segment['type'] == 4">
+        <span ng-if="segment.hasOwnProperty('details')">
+          {{ segment['details']['line']['name'] }}
+          {{ 'result.connection.towards' | translate }}
+          {{ segment['details']['line']['headSign'] }}
+        </span>
+        <span ng-if="!segment.hasOwnProperty('details')">
+          {{ segment['type'] | vehicleTypeToAction }}
+          {{ 'result.connection.towards' | translate }}
+          {{ segment['end']['description'] }}
+        </span>
+      </span>
+
+      <span ng-if="segment['type'] == 2">
+        {{ 'action.drive' | translate }}
+      </span>
+    </span>
+  </span>
+</span>

@@ -1,0 +1,10 @@
+{
+  "connection" : {
+    "host"      : "localhost",
+    "user"      : "root",
+    "password"  : "",
+    "database"  : "1clicktrips",
+    "driver"    : "mysql",
+    "multipleStatements": true
+  }
+}

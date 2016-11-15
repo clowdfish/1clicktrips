@@ -1,0 +1,1379 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "1ClickTrips API",
+        "description": "Business travel at its best",
+        "version": "1.0.0"
+    },
+    "host": "1clicktrips.com",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/api",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "summary": "User Signup",
+                "description": "The user signup takes a username and a password as post arguments\nand returns an auth token with its expiration date.\n",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Authentication token for a user",
+                        "schema": {
+                            "$ref": "#/definitions/Authentication"
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/local": {
+            "post": {
+                "summary": "User Signin",
+                "description": "The user signin takes a username and a password as post arguments\nand returns an auth token.\n",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Authentication token for a user",
+                        "schema": {
+                            "$ref": "#/definitions/Authentication"
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication failure",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/twitter": {
+            "get": {
+                "summary": "Twitter Signin",
+                "description": "The Twitter authentication will be done with Twitter oauth2.\n",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Twitter signin successful",
+                        "schema": {
+                            "$ref": "#/definitions/Authentication"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/unlink/twitter": {
+            "get": {
+                "summary": "Unlink Twitter Accout",
+                "description": "The Twitter account can be unlinked from the local account. \n",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Twitter unlink successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "get": {
+                "summary": "Log out",
+                "description": "Log out the user and delete the cookie from the server.\n",
+                "tags": [
+                    "Auth",
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Logout successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/profile": {
+            "get": {
+                "summary": "User Profile",
+                "description": "The User Profile endpoint returns information about the 1clicktrips\nuser that has authenticated with the application.\n",
+                "tags": [
+                    "User",
+                    "Settings"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Profile information for a user",
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update User Profile",
+                "description": "The User Profile can be only updated collectively.\n",
+                "tags": [
+                    "User",
+                    "Settings"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update of Profile successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/settings": {
+            "get": {
+                "summary": "User Settings",
+                "description": "The Settings endpoint returns information on the user settings of \nthe currently authenticated user. \n",
+                "tags": [
+                    "Settings",
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Settings category to retrieve.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of settings",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Setting"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update User Settings",
+                "description": "User settings can be updated one at a time. It must be assured, that\nall information are supplied to be able to create a new setting or \nupdate an existing one.\n",
+                "tags": [
+                    "Settings",
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Setting"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update of setting successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/favorites": {
+            "get": {
+                "summary": "Get User Favorites",
+                "description": "The User Favorites endpoint returns data about a user's favorites \nthat he saved before.\n",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Number of items to retrieve. Default is 5, maximum is 100.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of favorites for the authenticated user.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Favorite"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No favorites found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update Favorites",
+                "description": "Save a new favorite or edit an existing one.",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Favorite"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Creation/Update of favorites successful."
+                    },
+                    "400": {
+                        "description": "Request malformed."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            }
+        },
+        "/account/favorites/{favoriteId}": {
+            "delete": {
+                "summary": "Delete Favorite",
+                "description": "Deletes the favorite with the given id.",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "favoriteId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletion of favorite sucessful"
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            }
+        },
+        "/account/bookings": {
+            "get": {
+                "summary": "Booking History",
+                "description": "The Bookings endpoint returns data about a user's lifetime \nactivity with 1clicktrips.\n",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "The offset is given as seconds since the UNIX epoche. Only \nlook for trips that have been booked after this date. Default\nis zero.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Number of items to retrieve. Default is 5, maximum is 30.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Booking history for the given user.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Booking"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No booking available."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add Booking",
+                "description": "Create a new booking.",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Booking"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Creation of booking successful"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/messages": {
+            "get": {
+                "summary": "Get Messages for the user",
+                "description": "The Messages endpoint returns data that is supposed to\nbe presented to the user in the frontend.\n",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of messages for the given user",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Message"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/events": {
+            "get": {
+                "summary": "Event List",
+                "description": "The events endpoint will deliver a list of events to the client\nthat match with the given query criteria.\n",
+                "tags": [
+                    "Search"
+                ],
+                "parameters": [
+                    {
+                        "name": "qs",
+                        "in": "query",
+                        "description": "The search string to filter the events",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "The start date of the trip to be planned",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "The end date of the trip to be planned",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of events to return",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of events",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Event"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/spaces": {
+            "get": {
+                "summary": "Meeting Spaces List",
+                "description": "The spaces endpoint will deliver a list of meeting spaces\nto the client that match with the given query criteria.\n",
+                "tags": [
+                    "Search"
+                ],
+                "parameters": [
+                    {
+                        "name": "qs",
+                        "in": "query",
+                        "description": "The search string to filter the meeting spaces",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "The start date of the trip to be planned",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "The end date of the trip to be planned",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of meeting spaces to return",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of meeting spaces",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/MeetingSpace"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/trips": {
+            "post": {
+                "summary": "Trip Results",
+                "description": "The Trips endpoint returns a collection of trips that matches with \nthe given parameters. \n",
+                "tags": [
+                    "Search"
+                ],
+                "parameters": [
+                    {
+                        "name": "origin",
+                        "in": "body",
+                        "description": "Origin location",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/Location"
+                        }
+                    },
+                    {
+                        "name": "originDescription",
+                        "in": "body",
+                        "description": "Description of the origin location",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "appointments",
+                        "in": "body",
+                        "description": "Array of appointments",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Appointment"
+                            }
+                        }
+                    },
+                    {
+                        "name": "roundTrip",
+                        "in": "body",
+                        "description": "Roundtrip option",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int16",
+                            "description": "This should be boolean, but Swagger UI is not \nable to render it proberly.\n"
+                        }
+                    },
+                    {
+                        "name": "currency",
+                        "in": "body",
+                        "description": "Active currency",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "body",
+                        "description": "Active locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "numberOfTravelers",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int16"
+                        }
+                    },
+                    {
+                        "name": "numberOfChildren",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int16"
+                        }
+                    },
+                    {
+                        "name": "preferences",
+                        "in": "body",
+                        "description": "A preference set that will be used for finding a \nproper custom trip.\n",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Setting"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of trips",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Itinerary"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/alternatives": {
+            "get": {
+                "summary": "Trip Alternatives",
+                "description": "The Alternatives endpoint returns a collection of alternatives \nfor a given trip segment. \n",
+                "tags": [
+                    "Search"
+                ],
+                "parameters": [
+                    {
+                        "name": "tripId",
+                        "in": "query",
+                        "description": "The trip ID of the requested trip",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "segmentId",
+                        "in": "query",
+                        "description": "The segment ID of the segment to be replaced",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of alternatives",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of alternatives",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Segment"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/locales": {
+            "get": {
+                "summary": "Language File",
+                "description": "The language file for a given language code.\n",
+                "tags": [
+                    "Language",
+                    "Localization"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A JSON array with the available languages",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Language"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/locales/{languageCode}": {
+            "get": {
+                "summary": "Language File",
+                "description": "The language file for a given language code.\n",
+                "tags": [
+                    "Language",
+                    "Localization"
+                ],
+                "parameters": [
+                    {
+                        "name": "languageCode",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "ISO 639-1 Language Codes"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A JSON object with the translations",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/currencies": {
+            "get": {
+                "summary": "List of Currencies",
+                "description": "The list of available currencies.\n",
+                "tags": [
+                    "Language",
+                    "Localization"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A JSON array with the available currencies",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Currency"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Authentication": {
+            "required": [
+                "token",
+                "expires"
+            ],
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "description": "Authentication token"
+                },
+                "expires": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Expiration date of the auth token"
+                }
+            }
+        },
+        "Language": {
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "ISO 639-1 Language Code (e.g. en-US)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the language (e.g. English)"
+                }
+            }
+        },
+        "Currency": {
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "EUR"
+                },
+                "symbol": {
+                    "type": "string",
+                    "description": "€"
+                },
+                "thousandsSeparator": {
+                    "type": "string"
+                },
+                "decimalSeparator": {
+                    "type": "integer",
+                    "format": "int16"
+                },
+                "symbolOnLeft": {
+                    "type": "boolean"
+                },
+                "spaceBetweenAmountAndSymbol": {
+                    "type": "boolean"
+                },
+                "roundingCoefficient": {
+                    "type": "integer",
+                    "format": "int16"
+                },
+                "decimalDigits": {
+                    "type": "integer",
+                    "format": "int16"
+                }
+            }
+        },
+        "Setting": {
+            "properties": {
+                "category": {
+                    "type": "string",
+                    "description": "The category of the key-value pair"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The settings key (e.g. early bird)"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The settings value (e.g. true)"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The description for the key-value pair"
+                }
+            }
+        },
+        "Itinerary": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "outbound": {
+                    "$ref": "#/definitions/Trip"
+                },
+                "inbound": {
+                    "$ref": "#/definitions/Trip"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "The ISO 4217 currency code"
+                },
+                "type": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Defines the trip result type\n  0 = budget\n  1 = time\n  2 = comfort\n"
+                }
+            }
+        },
+        "Trip": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "origin": {
+                    "$ref": "#/definitions/Location"
+                },
+                "destination": {
+                    "$ref": "#/definitions/Location"
+                },
+                "departureTime": {
+                    "type": "string",
+                    "description": "2014-11-12T19:05:00"
+                },
+                "arrivalTime": {
+                    "type": "string",
+                    "description": "2014-11-12T19:05:00"
+                },
+                "distance": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "duration": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "segments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Segment"
+                    }
+                }
+            }
+        },
+        "Location": {
+            "properties": {
+                "latitude": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "longitude": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
+        "Place": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "#/definitions/Location"
+                }
+            }
+        },
+        "Segment": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "origin": {
+                    "$ref": "#/definitions/Location"
+                },
+                "destination": {
+                    "$ref": "#/definitions/Location"
+                },
+                "departureTime": {
+                    "type": "string",
+                    "description": "2014-11-12T19:05:00"
+                },
+                "arrivalTime": {
+                    "type": "string",
+                    "description": "2014-11-12T19:05:00"
+                },
+                "duration": {
+                    "type": "number",
+                    "format": "int32",
+                    "description": "Duration in minutes"
+                },
+                "type": {
+                    "type": "number",
+                    "format": "int32",
+                    "description": "Travel option used. \nWalk = 1, Car = 2, Bus = 4, Train = 8, \nFlight = 16, Taxi = 32, Ferry = 64\n"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "The ISO 4217 currency code"
+                }
+            }
+        },
+        "Profile": {
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "first-name": {
+                    "type": "string",
+                    "description": "First name of the user"
+                },
+                "last-name": {
+                    "type": "string",
+                    "description": "Last name of the user"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address of the user"
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
+                },
+                "image": {
+                    "type": "string",
+                    "description": "Image URL of the user"
+                }
+            }
+        },
+        "Address": {
+            "properties": {
+                "street": {
+                    "type": "string"
+                },
+                "zip": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                }
+            }
+        },
+        "Favorite": {
+            "required": [
+                "origin",
+                "destination"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the favorite"
+                },
+                "origin": {
+                    "$ref": "#/definitions/Place"
+                },
+                "destination": {
+                    "$ref": "#/definitions/Place"
+                },
+                "transport": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "format": "int32",
+                        "description": "Travel option used. \nWalk = 1, Car = 2, Bus = 4, Train = 8, \nFlight = 16, Taxi = 32, Ferry = 64\n"
+                    }
+                }
+            }
+        },
+        "Booking": {
+            "required": [
+                "id",
+                "title",
+                "destination",
+                "startDate",
+                "endDate",
+                "participants"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the booking"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "A speaking title for the booking"
+                },
+                "destination": {
+                    "type": "string",
+                    "description": "The destination location of the booking. Can be an address\nor a description (e.g. company name)\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Tags that can be used to identify the trip."
+                    }
+                },
+                "startDate": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51+00:0"
+                },
+                "endDate": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51+00:0"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "A url to any sort of information for that trip. Could\nbe a link to the event or the host company.\n"
+                },
+                "hotel": {
+                    "type": "object",
+                    "$ref": "#/definitions/Hotel"
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "$ref": "#/definitions/Participant"
+                    }
+                }
+            }
+        },
+        "Hotel": {
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "checkIn": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string",
+                    "decription": "Link to the hotel website"
+                },
+                "image": {
+                    "type": "string",
+                    "decription": "Link to the hotel image"
+                }
+            }
+        },
+        "Participant": {
+            "required": [
+                "email",
+                "booked",
+                "image"
+            ],
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "booked": {
+                    "type": "boolean"
+                },
+                "arrivalTime": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51+00:0"
+                },
+                "image": {
+                    "type": "string",
+                    "description": "Image url for the participant"
+                },
+                "profile": {
+                    "type": "string",
+                    "description": "Link to a user profile."
+                }
+            }
+        },
+        "Event": {
+            "required": [
+                "id",
+                "title",
+                "location"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "object",
+                    "$ref": "#/definitions/Location"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "dates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Timing"
+                    }
+                },
+                "open": {
+                    "type": "boolean",
+                    "description": "Indicates if the event is open, when the user planned \nthe according trip.\n"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string",
+                    "description": "Image url of the event"
+                }
+            }
+        },
+        "Timing": {
+            "properties": {
+                "start": {
+                    "type": "string",
+                    "description": "ISO 8601 time and date\n\"2015-02-09T02:54:51+00:0\"\n"
+                },
+                "end": {
+                    "type": "string",
+                    "description": "ISO 8601 time and date\n\"2015-02-09T02:54:51+00:0\"\n"
+                }
+            }
+        },
+        "Appointment": {
+            "required": [
+                "location",
+                "start",
+                "end"
+            ],
+            "properties": {
+                "location": {
+                    "type": "object",
+                    "$ref": "#/definitions/Location"
+                },
+                "start": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51"
+                },
+                "end": {
+                    "type": "string",
+                    "description": "2015-02-09T02:54:51"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "MeetingSpace": {
+            "required": [
+                "title",
+                "location"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "object",
+                    "$ref": "#/definitions/Location"
+                },
+                "seatsAvailable": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "catering": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Message": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "description": "2015-02-10T02:54:51+00:0"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Can be used to store any type of information that \nthen can be used to show an icon in the frontend.\n"
+                },
+                "action": {
+                    "type": "string",
+                    "description": "The action property can be used to store some action\nthat will be executed, if the user accepts the message.\n"
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+<section class="result container" ng-show='hotels == null || timeOut === true'>
+  <!-- error message -->
+  <span class="result-details-error" ng-show="errorState != null">
+    {{ 'result.error' | translate }}: <br /><br />
+    {[ errorState.message ]}
+  </span>
+  <span class="result-details-error" ng-show="timeOut === true">
+    {{ 'result.sessionexpire' | translate }}
+  </span>
+</section>
+
+<section class="result container" ng-show='hotels != null && false === timeOut'>
+  <h2 class="result-details-title">{{ 'result.hotelspage.title' | translate }}</h2>
+
+  <ul class="result-hotels-list">
+    <li class="result-hotels-list-item" ng-repeat="hotel in hotels">
+      <span class="result-details-table">
+        <span class="result-details-row">
+          <span class="result-details-cell">{{ 'result.hotelspage.list.name' | translate }}</span>
+          <span class="result-details-cell">{[ hotel.name ]}</span>
+        </span>
+        <span class="result-details-row">
+          <span class="result-details-cell">{{ 'result.hotelspage.list.address' | translate }}</span>
+          <span class="result-details-cell">{[ hotel.address + ", " + hotel.postalCode + " " + hotel.city ]}</span>
+        </span>
+        <span class="result-details-row">
+          <span class="result-details-cell">{{ 'result.hotelspage.list.price' | translate }}</span>
+          <span class="result-details-cell">{{ hotel['price'] | priceFormatter : hotel['currency'] }}</span>
+        </span>
+        <span class="result-details-row">
+          <span class="result-details-cell">{{ 'result.hotelspage.list.url' | translate }}</span>
+          <span class="result-details-cell"><a href="{[ hotel.deepLink ]}">Link</a></span>
+        </span>
+        <span class="result-details-row">
+          <span class="result-details-cell">{{ 'result.hotelspage.list.distance' | translate }}</span>
+          <span class="result-details-cell">{[ hotel.distance.toFixed(2) + " " + hotel.distanceUnit ]}</span>
+        </span>
+      </span>
+    </li>
+  </ul>
+</section>

@@ -1,0 +1,66 @@
+{
+  "name": "ttg_frontend",
+  "version": "0.3.0",
+  "description": "A business traveler platform offering end to end trip management.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp-compile-handlebars": "^0.5.0",
+    "gulp-sequence": "^0.4.1",
+    "gulp-typescript": "^2.9.0",
+    "gulp-yaml": "^0.2.4",
+    "gulp-yml": "^0.1.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-angular-templatecache": "^1.6.0",
+    "gulp-autoprefixer": "^3.0.1",
+    "gulp-concat": "^2.3.4",
+    "gulp-data": "^1.2.0",
+    "gulp-declare": "^0.3.0",
+    "gulp-insert": "^0.5.0",
+    "gulp-merge": "^0.1.0",
+    "gulp-ng-annotate": "^0.5.2",
+    "gulp-notify": "^1.5.0",
+    "gulp-plumber": "^0.6.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^1.0.0",
+    "gulp-uglify": "^0.3.2",
+    "gulp-webserver": "^0.8.2",
+    "js-yaml": "^3.2.2",
+    "karma": "0.12.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "0.2.0",
+    "karma-mocha-reporter": "^0.3.1",
+    "karma-ng-html2js-preprocessor": "~0.1",
+    "mkdirp": "^0.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preview": "echo \"Preview\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clowdfish/1clicktrips.git"
+  },
+  "keywords": [
+    "Javascript",
+    "Node.js",
+    "AngularJS"
+  ],
+  "author": {
+    "name": "Sascha Gros",
+    "email": "gros.sascha@gmail.com",
+    "url": "https://twitter.com/swapzone"
+  },
+  "contributors": [
+    {
+      "name": "Nam Trần Khánh",
+      "email": "nam.trankhanh.vn@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clowdfish/1clicktrips/issues"
+  },
+  "homepage": "https://github.com/clowdfish/1clicktrips"
+}

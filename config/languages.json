@@ -1,0 +1,19 @@
+[
+  {
+    "code": "de",
+    "name": "Deutsch",
+    "locale": "de-DE",
+    "defaultCurrency": "eur",
+    "dateFormat": "DD.MM.YYYY",
+    "startingDay": 1
+  },
+  {
+    "code": "en",
+    "name": "English",
+    "locale": "en-US",
+    "defaultCurrency": "usd",
+    "dateFormat": "MM/DD/YYYY",
+    "startingDay": 0,
+    "isDefault": true
+  }
+]

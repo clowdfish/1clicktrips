@@ -1,0 +1,68 @@
+%button {
+  /* Reset */
+  cursor: pointer;
+  outline: 0;
+
+  /* Layout */
+  display: inline-block;
+  height: $input-height-mobile;
+  padding: 0.6rem 1rem;
+
+  /* Looks */
+  background: $c-primary;
+  color: $c-white;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid $c-primary;
+  border-radius: 3px;
+
+  &.is-disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  & > .fa {
+    margin-right: 0.8em;
+  }
+
+  @include respond-above("medium") {
+    height: $input-height;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.button {
+  @extend %button;
+
+  font-size: $fs-small;
+
+  &:hover, &:focus {
+    background: darken($c-primary, 5%);
+    text-decoration: none;
+    color: $c-white;
+  }
+
+  &.inactive {
+    @include opacity(0.5);
+    cursor: not-allowed;
+  }
+}
+
+.button--light {
+  @extend %button;
+
+  background: none;
+  font-size: $fs-small;
+  color: $c-primary;
+  border: 1px solid $c-primary;
+
+  &:hover, &:focus {
+    background: $c-primary;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+button:focus {
+  outline: none; // for OS X
+}

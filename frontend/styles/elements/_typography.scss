@@ -1,0 +1,81 @@
+$ff-body: 'Helvetica', sans-serif;
+$ff-headline: 'Roboto', sans-serif;
+
+$fs-smallest: 0.7rem;
+$fs-smaller: 0.8rem;
+$fs-small: 0.9rem;
+
+$fs-normal: 1rem;
+
+$fs-large: 1.1rem;
+$fs-larger: 1.2rem;
+$fs-largest: 1.4rem;
+
+html {
+  font-size: 16px; // standard font size
+}
+
+body {
+  font-size: 100%;
+}
+
+strong {
+  font-weight: 600;
+}
+
+body {
+  font-family: $ff-body;
+  color: $c-text;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: $ff-headline;
+  display: block;
+}
+
+h1 {
+  font-size: $fs-largest;
+  line-height: 1.2em;
+  font-weight: normal;
+
+}
+
+h2 {
+  font-size: $fs-larger;
+  font-weight: normal;
+  margin-bottom: 0.4em;
+}
+
+h3 {
+  font-size: $fs-large;
+  font-weight: normal;
+  margin-bottom: 0.4em;
+}
+
+h4 {
+  font-weight: normal;
+}
+
+p {
+  font-size: $fs-normal;
+  line-height: 1.6em;
+}
+
+a, a:visited {
+  color: $c-action;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #000090;
+}
+
+// font classes
+span.bold {
+  font-weight: 800;
+}
+
+span.light {
+  font-weight: 300;
+}

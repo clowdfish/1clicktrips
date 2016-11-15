@@ -1,0 +1,98 @@
+<div class="search">
+  <div class="old-browser-warning" ng-show="isOldBrowser">
+    {{ 'common.outdated' | translate }}
+  </div>
+  <form class="search-form">
+    <img class="search-form-logo" src="/images/logo.png" alt="1ClickTrips Logo" />
+    <h1 class="search-form-title">{{ 'search.form.title' | translate }}</h1>
+
+    <!-- ORIGIN FORM -->
+    <div class="search-form-item location">
+      <label for="origin" class="search-form-item-label">{{ 'search.form.origin' | translate }}</label>
+      <input
+        type="text"
+        id="origin"
+        class='search-form-item-input'
+        placeholder='{{ "search.form.origin" | translate }}'
+        name='origin'
+        tabindex="1"
+        ng-model='schedule.originAddress'
+        uib-typeahead="address.description for address in getAddressSuggestion($viewValue)"
+        typeahead-on-select="selectOriginSuggestion($item, $model, $label)" />
+    </div>
+
+    <!-- DESTINATION FORM -->
+    <div class="search-form-item location">
+      <label for="destination" class="search-form-item-label">{{ 'search.form.destination' | translate }}</label>
+      <input
+        type="text"
+        id='destination'
+        class='search-form-item-input'
+        placeholder='{{ "search.form.destination" | translate }}'
+        name='destination'
+        tabindex="2"
+        ng-model='schedule.destinationAddress'
+        uib-typeahead="address.description for address in getAddressSuggestion($viewValue)"
+        typeahead-on-select="selectDestinationSuggestion($item, $model, $label)" />
+    </div>
+
+    <!-- SCHEDULE FORM -->
+    <div class="search-form-item timing">
+
+      <div class='search-form-item small'>
+        <label for="date" class="search-form-item-label">{{ 'search.form.date.label' | translate }}</label>
+        <input
+          type="text"
+          id="date"
+          tabindex="3"
+          show-weeks="false"
+          starting-day="startingDay"
+          date-disabled="disabled(date, mode)"
+          ng-model="schedule.time"
+          datepicker-options="dateOptions"
+          uib-datepicker-popup="{{ format }}"
+          ng-required="true"
+          show-button-bar="false"
+          is-open="isOpenDatePicker"
+          ng-click="toggleDatePicker($event)"
+          readonly
+          required />
+        <span class="search-form-input-label" ng-click="toggleDatePicker($event)">
+          <i class="fa fa-calendar"></i>
+        </span>
+      </div>
+
+      <div class='search-form-item small'>
+        <label for="time" class="search-form-item-label">{{ 'search.form.time.label' | translate }}</label>
+        <input
+          type="text"
+          id="time"
+          tabindex="4"
+          time="schedule.time"
+          ng-model="timeString"
+          placeholder="{{ 'search.form.time.placeholder' | translate }}"
+          popup-time-picker
+          is-open="isOpenTimePicker"
+          ng-class="{invalid: false == isValidTimeString}"
+          required />
+        <span class="search-form-input-label" ng-click="toggleTimePicker()">
+          <i class="fa fa-clock-o"></i>
+        </span>
+      </div>
+    </div>
+
+    <a ng-click="startSearch()"
+       ng-keypress="($event.which === 13) ? startSearch() : 0"
+       class="button"
+       tabindex="5">{{ 'search.form.start' | translate }}</a>
+  </form>
+
+  <div class="search-form-map" ng-if="!isMobileBrowser">
+    <!-- add map view here -->
+    <search-map location="schedule.destination"></search-map>
+
+    <div class="search-dropzone">
+      <dropzone on-parsed-file="onParsedFile"></dropzone>
+    </div>
+  </div>
+</div>
